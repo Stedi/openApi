@@ -27,12 +27,13 @@
         },
         "parameters": [
           {
-            "name": "responseType",
-            "in": "query",
+            "name": "Stedi-Response-Type",
+            "in": "header",
             "description": "Temporary parameter used to control the returned response shape.",
             "schema": {
               "$ref": "#/components/schemas/ResponseType"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -144,12 +145,13 @@
         },
         "parameters": [
           {
-            "name": "responseType",
-            "in": "query",
+            "name": "Stedi-Response-Type",
+            "in": "header",
             "description": "Temporary parameter used to control the returned response shape.",
             "schema": {
               "$ref": "#/components/schemas/ResponseType"
-            }
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -261,12 +263,33 @@
         },
         "parameters": [
           {
-            "name": "responseType",
-            "in": "query",
+            "name": "Stedi-Partnership-Id",
+            "in": "header",
+            "description": "The partnership ID.",
+            "schema": {
+              "type": "string",
+              "description": "The partnership ID."
+            },
+            "required": true
+          },
+          {
+            "name": "Stedi-Response-Type",
+            "in": "header",
             "description": "Temporary parameter used to control the returned response shape.",
             "schema": {
               "$ref": "#/components/schemas/ResponseType"
-            }
+            },
+            "required": true
+          },
+          {
+            "name": "Stedi-Transaction-Setting-Id",
+            "in": "header",
+            "description": "The outbound transaction setting ID.",
+            "schema": {
+              "type": "string",
+              "description": "The outbound transaction setting ID."
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -378,30 +401,33 @@
         },
         "parameters": [
           {
-            "name": "responseType",
-            "in": "query",
+            "name": "Stedi-Partnership-Id",
+            "in": "header",
+            "description": "The partnership ID.",
+            "schema": {
+              "type": "string",
+              "description": "The partnership ID."
+            },
+            "required": true
+          },
+          {
+            "name": "Stedi-Response-Type",
+            "in": "header",
             "description": "Temporary parameter used to control the returned response shape.",
             "schema": {
               "$ref": "#/components/schemas/ResponseType"
-            }
-          },
-          {
-            "name": "Stedi-Partnership-Id",
-            "in": "header",
-            "description": "The partnership ID",
-            "schema": {
-              "type": "string",
-              "description": "The partnership ID"
-            }
+            },
+            "required": true
           },
           {
             "name": "Stedi-Transaction-Setting-Id",
             "in": "header",
-            "description": "The outbound transaction setting ID",
+            "description": "The outbound transaction setting ID.",
             "schema": {
               "type": "string",
-              "description": "The outbound transaction setting ID"
-            }
+              "description": "The outbound transaction setting ID."
+            },
+            "required": true
           }
         ],
         "responses": {
@@ -6928,6 +6954,7 @@
         "type": "string",
         "enum": [
           "COMPLETED",
+          "PARTIALLY_COMPLETED",
           "FAILED",
           "IGNORED",
           "IN_PROGRESS",
