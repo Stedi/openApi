@@ -524,6 +524,236 @@
         }
       }
     },
+    "/events/{eventId}/destinations/attempts": {
+      "get": {
+        "description": "Fetch destination attempts for a specific event id.",
+        "operationId": "GetDestinationAttempts",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "The ID of the event you want to get destination logs for",
+            "schema": {
+              "type": "string",
+              "description": "The ID of the event you want to get destination logs for"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetDestinationAttempts 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDestinationAttemptsResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{eventId}/destinations/attempts/{attemptId}": {
+      "get": {
+        "description": "Fetch destination attempt details for a specific event id and attempt id.",
+        "operationId": "GetDestinationAttemptDetails",
+        "parameters": [
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "The ID of the event you want to get logs for",
+            "schema": {
+              "type": "string",
+              "description": "The ID of the event you want to get logs for"
+            },
+            "required": true
+          },
+          {
+            "name": "attemptId",
+            "in": "path",
+            "description": "The ID of the attempt you want to get detailed logs for",
+            "schema": {
+              "type": "string",
+              "description": "The ID of the attempt you want to get detailed logs for"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetDestinationAttemptDetails 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetDestinationAttemptDetailsResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/events/{eventId}/retry": {
       "post": {
         "description": "This endpoint retriggers the specified processing event.",
@@ -6045,6 +6275,49 @@
           "U"
         ]
       },
+      "DestinationAttempt": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string"
+          },
+          "destinationId": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationAttemptStatus"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "DestinationAttemptStatus": {
+        "type": "string",
+        "enum": [
+          "SUCCESS",
+          "FAILURE",
+          "PROCESSING"
+        ]
+      },
+      "DetailedDestinationAttemptLog": {
+        "type": "object",
+        "properties": {
+          "messageType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "string"
+          }
+        }
+      },
       "DiagnosisTypeCode": {
         "type": "string",
         "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 , Notes: Diagnosis Type Code, Allowed descriptions are: 'BK' International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, 'ABK' International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, 'BF' International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, 'ABF' International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
@@ -7161,6 +7434,45 @@
           "artifactId",
           "fileExecutionId"
         ]
+      },
+      "GetDestinationAttemptDetailsResponseContent": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string"
+          },
+          "destinationId": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationAttemptStatus"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedDestinationAttemptLog"
+            }
+          }
+        }
+      },
+      "GetDestinationAttemptsResponseContent": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DestinationAttempt"
+            },
+            "description": "The related destinations attempts for the event."
+          }
+        }
       },
       "GetExecutionInputDocumentResponseContent": {
         "type": "object",
@@ -10372,7 +10684,8 @@
         "type": "string",
         "enum": [
           "stedi",
-          "change-alpha"
+          "change-alpha",
+          "change-beta"
         ]
       },
       "RetryEventResponseContent": {
