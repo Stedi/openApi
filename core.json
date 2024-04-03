@@ -12,6 +12,220 @@
     }
   },
   "paths": {
+    "/change/medicalnetwork/claimstatus/v2": {
+      "post": {
+        "operationId": "ClaimStatus",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimStatusRequestContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ClaimStatus 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimStatusResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/change/medicalnetwork/claimstatus/v2/raw-x12": {
+      "post": {
+        "operationId": "ClaimStatusRawX12",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimStatusRawX12RequestContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ClaimStatusRawX12 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimStatusRawX12ResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/change/medicalnetwork/eligibility/v3": {
       "post": {
         "operationId": "EligibilityCheck",
@@ -1642,6 +1856,112 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClaimsSubmissionResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/change/v1/claimStatus/raw-x12/enhanced": {
+      "post": {
+        "operationId": "ClaimStatusRawX12Enhanced",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClaimStatusRawX12EnhancedRequestContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "ClaimStatusRawX12Enhanced 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClaimStatusRawX12EnhancedResponseContent"
                 }
               }
             }
@@ -6087,6 +6407,22 @@
           "S"
         ]
       },
+      "Claim": {
+        "type": "object",
+        "description": "Loop: 2200D and 2200E",
+        "properties": {
+          "claimStatus": {
+            "$ref": "#/components/schemas/ComponentsSchemasClaimStatus"
+          },
+          "serviceDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDetail"
+            },
+            "description": "Loop: 2220D, 2220E"
+          }
+        }
+      },
       "ClaimAdjustment": {
         "type": "object",
         "description": "CR1",
@@ -6651,6 +6987,469 @@
           }
         }
       },
+      "ClaimStatusContactInformation": {
+        "type": "object",
+        "description": "Segment: PER",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER02, Notes: Payer’s name."
+          },
+          "electronicDataInterChangeAccessNumber": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's electronic data interchange access number. PER03=PER05=PER07=ED"
+          },
+          "email": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's email. PER03=PER05=PER07=EM"
+          },
+          "fax": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's facsimile number. PER03=PER05=PER07=FX"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's telephone number. PER03=PER05=PER07=TE"
+          },
+          "phoneExtension": {
+            "type": "string",
+            "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's telephone extension. PER05=PER07=EX"
+          }
+        }
+      },
+      "ClaimStatusEncounter": {
+        "type": "object",
+        "description": "Loop: 2200D or 2200E",
+        "properties": {
+          "beginningDateOfService": {
+            "type": "string",
+            "description": "Loop: 2200D or 2200E, Segment: DTP, Element: DTP03, Notes: Date Time Period - Start Date"
+          },
+          "endDateOfService": {
+            "type": "string",
+            "description": "Loop: 2200D or 2200E, Segment: DTP, Element: DTP03, Notes: Date Time Period - End Date"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: TRN, Element: TRN02, Notes: This is the claim status tracking number assigned to the status query for the claim."
+          },
+          "tradingPartnerClaimNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: This is the payer assigned claim number. descriptions goes in REF02 where REF01=1K"
+          },
+          "locationIdentifier": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Required if application or location system identifier is known. descriptions goes in REF02 where REF01=LU"
+          },
+          "billingType": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Billing type reference ID. Example: billing type for inpatient services is 111. descriptions goes in REF02 where REF01=BLT"
+          },
+          "patientAccountNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Patient account number provided by service provider. description goes in REF02 where REF01=EJ"
+          },
+          "pharmacyPrescriptionNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Patient pharmacy prescription number. description goes in REF02 where REF01=XZ"
+          },
+          "clearingHouseClaimNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Claim number provided by clearing house. description goes in REF02 where REF01=D9"
+          },
+          "submittedAmount": {
+            "type": "string",
+            "maxLength": 18,
+            "minLength": 1,
+            "description": "Loop: 2200D or 2200E, Segment: AMT, Element: AMT02, Notes: Submitted total charges. description goes in AMT02 where AMT01=T3"
+          }
+        }
+      },
+      "ClaimStatusPayer": {
+        "type": "object",
+        "description": "Loop: 2100A",
+        "properties": {
+          "organizationName": {
+            "type": "string",
+            "description": "Segment: NM1, Element: NM103, Notes: Payers’s organization name."
+          },
+          "payerIdentification": {
+            "type": "string",
+            "description": "Segment: NM1, Element: NM109, Notes: Payers’s identification number established through trading partner agreement. NM108=PI"
+          },
+          "centersForMedicareAndMedicaidServicePlanId": {
+            "type": "string",
+            "description": "Segment: NM1, Element: NM109, Notes: Use when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID). NM108=XV"
+          },
+          "contactInformation": {
+            "$ref": "#/components/schemas/ClaimStatusContactInformation"
+          }
+        }
+      },
+      "ClaimStatusProvider": {
+        "type": "object",
+        "description": "Loop: 2100B, Loop: 2100C",
+        "properties": {
+          "organizationName": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "description": "Segment: NM1, Element: NM103, Notes: Provider’s organization name. Can use organization or last name."
+          },
+          "firstName": {
+            "type": "string",
+            "maxLength": 35,
+            "minLength": 1,
+            "description": "Segment: NM1, Element: NM104, Notes: Maps to providerName"
+          },
+          "lastName": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "description": "Segment: NM1, Element: NM103, Notes: Provider last name. Can use organization or last name."
+          },
+          "npi": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: National Provider Identification. Maps to provider NPI. NM108=XX"
+          },
+          "spn": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: Service Provider Number. Maps to provider SPN. NM108=SV"
+          },
+          "tin": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: Taxpayer’s Identification Number. Maps to provider TIN. NM108=FI"
+          },
+          "taxId": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100B, Segment: NM1, Element: NM109, Notes: Taxpayer’s Identification Number used when ProviderType = BillingProvider"
+          },
+          "etin": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100B, Segment: NM1, Element: NM109, Notes: Electronic transmitter identification Number (ETIN) used when ProviderType = BillingProvider"
+          },
+          "providerType": {
+            "$ref": "#/components/schemas/ClaimStatusProviderType"
+          }
+        },
+        "required": [
+          "providerType"
+        ]
+      },
+      "ClaimStatusProviderType": {
+        "type": "string",
+        "description": "Segment: NM1, Notes: Code for entity (Billing or Service) Billing Provider: Loop 2100B, NM101=41 (required), Service Provider: Loop 2100C, NM101=1P if not present it is added and assigned tin = BillingProvider taxId",
+        "enum": [
+          "BillingProvider",
+          "ServiceProvider"
+        ]
+      },
+      "ClaimStatusRawX12EnhancedRequestContent": {
+        "type": "object",
+        "properties": {
+          "x12": {
+            "type": "string"
+          },
+          "requestExtensions": {
+            "$ref": "#/components/schemas/RequestExtensions"
+          },
+          "parameters": {}
+        }
+      },
+      "ClaimStatusRawX12EnhancedResponseContent": {
+        "type": "object",
+        "properties": {
+          "x12": {
+            "type": "string"
+          },
+          "responseExtensions": {
+            "$ref": "#/components/schemas/ResponseExtensions"
+          }
+        }
+      },
+      "ClaimStatusRawX12RequestContent": {
+        "type": "object",
+        "properties": {
+          "x12": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "x12"
+        ]
+      },
+      "ClaimStatusRawX12ResponseContent": {
+        "type": "object",
+        "properties": {
+          "controlNumber": {
+            "type": "string",
+            "description": "Provided by the submitter in the 270 Request. Transaction Set Control Number."
+          },
+          "tradingPartnerServiceId": {
+            "type": "string",
+            "description": "ID used by Clearing House for the trading partner."
+          },
+          "payer": {
+            "$ref": "#/components/schemas/ClaimStatusPayer"
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClaimStatusProvider"
+            },
+            "description": "Loop: 2100B and 2100C"
+          },
+          "subscriber": {
+            "$ref": "#/components/schemas/ClaimStatusSubscriber"
+          },
+          "dependent": {
+            "$ref": "#/components/schemas/Member"
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Claim"
+            },
+            "description": "Loop: 2200D and 2200E"
+          },
+          "reassociationKey": {
+            "type": "string",
+            "description": "Segment: ISA, Element: ISA13, Notes: Interchange control number"
+          },
+          "errorResponse": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "status": {
+            "type": "string",
+            "description": "Loop: 2200D, Segment: STC, Element: STC01, Health care claim status, Used to convey status of the entire claim or specific service line."
+          },
+          "transactionSetAcknowledgement": {
+            "type": "string",
+            "description": "The 999 acknowledgment code"
+          },
+          "implementationTransactionSetSyntaxError": {
+            "type": "string",
+            "description": "The 999 syntax error code"
+          },
+          "x12": {
+            "type": "string",
+            "description": "Basic x12 edi response (for x12 endpoint)"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ClaimStatusResponseMeta"
+          }
+        }
+      },
+      "ClaimStatusRequestContent": {
+        "type": "object",
+        "properties": {
+          "controlNumber": {
+            "type": "string",
+            "maxLength": 9,
+            "minLength": 9,
+            "description": "Header, Segment: ST02 (no loop), Notes: Transaction Set Control Number"
+          },
+          "tradingPartnerName": {
+            "type": "string",
+            "description": "Loop: 2100A, Segment: NM1, Element: NM103, Notes: organizational name"
+          },
+          "tradingPartnerServiceId": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100A Segment: NM1, Element: NM109, Notes: we send this as MN108 as PI = Payer Identification"
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClaimStatusProvider"
+            },
+            "maxItems": 2147483647,
+            "minItems": 1,
+            "description": "Loop: 2100B, Loop: 2100C"
+          },
+          "subscriber": {
+            "$ref": "#/components/schemas/ClaimStatusSubscriber"
+          },
+          "dependent": {
+            "$ref": "#/components/schemas/Member"
+          },
+          "encounter": {
+            "$ref": "#/components/schemas/ClaimStatusEncounter"
+          },
+          "serviceLineInformation": {
+            "$ref": "#/components/schemas/ServiceLineInformation"
+          }
+        },
+        "required": [
+          "controlNumber",
+          "providers",
+          "subscriber"
+        ]
+      },
+      "ClaimStatusResponseContent": {
+        "type": "object",
+        "properties": {
+          "controlNumber": {
+            "type": "string",
+            "description": "Provided by the submitter in the 270 Request. Transaction Set Control Number."
+          },
+          "tradingPartnerServiceId": {
+            "type": "string",
+            "description": "ID used by Clearing House for the trading partner."
+          },
+          "payer": {
+            "$ref": "#/components/schemas/ClaimStatusPayer"
+          },
+          "providers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ClaimStatusProvider"
+            },
+            "description": "Loop: 2100B and 2100C"
+          },
+          "subscriber": {
+            "$ref": "#/components/schemas/ClaimStatusSubscriber"
+          },
+          "dependent": {
+            "$ref": "#/components/schemas/Member"
+          },
+          "claims": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Claim"
+            },
+            "description": "Loop: 2200D and 2200E"
+          },
+          "reassociationKey": {
+            "type": "string",
+            "description": "Segment: ISA, Element: ISA13, Notes: Interchange control number"
+          },
+          "errorResponse": {
+            "$ref": "#/components/schemas/ErrorResponse"
+          },
+          "status": {
+            "type": "string",
+            "description": "Loop: 2200D, Segment: STC, Element: STC01, Health care claim status, Used to convey status of the entire claim or specific service line."
+          },
+          "transactionSetAcknowledgement": {
+            "type": "string",
+            "description": "The 999 acknowledgment code"
+          },
+          "implementationTransactionSetSyntaxError": {
+            "type": "string",
+            "description": "The 999 syntax error code"
+          },
+          "x12": {
+            "type": "string",
+            "description": "Basic x12 edi response (for x12 endpoint)"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ClaimStatusResponseMeta"
+          }
+        }
+      },
+      "ClaimStatusResponseMeta": {
+        "type": "object",
+        "description": "Meta data about the request",
+        "properties": {
+          "submitterId": {
+            "type": "string",
+            "description": "submitterId assigned to this request"
+          },
+          "senderId": {
+            "type": "string",
+            "description": "senderId assigned to this request"
+          },
+          "billerId": {
+            "type": "string",
+            "description": "billerId assigned to this request"
+          },
+          "traceId": {
+            "type": "string",
+            "description": "Unique Id assigned to each request by Optum"
+          },
+          "applicationMode": {
+            "type": "string",
+            "description": "Used by Optum to identify where this request can be found for support"
+          }
+        }
+      },
+      "ClaimStatusSubscriber": {
+        "type": "object",
+        "description": "Loop: 2000D",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "description": "Loop: 2100D, Segment: NM1, Element: NM109, Notes: The subscriber's insurance member ID. Maps to subscriberId."
+          },
+          "firstName": {
+            "type": "string",
+            "maxLength": 35,
+            "minLength": 1,
+            "description": "Loop: 2100D, Segment: NM1, Element: NM104, Notes: The subscriber's first name as specified on their policy"
+          },
+          "lastName": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "description": "Loop: 2100D, Segment: NM1, Element: NM103, Notes: The subscriber's last name as specified on their policy."
+          },
+          "gender": {
+            "$ref": "#/components/schemas/ClaimStatusSubscriberGender"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Loop: 2000D, Segment: DMG, Element: DMG02, Notes: The birth date as specified on the policy for the subscriber. Maps to BirthDate"
+          },
+          "groupNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200D, Segment: REF, Element: REF01, Notes: The group number associated with the subscriber."
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "memberId"
+        ]
+      },
+      "ClaimStatusSubscriberGender": {
+        "type": "string",
+        "description": "Loop: 2000D, 2000E, Segment: DMG, Element: DMG03, Notes: The subscriber's gender as specified on their policy.",
+        "enum": [
+          "M",
+          "F",
+          "U"
+        ]
+      },
       "ClaimSupplementalInformation": {
         "type": "object",
         "description": "PWK and REF",
@@ -7068,6 +7867,80 @@
           "E2",
           "E3"
         ]
+      },
+      "ComponentsSchemasClaimStatus": {
+        "type": "object",
+        "description": "Loop: 2200D, 2200E",
+        "properties": {
+          "statusCategoryCode": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-1, Notes: Status Category Code"
+          },
+          "statusCategoryCodeValue": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-1, Notes: Status Category Code value"
+          },
+          "statusCode": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-2, Notes: Status Code"
+          },
+          "statusCodeValue": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-2, Notes: Status Code value"
+          },
+          "entityCode": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-3, Notes: Entity Code"
+          },
+          "entity": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC01-3, Notes: Entity Code value"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC02, Notes: Effective Date"
+          },
+          "submittedAmount": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC04, Notes: Total Claim Charge Amount"
+          },
+          "amountPaid": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC05, Notes: Claim Payment Amount"
+          },
+          "paidDate": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC06, Notes: Adjudication Finalized Date"
+          },
+          "checkIssueDate": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC08, Notes: Remittance Date"
+          },
+          "checkNumber": {
+            "type": "string",
+            "description": "Segment: STC, Element: STC09, Notes: Remittance Trace Number"
+          },
+          "trackingNumber": {
+            "type": "string",
+            "description": "Segment: TRN, Element: TRN02, Notes: Tracking Number"
+          },
+          "claimServiceDate": {
+            "type": "string",
+            "description": "Segment: DTP, Element: DTP03, Notes: Claim Service Period"
+          },
+          "tradingPartnerClaimNumber": {
+            "type": "string",
+            "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be 1K"
+          },
+          "patientAccountNumber": {
+            "type": "string",
+            "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be EJ"
+          },
+          "clearingHouseClaimNumber": {
+            "type": "string",
+            "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be D9"
+          }
+        }
       },
       "CompositeDiagnosisCodePointers": {
         "type": "object",
@@ -8366,6 +9239,57 @@
           }
         }
       },
+      "ErrorDetail": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "description": "Attribute that is bad"
+          },
+          "value": {
+            "type": "string",
+            "description": "Value of bad attribute"
+          },
+          "code": {
+            "type": "string",
+            "description": "Code for the error. Example: INVALID_VALUE"
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the error code. Value provided in payer id should be a valid Optum assigned ERA payer ID"
+          },
+          "location": {
+            "type": "string",
+            "description": "Segment/location where the error occurred. If this is a network/system error, there is no location attribute. Example: $.payerBenefits[0].payer"
+          },
+          "followupAction": {
+            "type": "string",
+            "description": "Any follow action required for the error. For AAA errors, this would be value for AAA04"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Code for the error."
+          },
+          "description": {
+            "type": "string",
+            "description": "Description of the error code. Value provided in payer id should be a valid Optum assigned ERA payer Id."
+          },
+          "transactionIdentifier": {
+            "$ref": "#/components/schemas/TransactionIdentifier"
+          },
+          "errors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ErrorDetail"
+            }
+          }
+        }
+      },
       "ExceptionCause": {
         "type": "object",
         "properties": {
@@ -8513,6 +9437,17 @@
           "executionId",
           "status",
           "updatedAt"
+        ]
+      },
+      "Extensions": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "$ref": "#/components/schemas/Type"
+          }
+        },
+        "required": [
+          "type"
         ]
       },
       "Failure": {
@@ -9591,6 +10526,50 @@
             "description": "Loop 2320, Segment: MOA; Element: MOA09"
           }
         }
+      },
+      "Member": {
+        "type": "object",
+        "description": "Loop: 2000E",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "maxLength": 35,
+            "minLength": 1,
+            "description": "Loop: 2100E, Segment: NM1, Element: NM104, Notes: The dependent's first name as specified on their policy."
+          },
+          "lastName": {
+            "type": "string",
+            "maxLength": 60,
+            "minLength": 1,
+            "description": "Loop: 2100E, Segment: NM1, Element: NM103, Notes: The dependent's last name as specified on their policy."
+          },
+          "gender": {
+            "$ref": "#/components/schemas/MemberGender"
+          },
+          "dateOfBirth": {
+            "type": "string",
+            "description": "Loop: 2000E, Segment: DMG, Element: DMG02, Notes: The birth date as specified on the policy for the dependent."
+          },
+          "groupNumber": {
+            "type": "string",
+            "maxLength": 50,
+            "minLength": 1,
+            "description": "Loop: 2200E, Segment: REF, Element: REF02 when REF01=6P, Notes: The group number associated with the subscriber and dependent. Maps to dependent groupNumber."
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ]
+      },
+      "MemberGender": {
+        "type": "string",
+        "description": "Loop: 2000E, Segment: DMG, Element: DMG03, Notes: dependent's gender as specified on their policy.",
+        "enum": [
+          "M",
+          "F",
+          "U"
+        ]
       },
       "Mode": {
         "type": "string",
@@ -10711,6 +11690,20 @@
           "WK"
         ]
       },
+      "ProductOrServiceIDQualifier": {
+        "type": "string",
+        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-1, Notes: Allowed Values are 'AD' American Dental Association Codes, 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'HP' Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'NU' National Uniform Billing Committee (NUBC) UB92 Codes, 'WK' Advanced Billing Concepts (ABC) Codes",
+        "enum": [
+          "AD",
+          "ER",
+          "HC",
+          "HP",
+          "IV",
+          "N4",
+          "NU",
+          "WK"
+        ]
+      },
       "ProfessionalService": {
         "type": "object",
         "properties": {
@@ -11393,6 +12386,17 @@
           "TJ"
         ]
       },
+      "RequestExtensions": {
+        "type": "object",
+        "properties": {
+          "extensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Extensions"
+            }
+          }
+        }
+      },
       "RequestSubscriber": {
         "type": "object",
         "description": "Loop: 2100C, Notes: Subscriber Detail",
@@ -11635,6 +12639,23 @@
         "required": [
           "message"
         ]
+      },
+      "ResponseExtensions": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "$ref": "#/components/schemas/StatusCode"
+          },
+          "statusDescription": {
+            "type": "string"
+          },
+          "extensions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Extensions"
+            }
+          }
+        }
       },
       "ResponseMember": {
         "type": "object",
@@ -11919,6 +12940,39 @@
           "NF"
         ]
       },
+      "Service": {
+        "type": "object",
+        "description": "Loop: 2220D, 2220E, Segment: SVC, Notes: Service Line Information",
+        "properties": {
+          "serviceIdQualifierCode": {
+            "$ref": "#/components/schemas/ServiceIdQualifierCode"
+          },
+          "serviceIdQualifier": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-1, Notes: description associated with the service code. Example: American Dental Association Codes"
+          },
+          "procedureId": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-2, Notes: Identifying number for a product or service."
+          },
+          "submittedAmount": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC02, Notes: Amount submitted for the service. This is the line item total on the current claim service status."
+          },
+          "amountPaid": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC03, Notes: Amount paid for the service."
+          },
+          "revenueCode": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC04, Notes: National uniform billing committee revenue code."
+          },
+          "submittedUnits": {
+            "type": "string",
+            "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC07, Notes: Original submitted units of service."
+          }
+        }
+      },
       "ServiceAuthorizationExceptionCode": {
         "type": "string",
         "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=4N, Note: '1' Immediate/Urgent Care, '2' Services Rendered in a Retroactive Period, '3' Emergency Care, '4' Client has Temporary Medicaid, '5' Request from County for Second Opinion to Determine if Recipient Can Work, '6' Request for Override Pending, '7' Special Handling, Null",
@@ -11931,6 +12985,22 @@
           "6",
           "7"
         ]
+      },
+      "ServiceDetail": {
+        "type": "object",
+        "description": "Loop: 2220D, 2220E",
+        "properties": {
+          "service": {
+            "$ref": "#/components/schemas/Service"
+          },
+          "status": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Status"
+            },
+            "description": "Loop: 2220D, 2220E, Segment: STC, Notes: Service Line Status Information"
+          }
+        }
       },
       "ServiceExceptionResponseContent": {
         "type": "object",
@@ -11986,6 +13056,20 @@
         "required": [
           "address",
           "organizationName"
+        ]
+      },
+      "ServiceIdQualifierCode": {
+        "type": "string",
+        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-1, Notes: Code identifying the type/source of the descriptive number used in Product/Service ID. Code Example: AD, Allowed Values are 'AD' American Dental Association Codes, 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'HP' Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'NU' National Uniform Billing Committee (NUBC) UB92 Codes, 'WK' Advanced Billing Concepts (ABC) Codes",
+        "enum": [
+          "AD",
+          "ER",
+          "HC",
+          "HP",
+          "IV",
+          "N4",
+          "NU",
+          "WK"
         ]
       },
       "ServiceLine": {
@@ -12195,6 +13279,52 @@
           "initialTreatmentDate": {
             "type": "string",
             "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=454, Notes: Date Expressed in Format CCYYMMDD"
+          }
+        }
+      },
+      "ServiceLineInformation": {
+        "type": "object",
+        "description": "Loop: 2220D or 2220E",
+        "properties": {
+          "productOrServiceIDQualifier": {
+            "$ref": "#/components/schemas/ProductOrServiceIDQualifier"
+          },
+          "procedureCode": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-2, Notes: Procedure Code maps to Product/ServiceID"
+          },
+          "procedureModifiers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 0,
+            "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-3 to SVC01-6, Notes:  Procedure Modifier"
+          },
+          "lineItemChargeAmount": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC02, Notes: Maps to Monetary Amount, This amount is the original submitted charge."
+          },
+          "revenueCode": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC04, Notes: Identifying number for a product or service"
+          },
+          "unitsOfServiceCount": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC07, Notes: Maps to Quantity, Numeric value of quantity accepted"
+          },
+          "lineItemControlNumber": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: REF, Element: REF02 when REF01 = FJ, Notes: Maps to  Reference Identification"
+          },
+          "serviceLineDate": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: DTP, Element: DTP03, Notes: When sent with serviceLineEndDate it will be used as the start date for Date Time period, if sent without serviceLineEndDate will use DTP02 = D8"
+          },
+          "serviceLineEndDate": {
+            "type": "string",
+            "description": "Loop: 2210D, 2210E, Segment: DTP, Element: DTP03, Notes: DTP03 enddate and DTP02=RD8"
           }
         }
       },
@@ -12490,6 +13620,52 @@
         },
         "required": [
           "patientConditionCode"
+        ]
+      },
+      "Status": {
+        "type": "object",
+        "description": "Loop: 2220D, 2220E, Segment: STC, Notes: Service Line Status Information",
+        "properties": {
+          "statusCategoryCode": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-1, Notes: The health care claim status category code. Example: F3"
+          },
+          "statusCategoryCodeValue": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-1, Notes: Value of the category code. F3 = Finalized/Revised - Adjudication information has been changed"
+          },
+          "statusCode": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-2, Notes: Status code used to identify the status of an entire claim or a service line. Example: 3"
+          },
+          "statusCodeValue": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-2, Notes: Status Code value. 3 = Claim has been adjudicated and is awaiting payment cycle."
+          },
+          "entityCode": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element STC01-3, Notes:Code for the entity. Example: 2P"
+          },
+          "entity": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element STC01-3, Notes: Value of the entity code. Example: 2P=Public Health Service Facility"
+          },
+          "effectiveDate": {
+            "type": "string",
+            "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC02, Notes: Effective date of the status information. Date the service was placed in this status by the information source’s adjudication process. Date or Date range, format YYYYMMDD"
+          }
+        }
+      },
+      "StatusCode": {
+        "type": "string",
+        "description": "NOTE: Allowed Values are: '0' Success, '1' Not Authorized, '2' Internal Error,'3' Extension Not Applicable, '4' Extension Not Available At This time, '5'Invalid Request Extension Type",
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
         ]
       },
       "Submitter": {
@@ -12849,6 +14025,19 @@
           }
         }
       },
+      "TransactionIdentifier": {
+        "type": "object",
+        "properties": {
+          "customerTransactionId": {
+            "type": "string",
+            "description": "The number assigned by the originator to identify the transaction within the originator's business application system"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "The number assigned by the originator to identify the transaction within the originator's business application system"
+          }
+        }
+      },
       "TransactionStatus": {
         "type": "string",
         "enum": [
@@ -12939,6 +14128,13 @@
             "type": "string"
           }
         }
+      },
+      "Type": {
+        "type": "string",
+        "description": "NOTE: Allowed Values are: 'CLAIM_STATUS' Request to include claim, check and cob extended claim status data in addition to the 277 response.",
+        "enum": [
+          "CLAIM_STATUS"
+        ]
       },
       "UnauthorizedExceptionResponseContent": {
         "type": "object",
