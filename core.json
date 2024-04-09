@@ -1813,6 +1813,115 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/ClaimsSubmissionRequestContent"
+              },
+              "examples": {
+                "ClaimsSubmission_example1": {
+                  "summary": "Submit a claim",
+                  "description": "",
+                  "value": {
+                    "controlNumber": "555123",
+                    "tradingPartnerServiceId": "6400",
+                    "submitter": {
+                      "organizationName": "Test Data Health Services, Inc.",
+                      "contactInformation": {
+                        "name": "Test Data Health Services, Inc.",
+                        "phoneNumber": "5552223333"
+                      }
+                    },
+                    "receiver": {
+                      "organizationName": "Cigna"
+                    },
+                    "subscriber": {
+                      "memberId": "U7777788888",
+                      "paymentResponsibilityLevelCode": "P",
+                      "subscriberGroupName": "Cigna",
+                      "firstName": "John",
+                      "lastName": "Anon",
+                      "gender": "M",
+                      "dateOfBirth": "20000101",
+                      "groupNumber": "3335555",
+                      "address": {
+                        "address1": "2222 Random St",
+                        "city": "New York",
+                        "state": "NY",
+                        "postalCode": "100130000"
+                      }
+                    },
+                    "billing": {
+                      "providerType": "BillingProvider",
+                      "npi": "1235600834",
+                      "employerId": "832675429",
+                      "taxonomyCode": "2084P0800X",
+                      "organizationName": "Therapy Associates",
+                      "address": {
+                        "address1": "123 Some St",
+                        "address2": "Floor 1",
+                        "city": "New York",
+                        "state": "NY",
+                        "postalCode": "100130000"
+                      },
+                      "contactInformation": {
+                        "name": "Test Data Health Services, Inc.",
+                        "phoneNumber": "5553334444"
+                      }
+                    },
+                    "claimInformation": {
+                      "claimFilingCode": "CI",
+                      "patientControlNumber": "22266555",
+                      "claimChargeAmount": "109.20",
+                      "placeOfServiceCode": "02",
+                      "claimFrequencyCode": "1",
+                      "signatureIndicator": "Y",
+                      "planParticipationCode": "A",
+                      "benefitsAssignmentCertificationIndicator": "Y",
+                      "releaseInformationCode": "Y",
+                      "healthCareCodeInformation": [
+                        {
+                          "diagnosisTypeCode": "ABK",
+                          "diagnosisCode": "F1111"
+                        }
+                      ],
+                      "serviceFacilityLocation": {
+                        "organizationName": "Smith Associates",
+                        "address": {
+                          "address1": "1234 Other St",
+                          "city": "New York",
+                          "state": "NY",
+                          "postalCode": "100130000"
+                        },
+                        "npi": "4541648844"
+                      },
+                      "serviceLines": [
+                        {
+                          "serviceDate": "20240101",
+                          "professionalService": {
+                            "procedureIdentifier": "HC",
+                            "procedureCode": "90837",
+                            "procedureModifiers": [
+                              "95"
+                            ],
+                            "lineItemChargeAmount": "109.20",
+                            "measurementUnit": "UN",
+                            "serviceUnitCount": "1",
+                            "compositeDiagnosisCodePointers": {
+                              "diagnosisCodePointers": [
+                                "1"
+                              ]
+                            }
+                          },
+                          "renderingProvider": {
+                            "providerType": "RenderingProvider",
+                            "npi": "4541648844",
+                            "taxonomyCode": "111YP2000X",
+                            "firstName": "Jane",
+                            "lastName": "Smith"
+                          }
+                        }
+                      ]
+                    },
+                    "tradingPartnerName": "Cigna"
+                  }
+                }
               }
             }
           },
@@ -1827,7 +1936,14 @@
               "type": "string",
               "description": "The partnership ID."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "ClaimsSubmission_example1": {
+                "summary": "Submit a claim",
+                "description": "",
+                "value": "acme-healthcompany"
+              }
+            }
           },
           {
             "name": "Stedi-Response-Type",
@@ -1836,7 +1952,14 @@
             "schema": {
               "$ref": "#/components/schemas/ResponseType"
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "ClaimsSubmission_example1": {
+                "summary": "Submit a claim",
+                "description": "",
+                "value": "change-beta"
+              }
+            }
           },
           {
             "name": "Stedi-Transaction-Setting-Id",
@@ -1846,7 +1969,14 @@
               "type": "string",
               "description": "The outbound transaction setting ID."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "ClaimsSubmission_example1": {
+                "summary": "Submit a claim",
+                "description": "",
+                "value": "004010-855"
+              }
+            }
           }
         ],
         "responses": {
@@ -1856,6 +1986,33 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ClaimsSubmissionResponseContent"
+                },
+                "examples": {
+                  "ClaimsSubmission_example1": {
+                    "summary": "Submit a claim",
+                    "description": "",
+                    "value": {
+                      "status": "SUCCESS",
+                      "controlNumber": "555123",
+                      "tradingPartnerServiceId": "6400",
+                      "claimReference": {
+                        "correlationId": "01HTCX97F6XS6F2K22D4KD59TK",
+                        "patientControlNumber": "22266555",
+                        "timeOfResponse": "2024-04-01T13:23:54.255Z",
+                        "payerId": "6400",
+                        "formatVersion": "5010",
+                        "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK"
+                      },
+                      "httpStatusCode": "200 OK",
+                      "meta": {
+                        "traceId": "a7f7c912-77f7-489d-96fc-c4ab3b5c33fc"
+                      },
+                      "payer": {
+                        "payerName": "Cigna",
+                        "payerId": "6400"
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -12917,8 +13074,6 @@
       "ResponseType": {
         "type": "string",
         "enum": [
-          "stedi",
-          "change-alpha",
           "change-beta"
         ]
       },
