@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.2",
     "info": {
-        "title": "Healthcare",
+        "title": "Stedi Healthcare",
         "version": "2024-04-01",
         "contact": {
             "email": "healthcare@stedi.com"
@@ -3502,7 +3502,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100A Segment: NM1, Element: NM109, Notes: we send this as MN108 as PI = Payer Identification"
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
                     },
                     "providers": {
                         "type": "array",
@@ -3964,7 +3964,7 @@
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "Loop: 2010BB Segment: NM1, Element: NM109, Notes: we send this as MN108 as PI = Payer Identification"
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
                     },
                     "submitter": {
                         "$ref": "#/components/schemas/Submitter"
@@ -4001,7 +4001,7 @@
                     },
                     "usageIndicator": {
                         "type": "string",
-                        "description": "Interchange Usage Indicator ISA15; T-Test Data, P-Production Data"
+                        "description": "The Interchange Usage Indicator (`ISA-15`) in the X12 EDI file. You only need to set this field if you want to be able to filter claims in the Stedi app by production or test data. By default, this field is set to `P` for production data. Use `T` to designate a file as test data."
                     },
                     "billing": {
                         "$ref": "#/components/schemas/Billing"
@@ -4693,7 +4693,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100A Segment: NM1, Element: NM109, Notes: we send this as MN108 as PI"
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
                     },
                     "tradingPartnerName": {
                         "type": "string",
