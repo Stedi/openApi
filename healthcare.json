@@ -20,6 +20,35 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/ClaimStatusRequestContent"
+                            },
+                            "examples": {
+                                "ClaimStatus_example1": {
+                                    "summary": "Request Claim Status",
+                                    "description": "",
+                                    "value": {
+                                        "controlNumber": "123456789",
+                                        "tradingPartnerServiceId": "62308",
+                                        "providers": [
+                                            {
+                                                "organizationName": "Doctor Group LLC",
+                                                "npi": "1112223333",
+                                                "taxId": "123456789",
+                                                "providerType": "BillingProvider"
+                                            }
+                                        ],
+                                        "subscriber": {
+                                            "memberId": "94398439843",
+                                            "firstName": "John",
+                                            "lastName": "Doe",
+                                            "dateOfBirth": "19900105"
+                                        },
+                                        "encounter": {
+                                            "beginningDateOfService": "20240405",
+                                            "endDateOfService": "20240405",
+                                            "trackingNumber": "1234567"
+                                        }
+                                    }
+                                }
                             }
                         }
                     },
@@ -33,7 +62,14 @@
                         "schema": {
                             "$ref": "#/components/schemas/ResponseType"
                         },
-                        "required": true
+                        "required": true,
+                        "examples": {
+                            "ClaimStatus_example1": {
+                                "summary": "Request Claim Status",
+                                "description": "",
+                                "value": "change-beta"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -43,6 +79,47 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ClaimStatusResponseContent"
+                                },
+                                "examples": {
+                                    "ClaimStatus_example1": {
+                                        "summary": "Request Claim Status",
+                                        "description": "",
+                                        "value": {
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "claimServiceDate": "20240405-20240405",
+                                                        "effectiveDate": "20240425",
+                                                        "patientAccountNumber": "SM123456",
+                                                        "statusCategoryCode": "P3",
+                                                        "statusCode": "317",
+                                                        "submittedAmount": "8513.88",
+                                                        "trackingNumber": "1234567",
+                                                        "tradingPartnerClaimNumber": "05347006051"
+                                                    }
+                                                }
+                                            ],
+                                            "controlNumber": "123456789",
+                                            "payer": {
+                                                "organizationName": "ABC INSURANCE",
+                                                "payerIdentification": "12345"
+                                            },
+                                            "providers": [
+                                                {
+                                                    "npi": "1112223333",
+                                                    "organizationName": "Doctor Group LLC",
+                                                    "providerType": "BillingProvider"
+                                                }
+                                            ],
+                                            "subscriber": {
+                                                "memberId": "94398439843",
+                                                "firstName": "John",
+                                                "lastName": "Doe",
+                                                "dateOfBirth": "19900105"
+                                            },
+                                            "tradingPartnerServiceId": "62308"
+                                        }
+                                    }
                                 }
                             }
                         }
