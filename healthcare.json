@@ -26,27 +26,28 @@
                                     "summary": "Request Claim Status",
                                     "description": "",
                                     "value": {
-                                        "controlNumber": "123456789",
-                                        "tradingPartnerServiceId": "62308",
+                                        "controlNumber": "222222222",
+                                        "encounter": {
+                                            "beginningDateOfService": "20240325",
+                                            "endDateOfService": "20240325",
+                                            "trackingNumber": "222222222",
+                                            "tradingPartnerClaimNumber": "5332034153-KK"
+                                        },
                                         "providers": [
                                             {
-                                                "organizationName": "Doctor Group LLC",
-                                                "npi": "1112223333",
-                                                "taxId": "123456789",
-                                                "providerType": "BillingProvider"
+                                                "npi": "1234567890",
+                                                "organizationName": "Behavioral Services P.C.",
+                                                "providerType": "BillingProvider",
+                                                "taxId": "123456789"
                                             }
                                         ],
                                         "subscriber": {
-                                            "memberId": "94398439843",
-                                            "firstName": "John",
+                                            "dateOfBirth": "19000806",
+                                            "firstName": "Jane",
                                             "lastName": "Doe",
-                                            "dateOfBirth": "19900105"
+                                            "memberId": "111222333"
                                         },
-                                        "encounter": {
-                                            "beginningDateOfService": "20240405",
-                                            "endDateOfService": "20240405",
-                                            "trackingNumber": "1234567"
-                                        }
+                                        "tradingPartnerServiceId": "3429"
                                     }
                                 }
                             }
@@ -88,36 +89,71 @@
                                             "claims": [
                                                 {
                                                     "claimStatus": {
-                                                        "claimServiceDate": "20240405-20240405",
-                                                        "effectiveDate": "20240425",
-                                                        "patientAccountNumber": "SM123456",
-                                                        "statusCategoryCode": "P3",
-                                                        "statusCode": "317",
-                                                        "submittedAmount": "8513.88",
-                                                        "trackingNumber": "1234567",
-                                                        "tradingPartnerClaimNumber": "05347006051"
-                                                    }
+                                                        "amountPaid": "95.55",
+                                                        "claimServiceDate": "20240325",
+                                                        "effectiveDate": "20240329",
+                                                        "paidDate": "20240329",
+                                                        "patientAccountNumber": "3333333",
+                                                        "statusCategoryCode": "P5",
+                                                        "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
+                                                        "statusCode": "3",
+                                                        "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle.",
+                                                        "submittedAmount": "238.44",
+                                                        "trackingNumber": "222222222",
+                                                        "tradingPartnerClaimNumber": "5332034153-KK"
+                                                    },
+                                                    "serviceDetails": [
+                                                        {
+                                                            "service": {
+                                                                "amountPaid": "95.55",
+                                                                "procedureId": "90837",
+                                                                "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "submittedAmount": "238.44",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "status": [
+                                                                {
+                                                                    "effectiveDate": "20240329",
+                                                                    "statusCategoryCode": "P5",
+                                                                    "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
+                                                                    "statusCode": "3",
+                                                                    "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle."
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
                                                 }
                                             ],
-                                            "controlNumber": "123456789",
+                                            "controlNumber": "222222222",
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "traceId": "bf27223e-46c3-451e-b2b4-46f3f0b6fe3b"
+                                            },
                                             "payer": {
-                                                "organizationName": "ABC INSURANCE",
-                                                "payerIdentification": "12345"
+                                                "organizationName": "UNITEDHEALTHCARE",
+                                                "payerIdentification": "3429"
                                             },
                                             "providers": [
                                                 {
-                                                    "npi": "1112223333",
-                                                    "organizationName": "Doctor Group LLC",
-                                                    "providerType": "BillingProvider"
+                                                    "organizationName": "Behavioral Services P.C.",
+                                                    "providerType": "BillingProvider",
+                                                    "taxId": "123456789"
+                                                },
+                                                {
+                                                    "npi": "1234567890",
+                                                    "organizationName": "Behavioral Services P.C.",
+                                                    "providerType": "ServiceProvider"
                                                 }
                                             ],
+                                            "reassociationKey": "000000001",
+                                            "status": "success",
                                             "subscriber": {
-                                                "memberId": "94398439843",
-                                                "firstName": "John",
-                                                "lastName": "Doe",
-                                                "dateOfBirth": "19900105"
+                                                "firstName": "JANE",
+                                                "lastName": "DOE",
+                                                "memberId": "111222333"
                                             },
-                                            "tradingPartnerServiceId": "62308"
+                                            "tradingPartnerServiceId": "3429"
                                         }
                                     }
                                 }
@@ -3606,7 +3642,8 @@
                 "required": [
                     "controlNumber",
                     "providers",
-                    "subscriber"
+                    "subscriber",
+                    "tradingPartnerServiceId"
                 ]
             },
             "ClaimStatusResponseContent": {
