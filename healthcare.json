@@ -1703,73 +1703,73 @@
         "schemas": {
             "AdditionalIdentification": {
                 "type": "object",
-                "description": "Loop: 2100C and 2100D, Segment: REF Notes: Additional Identification",
+                "description": "Use this object when you need to provide an identification number other than or in addition to the member ID. For example, you may provide the patient account number. Don't include the health insurance claim number or the medicaid recipient ID number here unless they are different from the member ID.",
                 "properties": {
                     "planNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=18 Plan Number"
+                        "description": "The insurance plan number."
                     },
                     "policyNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=1L Group or Policy Number"
+                        "description": "The insurance group or policy number."
                     },
                     "memberIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=1W Member Identification Number"
+                        "description": "The member identification number."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=CT Contract Number"
+                        "description": "The contract number for an existing contract between the payer and the provider requesting the eligibility check."
                     },
                     "medicalRecordIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=EA Medical Record Identification Number"
+                        "description": "The medical record identification number."
                     },
                     "patientAccountNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=EJ Patient Account Number"
+                        "description": "The patient account number."
                     },
                     "healthInsuranceClaimNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=F6 Health Insurance (HIC) Number"
+                        "description": "The health insurance claim number."
                     },
                     "identificationCardSerialNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=GH Identification Card Serial Number"
+                        "description": "The identification card serial number. You can include this when the ID card has a number in addition to the member ID number. The Identification Card Serial Number uniquely identifies the card when multiple cards have been or will be issued to a member, such as a replacement card."
                     },
                     "insurancePolicyNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=IG Insurance Policy Number"
+                        "description": "The insurance policy number."
                     },
                     "planNetworkIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=N6 Plan Network Identification Number"
+                        "description": "The plan network identification number."
                     },
                     "agencyClaimNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=Y4 Agency Claim Number"
+                        "description": "The Property and Casualty Claim Number associated with the patient. You should only submit this value when when you are submitting an eligibility request to a property and casualty payer."
                     }
                 }
             },
@@ -1785,49 +1785,44 @@
             },
             "Address": {
                 "type": "object",
-                "description": "Address: N3 and N4",
                 "properties": {
                     "address1": {
                         "type": "string",
                         "maxLength": 55,
                         "minLength": 0,
-                        "description": "Segment: N3, Element: N301, Notes: Required, Address Information"
+                        "description": "The first line of the address."
                     },
                     "address2": {
                         "type": "string",
                         "maxLength": 55,
                         "minLength": 0,
-                        "description": "Segment: N3, Element: N302, Notes: Address Information"
+                        "description": "The second line of the address."
                     },
                     "city": {
                         "type": "string",
                         "maxLength": 30,
                         "minLength": 0,
-                        "description": "Segment: N4, Element: N401, Notes: Required, city"
+                        "description": "The city."
                     },
                     "state": {
                         "type": "string",
                         "maxLength": 2,
                         "minLength": 0,
-                        "description": "Segment: N4, Element: N402, Notes: state example: TN, WA"
+                        "description": "The state code. For example, TN for Tennessee or WA for Washington."
                     },
                     "postalCode": {
                         "type": "string",
                         "maxLength": 15,
                         "minLength": 0,
-                        "description": "Segment: N4, Element: N403"
+                        "description": "The United States postal code, excluding punctuation and blanks."
                     },
                     "countryCode": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N404"
-                    },
-                    "locationIdentifier": {
-                        "type": "string",
-                        "description": "Segment: N4, Element: N406"
+                        "description": "The country code. Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N407, Notes: Country SubDivision Code"
+                        "description": "The country subdivision code. Use the country subdivision codes from Part 2 of ISO 3166."
                     }
                 }
             },
@@ -3295,7 +3290,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: TRN, Element: TRN02, Notes: This is the claim status tracking number assigned to the status query for the claim."
+                        "description": "This is the tracking number assigned to the claim status request. It is returned in the response as `claims.trackingNumber`. If the payer requires a tracking number and you do not supply one, Stedi generates a tracking number for you from a UUID."
                     },
                     "tradingPartnerClaimNumber": {
                         "type": "string",
@@ -3364,55 +3359,54 @@
             },
             "ClaimStatusProvider": {
                 "type": "object",
-                "description": "Loop: 2100B, Loop: 2100C",
+                "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "Segment: NM1, Element: NM103, Notes: Provider’s organization name. Can use organization or last name."
+                        "description": "The provider's organization name. Use when the provider is not an individual, such as a hospital or clinic. Can be 1-60 alphanumeric characters."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 1,
-                        "description": "Segment: NM1, Element: NM104, Notes: Maps to providerName"
+                        "description": "The provider's first name. Use when the provider is an individual. Can be 1-35 alphanumeric characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "Segment: NM1, Element: NM103, Notes: Provider last name. Can use organization or last name."
+                        "description": "The provider's last name. Use when the provider is an individual. Can be 1-60 alphanumeric characters."
                     },
                     "npi": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: National Provider Identification. Maps to provider NPI. NM108=XX"
+                        "description": "The National Provider Identification (NPI) number. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "spn": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: Service Provider Number. Maps to provider SPN. NM108=SV"
+                        "description": "Deprecated; The service provider number. Use `npi` to identify the service provider instead."
                     },
                     "tin": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 2,
-                        "description": "Loop: 2100B, 2100C, Segment: NM1, Element: NM109, Notes: Taxpayer’s Identification Number. Maps to provider TIN. NM108=FI"
+                        "minLength": 2
                     },
                     "taxId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109, Notes: Taxpayer’s Identification Number used when ProviderType = BillingProvider"
+                        "description": "The Taxpayer Identification Number (TIN), used when the `providerType` = `BillingProvider`."
                     },
                     "etin": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109, Notes: Electronic transmitter identification Number (ETIN) used when ProviderType = BillingProvider"
+                        "description": "The Electronic Transmitter Identification Number (ETIN), used when the `providerType` = `BillingProvider`."
                     },
                     "providerType": {
                         "$ref": "#/components/schemas/ClaimStatusProviderType"
@@ -3424,7 +3418,7 @@
             },
             "ClaimStatusProviderType": {
                 "type": "string",
-                "description": "Segment: NM1, Notes: Code for entity (Billing or Service) Billing Provider: Loop 2100B, NM101=41 (required), Service Provider: Loop 2100C, NM101=1P if not present it is added and assigned tin = BillingProvider taxId",
+                "description": "Identifies the type of provider related to the referenced healthcare claim. You can include both a billing provider and a service provider if both are relevant to the request.",
                 "enum": [
                     "BillingProvider",
                     "ServiceProvider"
@@ -3533,11 +3527,11 @@
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 9,
-                        "description": "Header, Segment: ST02 (no loop), Notes: Transaction Set Control Number"
+                        "description": "A 9-digit, unsigned numeric value that identifies the transaction. It does not need to be unique. It is returned in the response as `controlNumber`."
                     },
                     "tradingPartnerName": {
                         "type": "string",
-                        "description": "Loop: 2100A, Segment: NM1, Element: NM103, Notes: organizational name"
+                        "description": "This is the payer name, such as Cigna or Aetna."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
@@ -3552,7 +3546,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Loop: 2100B, Loop: 2100C"
+                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -4237,14 +4231,14 @@
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segments: EB, Element: EB13-2, Notes: Procedure Code"
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "Loop: 2110C and 2110D, Segments: EB, Element: EB13-3-6, Notes: ProcedureModifier"
+                        "description": "Procedure modifiers that provides additional information related to the performance of the service."
                     },
                     "productOrServiceID": {
                         "type": "string",
@@ -4255,7 +4249,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Loop: 2110C and 2110D, Segments: EB, Element: EB14-1-4, Notes: DiagnosisCodePointer"
+                        "description": "The diagnosis code pointer."
                     }
                 }
             },
@@ -4513,7 +4507,7 @@
             },
             "DiagnosisTypeCode": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 , Notes: Diagnosis Type Code, Allowed descriptions are: 'BK' International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, 'ABK' International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, 'BF' International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, 'ABF' International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
+                "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
                 "enum": [
                     "BK",
                     "ABK",
@@ -4724,13 +4718,13 @@
                 "properties": {
                     "submitterTransactionIdentifier": {
                         "type": "string",
-                        "description": "MedicalEligibility\nBHT03"
+                        "description": "An internal ID or other value that you use to track the eligibility check within your company's business system. You can use any string value up to 50 characters."
                     },
                     "controlNumber": {
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 9,
-                        "description": "Segment: ISA, Element: ISA13, Notes: Required, Interchange Control Number - must be exactly 9 positive unsigned numeric characters."
+                        "description": "An integer used to identify the transaction. It does not need to be globally unique. This value is returned in the response as `controlNumber`."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
@@ -4742,7 +4736,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100A, Segment: NM1, Element: NM103, Notes: organizational name"
+                        "description": "The payer's name, such as Cigna or Aetna."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/Provider"
@@ -4751,13 +4745,13 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: User Identification REF01=JD"
+                        "description": "The username that the provider uses to log in to the payer's portal. This is not commonly used."
                     },
                     "portalPassword": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: Personal Identification Number (PIN) REF01=4A"
+                        "description": "The password that the provider uses to log in to the payer's portal. This is not commonly used."
                     },
                     "informationReceiverName": {
                         "$ref": "#/components/schemas/InformationReceiverName"
@@ -4772,7 +4766,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Loop: 2000D, Notes: Dependent Detail"
+                        "description": "One or more dependents for which you want to retrieve benefits information. The patient qualifies as a dependent for eligibility checks when the patient is listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify the patient through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
@@ -4780,6 +4774,7 @@
                 },
                 "required": [
                     "controlNumber",
+                    "provider",
                     "subscriber",
                     "tradingPartnerServiceId"
                 ]
@@ -4792,15 +4787,15 @@
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange Control Number original request"
+                        "description": "The control number you sent in the original eligibility check request."
                     },
                     "reassociationKey": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange Control Number"
+                        "description": "The control number you sent in the original eligibility check request."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "This is the payorId or Identification Code that was sent in the 270"
+                        "description": "The Payer ID you sent in the original eligibility check request."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/ResponseProvider"
@@ -4861,7 +4856,8 @@
                         "type": "string"
                     },
                     "x12": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
                     }
                 }
             },
@@ -4883,11 +4879,11 @@
                     },
                     "applicationMode": {
                         "type": "string",
-                        "description": "Used by Optum to identify where this request can be found for support"
+                        "description": "Used to identify where this request can be found for support"
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "Unique Id assigned to each request by Optum"
+                        "description": "Unique Id assigned to each request"
                     },
                     "outboundTraceId": {
                         "type": "string",
@@ -4914,15 +4910,15 @@
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange Control Number original request"
+                        "description": "The control number you sent in the original eligibility check request."
                     },
                     "reassociationKey": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange Control Number"
+                        "description": "The control number you sent in the original eligibility check request."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "This is the payorId or Identification Code that was sent in the 270"
+                        "description": "The Payer ID you sent in the original eligibility check request."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/ResponseProvider"
@@ -4983,7 +4979,8 @@
                         "type": "string"
                     },
                     "x12": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
                     }
                 }
             },
@@ -4996,19 +4993,19 @@
             },
             "Encounter": {
                 "type": "object",
-                "description": "Loop: 2110C and 2110D, Notes: Eligibility or Benefit Information",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient. If you don't specify service date (either a single day or a range of dates), Stedi defaults to using the current date. If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
-                        "description": "Loop: 2100C and 2100D, Segment: DTP, Element: DTP03, Notes: DTP01=291 and DTP02=RD8, Date Expressed in Format YYYYMMDD."
+                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
                     },
                     "endDateOfService": {
                         "type": "string",
-                        "description": "Loop: 2100C and 2100D, Segment: DTP, Element: DTP03, Notes: DTP01=291 and DTP02=RD8, Date Expressed in Format YYYYMMDD."
+                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
                     },
                     "dateOfService": {
                         "type": "string",
-                        "description": "Loop: 2100C and 2100D, Segment: DTP, Element: DTP03, Notes: DTP01=291 and DTP02=D8, Date Expressed in Format YYYYMMDD."
+                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit."
                     },
                     "serviceTypeCodes": {
                         "type": "array",
@@ -5017,11 +5014,11 @@
                         },
                         "maxItems": 99,
                         "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ01, Notes: Service Type Codes, Allowed Values are: '1' Medical Care,'2' Surgical, '3' Consultation, '4' Diagnostic X-Ray, '5' Diagnostic Lab, '6' Radiation Therapy, '7' Anesthesia, '8' Surgical Assistance, '9' Other Medical, '10' Blood Charges, '11' Used Durable Medical Equipment, '12' Durable Medical Equipment Purchase, '13' Ambulatory Service Center Facility, '14' Renal Supplies in the Home, '15' Alternate Method Dialysis, '16' Chronic Renal Disease (CRD) Equipment, '17' Pre-Admission Testing, '18' Durable Medical Equipment Rental, '19' Pneumonia Vaccine, '20' Second Surgical Opinion, '21' Third Surgical Opinion, '22' Social Work, '23' Diagnostic Dental, '24' Periodontics, '25' Restorative, '26' Endodontics, '27' Maxillofacial Prosthetics, '28' Adjunctive Dental Services, '30' Health Benefit Plan Coverage, '32' Plan Waiting Period, '33' Chiropractic, '34' Chiropractic Office Visits, '35' Dental Care, '36' Dental Crowns, '37' Dental Accident, '38' Orthodontics, '39' Prosthodontics, '40' Oral Surgery, '41' Routine (Preventive) Dental, '42' Home Health Care, '43' Home Health Prescriptions, '44' Home Health Visits, '45' Hospice, '46' Respite Care, '47' Hospital, '48' Hospital - Inpatient, '49' Hospital - Room and Board, '50' Hospital - Outpatient, '51' Hospital - Emergency Accident, '52' Hospital - Emergency Medical, '53' Hospital - Ambulatory Surgical, '54' Long Term Care, '55' Major Medical, '56' Medically Related Transportation, '57' Air Transportation, '58' Cabulance, '59' Licensed Ambulance, '60' General Benefits, '61' In-vitro Fertilization, '62' MRI/CAT Scan, '63' Donor Procedures, '64' Acupuncture, '65' Newborn Care, '66' Pathology, '67' Smoking Cessation, '68' Well Baby Care, '69' Maternity, '70' Transplants, '71' Audiology Exam, '72' Inhalation Therapy, '73' Diagnostic Medical, '74' Private Duty Nursing, '75' Prosthetic Device, '76' Dialysis, '77' Otological Exam, '78' Chemotherapy, '79' Allergy Testing, '80' Immunizations, '81' Routine Physical, '82' Family Planning, '83' Infertility, '84' Abortion, '85' AIDS, '86' Emergency Services, '87' Cancer, '88' Pharmacy, '89' Free Standing Prescription Drug, '90' Mail Order Prescription Drug, '91' Brand Name Prescription Drug, '92' Generic Prescription Drug, '93' Podiatry, '94' Podiatry - Office Visits, '95' Podiatry - Nursing Home Visits, '96' Professional (Physician), '97' Anesthesiologist, '98' Professional (Physician) Visit - Office, '99' Professional (Physician) Visit - Inpatient, 'A0' Professional (Physician) Visit - Outpatient, 'A1' Professional (Physician) Visit - Nursing Home, 'A2' Professional (Physician) Visit - Skilled Nursing Facility, 'A3' Professional (Physician) Visit - Home, 'A4' Psychiatric, 'A5' Psychiatric - Room and Board, 'A6' Psychotherapy, 'A7' Psychiatric - Inpatient, 'A8' Psychiatric - Outpatient, 'A9' Rehabilitation, 'AA' Rehabilitation - Room and Board, 'AB' Rehabilitation - Inpatient, 'AC' Rehabilitation - Outpatient, 'AD' Occupational Therapy, 'AE' Physical Medicine, 'AF' Speech Therapy, 'AG' Skilled Nursing Care, 'AH' Skilled Nursing Care - Room and Board, 'AI' Substance Abuse, 'AJ' Alcoholism, 'AK' Drug Addiction, 'AL' Vision (Optometry), 'AM' Frames, 'AN' Routine Exam, 'AO' Lenses, 'AQ' Nonmedically Necessary Physical, 'AR' Experimental Drug Therapy, 'B1' Burn Care, 'B2' Brand Name Prescription Drug - Formulary, 'B3' Brand Name Prescription Drug - Non-Formulary, 'BA' Independent Medical Evaluation, 'BB' Partial Hospitalization (Psychiatric), 'BC' Day Care (Psychiatric), 'BD' Cognitive Therapy, 'BE' Massage Therapy, 'BF' Pulmonary Rehabilitation, 'BG' Cardiac Rehabilitation, 'BH' Pediatric, 'BI' Nursery, 'BJ' Skin, 'BK' Orthopedic, 'BL' Cardiac, 'BM' Lymphatic, 'BN' Gastrointestinal, 'BP' Endocrine, 'BQ' Neurology, 'BR' Eye, 'BS' Invasive Procedures, 'BT' Gynecological, 'BU' Obstetrical, 'BV' Obstetrical/Gynecological, 'BW' Mail Order Prescription Drug: Brand Name, 'BX' Mail Order Prescription Drug: Generic, 'BY' Physician Visit - Office: Sick, 'BZ' Physician Visit - Office: Well, 'C1' Coronary Care, 'CA' Private Duty Nursing - Inpatient, 'CB' Private Duty Nursing - Home, 'CC' Surgical Benefits - Professional (Physician), 'CD' Surgical Benefits - Facility, 'CE' Mental Health Provider - Inpatient, 'CF' Mental Health Provider - Outpatient, 'CG' Mental Health Facility - Inpatient, 'CH' Mental Health Facility - Outpatient, 'CI' Substance Abuse Facility - Inpatient, 'CJ' Substance Abuse Facility - Outpatient, 'CK' Screening X-ray, 'CL' Screening laboratory, 'CM' Mammogram, High Risk Patient, 'CN' Mammogram, Low Risk Patient, 'CO' Flu Vaccination, 'CP' Eyewear and Eyewear Accessories, 'CQ' Case Management, 'DG' Dermatology, 'DM' Durable Medical Equipment, 'DS' Diabetic Supplies, 'GF' Generic Prescription Drug - Formulary, 'GN' Generic Prescription Drug - Non-Formulary, 'GY' Allergy, 'IC' Intensive Care, 'MH' Mental Health, 'NI' Neonatal Intensive Care, 'ON' Oncology, 'PT' Physical Therapy, 'PU' Pulmonary, 'RN' Renal, 'RT' Residential Psychiatric Treatment, 'TC' Transitional Care, 'TN' Transitional Nursery Care, 'UC' Urgent Care"
+                        "description": "One or more [service type codes](https://x12.org/codes/service-type-codes) classifying the type of services for which you want to receive benefits information. If you do not specify a service type code or or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage."
                     },
                     "priorAuthorizationOrReferralNumber": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: REF, Element: REF02, Notes: Prior Authorization or Referral Number"
+                        "description": "The prior authorization or referral number for a particular benefit or procedure."
                     },
                     "referenceIdentificationQualifier": {
                         "$ref": "#/components/schemas/EncounterReferenceIdentificationQualifier"
@@ -5036,7 +5033,7 @@
                         "type": "string",
                         "maxLength": 48,
                         "minLength": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-2, Notes: Composite Medical Procedure Identifier - Procedure Code"
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -5045,7 +5042,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-3, Notes: Composite Medical Procedure Identifier - Procedure Modifier"
+                        "description": "The procedure modifier that provides additional information related to the performance of the service."
                     },
                     "diagnosisCodePointer": {
                         "type": "array",
@@ -5054,7 +5051,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ05, Notes: Composite Diagnosis Code Pointer"
+                        "description": "The diagnosis code pointer."
                     },
                     "medicalProcedures": {
                         "type": "array",
@@ -5062,14 +5059,13 @@
                             "$ref": "#/components/schemas/MedicalProcedure"
                         },
                         "maxItems": 98,
-                        "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-1-3, Notes: Composite Medical Procedure Identifier"
+                        "minItems": 0
                     }
                 }
             },
             "EncounterProductOrServiceIDQualifier": {
                 "type": "string",
-                "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-1, Notes: Composite Medical Procedure Identifier - Product or Service ID Qualifier, Allowed Values are: 'AD' American Dental Association Codes, 'CJ' Current Procedural Terminology (CPT) Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'ID' International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'ZZ' Mutually Defined",
+                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
                 "enum": [
                     "AD",
                     "CJ",
@@ -5082,7 +5078,7 @@
             },
             "EncounterReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "Loop: 2110C and 2110D, Segment: REF, Element: REF01, Notes: Prior Authorization or Referral Number, Allowed Values are: '9F' Referral Number, 'G1' Prior Authorization Number",
+                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` field. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
                 "enum": [
                     "9F",
                     "G1"
@@ -5480,7 +5476,7 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis",
+                "description": "Information about the subscriber's healthcare diagnosis.",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -5490,7 +5486,7 @@
                         "maxLength": 30,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-2, Notes: Diagnosis Code"
+                        "description": "The diagnosis code. Omit the decimal points in diagnosis codes - the decimal point is assumed."
                     }
                 }
             },
@@ -5569,7 +5565,7 @@
             },
             "IndividualRelationshipCode": {
                 "type": "string",
-                "description": "Loop: 2100D Segment: INS, Element: INS02, Notes: Allowed Values are: '01' - Spouse, '19' - Child, '34' Other Adult",
+                "description": "The dependent's relationship to the subscriber. You can set this to `01` - Spouse, `19` - Child, `34` - Other Adult.",
                 "enum": [
                     "01",
                     "19",
@@ -5578,7 +5574,7 @@
             },
             "IndustryCode": {
                 "type": "string",
-                "description": "Loop: 2110C and 2110D, Segment: III, Element: III02, Notes: III01=ZZ Industry Code, Allowed Values are: '01' Pharmacy, '02' Telehealth Provided Other than in Patient's Home, '03' School, '04' Homeless Shelter, '05' Indian Health Service Free-standing Facility, '06' Indian Health Service Provider-based Facility, '07' Tribal 638 Free-standing Facility, '08' Tribal 638 Provider-based Facility, '09' Prison/Correctional Facility, '10' Telehealth Provided in Patient's Home, '11' Office, '12' Home, '13' Assisted Living Facility, '14' Group Home, '15' Mobile Unit, '16' Temporary Lodging, '17' Walk-in Retail Health Clinic, '18' Place of Employment-Worksite, '19' Off Campus-Outpatient Hospital, '20' Urgent Care Facility, '21' Inpatient Hospital, '22' On Campus-Outpatient Hospital, '23' Emergency Room - Hospital, '24' Ambulatory Surgical Center, '25' Birthing Center, '26' Military Treatment Facility, '31' Skilled Nursing Facility, '32' Nursing Facility, '33' Custodial Care Facility, '34' Hospice, '41' Ambulance - Land, '42' Ambulance - Air or Water, '49' Independent Clinic, '50' Federally Qualified Health Center, '51' Inpatient Psychiatric Facility, '52' Psychiatric Facility - Partial Hospitalization, '53' Community Mental Health Center, '54' Intermediate Care Facility / Individuals with Intellectual Disabilities, '55' Residential Substance Abuse Treatment Facility, '56' Psychiatric Residential Treatment Center, '57' Non-residential Substance Abuse Treatment Facility, '58' Non-residential Opioid Treatment Facility, '60' Mass Immunization Center, '61' Comprehensive Inpatient Rehabilitation Facility, '62' Comprehensive Outpatient Rehabilitation Facility, '65' End-Stage Renal Disease Treatment Facility, '71' Public Health Clinic, '72' Rural Health Clinic, '81' Independent Laboratory, '99' Other Place of Service",
+                "description": "The type of facility where the service was provided. You can set this to one of the [place of service codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets).",
                 "enum": [
                     "01",
                     "02",
@@ -5634,91 +5630,91 @@
             },
             "InformationReceiverName": {
                 "type": "object",
-                "description": "Loop: 2100B, Notes: Information Receiver Name",
+                "description": "Provide additional information to identify the entity making the eligibility request. For example, if a provider has multiple locations, you may need to provide the address of the specific location.",
                 "properties": {
                     "stateLicenceNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=0B State License Number"
+                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
                     },
                     "medicareProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=1C Medicare Provider Number"
+                        "description": "The provider's Medicare provider number."
                     },
                     "medicaidProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=1D Medicaid Provider Number"
+                        "description": "The provider's Medicaid provider number."
                     },
                     "facilityIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=1J Facility ID Number"
+                        "description": "The ID number for the provider's facility."
                     },
-                    "contactNumber": {
+                    "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=CT Contact Number"
+                        "description": "The provider's contract number."
                     },
                     "devicePinNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=EL Electronic Device Pin Number"
+                        "description": "The provider's electronic device pin number."
                     },
                     "submitterIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=EO Submitter Identification Number"
+                        "description": "The provider's submitter identification number."
                     },
                     "nationalProviderIdentifier": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=HPI Centers for Medicare and Medicaid Services National Provider Identifier"
+                        "description": "The provider's National Provider Identifier (NPI) from the Centers for Medicare and Medicaid Services."
                     },
                     "providerPlanNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=N5 Provider Plan Network Identification Number"
+                        "description": "The provider's plan network identification number."
                     },
                     "facilityNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=N7 Facility Network Identification Number"
+                        "description": "The provider's facility network identification number."
                     },
                     "priorIdentifierNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=Q4 Prior Identifier Number"
+                        "description": "The provider's prior identifier number."
                     },
                     "socialSecurityNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=SY Social Security Number"
+                        "description": "The provider's social security number. Don't use this for Federally administered programs, such as Medicare."
                     },
                     "federalTaxpayerIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF02, Notes: REF01=TJ Federal Taxpayer's Identification Number"
+                        "description": "The provider's federal taxpayer identification number."
                     },
                     "informationReceiverAdditionalIdentifierState": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: REF, Element: REF03, Notes: REF01=0B REF02=stateLicenceNumber Federal Taxpayer's Identification Number"
+                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -5862,7 +5858,6 @@
             },
             "MedicalProcedure": {
                 "type": "object",
-                "description": "Loop: 2110C and 2110D, Notes: Eligibility or Benefit Information, EQ02 and beyond only",
                 "properties": {
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/MedicalProcedureProductOrServiceIDQualifier"
@@ -5871,7 +5866,7 @@
                         "type": "string",
                         "maxLength": 48,
                         "minLength": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-2, Notes: Composite Medical Procedure Identifier - Procedure Code"
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -5880,7 +5875,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-3, Notes: Composite Medical Procedure Identifier - Procedure Modifier"
+                        "description": "Procedure modifiers that provide additional information related to the service."
                     },
                     "diagnosisCodePointer": {
                         "type": "array",
@@ -5889,13 +5884,13 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ05, Notes: Composite Diagnosis Code Pointer"
+                        "description": "The diagnosis code pointer."
                     }
                 }
             },
             "MedicalProcedureProductOrServiceIDQualifier": {
                 "type": "string",
-                "description": "Loop: 2110C and 2110D, Segment: EQ, Element: EQ02-1, Notes: Composite Medical Procedure Identifier - Product or Service ID Qualifier, Allowed Values are: 'AD' American Dental Association Codes, 'CJ' Current Procedural Terminology (CPT) Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'ID' International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'ZZ' Mutually Defined",
+                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
                 "enum": [
                     "AD",
                     "CJ",
@@ -7109,80 +7104,79 @@
             },
             "Provider": {
                 "type": "object",
-                "description": "Loop: 2100B, Segment: NM1, Notes: Information Receiver",
+                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.  You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`).",
                 "properties": {
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=2 Non-Person Entity, organizationName 1-60 alphanumeric characters"
+                        "description": "The provider's business name. This field is required if the provider is not a person."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM104, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, firstName 1-35 alphanumeric characters"
+                        "description": "The provider's first name. This field is required if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM103, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM102=1 Person, lastName 1-60 alphanumeric characters"
+                        "description": "The provider's last name. This field is required if the provider is an individual."
                     },
                     "npi": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=XX Centers for Medicare and Medicaid Services National Provider Identifier 2-80 alphanumeric characters"
+                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use the `serviceProviderNumber` instead."
                     },
                     "serviceProviderNumber": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=SV Service Provider Number 2-80 alphanumeric characters"
+                        "description": "The provider's service provider number. Only use when the billing provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "payorId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM109, Notes: NM101=PR when providerType='payer' && payerId is present otherwise 1P for Provider, NM108=PI Payor Identification 2-80 alphanumeric characters"
+                        "description": "This is the Payer ID, and can either be provided as a Stedi Payer ID or a Change Healthcare Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
                     },
                     "taxId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B Segment: MN1, Element: NM109, Notes: NM108=FI Federal Taxpayer's Identification Number 2-80 alphanumeric characters"
+                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109 Notes: NM108=34 Social Security Number"
+                        "description": "The provider's Social Security Number (SSN). Don't use this for Federally-administered programs, such as Medicare."
                     },
                     "pharmacyProcessorNumber": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109 Notes: NM108=PP Pharmacy Processor Number"
+                        "description": "The provider's pharmacy processor number."
                     },
                     "servicesPlanID": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109 Notes: NM108=XV Centers for Medicare and Medicaid Services PlanID"
+                        "description": "The provider's Centers for Medicare and Medicaid Services (CMS) Plan ID."
                     },
                     "employersId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "Loop: 2100B, Segment: NM1, Element: NM109 Notes: NM108=24 Employer's Identification Number"
+                        "description": "The submitter's Employer's Identification Number (EIN). Only use when an employer is checking the eligibility and benefits of their employees."
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/ProviderProviderCode"
                     },
                     "referenceIdentification": {
                         "type": "string",
-                        "description": "Loop: 2100B Segment: PRV, Element: PRV03, Notes: PRV02=PXC referenceIdentification and controlNumber into PRV03"
+                        "description": "The provider's [Taxonomy Code](https://x12.org/codes/provider-taxonomy-codes). Only used when the provider's taxonomy code is relevant to the eligibility/benefit inquiry. For example, an institutional provider such as a hospital may need to use a taxonomy code to specify a specific unit or department."
                     },
                     "providerType": {
                         "$ref": "#/components/schemas/ProviderType"
@@ -7205,7 +7199,7 @@
             },
             "ProviderProviderCode": {
                 "type": "string",
-                "description": "Loop: 2100B Segment: PRV, Element: PRV01, Notes: PRV02=PXC Allowed descriptions are: 'AD' Admitting, 'AT' Attending, 'BI' Billing, 'CO' Consulting, 'CV' Covering, 'H' Hospital, 'HH' Home Health Care, 'LA' Laboratory, 'OT' Other Physician, 'P1' Pharmacist, 'P2' Pharmacy, 'PC' Primary Care Physician, 'PE' Performing, 'R' Rural Health Clinic, 'RF' Referring, 'SB' Submitting, 'SK' Skilled Nursing Facility, 'SU' Supervising",
+                "description": "Communicate the provider's role in the type of benefits specified in the request. For example, you could set this to `RF` if the provider is also the referring provider. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -7229,7 +7223,7 @@
             },
             "ProviderType": {
                 "type": "string",
-                "description": "Loop: 2100B Segment: MN1, Element: MN101, Notes: Allowed descriptions are: 'PR' when providerType='payer' && payerId is present, '2B' when providerType='third-party administrator', '36' when providerType='employer', '80' when providerType='hospital', 'FA' when providerType='facility', 'GP' when providerType='gateway provider', 'P5' when providerType='plan sponsor', '1P' when providerType='provider'",
+                "description": "Identify the type of provider.",
                 "enum": [
                     "payer",
                     "third-party administrator",
@@ -7548,14 +7542,13 @@
             },
             "RequestDependent": {
                 "type": "object",
-                "description": "Loop: 2000D, Notes: Dependent Detail",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 0,
                         "pattern": "^[0-9]+$",
-                        "description": "Loop: 2100D Segment: INS, Element: INS17, Notes: Birth Sequence Number - must be exactly 9 positive unsigned numeric characters."
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Use to indicate the birth order when there are multiple births associated with the provided birth date."
                     },
                     "individualRelationshipCode": {
                         "$ref": "#/components/schemas/IndividualRelationshipCode"
@@ -7564,69 +7557,69 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100D Segment: REF, Element: REF02, Notes: REF01=IF Issue Number"
+                        "description": "The issue number for the dependent's insurance policy."
                     },
                     "eligibilityCategory": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100D Segment: REF, Element: REF02, Notes: REF01=MRC Eligibility Category"
+                        "description": "The eligibility category for the dependent."
                     },
                     "memberId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
                         "pattern": "^[A-Za-z0-9-]+$",
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM109, Notes: NM108=MI, memberId 2-80 alphanumeric characters"
+                        "description": "Only use for property and casualty use cases when the property and casualty patient identifier is a member ID and would be used in an 837 healthcare claim submission."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters"
+                        "description": "The dependent's first name. Can be 0-35 alphanumeric characters."
                     },
                     "middleName": {
                         "type": "string",
                         "maxLength": 25,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM105, Notes: middleName 1-25 alphanumeric characters"
+                        "description": "The dependent's middle name or middle initial. Can be 0-25 alphanumeric characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters"
+                        "description": "The dependent's last name. Can be 0-60 alphanumeric characters."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM107, Notes: lastName 1-10 alphanumeric characters"
+                        "description": "The dependent's name suffix, such as Sr. or III. Can be 0-10 alphanumeric characters."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/RequestDependentGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD"
+                        "description": "The dependent's date of birth in YYYYMMDD format."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=SY Social Security Number"
+                        "description": "The dependent's social security number. Can be 0-50 alphanumeric characters. Don't use this for Federally-administered programs, such as Medicare."
                     },
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=6P Group Number"
+                        "description": "The group number for the dependent's insurance plan. Can be 0-50 alphanumeric characters."
                     },
                     "idCard": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=HJ Identity Card Number"
+                        "description": "The dependent's insurance card number."
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/RequestDependentProviderCode"
@@ -7639,31 +7632,31 @@
                         "maxLength": 50,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV03, Notes: Provider Identifier"
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` field. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this field should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the insurance card was issued, expressed in YYYYMMDD format."
                     },
                     "endCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the insurance card expires, expressed in YYYYMMDD format."
                     },
                     "idCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=D8 Retired"
+                        "description": "Deprecated; The date the identification card was issued, expressed in YYYYMMDD format."
                     },
                     "planIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=D8 Retired"
+                        "description": "Deprecated; The date the insurance plan was issued, expressed in YYYYMMDD format."
                     },
                     "beginningPlanIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the insurance plan begins, expressed in YYYYMMDD format."
                     },
                     "endPlanIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the insurance plan ends, expressed in YYYYMMDD format."
                     },
                     "healthCareCodeInformation": {
                         "type": "array",
@@ -7672,7 +7665,7 @@
                         },
                         "maxItems": 8,
                         "minItems": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis"
+                        "description": "Information about the dependent's health care diagnosis."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -7684,7 +7677,7 @@
             },
             "RequestDependentGender": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: DMG, Element: DMG03, Notes: gender 1 character 'M' or 'F'",
+                "description": "Code indicating the dependent's gender.",
                 "enum": [
                     "M",
                     "F"
@@ -7692,7 +7685,7 @@
             },
             "RequestDependentProviderCode": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV01, Notes: Provider Code, Notes: Allowed Values are: 'AD' Admitting, 'AT' Attending, 'BI' Billing, 'CO' Consulting, 'CV' Covering, 'H' Hospital, 'HH' Home Health Care, 'LA' Laboratory, 'OT' Other Physician, 'P1' Pharmacist, 'P2' Pharmacy, 'PC' Primary Care Physician, 'PE' Performing, 'R' Rural Health Clinic, 'RF' Referring, 'SK' Skilled Nursing Facility, 'SU' Supervising",
+                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE`- Performing, `R`- Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -7715,7 +7708,7 @@
             },
             "RequestDependentReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV02, Notes: Allowed Values are: '9K' Servicer, 'D3' National Council for Prescription Drug Programs Pharmacy Number, 'EI' Employer's Identification Number, 'HPI' Centers for Medicare and Medicaid Services National Provider Identifier, 'PXC' Health Care Provider Taxonomy Code, 'SY' Social Security Number, 'TJ' Federal Taxpayer's Identification Number",
+                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligiblity check, such as the referring provider. Set to `HPI` when the National Provider ID is mandated for use. If identifying a type of specialty associated with services provided to the dependent, use code `PXC`. Otherwise, you can set to the following: `9K`- Servicer, `D3`- National Council for Prescription Drug Programs Pharmacy Number, `EI`- Employer's Identification Number, `HPI`- Centers for Medicare and Medicaid Services National Provider Identifier, `PXC`- Health Care Provider Taxonomy Code, `SY`- Social Security Number, `TJ`- Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -7739,102 +7732,102 @@
             },
             "RequestSubscriber": {
                 "type": "object",
-                "description": "Loop: 2100C, Notes: Subscriber Detail",
+                "description": "The person who is the primary policyholder for the insurance plan. You only need to supply the fields necessary for your use case and for the provider to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 0,
                         "pattern": "^[0-9]+$",
-                        "description": "Loop: 2100C Segment: INS, Element: INS17, Notes: Birth Sequence Number - must be exactly 9 positive unsigned numeric characters."
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Use to indicate the birth order when there are multiple births associated with the provided birth date."
                     },
                     "caseNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "Loop: 2100C Segment: REF, Element: REF02, Notes: REF01=3H Case Number"
+                        "description": "The case number associated with the subscriber."
                     },
                     "medicaidRecipientIdentificationNumber": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "Loop: 2110C Segment: REF, Element: REF02, Notes: REF01=NQ Medicaid Recipient Identification Number"
+                        "description": "The Medicaid Recipient Identification Number. You can provide this number to identify the subscriber when it is the primary number the payer knows a member by (such as for Medicare or Medicaid). Do not supply this value unless it is different from the `memberId`."
                     },
                     "spendDownAmount": {
                         "type": "string",
                         "maxLength": 18,
                         "minLength": 0,
-                        "description": "Loop: 2110C Segment: ATM, Element: ATM02, Notes: ATM01=R Spend Down"
+                        "description": "Identify the dollar amount the subscriber will apply toward their spend down amount, if required. For some Medicaid programs, individuals must pay a certain amount towards their healthcare cost (spend down) before coverage starts."
                     },
                     "spendDownTotalBilledAmount": {
                         "type": "string",
                         "maxLength": 18,
                         "minLength": 0,
-                        "description": "Loop: 2110C Segment: ATM, Element: ATM02, Notes: ATM01=PB Billed Amount"
+                        "description": "The subscriber's spend down total billed amount."
                     },
                     "coverageLevelCode": {
                         "type": "string",
                         "maxLength": 3,
                         "minLength": 0,
-                        "description": "Loop: 2110C Segment: EQ, Element: EQ03, Notes: Retired, Not Used"
+                        "description": "This field is no longer used."
                     },
                     "memberId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9-]+$",
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM109, Notes: NM108=MI, memberId 2-80 alphanumeric characters"
+                        "description": "The member ID for the subscriber's insurance policy."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM104, Notes: firstName 1-35 alphanumeric characters"
+                        "description": "The subscriber's first name. Can be 0-35 alphanumeric characters."
                     },
                     "middleName": {
                         "type": "string",
                         "maxLength": 25,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM105, Notes: middleName 1-25 alphanumeric characters"
+                        "description": "The subscriber's middle name or middle initial. Can be 0-25 alphanumeric characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM103, Notes: lastName 1-60 alphanumeric characters"
+                        "description": "The subscriber's last name. Can be 0-60 alphanumeric characters."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: MN1, Element: NM107, Notes: lastName 1-10 alphanumeric characters"
+                        "description": "The subscriber's name suffix, such as Jr., Sr., or III. Can be 0-10 alphanumeric characters."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/RequestSubscriberGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2100C and 2100D, Segment: DMG, Element: DMG02, Notes: date of birth in YYYYMMDD"
+                        "description": "The subscriber's date of birth in YYYYMMDD format."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=SY Social Security Number"
+                        "description": "The subscriber's Social Security Number (SSN). Don't use this for Federally administered programs, such as Medicare."
                     },
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=6P Group Number"
+                        "description": "The group number associated with the subscriber's insurance policy."
                     },
                     "idCard": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: REF, Element: REF02, Notes: REF01=HJ Identity Card Number"
+                        "description": "The subscriber's identification card number. Include this field when this number is different than the subscriber's member ID. This is common in Medicaid."
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/RequestSubscriberProviderCode"
@@ -7847,31 +7840,31 @@
                         "maxLength": 50,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV03, Notes: Provider Identifier"
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` field. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this field should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the subscriber's identification card was issued, expressed in YYYYMMDD format."
                     },
                     "endCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the subscriber's identification card expires, expressed in YYYYMMDD format."
                     },
                     "idCardIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=102, DTP02=D8 Retired"
+                        "description": "Deprecated; The date the subscriber's identification card was issued, expressed in YYYYMMDD format."
                     },
                     "planIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=D8 Retired"
+                        "description": "Deprecated; The date the subscriber's insurance plan was issued, expressed in YYYYMMDD format."
                     },
                     "beginningPlanIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the subscriber's insurance plan was issued, expressed in YYYYMMDD format."
                     },
                     "endPlanIssueDate": {
                         "type": "string",
-                        "description": "Loop: 2110C and 2110D, Segment: DTP, Element: DTP03, Notes: DTP01=291, DTP02=RD8 Retired"
+                        "description": "Deprecated; The date the subscriber's insurance plan ended, expressed in YYYYMMDD format."
                     },
                     "healthCareCodeInformation": {
                         "type": "array",
@@ -7880,7 +7873,7 @@
                         },
                         "maxItems": 8,
                         "minItems": 0,
-                        "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis"
+                        "description": "Information about the subscriber's health care diagnosis."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -7892,7 +7885,7 @@
             },
             "RequestSubscriberGender": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: DMG, Element: DMG03, Notes: gender 1 character 'M' or 'F'",
+                "description": "Code indiciating the subscriber's gender.",
                 "enum": [
                     "M",
                     "F"
@@ -7900,7 +7893,7 @@
             },
             "RequestSubscriberProviderCode": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV01, Notes: Allowed Values are: 'AD' Admitting, 'AT' Attending, 'BI' Billing, 'CO' Consulting, 'CV' Covering, 'H' Hospital, 'HH' Home Health Care, 'LA' Laboratory, 'OT' Other Physician, 'P1' Pharmacist, 'P2' Pharmacy, 'PC' Primary Care Physician, 'PE' Performing, 'R' Rural Health Clinic, 'RF' Referring, 'SK' Skilled Nursing Facility, 'SU' Supervising",
+                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -7923,7 +7916,7 @@
             },
             "RequestSubscriberReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "Loop: 2100C and 2100D, Segment: PRV, Element: PRV02, Notes: Allowed Values are: '9K' Servicer, 'D3' National Council for Prescription Drug Programs Pharmacy Number, 'EI' Employer's Identification Number, 'HPI' Centers for Medicare and Medicaid Services National Provider Identifier, 'PXC' Health Care Provider Taxonomy Code, 'SY' Social Security Number, 'TJ' Federal Taxpayer's Identification Number",
+                "description": "Use this for providers that are not requesting the eligibility check. This is the type of `providerIdentifier` you are providing. Set to `HPI` when the National Provider ID is mandated for use. If identifying a type of specialty associated with services provided to the subscriber, use code `PXC`. Otherwise, you can set to the following: `9K`- Servicer, `D3`- National Council for Prescription Drug Programs Pharmacy Number, `EI`- Employer's Identification Number, `HPI`- Centers for Medicare and Medicaid Services National Provider Identifier, `PXC`- Health Care Provider Taxonomy Code, `SY`- Social Security Number, `TJ`- Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -8074,7 +8067,7 @@
                     },
                     "birthSequenceNumber": {
                         "type": "string",
-                        "description": "Loop: 2000C, 2000D, 2100C, 2100D, Segment: INS, Element: INS17, Notes: Birth Sequence Number Use to indicate the birth order in the event of multiple births in association with the birth date supplied in DMG02"
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
