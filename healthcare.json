@@ -1671,32 +1671,6 @@
                     }
                 }
             }
-        },
-        "/change/v1/claimStatus/raw-x12/enhanced": {
-            "post": {
-                "operationId": "ClaimStatusRawX12Enhanced",
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "$ref": "#/components/schemas/ClaimStatusRawX12EnhancedRequestContent"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "ClaimStatusRawX12Enhanced 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ClaimStatusRawX12EnhancedResponseContent"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
     },
     "components": {
@@ -3423,29 +3397,6 @@
                     "BillingProvider",
                     "ServiceProvider"
                 ]
-            },
-            "ClaimStatusRawX12EnhancedRequestContent": {
-                "type": "object",
-                "properties": {
-                    "x12": {
-                        "type": "string"
-                    },
-                    "requestExtensions": {
-                        "$ref": "#/components/schemas/RequestExtensions"
-                    },
-                    "parameters": {}
-                }
-            },
-            "ClaimStatusRawX12EnhancedResponseContent": {
-                "type": "object",
-                "properties": {
-                    "x12": {
-                        "type": "string"
-                    },
-                    "responseExtensions": {
-                        "$ref": "#/components/schemas/ResponseExtensions"
-                    }
-                }
             },
             "ClaimStatusRawX12RequestContent": {
                 "type": "object",
@@ -5387,17 +5338,6 @@
                         }
                     }
                 }
-            },
-            "Extensions": {
-                "type": "object",
-                "properties": {
-                    "type": {
-                        "$ref": "#/components/schemas/Type"
-                    }
-                },
-                "required": [
-                    "type"
-                ]
             },
             "Failure": {
                 "type": "object",
@@ -7719,17 +7659,6 @@
                     "TJ"
                 ]
             },
-            "RequestExtensions": {
-                "type": "object",
-                "properties": {
-                    "extensions": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Extensions"
-                        }
-                    }
-                }
-            },
             "RequestSubscriber": {
                 "type": "object",
                 "description": "The person who is the primary policyholder for the insurance plan. You only need to supply the fields necessary for your use case and for the provider to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
@@ -7926,23 +7855,6 @@
                     "SY",
                     "TJ"
                 ]
-            },
-            "ResponseExtensions": {
-                "type": "object",
-                "properties": {
-                    "statusCode": {
-                        "$ref": "#/components/schemas/StatusCode"
-                    },
-                    "statusDescription": {
-                        "type": "string"
-                    },
-                    "extensions": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Extensions"
-                        }
-                    }
-                }
             },
             "ResponseMember": {
                 "type": "object",
@@ -8894,18 +8806,6 @@
                     }
                 }
             },
-            "StatusCode": {
-                "type": "string",
-                "description": "NOTE: Allowed Values are: '0' Success, '1' Not Authorized, '2' Internal Error,'3' Extension Not Applicable, '4' Extension Not Available At This time, '5'Invalid Request Extension Type",
-                "enum": [
-                    "0",
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5"
-                ]
-            },
             "Submitter": {
                 "type": "object",
                 "description": "Loop: 1000A",
@@ -9196,13 +9096,6 @@
                         "description": "The number assigned by the originator to identify the transaction within the originator's business application system"
                     }
                 }
-            },
-            "Type": {
-                "type": "string",
-                "description": "NOTE: Allowed Values are: 'CLAIM_STATUS' Request to include claim, check and cob extended claim status data in addition to the 277 response.",
-                "enum": [
-                    "CLAIM_STATUS"
-                ]
             }
         },
         "securitySchemes": {
