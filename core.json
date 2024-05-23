@@ -3401,6 +3401,27 @@
           "output"
         ]
       },
+      "BusinessIdentifier": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "description": "The element where the business identifier was found. For example, `BEG-03`."
+          },
+          "name": {
+            "type": "string",
+            "description": "The friendly name of the business identifier. For example, `Purchase Order Number`."
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "element",
+          "name",
+          "value"
+        ]
+      },
       "ConnectionType": {
         "type": "string",
         "enum": [
@@ -4095,6 +4116,12 @@
             "items": {
               "$ref": "#/components/schemas/TranslationError"
             }
+          },
+          "businessIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessIdentifier"
+            }
           }
         },
         "required": [
@@ -4540,6 +4567,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TranslationError"
+            }
+          },
+          "businessIdentifiers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BusinessIdentifier"
             }
           }
         },
