@@ -497,8 +497,10 @@
           {
             "name": "executionId",
             "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
             "required": true
           }
@@ -599,14 +601,16 @@
     },
     "/executions/{executionId}/input": {
       "get": {
-        "description": "This endpoint is used to retrieve an execution's input document before it passes through any translation and mappings, generally this will be EDI.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint.\n",
+        "description": "This endpoint retrieves an execution's input document before it passes through any translation and mappings.",
         "operationId": "GetExecutionInputDocument",
         "parameters": [
           {
             "name": "executionId",
             "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
             "required": true
           }
@@ -815,14 +819,16 @@
     },
     "/executions/{executionId}/metadata": {
       "get": {
-        "description": "This endpoint is used to retrieve an execution's metadata document.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint.\n",
+        "description": "This endpoint retrieves an execution's metadata document.",
         "operationId": "GetExecutionMetadataDocument",
         "parameters": [
           {
             "name": "executionId",
             "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
             "required": true
           }
@@ -1031,14 +1037,16 @@
     },
     "/executions/{executionId}/output": {
       "get": {
-        "description": "This endpoint is used to retrieve an execution's output document.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint.\n",
+        "description": "This endpoint retrieves an execution's output document.",
         "operationId": "GetExecutionOutputDocument",
         "parameters": [
           {
             "name": "executionId",
             "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file delivered event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-delivered), or you can retrieve it manually from the file's details page within the Stedi app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file delivered event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-delivered), or you can retrieve it manually from the file's details page within the Stedi app."
             },
             "required": true
           }
@@ -1253,8 +1261,10 @@
           {
             "name": "executionId",
             "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
             "required": true
           },
@@ -2331,7 +2341,7 @@
     },
     "/transactions/{transactionId}/fragments/{fragmentIndex}": {
       "get": {
-        "description": "Fetch a fragment by its index for a given transaction.",
+        "description": "This endpoint fetches a fragment by its index for a given transaction.",
         "operationId": "GetTransactionFragment",
         "parameters": [
           {
@@ -2347,8 +2357,10 @@
           {
             "name": "fragmentIndex",
             "in": "path",
+            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
-              "type": "number"
+              "type": "number",
+              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -2449,24 +2461,26 @@
     },
     "/transactions/{transactionId}/fragments/{fragmentIndex}/output": {
       "get": {
-        "description": "This endpoint is used to retrieve a transaction fragment's output document after it has been translated via Core. Generally this will be JSON.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint, however they are generally smaller and consumable by nature of being a fragment.\n",
+        "description": "This endpoint retrieves a transaction fragment's output document after it has been translated.",
         "operationId": "GetTransactionFragmentOutputDocument",
         "parameters": [
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           },
           {
             "name": "fragmentIndex",
             "in": "path",
+            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
-              "type": "number"
+              "type": "number",
+              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -2685,16 +2699,16 @@
     },
     "/transactions/{transactionId}/input": {
       "get": {
-        "description": "This endpoint is used to retrieve a transaction's input document before it passes through any translation and mappings, generally this will be EDI.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint.\n",
+        "description": "This endpoint retrieves a transaction's input document before it passes through any translation and mappings.",
         "operationId": "GetTransactionInputDocument",
         "parameters": [
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -2905,16 +2919,16 @@
     },
     "/transactions/{transactionId}/output": {
       "get": {
-        "description": "This endpoint is used to retrieve a transaction's output document after it has been translated via Core. Generally this will be JSON.\n\nThis endpoint returns a 302 Temporary redirect to the document download URL. Many HTTP clients will automatically follow this redirect, or have a simple follow redirects configuration to set. For instance in `curl` using the `-L` or `--location` flag will automatically follow the redirect.\n\nIn the event you cannot, or chose not to automatically follow the redirect, the body of the response contains a JSON object with a single key `documentDownloadUrl` which contains a temporary URL to download the document. This URL is good for 60 minutes.\n\nThere are no size restrictions on documents when fetching from this endpoint.\n",
+        "description": "This endpoint retrieves a transaction's output document after it has been translated.",
         "operationId": "GetTransactionOutputDocument",
         "parameters": [
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -3386,6 +3400,7 @@
           "application/edifact",
           "application/filepart",
           "application/json",
+          "application/pdf",
           "text/psv",
           "text/tsv",
           "application/edi-x12",
