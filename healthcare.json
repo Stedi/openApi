@@ -3142,15 +3142,15 @@
             },
             "ClaimStatusEncounter": {
                 "type": "object",
-                "description": "Loop: 2200D or 2200E",
+                "description": "Information about the referenced claim.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
-                        "description": "Loop: 2200D or 2200E, Segment: DTP, Element: DTP03, Notes: Date Time Period - Start Date"
+                        "description": "The date the service began, formatted as YYYYMMDD."
                     },
                     "endDateOfService": {
                         "type": "string",
-                        "description": "Loop: 2200D or 2200E, Segment: DTP, Element: DTP03, Notes: Date Time Period - End Date"
+                        "description": "The date the service ended, formatted as YYYYMMDD."
                     },
                     "trackingNumber": {
                         "type": "string",
@@ -3162,43 +3162,43 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: This is the payer assigned claim number. descriptions goes in REF02 where REF01=1K"
+                        "description": "The claim number assigned by the payer."
                     },
                     "locationIdentifier": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Required if application or location system identifier is known. descriptions goes in REF02 where REF01=LU"
+                        "description": "The application or location identifier. Required if the application or location system identifier is known."
                     },
                     "billingType": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Billing type reference ID. Example: billing type for inpatient services is 111. descriptions goes in REF02 where REF01=BLT"
+                        "description": "The billing type reference ID. For example, the billing type for inpatient services is `111`."
                     },
                     "patientAccountNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Patient account number provided by service provider. description goes in REF02 where REF01=EJ"
+                        "description": "The patient account number provided by the service provider."
                     },
                     "pharmacyPrescriptionNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Patient pharmacy prescription number. description goes in REF02 where REF01=XZ"
+                        "description": "The patient's pharmacy prescription number."
                     },
                     "clearingHouseClaimNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: REF, Element: REF02, Notes: Claim number provided by clearing house. description goes in REF02 where REF01=D9"
+                        "description": "The claim number provided by the clearinghouse."
                     },
                     "submittedAmount": {
                         "type": "string",
                         "maxLength": 18,
                         "minLength": 1,
-                        "description": "Loop: 2200D or 2200E, Segment: AMT, Element: AMT02, Notes: Submitted total charges. description goes in AMT02 where AMT01=T3"
+                        "description": "The total charges submitted for the claim. Note that not all payer systems retain the original submitted charges; they are sometimes changed during processing."
                     }
                 }
             },
@@ -3225,7 +3225,6 @@
             },
             "ClaimStatusProvider": {
                 "type": "object",
-                "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -3266,13 +3265,13 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The Taxpayer Identification Number (TIN), used when the `providerType` = `BillingProvider`."
+                        "description": "The Taxpayer Identification Number (TIN)."
                     },
                     "etin": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The Electronic Transmitter Identification Number (ETIN), used when the `providerType` = `BillingProvider`."
+                        "description": "The Electronic Transmitter Identification Number (ETIN), required when the `providerType` = `BillingProvider`."
                     },
                     "providerType": {
                         "$ref": "#/components/schemas/ClaimStatusProviderType"
@@ -3389,7 +3388,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`."
+                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. When the `providerType` = `BillingProvider`, you must provide the provider's `etin`."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -3501,38 +3500,38 @@
             },
             "ClaimStatusSubscriber": {
                 "type": "object",
-                "description": "Loop: 2000D",
+                "description": "Information about the subscriber listed in the referenced claim.",
                 "properties": {
                     "memberId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "Loop: 2100D, Segment: NM1, Element: NM109, Notes: The subscriber's insurance member ID. Maps to subscriberId."
+                        "description": "The subscriber's insurance member ID. This is the unique identifier for the subscriber on the insurance policy."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 1,
-                        "description": "Loop: 2100D, Segment: NM1, Element: NM104, Notes: The subscriber's first name as specified on their policy"
+                        "description": "The subscriber's first name as specified on their policy."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "Loop: 2100D, Segment: NM1, Element: NM103, Notes: The subscriber's last name as specified on their policy."
+                        "description": "The subscriber's last name as specified on their policy."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriberGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2000D, Segment: DMG, Element: DMG02, Notes: The birth date as specified on the policy for the subscriber. Maps to BirthDate"
+                        "description": "The subscriber's date of birth, formatted as YYYYMMDD."
                     },
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200D, Segment: REF, Element: REF01, Notes: The group number associated with the subscriber."
+                        "description": "The group number associated with the subscriber's insurance policy."
                     }
                 },
                 "required": [
@@ -3543,7 +3542,7 @@
             },
             "ClaimStatusSubscriberGender": {
                 "type": "string",
-                "description": "Loop: 2000D, 2000E, Segment: DMG, Element: DMG03, Notes: The subscriber's gender as specified on their policy.",
+                "description": "A code indicating the subscriber's gender.",
                 "enum": [
                     "M",
                     "F",
@@ -5779,32 +5778,32 @@
             },
             "Member": {
                 "type": "object",
-                "description": "Loop: 2000E",
+                "description": "Information about the dependent listed in the referenced claim.",
                 "properties": {
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 1,
-                        "description": "Loop: 2100E, Segment: NM1, Element: NM104, Notes: The dependent's first name as specified on their policy."
+                        "description": "The dependent's first name as specified on their insurance policy."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "Loop: 2100E, Segment: NM1, Element: NM103, Notes: The dependent's last name as specified on their policy."
+                        "description": "The dependent's last name as specified on their insurance policy."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/MemberGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2000E, Segment: DMG, Element: DMG02, Notes: The birth date as specified on the policy for the dependent."
+                        "description": "The dependent's date of birth, formatted as YYYYMMDD."
                     },
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "Loop: 2200E, Segment: REF, Element: REF02 when REF01=6P, Notes: The group number associated with the subscriber and dependent. Maps to dependent groupNumber."
+                        "description": "The group number associated with the subscriber and dependent's insurance policy."
                     }
                 },
                 "required": [
@@ -5814,7 +5813,7 @@
             },
             "MemberGender": {
                 "type": "string",
-                "description": "Loop: 2000E, Segment: DMG, Element: DMG03, Notes: dependent's gender as specified on their policy.",
+                "description": "A code indicating the dependent's gender.",
                 "enum": [
                     "M",
                     "F",
@@ -6841,7 +6840,7 @@
             },
             "ProductOrServiceIDQualifier": {
                 "type": "string",
-                "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-1, Notes: Allowed Values are 'AD' American Dental Association Codes, 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'HP' Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'NU' National Uniform Billing Committee (NUBC) UB92 Codes, 'WK' Advanced Billing Concepts (ABC) Codes",
+                "description": "A code identifying the type/source of the descriptive number used in Product/Service ID. Visit `C300301` in the [Claim Status specification](https://www.stedi.com/app/guides/view/hipaa/claim-status-request-x212/01GRYB6A4XEJQ61Y2K2KT606E5#properties.detail.properties.information_source_level_HL_loop.items.properties.information_receiver_level_HL_loop.items.properties.service_provider_level_HL_loop.items.properties.subscriber_level_HL_loop.items.properties.claim_status_tracking_number_TRN_loop.items.properties.service_line_information_SVC_loop.items.properties.service_line_information_SVC.properties.composite_medical_procedure_identifier_01.properties.product_or_service_id_qualifier_01) for a complete list.",
                 "enum": [
                     "AD",
                     "ER",
@@ -8326,14 +8325,14 @@
             },
             "ServiceLineInformation": {
                 "type": "object",
-                "description": "Loop: 2220D or 2220E",
+                "description": "Identify a service line listed in the referenced claim. Used to request status for a specific service line.",
                 "properties": {
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/ProductOrServiceIDQualifier"
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-2, Notes: Procedure Code maps to Product/ServiceID"
+                        "description": "The procedure code for the service line. This is the identfying number for a product or service."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -8342,31 +8341,31 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC01-3 to SVC01-6, Notes:  Procedure Modifier"
+                        "description": "Identifies special circumstances related to the performance of the service."
                     },
                     "lineItemChargeAmount": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC02, Notes: Maps to Monetary Amount, This amount is the original submitted charge."
+                        "description": "The original submitted charge for the service line, expressed as a decimal. For example, `100.00`."
                     },
                     "revenueCode": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC04, Notes: Identifying number for a product or service"
+                        "description": "The revenue code for the service line. This is the National Uniform Billing Committee revenue code."
                     },
                     "unitsOfServiceCount": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: SVC, Element: SVC07, Notes: Maps to Quantity, Numeric value of quantity accepted"
+                        "description": "The number of units of service for the service line."
                     },
                     "lineItemControlNumber": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: REF, Element: REF02 when REF01 = FJ, Notes: Maps to  Reference Identification"
+                        "description": "An identifier for the service line."
                     },
                     "serviceLineDate": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: DTP, Element: DTP03, Notes: When sent with serviceLineEndDate it will be used as the start date for Date Time period, if sent without serviceLineEndDate will use DTP02 = D8"
+                        "description": "The date the service line began, formatted as YYYYMMDD."
                     },
                     "serviceLineEndDate": {
                         "type": "string",
-                        "description": "Loop: 2210D, 2210E, Segment: DTP, Element: DTP03, Notes: DTP03 enddate and DTP02=RD8"
+                        "description": "The date the service line ended, formatted as YYYYMMDD."
                     }
                 }
             },
