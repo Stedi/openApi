@@ -1802,7 +1802,7 @@
             },
             "AdjustmentGroupCode": {
                 "type": "string",
-                "description": "Loop: 2430, Segment: CAS, Element: CAS01, Notes: Code identifying the general category of payment adjustment",
+                "description": "Code identifying the general category of payment adjustment. Visit `CAS01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.claim_level_adjustments_CAS.items.properties.claim_adjustment_group_code_01) for a complete list.",
                 "enum": [
                     "CO",
                     "CR",
@@ -1813,7 +1813,7 @@
             },
             "AmbulanceCertification": {
                 "type": "object",
-                "description": "CRC",
+                "description": "Required when the claim involves ambulance transport services.",
                 "properties": {
                     "certificationConditionIndicator": {
                         "$ref": "#/components/schemas/AmbulanceCertificationCertificationConditionIndicator"
@@ -1825,7 +1825,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Loop: 2300, Segment: CRC, Element: CRC03, CRC04, CRC05, CRC06, CRC07, Note: Allowed Values are: '01' Patient was admitted to a hospital, '04' Patient was moved by stretcher, '05' Patient was unconscious or in shock, '06' Patient was transported in an emergency situation, '07' Patient had to be physically restrained, '08' Patient had visible hemorrhaging, '09' Ambulance service was medically necessary, '12' Patient is confined to a bed or chair"
+                        "description": "Code indicating the condition of the patient at the time of tramsport. Can be set to `01` - Patient was admitted to a hospital, `04` - Patient was moved by stretcher, `05` - Patient was unconscious or in shock, `06` - Patient was transported in an emergency situation, `07` - Patient had to be physically restrained, `08` - Patient had visible hemorrhaging, `09` - Ambulance service was medically necessary, or `12` - Patient is confined to a bed or chair. Use code `12` when the patient is bedridden during transport."
                     }
                 },
                 "required": [
@@ -1835,7 +1835,7 @@
             },
             "AmbulanceCertificationCertificationConditionIndicator": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CRC, Element: CRC02 when CRC01 = 07, Note: Allowed Values are: 'N' No, 'Y' Yes",
+                "description": "Code indicating whether there is an ambulance certification.",
                 "enum": [
                     "N",
                     "Y"
@@ -1843,7 +1843,6 @@
             },
             "AmbulanceCertificationConditionCodesItem": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CRC, Element: CRC03, CRC04, CRC05, CRC06, CRC07, Note: Allowed Values are: '01' Patient was admitted to a hospital, '04' Patient was moved by stretcher, '05' Patient was unconscious or in shock, '06' Patient was transported in an emergency situation, '07' Patient had to be physically restrained, '08' Patient had visible hemorrhaging, '09' Ambulance service was medically necessary, '12' Patient is confined to a bed or chair",
                 "enum": [
                     "01",
                     "04",
@@ -1857,26 +1856,26 @@
             },
             "AmbulanceTransportInformation": {
                 "type": "object",
-                "description": "CR1",
+                "description": "Information about the ambulance service provided to the patient.",
                 "properties": {
                     "patientWeightInPounds": {
                         "type": "string",
-                        "description": "Segment: CR1, Element: CR102"
+                        "description": "The weight of the patient, in pounds, at the time of transport. Provide this value as a decimal, such as `150.5`"
                     },
                     "ambulanceTransportReasonCode": {
                         "$ref": "#/components/schemas/AmbulanceTransportReasonCode"
                     },
                     "transportDistanceInMiles": {
                         "type": "string",
-                        "description": "Segment: CR1, Element: CR106"
+                        "description": "The number of miles the ambulance traveled to transport the patient. Provide this value as a decimal, such as `20.5`. Note that `0` (zero) is a valid value when ambulance services do not include a charge for mileage."
                     },
                     "roundTripPurposeDescription": {
                         "type": "string",
-                        "description": "Segment: CR1, Element: CR109"
+                        "description": "The reason for the round trip ambulance service."
                     },
                     "stretcherPurposeDescription": {
                         "type": "string",
-                        "description": "Segment: CR1, Element: CR110"
+                        "description": "The reason for usage of a stretcher during ambulance service."
                     }
                 },
                 "required": [
@@ -1886,7 +1885,7 @@
             },
             "AmbulanceTransportReasonCode": {
                 "type": "string",
-                "description": "CR104, Note: Allowed Values are: 'A' Patient was transported to nearest facility for care of symptoms, complaints, or both, 'B' Patient was transported for the benefit of a preferred physician, 'C' Patient was transported for the nearness of family members, 'D' Patient was transported for the care of a specialist or for availability of specialized equipment, 'E' Patient Transferred to Rehabilitation Facility",
+                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit the [`CR1-04` element](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_transport_information_CR1) in the X12 HIPAA professional claim specification for a complete list.",
                 "enum": [
                     "A",
                     "B",
@@ -1897,7 +1896,7 @@
             },
             "AttachmentReportTypeCode": {
                 "type": "string",
-                "description": "Loop: 2400, Segment: PWK, Element: PWK01, Notes: Allowed Values are: '03' Report Justifying Treatment Beyond Utilization Guidelines, '04' Drugs Administered, '05' Treatment Diagnosis, '06' Initial Assessment, '07' Functional Goals, '08' Plan of Treatment, '09' Progress Report, '10' Continued Treatment, '11' Chemical Analysis, '13' Certified Test Report, '15' Justification for Admission, '21' Recovery Plan, 'A3' Allergies/Sensitivities Document, 'A4' Autopsy Report, 'AM' Ambulance Certification, 'AS' Admission Summary, 'B2' Prescription, 'B3' Physician Order, 'B4' Referral Form, 'BR' Benchmark Testing Results, 'BS' Baseline, 'BT' Blanket Test Results, 'CB' Chiropractic Justification, 'CK' Consent Form(s), 'CT' Certification, 'D2' Drug Profile Document, 'DA' Dental Models, 'DB' Durable Medical Equipment Prescription, 'DG' Diagnostic Report, 'DJ' Discharge Monitoring Report, 'DS' Discharge Summary, 'EB' Explanation of Benefits (Coordination of Benefits or Medicare Secondary Payor), 'HC' Health Certificate, 'HR' Health Clinic Records, 'I5' Immunization Record,'IR' State School Immunization Records, 'LA' Laboratory Results, 'M1' Medical Record Attachment, 'MT' Models, 'NM Nursing Notes', 'OB' Operative Note, 'OC' Oxygen Content Averaging Report, 'OD' Orders and Treatments Document, 'OE' Objective Physical Examination (including vital signs) Document, 'OX' Oxygen Therapy Certification, 'OZ' Support Data for Claim, 'P4' Pathology Report, 'P5' Patient Medical History Document, 'PE' Parenteral or Enteral Certification, 'PN' Physical Therapy Notes, 'PO' Prosthetics or Orthotic Certification, 'PQ' Paramedical Results, 'PY' Physician's Report, 'PZ' Physical Therapy Certification, 'RB' Radiology Films, 'RR' Radiology Reports, 'RT' Report of Tests and Analysis Report, 'RX' Renewable Oxygen Content Averaging Report, 'SG' Symptoms Document, 'V5' Death Notification, 'XP' Photographs",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit the [PWK-01 element](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_supplemental_information_PWK) in the X12 HIPAA Professional claim specification for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -1964,7 +1963,7 @@
             },
             "AutoAccidentStateCode": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM11-04, Note: When CLM11-1 or CLM11-2 has a value of 'AA' to identify the state, province or sub-country code in which the automobile accident occurred.",
+                "description": "A code identifying the state or province in which the automobile accident occurred. Use this code when `relatedCausesCode` is set to `AA`.",
                 "enum": [
                     "AA",
                     "EM",
@@ -2429,78 +2428,70 @@
             },
             "Billing": {
                 "type": "object",
-                "description": "Loop: 2000A",
+                "description": "Information about the billing provider.",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to `BillingProvider`."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The billing provider's National Provider Identifier (NPI)."
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "description": "The billing provider's Social Security Number. Must be a string of exactly nine numbers with no separators."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "description": "The billing provider's Employer Identification Number. Must be a string of exactly nine numbers with no separators."
                     },
                     "commercialNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "type": "string"
                     },
                     "locationNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "type": "string"
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "type": "string"
                     },
                     "providerUpinNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "type": "string"
                     },
                     "taxonomyCode": {
-                        "type": "string",
-                        "description": "PRV03"
+                        "type": "string"
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The billing provider's first name, if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's last name, if the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The provider's middle name or initial, if the provider is an individual."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The provider's name suffix, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -2515,7 +2506,7 @@
             },
             "CertificationConditionCodeAppliesIndicator": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CRC, Element: CRC02 When CRC01=ZZ, Note: 'N' No, 'Y' Yes",
+                "description": "Code indicating whether an EPSDT referral was given to the patient. Can be set to `N` - No or `Y` - Yes.",
                 "enum": [
                     "N",
                     "Y"
@@ -2548,7 +2539,6 @@
             },
             "ClaimAdjustment": {
                 "type": "object",
-                "description": "CR1",
                 "properties": {
                     "adjustmentGroupCode": {
                         "$ref": "#/components/schemas/AdjustmentGroupCode"
@@ -2559,8 +2549,7 @@
                             "$ref": "#/components/schemas/ClaimAdjustmentDetails"
                         },
                         "maxItems": 6,
-                        "minItems": 1,
-                        "description": "Loop: 2430, Segment: CAS"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -2570,19 +2559,18 @@
             },
             "ClaimAdjustmentDetails": {
                 "type": "object",
-                "description": "CAS",
                 "properties": {
                     "adjustmentReasonCode": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: CAS, Element: CAS02, CAS05, CAS08, CAS11, CAS14, CAS17"
+                        "description": "Code identifying the detailed reason the adjustment was made. Visit [X12 Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) for a complete list."
                     },
                     "adjustmentAmount": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: CAS, Element: CAS03, CAS06, CAS09, CAS12, CAS15, CAS18"
+                        "description": "The dollar amount of the adjustment, expressed as a decimal. For example, `100.50`."
                     },
                     "adjustmentQuantity": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: CAS, Element: CAS04, CAS07, CAS10, CAS13, CAS16, CAS19"
+                        "description": "The units of service being adjusted."
                     }
                 },
                 "required": [
@@ -2592,30 +2580,30 @@
             },
             "ClaimContractInformation": {
                 "type": "object",
-                "description": "Loop 2300, Segment: CN1",
+                "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
                 "properties": {
                     "contractTypeCode": {
                         "$ref": "#/components/schemas/ClaimContractInformationContractTypeCode"
                     },
                     "contractAmount": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CN1, Element: CN102"
+                        "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
                     },
                     "contractPercentage": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CN1, Element: CN103"
+                        "description": "The allowance or charge percent, expressed as a decimal. For example, `0.80`."
                     },
                     "contractCode": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CN1, Element: CN104"
+                        "description": "The contract code. This is a unique identifier for the contract."
                     },
                     "termsDiscountPercentage": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CN1, Element: CN105"
+                        "description": "Terms discount percentage, expressed as a percent, available to the purchaser if an invoice is paid on or before the Terms Discount Due Date."
                     },
                     "contractVersionIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CN1, Element: CN106"
+                        "description": "An additional identifer for the contract. Identifies the revision level of a particular format, program, technique or algorithm."
                     }
                 },
                 "required": [
@@ -2624,7 +2612,7 @@
             },
             "ClaimContractInformationContractTypeCode": {
                 "type": "string",
-                "description": "Loop: 2300,Segment: CN1, Element: CN101, Note: Allowed Values are: '01' Diagnosis Related Group (DRG), '02' Per Diem, '03' Variable Per Diem, '04' Flat, '05' Capitated, '06' Percent, '09' Other",
+                "description": "A code identifying the type of contract. Can be set to `01` - Diagnosis Related Group (DRG), `02` - Per Diem, `03` - Variable Per Diem, `04` - Flat, `05` - Capitated, `06` - Percent, or `09` - Other.",
                 "enum": [
                     "01",
                     "02",
@@ -2637,85 +2625,85 @@
             },
             "ClaimDateInformation": {
                 "type": "object",
-                "description": "DTP",
+                "description": "You must provide at least one date related to the claim. For example, the date on which the patient was admitted to the hospital. All dates are formatted as YYYYMMDD.",
                 "properties": {
                     "symptomDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient began experiencing acute symptoms for the current illness or condition. Required for the initial medical service or visit performed in response to a medical emergency when the date is available and is different than the date of service."
                     },
                     "initialTreatmentDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient first received treatment for the current illness or condition. Required when the Initial Treatment Date is known to impact adjudication for claims involving spinal manipulation, physical therapy, occupational therapy, speech language pathology, dialysis, optical refractions, or pregnancy."
                     },
                     "lastSeenDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date that the patient was seen by the attending or supervising physician for the qualifying medical condition related to the services performed. Required when claims involve services for routine foot care and this date is known to impact the payer's adjudication process."
                     },
                     "acuteManifestationDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient first experienced acute symptoms for a chronic condition. Required when the `patientConditionCode` = `A` (Acute Condition) or `M` (Acute Manifestation of a Chronic Condition), the claim involves spinal manipulation, and the payer is Medicare."
                     },
                     "accidentDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date of the accident related to this claim. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident."
                     },
                     "lastMenstrualPeriodDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date of the patient's last menstrual period. Required when the provider believes the services on this claim are related to the patient's pregnancy."
                     },
                     "lastXRayDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date of the patient's last x-ray. Required when claim involves spinal manipulation and an x-ray was taken."
                     },
                     "hearingAndVisionPrescriptionDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date of the patient's hearing and vision prescription. Required on claims where a prescription has been written for hearing devices or vision frames and lenses and it is being billed on this claim."
                     },
                     "disabilityBeginDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The start date of the patient's disability period. You can include this date without providing a `disabilityEndDate` if the patient is currently disabled and the end date is unknown. Used for claims involving disability where the provider judges that the patient was or will be unable to perform the duties normally associated with their work."
                     },
                     "disabilityEndDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The end date of the patient's disability period. You can include this date without including a `disabilityStartDate` if the patient is no longer disabled and the start date is unknown. Used for claims involving disability where the provider judges that the patient was or will be unable to perform the duties normally associated with their work."
                     },
                     "lastWorkedDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient last worked, related to disability claims. Required on claims where this information is necessary for adjudication, such as workers compensation claims."
                     },
                     "authorizedReturnToWorkDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the provider has authorized the patient to return to work. Required on claims where this information is necessary for adjudication, such as workers compensation claims."
                     },
                     "admissionDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient was admitted to the hospital. Required on ambulance claims when the patient was known to be admitted to the hospital. Also required on inpatient claims."
                     },
                     "dischargeDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the patient was discharged from the hospital. Required for inpatient claims when the patient was discharged from the facility and the discharge date is known"
                     },
                     "assumedAndRelinquishedCareBeginDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The the date the provider filing this claim assumed care from another provider during post-operative care. Required when providers share post-operative care (global surgery claims)."
                     },
                     "assumedAndRelinquishedCareEndDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the provider filing this claim relinquished post-operative care to another provider. Required when providers share post-operative care (global surgery claims)."
                     },
                     "repricerReceivedDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "The date the repricing entity received the initial claim. Required when a repricer is passing the claim onto the payer."
                     },
                     "firstContactDate": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: DTP, Element: DTP03"
+                        "description": "Date the patient first consulted the provider for their condition by any means. This is not necessarily the same as the initial treatment date. Required for Property and Casualty claims when state mandated."
                     }
                 }
             },
             "ClaimFilingCode": {
                 "type": "string",
-                "description": "Loop 2000B, Segment: SBR, Element: SBR09, Note: Allowed Values are: '11' Other Non-Federal Programs, '12' Preferred Provider Organization (PPO), '13' Point of Service (POS), '14' Exclusive Provider Organization (EPO), '15' Indemnity Insurance, '16' Health Maintenance Organization (HMO) Medicare Risk, '17' Dental Maintenance Organization, 'AM' Automobile Medical, 'BL' Blue Cross/Blue Shield, 'CH' Champus, 'CI' Commercial Insurance Co., 'DS' Disability, 'FI' Federal Employees Program, 'HM' Health Maintenance Organization, 'LM' Liability Medical, 'MA' Medicare Part A,  'MB' Medicare Part B,  'MC' Medicaid, 'OF' Other Federal Program, 'TV' Title V, 'VA' Veterans Affairs Plan, 'WC' Workers' Compensation Health Claim, 'ZZ' Mutually Defined",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR-09` element in the [Professional Claim EDI specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a2/01GRYB6EJ999Y6MZ53ZBAHYBHE#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -2744,7 +2732,7 @@
             },
             "ClaimFilingIndicatorCode": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: SBR, Element: SBR09, Notes: Allowed Values are: '11' Other Non-Federal Programs, '12' Preferred Provider Organization (PPO), '13' Point of Service (POS), '14' Exclusive Provider Organization (EPO), '15' Indemnity Insurance, '16' Health Maintenance Organization (HMO) Medicare Risk, '17' Dental Maintenance Organization, 'AM' Automobile Medical, 'BL' Blue Cross/Blue Shield, 'CH' Champus, 'CI' Commercial Insurance Co., 'DS' Disability, 'FI' Federal Employees Program, 'HM' Health Maintenance Organization, 'LM' Liability Medical, 'MA' Medicare Part A, 'MB' Medicare Part B,'MC' Medicare Part C, 'OF' Other Federal Program, 'TV' Title V, 'VA' Veterans Affairs Plan, 'WC' Worker's Compensation Health Claim, 'ZZ' Mutually Defined",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit the `SBR-09` element in the [Professional Claim EDI specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.claim_filing_indicator_code_09) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -2773,41 +2761,41 @@
             },
             "ClaimInformation": {
                 "type": "object",
-                "description": "Loop2300",
+                "description": "Information about the healthcare claim.",
                 "properties": {
                     "claimFilingCode": {
                         "$ref": "#/components/schemas/ClaimFilingCode"
                     },
                     "propertyCasualtyClaimNumber": {
                         "type": "string",
-                        "description": "Loop 2010BA, Segment: REF, Element: REF02"
+                        "description": "The agency claim number for this transaction. Used when services included in this claim are part of a property and casualty claim."
                     },
                     "deathDate": {
                         "type": "string",
-                        "description": "Loop 2000B and 2000C, Segment: PAT, Element: PAT06 and PAT05=D8"
+                        "description": "The patient's date of death, formatted as YYYYMMDD."
                     },
                     "patientWeight": {
                         "type": "string",
-                        "description": "Loop 2000B and 2000C, Segment: PAT, Element: PAT08 and PAT07=01"
+                        "description": "The patient's weight in pounds. Enter as a decimal, such as `150.5`."
                     },
                     "pregnancyIndicator": {
                         "$ref": "#/components/schemas/PregnancyIndicator"
                     },
                     "patientControlNumber": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM01"
+                        "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this field so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA)."
                     },
                     "claimChargeAmount": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM02"
+                        "description": "The total dollar amount charged for the services on this claim, expressed as a decimal. For example, `100.50`. This is the total amount before any adjustments or payments. The amount must balance to the sum of the service line charges."
                     },
                     "placeOfServiceCode": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM05-01"
+                        "description": "Code identifying the type of facility where the services were or may be performed. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
                     },
                     "claimFrequencyCode": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM05-03"
+                        "description": "Code specifying the frequency of the claim. This is the third position of the [Uniform Billing Claim Form](https://www.verywellhealth.com/preparing-the-ub-04-form-2317061) Bill Type."
                     },
                     "signatureIndicator": {
                         "$ref": "#/components/schemas/SignatureIndicator"
@@ -2823,7 +2811,7 @@
                     },
                     "patientSignatureSourceCode": {
                         "type": "boolean",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM10, Note: Allowed Values are: 'P' Signature generated by provider because the patient was not physically present for services"
+                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set tp `P` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law."
                     },
                     "relatedCausesCode": {
                         "type": "array",
@@ -2832,14 +2820,14 @@
                         },
                         "maxItems": 2,
                         "minItems": 0,
-                        "description": "Loop 2300, Segment: CLM, Element: CLM11-01, CLM11-02, Note: Allowed Values are: 'AA' Auto Accident, 'EM' Employment, 'OA' Other Accident"
+                        "description": "Code identifying an accompanying cause of an illness, injury or an accident. Can be set to `AA` - Auto Accident, `EM` - Employment, or `OA` - Other Accident."
                     },
                     "autoAccidentStateCode": {
                         "$ref": "#/components/schemas/AutoAccidentStateCode"
                     },
                     "autoAccidentCountryCode": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: CLM, Element: CLM11-05, Note: When CLM11-1 or CLM11-2 = AA and the accident occurred in a country other than US or Canada."
+                        "description": "The country code where the accident occurred. Use when `relatedCausesCode` = `AA` and the accident occurred in a country other than US or Canada."
                     },
                     "specialProgramCode": {
                         "$ref": "#/components/schemas/SpecialProgramCode"
@@ -2849,11 +2837,11 @@
                     },
                     "patientAmountPaid": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: AMT, Element: AMT02"
+                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`."
                     },
                     "fileInformation": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: K3, Element: K301"
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
                     },
                     "fileInformationList": {
                         "type": "array",
@@ -2861,8 +2849,7 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 0,
-                        "description": "Loop 2300, Segment: K3, Element: K301"
+                        "minItems": 0
                     },
                     "claimDateInformation": {
                         "$ref": "#/components/schemas/ClaimDateInformation"
@@ -2889,7 +2876,7 @@
                         },
                         "maxItems": 3,
                         "minItems": 0,
-                        "description": "Loop 2300, Segment: CRC"
+                        "description": "Required when the claim involves ambulance transport services."
                     },
                     "patientConditionInformationVision": {
                         "type": "array",
@@ -2898,11 +2885,11 @@
                         },
                         "maxItems": 3,
                         "minItems": 0,
-                        "description": "Loop 2300, Segment: CRC"
+                        "description": "Required on vision claims involving replacement lenses or frames when this information is known to impact reimbursement."
                     },
                     "homeboundIndicator": {
                         "type": "boolean",
-                        "description": "Loop 2300, Segment: CRC"
+                        "description": "Required for Medicare claims when an independent laboratory renders an EKG tracing or obtains a specimen from a homebound or institutionalized patient."
                     },
                     "epsdtReferral": {
                         "$ref": "#/components/schemas/EpsdtReferral"
@@ -2914,7 +2901,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Loop 2300, Segment: HI"
+                        "description": "Details about the patient's healthcare diagnosis."
                     },
                     "anesthesiaRelatedSurgicalProcedure": {
                         "type": "array",
@@ -2923,7 +2910,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Loop 2300, Segment: HI"
+                        "description": "The surgical code. Required on claims where anesthesiology services are being billed or reported when the provider knows the surgical code and knows the adjudication of the claim will depend on provision of the surgical code."
                     },
                     "conditionInformation": {
                         "type": "array",
@@ -2932,7 +2919,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 0,
-                        "description": "Loop 2300, Segment: HI"
+                        "description": "The condition code. Required when condition information applies to the claim."
                     },
                     "claimPricingRepricingInformation": {
                         "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
@@ -2953,7 +2940,7 @@
                         },
                         "maxItems": 10,
                         "minItems": 0,
-                        "description": "Loop 2320"
+                        "description": "Required when other payers are known to potentially be involved in paying on this claim."
                     },
                     "serviceLines": {
                         "type": "array",
@@ -2981,7 +2968,7 @@
             },
             "ClaimInformationBenefitsAssignmentCertificationIndicator": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM08, Note: Allowed Values are: 'N' No, 'W' Not Applicable - Use code 'W' when the patient refuses to assign benefits, 'Y' Yes",
+                "description": "A code indicating whether the patient or an authorized person has assigned benefits to the provider. Use `W` when the patient refuses to assign benefits. Can be set to `N` - No, `Y` - Yes, or `W` - Not Applicable (use when patient refuses to assign benefits).",
                 "enum": [
                     "N",
                     "W",
@@ -2990,7 +2977,7 @@
             },
             "ClaimInformationRelatedCausesCodeItem": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM11-01, CLM11-02, Note: Allowed Values are: 'AA' Auto Accident, 'EM' Employment, 'OA' Other Accident",
+                "description": "Code identifying an accompanying cause of an illness, injury or an accident. Can be set to `AA` - Auto Accident, `EM` - Employment, or `OA` - Other Accident.",
                 "enum": [
                     "AA",
                     "EM",
@@ -2999,60 +2986,60 @@
             },
             "ClaimNote": {
                 "type": "object",
-                "description": "NTE",
+                "description": "Comments or special instructions related to the claim. Contains information required to substantiate the medical treatment that isn't provided elsewhere in the claim.",
                 "properties": {
                     "additionalInformation": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: NTE, Element: NTE02, Note: NTE01=ADD"
+                        "description": "Additional information"
                     },
                     "certificationNarrative": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: NTE, Element: NTE02, Note: NTE01=CER"
+                        "description": "Certification narrative"
                     },
                     "goalRehabOrDischargePlans": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: NTE, Element: NTE02, Note: NTE01=DCP"
+                        "description": "Information about goals, rehabilitation potential, or discharge plans"
                     },
                     "diagnosisDescription": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: NTE, Element: NTE02, Note: NTE01=DGN"
+                        "description": "Additional information about the diagnosis"
                     },
                     "thirdPartOrgNotes": {
                         "type": "string",
-                        "description": "Loop 2300, Segment: NTE, Element: NTE02, Note: NTE01=TPO"
+                        "description": "Notes from a third-party organization"
                     }
                 }
             },
             "ClaimPricingRepricingInformation": {
                 "type": "object",
-                "description": "HCP",
+                "description": "Repricing information about the claim or a line item. This information is completed by repricers, not providers. For capitated encounters, pricing or repricing information usually is not applicable and is provided to qualify other information within the claim.",
                 "properties": {
                     "pricingMethodologyCode": {
                         "$ref": "#/components/schemas/PricingMethodologyCode"
                     },
                     "repricedAllowedAmount": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP02"
+                        "description": "The dollar amount, expressed as a decimal. For example, `100.50`."
                     },
                     "repricedSavingAmount": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP03"
+                        "description": "The dollar amount, expressed as a decimal."
                     },
                     "repricingOrganizationIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP04"
+                        "description": "The identifier of the organization that repriced the claim."
                     },
                     "repricingPerDiemOrFlatRateAmoung": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP05"
+                        "description": "The the pricing rate associated with per diem or flat rate repricing, expressed as a decimal."
                     },
                     "repricedApprovedAmbulatoryPatientGroupCode": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP06"
+                        "description": "The code indicating the type of repricing."
                     },
                     "repricedApprovedAmbulatoryPatientGroupAmount": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: HCP, Element: HCP07"
+                        "description": "The dollar amount, expressed as a decimal."
                     },
                     "rejectReasonCode": {
                         "$ref": "#/components/schemas/RejectReasonCode"
@@ -3551,62 +3538,62 @@
             },
             "ClaimSupplementalInformation": {
                 "type": "object",
-                "description": "PWK and REF",
+                "description": "Additional information or documentation required for the claim.",
                 "properties": {
                     "reportInformation": {
                         "$ref": "#/components/schemas/ReportInformation"
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=G1"
+                        "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information."
                     },
                     "referralNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=9F"
+                        "description": "Required when a referral number is assigned by the payer or Utilization Management Organization (UMO) _and_ a referral is involved."
                     },
                     "claimControlNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=F8"
+                        "description": "Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim."
                     },
                     "cliaNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=X4"
+                        "description": "Required for all CLIA certified facilities performing CLIA covered laboratory services. When this claim contains both in-house and outsourced laboratory services, use the the CLIA Number for laboratory services performed by the billing or rendering provider. You can report outsourced laboratory services in the `serviceLines` object."
                     },
                     "repricedClaimNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=9A"
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this field."
                     },
                     "adjustedRepricedClaimNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=9C"
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this field."
                     },
                     "investigationalDeviceExemptionNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=LX"
+                        "description": "Required when claim involves a Food and Drug Administration (FDA) assigned investigational device exemption (IDE) number. When more than one IDE applies, you must split into separate claims."
                     },
                     "claimNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=D9"
+                        "description": "The claim number assigned by clearinghouse, van, etc. Providers should not complete this field."
                     },
                     "mammographyCertificationNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=EW"
+                        "description": "Required when mammography services are rendered by a certified mammography provider."
                     },
                     "medicalRecordNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=EA"
+                        "description": "Required when the provider needs to identify the actual medical record of the patient for this episode of care."
                     },
                     "demoProjectIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=P4"
+                        "description": "Required when it is necessary to identify claims that are atypical in ways such as content, purpose, and/or payment. For example, claims made as the result of a demonstration or a clinical trial."
                     },
                     "carePlanOversightNumber": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=1J"
+                        "description": "Required when the physician is billing Medicare for Care Plan Oversight (CPO). This is the number of the home health agency or hospice providing Medicare covered services to the patient."
                     },
                     "medicareCrossoverReferenceId": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=F5"
+                        "description": "Required when the submitter is Medicare and the claim is a Medigap or COB crossover claim."
                     },
                     "serviceAuthorizationExceptionCode": {
                         "$ref": "#/components/schemas/ServiceAuthorizationExceptionCode"
@@ -3615,35 +3602,34 @@
             },
             "ClaimsAddress": {
                 "type": "object",
-                "description": "N3 and N4",
                 "properties": {
                     "address1": {
                         "type": "string",
-                        "description": "Segment: N3, Element: N301"
+                        "description": "The first line of the street address. This typically contains the building number and street name."
                     },
                     "address2": {
                         "type": "string",
-                        "description": "Segment: N3, Element: N302"
+                        "description": "The second line of the street address. This typically contains the apartment or suite number."
                     },
                     "city": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N401"
+                        "description": "The city name."
                     },
                     "state": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N402"
+                        "description": "The state or province code. Only required when the city is in the Unites States and Canada."
                     },
                     "postalCode": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N403"
+                        "description": "The postal zone or zip code. Exclude punctuation and spaces."
                     },
                     "countryCode": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N404"
+                        "description": "Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
-                        "description": "Segment: N4, Element: N407"
+                        "description": "Use the country subdivision codes from Part 2 of ISO 3166."
                     }
                 },
                 "required": [
@@ -3653,27 +3639,26 @@
             },
             "ClaimsContactInformation": {
                 "type": "object",
-                "description": "PER",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER02 and PER01=IC"
+                        "description": "The full name of the person or office."
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 (Provider, Submitter, Subscriber, Dependent) or PER06 (Provider, Submitter) or PER08 (Provider, Submitter), Note: Used when PER03=TE (Provider, Submitter, Subscriber, Dependent) or PER05=TE (Provider, Submitter) or PER07=TE (Provider, Submitter)"
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number `123-456-7890` as `1234567890`. You should always include the area code, if applicable. Don't include long distance access numbers (such as `1`) or extensions in this field."
                     },
                     "faxNumber": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 or PER06 or PER08, Note: This is used in (Provider, Submitter) when PER03=FX or PER05=FX or PER07=FX"
+                        "description": "The fax number."
                     },
                     "email": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 or PER06 or PER08, Note: This used in (Provider, Submitter) when PER03=EM or PER05=EM or PER07=EM"
+                        "description": "The email address."
                     },
                     "phoneExtension": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER06 (Provider, Submitter, Subscriber, Dependent) or PER08 (Provider, Submitter),Note: Used when PER05=EX (Provider, Submitter, Subscriber, Dependent) or PER07=EX (Provider, Submitter)"
+                        "description": "The phone extension, if applicable."
                     }
                 },
                 "required": [
@@ -3682,7 +3667,7 @@
             },
             "ClaimsDiagnosisTypeCode": {
                 "type": "string",
-                "description": "Loop: 2440, Segment: HI, Element: HI01-01 or HI02-01 or HI03-01 or HI04-01 or HI05-01 or HI06-01 or HI07-01 or HI08-01 or HI09-01 or HI10-01 or HI11-01 or HI12-01, Note: Allowed Values are: 'BK' International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, 'ABK' International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, 'BF' International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, 'ABF' International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
+                "description": "Code indicating the specific industry code list. Can be set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF` - International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis.",
                 "enum": [
                     "BK",
                     "ABK",
@@ -3721,7 +3706,7 @@
             },
             "ClaimsExceptionCode": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: HCP, Element: HCP15, Note: Allowed Values are: '1' Non-Network Professional Provider in Network Hospital, '2' Emergency Care, '3' Services or Specialist not in Network, '4' Out-of-Service Area, '5' State Mandates, '6' Other",
+                "description": "Code specifying the exception reason for consideration of out-of-network health care services. This is the reason generated by the third-party health organization. Visit `HCP15` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP.properties.exception_code_15) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -3740,7 +3725,7 @@
                     },
                     "diagnosisCode": {
                         "type": "string",
-                        "description": "Loop: 2440, Segment: HI, Element: HI01-02 or HI02-02 or HI03-02 or HI04-02 or HI05-02 or HI06-02 or HI07-02 or HI08-02 or HI09-02 or HI10-02 or HI11-02 or HI12-02"
+                        "description": "The diagnosis code."
                     }
                 },
                 "required": [
@@ -3750,7 +3735,7 @@
             },
             "ClaimsIndividualRelationshipCode": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: SBR, Element: SBR02, Notes: Required when patient is the subscriber, Notes: Allowed Values are: '01' Spouse, '18' Self, '19' Child, '20' Employee, '21' Unknown, '39' Organ Donor, '40' Cadaver Donor, '53' Life Partner, 'G8' Other Relationship",
+                "description": "Code identifying the the relationship to the person insured. Visit `SBR-02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.individual_relationship_code_02) for a complete list.",
                 "enum": [
                     "01",
                     "18",
@@ -3790,7 +3775,7 @@
                 "properties": {
                     "status": {
                         "type": "string",
-                        "description": "Status of claim"
+                        "description": "The status of the claim submission."
                     },
                     "controlNumber": {
                         "type": "string",
@@ -3838,7 +3823,7 @@
                 "properties": {
                     "controlNumber": {
                         "type": "string",
-                        "description": "Not currently used, but we may be used in the future."
+                        "description": "Not currently used."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
@@ -3863,7 +3848,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "setting providers deprecated, please set all providers individually by it's type."
+                        "description": "Deprecated; please set all providers individually by type. For example, `Referring`."
                     },
                     "claimInformation": {
                         "$ref": "#/components/schemas/ClaimInformation"
@@ -3898,7 +3883,7 @@
                     },
                     "tradingPartnerName": {
                         "type": "string",
-                        "description": "Loop 2010BB NM103"
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
                     }
                 },
                 "required": [
@@ -3907,6 +3892,7 @@
                     "receiver",
                     "submitter",
                     "subscriber",
+                    "tradingPartnerName",
                     "tradingPartnerServiceId"
                 ]
             },
@@ -3915,7 +3901,7 @@
                 "properties": {
                     "status": {
                         "type": "string",
-                        "description": "Status of claim"
+                        "description": "The status of the claim submission."
                     },
                     "controlNumber": {
                         "type": "string",
@@ -3960,7 +3946,7 @@
             },
             "CodeCategory": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CRC, Element: CRC01, Notes: Allowed Values are: 'E1' Spectacle Lenses, 'E2' Contact Lenses, 'E3' Spectacle Frames",
+                "description": "Identifies the category to which the `conditionCode` applies. Can be set to `E1` - Spectacle Lenses, `E2` - Contact Lenses, or `E3` - Spectacle Frames.",
                 "enum": [
                     "E1",
                     "E2",
@@ -4132,7 +4118,7 @@
             },
             "ConditionIndicatorDurableMedicalEquipmentCertificationConditionIndicator": {
                 "type": "string",
-                "description": "Loop 2400, Segment: CRC, Element: CRC02 and CRC01=09, Note: Allowed Values are: 'N' No, 'Y' Yes",
+                "description": "Code indicating whether there is a certification. Can be set to `N` - No or `Y` - Yes.",
                 "enum": [
                     "Y",
                     "N"
@@ -4268,7 +4254,7 @@
             },
             "DelayReasonCode": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM20, Note: Allowed Values are: '1' Proof of Eligibility Unknown or Unavailable, '2' Litigation, '3' Authorization Delays, '4' Delay in Certifying Provider, '5' Delay in Supplying Billing Forms, '6' Delay in Delivery of Custom-made Appliances, '7' Third Party Processing Delay, '8' Delay in Eligibility Determination,  '9' Original Claim Rejected or Denied Due to a Reason Unrelated to the Billing Limitation Rules, '10' Administration Delay in the Prior Approval Process, '11' Other, '15' Natural Disaster",
+                "description": "Code indicating the reason for the delay in claim submission. Can be set to `1` - Proof of Eligibility Unknown or Unavailable, `2` - Litigation, `3` - Authorization Delays, `4` - Delay in Certifying Provider, `5` - Delay in Supplying Billing Forms, `6` - Delay in Delivery of Custom-made Appliances, `7` - Third Party Processing Delay, `8` - Delay in Eligibility Determination, `9` - Original Claim Rejected or Denied Due to a Reason Unrelated to the Billing Limitation Rules, `10` - Administration Delay in the Prior Approval Process, `11` - Other, `15` - Natural Disaster.",
                 "enum": [
                     "1",
                     "2",
@@ -4286,38 +4272,38 @@
             },
             "Dependent": {
                 "type": "object",
-                "description": "LOOP 2000C",
+                "description": "Dependents of the subscriber who received the medical care associated with the healthcare claim.",
                 "properties": {
                     "firstName": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM104"
+                        "description": "The patient's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM103"
+                        "description": "The patient's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM105"
+                        "description": "The patient's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "Loop: 2010CA,  Segment: NM, Element: NM107"
+                        "description": "The patient's name suffix, such as Jr. or III."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/DependentGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: DMG, Element: DMG02 when DMG01=D8"
+                        "description": "The patient's date of birth, formatted as YYYYMMDD."
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: REF, Element: REF02 when REF01=SY"
+                        "description": "The patient's Social Security Number. Only used for Property and Casualty claims. The Social Security Number must be a string of exactly nine numbers with no separators. For example `123456789`."
                     },
                     "memberId": {
                         "type": "string",
-                        "description": "Loop: 2010CA, Segment: REF, Element: REF02 when REF01=1W"
+                        "description": "The patient's identification number. Only used in Property and Casualty claims."
                     },
                     "relationshipToSubscriberCode": {
                         "$ref": "#/components/schemas/RelationshipToSubscriberCode"
@@ -4339,7 +4325,7 @@
             },
             "DependentGender": {
                 "type": "string",
-                "description": "Loop: 2010CA, Segment: DMG, Element: DMG03, Note: Allowed Values are: 'M' Male, 'F' Female, 'U' Unknown",
+                "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.",
                 "enum": [
                     "M",
                     "F",
@@ -5132,7 +5118,7 @@
             },
             "EpsdtReferral": {
                 "type": "object",
-                "description": "CRC",
+                "description": "Required on Early & Periodic Screening, Diagnosis, and Treatment (EPSDT) claims when the screening service is being billed in this claim.",
                 "properties": {
                     "certificationConditionCodeAppliesIndicator": {
                         "$ref": "#/components/schemas/CertificationConditionCodeAppliesIndicator"
@@ -5144,7 +5130,7 @@
                         },
                         "maxItems": 3,
                         "minItems": 1,
-                        "description": "Loop: 2300, Segment: CRC, Elements: CRC03, CRC04, CRC05 Note: Allowed Values are: 'AV' Available- Not Used, 'NU' Not Used, 'S2' Under Treatment, 'ST' New Services Requested"
+                        "description": "Code indicating the patient's status. Set to `AV` when the patient refused the referral. Set to `NU` when you set `certificationConditionCodeAppliesIndicator` to `N`. Set to `S2` when the patient is currently under treatment for the referred diagnostic or corrective health problem. Set to `ST` when _either_ the patient is referred to another provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals) _or_ the patient is scheduled for another appointment with the screening provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals)."
                     }
                 },
                 "required": [
@@ -5617,8 +5603,7 @@
                         "description": "Loop: 2430, Segment: DTP, Element=DTP03 when DTP02=D8 and DTP01=573"
                     },
                     "remainingPatientLiability": {
-                        "type": "string",
-                        "description": "Loop: 2430, Segment: AMT, Element=AMT02 when AMT01=EAF"
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -5747,15 +5732,15 @@
             },
             "MedicareOutpatientAdjudication": {
                 "type": "object",
-                "description": "Loop: 2320, Segment: MOA",
+                "description": "Claim-level data related to the adjudication of Medicare claims not related to an inpatient setting. Required when outpatient adjudication information is reported in the remittance advice _or_ when you need to report remark codes.",
                 "properties": {
                     "reimbursementRate": {
                         "type": "string",
-                        "description": "Loop 2320, Segment: MOA; Element: MOA01"
+                        "description": "The reimbursement percentage, expressed as a decimal."
                     },
                     "hcpcsPayableAmount": {
                         "type": "string",
-                        "description": "Loop 2320, Segment: MOA; Element: MOA02"
+                        "description": "The the claim Health Care Financing Administration Common Procedural Coding System (HCPCS) payable amount, expressed as a decimal."
                     },
                     "claimPaymentRemarkCode": {
                         "type": "array",
@@ -5764,15 +5749,15 @@
                         },
                         "maxItems": 5,
                         "minItems": 0,
-                        "description": "Loop: 2320: Segment: MOA, Element: MOA03 to MOA07"
+                        "description": "The remark code. Visit [X12 Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
                     },
                     "endStageRenalDiseasePaymentAmount": {
                         "type": "string",
-                        "description": "Loop 2320, Segment: MOA; Element: MOA08"
+                        "description": "The End-Stage Renal Disease (ESRD) payment amount, expressed as a decimal."
                     },
                     "nonPayableProfessionalComponentBilledAmount": {
                         "type": "string",
-                        "description": "Loop 2320, Segment: MOA; Element: MOA09"
+                        "description": "The the professional component amount billed but not payable, expressed as a decimal."
                     }
                 }
             },
@@ -5822,78 +5807,61 @@
             },
             "Ordering": {
                 "type": "object",
-                "description": "Loop: 2420E, Setting ProviderType equal to OrderingProvider is deprecated, please use ClaimInformation.serviceLines.orderingProvider",
+                "description": "Deprecated; please use `ClaimInformation.serviceLines.orderingProvider` instead.",
                 "properties": {
                     "providerType": {
                         "type": "string"
                     },
                     "npi": {
-                        "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "type": "string"
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
-                        "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "type": "string"
                     },
                     "commercialNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "type": "string"
                     },
                     "locationNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "type": "string"
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "type": "string"
                     },
                     "providerUpinNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "type": "string"
                     },
                     "taxonomyCode": {
-                        "type": "string",
-                        "description": "PRV03"
+                        "type": "string"
                     },
                     "firstName": {
-                        "type": "string",
-                        "description": "NM104"
+                        "type": "string"
                     },
                     "lastName": {
-                        "type": "string",
-                        "description": "NM103"
+                        "type": "string"
                     },
                     "middleName": {
-                        "type": "string",
-                        "description": "NM105"
+                        "type": "string"
                     },
                     "suffix": {
-                        "type": "string",
-                        "description": "NM107"
+                        "type": "string"
                     },
                     "organizationName": {
-                        "type": "string",
-                        "description": "NM103"
+                        "type": "string"
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -5908,7 +5876,7 @@
             },
             "OtherInsuredIdentifierTypeCode": {
                 "type": "string",
-                "description": "Loop: 2330A, Segment: NM1, Element: NM108, Notes: Allowable values are: 'II' Standard Unique HealthIdentifier for each individual in the United States and 'MI' member identification number",
+                "description": "Code identifying the type of identifier. Can be set to `II` - Standard Unique Health Identifier for each individual in the United States or `MI` - Member Identification Number. The code `MI` should be the subscriber's identification number as assigned by the payer, such as their subscriber ID. You should also use `MI` in claims submitted to the Indian Health Service/Contract Health Services (IHS/CHS) Fiscal Intermediary for the purpose of reporting the Tribe Residency Code (Tribe County State). For IHS/CHS claims, you should also put the SSN in the `otherInsuredAdditionalIdentifier` field.)",
                 "enum": [
                     "II",
                     "MI"
@@ -5916,7 +5884,7 @@
             },
             "OtherInsuredQualifier": {
                 "type": "string",
-                "description": "Loop: 2330A, Segment: NM1, Element: NM102, Notes: Allowed Values are: '1' Person, '2' Non-Person Entity",
+                "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity.",
                 "enum": [
                     "1",
                     "2"
@@ -5954,7 +5922,7 @@
             },
             "OtherPayerIdentifierTypeCode": {
                 "type": "string",
-                "description": "Loop: 2330B; Segment: NM1, Element: NM108, Notes: Allowable values: 'PI' Payor Identification and 'XV' Centers for Medicare/Medicaid Services PlanID",
+                "description": "Code designating the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID. Use code value `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
                 "enum": [
                     "PI",
                     "XV"
@@ -5962,25 +5930,25 @@
             },
             "OtherPayerName": {
                 "type": "object",
-                "description": "Loop: 2330B",
+                "description": "Details about the other payer.",
                 "properties": {
                     "otherPayerOrganizationName": {
                         "type": "string",
-                        "description": "Loop: 2330B; Segment: NM1, Element: NM103"
+                        "description": "The payer's organization name."
                     },
                     "otherPayerIdentifierTypeCode": {
                         "$ref": "#/components/schemas/OtherPayerIdentifierTypeCode"
                     },
                     "otherPayerIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2330B; Segment: NM1, Element: NM109"
+                        "description": "The identifier specified in `otherPayerIdentifierCode`. When sending Line Adjudication Information for this payer, the identifier sent in `lineAdjudicationInformation.otherPayerPrimaryIdentifier` must match this value."
                     },
                     "otherPayerAddress": {
                         "$ref": "#/components/schemas/ClaimsAddress"
                     },
                     "otherPayerAdjudicationOrPaymentDate": {
                         "type": "string",
-                        "description": "Loop: 2330B, Segment: DTP, Element: DTP03"
+                        "description": "The date the other payer adjudicated the claim. Required when this payer has previously adjudicated the claim and you aren’t including a value for `LineAdjudicationInformation.adjudicationOrPaymentDate`."
                     },
                     "otherPayerSecondaryIdentifier": {
                         "type": "array",
@@ -5989,7 +5957,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 0,
-                        "description": "Loop: 2330B, Segment: REF"
+                        "description": "An additional identication number to identify the other payer."
                     },
                     "otherPayerPriorAuthorizationNumber": {
                         "type": "string",
@@ -6099,7 +6067,7 @@
             },
             "OtherSubscriberInformation": {
                 "type": "object",
-                "description": "Loop 2320",
+                "description": "Required when other payers are known to potentially be involved in paying on this claim.",
                 "properties": {
                     "paymentResponsibilityLevelCode": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationPaymentResponsibilityLevelCode"
@@ -6109,11 +6077,11 @@
                     },
                     "insuranceGroupOrPolicyNumber": {
                         "type": "string",
-                        "description": "Loop: 2320, Segment: SBR, Element: SBR03"
+                        "description": "The group or policy number."
                     },
                     "otherInsuredGroupName": {
                         "type": "string",
-                        "description": "Loop: 2000B, Segment: SBR, Element: SBR04"
+                        "description": "The name of the insurance plan."
                     },
                     "insuranceTypeCode": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationInsuranceTypeCode"
@@ -6128,26 +6096,26 @@
                         },
                         "maxItems": 5,
                         "minItems": 0,
-                        "description": "Loop: 2320, Segment: CAS"
+                        "description": "Use this object to report prior payers' claim level adjustments that cause the amount paid to differ from the amount originally charged. Codes and associated amounts must come from either paper remittance advice or 835s (Electronic Remittance Advice) received on the claim. When the information originates from a paper remittance advice that does not use the standard Claim Adjustment Reason Codes, you must convert them to standard Claim Adjustment Reason Codes."
                     },
                     "payerPaidAmount": {
                         "type": "string",
-                        "description": "Loop: 2320, Segment: AMT, Element: AMT02 when AMT01=D, Notes: It is acceptable to show '0' (Zero)"
+                        "description": "The total amount in dollars the payer has paid on this claim. It is acceptable to set this to `0` (Zero). This is required when you include the `payToPlan` object, and you should set it to the amount the Medicaid agency actually paid."
                     },
                     "nonCoveredChargeAmount": {
                         "type": "string",
-                        "description": "Loop: 2320, Segment: AMT, Element: AMT02 when AMT01=A8"
+                        "description": "Required when the destination payer's cost avoidance policy allows providers to bypass claim submission to the otherwise prior payer identified in `otherSubscriberInformation.otherPayerName`. The amount must equal the total claim charge amount you reported in `claimInformation.claimChargeAmount`."
                     },
                     "remainingPatientLiability": {
                         "type": "string",
-                        "description": "Loop: 2320, Segment: AMT, Element: AMT02 when AMT01=EAF"
+                        "description": "This is the remaining amount (as determined by the provider) to be paid after the other payer identified in the `otherPayerName` object has adjudicated the claim."
                     },
                     "benefitsAssignmentCertificationIndicator": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationBenefitsAssignmentCertificationIndicator"
                     },
                     "patientSignatureGeneratedForPatient": {
                         "type": "boolean",
-                        "description": "Loop: 2320, Segment: OI, Element: OI04, Notes: Allowable value is 'P' Signature generated by provider because the patient was not physically present for services"
+                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set to `P` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law."
                     },
                     "releaseOfInformationCode": {
                         "$ref": "#/components/schemas/ReleaseOfInformationCode"
@@ -6204,7 +6172,7 @@
             },
             "OtherSubscriberInformationBenefitsAssignmentCertificationIndicator": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: OI, Element: OI03, Notes: Allowable values are: 'N' No, 'W' Not Applicable, 'Y' Yes",
+                "description": "Code indicating whether whether or not the insured has authorized the plan to remit payment directly to the provider. Can be set to `N` - No, `W` - Not Applicable, or `Y` - Yes.",
                 "enum": [
                     "N",
                     "W",
@@ -6213,7 +6181,7 @@
             },
             "OtherSubscriberInformationInsuranceTypeCode": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: SBR, Element: SBR05, Notes: Allowable Values are:  '12' Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan, '13' Medicare Secondary End-Stage Renal Disease Beneficiary in the Mandated Coordination Period, '14' Medicare Secondary, No-fault Insurance including Auto is Primary, '15' Medicare Secondary Worker's Compensation, '16' Medicare Secondary Public Health Service (PHS)or Other Federal Agency, '41' Medicare Secondary Black Lung,  '42' Medicare Secondary Veteran's Administration, '43' Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP), '47' Medicare Secondary, Other Liability Insurance is Primary",
+                "description": "Code identifying the type of insurance policy within a specific insurance program. Visit `SBR05` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -6228,7 +6196,7 @@
             },
             "OtherSubscriberInformationPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: SBR, Element: SBR01, Notes: Allowable values are 'A' Payer Responsibility Four, 'B' Payer Responsibility Five, 'C' Payer Responsibility Six, 'D' Payer Responsibility Seven, 'E' Payer Responsibility Eight, 'F' Payer Responsibility Nine, 'G' Payer Responsibility Ten, 'H' Payer Responsibility Eleven, 'P' Primary, 'S' Secondary, 'T' Tertiary, and 'U' Unknown",
+                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit `SBR01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.payer_responsibility_sequence_number_code_01) for a complete list.",
                 "enum": [
                     "A",
                     "B",
@@ -6246,40 +6214,40 @@
             },
             "OtherSubscriberName": {
                 "type": "object",
-                "description": "Loop: 2330A",
+                "description": "The person or entity who is the primary policyholder for the insurance plan.",
                 "properties": {
                     "otherInsuredQualifier": {
                         "$ref": "#/components/schemas/OtherInsuredQualifier"
                     },
                     "otherInsuredLastName": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: NM1, Element: NM103"
+                        "description": "The primary policyholder's last name or organizational name."
                     },
                     "otherInsuredFirstName": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: NM1, Element: NM102, Notes: Required when NM102 = 1 (Person)"
+                        "description": "The primary policyholder's first name, if they are an individual."
                     },
                     "otherInsuredMiddleName": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: NM1, Element: NM105, Notes: Required when NM102 = 1 (Person)"
+                        "description": "The primary policyholder's middle name or initial, if they are an individual."
                     },
                     "otherInsuredNameSuffix": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: NM1, Element: NM107, Notes: Required when NM102 = 1 (Person)"
+                        "description": "The primary policyholder's name suffix, such as Jr. or III."
                     },
                     "otherInsuredIdentifierTypeCode": {
                         "$ref": "#/components/schemas/OtherInsuredIdentifierTypeCode"
                     },
                     "otherInsuredIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: NM1, Element: NM109"
+                        "description": "The identifier you specified in `otherInsuredIdentifierTypeCode`."
                     },
                     "otherInsuredAddress": {
                         "$ref": "#/components/schemas/ClaimsAddress"
                     },
                     "otherInsuredAdditionalIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2330A, Segment: REF, Element: REF02 when REF01=SY"
+                        "description": "The primary policyholder's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. For example `123456789`."
                     }
                 },
                 "required": [
@@ -6304,7 +6272,7 @@
             },
             "PatientConditionInformationVision": {
                 "type": "object",
-                "description": "Loop 2300, Segment: CRC",
+                "description": "Required on vision claims involving replacement lenses or frames when this information is known to impact reimbursement. .",
                 "properties": {
                     "codeCategory": {
                         "$ref": "#/components/schemas/CodeCategory"
@@ -6319,7 +6287,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Loop: 2300, Segment: CRC, Element: CRC03 to CRC07, Notes: CRC03 is required, others are situational. Allowed Values are: 'L1' General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met, 'L2' Replacement Due to Loss or Theft, 'L3' Replacement Due to Breakage or Damage, L4' Replacement Due to Patient Preference, 'L5' Replacement Due to Medical Reason"
+                        "description": "Code indicating the reason for the vision services. Can be Set to `L1` - General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met, `L2` - Replacement Due to Loss or Theft, `L3` - Replacement Due to Breakage or Damage, `L4` - Replacement Due to Patient Preference, or `L5` - Replacement Due to Medical Reason"
                     }
                 },
                 "required": [
@@ -6330,7 +6298,7 @@
             },
             "PatientConditionInformationVisionCertificationConditionIndicator": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CRC, Element: CRC02, Notes: Allowed Values are: 'N' No, 'Y' Yes",
+                "description": "Code indicating whether there is a certification. Can be set to `N` - No or `Y` - Yes.",
                 "enum": [
                     "N",
                     "Y"
@@ -6338,6 +6306,7 @@
             },
             "PatientConditionInformationVisionConditionCodesItem": {
                 "type": "string",
+                "description": "Code indicating the reason for the vision services. Can be Set to `L1` - General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met, `L2` - Replacement Due to Loss or Theft, `L3` - Replacement Due to Breakage or Damage, `L4` - Replacement Due to Patient Preference, or `L5` - Replacement Due to Medical Reason",
                 "enum": [
                     "L1",
                     "L2",
@@ -6348,18 +6317,18 @@
             },
             "PayToPlan": {
                 "type": "object",
-                "description": "2010AC",
+                "description": "Use for subrogation payment requests. If you include this information, you must also set the `claimInformation.otherSubscriberInformation.payerPaidAmount` to the amount the payer (for example, Medicaid) actually paid.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "Loop: 2010AC, Segment: NM1, Element: NM103"
+                        "description": "The last name of the individual, or the business name of the pay-to-plan organization."
                     },
                     "primaryIdentifierTypeCode": {
                         "$ref": "#/components/schemas/PrimaryIdentifierTypeCode"
                     },
                     "primaryIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2010AC, Segment: NM1, Element: NM109"
+                        "description": "The identifier you specified in `primaryIdentifierTypeCode`."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -6369,11 +6338,10 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02"
+                        "description": "The secondary identifier you specified in `secondaryIdentifierTypeCode`."
                     },
                     "taxIdentificationNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -6737,7 +6705,7 @@
             },
             "PlanParticipationCode": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM07, Note: Allowed Values are: 'A' Assigned, 'B' Assignment Accepted on Clinical Lab Services Only, 'C' Not Assigned",
+                "description": "Code indicating whether the provider accepts assignment. This refers to whether the provider accepts assignment and/or has a participation agreement with the destination payer. It does not indicate whether the patient has assigned benefits to the provider. Can be set to `A` - Assigned, `B` - Assignment Accepted on Clinical Lab Services Only, or `C` - Not Assigned. Choose `A` when the provider accepts assignment and/or has a participation agreement with the destination payer, OR the provider does not accept assignment and/or have a participation agreement, but is advising the payer to adjudicate this specific claim under the participating provider benefits allowed under certain plans.",
                 "enum": [
                     "A",
                     "B",
@@ -6766,7 +6734,7 @@
             },
             "PolicyComplianceCode": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: HCP, Element: HCP14, Note: Allowed Values are: '1' Procedure Followed (Compliance), '2' Not Followed - Call Not Made (Non-Compliance Call Not Made), '3' Not Medically Necessary (Non-Compliance Non-Medically Necessary), '4' Not Followed Other (Non-Compliance Other), '5' Emergency Admit to Non-Network Hospital",
+                "description": "Code indicating the policy compliance. Visit `HCP14` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -6777,14 +6745,14 @@
             },
             "PregnancyIndicator": {
                 "type": "string",
-                "description": "Loop 2000B and 2000C, Segment: PAT, Element: PAT09",
+                "description": "Code indicating whether the patient is pregnant. Can be set to `Y` - Yes.",
                 "enum": [
                     "Y"
                 ]
             },
             "PricingMethodologyCode": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: HCP, Element: HCP01, Note: Allowed Values are: '00' Zero Pricing (Not Covered Under Contract), '01' Priced as Billed at 100%, '02' Priced at the Standard Fee Schedule, '03' Priced at a Contractual Percentage, '04' Bundled Pricing, '05' Peer Review Pricing, '06' Bundled Pricing, '07' Flat Rate Pricing, '08' Combination Pricing, '09' Maternity Pricing, '10' Other Pricing, '11' Lower of Cost, '12' Ratio of Cost, '13' Cost Reimbursed, '14' Adjustment Pricing",
+                "description": "Code indicating the pricing or repricing methodology. Visit the `HCP01` in the [Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
                 "enum": [
                     "00",
                     "01",
@@ -6805,7 +6773,7 @@
             },
             "PrimaryIdentifierTypeCode": {
                 "type": "string",
-                "description": "Loop: 2010AC, Segment: NM1, Element: NM108, Notes: 'PI' Payor Identification and 'XV' Centers for Medicare/Medicaid Services PlanID",
+                "description": "Code identifying the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID. Use code value `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
                 "enum": [
                     "PI",
                     "XV"
@@ -7075,11 +7043,11 @@
             },
             "Receiver": {
                 "type": "object",
-                "description": "Loop: 1000B",
+                "description": "The entity responsible for the payment of the claim, such as an insurance company or government agency.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "Loop: 1000B, Segment: NM1, Element: NM103"
+                        "description": "The business name of the payer receiving the claim, such as Aetna or Cigna."
                     }
                 },
                 "required": [
@@ -7091,15 +7059,15 @@
                 "properties": {
                     "qualifier": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF01"
+                        "description": "The code identifying the type of reference number. Can be set to `G2` - Provider Commercial Number or `LU` - Location Number."
                     },
                     "identifier": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF02"
+                        "description": "The reference number."
                     },
                     "otherIdentifier": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF03"
+                        "description": "An additional identifier."
                     }
                 },
                 "required": [
@@ -7109,78 +7077,70 @@
             },
             "Referring": {
                 "type": "object",
-                "description": "Loop: 2420F",
+                "description": "Required when this service line involves a referral and the referring provider differs from that reported at the claim level.",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to `ReferringProvider`."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
-                        "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "type": "string"
                     },
                     "commercialNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "type": "string"
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "type": "string"
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
                     },
                     "taxonomyCode": {
-                        "type": "string",
-                        "description": "PRV03"
+                        "type": "string"
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The provider's first name, if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's last name, if the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The provider's middle name or initial, if the provider is an individual."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The provider's name suffix, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -7195,7 +7155,7 @@
             },
             "RejectReasonCode": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: HCP, Element: HCP13, Note: Allowed Values are: 'T1' Cannot Identify Provider as TPO (Third Party Organization) Participant, 'T2' Cannot Identify Payer as TPO (Third Party Organization) Participant, 'T3' Cannot Identify Insured as TPO (Third Party Organization) Participant, 'T4' Payer Name or Identifier Missing, 'T5' Certification Information Missing, '16' Claim does not contain enough information for repricing",
+                "description": "Code indicating the rejection message returned from the third party organization. Visit `HCP13` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
                 "enum": [
                     "T1",
                     "T2",
@@ -7207,7 +7167,7 @@
             },
             "RelationshipToSubscriberCode": {
                 "type": "string",
-                "description": "Loop: 2000C, Segment: PAT, Element: PAT01, Note: Allowed Values are: '01' Spouse, '19' Child, '20' Employee, '21'  Unknown, '39'  Organ Donor, '40'  Cadaver Donor, '53'  Life Partner, 'G8' Other Relationship",
+                "description": "Identifies the relationship of the patient to the subscriber. Can be set to `01` - Spouse, `19` - Child, `20` - Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.",
                 "enum": [
                     "01",
                     "19",
@@ -7221,7 +7181,7 @@
             },
             "ReleaseInformationCode": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM09, Note: Allowed Values are: 'I' Informed Consent to Release Medical Information for Conditions or Diagnoses Regulated by Federal Statutes, 'Y' Yes",
+                "description": "Indicates whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations. Can be set to `Y` - Yes, or `I` - Informed Consent to Release Medical Information for Conditions or Diagnoses Regulated by Federal Statues. Use `I` when the provider has not collected a signature AND state or federal laws do not require a signature be collected.",
                 "enum": [
                     "I",
                     "Y"
@@ -7229,7 +7189,7 @@
             },
             "ReleaseOfInformationCode": {
                 "type": "string",
-                "description": "Loop: 2320, Segment: OI, Element: OI04, Notes: Allowable values are 'I' Informed Consent to Release Medical Information, 'Y' Yes",
+                "description": "Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations. Can be set to `I` - Informed Consent to Release Medical Information or `Y` - Yes. Set to `I` when the provider has not collected a signature AND state or federal laws do not require a signature be collected.",
                 "enum": [
                     "I",
                     "Y"
@@ -7237,78 +7197,74 @@
             },
             "Rendering": {
                 "type": "object",
-                "description": "Loop: 2420A",
+                "description": "Information about the person or company (laboratory or other facility) who rendered the care. Use this object for all types of rendering providers including laboratories. When a substitute provider (locum tenens) was used, enter that provider's information here.",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to `RenderingProvider`."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "description": "The provider's employer identification number. Must be a string of exactly nine numbers with no separators."
                     },
                     "commercialNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "PRV03"
+                        "description": "The provider's taxonomy code, indicating their specialty."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The provider's first name, if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's last name, if the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The provider's middle name or initial, if the provider is an individual."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The provider's name suffix, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -7323,6 +7279,7 @@
             },
             "ReportInformation": {
                 "type": "object",
+                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/AttachmentReportTypeCode"
@@ -7332,7 +7289,7 @@
                     },
                     "attachmentControlNumber": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: PWK, Element: PWK05"
+                        "description": "The control number assigned to the attachment."
                     }
                 },
                 "required": [
@@ -7342,7 +7299,7 @@
             },
             "ReportInformationAttachmentTransmissionCode": {
                 "type": "string",
-                "description": "Loop: 2400, Segment: PWK, Element: PWK02 Allowed Values are: 'AA' Available on Request at Provider Site, 'BM' By Mail,'EL' Electronically Only, 'EM' E-Mail, 'FT' File Transfer, 'FX' By Fax",
+                "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.",
                 "enum": [
                     "AA",
                     "BM",
@@ -7989,7 +7946,7 @@
             },
             "SecondaryIdentifierTypeCode": {
                 "type": "string",
-                "description": "Loop: 2010AC, Segment: REF, Element: REF01, Notes: '2U Payer Identification Number, 'FY' Claim Office Number, 'NF National Association of Insurance Commissioners'",
+                "description": "Code identifying the type of secondary identifier. Can be set to `2U` - Payer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners. You should only set this to `2U` when you set the `primaryIdentifierTypeCode` to `XV`.",
                 "enum": [
                     "2U",
                     "FY",
@@ -8031,7 +7988,7 @@
             },
             "ServiceAuthorizationExceptionCode": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: REF, Element: REF02 and REF01=4N, Note: '1' Immediate/Urgent Care, '2' Services Rendered in a Retroactive Period, '3' Emergency Care, '4' Client has Temporary Medicaid, '5' Request from County for Second Opinion to Determine if Recipient Can Work, '6' Request for Override Pending, '7' Special Handling, Null",
+                "description": "Code indicating the reason for the service authorization exception. Visit [`REF02` in the Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_authorization_exception_code_REF.properties.service_authorization_exception_code_02) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -8060,17 +8017,18 @@
             },
             "ServiceFacilityLocation": {
                 "type": "object",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this loop is to identify specifically where the service was rendered. When reporting ambulance services, do not use this loop. Use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "Loop: 2420C, Segment: NM1, Element: NM103"
+                        "description": "The last name (if the provider was an individual) or the organization's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
                     },
                     "npi": {
                         "type": "string",
-                        "description": "Loop: 2420C, Segment: NM1, Element: NM109, Note: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "secondaryIdentifier": {
                         "type": "array",
@@ -8079,19 +8037,19 @@
                         },
                         "maxItems": 3,
                         "minItems": 0,
-                        "description": "Loop: 2420C: Segment: REF, Notes: A list containing qualifier (REF01), identifier (REF02), and otherIdentifier(REF04)"
+                        "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an NPI."
                     },
                     "phoneName": {
                         "type": "string",
-                        "description": "Loop: 2310C, Segment: PER, Element: PER02"
+                        "description": "The full name of the person or office."
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "description": "Loop: 2310C, Segment: PER, Element: PER04"
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the country or area code. For example, you would format the phone number `123-456-789. Do not submit long distance access numbers, such as 1, in the telephone number."
                     },
                     "phoneExtension": {
                         "type": "string",
-                        "description": "Loop: 2310C, Segment: PER, Element: PER06"
+                        "description": "The telephone extension, if applicable."
                     }
                 },
                 "required": [
@@ -8610,7 +8568,7 @@
             },
             "SignatureIndicator": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM06, Note: Allowed Values are: 'N' NO, 'Y' Yes",
+                "description": "Indicates whether the provider's signature is on file. Can be set to `N` - No or `Y` - Yes.",
                 "enum": [
                     "N",
                     "Y"
@@ -8618,7 +8576,7 @@
             },
             "SpecialProgramCode": {
                 "type": "string",
-                "description": "Loop 2300, Segment: CLM, Element: CLM12, Note: Allowed Values are: '02' Physically Handicapped Children's Program, '03' Special Federal Funding, '05' Disabolity, '09' Second Opinion or Surgery",
+                "description": "Code indicating the Special Program under which the services rendered to the patient were performed. Used for Medicaid claims only. Can be set to `02` - Physically Handicapped Children's Program, `03` - Special Federal Funding, `05` - Disability, or `09` - Second Opinion or Surgery.",
                 "enum": [
                     "02",
                     "03",
@@ -8628,18 +8586,18 @@
             },
             "SpinalManipulationServiceInformation": {
                 "type": "object",
-                "description": "Loop 2300, Segment: CR2",
+                "description": "Information about a chiropractic service rendered to the patient. Required on chiropractic claims involving spinal manipulation when the information is known to impact the payer's adjudication process.",
                 "properties": {
                     "patientConditionCode": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CR, Element: CR208"
+                        "description": "A code indicating the nature of a patient's condition. Can be set to `A` - Acute Condition, `C` - Chronic Condition, `D` - Non-acute, `E` - Non-Life Threatening, `F` - Routine, `G` - Symptomatic, or `M` - Acute Manifestation of a Chronic Condition."
                     },
                     "patientConditionDescription1": {
                         "$ref": "#/components/schemas/PatientConditionDescription1"
                     },
                     "patientConditionDescription2": {
                         "type": "string",
-                        "description": "Loop: 2300, Segment: CR, Element: CR211"
+                        "description": "Additional description of the patient's condition"
                     }
                 },
                 "required": [
@@ -8682,27 +8640,27 @@
             },
             "Submitter": {
                 "type": "object",
-                "description": "Loop: 1000A",
+                "description": "The entity submitting the healthcare claim. This can be either an individual or an organization, such as a doctor, hospital, or insurance company.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "Loop: 1000A,  Segment: NM1, Element: NM103"
+                        "description": "The business name of the organization submitting the claim."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "Loop: 1000A,  Segment: NM1, Element: NM103"
+                        "description": "The last name of the individual submitting the claim."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "Loop: 1000A,  Segment: NM1, Element: NM104"
+                        "description": "The first name of the individual submitting the claim."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "Loop: 1000A,  Segment: NM1, Element: NM105"
+                        "description": "The middle name or initial of the individual submitting the claim."
                     },
                     "submitterIdentification": {
                         "type": "string",
-                        "description": "Loop: 1000A,  Segment: NM1, Element: NM109. Notes: Submitter Identifier. If not provided, the billing_provider npi will be used"
+                        "description": "The submitter identification number. If not provided, Stedi uses the billing provider's NPI."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
@@ -8714,60 +8672,60 @@
             },
             "Subscriber": {
                 "type": "object",
-                "description": "Loop: 2000B",
+                "description": "The person or entity who is the primary policyholder for the insurance plan.",
                 "properties": {
                     "memberId": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: NM1, Element: NM109"
+                        "description": "The member ID for the subscriber's insurance policy."
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: REF, Element: REF02 when REF01=SY"
+                        "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, send `111002222` instead of `111-00-2222`."
                     },
                     "paymentResponsibilityLevelCode": {
                         "$ref": "#/components/schemas/SubscriberPaymentResponsibilityLevelCode"
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "Loop: 2010BA, Segment: NM1, Element: NM103 when NM102=2, Notes: when subscriber is organization pass patient as dependent"
+                        "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object."
                     },
                     "insuranceTypeCode": {
                         "$ref": "#/components/schemas/SubscriberInsuranceTypeCode"
                     },
                     "subscriberGroupName": {
                         "type": "string",
-                        "description": "Loop: 2000B,  Segment: SBR, Element: SBR04 Notes: Freeform text"
+                        "description": "The name of the subscriber's insurance plan. For example, Cigna or Blue Cross Blue Shield."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: NM1, Element: NM104"
+                        "description": "The subscriber's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: NM1, Element: NM103"
+                        "description": "The subscriber's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: NM, Element: NM105"
+                        "description": "The subscriber's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: NM, Element: NM107"
+                        "description": "The suffix of the subscriber's name, such as Jr. or Sr."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/SubscriberGender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: DMG, Element: DMG02"
+                        "description": "The subscriber's date of birth. Expressed in format YYYYMMDD."
                     },
                     "policyNumber": {
                         "type": "string",
-                        "description": "Loop: 2000B,  Segment: SBR, Element: SBR03"
+                        "description": "The subscriber's insurance policy number."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "Loop: 2010BA,  Segment: SBR, Element: SBR04"
+                        "description": "The group number for the subscriber's insurance plan."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
@@ -8782,7 +8740,7 @@
             },
             "SubscriberGender": {
                 "type": "string",
-                "description": "Loop: 2010BA,  Segment: DMG, Element: DMG03 Subscriber Gender, Notes: 'M' Male, 'F' Female'U' Unknown",
+                "description": "Identifies the subscriber's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.",
                 "enum": [
                     "M",
                     "F",
@@ -8791,7 +8749,7 @@
             },
             "SubscriberInsuranceTypeCode": {
                 "type": "string",
-                "description": "Loop: 2000B,  Segment: SBR, Element:SBR05 Notes: Allowed values: '12' Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan, '13' Medicare Secondary End-Stage Renal Disease Beneficiary in the Mandated Coordination Period with an Employer's Group Health Plan, '14' Medicare Secondary, No-fault Insurance including Auto is Primary, '15' Medicare Secondary Worker's Compensation, '16' Medicare Secondary Public Health Service (PHS)or Other Federal Agency, '41' Medicare Secondary Black Lung, '42' Medicare Secondary Veteran's Administration, '43' Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP), '47' Medicare Secondary, Other Liability Insurance is Primary",
+                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [`SBR05` in the Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -8806,7 +8764,7 @@
             },
             "SubscriberPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Loop: 2000B, Segment: SBR, Element: SBR01, Allowed Values:'A' Payer Responsibility Four 'B' Payer Responsibility Five 'C' Payer Responsibility Six 'D' Payer Responsibility Seven 'E' Payer Responsibility Eight 'F' Payer Responsibility Nine 'G' Payer Responsibility Ten 'H' Payer Responsibility Eleven 'P' Primary 'S' Secondary 'T' Tertiary 'U' Unknown",
+                "description": "Identifies the insurance company's level of responsibility for claim payment. Can be set to: `A` - Payer Responsibility Four, `B` - Payer Responsibility Five, `C` - Payer Responsibility Six, `D` - Payer Responsibility Seven, `E` - Payer Responsibility Eight, `F` - Payer Responsibility Nine, `G` - Payer Responsibility Ten, 'H' - Payer Responsibility Eleven, 'P' - Primary, 'S' - Secondary, `T` - Tertiary, and `U` - Unknown. The `U` option is only used in payer to payer claims.",
                 "enum": [
                     "A",
                     "B",
@@ -8850,78 +8808,72 @@
             },
             "Supervising": {
                 "type": "object",
-                "description": "Loop: 2420D",
+                "description": "The entity responsible for supervising the healthcare services provided. Applies when the rendering provider is supervised by a physician.",
                 "properties": {
                     "providerType": {
                         "type": "string"
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
-                        "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "type": "string"
                     },
                     "commercialNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "description": "The commercial number of the supervising provider."
                     },
                     "locationNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "description": "The location number of the supervising provider."
                     },
                     "payerIdentificationNumber": {
                         "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "description": "The payer identification number of the supervising provider."
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "description": "The state license number of the supervising provider."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "description": "The UPIN number of the supervising provider. You must format this value as  either X99999 or XXX999."
                     },
                     "taxonomyCode": {
-                        "type": "string",
-                        "description": "PRV03"
+                        "type": "string"
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The first name of the supervising provider."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The last name of the supervising provider."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The middle name or initial of the supervising provider."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The suffix of the supervising provider's name, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The supervising provider's business name, when the provider is not an individual."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
