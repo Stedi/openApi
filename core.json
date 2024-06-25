@@ -3137,6 +3137,343 @@
         }
       }
     },
+    "/x12/partnerships/{partnershipId}/configuration": {
+      "delete": {
+        "operationId": "DeleteX12PartnershipConfiguration",
+        "parameters": [
+          {
+            "name": "partnershipId",
+            "in": "path",
+            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "schema": {
+              "type": "string",
+              "maxLength": 81,
+              "minLength": 1,
+              "pattern": "^([a-zA-Z0-9_-]+)$",
+              "description": "Identifier chosen by the user to uniquely identify a partnership."
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "DeleteX12PartnershipConfiguration 200 response"
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "GetX12PartnershipConfiguration",
+        "parameters": [
+          {
+            "name": "partnershipId",
+            "in": "path",
+            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "schema": {
+              "type": "string",
+              "maxLength": 81,
+              "minLength": 1,
+              "pattern": "^([a-zA-Z0-9_-]+)$",
+              "description": "Identifier chosen by the user to uniquely identify a partnership."
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetX12PartnershipConfiguration 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetX12PartnershipConfigurationResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "operationId": "PutX12PartnershipConfiguration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PutX12PartnershipConfigurationRequestContent"
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "partnershipId",
+            "in": "path",
+            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "schema": {
+              "type": "string",
+              "maxLength": 81,
+              "minLength": 1,
+              "pattern": "^([a-zA-Z0-9_-]+)$",
+              "description": "Identifier chosen by the user to uniquely identify a partnership."
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PutX12PartnershipConfiguration 200 response"
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceConflictException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceConflictExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/x12/partnerships/{partnershipId}/generate-edi": {
       "post": {
         "description": "This endpoint generates and delivers fully-formed EDI files to your trading partners.",
@@ -4150,6 +4487,17 @@
           "transactionId"
         ]
       },
+      "GetX12PartnershipConfigurationResponseContent": {
+        "type": "object",
+        "properties": {
+          "ackConfiguration": {
+            "$ref": "#/components/schemas/X12PartnershipAckConfiguration"
+          },
+          "processingConfiguration": {
+            "$ref": "#/components/schemas/ProcessingConfiguration"
+          }
+        }
+      },
       "Index": {
         "type": "object",
         "properties": {
@@ -4305,6 +4653,33 @@
           "other"
         ]
       },
+      "OutboundConnection": {
+        "type": "object",
+        "properties": {
+          "connectionType": {
+            "$ref": "#/components/schemas/ConnectionType"
+          },
+          "connectionId": {
+            "type": "string",
+            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
+            "description": "Autogenerated identifier for a connection"
+          },
+          "subdirectory": {
+            "type": "string",
+            "maxLength": 105,
+            "description": "Optional subdirectory used to store generated EDI files"
+          },
+          "filename": {
+            "type": "string",
+            "maxLength": 64,
+            "description": "Optional filename used when creating the acknowledgment"
+          }
+        },
+        "required": [
+          "connectionId",
+          "connectionType"
+        ]
+      },
       "Partnership": {
         "type": "object",
         "properties": {
@@ -4366,6 +4741,36 @@
           "x12",
           "edifact"
         ]
+      },
+      "ProcessingConfiguration": {
+        "type": "object",
+        "properties": {
+          "strategy": {
+            "$ref": "#/components/schemas/ProcessingStrategy"
+          }
+        },
+        "required": [
+          "strategy"
+        ]
+      },
+      "ProcessingStrategy": {
+        "type": "string",
+        "description": "The configuration of stedi core when processing an inbound transaction.\n\ncode | description\n-----|--------------------------\nAllTransactions  | all transactions in the interchange must succeed processing for any to a succeed\nAnyTransaction  | any good transaction can succeed regardless of their neighbours",
+        "enum": [
+          "AllTransactions",
+          "AnyTransaction"
+        ]
+      },
+      "PutX12PartnershipConfigurationRequestContent": {
+        "type": "object",
+        "properties": {
+          "ackConfiguration": {
+            "$ref": "#/components/schemas/X12PartnershipAckConfiguration"
+          },
+          "processingConfiguration": {
+            "$ref": "#/components/schemas/ProcessingConfiguration"
+          }
+        }
       },
       "ResourceConflictExceptionResponseContent": {
         "type": "object",
@@ -4672,6 +5077,14 @@
           "08"
         ]
       },
+      "X12FunctionalAcknowledgmentType": {
+        "type": "string",
+        "description": "The transaction set to use when acknowledging a functional group.\n\ncode | description\n-----|--------------------------\n997  | Used in all transaction sets. Not used to respond to a 997\n999  | Used in some healthcare transaction sets. Not used to respond to a 999.",
+        "enum": [
+          "997",
+          "999"
+        ]
+      },
       "X12InterchangeAuthorization": {
         "type": "object",
         "description": "Set values for [ISA header](https://www.stedi.com/edi/x12/segment/ISA) elements (ISA-01 to ISA-04).",
@@ -4695,6 +5108,26 @@
             "description": "The security information referenced by the `securityInformationQualifier` (`ISA-04`). Typically, this is a password."
           }
         }
+      },
+      "X12PartnershipAckConfiguration": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "negativeAcknowledgmentEnabled": {
+            "type": "boolean"
+          },
+          "functionalAcknowledgmentType": {
+            "$ref": "#/components/schemas/X12FunctionalAcknowledgmentType"
+          },
+          "connection": {
+            "$ref": "#/components/schemas/OutboundConnection"
+          }
+        },
+        "required": [
+          "enabled"
+        ]
       },
       "X12SecurityInformationQualifier": {
         "type": "string",
