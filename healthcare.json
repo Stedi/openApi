@@ -1825,7 +1825,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Code indicating the condition of the patient at the time of tramsport. Can be set to `01` - Patient was admitted to a hospital, `04` - Patient was moved by stretcher, `05` - Patient was unconscious or in shock, `06` - Patient was transported in an emergency situation, `07` - Patient had to be physically restrained, `08` - Patient had visible hemorrhaging, `09` - Ambulance service was medically necessary, or `12` - Patient is confined to a bed or chair. Use code `12` when the patient is bedridden during transport."
+                        "description": "Code indicating the condition of the patient at the time of tramsport. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_certification_CRC.items.properties.condition_code_03) for a complete list."
                     }
                 },
                 "required": [
@@ -1843,6 +1843,7 @@
             },
             "AmbulanceCertificationConditionCodesItem": {
                 "type": "string",
+                "description": "Code indicating the condition of the patient at the time of tramsport. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_certification_CRC.items.properties.condition_code_03) for a complete list.",
                 "enum": [
                     "01",
                     "04",
@@ -1885,7 +1886,7 @@
             },
             "AmbulanceTransportReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit the [`CR1-04` element](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_transport_information_CR1) in the X12 HIPAA professional claim specification for a complete list.",
+                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit `CR104` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_transport_information_CR1) for a complete list.",
                 "enum": [
                     "A",
                     "B",
@@ -1896,7 +1897,7 @@
             },
             "AttachmentReportTypeCode": {
                 "type": "string",
-                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit the [PWK-01 element](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_supplemental_information_PWK) in the X12 HIPAA Professional claim specification for a complete list.",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit `PWK01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_supplemental_information_PWK) for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -2514,7 +2515,7 @@
             },
             "CertificationTypeCode": {
                 "type": "string",
-                "description": "Loop: 2400, Segment: CR3, Element: CR301, Note: Allowed Values are: 'I' Initial, 'R' Renewal, 'S' Revised",
+                "description": "Code indicating the type of certification. Can be set to `I` - Initial, `R` - Renewal, or `S` - Revised.",
                 "enum": [
                     "I",
                     "R",
@@ -2559,10 +2560,11 @@
             },
             "ClaimAdjustmentDetails": {
                 "type": "object",
+                "description": "The adjustment reason codes and amounts.",
                 "properties": {
                     "adjustmentReasonCode": {
                         "type": "string",
-                        "description": "Code identifying the detailed reason the adjustment was made. Visit [X12 Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) for a complete list."
+                        "description": "Code identifying the detailed reason the adjustment was made. Visit the X12 [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) for a complete list."
                     },
                     "adjustmentAmount": {
                         "type": "string",
@@ -2703,7 +2705,7 @@
             },
             "ClaimFilingCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR-09` element in the [Professional Claim EDI specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a2/01GRYB6EJ999Y6MZ53ZBAHYBHE#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR09` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a2/01GRYB6EJ999Y6MZ53ZBAHYBHE#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -2732,7 +2734,7 @@
             },
             "ClaimFilingIndicatorCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit the `SBR-09` element in the [Professional Claim EDI specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.claim_filing_indicator_code_09) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR09` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.claim_filing_indicator_code_09) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -2949,7 +2951,7 @@
                         },
                         "maxItems": 50,
                         "minItems": 1,
-                        "description": "Loop 2400"
+                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day."
                     }
                 },
                 "required": [
@@ -2990,23 +2992,23 @@
                 "properties": {
                     "additionalInformation": {
                         "type": "string",
-                        "description": "Additional information"
+                        "description": "Additional information."
                     },
                     "certificationNarrative": {
                         "type": "string",
-                        "description": "Certification narrative"
+                        "description": "Certification narrative."
                     },
                     "goalRehabOrDischargePlans": {
                         "type": "string",
-                        "description": "Information about goals, rehabilitation potential, or discharge plans"
+                        "description": "Information about goals, rehabilitation potential, or discharge plans."
                     },
                     "diagnosisDescription": {
                         "type": "string",
-                        "description": "Additional information about the diagnosis"
+                        "description": "Additional information about the diagnosis."
                     },
                     "thirdPartOrgNotes": {
                         "type": "string",
-                        "description": "Notes from a third-party organization"
+                        "description": "Notes from a third-party organization."
                     }
                 }
             },
@@ -3058,42 +3060,43 @@
             },
             "ClaimReference": {
                 "type": "object",
-                "description": "Collection of info specific to a given claim",
+                "description": "Information about the claim.",
                 "properties": {
                     "correlationId": {
                         "type": "string",
-                        "description": "Claim correlation ID"
+                        "description": "An identifier Stedi assigns to the claim."
                     },
                     "submitterId": {
                         "type": "string",
-                        "description": "Submitter ID for transaction"
+                        "description": "Stedi's ID for the entity that submitted the claim."
                     },
                     "customerClaimNumber": {
                         "type": "string",
-                        "description": "Claim number"
+                        "description": "A tracking number that Stedi assigns to the claim."
                     },
                     "patientControlNumber": {
                         "type": "string",
-                        "description": "Control number for claim"
+                        "description": "The `patientControlNumber` from the original request, if supplied. This is a unique identifier that you assign to the claim so you can track the claim and correlate it with responses from the payer."
                     },
                     "timeOfResponse": {
                         "type": "string",
-                        "description": "Time of response for claim"
+                        "description": "A timestamp for Stedi's response to the claim submission."
                     },
                     "claimType": {
                         "type": "string",
-                        "description": "Claim Type"
+                        "description": "The type of claim, currently not used."
                     },
                     "payerID": {
                         "type": "string",
-                        "description": "Payer ID"
+                        "description": "The ID of the payer. This is the same as the `tradingPartnerServiceId`."
                     },
                     "formatVersion": {
                         "type": "string",
-                        "description": "Format version"
+                        "description": "The X12 EDI version Stedi used to generate the claim for the payer. This is always `5010`."
                     },
                     "rhclaimNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A tracking number Stedi assigns to the claim. This is the same as the `correlationId`."
                     }
                 }
             },
@@ -3680,27 +3683,27 @@
                 "properties": {
                     "field": {
                         "type": "string",
-                        "description": "The field related to the error"
+                        "description": "The field related to the error."
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value for bad data error"
+                        "description": "The value for the data causing the error."
                     },
                     "code": {
                         "type": "string",
-                        "description": "Error code"
+                        "description": "The error code."
                     },
                     "description": {
                         "type": "string",
-                        "description": "Description of error message."
+                        "description": "The description of the error code."
                     },
                     "followupAction": {
                         "type": "string",
-                        "description": "Follow up action to correct"
+                        "description": "Recommended followup actions to correct the error."
                     },
                     "location": {
                         "type": "string",
-                        "description": "Location of error"
+                        "description": "Where the error is located in the original request."
                     }
                 }
             },
@@ -3735,7 +3738,7 @@
             },
             "ClaimsIndividualRelationshipCode": {
                 "type": "string",
-                "description": "Code identifying the the relationship to the person insured. Visit `SBR-02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.individual_relationship_code_02) for a complete list.",
+                "description": "Code identifying the the relationship to the person insured. Visit `SBR02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.individual_relationship_code_02) for a complete list.",
                 "enum": [
                     "01",
                     "18",
@@ -3750,12 +3753,15 @@
             },
             "ClaimsPayer": {
                 "type": "object",
+                "description": "Information about the payer for the submitted claim.",
                 "properties": {
                     "payerName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's business name, such as Aetna or Cigna."
                     },
                     "payerID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`."
                     }
                 }
             },
@@ -3779,11 +3785,11 @@
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "Transaction Set Control Number"
+                        "description": "An identifier for the transaction."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "Payer ID"
+                        "description": "The Payer ID. This value matches what you submitted in the claim."
                     },
                     "claimReference": {
                         "$ref": "#/components/schemas/ClaimReference"
@@ -3793,7 +3799,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ClaimsError"
                         },
-                        "description": "List of errors"
+                        "description": "A list of errors. Currently not used."
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
@@ -3802,13 +3808,15 @@
                         "$ref": "#/components/schemas/ResponseMeta"
                     },
                     "editStatus": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Currently not used."
                     },
                     "editResponses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EditResponse"
-                        }
+                        },
+                        "description": "Currently not used."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/ClaimsPayer"
@@ -3905,11 +3913,11 @@
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "Transaction Set Control Number"
+                        "description": "An identifier for the transaction."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "Payer ID"
+                        "description": "The Payer ID. This value matches what you submitted in the claim."
                     },
                     "claimReference": {
                         "$ref": "#/components/schemas/ClaimReference"
@@ -3919,7 +3927,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ClaimsError"
                         },
-                        "description": "List of errors"
+                        "description": "A list of errors. Currently not used."
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
@@ -3928,13 +3936,15 @@
                         "$ref": "#/components/schemas/ResponseMeta"
                     },
                     "editStatus": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Currently not used."
                     },
                     "editResponses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EditResponse"
-                        }
+                        },
+                        "description": "Currently not used."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/ClaimsPayer"
@@ -4029,7 +4039,7 @@
             },
             "CompositeDiagnosisCodePointers": {
                 "type": "object",
-                "description": "SVC107",
+                "description": "Diagnosis codes in order of importance to this service line. The first diagnosis code is the primary diagnosis code.",
                 "properties": {
                     "diagnosisCodePointers": {
                         "type": "array",
@@ -4038,7 +4048,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Loop: 2400, Segment: SV1, Element: SV107-01, SV107-02, SV107-03, SV107-04"
+                        "description": "A diagnosis code for this service line."
                     }
                 },
                 "required": [
@@ -4083,7 +4093,7 @@
             },
             "ConditionIndicator": {
                 "type": "string",
-                "description": "Loop 2400, Segment: CRC, Element: CRC03, Note: Allowed Values are: '38' Certification signed by the physician is on file at the supplier's office, 'ZV' Replacement Item",
+                "description": "Code indicating the condition of the certificate. Can be set to `38` - Certification signed by the physician is on file at the supplier's office or `ZV` - Replacement Item.",
                 "enum": [
                     "38",
                     "ZV"
@@ -4091,7 +4101,7 @@
             },
             "ConditionIndicatorCode": {
                 "type": "string",
-                "description": "Loop 2400, Segment: CRC, Element: CRC04, Note: Allowed Values are: '38' Certification signed by the physician is on file at the supplier's office, 'ZV' Replacement Item",
+                "description": "A second code indicating the condition of the certificate. Can be set to `38` - Certification signed by the physician is on file at the supplier's office or `ZV` - Replacement Item.",
                 "enum": [
                     "38",
                     "ZV"
@@ -4099,7 +4109,7 @@
             },
             "ConditionIndicatorDurableMedicalEquipment": {
                 "type": "object",
-                "description": "CRC",
+                "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or a DMERC Information Form (DIF), or Oxygen Therapy Certification is included on this service line and the information is necessary for adjudication.",
                 "properties": {
                     "certificationConditionIndicator": {
                         "$ref": "#/components/schemas/ConditionIndicatorDurableMedicalEquipmentCertificationConditionIndicator"
@@ -4159,27 +4169,26 @@
             },
             "ContactInformationOrderingProvider": {
                 "type": "object",
-                "description": "PER",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER02 and PER01=IC"
+                        "description": "The full name of the person or office."
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 (Provider, Submitter, Subscriber, Dependent) or PER06 (Provider, Submitter) or PER08 (Provider, Submitter), Note: Used when PER03=TE (Provider, Submitter, Subscriber, Dependent) or PER05=TE (Provider, Submitter) or PER07=TE (Provider, Submitter)"
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number 123-456-7890 as 1234567890. You should always include the area code, if applicable. Don't include long distance access numbers (such as 1) or extensions in this field."
                     },
                     "faxNumber": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 or PER06 or PER08, Note: This is used in (Provider, Submitter) when PER03=FX or PER05=FX or PER07=FX"
+                        "description": "The fax number, formatted as AAABBBCCCC."
                     },
                     "email": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04 or PER06 or PER08, Note: This used in (Provider, Submitter) when PER03=EM or PER05=EM or PER07=EM"
+                        "description": "The email address."
                     },
                     "phoneExtension": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER06 or PER08, Note: PER05=EX or PER07=EX"
+                        "description": "The phone extension, if applicable."
                     }
                 },
                 "required": [
@@ -4202,30 +4211,30 @@
             },
             "ContractInformation": {
                 "type": "object",
-                "description": "CN1",
+                "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
                 "properties": {
                     "contractTypeCode": {
                         "$ref": "#/components/schemas/ContractInformationContractTypeCode"
                     },
                     "contractAmount": {
                         "type": "string",
-                        "description": "Segment: CN1, Element: CN102"
+                        "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
                     },
                     "contractPercentage": {
                         "type": "string",
-                        "description": "Segment: CN1, Element: CN103"
+                        "description": "The allowance or charge percent, expressed as a decimal. For example, `0.80`."
                     },
                     "contractCode": {
                         "type": "string",
-                        "description": "Segment: CN1, Element: CN104"
+                        "description": "The contract code. This is an identifier for the contract."
                     },
                     "termsDiscountPercentage": {
                         "type": "string",
-                        "description": "Segment: CN1, Element: CN105"
+                        "description": "Terms discount percentage, expressed as a decimal, available to the purchaser if an invoice is paid on or before the Terms Discount Due Date."
                     },
                     "contractVersionIdentifier": {
                         "type": "string",
-                        "description": "Segment: CN1, Element: CN106"
+                        "description": "An additional identifier for the contract. Identifies the revision level of a particular format, program, technique or algorithm."
                     }
                 },
                 "required": [
@@ -4234,7 +4243,7 @@
             },
             "ContractInformationContractTypeCode": {
                 "type": "string",
-                "description": "Segment: CN1, Element: CN101, Allowed Values are: '01' Diagnosis Related Group (DRG), '02' Per Diem, '03' Variable Per Diem, '04' Flat, '05' Capitated, '06' Percent, '09' Other",
+                "description": "Code indicating the type of contract. Visit `CN101` in the [Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.contract_information_CN1.properties.contract_type_code_01) for a complete list.",
                 "enum": [
                     "01",
                     "02",
@@ -4247,14 +4256,14 @@
             },
             "CopayStatusCode": {
                 "type": "string",
-                "description": "Loop 2400, Segment: SV1, Element: SV115",
+                "description": "Code indicating whether co-payment requirements were met. Can be set to `O` - Copay exempt.",
                 "enum": [
                     "0"
                 ]
             },
             "DelayReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the delay in claim submission. Can be set to `1` - Proof of Eligibility Unknown or Unavailable, `2` - Litigation, `3` - Authorization Delays, `4` - Delay in Certifying Provider, `5` - Delay in Supplying Billing Forms, `6` - Delay in Delivery of Custom-made Appliances, `7` - Third Party Processing Delay, `8` - Delay in Eligibility Determination, `9` - Original Claim Rejected or Denied Due to a Reason Unrelated to the Billing Limitation Rules, `10` - Administration Delay in the Prior Approval Process, `11` - Other, `15` - Natural Disaster.",
+                "description": "Code indicating the reason for the delay in claim submission. Visit `CLM20` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_information_CLM.properties.delay_reason_code_20) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -4344,29 +4353,28 @@
             },
             "DrugIdentification": {
                 "type": "object",
-                "description": "LOOP 2410",
+                "description": "To report prescribed drugs and biologics.",
                 "properties": {
                     "serviceIdQualifier": {
                         "$ref": "#/components/schemas/DrugIdentificationServiceIdQualifier"
                     },
                     "nationalDrugCode": {
-                        "type": "string",
-                        "description": "Loop: 2410, Segment: LIN, Element: LIN03"
+                        "type": "string"
                     },
                     "nationalDrugUnitCount": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: CTP, Element: CTP04"
+                        "description": "The numeric value of the drug quantity."
                     },
                     "measurementUnitCode": {
                         "$ref": "#/components/schemas/MeasurementUnitCode"
                     },
                     "linkSequenceNumber": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: REF, Element: REF02 when REF01=VY"
+                        "description": "Required when the provided medication involves the compounding of two or more drugs being reported and there is no prescription number. The link sequence number is a provider assigned number that is unique to this claim. It allows the receiver to piece together the components of the compound."
                     },
                     "pharmacyPrescriptionNumber": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: REF, Element: REF02 when REF01=XZ"
+                        "description": "In cases where a compound drug is being billed, the components of the compound will all have the same prescription number. Payers receiving the claim can relate all the components by matching the prescription number."
                     }
                 },
                 "required": [
@@ -4378,7 +4386,7 @@
             },
             "DrugIdentificationServiceIdQualifier": {
                 "type": "string",
-                "description": "Loop: 2410, Segment: LIN, Element: LIN02, Note: Allowed Values are: 'EN' EAN/UCC - 13, 'EO' EAN/UCC - 8, 'HI' HIBC (Health Care Industry Bar Code) Supplier Labeling Standard Primary Data Message, 'N4' National Drug Code in 5-4-2 Format, 'ON' Customer Order Number, 'UK' GTIN 14-digit Data Structure, 'UP' UCC - 12",
+                "description": "Code indicating the source of the drug code or product number. Visit `LIN02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.drug_identification_LIN_loop.properties.drug_identification_LIN.properties.product_or_service_id_qualifier_02) for a complete list.",
                 "enum": [
                     "EN",
                     "EO",
@@ -4408,7 +4416,7 @@
             },
             "DurableMedicalEquipmentCertificateOfMedicalNecessity": {
                 "type": "object",
-                "description": "PWK",
+                "description": "Required on claims that include a Durable Medical Equipment Regional Carrier (DMERC) Certificate of Medical Necessity (CMN).",
                 "properties": {
                     "attachmentTransmissionCode": {
                         "$ref": "#/components/schemas/DurableMedicalEquipmentCertificateOfMedicalNecessityAttachmentTransmissionCode"
@@ -4420,7 +4428,7 @@
             },
             "DurableMedicalEquipmentCertificateOfMedicalNecessityAttachmentTransmissionCode": {
                 "type": "string",
-                "description": "Loop: 2400, Segment: PWK, Element: PWK02 when PWK01=CT, Note: Allowed Values are: 'AB' Previously Submitted to Payer, 'AD' Certification Included in this Claim, 'AF' Narrative Segment Included in this Claim, 'AG' No Documentation is Required, 'NS' Not Specified",
+                "description": "Code indicating the timing, transmission method, or format by which attachments will be sent. Required when the actual attachment is maintained by an attachment warehouse or similar vendor. Visit `PWK02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.durable_medical_equipment_certificate_of_medical_necessity_indicator_PWK.properties.attachment_transmission_code_02) for a complete list. Use code `NS` when the paperwork is available on request at the provider's site, but is not being sent with the claim at this time.",
                 "enum": [
                     "AB",
                     "AD",
@@ -4431,14 +4439,14 @@
             },
             "DurableMedicalEquipmentCertification": {
                 "type": "object",
-                "description": "CR3",
+                "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or a DMERC Information Form (DIF) or Oxygen Therapy Certification is included on this service line.",
                 "properties": {
                     "certificationTypeCode": {
                         "$ref": "#/components/schemas/CertificationTypeCode"
                     },
                     "durableMedicalEquipmentDurationInMonths": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: CR3, Element: CR303 when CR302=MO"
+                        "description": "The length of time the DME equipment is needed."
                     }
                 },
                 "required": [
@@ -4448,19 +4456,19 @@
             },
             "DurableMedicalEquipmentService": {
                 "type": "object",
-                "description": "SV5",
+                "description": "Information about durable medical equipment. For example, the rental and purchase price information.",
                 "properties": {
                     "days": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: SV5, Element: SV503"
+                        "description": "The length of medical treatment required."
                     },
                     "rentalPrice": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: SV5, Element: SV504"
+                        "description": "The rental price for the equipment, expressed as a decimal. For example, `100.50`."
                     },
                     "purchasePrice": {
                         "type": "string",
-                        "description": "Loop: 2410, Segment: SV5, Element: SV505"
+                        "description": "The purchase price for the equipment, expressed as a decimal. For example, `100.50`."
                     },
                     "frequencyCode": {
                         "$ref": "#/components/schemas/FrequencyCode"
@@ -4475,6 +4483,7 @@
             },
             "EditResponse": {
                 "type": "object",
+                "description": "Currently not used.",
                 "properties": {
                     "qualifierCode": {
                         "type": "string"
@@ -4818,7 +4827,7 @@
             },
             "EmergencyIndicator": {
                 "type": "string",
-                "description": "Loop 2400, Segment: SV1, Element: SV109",
+                "description": "Code indicating whether the service was related to an emergency. Can be set to `Y` - Yes. An emergency is when the patient requires immediate medical intervention as a result of severe, life threatening, or potentially disabling conditions.",
                 "enum": [
                     "Y"
                 ]
@@ -5111,7 +5120,7 @@
             },
             "EpsdtIndicator": {
                 "type": "string",
-                "description": "Loop 2400, Segment: SV1, Element: SV111",
+                "description": "Code indicating whether there was EPSDT involvement in the service. Can be set to `Y` - Yes. EPSDT is a program that provides comprehensive and preventive health care services for children under age 21 who are enrolled in Medicaid.",
                 "enum": [
                     "Y"
                 ]
@@ -5230,6 +5239,7 @@
             },
             "Failure": {
                 "type": "object",
+                "description": "Currently not used.",
                 "properties": {
                     "description": {
                         "type": "string"
@@ -5241,21 +5251,21 @@
             },
             "FamilyPlanningIndicator": {
                 "type": "string",
-                "description": "Loop 2400, Segment: SV1, Element: SV112",
+                "description": "Code indicating whether the service was related to family planning. Can be set to `Y` - Yes.",
                 "enum": [
                     "Y"
                 ]
             },
             "FormIdentification": {
                 "type": "object",
-                "description": "LQ and FRM",
+                "description": "Use this object to attach standardized supplemental information to the claim when required by the payer. One example is payer documentation requirements for home health services.",
                 "properties": {
                     "formTypeCode": {
                         "$ref": "#/components/schemas/FormTypeCode"
                     },
                     "formIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2440, Segment: LQ, Element: LQ02"
+                        "description": "A code from the industry code list you identified in `formTypeCode`."
                     },
                     "supportingDocumentation": {
                         "type": "array",
@@ -5264,7 +5274,7 @@
                         },
                         "maxItems": 99,
                         "minItems": 0,
-                        "description": "Loop: 2440, Segment: FRM"
+                        "description": "Use to provide information in response to a coded questionnaire document."
                     }
                 },
                 "required": [
@@ -5274,7 +5284,7 @@
             },
             "FormTypeCode": {
                 "type": "string",
-                "description": "Loop: 2440, Segment: LQ, Element: LQ01, Note: Allowed Values are:'AS' Form Type Code, 'UT' Centers for Medicare and Medicaid Services (CMS) Durable Medical Equipment Regional Carrier (DMERC) Certificate of Medical Necessity (CMN) Forms",
+                "description": "Code indicating the type of form. Can be set to `AS` - Form Type Code or `UT` - Centers for Medicare and Medicaid Services (CMS) Durable Medical Equipment Regional Carrier (DMERC) Certificate of Medical Necessity (CMN) Forms. Set this to `AS` when you plan to include a home health form in the `formIdentifier` field.",
                 "enum": [
                     "AS",
                     "UT"
@@ -5282,7 +5292,7 @@
             },
             "FrequencyCode": {
                 "type": "string",
-                "description": "Loop: 2410, Segment: SV5, Element: SV506, Note: Allowed Values are: '1' weekly, '4' monthly, '6' daily",
+                "description": "Code indicating the frequency at which the rental equipment is billed. Can be set to `1` - weekly, `4` - monthly, or `6` - daily.",
                 "enum": [
                     "1",
                     "4",
@@ -5552,22 +5562,22 @@
             },
             "LineAdjudicationInformation": {
                 "type": "object",
-                "description": "SVD, CAS, DTP and AMT",
+                "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers.",
                 "properties": {
                     "otherPayerPrimaryIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD01"
+                        "description": "The payer ID for the payer responsible for reimbursement."
                     },
                     "serviceLinePaidAmount": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD02"
+                        "description": "The amount paid for this service line, expressed as a decimal. Zero (0) is an acceptable value."
                     },
                     "serviceIdQualifier": {
                         "$ref": "#/components/schemas/LineAdjudicationInformationServiceIdQualifier"
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD03-02"
+                        "description": "The procedure code."
                     },
                     "procedureModifier": {
                         "type": "array",
@@ -5575,19 +5585,20 @@
                             "type": "string"
                         },
                         "maxItems": 4,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "A modifier that conveys special circumstances related to the performance of the service."
                     },
                     "procedureCodeDescription": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD03-07"
+                        "description": "The meaning of the procedure code."
                     },
                     "paidServiceUnitCount": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD05"
+                        "description": "The number of paid units from the remittance advice. expressed as a decimal. When paid units are not present on the remittance advice, use the original billed units. The maximum length for this field is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "bundledOrUnbundledLineNumber": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: SVD, Element: SVD06"
+                        "description": "The LX assigned number of the service line into which this service line is bundled. It's only used to bundle service lines."
                     },
                     "claimAdjustmentInformation": {
                         "type": "array",
@@ -5596,14 +5607,15 @@
                         },
                         "maxItems": 5,
                         "minItems": 0,
-                        "description": "Loop: 2430, Segment: CAS"
+                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged."
                     },
                     "adjudicationOrPaymentDate": {
                         "type": "string",
-                        "description": "Loop: 2430, Segment: DTP, Element=DTP03 when DTP02=D8 and DTP01=573"
+                        "description": "The date the other payer adjudicated or paid the claim, formatted as YYYYMMDD."
                     },
                     "remainingPatientLiability": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
                     }
                 },
                 "required": [
@@ -5617,7 +5629,7 @@
             },
             "LineAdjudicationInformationServiceIdQualifier": {
                 "type": "string",
-                "description": "Loop: 2430, Segment: SVD, Element: SVD03-01, Note: Allowed Values are: 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'HP' Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'WK' Advanced Billing Concepts (ABC) Codes",
+                "description": "Code identifying the type of `procedureCode`. Visit `C00301` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.line_adjudication_information_SVD_loop.items.properties.line_adjudication_information_SVD.properties.composite_medical_procedure_identifier_03.properties.product_or_service_id_qualifier_01) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -5628,7 +5640,7 @@
             },
             "MeasurementQualifier": {
                 "type": "string",
-                "description": "Loop 2400, Segment: MEA; Element: MEA02, Notes: Allowable values are 'HT' Height, 'R1' Hemoglobin, 'R2' Hematocrit, 'R3' Epoetin Starting Dosage, 'R4' Creatinine",
+                "description": "Code identifying the specific measurement. Can be set to `HT` - Height, `R1` - Hemoglobin, `R2` - Hematocrit, `R3` - Epoetin Starting Dosage, or `R4` - Creatinine.",
                 "enum": [
                     "HT",
                     "R1",
@@ -5639,7 +5651,7 @@
             },
             "MeasurementReferenceIdentificationCode": {
                 "type": "string",
-                "description": "Loop 2400, Segment: MEA; Element: MEA01, Notes: Allowable values are 'OG' Original and 'TR' Test Results",
+                "description": "Code identifying the type of measurement. Can be set to `OG` - Original or `TR` - Test Results.",
                 "enum": [
                     "OG",
                     "TR"
@@ -5647,7 +5659,7 @@
             },
             "MeasurementUnit": {
                 "type": "string",
-                "description": "Loop 2400, Segment: SV1, Element: SV103, Notes: Allowed values are 'MJ' Minutes, 'UN' Unit",
+                "description": "Code identifying the unit of measurement. Can be set to `MJ` - Minutes or `UN` - Unit. Minutes is required for anesthesia services. Note that anesthesia time is counted from the moment that the practitioner, having completed the preoperative evaluation, starts an intravenous line, places monitors, administers pre-anesthesia sedation, or otherwise physically begins to prepare the patient for anesthesia. Time continues throughout the case and while the practitioner accompanies the patient to the post-anesthesia recovery unit (PACU). Time stops when the practitioner releases the patient to the care of PACU personnel.",
                 "enum": [
                     "MJ",
                     "UN"
@@ -5655,7 +5667,7 @@
             },
             "MeasurementUnitCode": {
                 "type": "string",
-                "description": "Loop: 2410, Segment: CTP05, Element: CTP05-01, Allowed Values are: 'F2' International Unit, 'GR' Gram, 'ME' Milligram, 'ML' Milliliter, 'UN' Unit",
+                "description": "Code identifying the unit of measurement. Can be set to `F2` - International Unit, `GR` - Gram, `ME` - Milligram, `ML` - Milliliter, or `UN` - Unit.",
                 "enum": [
                     "F2",
                     "GR",
@@ -5675,7 +5687,7 @@
                     },
                     "testResults": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: MEA; Element: MEA03"
+                        "description": "The value of the measurement."
                     }
                 },
                 "required": [
@@ -5749,7 +5761,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 0,
-                        "description": "The remark code. Visit [X12 Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
+                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
                     },
                     "endStageRenalDiseasePaymentAmount": {
                         "type": "string",
@@ -5892,7 +5904,7 @@
             },
             "OtherPayerBillingProvider": {
                 "type": "object",
-                "description": "Loop 2330G",
+                "description": "Information about the billing provider.",
                 "properties": {
                     "entityTypeQualifier": {
                         "$ref": "#/components/schemas/OtherPayerBillingProviderEntityTypeQualifier"
@@ -5903,8 +5915,7 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 2,
-                        "minItems": 1,
-                        "description": "Loop 2330G, Segment: NM1 and REF"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -5914,7 +5925,7 @@
             },
             "OtherPayerBillingProviderEntityTypeQualifier": {
                 "type": "string",
-                "description": "Loop 2330G, Segment: NM1; Element: NM101, Notes: Code identifying an organizational entity, a physical location, property or an individual. Allowablevalues: '1' Person, '2' Non-Person Entity",
+                "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity.",
                 "enum": [
                     "1",
                     "2"
@@ -5961,19 +5972,19 @@
                     },
                     "otherPayerPriorAuthorizationNumber": {
                         "type": "string",
-                        "description": "Loop: 2330B, Segment: REF, Element: REF02 when REF01=G1"
+                        "description": "The authorization number assigned by this payer."
                     },
                     "otherPayerPriorAuthorizationOrReferralNumber": {
                         "type": "string",
-                        "description": "Loop: 2330B; Segment: REF, Element: REF02 when REF01=9F"
+                        "description": "The referral number assigned by this payer."
                     },
                     "otherPayerClaimAdjustmentIndicator": {
                         "type": "boolean",
-                        "description": "Loop: 2330B, Segment: REF, Element: REF02 when REF01=T4"
+                        "description": "The only valid value is `true`. Required when Required when the claim is being sent in the payer-to-payer COB model AND the destination payer is secondary to this payer AND this payer has re-adjudicated the claim."
                     },
                     "otherPayerClaimControlNumber": {
                         "type": "string",
-                        "description": "Loop: 2330B, Segment: REF, Element: REF02 when REF01=F8"
+                        "description": "The claim control number assigned by this payer."
                     }
                 },
                 "required": [
@@ -5984,7 +5995,7 @@
             },
             "OtherPayerReferringProvider": {
                 "type": "object",
-                "description": "Loop 2330C",
+                "description": "Information about the referring provider.",
                 "properties": {
                     "otherPayerReferringProviderIdentifier": {
                         "type": "array",
@@ -5992,8 +6003,7 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1,
-                        "description": "Loop 2330E, Segment: NM1 and REF"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -6002,7 +6012,7 @@
             },
             "OtherPayerRenderingProvider": {
                 "type": "object",
-                "description": "Loop 2330D",
+                "description": "Information about the rendering provider.",
                 "properties": {
                     "entityTypeQualifier": {
                         "$ref": "#/components/schemas/OtherPayerRenderingProviderEntityTypeQualifier"
@@ -6013,8 +6023,7 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1,
-                        "description": "Loop 2330D, Segment: NM1 and REF"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -6023,7 +6032,7 @@
             },
             "OtherPayerRenderingProviderEntityTypeQualifier": {
                 "type": "string",
-                "description": "Loop: 2330D, Segment NM1, Element: NM102, Notes: Allowable values are '1' Person and '2' Non-Person Entity",
+                "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity.",
                 "enum": [
                     "1",
                     "2"
@@ -6031,7 +6040,6 @@
             },
             "OtherPayerServiceFacilityLocation": {
                 "type": "object",
-                "description": "Loop 2330E",
                 "properties": {
                     "otherPayerServiceFacilityLocationSecondaryIdentifier": {
                         "type": "array",
@@ -6039,8 +6047,7 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1,
-                        "description": "Loop 2330E, Segments: NM1 and REF"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -6049,7 +6056,7 @@
             },
             "OtherPayerSupervisingProvider": {
                 "type": "object",
-                "description": "Loop 2330F",
+                "description": "Information about the supervising provider.",
                 "properties": {
                     "otherPayerSupervisingProviderIdentifier": {
                         "type": "array",
@@ -6057,8 +6064,7 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1,
-                        "description": "Loop 2330F, Segments: NM1 and REF"
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -6133,31 +6139,36 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerReferringProvider"
-                        }
+                        },
+                        "description": "Information about the referring provider."
                     },
                     "otherPayerRenderingProvider": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerRenderingProvider"
-                        }
+                        },
+                        "description": "Information about the rendering provider."
                     },
                     "otherPayerServiceFacilityLocation": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerServiceFacilityLocation"
-                        }
+                        },
+                        "description": "Information about the service facility location."
                     },
                     "otherPayerSupervisingProvider": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerSupervisingProvider"
-                        }
+                        },
+                        "description": "Information about the supervising provider."
                     },
                     "otherPayerBillingProvider": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerBillingProvider"
-                        }
+                        },
+                        "description": "Information about the billing provider."
                     }
                 },
                 "required": [
@@ -6259,7 +6270,7 @@
             },
             "PatientConditionDescription1": {
                 "type": "string",
-                "description": "Loop: 2300, Segment: CR, Element: CR210 Note: Allowed Values are: 'A' Acute Condition, 'C' Chronic Condition, 'D' Chronic Condition, 'E' Non-Life Threatening, 'F' Routine, 'G' Symptomatic, 'M' Acute Manifestation of a Chronic Condition",
+                "description": "A description of the patient's condition.",
                 "enum": [
                     "A",
                     "C",
@@ -6287,7 +6298,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Code indicating the reason for the vision services. Can be Set to `L1` - General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met, `L2` - Replacement Due to Loss or Theft, `L3` - Replacement Due to Breakage or Damage, `L4` - Replacement Due to Patient Preference, or `L5` - Replacement Due to Medical Reason"
+                        "description": "Code indicating the reason for the vision services. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.patient_condition_information_vision_CRC.items.properties.condition_code_03) for a complete list."
                     }
                 },
                 "required": [
@@ -6306,7 +6317,7 @@
             },
             "PatientConditionInformationVisionConditionCodesItem": {
                 "type": "string",
-                "description": "Code indicating the reason for the vision services. Can be Set to `L1` - General Standard of 20 Degree or .5 Diopter Sphere or Cylinder Change Met, `L2` - Replacement Due to Loss or Theft, `L3` - Replacement Due to Breakage or Damage, `L4` - Replacement Due to Patient Preference, or `L5` - Replacement Due to Medical Reason",
+                "description": "Code indicating the reason for the vision services. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.patient_condition_information_vision_CRC.items.properties.condition_code_03) for a complete list.",
                 "enum": [
                     "L1",
                     "L2",
@@ -6752,7 +6763,7 @@
             },
             "PricingMethodologyCode": {
                 "type": "string",
-                "description": "Code indicating the pricing or repricing methodology. Visit the `HCP01` in the [Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
+                "description": "Code indicating the pricing or repricing methodology. Visit the `HCP01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
                 "enum": [
                     "00",
                     "01",
@@ -6781,15 +6792,13 @@
             },
             "PriorAuthorization": {
                 "type": "object",
-                "description": "Loop 2400 REF",
                 "properties": {
                     "priorAuthorizationOrReferralNumber": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 when REF01=G1"
+                        "type": "string"
                     },
                     "otherPayerPrimaryIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF04-2 when REF04-1=2U"
+                        "description": "This must match the value in `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerIdentifier`."
                     }
                 },
                 "required": [
@@ -6798,7 +6807,7 @@
             },
             "ProcedureIdentifier": {
                 "type": "string",
-                "description": "Loop: 2400, Segment: SV1, Element: SV101-01, Notes: Allowed Values are: 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code,'WK' Advanced Billing Concepts (ABC) Codes",
+                "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit `C00301` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.professional_service_SV1.properties.composite_medical_procedure_identifier_01.properties.product_or_service_id_qualifier_01) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -6822,13 +6831,14 @@
             },
             "ProfessionalService": {
                 "type": "object",
+                "description": "Information about the service rendered.",
                 "properties": {
                     "procedureIdentifier": {
                         "$ref": "#/components/schemas/ProcedureIdentifier"
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: SV1, Element: SV101-02"
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -6837,26 +6847,26 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "Loop 2400, Segment: SV1, Elements: SV101-03 to SV101-06, Notes: Required when modifier clarifies or improves the reporting accuracy of the associated procedure code. If not required then do not send"
+                        "description": "A modifier code that clarifies or improves the reporting accuracy of the associated procedure code. If not required, do not send."
                     },
                     "description": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: SV1, Element: SV101-07, Notes: A free form description to clarify teh related data elements and their content"
+                        "description": "A free form description to clarify the procedure code and any procedure modifiers, as needed."
                     },
                     "lineItemChargeAmount": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: SV1, Element: SV102, Notes: Required value for total charge amount, '0' (Zero) is acceptable for this value"
+                        "description": "The total charge amount for the service, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero)."
                     },
                     "measurementUnit": {
                         "$ref": "#/components/schemas/MeasurementUnit"
                     },
                     "serviceUnitCount": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: SV1, Element: SV104, Notes: When a decimal is needed to report units, include it in this element"
+                        "description": "The number of units of the service provided, formatted as a decimal."
                     },
                     "placeOfServiceCode": {
                         "type": "string",
-                        "description": "Loop 2400, Segment: SV1, Element: SV105"
+                        "description": "A code identifying the location where services were rendered. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
                     },
                     "compositeDiagnosisCodePointers": {
                         "$ref": "#/components/schemas/CompositeDiagnosisCodePointers"
@@ -7017,14 +7027,15 @@
             },
             "PurchasedServiceInformation": {
                 "type": "object",
+                "description": "Specify information about services that were purchased.",
                 "properties": {
                     "purchasedServiceProviderIdentifier": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: PS1, Element: PS101"
+                        "description": "The identifier for the purchased service provider."
                     },
                     "purchasedServiceChargeAmount": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: PS1, Element: PS102"
+                        "description": "The cost of the purchased service."
                     }
                 },
                 "required": [
@@ -7034,7 +7045,7 @@
             },
             "QuestionResponseCode": {
                 "type": "string",
-                "description": "Loop: 2440,  Segment: FRM, Element: FRM02, Notes: Allowed Values are: 'N' No, 'W' Not Applicable, 'Y' Yes",
+                "description": "Code indicating a yes or no condition response to the question. Can be set to `N` - No, `W` - Not Applicable, or `Y` - Yes.",
                 "enum": [
                     "N",
                     "W",
@@ -7836,27 +7847,27 @@
             },
             "ResponseMeta": {
                 "type": "object",
-                "description": "Meta data about the request",
+                "description": "Metadata from Stedi about the request.",
                 "properties": {
                     "submitterId": {
                         "type": "string",
-                        "description": "submitterId assigned to this request"
+                        "description": "The submitter ID assigned to this request."
                     },
                     "senderId": {
                         "type": "string",
-                        "description": "senderId assigned to this request"
+                        "description": "The sender ID assigned to this request."
                     },
                     "billerId": {
                         "type": "string",
-                        "description": "billerId assigned to this request"
+                        "description": "The biller ID assigned to this request."
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "This is the file execution ID, a unique identifier assigned to the processed file within the Stedi platform."
+                        "description": "The file execution ID, a unique identifier assigned to the processed file within the Stedi platform."
                     },
                     "applicationMode": {
                         "type": "string",
-                        "description": "Used by to identify where this request can be found for support"
+                        "description": "Indicates where this request can be found for support."
                     }
                 }
             },
@@ -7988,7 +7999,7 @@
             },
             "ServiceAuthorizationExceptionCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the service authorization exception. Visit [`REF02` in the Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_authorization_exception_code_REF.properties.service_authorization_exception_code_02) for a complete list.",
+                "description": "Code indicating the reason for the service authorization exception. Visit `REF02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_authorization_exception_code_REF.properties.service_authorization_exception_code_02) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -8073,23 +8084,22 @@
             },
             "ServiceLine": {
                 "type": "object",
-                "description": "Loop 2400",
                 "properties": {
                     "assignedNumber": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: LX, Element: LX01"
+                        "description": "This serves as a line counter. It must begin with `1` and be incremented by one for each additional service line of the claim."
                     },
                     "serviceDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DTP, Element: DTP03, Notes: When sent with serviceDateEnd it will be used as the start date for Date Time period, if sent without serviceDateEnd will use DTP02 = D8. Expressed in Format CCYYMMDD"
+                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYYMMDD. When you send this field with `serviceEndDate`, it will be used as the start date for the date range in which the service was rendered."
                     },
                     "serviceDateEnd": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DTP, Element: DTP03, Notes: Range of Dates Expressed in Format CCYYMMDD"
+                        "description": "The end date of the service period, expressed as YYYYMMDD. If you send this field, you must also send `serviceDate`."
                     },
                     "providerControlNumber": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF04-02 when REF01=6R"
+                        "description": "A unique identifier for this service line within the claim. We **strongly recommend** setting this field for each service line. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim."
                     },
                     "professionalService": {
                         "$ref": "#/components/schemas/ProfessionalService"
@@ -8103,7 +8113,8 @@
                             "$ref": "#/components/schemas/ReportInformation"
                         },
                         "maxItems": 10,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Supporting documentation for the service line. Required when there is a paper attachment following this claim, when attachments are sent electronically, or when the provider needs to identify additional information that is being held at their office and is available upon request."
                     },
                     "durableMedicalEquipmentCertificateOfMedicalNecessity": {
                         "$ref": "#/components/schemas/DurableMedicalEquipmentCertificateOfMedicalNecessity"
@@ -8124,7 +8135,7 @@
                     },
                     "hospiceEmployeeIndicator": {
                         "type": "boolean",
-                        "description": "Loop: 2400, Segment: CRC, Element: CRC02 Notes: True or False"
+                        "description": "Whether the rendering provider is a hospice employee. Required on all Medicare claims involving physician services to hospice patients. Set to `true` if the rendering provider is a hospice employee, and `false` if they are not."
                     },
                     "conditionIndicatorDurableMedicalEquipment": {
                         "$ref": "#/components/schemas/ConditionIndicatorDurableMedicalEquipment"
@@ -8134,11 +8145,11 @@
                     },
                     "ambulancePatientCount": {
                         "type": "number",
-                        "description": "Loop: 2400, Segment: QTY, Element: QTY02 when QTY01=PT"
+                        "description": "The number of patients transported by the ambulance. Required when more than one patient is transported in the same vehicle for Ambulance or non-emergency transportation services."
                     },
                     "obstetricAnesthesiaAdditionalUnits": {
                         "type": "number",
-                        "description": "Loop: 2400, Segment: QTY, Element: QTY02 when QTY01=FL"
+                        "description": "The number of units reported by an anesthesia provider to reflect additional complexity of services."
                     },
                     "testResults": {
                         "type": "array",
@@ -8146,7 +8157,8 @@
                             "$ref": "#/components/schemas/Measurements"
                         },
                         "maxItems": 5,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Required on Dialysis related service lines for ESRD, or required on on DMERC service lines to report the Patient's Height from the Certificate of Medical Necessity (CMN). Use HT qualifier."
                     },
                     "contractInformation": {
                         "$ref": "#/components/schemas/ContractInformation"
@@ -8156,11 +8168,11 @@
                     },
                     "salesTaxAmount": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: AMT, Element: AMT02 when AMT01=T"
+                        "description": "Sales tax, formatted as a decimal. When you include this field, the total `lineItemChargeAmount` for this service line must include this sales tax value."
                     },
                     "postageTaxAmount": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: AMT, Element: AMT02 when AMT01=F4"
+                        "description": "The amount of the postage, formatted as a decimal. When you include this field, the total `lineItemChargeAmount` for this service line must include this postage value."
                     },
                     "fileInformation": {
                         "type": "array",
@@ -8169,19 +8181,19 @@
                         },
                         "maxItems": 10,
                         "minItems": 0,
-                        "description": "Loop: 2400, Segment: K3, Element: K301"
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
                     },
                     "additionalNotes": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: NTE, Element: NTE02 when NTE01=ADD"
+                        "description": "Additional information the provider feels is necessary to substantiate the medical treatment that cannot be provided in other claim fields. Don't use this field to describe non-specific procedure codes."
                     },
                     "goalRehabOrDischargePlans": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: NTE, Element: NTE02 when NTE01=DCP"
+                        "description": "The provider's goals, rehabilitation potential, or discharge plans for the patient."
                     },
                     "thirdPartyOrganizationNotes": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: NTE, Element: NTE02 when NTE01=TPO"
+                        "description": "Required when the TPO/repricer needs to forward additional information to the payer. Providers shouldn't complete this field."
                     },
                     "purchasedServiceInformation": {
                         "$ref": "#/components/schemas/PurchasedServiceInformation"
@@ -8222,13 +8234,15 @@
                             "$ref": "#/components/schemas/LineAdjudicationInformation"
                         },
                         "maxItems": 15,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers."
                     },
                     "formIdentification": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/FormIdentification"
-                        }
+                        },
+                        "description": "Use this object to attach standardized supplemental information to the claim when required by the payer. One example is payer documentation requirements for home health services."
                     }
                 },
                 "required": [
@@ -8238,46 +8252,46 @@
             },
             "ServiceLineDateInformation": {
                 "type": "object",
+                "description": "Identify specific dates related to the service rendered, formatted as YYYYMMDD.",
                 "properties": {
                     "prescriptionDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=471, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required when a drug is billed for this line and a prescription was written (or otherwise communicated by the prescriber if not written)."
                     },
                     "certificationRevisionOrRecertificationDate": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=607, Notes: Date Expressed in Format CCYYMMDD"
+                        "type": "string"
                     },
                     "beginTherapyDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=463, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or DMERC Information Form (DIF), or Oxygen Therapy Certification is included on this service line."
                     },
                     "lastCertificationDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=461, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "This is the date the ordering physician signed the CMN or Oxygen Therapy Certification, or the date the supplier signed the DMERC Information Form (DIF)."
                     },
                     "treatmentOrTherapyDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=304, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "This is the date of the latest visit or consultation."
                     },
                     "hemoglobinTestDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=738, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported."
                     },
                     "serumCreatineTestDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=739, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported."
                     },
                     "shippedDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=011, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required when billing or reporting products that were shipped."
                     },
                     "lastXRayDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=455, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required for claims involving spinal manipulation."
                     },
                     "initialTreatmentDate": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: DPT, Element: DTP03 when DPT01=454, Notes: Date Expressed in Format CCYYMMDD"
+                        "description": "Required when this date is known to impact adjudication for claims involving spinal manipulation, physcial therapy, occupational therapy, or speech language pathology."
                     }
                 }
             },
@@ -8331,75 +8345,67 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to `OrderingProvider`."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
-                        "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "type": "string"
                     },
                     "commercialNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "type": "string"
                     },
                     "locationNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "type": "string"
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "type": "string"
                     },
                     "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "type": "string"
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "PRV03"
+                        "description": "The provider's taxonomy code, indicating their specialty."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The provider's first name, if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's last name, if the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The provider's middle name or initial, if the provider is an individual."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The provider's name suffix, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -8431,71 +8437,63 @@
                     },
                     "npi": {
                         "type": "string",
-                        "description": "NM109, Notes: National Provider Identifier"
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "REF02 when REF01=SY, Notes: The Social Security Number must be a string of nine numbers with no separators"
+                        "type": "string"
                     },
                     "employerId": {
-                        "type": "string",
-                        "description": "REF02 when REF01=EI, Notes: The Employer Identification Number must be a string of exactly nine numbers with no separators"
+                        "type": "string"
                     },
                     "commercialNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=G2"
+                        "type": "string"
                     },
                     "locationNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=LU"
+                        "type": "string"
                     },
                     "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=2U"
+                        "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "LOOP: 2010AC, Segment: REF, Element: REF02 when REF01=EI"
+                        "type": "string"
                     },
                     "claimOfficeNumber": {
-                        "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=FY"
+                        "type": "string"
                     },
                     "naic": {
                         "type": "string",
-                        "description": "Loop: 2010AC, Segment: REF, Element: REF02 when REF01=NF, Notes: National Association of Insurance Commissioners (NAIC) Code"
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "REF02 when REF01=0B"
+                        "type": "string"
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "REF02 when REF01=1G, Notes: UPINs must be formatted as either X99999 or XXX999"
+                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "PRV03"
+                        "description": "The provider's taxonomy code, indicating their specialty."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "NM104"
+                        "description": "The provider's first name, if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's last name, if the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "NM105"
+                        "description": "The provider's middle name or initial, if the provider is an individual."
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "NM107"
+                        "description": "The provider's name suffix, such as Jr. or III."
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "NM103"
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -8521,14 +8519,15 @@
             },
             "ServiceLineReferenceInformation": {
                 "type": "object",
+                "description": "Additional identifiers for the service line.",
                 "properties": {
                     "repricedLineItemReferenceNumber": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Notes: When REF01=9B"
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line."
                     },
                     "adjustedRepricedLineItemReferenceNumber": {
                         "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Note: When REF01=9D"
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on an adjusted service line."
                     },
                     "priorAuthorization": {
                         "type": "array",
@@ -8536,24 +8535,19 @@
                             "$ref": "#/components/schemas/PriorAuthorization"
                         },
                         "maxItems": 5,
-                        "minItems": 0,
-                        "description": "Loop 2400 REF"
+                        "minItems": 0
                     },
                     "mammographyCertificationNumber": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Note: When REF01=EW"
+                        "type": "string"
                     },
                     "clinicalLaboratoryImprovementAmendmentNumber": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Note: When REF01=X4"
+                        "type": "string"
                     },
                     "referringCliaNumber": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Note: When REF01=F4"
+                        "type": "string"
                     },
                     "immunizationBatchNumber": {
-                        "type": "string",
-                        "description": "Loop: 2400, Segment: REF, Element: REF02 Note: When REF01=BT"
+                        "type": "string"
                     },
                     "referralNumber": {
                         "type": "array",
@@ -8561,8 +8555,7 @@
                             "type": "string"
                         },
                         "maxItems": 5,
-                        "minItems": 0,
-                        "description": "Loop: 2400, Segment: REF, Element: REF Note: When REF01=9F"
+                        "minItems": 0
                     }
                 }
             },
@@ -8590,7 +8583,7 @@
                 "properties": {
                     "patientConditionCode": {
                         "type": "string",
-                        "description": "A code indicating the nature of a patient's condition. Can be set to `A` - Acute Condition, `C` - Chronic Condition, `D` - Non-acute, `E` - Non-Life Threatening, `F` - Routine, `G` - Symptomatic, or `M` - Acute Manifestation of a Chronic Condition."
+                        "description": "A code indicating the nature of a patient's condition. Visit `CR208` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.spinal_manipulation_service_information_CR2.properties.patient_condition_code_08) for a complete list."
                     },
                     "patientConditionDescription1": {
                         "$ref": "#/components/schemas/PatientConditionDescription1"
@@ -8749,7 +8742,7 @@
             },
             "SubscriberInsuranceTypeCode": {
                 "type": "string",
-                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [`SBR05` in the Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
+                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [`SBR05` in the Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -8888,26 +8881,25 @@
             },
             "SupportingDocumentation": {
                 "type": "object",
-                "description": "Loop: 2440, Segment: FRM",
+                "description": "Use to provide information in response to a coded questionnaire document.",
                 "properties": {
                     "questionNumber": {
-                        "type": "string",
-                        "description": "Loop: 2440,  Segment: FRM, Element: FRM01"
+                        "type": "string"
                     },
                     "questionResponseCode": {
                         "$ref": "#/components/schemas/QuestionResponseCode"
                     },
                     "questionResponse": {
                         "type": "string",
-                        "description": "Loop: 2440,  Segment: FRM, Element: FRM03"
+                        "description": "A text response to the question."
                     },
                     "questionResponseAsDate": {
                         "type": "string",
-                        "description": "Loop: 2440,  Segment: FRM, Element: FRM04"
+                        "description": "Date expressed as YYYYMMDD."
                     },
                     "questionResponseAsPercent": {
                         "type": "string",
-                        "description": "Loop: 2440,  Segment: FRM, Element: FRM05"
+                        "description": "Percent formatted as a decimal."
                     }
                 },
                 "required": [
