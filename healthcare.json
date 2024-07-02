@@ -2524,7 +2524,7 @@
             },
             "Claim": {
                 "type": "object",
-                "description": "Loop: 2200D and 2200E",
+                "description": "Information about the claim and its status.",
                 "properties": {
                     "claimStatus": {
                         "$ref": "#/components/schemas/ComponentsSchemasClaimStatus"
@@ -2534,7 +2534,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ServiceDetail"
                         },
-                        "description": "Loop: 2220D, 2220E"
+                        "description": "Information about specific service lines and their status."
                     }
                 }
             },
@@ -3102,31 +3102,30 @@
             },
             "ClaimStatusContactInformation": {
                 "type": "object",
-                "description": "Segment: PER",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER02, Notes: Payer’s name."
+                        "description": "The payer contact name."
                     },
                     "electronicDataInterChangeAccessNumber": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's electronic data interchange access number. PER03=PER05=PER07=ED"
+                        "description": "The payer's Electronic Data Interchange Access number."
                     },
                     "email": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's email. PER03=PER05=PER07=EM"
+                        "description": "The payer's email address."
                     },
                     "fax": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's facsimile number. PER03=PER05=PER07=FX"
+                        "description": "The payer's fax number, without separators. For example, `5551123345` for `555-112-3345`"
                     },
                     "phone": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's telephone number. PER03=PER05=PER07=TE"
+                        "description": "The payer's telephone number, without separators. For example, `5551123345` for `555-112-3345`"
                     },
                     "phoneExtension": {
                         "type": "string",
-                        "description": "Segment: PER, Element: PER04, PER06 or PER08, Notes: Payer's telephone extension. PER05=PER07=EX"
+                        "description": "The payer's telephone extension."
                     }
                 }
             },
@@ -3194,19 +3193,19 @@
             },
             "ClaimStatusPayer": {
                 "type": "object",
-                "description": "Loop: 2100A",
+                "description": "Information about the payer listed in the referenced claim.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "Segment: NM1, Element: NM103, Notes: Payers’s organization name."
+                        "description": "The payer's organization name. For example `UNITEDHEALTHCARE`."
                     },
                     "payerIdentification": {
                         "type": "string",
-                        "description": "Segment: NM1, Element: NM109, Notes: Payers’s identification number established through trading partner agreement. NM108=PI"
+                        "description": "The payer's identification number. This is the `tradingPartnerServiceId`."
                     },
                     "centersForMedicareAndMedicaidServicePlanId": {
                         "type": "string",
-                        "description": "Segment: NM1, Element: NM109, Notes: Use when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID). NM108=XV"
+                        "description": "The payer's Health Plan ID (HPID) or Other Entity Identifier (OEID)."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimStatusContactInformation"
@@ -3295,11 +3294,11 @@
                 "properties": {
                     "controlNumber": {
                         "type": "string",
-                        "description": "Provided by the submitter in the 270 Request. Transaction Set Control Number."
+                        "description": "The control number the the payer provided in the claim status response. This is used to identify the transaction."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "ID used by Clearing House for the trading partner."
+                        "description": "The ID that Stedi assigns to the payer, such as Cigna or Aetna. It matches the `tradingPartnerServiceId` provided in the original claim status request."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/ClaimStatusPayer"
@@ -3309,7 +3308,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ClaimStatusProvider"
                         },
-                        "description": "Loop: 2100B and 2100C"
+                        "description": "Information about the provider making the claim status request."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -3322,30 +3321,30 @@
                         "items": {
                             "$ref": "#/components/schemas/Claim"
                         },
-                        "description": "Loop: 2200D and 2200E"
+                        "description": "The status information for the claim referenced in the original claim status request."
                     },
                     "reassociationKey": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange control number"
+                        "description": "The control number for the transaction."
                     },
                     "errorResponse": {
                         "$ref": "#/components/schemas/ErrorResponse"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Loop: 2200D, Segment: STC, Element: STC01, Health care claim status, Used to convey status of the entire claim or specific service line."
+                        "description": "The status of the entire claim."
                     },
                     "transactionSetAcknowledgement": {
                         "type": "string",
-                        "description": "The 999 acknowledgment code"
+                        "description": "The acknowledgment code in the 999 Implementation Acknowledgment, an EDI file generated by the payer to acknowledge receipt of the claim status request. It indicates whether the claim status request was accepted or rejected due to errors in the EDI request syntax."
                     },
                     "implementationTransactionSetSyntaxError": {
                         "type": "string",
-                        "description": "The 999 syntax error code"
+                        "description": "The syntax error code in the 999 Implementation Acknowledgment. It indicates the type of error (if present) in the EDI request syntax. Visit `IK502` in the [Implementation Acknowledgment specification](https://www.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5.properties.implementation_transaction_set_syntax_error_code_02) for a complete list."
                     },
                     "x12": {
                         "type": "string",
-                        "description": "Basic x12 edi response (for x12 endpoint)"
+                        "description": "The raw X12 response from the payer."
                     },
                     "meta": {
                         "$ref": "#/components/schemas/ClaimStatusResponseMeta"
@@ -3405,11 +3404,11 @@
                 "properties": {
                     "controlNumber": {
                         "type": "string",
-                        "description": "Provided by the submitter in the 270 Request. Transaction Set Control Number."
+                        "description": "The control number the the payer provided in the claim status response. This is used to identify the transaction."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "ID used by Clearing House for the trading partner."
+                        "description": "The ID that Stedi assigns to the payer, such as Cigna or Aetna. It matches the `tradingPartnerServiceId` provided in the original claim status request."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/ClaimStatusPayer"
@@ -3419,7 +3418,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ClaimStatusProvider"
                         },
-                        "description": "Loop: 2100B and 2100C"
+                        "description": "Information about the provider making the claim status request."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -3432,30 +3431,30 @@
                         "items": {
                             "$ref": "#/components/schemas/Claim"
                         },
-                        "description": "Loop: 2200D and 2200E"
+                        "description": "The status information for the claim referenced in the original claim status request."
                     },
                     "reassociationKey": {
                         "type": "string",
-                        "description": "Segment: ISA, Element: ISA13, Notes: Interchange control number"
+                        "description": "The control number for the transaction."
                     },
                     "errorResponse": {
                         "$ref": "#/components/schemas/ErrorResponse"
                     },
                     "status": {
                         "type": "string",
-                        "description": "Loop: 2200D, Segment: STC, Element: STC01, Health care claim status, Used to convey status of the entire claim or specific service line."
+                        "description": "The status of the entire claim."
                     },
                     "transactionSetAcknowledgement": {
                         "type": "string",
-                        "description": "The 999 acknowledgment code"
+                        "description": "The acknowledgment code in the 999 Implementation Acknowledgment, an EDI file generated by the payer to acknowledge receipt of the claim status request. It indicates whether the claim status request was accepted or rejected due to errors in the EDI request syntax."
                     },
                     "implementationTransactionSetSyntaxError": {
                         "type": "string",
-                        "description": "The 999 syntax error code"
+                        "description": "The syntax error code in the 999 Implementation Acknowledgment. It indicates the type of error (if present) in the EDI request syntax. Visit `IK502` in the [Implementation Acknowledgment specification](https://www.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5.properties.implementation_transaction_set_syntax_error_code_02) for a complete list."
                     },
                     "x12": {
                         "type": "string",
-                        "description": "Basic x12 edi response (for x12 endpoint)"
+                        "description": "The raw X12 response from the payer."
                     },
                     "meta": {
                         "$ref": "#/components/schemas/ClaimStatusResponseMeta"
@@ -3464,27 +3463,27 @@
             },
             "ClaimStatusResponseMeta": {
                 "type": "object",
-                "description": "Meta data about the request",
+                "description": "Metadata about the response.",
                 "properties": {
                     "submitterId": {
                         "type": "string",
-                        "description": "submitterId assigned to this request"
+                        "description": "The submitter ID assigned to this request."
                     },
                     "senderId": {
                         "type": "string",
-                        "description": "senderId assigned to this request"
+                        "description": "The sender ID assigned to this request."
                     },
                     "billerId": {
                         "type": "string",
-                        "description": "billerId assigned to this request"
+                        "description": "The biller ID assigned to this request."
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "Unique Id assigned to each request by Optum"
+                        "description": "The unique ID assigned to this request within Stedi."
                     },
                     "applicationMode": {
                         "type": "string",
-                        "description": "Used by Optum to identify where this request can be found for support"
+                        "description": "Identifies where this request can be found for support."
                     }
                 }
             },
@@ -3965,75 +3964,75 @@
             },
             "ComponentsSchemasClaimStatus": {
                 "type": "object",
-                "description": "Loop: 2200D, 2200E",
+                "description": "The status, required action, and paid information of a claim or service line.",
                 "properties": {
                     "statusCategoryCode": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-1, Notes: Status Category Code"
+                        "description": "The status category code. Visit [Claim Status Category Codes](https://x12.org/codes/claim-status-category-codes) in the X12 EDI documentation for a complete list."
                     },
                     "statusCategoryCodeValue": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-1, Notes: Status Category Code value"
+                        "description": "The description of the `statusCategoryCode`."
                     },
                     "statusCode": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-2, Notes: Status Code"
+                        "description": "The status code used to identify the status of an entire claim or a service line. For example, `20` - Accepted for Processing. This is either a [Health Care Claim Status Code](https://x12.org/codes/claim-status-codes) or a National Council for Prescription Drug Programs Reject/Payment Code, when the status is related to pharmacy claims."
                     },
                     "statusCodeValue": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-2, Notes: Status Code value"
+                        "description": "The description of the `statusCode`."
                     },
                     "entityCode": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-3, Notes: Entity Code"
+                        "description": "Code identifying the organizational entity, physical location, property, or individual associated with the `statusCode`. For example `1G` - Oncology Center."
                     },
                     "entity": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC01-3, Notes: Entity Code value"
+                        "description": "The description of the `entityCode`. For example, `Home Health Care`."
                     },
                     "effectiveDate": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC02, Notes: Effective Date"
+                        "description": "The date the claim was placed in this status by the payer's adjudication process. Formatted as `YYYYMMDD`."
                     },
                     "submittedAmount": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC04, Notes: Total Claim Charge Amount"
+                        "description": "The total charges submitted for the claim. The total claim charge may change from the submitted claim total charge based on claims processing instructions, such as claim splitting. Some payers may not store the original submitted charge. Some HMO encounters supply zero as the amount of original charges."
                     },
                     "amountPaid": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC05, Notes: Claim Payment Amount"
+                        "description": "The total amount paid for the claim. May be zero when no payment is being made. Some payers can provide the adjudicated payment amount before they issue the remittance."
                     },
                     "paidDate": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC06, Notes: Adjudication Finalized Date"
+                        "description": "This is the date of denial or approval for the claim, formatted as `YYYYMMDD`. This date may or may not be the same as the issue date of the check, EFT, or non-payment remittance. Some payers can provide this date before they issue the remittance."
                     },
                     "checkIssueDate": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC08, Notes: Remittance Date"
+                        "description": "The date the payer issued the check for payment, formatted as `YYYYMMDD`. This may also contain a non-payment remittance advice date, if available from the payer."
                     },
                     "checkNumber": {
                         "type": "string",
-                        "description": "Segment: STC, Element: STC09, Notes: Remittance Trace Number"
+                        "description": "The check identification number or electronic funds transfer (EFT) trace number. This number is used to track the payment. This may also contain a non-payment remittance advice Trace Number (835 or paper), if available from the payer."
                     },
                     "trackingNumber": {
                         "type": "string",
-                        "description": "Segment: TRN, Element: TRN02, Notes: Tracking Number"
+                        "description": "This is the trace or reference number of the original claim status request."
                     },
                     "claimServiceDate": {
                         "type": "string",
-                        "description": "Segment: DTP, Element: DTP03, Notes: Claim Service Period"
+                        "description": "Either a single date (formatted as `YYYYMMDD`) or a range of dates (formatted as `YYYYMMDD-YYYYMMDD`) identifying the period of service related to the claim. This field is derived from the service level dates."
                     },
                     "tradingPartnerClaimNumber": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be 1K"
+                        "description": "This field corresponds to the `providerControlNumber` field from the claim, if set. You can use this value to correlate the claim status response to the original claim."
                     },
                     "patientAccountNumber": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be EJ"
+                        "description": "The patient account number provided by the service provider in the original claim. You can use this value to correlate the claim status response to the original claim."
                     },
                     "clearingHouseClaimNumber": {
                         "type": "string",
-                        "description": "Segment: REF, Element: REF02, Notes: REF01 for this will be D9"
+                        "description": "The claim number provided by the clearinghouse."
                     }
                 }
             },
@@ -5191,27 +5190,27 @@
                 "properties": {
                     "field": {
                         "type": "string",
-                        "description": "Attribute that is bad"
+                        "description": "The attribute that caused the error."
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value of bad attribute"
+                        "description": "The value that caused the error."
                     },
                     "code": {
                         "type": "string",
-                        "description": "Code for the error. Example: INVALID_VALUE"
+                        "description": "The error code."
                     },
                     "description": {
                         "type": "string",
-                        "description": "Description of the error code. Value provided in payer id should be a valid Optum assigned ERA payer ID"
+                        "description": "The description of the error code."
                     },
                     "location": {
                         "type": "string",
-                        "description": "Segment/location where the error occurred. If this is a network/system error, there is no location attribute. Example: $.payerBenefits[0].payer"
+                        "description": "Where the error occurred within the request syntax. If this is a network or system error, there is no location attribute."
                     },
                     "followupAction": {
                         "type": "string",
-                        "description": "Any follow action required for the error. For AAA errors, this would be value for AAA04"
+                        "description": "Follow-up actions to correct the error."
                     }
                 }
             },
@@ -5219,12 +5218,10 @@
                 "type": "object",
                 "properties": {
                     "code": {
-                        "type": "string",
-                        "description": "Code for the error."
+                        "type": "string"
                     },
                     "description": {
-                        "type": "string",
-                        "description": "Description of the error code. Value provided in payer id should be a valid Optum assigned ERA payer Id."
+                        "type": "string"
                     },
                     "transactionIdentifier": {
                         "$ref": "#/components/schemas/TransactionIdentifier"
@@ -7966,34 +7963,34 @@
             },
             "Service": {
                 "type": "object",
-                "description": "Loop: 2220D, 2220E, Segment: SVC, Notes: Service Line Information",
+                "description": "Information about a service line listed in the referenced claim.",
                 "properties": {
                     "serviceIdQualifierCode": {
                         "$ref": "#/components/schemas/ServiceIdQualifierCode"
                     },
                     "serviceIdQualifier": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-1, Notes: description associated with the service code. Example: American Dental Association Codes"
+                        "description": "The definition of the `serviceIdQualifierCode`. For example, `American Dental Association Codes`."
                     },
                     "procedureId": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-2, Notes: Identifying number for a product or service."
+                        "description": "Identifying number for product or service."
                     },
                     "submittedAmount": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC02, Notes: Amount submitted for the service. This is the line item total on the current claim service status."
+                        "description": "The amount submitted for the service line, expressed as a decimal. For example, `100.00`. This is the line item total on the current claim service status."
                     },
                     "amountPaid": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC03, Notes: Amount paid for the service."
+                        "description": "The amount paid for the service line, expressed as a decimal. For example, `100.00`."
                     },
                     "revenueCode": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC04, Notes: National uniform billing committee revenue code."
+                        "description": "The National Uniform Billing Committee revenue code."
                     },
                     "submittedUnits": {
                         "type": "string",
-                        "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC07, Notes: Original submitted units of service."
+                        "description": "The number of units of service submitted."
                     }
                 }
             },
@@ -8012,7 +8009,6 @@
             },
             "ServiceDetail": {
                 "type": "object",
-                "description": "Loop: 2220D, 2220E",
                 "properties": {
                     "service": {
                         "$ref": "#/components/schemas/Service"
@@ -8022,7 +8018,7 @@
                         "items": {
                             "$ref": "#/components/schemas/Status"
                         },
-                        "description": "Loop: 2220D, 2220E, Segment: STC, Notes: Service Line Status Information"
+                        "description": "Information about the status, required action, and paid information of a service line."
                     }
                 }
             },
@@ -8070,7 +8066,7 @@
             },
             "ServiceIdQualifierCode": {
                 "type": "string",
-                "description": "Loop: 2220D, 2220E, Segment: SVC, Element: SVC01-1, Notes: Code identifying the type/source of the descriptive number used in Product/Service ID. Code Example: AD, Allowed Values are 'AD' American Dental Association Codes, 'ER' Jurisdiction Specific Procedure and Supply Codes, 'HC' Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, 'HP' Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, 'IV' Home Infusion EDI Coalition (HIEC) Product/Service Code, 'N4' National Drug Code in 5-4-2 Format, 'NU' National Uniform Billing Committee (NUBC) UB92 Codes, 'WK' Advanced Billing Concepts (ABC) Codes",
+                "description": "A code identifying the type/source of the `procedureId`. Visit `C00301` in the [Status Request response](https://www.stedi.com/app/guides/view/hipaa/status-request-response-x212/01GRYB6AQ9BQKFPJJKD6NSSYGY#properties.detail.properties.information_source_level_HL_loop.items.properties.information_receiver_level_HL_loop.items.properties.service_provider_level_HL_loop.items.properties.subscriber_level_HL_loop.items.properties.claim_status_tracking_number_TRN_loop.items.properties.service_line_information_SVC_loop.items.properties.service_line_information_SVC.properties.composite_medical_procedure_identifier_01.properties.product_or_service_id_qualifier_01) specification for a complete list.",
                 "enum": [
                     "AD",
                     "ER",
@@ -8304,7 +8300,7 @@
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "The procedure code for the service line. This is the identfying number for a product or service."
+                        "description": "The code identifying the product or service."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -8599,35 +8595,35 @@
             },
             "Status": {
                 "type": "object",
-                "description": "Loop: 2220D, 2220E, Segment: STC, Notes: Service Line Status Information",
+                "description": "Information about the status, required action, and paid information of a service line.",
                 "properties": {
                     "statusCategoryCode": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-1, Notes: The health care claim status category code. Example: F3"
+                        "description": "The category code for the status. Visit [Claim Status Category Codes](https://x12.org/codes/claim-status-category-codes) in the X12 EDI documentation for a complete list."
                     },
                     "statusCategoryCodeValue": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-1, Notes: Value of the category code. F3 = Finalized/Revised - Adjudication information has been changed"
+                        "description": "The description of the `statusCategoryCode`."
                     },
                     "statusCode": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-2, Notes: Status code used to identify the status of an entire claim or a service line. Example: 3"
+                        "description": "The status code used to identify the status of an entire service line. This is either a [Health Care Claim Status Code](https://x12.org/codes/claim-status-codes) or a National Council for Prescription Drug Programs Reject/Payment Code, when the status is related to pharmacy claims."
                     },
                     "statusCodeValue": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC01-2, Notes: Status Code value. 3 = Claim has been adjudicated and is awaiting payment cycle."
+                        "description": "The description of the `statusCode`."
                     },
                     "entityCode": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element STC01-3, Notes:Code for the entity. Example: 2P"
+                        "description": "The code identifying the organizational entity, physical location, property, or individual associated with the `statusCode`. For example, `4H` - Emergency Department."
                     },
                     "entity": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element STC01-3, Notes: Value of the entity code. Example: 2P=Public Health Service Facility"
+                        "description": "The description of the `entityCode`. For example, `Public Health Service Facility`."
                     },
                     "effectiveDate": {
                         "type": "string",
-                        "description": "Loop: 2220D and 2220E, Segment: STC, Element: STC02, Notes: Effective date of the status information. Date the service was placed in this status by the information source’s adjudication process. Date or Date range, format YYYYMMDD"
+                        "description": "The date the service line was placed in this status by the payer's adjudication process. Formatted as `YYYYMMDD`."
                     }
                 }
             },
@@ -8910,12 +8906,10 @@
                 "type": "object",
                 "properties": {
                     "customerTransactionId": {
-                        "type": "string",
-                        "description": "The number assigned by the originator to identify the transaction within the originator's business application system"
+                        "type": "string"
                     },
                     "transactionId": {
-                        "type": "string",
-                        "description": "The number assigned by the originator to identify the transaction within the originator's business application system"
+                        "type": "string"
                     }
                 }
             }
