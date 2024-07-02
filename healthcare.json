@@ -2447,32 +2447,17 @@
                         "type": "string",
                         "description": "The billing provider's Employer Identification Number. Must be a string of exactly nine numbers with no separators."
                     },
-                    "commercialNumber": {
-                        "type": "string"
-                    },
-                    "locationNumber": {
-                        "type": "string"
-                    },
-                    "payerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "employerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "claimOfficeNumber": {
-                        "type": "string"
-                    },
-                    "naic": {
-                        "type": "string"
-                    },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The billing provider's state license number."
                     },
                     "providerUpinNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the billing provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
@@ -7085,7 +7070,7 @@
             },
             "Referring": {
                 "type": "object",
-                "description": "Required when this service line involves a referral and the referring provider differs from that reported at the claim level.",
+                "description": "Information about the referring provider.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -7095,40 +7080,21 @@
                         "type": "string",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
-                    "ssn": {
-                        "type": "string"
-                    },
-                    "employerId": {
-                        "type": "string"
-                    },
                     "commercialNumber": {
                         "type": "string",
                         "description": "The provider's commercial number."
                     },
-                    "locationNumber": {
-                        "type": "string"
-                    },
-                    "payerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "employerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "claimOfficeNumber": {
-                        "type": "string"
-                    },
-                    "naic": {
-                        "type": "string"
-                    },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
@@ -7215,13 +7181,6 @@
                         "type": "string",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
-                    "ssn": {
-                        "type": "string"
-                    },
-                    "employerId": {
-                        "type": "string",
-                        "description": "The provider's employer identification number. Must be a string of exactly nine numbers with no separators."
-                    },
                     "commercialNumber": {
                         "type": "string",
                         "description": "The provider's commercial number."
@@ -7230,29 +7189,17 @@
                         "type": "string",
                         "description": "The provider's location number."
                     },
-                    "payerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "employerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "claimOfficeNumber": {
-                        "type": "string"
-                    },
-                    "naic": {
-                        "type": "string"
-                    },
                     "stateLicenseNumber": {
                         "type": "string",
                         "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "The provider's taxonomy code, indicating their specialty."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
@@ -8377,11 +8324,11 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "The provider's taxonomy code, indicating their specialty."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
@@ -8465,11 +8412,11 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "The provider's UPIN number. Must be formatted as either X99999 or XXX999."
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "description": "The provider's taxonomy code, indicating their specialty."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
@@ -8807,10 +8754,12 @@
                         "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "ssn": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The social security number. Must be a string of nine numbers with no separators."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Employer ID number must be a string of exactly nine numbers with no separators."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -8820,29 +8769,17 @@
                         "type": "string",
                         "description": "The location number of the supervising provider."
                     },
-                    "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "The payer identification number of the supervising provider."
-                    },
-                    "employerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "claimOfficeNumber": {
-                        "type": "string"
-                    },
-                    "naic": {
-                        "type": "string"
-                    },
                     "stateLicenseNumber": {
                         "type": "string",
                         "description": "The state license number of the supervising provider."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "The UPIN number of the supervising provider. You must format this value as  either X99999 or XXX999."
+                        "description": "Deprecated; do not use."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
                         "type": "string",
