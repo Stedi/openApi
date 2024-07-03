@@ -1672,6 +1672,235 @@
                     }
                 }
             }
+        },
+        "/change/medicalnetwork/reports/v2/{transactionId}/277": {
+            "get": {
+                "operationId": "ConvertReport277",
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app.",
+                        "schema": {
+                            "type": "string",
+                            "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ConvertReport277 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConvertReport277ResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/change/medicalnetwork/reports/v2/{transactionId}/835": {
+            "get": {
+                "operationId": "ConvertReport835",
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app.",
+                        "schema": {
+                            "type": "string",
+                            "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
+                        },
+                        "required": true,
+                        "examples": {
+                            "ConvertReport835_example1": {
+                                "summary": "Request 277 Report",
+                                "description": "",
+                                "value": "d567c2ae-f073-4725-8b8c-06c473b738a6"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ConvertReport835 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ConvertReport835ResponseContent"
+                                },
+                                "examples": {
+                                    "ConvertReport835_example1": {
+                                        "summary": "Request 277 Report",
+                                        "description": "",
+                                        "value": {
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "senderId": "BSW",
+                                                "transactionId": "7647d644-9348-4596-a3b4-6830b8b48cc8"
+                                            },
+                                            "transactions": [
+                                                {
+                                                    "controlNumber": "112233",
+                                                    "detailInfo": [
+                                                        {
+                                                            "assignedNumber": "1",
+                                                            "paymentInfo": [
+                                                                {
+                                                                    "claimPaymentInfo": {
+                                                                        "claimFilingIndicatorCode": "12",
+                                                                        "claimFrequencyCode": "1",
+                                                                        "claimPaymentAmount": "500",
+                                                                        "claimStatusCode": "1",
+                                                                        "facilityTypeCode": "11",
+                                                                        "patientControlNumber": "1112223333",
+                                                                        "patientResponsibilityAmount": "300",
+                                                                        "payerClaimControlNumber": "94060555410000",
+                                                                        "totalClaimChargeAmount": "800"
+                                                                    },
+                                                                    "claimSupplementalInformation": {
+                                                                        "coverageAmount": "800"
+                                                                    },
+                                                                    "patientName": {
+                                                                        "firstName": "JOHN",
+                                                                        "lastName": "DOE",
+                                                                        "memberId": "1234567891"
+                                                                    },
+                                                                    "serviceLines": [
+                                                                        {
+                                                                            "serviceAdjustments": [
+                                                                                {
+                                                                                    "adjustmentAmount1": "300",
+                                                                                    "adjustmentReasonCode1": "1",
+                                                                                    "claimAdjustmentGroupCode": "PR",
+                                                                                    "claimAdjustmentGroupCodeValue": "Patient Responsibility"
+                                                                                }
+                                                                            ],
+                                                                            "serviceDate": "20190301",
+                                                                            "servicePaymentInformation": {
+                                                                                "adjudicatedProcedureCode": "99211",
+                                                                                "lineItemChargeAmount": "800",
+                                                                                "lineItemProviderPaymentAmount": "500",
+                                                                                "productOrServiceIDQualifier": "HC",
+                                                                                "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes"
+                                                                            },
+                                                                            "serviceSupplementalAmounts": {
+                                                                                "allowedActual": "800"
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "claimPaymentInfo": {
+                                                                        "claimFilingIndicatorCode": "12",
+                                                                        "claimFrequencyCode": "1",
+                                                                        "claimPaymentAmount": "600",
+                                                                        "claimStatusCode": "1",
+                                                                        "facilityTypeCode": "11",
+                                                                        "patientControlNumber": "22255566677",
+                                                                        "patientResponsibilityAmount": "600",
+                                                                        "payerClaimControlNumber": "9407779923000",
+                                                                        "totalClaimChargeAmount": "1200"
+                                                                    },
+                                                                    "claimSupplementalInformation": {
+                                                                        "coverageAmount": "1200"
+                                                                    },
+                                                                    "patientName": {
+                                                                        "firstName": "JANE",
+                                                                        "lastName": "DOE",
+                                                                        "memberId": "1234567891"
+                                                                    },
+                                                                    "serviceLines": [
+                                                                        {
+                                                                            "serviceAdjustments": [
+                                                                                {
+                                                                                    "adjustmentAmount1": "600",
+                                                                                    "adjustmentReasonCode1": "1",
+                                                                                    "claimAdjustmentGroupCode": "PR",
+                                                                                    "claimAdjustmentGroupCodeValue": "Patient Responsibility"
+                                                                                }
+                                                                            ],
+                                                                            "serviceDate": "20190310",
+                                                                            "servicePaymentInformation": {
+                                                                                "adjudicatedProcedureCode": "93555",
+                                                                                "lineItemChargeAmount": "1200",
+                                                                                "lineItemProviderPaymentAmount": "600",
+                                                                                "productOrServiceIDQualifier": "HC",
+                                                                                "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes"
+                                                                            },
+                                                                            "serviceSupplementalAmounts": {
+                                                                                "allowedActual": "1200"
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "financialInformation": {
+                                                        "checkIssueOrEFTEffectiveDate": "20190316",
+                                                        "creditOrDebitFlagCode": "C",
+                                                        "payerIdentifier": "000000000",
+                                                        "paymentFormatCode": "CCP",
+                                                        "paymentMethodCode": "ACH",
+                                                        "receiverAccountDetails": {
+                                                            "receiverAccountNumber": "144444",
+                                                            "receiverAccountNumberQualifier": "DA",
+                                                            "receiverDfiIdNumberQualifier": "01",
+                                                            "receiverDfiIdentificationNumber": "111333555"
+                                                        },
+                                                        "senderAccountDetails": {
+                                                            "senderAccountNumber": "11111111",
+                                                            "senderAccountNumberQualifier": "DA",
+                                                            "senderDfiIdNumberQualifier": "01",
+                                                            "senderDFIIdentifier": "888999777"
+                                                        },
+                                                        "totalActualProviderPaymentAmount": "1100",
+                                                        "transactionHandlingCode": "I"
+                                                    },
+                                                    "payee": {
+                                                        "federalTaxPayersIdentificationNumber": "777667755",
+                                                        "name": "ACME MEDICAL CENTER",
+                                                        "npi": "5544667733"
+                                                    },
+                                                    "payer": {
+                                                        "address": {
+                                                            "address1": "10 SOUTH AVENUET",
+                                                            "city": "NEW YORK",
+                                                            "postalCode": "55111",
+                                                            "state": "SD"
+                                                        },
+                                                        "name": "RUSHMORE LIFE",
+                                                        "technicalContactInformation": [
+                                                            {
+                                                                "contactMethods": [
+                                                                    {
+                                                                        "phone": "8005550000"
+                                                                    }
+                                                                ],
+                                                                "contactName": "JOHN DOE"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "paymentAndRemitReassociationDetails": {
+                                                        "checkOrEFTTraceNumber": "71700666555",
+                                                        "originatingCompanyIdentifier": "1935665544",
+                                                        "traceTypeCode": "1"
+                                                    },
+                                                    "productionDate": "20190314"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1810,6 +2039,23 @@
                     "PI",
                     "PR"
                 ]
+            },
+            "Adjustments": {
+                "type": "object",
+                "properties": {
+                    "adjustmentReasonCode": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCodeValue": {
+                        "type": "string"
+                    },
+                    "providerAdjustmentIdentifier": {
+                        "type": "string"
+                    },
+                    "providerAdjustmentAmount": {
+                        "type": "string"
+                    }
+                }
             },
             "AmbulanceCertification": {
                 "type": "object",
@@ -2490,6 +2736,393 @@
                     "providerType"
                 ]
             },
+            "BusinessContactInformation": {
+                "type": "object",
+                "properties": {
+                    "contactName": {
+                        "type": "string"
+                    },
+                    "contactMethods": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ContactMethod"
+                        }
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdvicePayer": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "centersForMedicareAndMedicaidServicesPlanId": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "submitterIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "healthIndustryNumber": {
+                        "type": "string"
+                    },
+                    "nationalAssociationOfInsuranceCommissioners": {
+                        "type": "string"
+                    },
+                    "payerWebSiteUrl": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdvicePayerAddress"
+                    },
+                    "businessContactInformation": {
+                        "$ref": "#/components/schemas/BusinessContactInformation"
+                    },
+                    "technicalContactInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TechnicalContactInformation"
+                        }
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdvicePayerAddress": {
+                "type": "object",
+                "properties": {
+                    "address1": {
+                        "type": "string"
+                    },
+                    "address2": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "type": "string"
+                    },
+                    "countryCode": {
+                        "type": "string"
+                    },
+                    "countrySubCode": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLines": {
+                "type": "object",
+                "properties": {
+                    "serviceDate": {
+                        "type": "string"
+                    },
+                    "serviceStartDate": {
+                        "type": "string"
+                    },
+                    "serviceEndDate": {
+                        "type": "string"
+                    },
+                    "lineItemControlNumber": {
+                        "type": "string"
+                    },
+                    "servicePaymentInformation": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServicePaymentInformation"
+                    },
+                    "serviceAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAdjustments"
+                        }
+                    },
+                    "serviceIdentification": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceIdentification"
+                    },
+                    "renderingProviderInformation": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesRenderingProviderInformation"
+                    },
+                    "serviceSupplementalAmounts": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalAmounts"
+                    },
+                    "serviceSupplementalQuantities": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalQuantities"
+                    },
+                    "healthCareCheckRemarkCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCareCheckRemarkCodes"
+                        }
+                    },
+                    "healthCarePolicyIdentification": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCarePolicyIdentification"
+                        }
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesRenderingProviderInformation": {
+                "type": "object",
+                "properties": {
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "blueCrossProviderNumber": {
+                        "type": "string"
+                    },
+                    "blueShieldProviderNumber": {
+                        "type": "string"
+                    },
+                    "medicareProviderNumber": {
+                        "type": "string"
+                    },
+                    "medicaidProviderNumber": {
+                        "type": "string"
+                    },
+                    "providerUPINNumber": {
+                        "type": "string"
+                    },
+                    "champusIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "facilityIdNumber": {
+                        "type": "string"
+                    },
+                    "nationalCouncilForPrescriptionDrugProgramPharmacyNumber": {
+                        "type": "string"
+                    },
+                    "providerCommercialNumber": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    },
+                    "federalTaxpayerIdentificationNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceIdentification": {
+                "type": "object",
+                "properties": {
+                    "ambulatoryPatientGroupNumber": {
+                        "type": "string"
+                    },
+                    "ambulatoryPaymentClassification": {
+                        "type": "string"
+                    },
+                    "authorizationNumber": {
+                        "type": "string"
+                    },
+                    "attachmentCode": {
+                        "type": "string"
+                    },
+                    "priorAuthorizationNumber": {
+                        "type": "string"
+                    },
+                    "preDeterminationOfBenefitsIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "rateCodeNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServicePaymentInformation": {
+                "type": "object",
+                "properties": {
+                    "productOrServiceIDQualifier": {
+                        "type": "string"
+                    },
+                    "productOrServiceIDQualifierValue": {
+                        "type": "string"
+                    },
+                    "adjudicatedProcedureCode": {
+                        "type": "string"
+                    },
+                    "adjudicatedProcedureModifierCodes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "lineItemChargeAmount": {
+                        "type": "string"
+                    },
+                    "lineItemProviderPaymentAmount": {
+                        "type": "string"
+                    },
+                    "nationalUniformBillingCommitteeRevenueCode": {
+                        "type": "string"
+                    },
+                    "unitsOfServicePaidCount": {
+                        "type": "string"
+                    },
+                    "submittedProductOrServiceIDQualifier": {
+                        "type": "string"
+                    },
+                    "submittedProductOrServiceIDQualifierValue": {
+                        "type": "string"
+                    },
+                    "submittedAdjudicatedProcedureCode": {
+                        "type": "string"
+                    },
+                    "submittedAdjudicatedProcedureModifierCodes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "submittedProcedureCodeDescription": {
+                        "type": "string"
+                    },
+                    "originalUnitsOfServiceCount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalAmounts": {
+                "type": "object",
+                "properties": {
+                    "allowedActual": {
+                        "type": "string"
+                    },
+                    "deductionAmount": {
+                        "type": "string"
+                    },
+                    "tax": {
+                        "type": "string"
+                    },
+                    "totalClaimBeforeTaxes": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalQuantities": {
+                "type": "object",
+                "properties": {
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimStatusCdpediPayer": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "payerIdentification": {
+                        "type": "string"
+                    },
+                    "centersForMedicareAndMedicaidServicePlanId": {
+                        "type": "string"
+                    },
+                    "payerContactInformation": {
+                        "$ref": "#/components/schemas/PayerContactInformation"
+                    },
+                    "claimStatusTransactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimStatusTransactions"
+                        }
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimStatusCdpediServiceLines": {
+                "type": "object",
+                "properties": {
+                    "service": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediServiceLinesService"
+                    },
+                    "serviceClaimStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceClaimStatus"
+                        }
+                    },
+                    "lineItemControlNumber": {
+                        "type": "string"
+                    },
+                    "serviceLineDate": {
+                        "type": "string"
+                    },
+                    "beginServiceLineDate": {
+                        "type": "string"
+                    },
+                    "endServiceLineDate": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CdpediX12V5010NewmodelsClaimStatusCdpediServiceLinesService": {
+                "type": "object",
+                "properties": {
+                    "serviceIdQualifierCode": {
+                        "type": "string"
+                    },
+                    "serviceIdQualifierCodeValue": {
+                        "type": "string"
+                    },
+                    "procedureCode": {
+                        "type": "string"
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "chargeAmount": {
+                        "type": "string"
+                    },
+                    "amountPaid": {
+                        "type": "string"
+                    },
+                    "revenueCode": {
+                        "type": "string"
+                    },
+                    "submittedUnits": {
+                        "type": "string"
+                    }
+                }
+            },
             "CertificationConditionCodeAppliesIndicator": {
                 "type": "string",
                 "description": "Code indicating whether an EPSDT referral was given to the patient. Can be set to `N` - No or `Y` - Yes.",
@@ -2564,6 +3197,71 @@
                     "adjustmentAmount",
                     "adjustmentReasonCode"
                 ]
+            },
+            "ClaimAdjustments": {
+                "type": "object",
+                "properties": {
+                    "claimAdjustmentGroupCode": {
+                        "type": "string"
+                    },
+                    "claimAdjustmentGroupCodeValue": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode1": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount1": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity1": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode2": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount2": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity2": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode3": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount3": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity3": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode4": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount4": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity4": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode5": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount5": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity5": {
+                        "type": "string"
+                    },
+                    "adjustmentReasonCode6": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount6": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity6": {
+                        "type": "string"
+                    }
+                }
             },
             "ClaimContractInformation": {
                 "type": "object",
@@ -2997,6 +3695,102 @@
                     }
                 }
             },
+            "ClaimPaymentAdviceResponse": {
+                "type": "object",
+                "properties": {
+                    "controlNumber": {
+                        "type": "string"
+                    },
+                    "paymentAndRemitReassociationDetails": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponsePaymentAndRemitReassociationDetails"
+                    },
+                    "foreignCurrency": {
+                        "type": "string"
+                    },
+                    "productionDate": {
+                        "type": "string"
+                    },
+                    "receiverIdentifier": {
+                        "type": "string"
+                    },
+                    "versionIdentification": {
+                        "type": "string"
+                    },
+                    "financialInformation": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponseFinancialInformation"
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdvicePayer"
+                    },
+                    "payee": {
+                        "$ref": "#/components/schemas/Payee"
+                    },
+                    "detailInfo": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DetailInfo"
+                        }
+                    },
+                    "providerAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderAdjustments"
+                        }
+                    }
+                }
+            },
+            "ClaimPaymentAdviceResponseFinancialInformation": {
+                "type": "object",
+                "properties": {
+                    "transactionHandlingCode": {
+                        "type": "string"
+                    },
+                    "totalActualProviderPaymentAmount": {
+                        "type": "string"
+                    },
+                    "creditOrDebitFlagCode": {
+                        "type": "string"
+                    },
+                    "paymentMethodCode": {
+                        "type": "string"
+                    },
+                    "paymentFormatCode": {
+                        "type": "string"
+                    },
+                    "payerIdentifier": {
+                        "type": "string"
+                    },
+                    "originatingCompanySupplementalCode": {
+                        "type": "string"
+                    },
+                    "checkIssueOrEFTEffectiveDate": {
+                        "type": "string"
+                    },
+                    "senderAccountDetails": {
+                        "$ref": "#/components/schemas/SenderAccountDetails"
+                    },
+                    "receiverAccountDetails": {
+                        "$ref": "#/components/schemas/ReceiverAccountDetails"
+                    }
+                }
+            },
+            "ClaimPaymentAdviceResponsePaymentAndRemitReassociationDetails": {
+                "type": "object",
+                "properties": {
+                    "traceTypeCode": {
+                        "type": "string"
+                    },
+                    "checkOrEFTTraceNumber": {
+                        "type": "string"
+                    },
+                    "originatingCompanyIdentifier": {
+                        "type": "string"
+                    },
+                    "originatingCompanySupplementalCode": {
+                        "type": "string"
+                    }
+                }
+            },
             "ClaimPricingRepricingInformation": {
                 "type": "object",
                 "description": "Repricing information about the claim or a line item. This information is completed by repricers, not providers. For capitated encounters, pricing or repricing information usually is not applicable and is provided to qualify other information within the claim.",
@@ -3111,6 +3905,58 @@
                     "phoneExtension": {
                         "type": "string",
                         "description": "The payer's telephone extension."
+                    }
+                }
+            },
+            "ClaimStatusDetails": {
+                "type": "object",
+                "properties": {
+                    "serviceProvider": {
+                        "$ref": "#/components/schemas/ClaimStatusDetailsServiceProvider"
+                    },
+                    "providerOFServiceInformationTraceIdentifier": {
+                        "type": "string"
+                    },
+                    "serviceProviderClaimStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceProviderClaimStatus"
+                        }
+                    },
+                    "patientClaimStatusDetails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PatientClaimStatusDetails"
+                        }
+                    }
+                }
+            },
+            "ClaimStatusDetailsServiceProvider": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "tin": {
+                        "type": "string"
+                    },
+                    "spn": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
                     }
                 }
             },
@@ -3523,6 +4369,49 @@
                     "U"
                 ]
             },
+            "ClaimStatusTransactions": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "$ref": "#/components/schemas/ClaimStatusTransactionsProvider"
+                    },
+                    "claimTransactionBatchNumber": {
+                        "type": "string"
+                    },
+                    "providerClaimStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderClaimStatus"
+                        }
+                    },
+                    "claimStatusDetails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimStatusDetails"
+                        }
+                    }
+                }
+            },
+            "ClaimStatusTransactionsProvider": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "etin": {
+                        "type": "string"
+                    }
+                }
+            },
             "ClaimSupplementalInformation": {
                 "type": "object",
                 "description": "Additional information or documentation required for the claim.",
@@ -3623,6 +4512,47 @@
                     "address1",
                     "city"
                 ]
+            },
+            "ClaimsClaimStatus": {
+                "type": "object",
+                "properties": {
+                    "referencedTransactionTraceNumber": {
+                        "type": "string"
+                    },
+                    "informationClaimStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InformationClaimStatus"
+                        }
+                    },
+                    "tradingPartnerClaimNumber": {
+                        "type": "string"
+                    },
+                    "billTypeIdentifier": {
+                        "type": "string"
+                    },
+                    "patientAccountNumber": {
+                        "type": "string"
+                    },
+                    "pharmacyPrescriptionNumber": {
+                        "type": "string"
+                    },
+                    "voucherIdentifier": {
+                        "type": "string"
+                    },
+                    "clearinghouseTraceNumber": {
+                        "type": "string"
+                    },
+                    "claimServiceBeginDate": {
+                        "type": "string"
+                    },
+                    "claimServiceEndDate": {
+                        "type": "string"
+                    },
+                    "claimServiceDate": {
+                        "type": "string"
+                    }
+                }
             },
             "ClaimsContactInformation": {
                 "type": "object",
@@ -4179,6 +5109,43 @@
                     "name"
                 ]
             },
+            "ContactMethod": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "phoneExtension": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ContactMethods": {
+                "type": "object",
+                "properties": {
+                    "electronicDataInterChangeAccessNumber": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "phoneExtension": {
+                        "type": "string"
+                    }
+                }
+            },
             "Contacts": {
                 "type": "object",
                 "description": "Contacts",
@@ -4238,12 +5205,98 @@
                     "09"
                 ]
             },
+            "ConvertReport277ResponseContent": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReportsClaimStatusResponse"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/Meta"
+                    }
+                },
+                "required": [
+                    "meta"
+                ]
+            },
+            "ConvertReport835ResponseContent": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimPaymentAdviceResponse"
+                        }
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/Meta"
+                    }
+                },
+                "required": [
+                    "meta"
+                ]
+            },
             "CopayStatusCode": {
                 "type": "string",
                 "description": "Code indicating whether co-payment requirements were met. Can be set to `O` - Copay exempt.",
                 "enum": [
                     "0"
                 ]
+            },
+            "CorrectedPriorityPayer": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "blueCrossBlueShieldAssociationPlanCode": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "nationalAssociationOfInsuranceCommissionersIdentification": {
+                        "type": "string"
+                    },
+                    "payorId": {
+                        "type": "string"
+                    },
+                    "pharmacyProcessorNumber": {
+                        "type": "string"
+                    },
+                    "centersForMedicareAndMedicaidServicesPlanId": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CrossoverCarrier": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "blueCrossBlueShieldAssociationPlanCode": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "nationalAssociationOfInsuranceCommissionersIdentification": {
+                        "type": "string"
+                    },
+                    "payorId": {
+                        "type": "string"
+                    },
+                    "pharmacyProcessorNumber": {
+                        "type": "string"
+                    },
+                    "centersForMedicareAndMedicaidServicesPlanId": {
+                        "type": "string"
+                    }
+                }
             },
             "DelayReasonCode": {
                 "type": "string",
@@ -4324,6 +5377,26 @@
                     "F",
                     "U"
                 ]
+            },
+            "DetailInfo": {
+                "type": "object",
+                "properties": {
+                    "assignedNumber": {
+                        "type": "string"
+                    },
+                    "providerSummaryInformation": {
+                        "$ref": "#/components/schemas/ProviderSummaryInformation"
+                    },
+                    "providerSupplementalSummaryInformation": {
+                        "$ref": "#/components/schemas/ProviderSupplementalSummaryInformation"
+                    },
+                    "paymentInfo": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PaymentInfo"
+                        }
+                    }
+                }
             },
             "DiagnosisTypeCode": {
                 "type": "string",
@@ -5219,6 +6292,32 @@
                     }
                 }
             },
+            "ExtendedProviderStatus": {
+                "type": "object",
+                "properties": {
+                    "healthCareClaimStatusCategoryCode": {
+                        "type": "string"
+                    },
+                    "healthCareClaimStatusCategoryCodeValue": {
+                        "type": "string"
+                    },
+                    "statusCode": {
+                        "type": "string"
+                    },
+                    "statusCodeValue": {
+                        "type": "string"
+                    },
+                    "entityIdentifierCode": {
+                        "type": "string"
+                    },
+                    "entityIdentifierCodeValue": {
+                        "type": "string"
+                    },
+                    "nationalCouncilForPrescriptionDrugProgramsRejectPaymentCodes": {
+                        "type": "string"
+                    }
+                }
+            },
             "Failure": {
                 "type": "object",
                 "description": "Currently not used.",
@@ -5281,6 +6380,20 @@
                     "6"
                 ]
             },
+            "HealthCareCheckRemarkCodes": {
+                "type": "object",
+                "properties": {
+                    "codeListQualifierCode": {
+                        "type": "string"
+                    },
+                    "codeListQualifierCodeValue": {
+                        "type": "string"
+                    },
+                    "remarkCode": {
+                        "type": "string"
+                    }
+                }
+            },
             "HealthCareDiagnosisCode": {
                 "type": "object",
                 "description": "Information about the patient's healthcare diagnosis.",
@@ -5308,6 +6421,14 @@
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The diagnosis code. Omit the decimal points in diagnosis codes - the decimal point is assumed."
+                    }
+                }
+            },
+            "HealthCarePolicyIdentification": {
+                "type": "object",
+                "properties": {
+                    "policyFormIdentifyingNumber": {
+                        "type": "string"
                     }
                 }
             },
@@ -5448,6 +6569,38 @@
                     "81",
                     "99"
                 ]
+            },
+            "InformationClaimStatus": {
+                "type": "object",
+                "properties": {
+                    "statusInformationEffectiveDate": {
+                        "type": "string"
+                    },
+                    "totalClaimChargeAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentAmount": {
+                        "type": "string"
+                    },
+                    "adjudicatedFinalizedDate": {
+                        "type": "string"
+                    },
+                    "remittanceDate": {
+                        "type": "string"
+                    },
+                    "remittanceTraceNumber": {
+                        "type": "string"
+                    },
+                    "informationStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExtendedProviderStatus"
+                        }
+                    },
+                    "statusMessage": {
+                        "type": "string"
+                    }
+                }
             },
             "InformationReceiverName": {
                 "type": "object",
@@ -5799,6 +6952,24 @@
                     "U"
                 ]
             },
+            "Meta": {
+                "type": "object",
+                "properties": {
+                    "transactionId": {
+                        "type": "string",
+                        "description": "The Stedi transaction identifier"
+                    },
+                    "applicationMode": {
+                        "type": "string"
+                    },
+                    "senderId": {
+                        "type": "string"
+                    },
+                    "traceId": {
+                        "type": "string"
+                    }
+                }
+            },
             "Ordering": {
                 "type": "object",
                 "description": "Deprecated; please use `ClaimInformation.serviceLines.orderingProvider` instead.",
@@ -6053,6 +7224,35 @@
                     "otherPayerSupervisingProviderIdentifier"
                 ]
             },
+            "OtherSubscriber": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "standardUniqueHealthIdentifierForEachIndividualInTheUnitedStates": {
+                        "type": "string"
+                    },
+                    "memberId": {
+                        "type": "string"
+                    }
+                }
+            },
             "OtherSubscriberInformation": {
                 "type": "object",
                 "description": "Required when other payers are known to potentially be involved in paying on this claim.",
@@ -6250,6 +7450,69 @@
                     "otherInsuredQualifier"
                 ]
             },
+            "PatientClaimStatusDetails": {
+                "type": "object",
+                "properties": {
+                    "subscriber": {
+                        "$ref": "#/components/schemas/PatientClaimStatusDetailsSubscriber"
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/PatientClaimStatusDetailsDependent"
+                    },
+                    "claims": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReportsClaims"
+                        }
+                    }
+                }
+            },
+            "PatientClaimStatusDetailsDependent": {
+                "type": "object",
+                "properties": {
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PatientClaimStatusDetailsSubscriber": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "memberId": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "standardUniqueHealthIdentifierForEachIndividualInTheUnitedStates": {
+                        "type": "string"
+                    }
+                }
+            },
             "PatientConditionDescription1": {
                 "type": "string",
                 "description": "A description of the patient's condition.",
@@ -6345,6 +7608,84 @@
                     "taxIdentificationNumber"
                 ]
             },
+            "Payee": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "centersForMedicareAndMedicaidServicesPlanId": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/PayeeAddress"
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "nationalCouncilForPrescriptionDrugProgramsPharmacyNumber": {
+                        "type": "string"
+                    },
+                    "payeeIdentification": {
+                        "type": "string"
+                    },
+                    "federalTaxPayersIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "remittanceDeliveryMethod": {
+                        "$ref": "#/components/schemas/PayeeRemittanceDeliveryMethod"
+                    }
+                }
+            },
+            "PayeeAddress": {
+                "type": "object",
+                "properties": {
+                    "address1": {
+                        "type": "string"
+                    },
+                    "address2": {
+                        "type": "string"
+                    },
+                    "city": {
+                        "type": "string"
+                    },
+                    "state": {
+                        "type": "string"
+                    },
+                    "postalCode": {
+                        "type": "string"
+                    },
+                    "countryCode": {
+                        "type": "string"
+                    },
+                    "countrySubCode": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PayeeRemittanceDeliveryMethod": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "ftp": {
+                        "type": "string"
+                    },
+                    "onLine": {
+                        "type": "string"
+                    }
+                }
+            },
             "Payer": {
                 "type": "object",
                 "description": "Information about the payer providing the benefits information and the organization receiving it.",
@@ -6414,6 +7755,551 @@
                     "etin": {
                         "type": "string",
                         "description": "The payer's Electronic Transmitter Identification Number (ETIN)."
+                    }
+                }
+            },
+            "PayerContactInformation": {
+                "type": "object",
+                "properties": {
+                    "contactName": {
+                        "type": "string"
+                    },
+                    "contactMethods": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ContactMethods"
+                        }
+                    }
+                }
+            },
+            "PaymentInfo": {
+                "type": "object",
+                "properties": {
+                    "claimStatementPeriodStart": {
+                        "type": "string"
+                    },
+                    "claimStatementPeriodEnd": {
+                        "type": "string"
+                    },
+                    "coverageExpirationDate": {
+                        "type": "string"
+                    },
+                    "claimReceivedDate": {
+                        "type": "string"
+                    },
+                    "claimPaymentInfo": {
+                        "$ref": "#/components/schemas/PaymentInfoClaimPaymentInfo"
+                    },
+                    "claimAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAdjustments"
+                        }
+                    },
+                    "patientName": {
+                        "$ref": "#/components/schemas/PaymentInfoPatientName"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/PaymentInfoSubscriber"
+                    },
+                    "correctedPatientOrInsuredName": {
+                        "$ref": "#/components/schemas/PaymentInfoCorrectedPatientOrInsuredName"
+                    },
+                    "renderingProvider": {
+                        "$ref": "#/components/schemas/PaymentInfoRenderingProvider"
+                    },
+                    "crossoverCarrier": {
+                        "$ref": "#/components/schemas/CrossoverCarrier"
+                    },
+                    "correctedPriorityPayer": {
+                        "$ref": "#/components/schemas/CorrectedPriorityPayer"
+                    },
+                    "otherSubscriber": {
+                        "$ref": "#/components/schemas/OtherSubscriber"
+                    },
+                    "inpatientAdjudication": {
+                        "$ref": "#/components/schemas/PaymentInfoInpatientAdjudication"
+                    },
+                    "outpatientAdjudication": {
+                        "$ref": "#/components/schemas/PaymentInfoOutpatientAdjudication"
+                    },
+                    "claimContactInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReportsContactInformation"
+                        }
+                    },
+                    "otherClaimRelatedIdentification": {
+                        "$ref": "#/components/schemas/PaymentInfoOtherClaimRelatedIdentification"
+                    },
+                    "renderingProviderIdentification": {
+                        "$ref": "#/components/schemas/PaymentInfoRenderingProviderIdentification"
+                    },
+                    "claimSupplementalInformation": {
+                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformation"
+                    },
+                    "claimSupplementalInformationQuantities": {
+                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformationQuantities"
+                    },
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLines"
+                        }
+                    }
+                }
+            },
+            "PaymentInfoClaimPaymentInfo": {
+                "type": "object",
+                "properties": {
+                    "patientControlNumber": {
+                        "type": "string"
+                    },
+                    "claimStatusCode": {
+                        "type": "string"
+                    },
+                    "totalClaimChargeAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentAmount": {
+                        "type": "string"
+                    },
+                    "patientResponsibilityAmount": {
+                        "type": "string"
+                    },
+                    "claimFilingIndicatorCode": {
+                        "type": "string"
+                    },
+                    "payerClaimControlNumber": {
+                        "type": "string"
+                    },
+                    "facilityTypeCode": {
+                        "type": "string"
+                    },
+                    "claimFrequencyCode": {
+                        "type": "string"
+                    },
+                    "diagnosisRelatedGroupDRGCode": {
+                        "type": "string"
+                    },
+                    "diagnosisRelatedGroupDRGWeight": {
+                        "type": "string"
+                    },
+                    "dischargeFraction": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoClaimSupplementalInformation": {
+                "type": "object",
+                "properties": {
+                    "coverageAmount": {
+                        "type": "string"
+                    },
+                    "discountAmount": {
+                        "type": "string"
+                    },
+                    "perDayLimit": {
+                        "type": "string"
+                    },
+                    "patientAmountPaid": {
+                        "type": "string"
+                    },
+                    "interest": {
+                        "type": "string"
+                    },
+                    "negativeLedgerBalance": {
+                        "type": "string"
+                    },
+                    "tax": {
+                        "type": "string"
+                    },
+                    "totalClaimBeforeTaxes": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoClaimSupplementalInformationQuantities": {
+                "type": "object",
+                "properties": {
+                    "coveredActual": {
+                        "type": "string"
+                    },
+                    "coInsuredActual": {
+                        "type": "string"
+                    },
+                    "lifeTimeReserveActual": {
+                        "type": "string"
+                    },
+                    "lifeTimeReserveEstimated": {
+                        "type": "string"
+                    },
+                    "nonCoveredEstimated": {
+                        "type": "string"
+                    },
+                    "notReplacedBloodUnits": {
+                        "type": "string"
+                    },
+                    "outlierDays": {
+                        "type": "string"
+                    },
+                    "prescription": {
+                        "type": "string"
+                    },
+                    "visits": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string"
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoCorrectedPatientOrInsuredName": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "insuredsChangedUniqueIdentificationNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoInpatientAdjudication": {
+                "type": "object",
+                "properties": {
+                    "coveredDaysOrVisitsCount": {
+                        "type": "string"
+                    },
+                    "ppsOperatingOutlierAmount": {
+                        "type": "string"
+                    },
+                    "lifetimePsychiatricDaysCount": {
+                        "type": "string"
+                    },
+                    "claimDRGAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode1": {
+                        "type": "string"
+                    },
+                    "claimDisproportionateShareAmount": {
+                        "type": "string"
+                    },
+                    "claimMSPPassThroughAmount": {
+                        "type": "string"
+                    },
+                    "claimPPSCapitalAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalFSPDRGAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalHSPDRGAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalDSHDRGAmount": {
+                        "type": "string"
+                    },
+                    "oldCapitalAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalIMEAmount": {
+                        "type": "string"
+                    },
+                    "ppsOperatingHospitalSpecificDRGAmount": {
+                        "type": "string"
+                    },
+                    "costReportDayCount": {
+                        "type": "string"
+                    },
+                    "ppsOperatingFederalSpecificDRGAmount": {
+                        "type": "string"
+                    },
+                    "claimPPSCapitalOutlierAmount": {
+                        "type": "string"
+                    },
+                    "claimIndirectTeachingAmount": {
+                        "type": "string"
+                    },
+                    "nonPayableProfessionalComponentAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode2": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode3": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode4": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode5": {
+                        "type": "string"
+                    },
+                    "ppsCapitalExceptionAmount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoOtherClaimRelatedIdentification": {
+                "type": "object",
+                "properties": {
+                    "groupOrPolicyNumber": {
+                        "type": "string"
+                    },
+                    "memberIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employeeIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "groupNumber": {
+                        "type": "string"
+                    },
+                    "rePricedClaimReferenceNumber": {
+                        "type": "string"
+                    },
+                    "adjustedRePricedClaimReferenceNumber": {
+                        "type": "string"
+                    },
+                    "authorizationNumber": {
+                        "type": "string"
+                    },
+                    "classOfContractCode": {
+                        "type": "string"
+                    },
+                    "medicalRecordIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "originalReferenceNumber": {
+                        "type": "string"
+                    },
+                    "priorAuthorizationNumber": {
+                        "type": "string"
+                    },
+                    "predeterminationOfBenefitsIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "insurancePolicyNumber": {
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoOutpatientAdjudication": {
+                "type": "object",
+                "properties": {
+                    "reimbursementRate": {
+                        "type": "string"
+                    },
+                    "claimHCPCSPayableAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode1": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode2": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode3": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode4": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode5": {
+                        "type": "string"
+                    },
+                    "claimESRDPaymentAmount": {
+                        "type": "string"
+                    },
+                    "nonPayableProfessionalComponentAmount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoPatientName": {
+                "type": "object",
+                "properties": {
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    },
+                    "healthInsuranceClaimNumber": {
+                        "type": "string"
+                    },
+                    "standardUniqueHealthIdentifierForEachIndividualInTheUnitedStates": {
+                        "type": "string"
+                    },
+                    "memberId": {
+                        "type": "string"
+                    },
+                    "medicaidRecipientIdentificationNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoRenderingProvider": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "blueCrossProviderNumber": {
+                        "type": "string"
+                    },
+                    "blueShieldProviderNumber": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "medicaidProviderNumber": {
+                        "type": "string"
+                    },
+                    "providerCommercialNumber": {
+                        "type": "string"
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "uniquePhysicianIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoRenderingProviderIdentification": {
+                "type": "object",
+                "properties": {
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "blueCrossProviderNumber": {
+                        "type": "string"
+                    },
+                    "blueShieldProviderNumber": {
+                        "type": "string"
+                    },
+                    "medicareProviderNumber": {
+                        "type": "string"
+                    },
+                    "medicaidProviderNumber": {
+                        "type": "string"
+                    },
+                    "providerUPINNumber": {
+                        "type": "string"
+                    },
+                    "champusIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "facilityIdNumber": {
+                        "type": "string"
+                    },
+                    "nationalCouncilForPrescriptionDrugProgramPharmacyNumber": {
+                        "type": "string"
+                    },
+                    "providerCommercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "PaymentInfoSubscriber": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "standardUniqueHealthIdentifierForEachIndividualInTheUnitedStates": {
+                        "type": "string"
+                    },
+                    "memberId": {
+                        "type": "string"
                     }
                 }
             },
@@ -6956,6 +8842,37 @@
                     }
                 }
             },
+            "ProviderAdjustments": {
+                "type": "object",
+                "properties": {
+                    "providerIdentifier": {
+                        "type": "string"
+                    },
+                    "fiscalPeriodDate": {
+                        "type": "string"
+                    },
+                    "adjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Adjustments"
+                        }
+                    }
+                }
+            },
+            "ProviderClaimStatus": {
+                "type": "object",
+                "properties": {
+                    "statusInformationEffectiveDate": {
+                        "type": "string"
+                    },
+                    "providerStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderStatus"
+                        }
+                    }
+                }
+            },
             "ProviderInformation": {
                 "type": "object",
                 "properties": {
@@ -6992,6 +8909,138 @@
                     "SK",
                     "SU"
                 ]
+            },
+            "ProviderStatus": {
+                "type": "object",
+                "properties": {
+                    "healthCareClaimStatusCategoryCode": {
+                        "type": "string"
+                    },
+                    "healthCareClaimStatusCategoryCodeValue": {
+                        "type": "string"
+                    },
+                    "statusCode": {
+                        "type": "string"
+                    },
+                    "statusCodeValue": {
+                        "type": "string"
+                    },
+                    "entityIdentifierCode": {
+                        "type": "string"
+                    },
+                    "entityIdentifierCodeValue": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ProviderSummaryInformation": {
+                "type": "object",
+                "properties": {
+                    "providerIdentifier": {
+                        "type": "string"
+                    },
+                    "facilityTypeCode": {
+                        "type": "string"
+                    },
+                    "fiscalPeriodDate": {
+                        "type": "string"
+                    },
+                    "totalClaimCount": {
+                        "type": "string"
+                    },
+                    "totalClaimChargeAmount": {
+                        "type": "string"
+                    },
+                    "totalMSPPayerAmount": {
+                        "type": "string"
+                    },
+                    "totalNonLabChargeAmount": {
+                        "type": "string"
+                    },
+                    "totalHCPCSReportedChargeAmount": {
+                        "type": "string"
+                    },
+                    "totalHCPCSPayableAmount": {
+                        "type": "string"
+                    },
+                    "totalProfessionalComponentAmount": {
+                        "type": "string"
+                    },
+                    "totalMSPPatientLiabilityMetAmount": {
+                        "type": "string"
+                    },
+                    "totalPatientReimbursementAmount": {
+                        "type": "string"
+                    },
+                    "totalPIPClaimCount": {
+                        "type": "string"
+                    },
+                    "totalPIPAdjustmentAmount": {
+                        "type": "string"
+                    }
+                }
+            },
+            "ProviderSupplementalSummaryInformation": {
+                "type": "object",
+                "properties": {
+                    "totalDRGAmount": {
+                        "type": "string"
+                    },
+                    "totalFederalSpecificAmount": {
+                        "type": "string"
+                    },
+                    "totalHospitalSpecificAmount": {
+                        "type": "string"
+                    },
+                    "totalDisproportionateShareAmount": {
+                        "type": "string"
+                    },
+                    "totalCapitalAmount": {
+                        "type": "string"
+                    },
+                    "totalIndirectMedicalEducationAmount": {
+                        "type": "string"
+                    },
+                    "totalOutlierDayCount": {
+                        "type": "string"
+                    },
+                    "totalDayOutlierAmount": {
+                        "type": "string"
+                    },
+                    "totalCostOutlierAmount": {
+                        "type": "string"
+                    },
+                    "averageDRGLengthOfStay": {
+                        "type": "string"
+                    },
+                    "totalDischargeCount": {
+                        "type": "string"
+                    },
+                    "totalCostReportDayCount": {
+                        "type": "string"
+                    },
+                    "totalCoveredDayCount": {
+                        "type": "string"
+                    },
+                    "totalNonCoveredDayCount": {
+                        "type": "string"
+                    },
+                    "totalMSPPassThroughAmount": {
+                        "type": "string"
+                    },
+                    "averageDRGWeight": {
+                        "type": "string"
+                    },
+                    "totalPPSCapitalFSPDRGAmount": {
+                        "type": "string"
+                    },
+                    "totalPPSCapitalHSPDRGAmount": {
+                        "type": "string"
+                    },
+                    "totalPPSDSHDRGAmount": {
+                        "type": "string"
+                    }
+                }
             },
             "ProviderType": {
                 "type": "string",
@@ -7046,6 +9095,23 @@
                 "required": [
                     "organizationName"
                 ]
+            },
+            "ReceiverAccountDetails": {
+                "type": "object",
+                "properties": {
+                    "receiverDfiIdNumberQualifier": {
+                        "type": "string"
+                    },
+                    "receiverDfiIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "receiverAccountNumberQualifier": {
+                        "type": "string"
+                    },
+                    "receiverAccountNumber": {
+                        "type": "string"
+                    }
+                }
             },
             "ReferenceIdentification": {
                 "type": "object",
@@ -7263,6 +9329,57 @@
                     "FT",
                     "FX"
                 ]
+            },
+            "ReportsClaimStatusResponse": {
+                "type": "object",
+                "properties": {
+                    "controlNumber": {
+                        "type": "string"
+                    },
+                    "referenceIdentification": {
+                        "type": "string"
+                    },
+                    "transactionSetCreationDate": {
+                        "type": "string"
+                    },
+                    "transactionSetCreationTime": {
+                        "type": "string"
+                    },
+                    "payers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediPayer"
+                        }
+                    }
+                }
+            },
+            "ReportsClaims": {
+                "type": "object",
+                "properties": {
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/ClaimsClaimStatus"
+                    },
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediServiceLines"
+                        }
+                    }
+                }
+            },
+            "ReportsContactInformation": {
+                "type": "object",
+                "properties": {
+                    "contactName": {
+                        "type": "string"
+                    },
+                    "contactMethods": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ContactMethod"
+                        }
+                    }
+                }
             },
             "RequestDependent": {
                 "type": "object",
@@ -7908,6 +10025,23 @@
                     "NF"
                 ]
             },
+            "SenderAccountDetails": {
+                "type": "object",
+                "properties": {
+                    "senderDfiIdNumberQualifier": {
+                        "type": "string"
+                    },
+                    "senderDFIIdentifier": {
+                        "type": "string"
+                    },
+                    "senderAccountNumberQualifier": {
+                        "type": "string"
+                    },
+                    "senderAccountNumber": {
+                        "type": "string"
+                    }
+                }
+            },
             "Service": {
                 "type": "object",
                 "description": "Information about a service line listed in the referenced claim.",
@@ -7953,6 +10087,20 @@
                     "6",
                     "7"
                 ]
+            },
+            "ServiceClaimStatus": {
+                "type": "object",
+                "properties": {
+                    "effectiveDate": {
+                        "type": "string"
+                    },
+                    "serviceStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExtendedProviderStatus"
+                        }
+                    }
+                }
             },
             "ServiceDetail": {
                 "type": "object",
@@ -8502,6 +10650,20 @@
                     }
                 }
             },
+            "ServiceProviderClaimStatus": {
+                "type": "object",
+                "properties": {
+                    "statusInformationEffectiveDate": {
+                        "type": "string"
+                    },
+                    "serviceProviderStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderStatus"
+                        }
+                    }
+                }
+            },
             "SignatureIndicator": {
                 "type": "string",
                 "description": "Indicates whether the provider's signature is on file. Can be set to `N` - No or `Y` - Yes.",
@@ -8838,6 +11000,40 @@
                 "required": [
                     "questionNumber"
                 ]
+            },
+            "TechnicalContactInformation": {
+                "type": "object",
+                "properties": {
+                    "contactName": {
+                        "type": "string"
+                    },
+                    "contactMethods": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TechnicalContactMethod"
+                        }
+                    }
+                }
+            },
+            "TechnicalContactMethod": {
+                "type": "object",
+                "properties": {
+                    "url": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "fax": {
+                        "type": "string"
+                    },
+                    "phone": {
+                        "type": "string"
+                    },
+                    "phoneExtension": {
+                        "type": "string"
+                    }
+                }
             },
             "TransactionIdentifier": {
                 "type": "object",
