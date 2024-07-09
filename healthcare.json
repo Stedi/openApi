@@ -1685,7 +1685,14 @@
                             "type": "string",
                             "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
                         },
-                        "required": true
+                        "required": true,
+                        "examples": {
+                            "ConvertReport277_example1": {
+                                "summary": "Request 277 Report",
+                                "description": "",
+                                "value": "d567c2ae-f073-4725-8b8c-06c473b738a6"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -1695,6 +1702,95 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ConvertReport277ResponseContent"
+                                },
+                                "examples": {
+                                    "ConvertReport277_example1": {
+                                        "summary": "Request 277 Report",
+                                        "description": "",
+                                        "value": {
+                                            "meta": {
+                                                "transactionId": "71716ec5-0e96-462f-bb77-869941bb27ab"
+                                            },
+                                            "transactions": [
+                                                {
+                                                    "controlNumber": "1001",
+                                                    "payers": [
+                                                        {
+                                                            "claimStatusTransactions": [
+                                                                {
+                                                                    "claimStatusDetails": [
+                                                                        {
+                                                                            "patientClaimStatusDetails": [
+                                                                                {
+                                                                                    "claims": [
+                                                                                        {
+                                                                                            "claimStatus": {
+                                                                                                "claimServiceBeginDate": "20240101",
+                                                                                                "claimServiceEndDate": "20240101",
+                                                                                                "clearinghouseTraceNumber": "01J1SNT1FQC8ABWD44MAMBDYKA",
+                                                                                                "informationClaimStatuses": [
+                                                                                                    {
+                                                                                                        "informationStatuses": [
+                                                                                                            {
+                                                                                                                "healthCareClaimStatusCategoryCode": "A1",
+                                                                                                                "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.\n",
+                                                                                                                "statusCode": "20",
+                                                                                                                "statusCodeValue": "Accepted for processing."
+                                                                                                            }
+                                                                                                        ],
+                                                                                                        "statusInformationEffectiveDate": "20240702",
+                                                                                                        "totalClaimChargeAmount": "109.2"
+                                                                                                    }
+                                                                                                ],
+                                                                                                "patientAccountNumber": "11122233",
+                                                                                                "referencedTransactionTraceNumber": "11122233"
+                                                                                            }
+                                                                                        }
+                                                                                    ],
+                                                                                    "subscriber": {
+                                                                                        "firstName": "JOHN",
+                                                                                        "lastName": "ANON",
+                                                                                        "memberId": "U7777788888"
+                                                                                    }
+                                                                                }
+                                                                            ],
+                                                                            "providerOFServiceInformationTraceIdentifier": "0",
+                                                                            "serviceProvider": {
+                                                                                "npi": "1235600834",
+                                                                                "organizationName": "THERAPY ASSOCIATES"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "claimTransactionBatchNumber": "01J1SNRJ0FP4ZE6EFWM4G4XB3N",
+                                                                    "provider": {
+                                                                        "etin": "1235600834",
+                                                                        "organizationName": "TEST DATA HEALTH SERVICES, INC."
+                                                                    },
+                                                                    "providerClaimStatuses": [
+                                                                        {
+                                                                            "providerStatuses": [
+                                                                                {
+                                                                                    "healthCareClaimStatusCategoryCode": "A1",
+                                                                                    "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.\n",
+                                                                                    "statusCode": "20",
+                                                                                    "statusCodeValue": "Accepted for processing."
+                                                                                }
+                                                                            ],
+                                                                            "statusInformationEffectiveDate": "20240702"
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "organizationName": "STEDI INC"
+                                                        }
+                                                    ],
+                                                    "referenceIdentification": "1511096803",
+                                                    "transactionSetCreationDate": "20240702",
+                                                    "transactionSetCreationTime": "0815"
+                                                }
+                                            ]
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1717,7 +1813,7 @@
                         "required": true,
                         "examples": {
                             "ConvertReport835_example1": {
-                                "summary": "Request 277 Report",
+                                "summary": "Request 835 Report",
                                 "description": "",
                                 "value": "d567c2ae-f073-4725-8b8c-06c473b738a6"
                             }
@@ -1734,7 +1830,7 @@
                                 },
                                 "examples": {
                                     "ConvertReport835_example1": {
-                                        "summary": "Request 277 Report",
+                                        "summary": "Request 835 Report",
                                         "description": "",
                                         "value": {
                                             "meta": {
