@@ -3586,7 +3586,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis."
+                        "description": "Details about the patient's healthcare diagnosis. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "anesthesiaRelatedSurgicalProcedure": {
                         "type": "array",
@@ -4584,7 +4584,7 @@
             },
             "ClaimsDiagnosisTypeCode": {
                 "type": "string",
-                "description": "Code indicating the specific industry code list. Can be set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF` - International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis.",
+                "description": "Code indicating the specific industry code list. Can be set to `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis.",
                 "enum": [
                     "BK",
                     "ABK",
@@ -4635,7 +4635,6 @@
             },
             "ClaimsHealthCareInformation": {
                 "type": "object",
-                "description": "HI",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/ClaimsDiagnosisTypeCode"
