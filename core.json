@@ -4514,6 +4514,15 @@
           "line"
         ]
       },
+      "InterchangeAcknowledgments": {
+        "type": "string",
+        "description": "Control when to send interchange acknowledgments.\n\nInterchange acknowledgments confirm to your trading partner that an interchange group in the EDI file was processed without syntax errors.\nAsk your trading partner if they expect to receive interchange acknowledgments before configuring acknowledgments.\n\ncode          | description\n--------------|--------------------------\nNever         | (Default). Do not send interchange acknowledgments\nAlways        | Always send interchange acknowledgments\nWhenRequested | Send interchange acknowledgments when requested by the trading partner in the ISA 14 field",
+        "enum": [
+          "Never",
+          "Always",
+          "WhenRequested"
+        ]
+      },
       "InterchangeOverrides": {
         "type": "object",
         "properties": {
@@ -5118,6 +5127,9 @@
           },
           "negativeAcknowledgmentEnabled": {
             "type": "boolean"
+          },
+          "interchangeAcknowledgments": {
+            "$ref": "#/components/schemas/InterchangeAcknowledgments"
           },
           "functionalAcknowledgmentType": {
             "$ref": "#/components/schemas/X12FunctionalAcknowledgmentType"
