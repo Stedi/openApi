@@ -153,6 +153,15 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/ClaimStatusRawX12RequestContent"
+                            },
+                            "examples": {
+                                "ClaimStatusRawX12_example1": {
+                                    "summary": "Submit Raw X12 Claim Status",
+                                    "description": "",
+                                    "value": {
+                                        "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *240710*2300*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20240710*230011*000000001*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20050915*1425~HL*1**20*1~NM1*PR*2*UNITEDHEALTHCARE*****PI*3429~HL*2*1*21*1~NM1*41*2*XYZ SERVICE*****46*X67E~HL*3*2*19*1~NM1*1P*2*BEHAVIORAL SERVICES P.C.*****XX*123456789~HL*4*3*22*0~DMG*D8*19301210*M~NM1*IL*1*JANE*DOE****MI*111222333~TRN*1*222222222~REF*BLT*111~REF*EJ*SM123456~AMT*T3*238.44~DTP*472*RD8*20050831-20050906~HL*5*2*19*1~NM1*1P*2*BEHAVIORAL SERVICES P.C.*****XX*123456789~HL*6*5*22*1~NM1*IL*1*DOE*JANE****MI*345678901~HL*7*6*23~DMG*D8*19951101*M~NM1*QC*1*DOE*JOHN~TRN*1*222222222~REF*EJ*MA345678~SVC*HC>99203*238.44*****1~DTP*472*D8*20050501~SE*28*0001~GE*1*000000001~IEA*1*000000001~"
+                                    }
+                                }
                             }
                         }
                     },
@@ -165,6 +174,82 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ClaimStatusRawX12ResponseContent"
+                                },
+                                "examples": {
+                                    "ClaimStatusRawX12_example1": {
+                                        "summary": "Submit Raw X12 Claim Status",
+                                        "description": "",
+                                        "value": {
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "amountPaid": "95.55",
+                                                        "claimServiceDate": "20240325",
+                                                        "effectiveDate": "20240329",
+                                                        "paidDate": "20240329",
+                                                        "patientAccountNumber": "3333333",
+                                                        "statusCategoryCode": "P5",
+                                                        "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
+                                                        "statusCode": "3",
+                                                        "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle.",
+                                                        "submittedAmount": "238.44",
+                                                        "trackingNumber": "222222222",
+                                                        "tradingPartnerClaimNumber": "5332034153-KK"
+                                                    },
+                                                    "serviceDetails": [
+                                                        {
+                                                            "service": {
+                                                                "amountPaid": "95.55",
+                                                                "procedureId": "90837",
+                                                                "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "submittedAmount": "238.44",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "status": [
+                                                                {
+                                                                    "effectiveDate": "20240329",
+                                                                    "statusCategoryCode": "P5",
+                                                                    "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
+                                                                    "statusCode": "3",
+                                                                    "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle."
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "controlNumber": "222222222",
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "traceId": "bf27223e-46c3-451e-b2b4-46f3f0b6fe3b"
+                                            },
+                                            "payer": {
+                                                "organizationName": "UNITEDHEALTHCARE",
+                                                "payerIdentification": "3429"
+                                            },
+                                            "providers": [
+                                                {
+                                                    "organizationName": "Behavioral Services P.C.",
+                                                    "providerType": "BillingProvider",
+                                                    "taxId": "123456789"
+                                                },
+                                                {
+                                                    "npi": "1234567890",
+                                                    "organizationName": "Behavioral Services P.C.",
+                                                    "providerType": "ServiceProvider"
+                                                }
+                                            ],
+                                            "reassociationKey": "000000001",
+                                            "status": "success",
+                                            "subscriber": {
+                                                "firstName": "JANE",
+                                                "lastName": "DOE",
+                                                "memberId": "111222333"
+                                            },
+                                            "tradingPartnerServiceId": "3429"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1405,6 +1490,15 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/EligibilityRawX12CheckRequestContent"
+                            },
+                            "examples": {
+                                "EligibilityRawX12Check_example1": {
+                                    "summary": "Submit Raw X12 Eligibility Check",
+                                    "description": "",
+                                    "value": {
+                                        "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *231106*1406*^*00501*000000001*0*T*>~GS*HS*SENDERGS*RECEIVERGS*20231106*140631*000000001*X*005010X279A1~ST*270*1234*005010X279A1~BHT*0022*13*10001234*20060501*1319~HL*1**20*1~NM1*PR*2*ABCDE*****PI*123412345~HL*2*1*21*1~NM1*1P*2*ACME HEALTH SERVICES*****SV*1234567890~HL*3*2*22*0~TRN*1*93175-012547*9877281234~NM1*IL*1*DOE*JANE****MI*11122333301~DMG*D8*19000101~DTP*291*D8*20060501~EQ*30~SE*13*1234~GE*1*000000001~IEA*1*000000001~"
+                                    }
+                                }
                             }
                         }
                     },
@@ -1417,6 +1511,1178 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/EligibilityRawX12CheckResponseContent"
+                                },
+                                "examples": {
+                                    "EligibilityRawX12Check_example1": {
+                                        "summary": "Submit Raw X12 Eligibility Check",
+                                        "description": "",
+                                        "value": {
+                                            "meta": {
+                                                "senderId": "1234567890",
+                                                "submitterId": "AV11110000",
+                                                "applicationMode": "production",
+                                                "traceId": "123456789"
+                                            },
+                                            "controlNumber": "214976898",
+                                            "reassociationKey": "123456789",
+                                            "tradingPartnerServiceId": "123456789",
+                                            "provider": {
+                                                "providerName": "ACME HEALTH SERVICES",
+                                                "entityIdentifier": "Provider",
+                                                "entityType": "Non-Person Entity",
+                                                "npi": "1234567890"
+                                            },
+                                            "subscriber": {
+                                                "memberId": "1234567890",
+                                                "firstName": "JANE",
+                                                "lastName": "DOE",
+                                                "middleName": "A",
+                                                "gender": "F",
+                                                "entityIdentifier": "Insured or Subscriber",
+                                                "entityType": "Person",
+                                                "dateOfBirth": "19000101",
+                                                "groupNumber": "123456789",
+                                                "address": {
+                                                    "address1": "1234 FIRST ST",
+                                                    "city": "NEW YORK",
+                                                    "state": "WV",
+                                                    "postalCode": "123451111"
+                                                }
+                                            },
+                                            "payer": {
+                                                "entityIdentifier": "Payer",
+                                                "entityType": "Non-Person Entity",
+                                                "lastName": "ABCDE",
+                                                "name": "ABCDE",
+                                                "federalTaxpayersIdNumber": "123412345",
+                                                "contactInformation": {
+                                                    "contacts": [
+                                                        {
+                                                            "communicationMode": "Telephone",
+                                                            "communicationNumber": "1234567890"
+                                                        },
+                                                        {
+                                                            "communicationMode": "UR",
+                                                            "communicationNumber": "website.company.com"
+                                                        }
+                                                    ]
+                                                }
+                                            },
+                                            "planInformation": {
+                                                "groupNumber": "12341234",
+                                                "groupDescription": "Company Name",
+                                                "priorIdNumber": "1234567890"
+                                            },
+                                            "planDateInformation": {
+                                                "planBegin": "20240101",
+                                                "planEnd": "20241231",
+                                                "eligibilityBegin": "20220102"
+                                            },
+                                            "planStatus": [
+                                                {
+                                                    "statusCode": "1",
+                                                    "status": "Active Coverage",
+                                                    "planDetails": "Open Access Plus",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ]
+                                                },
+                                                {
+                                                    "statusCode": "1",
+                                                    "status": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "A7",
+                                                        "BC",
+                                                        "A8",
+                                                        "A4",
+                                                        "A5",
+                                                        "A6",
+                                                        "7",
+                                                        "4",
+                                                        "BB",
+                                                        "22"
+                                                    ]
+                                                },
+                                                {
+                                                    "statusCode": "1",
+                                                    "status": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "MH"
+                                                    ]
+                                                }
+                                            ],
+                                            "benefitsInformation": [
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "planCoverage": "Open Access Plus",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Complete Care Management"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "6000",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Copay does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "500",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "3000",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        },
+                                                        {
+                                                            "description": "Copay does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "250",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "15000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "30000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "benefitPercent": "0.1",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes"
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "7500",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "23",
+                                                    "timeQualifier": "Calendar Year",
+                                                    "benefitAmount": "15000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "benefitPercent": "0.5",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "A7",
+                                                        "BC",
+                                                        "A8",
+                                                        "A4",
+                                                        "A5",
+                                                        "A6",
+                                                        "7",
+                                                        "4",
+                                                        "BB",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric - Inpatient",
+                                                        "Day Care (Psychiatric)",
+                                                        "Psychiatric - Outpatient",
+                                                        "Psychiatric",
+                                                        "Psychiatric - Room and Board",
+                                                        "Psychotherapy",
+                                                        "Anesthesia",
+                                                        "Diagnostic X-Ray",
+                                                        "Partial Hospitalization (Psychiatric)",
+                                                        "Social Work"
+                                                    ],
+                                                    "inPlanNetworkIndicatorCode": "W",
+                                                    "inPlanNetworkIndicator": "Not Applicable"
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "BC",
+                                                        "A4",
+                                                        "A6",
+                                                        "4",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Day Care (Psychiatric)",
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Diagnostic X-Ray",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Outpatient Hospital"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Outpatient Hospital"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A8"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric - Outpatient"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "4",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Diagnostic X-Ray",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "02"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "02"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "timeQualifierCode": "27",
+                                                    "timeQualifier": "Visit",
+                                                    "benefitAmount": "20",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "4",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Diagnostic X-Ray",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "timeQualifierCode": "27",
+                                                    "timeQualifier": "Visit",
+                                                    "benefitAmount": "20",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Included For Specific Services"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "02"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "02"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Included For Specific Services"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "02"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "02"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "02"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "02"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "4",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Diagnostic X-Ray",
+                                                        "Social Work"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "timeQualifierCode": "27",
+                                                    "timeQualifier": "Visit",
+                                                    "benefitAmount": "20",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "02"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "02"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "A4",
+                                                        "A6",
+                                                        "22"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Psychiatric",
+                                                        "Psychotherapy",
+                                                        "Social Work"
+                                                    ],
+                                                    "timeQualifierCode": "27",
+                                                    "timeQualifier": "Visit",
+                                                    "benefitAmount": "20",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "7"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Anesthesia"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "Y",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "CB",
+                                                    "name": "Coverage Basis",
+                                                    "serviceTypeCodes": [
+                                                        "7",
+                                                        "BB"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Anesthesia",
+                                                        "Partial Hospitalization (Psychiatric)"
+                                                    ],
+                                                    "authOrCertIndicator": "Y",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes"
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "7"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Anesthesia"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "Y",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "7"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Anesthesia"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "Y",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Office"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Office"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "4"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Diagnostic X-Ray"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Outpatient Hospital"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Outpatient Hospital"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "4"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Diagnostic X-Ray"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "authOrCertIndicator": "N",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Services rendered thru Client Specific Network"
+                                                        }
+                                                    ],
+                                                    "eligibilityAdditionalInformation": {
+                                                        "codeListQualifierCode": "Mutually Defined",
+                                                        "industryCode": "Outpatient Hospital"
+                                                    },
+                                                    "eligibilityAdditionalInformationList": [
+                                                        {
+                                                            "codeListQualifierCode": "Mutually Defined",
+                                                            "industryCode": "Outpatient Hospital"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "BB"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Partial Hospitalization (Psychiatric)"
+                                                    ],
+                                                    "benefitAmount": "0",
+                                                    "authOrCertIndicator": "Y",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "MH"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Mental Health"
+                                                    ],
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": " Provider is out of network based on NPI ID provided in request."
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "5760",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Copay does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "500",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "2760",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        },
+                                                        {
+                                                            "description": "Copay does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "250",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Includes services provided by Client Specific Network"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "15000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "FAM",
+                                                    "coverageLevel": "Family",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "30000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "7500",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "29",
+                                                    "timeQualifier": "Remaining",
+                                                    "benefitAmount": "15000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                        },
+                                                        {
+                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "errors": [],
+                                            "x12": "ISA*00*          *00*          *01*123456789      *ZZ*AV12341234     *111111*1234*^*00501*123456782*0*P*>~GS*HB*123456789*1110111*20240326*111000*1*X*005010X279A1~ST*271*1001*005010X279A1~BHT*0022*11*1*20240326*1514~HL*1**20*1~NM1*PR*2*ABCDF*****FI*111000123~PER*IC**TE*123456789*UR*website.company.com~HL*2*1*21*1~NM1*1P*2*ACME HEALTH SERVICES*****XX*11234567890~HL*3*2*22*0~NM1*IL*1*DOE*JANE*A***MI*1234567890~REF*6P*00001111*Company Name~REF*Q4*123456789~N3*1234 FIRST ST~N4*NEW YORK*WV*123451111~DMG*D8*19000101*F~INS*Y*18*001*25~DTP*356*D8*20220102~DTP*346*D8*20240101~DTP*347*D8*20241231~EB*1**30**Open Access Plus~MSG*Complete Care Management~EB*G*FAM*30***23*6000.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*FAM*30***23*500.00*****Y~MSG*Includes services provided by Client Specific Network~EB*G*IND*30***23*3000.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***23*250.00*****Y~MSG*Includes services provided by Client Specific Network~EB*C*FAM*30***23*15000.00*****N~EB*G*FAM*30***23*30000.00*****N~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*A*IND*30*****.10****Y~EB*C*IND*30***23*7500.00*****N~EB*G*IND*30***23*15000.00*****N~MSG*Deductible does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~EB*A*IND*30*****.50****N~EB*1**A7^BC^A8^A4^A5^A6^7^4^BB^22*********W~EB*C*IND*BC^A4^A6^4^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*22~EB*C*IND*A8****0.00****N*Y~MSG*Includes services provided by Client Specific Network~EB*C*IND*A4^A6^4^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*11~EB*C*IND*A4^A6^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*02~EB*B*IND*A4^A6^22***27*20.00****N*Y~III*ZZ*11~EB*A*IND*A4^A6^4^22*****.00***N*Y~III*ZZ*11~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Included For Specific Services~III*ZZ*02~EB*A*IND*A4^A6^22*****.00***N*Y~MSG*Included For Specific Services~III*ZZ*02~EB*A*IND*A4^A6^22*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*02~EB*A*IND*A4^A6^4^22*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*02~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*A*IND*7*****.00***Y*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*CB**7^BB********Y*Y~EB*C*IND*7****0.00****Y*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*11~EB*A*IND*7*****.00***Y*Y~III*ZZ*11~EB*A*IND*4*****.00***N*Y~III*ZZ*22~EB*A*IND*4*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*22~EB*C*IND*BB****0.00****Y*Y~MSG*Includes services provided by Client Specific Network~EB*1**MH~MSG* Provider is out of network based on NPI ID provided in request.~EB*G*FAM*30***29*5760.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*FAM*30***29*500.00*****Y~MSG*Includes services provided by Client Specific Network~EB*G*IND*30***29*2760.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***29*250.00*****Y~MSG*Includes services provided by Client Specific Network~EB*C*FAM*30***29*15000.00*****N~EB*G*FAM*30***29*30000.00*****N~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***29*7500.00*****N~EB*G*IND*30***29*15000.00*****N~MSG*Deductible does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~SE*119*1001~GE*1*1~IEA*1*215026712~"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -1432,6 +2698,15 @@
                         "application/json": {
                             "schema": {
                                 "$ref": "#/components/schemas/ClaimsRawX12SubmissionRequestContent"
+                            },
+                            "examples": {
+                                "ClaimsRawX12Submission_example1": {
+                                    "summary": "Submit Raw X12 Claim",
+                                    "description": "",
+                                    "value": {
+                                        "x12": "ISA*00*          *00*          *ZZ*001690149382   *ZZ*STEDITEST      *240630*0847*^*00501*000000001*0*T*>~GS*HC*001690149382*STEDITEST*20240630*084744*000000001*X*005010X222A1~ST*837*0001*005010X222A1~BHT*0019*00*01J1M588QT2TAV2N093GNJ998T*20240630*0847*CH~NM1*41*2*Test Data Health Services, Inc.*****46*1235600834~PER*IC*Test Data Health Services, Inc.*TE*5552223333~NM1*40*2*Cigna*****46*60054~HL*1**20*1~PRV*BI*PXC*2084P0800X~NM1*85*2*Therapy Associates*****XX*1235600834~N3*123 Some St*Floor 1~N4*New York*NY*100130000~REF*EI*832675429~PER*IC*Test Data Health Services, Inc.*TE*5553334444~HL*2*1*22*0~SBR*P*18*3335555******CI~NM1*IL*1*Anon*John****MI*U7777788888~N3*2222 Random St~N4*New York*NY*100130000~DMG*D8*20000101*M~NM1*PR*2*Cigna*****PI*60054~CLM*22266555*109.0***02>B>1*Y*A*Y*Y~HI*ABK>F1111~NM1*82*1*Smith*Jane****XX*4541648844~PRV*PE*PXC*111YP2000X~NM1*77*2*Smith Associates*****XX*4541648844~N3*1234 Other St~N4*New York*NY*100130000~LX*1~SV1*HC>90837>95*109.2*UN*1.0***1~DTP*472*D8*20240101~SE*30*0001~GE*1*000000001~IEA*1*000000001~"
+                                    }
+                                }
                             }
                         }
                     },
@@ -1446,7 +2721,14 @@
                             "type": "string",
                             "description": "The partnership ID. Set this to `local-clearinghouse` for production claims or `local-clearinghouse-test` for test claims."
                         },
-                        "required": true
+                        "required": true,
+                        "examples": {
+                            "ClaimsRawX12Submission_example1": {
+                                "summary": "Submit Raw X12 Claim",
+                                "description": "",
+                                "value": "local-clearinghouse-test"
+                            }
+                        }
                     },
                     {
                         "name": "Stedi-Transaction-Setting-Id",
@@ -1456,7 +2738,14 @@
                             "type": "string",
                             "description": "The outbound transaction setting ID. Set this to `005010X222A1-837`, unless support has specifically instructed you to use a different value."
                         },
-                        "required": true
+                        "required": true,
+                        "examples": {
+                            "ClaimsRawX12Submission_example1": {
+                                "summary": "Submit Raw X12 Claim",
+                                "description": "",
+                                "value": "005010X222A1-837"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -1466,6 +2755,33 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ClaimsRawX12SubmissionResponseContent"
+                                },
+                                "examples": {
+                                    "ClaimsRawX12Submission_example1": {
+                                        "summary": "Submit Raw X12 Claim",
+                                        "description": "",
+                                        "value": {
+                                            "status": "SUCCESS",
+                                            "controlNumber": "000000001",
+                                            "tradingPartnerServiceId": "60054",
+                                            "claimReference": {
+                                                "correlationId": "01J1M588QT2TAV2N093GNJ998T",
+                                                "patientControlNumber": "22266555",
+                                                "timeOfResponse": "2024-07-10T22:05:32.203Z",
+                                                "payerId": "60054",
+                                                "formatVersion": "5010",
+                                                "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T"
+                                            },
+                                            "httpStatusCode": "200 OK",
+                                            "meta": {
+                                                "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
+                                            },
+                                            "payer": {
+                                                "payerName": "Cigna",
+                                                "payerId": "60054"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
