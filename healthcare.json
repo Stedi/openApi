@@ -313,7 +313,8 @@
                                                 "senderId": "1234567890",
                                                 "submitterId": "AV11110000",
                                                 "applicationMode": "production",
-                                                "traceId": "123456789"
+                                                "traceId": "123456789",
+                                                "outboundTraceId": "01J2VZA127GH93JT74HJU"
                                             },
                                             "controlNumber": "214976898",
                                             "reassociationKey": "123456789",
@@ -1521,7 +1522,8 @@
                                                 "senderId": "1234567890",
                                                 "submitterId": "AV11110000",
                                                 "applicationMode": "production",
-                                                "traceId": "123456789"
+                                                "traceId": "123456789",
+                                                "outboundTraceId": "01J2VZA127GH93JT74HJU"
                                             },
                                             "controlNumber": "214976898",
                                             "reassociationKey": "123456789",
@@ -7175,31 +7177,31 @@
             },
             "EligibilityMetaData": {
                 "type": "object",
-                "description": "Metadata about the response",
+                "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
                 "properties": {
                     "senderId": {
                         "type": "string",
-                        "description": "Sender id assigned to this request"
+                        "description": "The sender ID Stedi assigns to this request."
                     },
                     "submitterId": {
                         "type": "string",
-                        "description": "Submitter id assigned to this request"
+                        "description": "The submitter ID Stedi assigns to this request."
                     },
                     "billerId": {
                         "type": "string",
-                        "description": "Billing id assigned to this request"
+                        "description": "The biller ID Stedi assigns to this request."
                     },
                     "applicationMode": {
                         "type": "string",
-                        "description": "Used to identify where this request can be found for support"
+                        "description": "Not currently used."
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "Unique Id assigned to each request"
+                        "description": "The unique ID Stedi assigns to this request."
                     },
                     "outboundTraceId": {
                         "type": "string",
-                        "description": "The value provided in the `submitterTransactionIdentifier` field in the original eligibility check request."
+                        "description": "The The value provided in the `submitterTransactionIdentifier` field in the original eligibility check request."
                     }
                 }
             },
