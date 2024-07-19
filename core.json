@@ -4622,6 +4622,9 @@
           "faultMessage": {
             "type": "string"
           },
+          "fileType": {
+            "$ref": "#/components/schemas/FileType"
+          },
           "retryable": {
             "type": "boolean"
           },
@@ -4648,6 +4651,12 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            }
           }
         },
         "required": [
@@ -4656,6 +4665,22 @@
           "executionId",
           "status",
           "updatedAt"
+        ]
+      },
+      "FileType": {
+        "type": "string",
+        "enum": [
+          "CSV",
+          "EDI/EDIFACT",
+          "FILEPART",
+          "JSON",
+          "PSV",
+          "JSON/STEDI-GUIDE",
+          "TSV",
+          "UNKNOWN",
+          "EDI/X12",
+          "XML",
+          "ZIP"
         ]
       },
       "GatewayTimeoutExceptionResponseContent": {
@@ -4853,6 +4878,9 @@
           "faultMessage": {
             "type": "string"
           },
+          "fileType": {
+            "$ref": "#/components/schemas/FileType"
+          },
           "retryable": {
             "type": "boolean"
           },
@@ -4879,6 +4907,12 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            }
           }
         },
         "required": [
@@ -5383,6 +5417,9 @@
           "faultMessage": {
             "type": "string"
           },
+          "fileType": {
+            "$ref": "#/components/schemas/FileType"
+          },
           "retryable": {
             "type": "boolean"
           },
@@ -5409,6 +5446,12 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            }
           }
         },
         "required": [
