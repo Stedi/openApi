@@ -3316,6 +3316,24 @@
                     }
                 }
             }
+        },
+        "/payers": {
+            "get": {
+                "description": "List all payers",
+                "operationId": "ListPayerRecords",
+                "responses": {
+                    "200": {
+                        "description": "ListPayerRecords 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListPayerRecordsResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -8200,6 +8218,20 @@
                     "WK"
                 ]
             },
+            "ListPayerRecordsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PayerRecord"
+                        }
+                    }
+                },
+                "required": [
+                    "items"
+                ]
+            },
             "MeasurementQualifier": {
                 "type": "string",
                 "description": "Code identifying the specific measurement. Can be set to `HT` - Height, `R1` - Hemoglobin, `R2` - Hematocrit, `R3` - Epoetin Starting Dosage, or `R4` - Creatinine.",
@@ -9196,6 +9228,35 @@
                         "items": {
                             "$ref": "#/components/schemas/ContactMethods"
                         }
+                    }
+                }
+            },
+            "PayerRecord": {
+                "type": "object",
+                "properties": {
+                    "stediId": {
+                        "type": "string"
+                    },
+                    "displayName": {
+                        "type": "string"
+                    },
+                    "primaryPayerId": {
+                        "type": "string"
+                    },
+                    "aliases": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "transactionSupport": {
+                        "$ref": "#/components/schemas/TransactionSupport"
                     }
                 }
             },
@@ -12530,6 +12591,37 @@
                         "type": "string"
                     }
                 }
+            },
+            "TransactionSupport": {
+                "type": "object",
+                "properties": {
+                    "eligibilityCheck": {
+                        "$ref": "#/components/schemas/TransactionSupportValue"
+                    },
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/TransactionSupportValue"
+                    },
+                    "claimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue"
+                    },
+                    "claimPayment": {
+                        "$ref": "#/components/schemas/TransactionSupportValue"
+                    }
+                },
+                "required": [
+                    "claimPayment",
+                    "claimStatus",
+                    "claimSubmission",
+                    "eligibilityCheck"
+                ]
+            },
+            "TransactionSupportValue": {
+                "type": "string",
+                "enum": [
+                    "SUPPORTED",
+                    "NOT_SUPPORTED",
+                    "ENROLLMENT_REQUIRED"
+                ]
             },
             "Warning": {
                 "type": "object",
