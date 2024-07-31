@@ -5054,7 +5054,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "anesthesiaRelatedSurgicalProcedure": {
                         "type": "array",
@@ -6109,7 +6109,7 @@
                     },
                     "diagnosisCode": {
                         "type": "string",
-                        "description": "The diagnosis code."
+                        "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied."
                     }
                 },
                 "required": [
@@ -6420,7 +6420,7 @@
             },
             "CompositeDiagnosisCodePointers": {
                 "type": "object",
-                "description": "Diagnosis codes in order of importance to this service line. The first diagnosis code is the primary diagnosis code.",
+                "description": "Diagnosis codes in order of importance to this service line. The first diagnosis code is the primary diagnosis code. **Do not** submit the decimal point for ICD codes; the decimal point is implied.",
                 "properties": {
                     "diagnosisCodePointers": {
                         "type": "array",
@@ -6429,7 +6429,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "A diagnosis code for this service line."
+                        "description": "A diagnosis code for this service line. **Do not** submit the decimal point for ICD codes; the decimal point is implied."
                     }
                 },
                 "required": [
