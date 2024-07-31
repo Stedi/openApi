@@ -3319,7 +3319,6 @@
         },
         "/payers": {
             "get": {
-                "description": "List all payers",
                 "operationId": "ListPayerRecords",
                 "responses": {
                     "200": {
@@ -3328,6 +3327,43 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/ListPayerRecordsResponseContent"
+                                },
+                                "examples": {
+                                    "ListPayerRecords_example1": {
+                                        "summary": "List Payers",
+                                        "description": "",
+                                        "value": {
+                                            "items": [
+                                                {
+                                                    "stediId": "AFLEJ",
+                                                    "displayName": "PacifiCare Health",
+                                                    "primaryPayerId": "81400",
+                                                    "aliases": [
+                                                        "7481",
+                                                        "81400",
+                                                        "AMMEDS"
+                                                    ],
+                                                    "names": [
+                                                        "All Savers",
+                                                        "All Savers Alternate Funding",
+                                                        "All Savers Insurance",
+                                                        "All Savers Life Insurance Company",
+                                                        "American Medical Security",
+                                                        "UnitedHealthOne PacifiCare Life and Health",
+                                                        "UnitedHealthOne UnitedHealthcare Life Insurance Company",
+                                                        "UnitedHealthcare All Savers Insurance",
+                                                        "UnitedHealthcare Life Insurance Company"
+                                                    ],
+                                                    "transactionSupport": {
+                                                        "eligibilityCheck": "SUPPORTED",
+                                                        "claimStatus": "SUPPORTED",
+                                                        "claimSubmission": "SUPPORTED",
+                                                        "claimPayment": "ENROLLMENT_REQUIRED"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -8225,7 +8261,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PayerRecord"
-                        }
+                        },
+                        "description": "Payers that Stedi supports for eligibility checks, claim submission, claim status, and claim payment (ERAs). Results are returned in alphabetical order of the Stedi ID."
                     }
                 },
                 "required": [
@@ -9235,25 +9272,30 @@
                 "type": "object",
                 "properties": {
                     "stediId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated."
                     },
                     "displayName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's business name, such as Cigna or Aetna. This is the name most commonly used to identify the payer."
                     },
                     "primaryPayerId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards."
                     },
                     "aliases": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Alternative IDs associated with a payer. If a payer changes their `primaryPayerId`, aliases allow you to continue sending transactions to the payer using the old ID uninterrupted."
                     },
                     "names": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Alternative names associated with a payer. These additional names help you search for and identify payers using the name most familiar to your organization."
                     },
                     "transactionSupport": {
                         "$ref": "#/components/schemas/TransactionSupport"
@@ -12594,6 +12636,7 @@
             },
             "TransactionSupport": {
                 "type": "object",
+                "description": "Whether the following transaction types are supported: 270 eligibility checks, 276 claim status requests, 837 professional claims, and 835 ERAs (claim payments). If the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
                 "properties": {
                     "eligibilityCheck": {
                         "$ref": "#/components/schemas/TransactionSupportValue"
