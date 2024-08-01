@@ -7465,7 +7465,7 @@
             },
             "Encounter": {
                 "type": "object",
-                "description": "Details about the eligibility or benefit information you are requesting for the patient. If you don't specify service date (either a single day or a range of dates), Stedi defaults to using the current date. If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient. If you don't specify service date (either a single day or a range of dates), Stedi defaults to using the current date. If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value. We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
