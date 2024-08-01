@@ -4515,13 +4515,16 @@
                 "type": "object",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's business name, such as Cigna or Aetna."
                     },
                     "payerIdentification": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's unique identifier."
                     },
                     "centersForMedicareAndMedicaidServicePlanId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's Centers for Medicare and Medicaid Services Plan ID. This is specifically for Health Plan ID (HPID) or Other Entity Identifier (OEID), both of which are no longer mandated for use."
                     },
                     "payerContactInformation": {
                         "$ref": "#/components/schemas/PayerContactInformation"
@@ -4530,7 +4533,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ClaimStatusTransactions"
-                        }
+                        },
+                        "description": "Claim status details."
                     }
                 }
             },
@@ -4544,51 +4548,65 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ServiceClaimStatus"
-                        }
+                        },
+                        "description": "The status of the specific service line."
                     },
                     "lineItemControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A unique identifier for the service line that matches the `providerControlNumber` submitted in the original claim. You can use this value to correlate the payer's response with specific service lines from the original claim."
                     },
                     "serviceLineDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date of the service, expressed as YYYYMMDD."
                     },
                     "beginServiceLineDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The starting date of the service, expressed as YYYYMMDD."
                     },
                     "endServiceLineDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The ending date of the service, expressed as YYYYMMDD."
                     }
                 }
             },
             "CdpediX12V5010NewmodelsClaimStatusCdpediServiceLinesService": {
                 "type": "object",
+                "description": "Information about the service provided.",
                 "properties": {
                     "serviceIdQualifierCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The code identifying the source of the `procedureCode`."
                     },
                     "serviceIdQualifierCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `serviceIdQualifierCode`."
                     },
                     "procedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifying code for the product or service."
                     },
                     "procedureModifiers": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "description": "Identifies special circumstances related to the performance of the service."
                     },
                     "chargeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The submitted service charge, expressed as a decimal."
                     },
                     "amountPaid": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The amount paid for the service, expressed as a decimal."
                     },
                     "revenueCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The National Uniform Billing Committee Revenue Code."
                     },
                     "submittedUnits": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The number of units of service that were submitted, expressed as a decimal."
                     }
                 }
             },
@@ -5383,48 +5401,60 @@
                         "$ref": "#/components/schemas/ClaimStatusDetailsServiceProvider"
                     },
                     "providerOFServiceInformationTraceIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "An identifier for claims related to this provider."
                     },
                     "serviceProviderClaimStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ServiceProviderClaimStatus"
-                        }
+                        },
+                        "description": "Status information for claims related to the provider."
                     },
                     "patientClaimStatusDetails": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PatientClaimStatusDetails"
-                        }
+                        },
+                        "description": "Patient information and the status of claims related to the patient."
                     }
                 }
             },
             "ClaimStatusDetailsServiceProvider": {
                 "type": "object",
+                "description": "Information about the service provider.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's last name, when the provider is an individual. Can be up to 60 characters."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's first name, when the provider is an individual. Can be up to 35 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's middle name or initial, when the provider is an individual. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's name suffix, when the provider is an individual. Can be up to 10 characters."
                     },
                     "tin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's tax identification number."
                     },
                     "spn": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's service provider number."
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier."
                     }
                 }
             },
@@ -5844,39 +5874,48 @@
                         "$ref": "#/components/schemas/ClaimStatusTransactionsProvider"
                     },
                     "claimTransactionBatchNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's unique identifier for the claim."
                     },
                     "providerClaimStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ProviderClaimStatus"
-                        }
+                        },
+                        "description": "Overall status information for the claim."
                     },
                     "claimStatusDetails": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ClaimStatusDetails"
-                        }
+                        },
+                        "description": "More detailed status information. This includes information about the patient, provider, and services rendered."
                     }
                 }
             },
             "ClaimStatusTransactionsProvider": {
                 "type": "object",
+                "description": "Information about the provider receiving the claim status details.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's last name. Can be up to 60 characters."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "etin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Electronic Transmitter Identification Number."
                     }
                 }
             },
@@ -5985,40 +6024,51 @@
                 "type": "object",
                 "properties": {
                     "referencedTransactionTraceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "An identifier for the claim."
                     },
                     "informationClaimStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/InformationClaimStatus"
-                        }
+                        },
+                        "description": "Claim status information."
                     },
                     "tradingPartnerClaimNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's unique identifier for the claim."
                     },
                     "billTypeIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The bill type identification."
                     },
                     "patientAccountNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The patient control number provided in the original claim. You can use this value to correlate the payer's response with the original claim."
                     },
                     "pharmacyPrescriptionNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Pharmacy Prescription Number."
                     },
                     "voucherIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The voucher identifier. Some payers assign voucher identifiers to a group of claims as part of the payment process prior to payment being issued."
                     },
                     "clearinghouseTraceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier the clearinghouse assigned to the original claim."
                     },
                     "claimServiceBeginDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The starting date of the service, expressed as YYYYMMDD."
                     },
                     "claimServiceEndDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The ending date of the service, expressed as YYYYMMDD."
                     },
                     "claimServiceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date of the service, expressed as YYYYMMDD."
                     }
                 }
             },
@@ -6597,19 +6647,24 @@
                 "type": "object",
                 "properties": {
                     "electronicDataInterChangeAccessNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Electronic Data Interchange Access Number."
                     },
                     "email": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The email address."
                     },
                     "fax": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The fax number."
                     },
                     "phone": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The telephone number including the area code (if applicable), formatted as AAABBBCCCC."
                     },
                     "phoneExtension": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The telephone extension, if applicable."
                     }
                 }
             },
@@ -6679,7 +6734,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ReportsClaimStatusResponse"
-                        }
+                        },
+                        "description": "The payer's 277 response."
                     },
                     "meta": {
                         "$ref": "#/components/schemas/Meta"
@@ -7785,25 +7841,32 @@
                 "type": "object",
                 "properties": {
                     "healthCareClaimStatusCategoryCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A code indicating the category of the status."
                     },
                     "healthCareClaimStatusCategoryCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `healthCareClaimStatusCategoryCode`."
                     },
                     "statusCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A code indicating the status."
                     },
                     "statusCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `statusCode`."
                     },
                     "entityIdentifierCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A code indicating the entity that is responsible for the claim."
                     },
                     "entityIdentifierCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `entityIdentifierCode`."
                     },
                     "nationalCouncilForPrescriptionDrugProgramsRejectPaymentCodes": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A National Council for Prescription Drug Programs (NCPDP) reject code."
                     }
                 }
             },
@@ -8063,22 +8126,28 @@
                 "type": "object",
                 "properties": {
                     "statusInformationEffectiveDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The effective date of the status information, formatted as YYYYMMDD."
                     },
                     "totalClaimChargeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The total amount of charges in the original claim, expressed as a decimal. This may differ from the total charges submitted due to claims processing instructions, such as claim splitting. Note that some HMO encounters supply zero as the amount of original charges."
                     },
                     "claimPaymentAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The total amount of the claim payment, expressed as a decimal. This may be zero if no payment is being made. Some payers can provide the adjudicated payment amount before they issue the remittance."
                     },
                     "adjudicatedFinalizedDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This is the date of denial or approval for the claim. This date may or may not be the same as the issue date of the check, EFT, or non-payment remittance. Some payers can provide this date before they issue the remittance."
                     },
                     "remittanceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This is the check issue or EFT funds available date, formatted as YYYYMMDD. This could be a non-payment remittance date, if available."
                     },
                     "remittanceTraceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This is the check or EFT Trace Number. This could also be a non-payment remittance advice Trace Number (835 or paper), if available."
                     },
                     "informationStatuses": {
                         "type": "array",
@@ -8087,13 +8156,14 @@
                         }
                     },
                     "statusMessage": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Additional free-form information about the claim status."
                     }
                 }
             },
             "InformationReceiverName": {
                 "type": "object",
-                "description": "Provide additional information to identify the entity making the eligibility request. For example, if a provider has multiple locations, you may need to provide the address of the specific location.",
+                "description": "Provide additional information to identify the entity making the eligibility request. For example, if a provider has multiple locations, you may need to provide the address of the specific location. This is also where you can include the Federal Taxpayers Identification Number (EIN) for providers with an NPI.",
                 "properties": {
                     "stateLicenceNumber": {
                         "type": "string",
@@ -8458,10 +8528,11 @@
             },
             "Meta": {
                 "type": "object",
+                "description": "Metadata that helps Stedi track and debug the response.",
                 "properties": {
                     "transactionId": {
                         "type": "string",
-                        "description": "The Stedi transaction identifier"
+                        "description": "The Stedi transaction identifier."
                     },
                     "applicationMode": {
                         "type": "string"
@@ -8967,53 +9038,68 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ReportsClaims"
-                        }
+                        },
+                        "description": "Status information for the claim or service line."
                     }
                 }
             },
             "PatientClaimStatusDetailsDependent": {
                 "type": "object",
+                "description": "Information about a dependent who received services related to the claim.",
                 "properties": {
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The last name of the dependent. Can be up to 60 characters."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The first name of the dependent. Can be up to 35 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The middle name or initial of the dependent. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The suffix of the dependent, such as Jr or III. Can be up to 10 characters."
                     }
                 }
             },
             "PatientClaimStatusDetailsSubscriber": {
                 "type": "object",
+                "description": "Information about the primary policy holder for the insurance plan.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's business name. Applicable when an employer submitted a worker's compensation claim, or other situations when an employer is the subscriber."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The last name of the subscriber. Can be up to 60 characters."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The first name of the subscriber. Can be up to 35 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The middle name or initial of the subscriber. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The suffix of the subscriber, such as Jr or III. Can be up to 10 characters."
                     },
                     "memberId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's member ID for their health plan."
                     },
                     "employerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's employer identification number. This may be used in conjunction with a worker's compensation claim."
                     },
                     "standardUniqueHealthIdentifierForEachIndividualInTheUnitedStates": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Deprecated; do not use."
                     }
                 }
             },
@@ -9264,15 +9350,18 @@
             },
             "PayerContactInformation": {
                 "type": "object",
+                "description": "The payer's business contact information.",
                 "properties": {
                     "contactName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the contact person or entity."
                     },
                     "contactMethods": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ContactMethods"
-                        }
+                        },
+                        "description": "Each contact will have a single property set, except for phone with extension."
                     }
                 }
             },
@@ -10383,42 +10472,42 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use the `serviceProviderNumber` instead."
+                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use another identifier instead, such as the `serviceProviderNumber` or `ssn`."
                     },
                     "serviceProviderNumber": {
                         "type": "string",
                         "maxLength": 80,
-                        "description": "The provider's service provider number. Only use when the billing provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
+                        "description": "The provider's service provider number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "payorId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "This is the Payer ID, and can either be provided as a Stedi Payer ID or a Change Healthcare Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
+                        "description": "Only used for payer-to-payer transactions, which are not currently supported. Do not use."
                     },
                     "taxId": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
+                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` field instead."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's Social Security Number (SSN). Don't use this for Federally-administered programs, such as Medicare."
+                        "description": "The provider's Social Security Number (SSN). Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service. Don't use this for Federally-administered programs, such as Medicare."
                     },
                     "pharmacyProcessorNumber": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's pharmacy processor number."
+                        "description": "The provider's pharmacy processor number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "servicesPlanID": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's Centers for Medicare and Medicaid Services (CMS) Plan ID."
+                        "description": "The provider's Centers for Medicare and Medicaid Services (CMS) Plan ID. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "employersId": {
                         "type": "string",
@@ -10459,13 +10548,15 @@
                 "type": "object",
                 "properties": {
                     "statusInformationEffectiveDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the claim status information is effective."
                     },
                     "providerStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ProviderStatus"
-                        }
+                        },
+                        "description": "The status of the entire claim."
                     }
                 }
             },
@@ -10510,22 +10601,28 @@
                 "type": "object",
                 "properties": {
                     "healthCareClaimStatusCategoryCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code indicating the industry list that contains the `statusCode`."
                     },
                     "healthCareClaimStatusCategoryCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `healthCareClaimStatusCategoryCode`."
                     },
                     "statusCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code indicating the status."
                     },
                     "statusCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `statusCode`."
                     },
                     "entityIdentifierCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code indicating the entity that the status is related to."
                     },
                     "entityIdentifierCodeValue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the `entityIdentifierCode`."
                     }
                 }
             },
@@ -10930,22 +11027,27 @@
                 "type": "object",
                 "properties": {
                     "controlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The control number the the payer provided in the claim status response. This is used to identify the transaction."
                     },
                     "referenceIdentification": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A number the payer assigns to the transaction to identify it within their system."
                     },
                     "transactionSetCreationDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the payer created the transaction, expressed as YYYYMMDD."
                     },
                     "transactionSetCreationTime": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The time the payer created the transaction, expressed in 24-hour clock time. May be formatted as HHMM, HHMMSS, HHMMSSD, or HHMMSSDD, where H = hours (00-23), M = minutes (00-59), S = integer seconds (00-59) and DD = decimal seconds; decimal seconds are expressed as follows: D = tenths (0-9) and DD = hundredths (00-99)."
                     },
                     "payers": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediPayer"
-                        }
+                        },
+                        "description": "Information about the payer and the claim status transactions included in the response."
                     }
                 }
             },
@@ -10959,7 +11061,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediServiceLines"
-                        }
+                        },
+                        "description": "Information about specific services within a claim."
                     }
                 }
             },
@@ -11688,13 +11791,15 @@
                 "type": "object",
                 "properties": {
                     "effectiveDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the status information is effective."
                     },
                     "serviceStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ExtendedProviderStatus"
-                        }
+                        },
+                        "description": "The status of the service."
                     }
                 }
             },
@@ -12250,13 +12355,15 @@
                 "type": "object",
                 "properties": {
                     "statusInformationEffectiveDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the status information is effective."
                     },
                     "serviceProviderStatuses": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ProviderStatus"
-                        }
+                        },
+                        "description": "The status of claims related to this provider."
                     }
                 }
             },
