@@ -3317,6 +3317,35 @@
                 }
             }
         },
+        "/export/{transactionId}/1500/pdf": {
+            "get": {
+                "operationId": "GetPDF1500",
+                "parameters": [
+                    {
+                        "name": "transactionId",
+                        "in": "path",
+                        "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app.",
+                        "schema": {
+                            "type": "string",
+                            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
+                        },
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetPDF1500 200 response",
+                        "content": {
+                            "application/octet-stream": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPDF1500OutputPayload"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payers": {
             "get": {
                 "operationId": "ListPayerRecords",
@@ -5008,7 +5037,7 @@
                     },
                     "patientAmountPaid": {
                         "type": "string",
-                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`."
+                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient."
                     },
                     "fileInformation": {
                         "type": "string",
@@ -7931,6 +7960,11 @@
                     "4",
                     "6"
                 ]
+            },
+            "GetPDF1500OutputPayload": {
+                "type": "string",
+                "description": "An HTTP payload for the CMS-1500 Claim Form PDF.",
+                "format": "byte"
             },
             "HealthCareCheckRemarkCodes": {
                 "type": "object",
