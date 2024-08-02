@@ -4856,10 +4856,6 @@
             "type": "string",
             "format": "date-time"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
           "id": {
             "type": "string"
           },
@@ -4903,8 +4899,7 @@
           "id",
           "message",
           "partnershipId",
-          "status",
-          "updatedAt"
+          "status"
         ]
       },
       "DeliveryReportStatus": {
@@ -4993,10 +4988,6 @@
             "type": "string",
             "format": "date-time"
           },
-          "updatedAt": {
-            "type": "string",
-            "format": "date-time"
-          },
           "id": {
             "type": "string"
           },
@@ -5017,15 +5008,15 @@
           },
           "senderProfile": {
             "$ref": "#/components/schemas/PartnershipSender"
-          }
+          },
+          "translateFaultContext": {}
         },
         "required": [
           "createdAt",
           "executionId",
           "faultCode",
           "faultMessage",
-          "id",
-          "updatedAt"
+          "id"
         ]
       },
       "ExecutionFaultCode": {
@@ -5157,6 +5148,9 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "operation": {
+            "type": "string"
           }
         },
         "required": [
@@ -5407,6 +5401,9 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "operation": {
+            "type": "string"
           },
           "artifacts": {
             "type": "array",
@@ -6006,6 +6003,9 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "operation": {
+            "type": "string"
           },
           "artifacts": {
             "type": "array",
