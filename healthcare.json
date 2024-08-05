@@ -4960,6 +4960,15 @@
                     "ZZ"
                 ]
             },
+            "ClaimFrequencyCode": {
+                "type": "string",
+                "description": "Identify the type of claim. Can be set to: `1` - indicates an original claim, `7` - Indicates the new claim is a replacement or correction, `8` - Indicates the claim is void or canceled",
+                "enum": [
+                    "1",
+                    "7",
+                    "8"
+                ]
+            },
             "ClaimInformation": {
                 "type": "object",
                 "description": "Information about the healthcare claim.",
@@ -4994,8 +5003,7 @@
                         "$ref": "#/components/schemas/PlaceOfServiceCode"
                     },
                     "claimFrequencyCode": {
-                        "type": "string",
-                        "description": "Code specifying the frequency of the claim. This is the third position of the [Uniform Billing Claim Form](https://www.verywellhealth.com/preparing-the-ub-04-form-2317061) Bill Type."
+                        "$ref": "#/components/schemas/ClaimFrequencyCode"
                     },
                     "signatureIndicator": {
                         "$ref": "#/components/schemas/SignatureIndicator"
