@@ -6707,7 +6707,7 @@
             },
             "CompositeDiagnosisCodePointers": {
                 "type": "object",
-                "description": "Diagnosis codes in order of importance to this service line. The first diagnosis code is the primary diagnosis code. **Do not** submit the decimal point for ICD codes; the decimal point is implied.",
+                "description": "Diagnosis code pointers in order of importance to this service line. These pointers are an index to the ICD-10 codes you included in the `claimInformation.healthCareCodeInformation` object array. The pointer values can be from 1 - 12 (integer numbers). You **must** set at least one pointer for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here - they belong in `claimInformation.healthCareCodeInformation`.",
                 "properties": {
                     "diagnosisCodePointers": {
                         "type": "array",
@@ -6716,7 +6716,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "A diagnosis code for this service line. **Do not** submit the decimal point for ICD codes; the decimal point is implied."
+                        "description": "A diagnosis code pointer for this service line."
                     }
                 },
                 "required": [
@@ -7731,7 +7731,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 0,
-                        "description": "The diagnosis code pointer."
+                        "description": "Diagnosis code pointers in order of importance to the service. These pointers are an index to the ICD-10 codes you included in the `subscriber.healthCareCodeInformation` or `dependents.healthCareCodeInformation` object arrays. The pointer values can be from 1 - 8 (integer numbers). If you are including diagnosis codes, you **must** set at least one pointer here for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here."
                     },
                     "medicalProcedures": {
                         "type": "array",
