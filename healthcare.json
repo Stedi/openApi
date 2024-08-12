@@ -11500,7 +11500,7 @@
             },
             "RequestSubscriber": {
                 "type": "object",
-                "description": "The person who is the primary policyholder for the insurance plan. You only need to supply the fields necessary for your use case and for the provider to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
+                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. You only need to supply the fields necessary for the payer to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
