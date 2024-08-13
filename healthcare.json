@@ -7075,7 +7075,7 @@
             },
             "Dependent": {
                 "type": "object",
-                "description": "Dependents of the subscriber who received the medical care associated with the healthcare claim.",
+                "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` field in the response, if present.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -9069,7 +9069,7 @@
             },
             "OtherSubscriberInformation": {
                 "type": "object",
-                "description": "Required when other payers are known to potentially be involved in paying on this claim.",
+                "description": "Information about other health plans under which the patient has coverage. Required when other payers are known to potentially be involved in paying on this claim. Used for coordination of benefits when the patient is covered by more than one health plan.",
                 "properties": {
                     "paymentResponsibilityLevelCode": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationPaymentResponsibilityLevelCode"
@@ -9083,7 +9083,7 @@
                     },
                     "otherInsuredGroupName": {
                         "type": "string",
-                        "description": "The name of the insurance plan."
+                        "description": "The name of the health plan."
                     },
                     "insuranceTypeCode": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationInsuranceTypeCode"
@@ -9221,7 +9221,7 @@
             },
             "OtherSubscriberName": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the insurance plan.",
+                "description": "The person or entity who is the primary policyholder for the other payer's health plan.",
                 "properties": {
                     "otherInsuredQualifier": {
                         "$ref": "#/components/schemas/OtherInsuredQualifier"
@@ -12729,7 +12729,7 @@
             },
             "Subscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the insurance plan.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -12751,7 +12751,7 @@
                     },
                     "subscriberGroupName": {
                         "type": "string",
-                        "description": "The name of the subscriber's insurance plan. For example, Cigna or Blue Cross Blue Shield."
+                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield."
                     },
                     "firstName": {
                         "type": "string",
@@ -12778,11 +12778,11 @@
                     },
                     "policyNumber": {
                         "type": "string",
-                        "description": "The subscriber's insurance plan policy number. You should provide either this field OR the `groupNumber`, not both."
+                        "description": "The subscriber's health plan policy number. You should provide either this field OR the `groupNumber`, not both."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's insurance plan group number. You should provide this field OR the `policyNumber`, not both."
+                        "description": "The subscriber's health plan group number. You should provide this field OR the `policyNumber`, not both."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
