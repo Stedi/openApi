@@ -14,27 +14,27 @@
   "paths": {
     "/events/{eventId}/destinations/attempts": {
       "get": {
-        "description": "Fetch destination attempts for a specific event id.",
-        "operationId": "GetDestinationAttempts",
+        "description": "Fetch webhook delivery attempts for a specific event id.",
+        "operationId": "GetWebhookDeliveryAttempts",
         "parameters": [
           {
             "name": "eventId",
             "in": "path",
-            "description": "The ID of the event you want to get destination logs for",
+            "description": "The ID of the event you want to get webhook delivery logs for",
             "schema": {
               "type": "string",
-              "description": "The ID of the event you want to get destination logs for"
+              "description": "The ID of the event you want to get webhook delivery logs for"
             },
             "required": true
           }
         ],
         "responses": {
           "200": {
-            "description": "GetDestinationAttempts 200 response",
+            "description": "GetWebhookDeliveryAttempts 200 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetDestinationAttemptsResponseContent"
+                  "$ref": "#/components/schemas/GetWebhookDeliveryAttemptsResponseContent"
                 }
               }
             }
@@ -124,8 +124,8 @@
     },
     "/events/{eventId}/destinations/attempts/{attemptId}": {
       "get": {
-        "description": "Fetch destination attempt details for a specific event id and attempt id.",
-        "operationId": "GetDestinationAttemptDetails",
+        "description": "Fetch webhook delivery attempt details for a specific event id and attempt id.",
+        "operationId": "GetWebhookDeliveryAttemptDetails",
         "parameters": [
           {
             "name": "eventId",
@@ -150,11 +150,11 @@
         ],
         "responses": {
           "200": {
-            "description": "GetDestinationAttemptDetails 200 response",
+            "description": "GetWebhookDeliveryAttemptDetails 200 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetDestinationAttemptDetailsResponseContent"
+                  "$ref": "#/components/schemas/GetWebhookDeliveryAttemptDetailsResponseContent"
                 }
               }
             }
@@ -5247,45 +5247,6 @@
           "fileExecutionId"
         ]
       },
-      "GetDestinationAttemptDetailsResponseContent": {
-        "type": "object",
-        "properties": {
-          "attemptId": {
-            "type": "string"
-          },
-          "destinationId": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/DestinationAttemptStatus"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "logs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DetailedDestinationAttemptLog"
-            }
-          }
-        }
-      },
-      "GetDestinationAttemptsResponseContent": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DestinationAttempt"
-            },
-            "description": "The related destinations attempts for the event."
-          }
-        }
-      },
       "GetExecutionInputDocumentResponseContent": {
         "type": "object",
         "properties": {
@@ -5596,6 +5557,45 @@
           "status",
           "transactionId"
         ]
+      },
+      "GetWebhookDeliveryAttemptDetailsResponseContent": {
+        "type": "object",
+        "properties": {
+          "attemptId": {
+            "type": "string"
+          },
+          "destinationId": {
+            "type": "string"
+          },
+          "eventId": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationAttemptStatus"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "logs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DetailedDestinationAttemptLog"
+            }
+          }
+        }
+      },
+      "GetWebhookDeliveryAttemptsResponseContent": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DestinationAttempt"
+            },
+            "description": "The related webhook delivery attempts for the event."
+          }
+        }
       },
       "GetX12PartnershipConfigurationResponseContent": {
         "type": "object",
