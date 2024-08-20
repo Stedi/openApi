@@ -3183,7 +3183,34 @@
                                                                                                 ],
                                                                                                 "patientAccountNumber": "11122233",
                                                                                                 "referencedTransactionTraceNumber": "11122233"
-                                                                                            }
+                                                                                            },
+                                                                                            "serviceLines": [
+                                                                                                {
+                                                                                                    "lineItemControlNumber": "444555666",
+                                                                                                    "serviceLineDate": "19000104",
+                                                                                                    "service": {
+                                                                                                        "amountPaid": "0",
+                                                                                                        "chargeAmount": "109.50",
+                                                                                                        "procedureCode": "97110",
+                                                                                                        "serviceIdQualifierCode": "HC",
+                                                                                                        "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedure Coding System (HCPCS)",
+                                                                                                        "submittedUnits": "1"
+                                                                                                    },
+                                                                                                    "serviceClaimStatuses": [
+                                                                                                        {
+                                                                                                            "effectiveDate": "20240702",
+                                                                                                            "serviceStatuses": [
+                                                                                                                {
+                                                                                                                    "healthCareClaimStatusCategoryCode": "A1",
+                                                                                                                    "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+                                                                                                                    "statusCode": "20",
+                                                                                                                    "statusCodeValue": "Accepted for processing."
+                                                                                                                }
+                                                                                                            ]
+                                                                                                        }
+                                                                                                    ]
+                                                                                                }
+                                                                                            ]
                                                                                         }
                                                                                     ],
                                                                                     "subscriber": {
@@ -12768,7 +12795,7 @@
                     },
                     "lineItemControlNumber": {
                         "type": "string",
-                        "description": "An identifier for the service line."
+                        "description": "An identifier for the service line. This matches the `claimInformation.serviceLines.providerControlNumber` submitted for the service line in the original claim."
                     },
                     "serviceLineDate": {
                         "type": "string",
