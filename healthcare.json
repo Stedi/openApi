@@ -4173,7 +4173,7 @@
                 "properties": {
                     "code": {
                         "type": "string",
-                        "description": "The eligibility or benefit information code. The following codes indicate patient responsibility: `A` - Co-Insurance, `B` - Co-payment, `C` - Deductible, `G`- Out of Pocket (Stop Loss), `J` - Non-Covered, and `Y`- Spend Down. Visit `EB01` in Stedi's [X12 X279 270/271 guide](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213#properties.detail.properties.information_source_level_HL_loop.items.properties.information_receiver_level_HL_loop.items.properties.subscriber_level_HL_loop.items.properties.subscriber_name_NM1_loop.properties.subscriber_eligibility_or_benefit_information_EB_loop.items.properties.subscriber_eligibility_or_benefit_information_EB) for a complete list of codes."
+                        "description": "The eligibility or benefit information code. Visit [Eligibility and benefit codes](https://www.stedi.com/docs/healthcare/benefit-response#eligibility-and-benefit-type-codes) for a complete list and descriptions of common codes."
                     },
                     "name": {
                         "type": "string",
@@ -4223,11 +4223,11 @@
                     },
                     "benefitAmount": {
                         "type": "string",
-                        "description": "The monetary amount of the benefit, such as a patient's co-pay or deductible. For example, `100.00`."
+                        "description": "The monetary benefit amount, such as a patient's co-pay or deductible. This value is expressed as a decimal, such as 100.00. The payer will always send a value in this field when the `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. For those codes, this value represents the patient's portion of responsibility. The payer will **never** send this value when `benefitsInformation.code` = `A` - Co-Insurance. This field can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
                     },
                     "benefitPercent": {
                         "type": "string",
-                        "description": "The percentage of the benefit, such as co-insurance. The percentage is expressed as a decimal. For example, `0.80` equals 80%."
+                        "description": "The percentage of the benefit, such as co-insurance. The payer will always send a value in this field when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. The payer will **never** send a value in this field when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. This field can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
                     },
                     "quantityQualifierCode": {
                         "type": "string",
