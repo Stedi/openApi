@@ -2862,7 +2862,12 @@
                                                 "timeOfResponse": "2024-07-10T22:05:32.203Z",
                                                 "payerId": "60054",
                                                 "formatVersion": "5010",
-                                                "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T"
+                                                "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
+                                                "serviceLines": [
+                                                    {
+                                                        "lineItemControlNumber": "111222333"
+                                                    }
+                                                ]
                                             },
                                             "httpStatusCode": "200 OK",
                                             "meta": {
@@ -3092,7 +3097,12 @@
                                                 "timeOfResponse": "2024-04-01T13:23:54.255Z",
                                                 "payerId": "6400",
                                                 "formatVersion": "5010",
-                                                "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK"
+                                                "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK",
+                                                "serviceLines": [
+                                                    {
+                                                        "lineItemControlNumber": "111222333"
+                                                    }
+                                                ]
                                             },
                                             "httpStatusCode": "200 OK",
                                             "meta": {
@@ -5772,6 +5782,13 @@
                     "rhclaimNumber": {
                         "type": "string",
                         "description": "A tracking number Stedi assigns to the claim. This is the same as the `correlationId`."
+                    },
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceLineResponseIdentifier"
+                        },
+                        "description": "Contains a unique identifier for each service line, listed in the order the service lines were included in the claim. You can use these identifiers to correlate payer responses to specific service lines."
                     }
                 }
             },
@@ -12587,7 +12604,7 @@
                     },
                     "providerControlNumber": {
                         "type": "string",
-                        "description": "A unique identifier for this service line within the claim. We **strongly recommend** setting this field for each service line. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim."
+                        "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this field, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response."
                     },
                     "professionalService": {
                         "$ref": "#/components/schemas/ProfessionalService"
@@ -13044,6 +13061,15 @@
                         },
                         "maxItems": 5,
                         "minItems": 0
+                    }
+                }
+            },
+            "ServiceLineResponseIdentifier": {
+                "type": "object",
+                "properties": {
+                    "lineItemControlNumber": {
+                        "type": "string",
+                        "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` field in the claim submission. If you didn't provide a value for `providerControlNumber`, this field contains a randomly generated a UUID for the service line."
                     }
                 }
             },
