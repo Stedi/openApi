@@ -4066,7 +4066,7 @@
             },
             "BenefitsDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the benefits. All fields may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD.",
+                "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -4233,11 +4233,11 @@
                     },
                     "benefitAmount": {
                         "type": "string",
-                        "description": "The monetary benefit amount, such as a patient's co-pay or deductible. This value is expressed as a decimal, such as 100.00. The payer will always send a value in this field when the `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. For those codes, this value represents the patient's portion of responsibility. The payer will **never** send this value when `benefitsInformation.code` = `A` - Co-Insurance. This field can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
+                        "description": "The monetary benefit amount, such as a patient's co-pay or deductible. This value is expressed as a decimal, such as 100.00. The payer will always send a value in this property when the `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. For those codes, this value represents the patient's portion of responsibility. The payer will **never** send this value when `benefitsInformation.code` = `A` - Co-Insurance. This property can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
                     },
                     "benefitPercent": {
                         "type": "string",
-                        "description": "The percentage of the benefit, such as co-insurance. The payer will always send a value in this field when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. The payer will **never** send a value in this field when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. This field can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
+                        "description": "The percentage of the benefit, such as co-insurance. The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. This property can contain zero when the patient has no responsibility. Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
                     },
                     "quantityQualifierCode": {
                         "type": "string",
@@ -5333,7 +5333,7 @@
             },
             "ClaimInformation": {
                 "type": "object",
-                "description": "Information about the healthcare claim.",
+                "description": "Information about the healthcare claim. Note that the objects and properties marked as **required** are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the patient's diagnosis codes in the `healthCareCodeInformation` object, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
                 "properties": {
                     "claimFilingCode": {
                         "$ref": "#/components/schemas/ClaimFilingCode"
@@ -5355,7 +5355,7 @@
                     },
                     "patientControlNumber": {
                         "type": "string",
-                        "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this field so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA)."
+                        "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this property so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA)."
                     },
                     "claimChargeAmount": {
                         "type": "string",
@@ -5510,7 +5510,7 @@
                         },
                         "maxItems": 10,
                         "minItems": 0,
-                        "description": "Required when other payers are known to potentially be involved in paying on this claim."
+                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
                     },
                     "serviceLines": {
                         "type": "array",
@@ -6371,11 +6371,11 @@
                     },
                     "repricedClaimNumber": {
                         "type": "string",
-                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this field."
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
                     },
                     "adjustedRepricedClaimNumber": {
                         "type": "string",
-                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this field."
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
                     },
                     "investigationalDeviceExemptionNumber": {
                         "type": "string",
@@ -6383,7 +6383,7 @@
                     },
                     "claimNumber": {
                         "type": "string",
-                        "description": "The claim number assigned by clearinghouse, van, etc. Providers should not complete this field."
+                        "description": "The claim number assigned by clearinghouse, van, etc. Providers should not complete this property."
                     },
                     "mammographyCertificationNumber": {
                         "type": "string",
@@ -6509,7 +6509,7 @@
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number `123-456-7890` as `1234567890`. You should always include the area code, if applicable. Don't include long distance access numbers (such as `1`) or extensions in this field."
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number `123-456-7890` as `1234567890`. You should always include the area code, if applicable. Don't include long distance access numbers (such as `1`) or extensions in this property."
                     },
                     "faxNumber": {
                         "type": "string",
@@ -6728,7 +6728,7 @@
                     },
                     "usageIndicator": {
                         "type": "string",
-                        "description": "The Interchange Usage Indicator (`ISA-15`) in the X12 EDI file. You only need to set this field if you want to be able to filter claims in the Stedi app by production or test data. By default, this field is set to `P` for production data. Use `T` to designate a file as test data."
+                        "description": "The Interchange Usage Indicator (`ISA-15`) in the X12 EDI file. You only need to set this property if you want to be able to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a file as test data."
                     },
                     "billing": {
                         "$ref": "#/components/schemas/Billing"
@@ -6876,7 +6876,7 @@
                     },
                     "claimServiceDate": {
                         "type": "string",
-                        "description": "Either a single date (formatted as `YYYYMMDD`) or a range of dates (formatted as `YYYYMMDD-YYYYMMDD`) identifying the period of service related to the claim. This field is derived from the service level dates."
+                        "description": "Either a single date (formatted as `YYYYMMDD`) or a range of dates (formatted as `YYYYMMDD-YYYYMMDD`) identifying the period of service related to the claim. This property is derived from the service level dates."
                     },
                     "tradingPartnerClaimNumber": {
                         "type": "string",
@@ -7031,7 +7031,7 @@
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number 123-456-7890 as 1234567890. You should always include the area code, if applicable. Don't include long distance access numbers (such as 1) or extensions in this field."
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number 123-456-7890 as 1234567890. You should always include the area code, if applicable. Don't include long distance access numbers (such as 1) or extensions in this property."
                     },
                     "faxNumber": {
                         "type": "string",
@@ -7286,7 +7286,7 @@
             },
             "Dependent": {
                 "type": "object",
-                "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` field in the response, if present.",
+                "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -7802,7 +7802,7 @@
                     },
                     "outboundTraceId": {
                         "type": "string",
-                        "description": "The value provided in the `submitterTransactionIdentifier` field in the original eligibility check request."
+                        "description": "The value provided in the `submitterTransactionIdentifier` property in the original eligibility check request."
                     }
                 }
             },
@@ -7985,7 +7985,7 @@
                         },
                         "maxItems": 98,
                         "minItems": 0,
-                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` fields."
+                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties."
                     }
                 }
             },
@@ -8004,7 +8004,7 @@
             },
             "EncounterReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` field. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
+                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` property. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
                 "enum": [
                     "9F",
                     "G1"
@@ -8369,7 +8369,7 @@
             },
             "FormTypeCode": {
                 "type": "string",
-                "description": "Code indicating the type of form. Can be set to `AS` - Form Type Code or `UT` - Centers for Medicare and Medicaid Services (CMS) Durable Medical Equipment Regional Carrier (DMERC) Certificate of Medical Necessity (CMN) Forms. Set this to `AS` when you plan to include a home health form in the `formIdentifier` field.",
+                "description": "Code indicating the type of form. Can be set to `AS` - Form Type Code or `UT` - Centers for Medicare and Medicaid Services (CMS) Durable Medical Equipment Regional Carrier (DMERC) Certificate of Medical Necessity (CMN) Forms. Set this to `AS` when you plan to include a home health form in the `formIdentifier` property.",
                 "enum": [
                     "AS",
                     "UT"
@@ -8751,7 +8751,7 @@
                     },
                     "paidServiceUnitCount": {
                         "type": "string",
-                        "description": "The number of paid units from the remittance advice. expressed as a decimal. When paid units are not present on the remittance advice, use the original billed units. The maximum length for this field is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
+                        "description": "The number of paid units from the remittance advice. expressed as a decimal. When paid units are not present on the remittance advice, use the original billed units. The maximum length for this property is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "bundledOrUnbundledLineNumber": {
                         "type": "string",
@@ -8870,7 +8870,7 @@
             },
             "MedicalProcedure": {
                 "type": "object",
-                "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` fields.",
+                "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties.",
                 "properties": {
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/MedicalProcedureProductOrServiceIDQualifier"
@@ -9082,7 +9082,7 @@
             },
             "OtherInsuredIdentifierTypeCode": {
                 "type": "string",
-                "description": "Code identifying the type of identifier. Can be set to `II` - Standard Unique Health Identifier for each individual in the United States or `MI` - Member Identification Number. The code `MI` should be the subscriber's identification number as assigned by the payer, such as their subscriber ID. You should also use `MI` in claims submitted to the Indian Health Service/Contract Health Services (IHS/CHS) Fiscal Intermediary for the purpose of reporting the Tribe Residency Code (Tribe County State). For IHS/CHS claims, you should also put the SSN in the `otherInsuredAdditionalIdentifier` field.)",
+                "description": "Code identifying the type of identifier. Can be set to `II` - Standard Unique Health Identifier for each individual in the United States or `MI` - Member Identification Number. The code `MI` should be the subscriber's identification number as assigned by the payer, such as their subscriber ID. You should also use `MI` in claims submitted to the Indian Health Service/Contract Health Services (IHS/CHS) Fiscal Intermediary for the purpose of reporting the Tribe Residency Code (Tribe County State). For IHS/CHS claims, you should also put the SSN in the `otherInsuredAdditionalIdentifier` property.)",
                 "enum": [
                     "II",
                     "MI"
@@ -9305,7 +9305,6 @@
             },
             "OtherSubscriberInformation": {
                 "type": "object",
-                "description": "Information about other health plans under which the patient has coverage. Required when other payers are known to potentially be involved in paying on this claim. Used for coordination of benefits when the patient is covered by more than one health plan.",
                 "properties": {
                     "paymentResponsibilityLevelCode": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationPaymentResponsibilityLevelCode"
@@ -10638,7 +10637,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits. All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges). Fields contain a single date unless otherwise noted.",
+                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits. All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges). Properties contain a single date unless otherwise noted.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -11102,19 +11101,19 @@
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "The provider's business name. This field is required if the provider is not a person."
+                        "description": "The provider's business name. This property is required if the provider is not a person."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
                         "minLength": 0,
-                        "description": "The provider's first name. This field is required if the provider is an individual."
+                        "description": "The provider's first name. This property is required if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 0,
-                        "description": "The provider's last name. This field is required if the provider is an individual."
+                        "description": "The provider's last name. This property is required if the provider is an individual."
                     },
                     "npi": {
                         "type": "string",
@@ -11137,7 +11136,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 0,
-                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` field instead."
+                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` property instead."
                     },
                     "ssn": {
                         "type": "string",
@@ -11864,7 +11863,7 @@
                         "maxLength": 50,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` field. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this field should contain the provider's taxonomy code."
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
@@ -11953,7 +11952,7 @@
             },
             "RequestSubscriber": {
                 "type": "object",
-                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. You only need to supply the fields necessary for the payer to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
+                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. You only need to supply the properties necessary for the payer to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
@@ -11992,7 +11991,7 @@
                         "type": "string",
                         "maxLength": 3,
                         "minLength": 0,
-                        "description": "This field is no longer used."
+                        "description": "This property is no longer used."
                     },
                     "memberId": {
                         "type": "string",
@@ -12048,7 +12047,7 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 0,
-                        "description": "The subscriber's identification card number. Include this field when this number is different than the subscriber's member ID. This is common in Medicaid."
+                        "description": "The subscriber's identification card number. Include this property when this number is different than the subscriber's member ID. This is common in Medicaid."
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/RequestSubscriberProviderCode"
@@ -12061,7 +12060,7 @@
                         "maxLength": 50,
                         "minLength": 0,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` field. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this field should contain the provider's taxonomy code."
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
@@ -12597,15 +12596,15 @@
                     },
                     "serviceDate": {
                         "type": "string",
-                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYYMMDD. When you send this field with `serviceDateEnd`, it will be used as the start date for the date range in which the service was rendered."
+                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYYMMDD. When you send this property with `serviceDateEnd`, it will be used as the start date for the date range in which the service was rendered."
                     },
                     "serviceDateEnd": {
                         "type": "string",
-                        "description": "The end date of the service period, expressed as YYYYMMDD. If you send this field, you must also send `serviceDate`."
+                        "description": "The end date of the service period, expressed as YYYYMMDD. If you send this property, you must also send `serviceDate`."
                     },
                     "providerControlNumber": {
                         "type": "string",
-                        "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this field, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response."
+                        "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response."
                     },
                     "professionalService": {
                         "$ref": "#/components/schemas/ProfessionalService"
@@ -12674,11 +12673,11 @@
                     },
                     "salesTaxAmount": {
                         "type": "string",
-                        "description": "Sales tax, formatted as a decimal. When you include this field, the total `lineItemChargeAmount` for this service line must include this sales tax value."
+                        "description": "Sales tax, formatted as a decimal. When you include this property, the total `lineItemChargeAmount` for this service line must include this sales tax value."
                     },
                     "postageTaxAmount": {
                         "type": "string",
-                        "description": "The amount of the postage, formatted as a decimal. When you include this field, the total `lineItemChargeAmount` for this service line must include this postage value."
+                        "description": "The amount of the postage, formatted as a decimal. When you include this property, the total `lineItemChargeAmount` for this service line must include this postage value."
                     },
                     "fileInformation": {
                         "type": "array",
@@ -12691,7 +12690,7 @@
                     },
                     "additionalNotes": {
                         "type": "string",
-                        "description": "Additional information the provider feels is necessary to substantiate the medical treatment that cannot be provided in other claim fields. Don't use this field to describe non-specific procedure codes."
+                        "description": "Additional information the provider feels is necessary to substantiate the medical treatment that cannot be provided in other claim properties. Don't use this property to describe non-specific procedure codes."
                     },
                     "goalRehabOrDischargePlans": {
                         "type": "string",
@@ -12699,7 +12698,7 @@
                     },
                     "thirdPartyOrganizationNotes": {
                         "type": "string",
-                        "description": "Required when the TPO/repricer needs to forward additional information to the payer. Providers shouldn't complete this field."
+                        "description": "Required when the TPO/repricer needs to forward additional information to the payer. Providers shouldn't complete this property."
                     },
                     "purchasedServiceInformation": {
                         "$ref": "#/components/schemas/PurchasedServiceInformation"
@@ -13070,7 +13069,7 @@
                 "properties": {
                     "lineItemControlNumber": {
                         "type": "string",
-                        "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` field in the claim submission. If you didn't provide a value for `providerControlNumber`, this field contains a randomly generated a UUID for the service line."
+                        "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated a UUID for the service line."
                     }
                 }
             },
@@ -13200,7 +13199,7 @@
                 "properties": {
                     "memberId": {
                         "type": "string",
-                        "description": "The member ID for the subscriber's insurance policy. This field is **required** if the subscriber is an individual. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` field."
+                        "description": "The member ID for the subscriber's insurance policy. This property is **required** if the subscriber is an individual. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property."
                     },
                     "ssn": {
                         "type": "string",
@@ -13245,11 +13244,11 @@
                     },
                     "policyNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan policy number. You should provide either this field OR the `groupNumber`, not both."
+                        "description": "The subscriber's health plan policy number. You should provide either this property OR the `groupNumber`, not both."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan group number. You should provide this field OR the `policyNumber`, not both."
+                        "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
