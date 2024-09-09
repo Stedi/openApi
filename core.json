@@ -1959,6 +1959,138 @@
         }
       }
     },
+    "/pg-executions/{executionId}/faults": {
+      "get": {
+        "description": "Fetch a list of faults for a given file execution, sorted by the date they were created from newest to oldest.",
+        "operationId": "PgListExecutionFaults",
+        "parameters": [
+          {
+            "name": "executionId",
+            "in": "path",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "schema": {
+              "type": "string",
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+            },
+            "required": true
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "schema": {
+              "type": "number",
+              "maximum": 500,
+              "minimum": 1,
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100."
+            }
+          },
+          {
+            "name": "pageToken",
+            "in": "query",
+            "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`",
+            "schema": {
+              "type": "string",
+              "maxLength": 1024,
+              "minLength": 1,
+              "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PgListExecutionFaults 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PgListExecutionFaultsResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/pg-executions/{executionId}/input": {
       "get": {
         "description": "This endpoint retrieves an execution's input document before it passes through any translation and mappings.",
@@ -4587,6 +4719,45 @@
           }
         }
       },
+      "ExecutionFault": {
+        "type": "object",
+        "description": "A failue to process a given file within stedi.",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "type": "string"
+          },
+          "executionId": {
+            "type": "string"
+          },
+          "faultCode": {
+            "$ref": "#/components/schemas/ExecutionFaultCode"
+          },
+          "faultMessage": {
+            "type": "string"
+          },
+          "guideId": {
+            "type": "string"
+          },
+          "receiverProfile": {
+            "$ref": "#/components/schemas/PartnershipReceiver"
+          },
+          "senderProfile": {
+            "$ref": "#/components/schemas/PartnershipSender"
+          },
+          "translateFaultContext": {}
+        },
+        "required": [
+          "createdAt",
+          "executionId",
+          "faultCode",
+          "faultMessage",
+          "id"
+        ]
+      },
       "ExecutionFaultCode": {
         "type": "string",
         "enum": [
@@ -5540,6 +5711,26 @@
           "executionId",
           "status",
           "updatedAt"
+        ]
+      },
+      "PgListExecutionFaultsResponseContent": {
+        "type": "object",
+        "properties": {
+          "nextPageToken": {
+            "type": "string",
+            "maxLength": 1024,
+            "minLength": 1,
+            "description": "The token used for pagination"
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutionFault"
+            }
+          }
+        },
+        "required": [
+          "items"
         ]
       },
       "PgListExecutionTransactionsResponseContent": {
