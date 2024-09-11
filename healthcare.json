@@ -4202,7 +4202,7 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia."
+                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list."
                     },
                     "serviceTypes": {
                         "type": "array",
@@ -7743,7 +7743,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BenefitsInformation"
                         },
-                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more."
+                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
                     },
                     "errors": {
                         "type": "array",
@@ -7876,7 +7876,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BenefitsInformation"
                         },
-                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more."
+                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
                     },
                     "errors": {
                         "type": "array",
@@ -7939,7 +7939,7 @@
                         },
                         "maxItems": 99,
                         "minItems": 0,
-                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit `EQ01` in the [Eligibility Benefit Inquiry specification](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-inquiry-x279a1/01GRYB6GTDJ4MEP5Z16CGMQWT6#properties.detail.properties.information_source_level_HL_loop.items.properties.information_receiver_level_HL_loop.items.properties.subscriber_level_HL_loop.items.properties.subscriber_name_NM1_loop.properties.subscriber_eligibility_or_benefit_inquiry_EQ_loop.items.properties.subscriber_eligibility_or_benefit_inquiry_EQ.properties.service_type_code_01) for a complete list of service type codes. Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
+                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
                     },
                     "priorAuthorizationOrReferralNumber": {
                         "type": "string",
