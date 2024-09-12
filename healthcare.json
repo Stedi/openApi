@@ -4434,7 +4434,7 @@
             },
             "Billing": {
                 "type": "object",
-                "description": "Information about the billing provider.",
+                "description": "Information about the billing provider. For tax identification, you **must** include either the provider's Social Security Number (SSN) _or_ their Employer Identification Number (EIN), but not both.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -4446,11 +4446,11 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The billing provider's Social Security Number. Must be a string of exactly nine numbers with no separators."
+                        "description": "The billing provider's Social Security Number. Must be a string of exactly nine numbers with no separators. If you include this value, you cannot include the `employerId`."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "The billing provider's Employer Identification Number. Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer."
+                        "description": "The billing provider's Employer Identification Number. Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the `ssn`."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -12861,10 +12861,12 @@
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators unless otherwise specified by the provider. If you include this value, you cannot include the provider's `employerId`."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
                         "type": "string"
@@ -12876,7 +12878,8 @@
                         "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot also include the provider's `ssn`."
                     },
                     "claimOfficeNumber": {
                         "type": "string"
@@ -12948,10 +12951,12 @@
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
                         "type": "string"
@@ -12963,7 +12968,8 @@
                         "type": "string"
                     },
                     "employerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "claimOfficeNumber": {
                         "type": "string"
@@ -13345,11 +13351,11 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The social security number. Must be a string of nine numbers with no separators."
+                        "description": "The Social Security Number. Must be a string of nine numbers with no separators. If you include this value, you cannot include the provider's `employerId`."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "Employer ID number is typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer."
+                        "description": "Employer ID number is typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
                         "type": "string",
