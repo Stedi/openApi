@@ -3206,7 +3206,7 @@
                                                                                                             }
                                                                                                         ],
                                                                                                         "statusInformationEffectiveDate": "20240702",
-                                                                                                        "totalClaimChargeAmount": "109.2"
+                                                                                                        "totalClaimChargeAmount": "109.20"
                                                                                                     }
                                                                                                 ],
                                                                                                 "patientAccountNumber": "11122233",
@@ -3218,7 +3218,7 @@
                                                                                                     "serviceLineDate": "19000104",
                                                                                                     "service": {
                                                                                                         "amountPaid": "0",
-                                                                                                        "chargeAmount": "109.50",
+                                                                                                        "chargeAmount": "109.20",
                                                                                                         "procedureCode": "97110",
                                                                                                         "serviceIdQualifierCode": "HC",
                                                                                                         "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedure Coding System (HCPCS)",
@@ -5347,7 +5347,7 @@
                     },
                     "patientWeight": {
                         "type": "string",
-                        "description": "The patient's weight in pounds. Enter as a decimal, such as `150.5`."
+                        "description": "The patient's weight in pounds, such as `150`. You should only set this property if the payer specifically requests it, such as for some Medicare DME claims. Otherwise, including this property can trigger claim edits."
                     },
                     "pregnancyIndicator": {
                         "$ref": "#/components/schemas/PregnancyIndicator"
@@ -13186,7 +13186,7 @@
                     },
                     "submitterIdentification": {
                         "type": "string",
-                        "description": "The submitter identification number. If not provided, Stedi uses the billing provider's NPI."
+                        "description": "The submitter's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. For some payers, this may be the same as the submitter's NPI or TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
