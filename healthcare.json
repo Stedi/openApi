@@ -7666,7 +7666,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "One or more dependents for which you want to retrieve benefits information. The patient qualifies as a dependent for eligibility checks when the patient is listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify the patient through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead."
+                        "description": "One or more dependents for which you want to retrieve benefits information. The patient qualifies as a dependent for eligibility checks when the patient is listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify the patient through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. Each payer has different requirements, so you should supply the fields necessary for each payer to identify the patient in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
@@ -11835,7 +11835,7 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The dependent's date of birth in YYYYMMDD format."
+                        "description": "The dependent's date of birth (DOB) in YYYYMMDD format. We **strongly recommend** including the DOB in your request. Many payers need this information to identify the patient in their system and will immediately return an error when it's not provided."
                     },
                     "ssn": {
                         "type": "string",
@@ -11955,7 +11955,7 @@
             },
             "RequestSubscriber": {
                 "type": "object",
-                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. You only need to supply the properties necessary for the payer to identify the subscriber in their system. All payers must be able to search for patients when you provide all of the following information: member ID, first name, last name, date of birth. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient's member ID when possible.",
+                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. At a minimum, our API requires that you supply at least one of these fields in the request: `memberId`, `dateOfBirth`, or `lastName`. However, each payer has different requirements, so you should supply the fields necessary for each payer to identify the subscriber in their system. When you provide all four of `memberId`, `dateOfBirth`, `firstName`, and `lastName`, payers are required to return a response if the member is in their database. Some payers may be able to search with less information, but this varies by payer. We recommend always including the patient’s member ID when possible.",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
