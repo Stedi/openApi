@@ -1603,6 +1603,413 @@
         }
       }
     },
+    "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/generate-edi": {
+      "post": {
+        "description": "This endpoint generates and delivers a fully-formed EDI file for a given transaction group.",
+        "operationId": "GenerateTransactionGroupEdi",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateTransactionGroupEdiRequestContent"
+              },
+              "examples": {
+                "GenerateTransactionGroupEdi_example1": {
+                  "summary": "Generate EDI for transaction group",
+                  "description": "",
+                  "value": {
+                    "filename": "my-output-file.edi",
+                    "overrides": {
+                      "interchangeUsageIndicator": "T",
+                      "acknowledgmentRequestedCode": "1"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "partnershipId",
+            "in": "path",
+            "description": "A unique ID for this partnership within Stedi. You can find this ID on the [Trading partners](https://www.stedi.com/app/core/partnerships) page under **Partnership identifier**.",
+            "schema": {
+              "type": "string",
+              "maxLength": 81,
+              "minLength": 1,
+              "pattern": "^([a-zA-Z0-9_-]+)$",
+              "description": "A unique ID for this partnership within Stedi. You can find this ID on the [Trading partners](https://www.stedi.com/app/core/partnerships) page under **Partnership identifier**."
+            },
+            "required": true,
+            "examples": {
+              "GenerateTransactionGroupEdi_example1": {
+                "summary": "Generate EDI for transaction group",
+                "description": "",
+                "value": "ACME_BSW"
+              }
+            }
+          },
+          {
+            "name": "transactionGroupId",
+            "in": "path",
+            "description": "Contains one or more EDI functional groups, each containing the data for one or more EDI transactions. You can override the Application IDs (GS-02 and GS-03) for each group individually. The outbound transaction setting for each group must be configured to use the same connection. If you need to send transactions to different connections, you must call the endpoint multiple times.",
+            "schema": {
+              "type": "string",
+              "description": "Contains one or more EDI functional groups, each containing the data for one or more EDI transactions. You can override the Application IDs (GS-02 and GS-03) for each group individually. The outbound transaction setting for each group must be configured to use the same connection. If you need to send transactions to different connections, you must call the endpoint multiple times."
+            },
+            "required": true,
+            "examples": {
+              "GenerateTransactionGroupEdi_example1": {
+                "summary": "Generate EDI for transaction group",
+                "description": "",
+                "value": "tx-group-02-21-2024"
+              }
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "schema": {
+              "type": "string",
+              "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys)."
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GenerateTransactionGroupEdi 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenerateTransactionGroupEdiResponseContent"
+                },
+                "examples": {
+                  "GenerateTransactionGroupEdi_example1": {
+                    "summary": "Generate EDI for transaction group",
+                    "description": "",
+                    "value": {
+                      "artifactId": "f75168e4-e682-4410-bfec-b5b1541c7f21.x12",
+                      "fileExecutionId": "f75168e4-e682-4410-bfec-b5b1541c7f21"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/transactions/{transactionSettingId}": {
+      "post": {
+        "description": "Stage a transaction for outbound delivery.",
+        "operationId": "CreateTransactionGroup",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTransactionGroupRequestContent"
+              },
+              "examples": {
+                "CreateTransactionGroup_example1": {
+                  "summary": "Stage transaction",
+                  "description": "",
+                  "value": {
+                    "transaction": {
+                      "heading": {
+                        "transaction_set_header_ST": {
+                          "transaction_set_identifier_code_01": "850",
+                          "transaction_set_control_number_02": 1
+                        },
+                        "beginning_segment_for_purchase_order_BEG": {
+                          "transaction_set_purpose_code_01": "XX",
+                          "purchase_order_type_code_02": "XX",
+                          "purchase_order_number_03": "XXXXX",
+                          "date_05": "2023-08-11"
+                        }
+                      },
+                      "detail": {
+                        "baseline_item_data_PO1_loop": [
+                          {
+                            "baseline_item_data_PO1": {}
+                          }
+                        ]
+                      },
+                      "summary": {
+                        "transaction_set_trailer_SE": {
+                          "number_of_included_segments_01": 4,
+                          "transaction_set_control_number_02": 1
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "parameters": [
+          {
+            "name": "partnershipId",
+            "in": "path",
+            "description": "A unique ID for this partnership within Stedi. You can find this ID on the [Trading partners](https://www.stedi.com/app/core/partnerships) page under **Partnership identifier**.",
+            "schema": {
+              "type": "string",
+              "maxLength": 81,
+              "minLength": 1,
+              "pattern": "^([a-zA-Z0-9_-]+)$",
+              "description": "A unique ID for this partnership within Stedi. You can find this ID on the [Trading partners](https://www.stedi.com/app/core/partnerships) page under **Partnership identifier**."
+            },
+            "required": true,
+            "examples": {
+              "CreateTransactionGroup_example1": {
+                "summary": "Stage transaction",
+                "description": "",
+                "value": "acme_amazon"
+              }
+            }
+          },
+          {
+            "name": "transactionSettingId",
+            "in": "path",
+            "description": "A unique ID for the outbound transaction setting Stedi should use to determine the correct guide for validation and generation. It must be attached to the partnership associated with the `partnershipId`. To find the `transactionSettingsId`, go to the partnership and use the **Transaction Setting ID** field for the outbound transaction setting.",
+            "schema": {
+              "type": "string",
+              "description": "A unique ID for the outbound transaction setting Stedi should use to determine the correct guide for validation and generation. It must be attached to the partnership associated with the `partnershipId`. To find the `transactionSettingsId`, go to the partnership and use the **Transaction Setting ID** field for the outbound transaction setting."
+            },
+            "required": true,
+            "examples": {
+              "CreateTransactionGroup_example1": {
+                "summary": "Stage transaction",
+                "description": "",
+                "value": "004010-850"
+              }
+            }
+          },
+          {
+            "name": "transactionGroupId",
+            "in": "path",
+            "description": "A unique ID for a group of transactions on Stedi. Stedi creates a new transaction group if one does not exist with the specified ID.",
+            "schema": {
+              "type": "string",
+              "description": "A unique ID for a group of transactions on Stedi. Stedi creates a new transaction group if one does not exist with the specified ID."
+            },
+            "required": true,
+            "examples": {
+              "CreateTransactionGroup_example1": {
+                "summary": "Stage transaction",
+                "description": "",
+                "value": "tx-group-02-21-2024"
+              }
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "schema": {
+              "type": "string",
+              "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys)."
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CreateTransactionGroup 201 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateTransactionGroupResponseContent"
+                },
+                "examples": {
+                  "CreateTransactionGroup_example1": {
+                    "summary": "Stage transaction",
+                    "description": "",
+                    "value": {
+                      "transactionGroupId": "tx-group-02-21-2024",
+                      "createdAt": "2024-02-21T00:00:00Z",
+                      "transactionId": "d3b3e3e3-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceConflictException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceConflictExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/partnerships/{partnershipId}/transactions/{transactionSettingId}": {
       "post": {
         "description": "This endpoint generates and delivers fully-formed EDI files containing a single transaction. It is the simplest way to generate EDI with Stedi.",
@@ -4592,6 +4999,44 @@
           }
         }
       },
+      "CreateTransactionGroupRequestContent": {
+        "type": "object",
+        "properties": {
+          "transaction": {
+            "description": "The data for an EDI transaction. If you are not using a mapping, this transaction data must be < 5MB and the shape should match the [Guide JSON](https://www.stedi.com/docs/edi-platform/operate/transform-json/guide-json) format for the specified outbound transaction setting. If you are using a mapping, this transaction data must be < 4MB and the shape must match the source schema for the specified mapping."
+          },
+          "mappingId": {
+            "type": "string",
+            "description": "Specify a mapping id to transform the transaction to Stedi's Guide JSON format."
+          }
+        },
+        "required": [
+          "transaction"
+        ]
+      },
+      "CreateTransactionGroupResponseContent": {
+        "type": "object",
+        "properties": {
+          "transactionGroupId": {
+            "type": "string",
+            "description": "The transaction group ID where you created and added the transaction."
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The time Stedi staged the transaction.",
+            "format": "date-time"
+          },
+          "transactionId": {
+            "type": "string",
+            "description": "A unique ID for the staged transaction Stedi created within the group."
+          }
+        },
+        "required": [
+          "createdAt",
+          "transactionGroupId",
+          "transactionId"
+        ]
+      },
       "DeliveryReport": {
         "type": "object",
         "properties": {
@@ -4976,6 +5421,41 @@
             "type": "string",
             "description": "The EDI Stedi generated from the JSON transaction data."
           },
+          "artifactId": {
+            "type": "string",
+            "description": "An ID for the generated EDI file."
+          },
+          "fileExecutionId": {
+            "type": "string",
+            "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi app. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
+          }
+        },
+        "required": [
+          "artifactId",
+          "fileExecutionId"
+        ]
+      },
+      "GenerateTransactionGroupEdiRequestContent": {
+        "type": "object",
+        "properties": {
+          "filename": {
+            "type": "string",
+            "maxLength": 200,
+            "minLength": 1,
+            "pattern": "^([a-zA-Z0-9.*'()!_-]+)$",
+            "description": "Set a custom name for the generated EDI file. Stedi overwrites files with the same name, so we recommend making the filename unique by including a timestamp or other identifier. If you do not specify a filename, Stedi autogenerates a unique name using an ID."
+          },
+          "overrides": {
+            "$ref": "#/components/schemas/InterchangeOverrides"
+          },
+          "interchangeAuthorization": {
+            "$ref": "#/components/schemas/X12InterchangeAuthorization"
+          }
+        }
+      },
+      "GenerateTransactionGroupEdiResponseContent": {
+        "type": "object",
+        "properties": {
           "artifactId": {
             "type": "string",
             "description": "An ID for the generated EDI file."
