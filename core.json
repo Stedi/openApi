@@ -1605,7 +1605,7 @@
     },
     "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/generate-edi": {
       "post": {
-        "description": "This endpoint generates and delivers a fully-formed EDI file for a given transaction group.",
+        "description": "This endpoint generates and delivers a fully-formed EDI file for a given transaction group. Transactions are staged in a group using the `CreateTransactionGroup` endpoint. Once a file has been generated for a given transaction group, the group can no longer be used.",
         "operationId": "GenerateTransactionGroupEdi",
         "requestBody": {
           "content": {
@@ -1653,10 +1653,10 @@
           {
             "name": "transactionGroupId",
             "in": "path",
-            "description": "Contains one or more EDI functional groups, each containing the data for one or more EDI transactions. You can override the Application IDs (GS-02 and GS-03) for each group individually. The outbound transaction setting for each group must be configured to use the same connection. If you need to send transactions to different connections, you must call the endpoint multiple times.",
+            "description": "A unique ID for a group of transactions on Stedi.",
             "schema": {
               "type": "string",
-              "description": "Contains one or more EDI functional groups, each containing the data for one or more EDI transactions. You can override the Application IDs (GS-02 and GS-03) for each group individually. The outbound transaction setting for each group must be configured to use the same connection. If you need to send transactions to different connections, you must call the endpoint multiple times."
+              "description": "A unique ID for a group of transactions on Stedi."
             },
             "required": true,
             "examples": {
@@ -1783,7 +1783,7 @@
     },
     "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/transactions/{transactionSettingId}": {
       "post": {
-        "description": "Stage a transaction for outbound delivery.",
+        "description": "Stage a transaction for outbound delivery. The transaction will be staged inside the transaction group. If a group does not exist, one will be created. To generate and deliver an EDI file for the transaction group use the `GenerateTransactionGroupEdi` endpoint.",
         "operationId": "CreateTransactionGroup",
         "requestBody": {
           "content": {
