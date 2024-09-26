@@ -1605,7 +1605,7 @@
     },
     "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/generate-edi": {
       "post": {
-        "description": "This endpoint generates and delivers a fully-formed EDI file for a given transaction group. Transactions are staged in a group using the `CreateTransactionGroup` endpoint. Once a file has been generated for a given transaction group, the group can no longer be used.",
+        "description": "This endpoint generates and delivers a fully-formed EDI file containing the staged transactions in the specified transaction group.",
         "operationId": "GenerateTransactionGroupEdi",
         "requestBody": {
           "content": {
@@ -1653,10 +1653,10 @@
           {
             "name": "transactionGroupId",
             "in": "path",
-            "description": "A unique ID for a group of transactions on Stedi.",
+            "description": "A unique ID for a transaction group stored on Stedi. You can only call this endpoint with a given `transactionGroupId` once. Afterward, the transaction group is locked.",
             "schema": {
               "type": "string",
-              "description": "A unique ID for a group of transactions on Stedi."
+              "description": "A unique ID for a transaction group stored on Stedi. You can only call this endpoint with a given `transactionGroupId` once. Afterward, the transaction group is locked."
             },
             "required": true,
             "examples": {
@@ -1783,7 +1783,7 @@
     },
     "/partnerships/{partnershipId}/transaction-groups/{transactionGroupId}/transactions/{transactionSettingId}": {
       "post": {
-        "description": "Stage a transaction for outbound delivery. The transaction will be staged inside the transaction group. If a group does not exist, one will be created. To generate and deliver an EDI file for the transaction group use the `GenerateTransactionGroupEdi` endpoint.",
+        "description": "This endpoint stages a transaction for outbound delivery.",
         "operationId": "CreateTransactionGroup",
         "requestBody": {
           "content": {
@@ -6626,10 +6626,10 @@
           "connection": {
             "$ref": "#/components/schemas/OutboundConnection"
           },
-          "functionalConnection": {
+          "functionalAcknowledgmentConnection": {
             "$ref": "#/components/schemas/OutboundConnection"
           },
-          "interchangeConnection": {
+          "interchangeAcknowledgmentConnection": {
             "$ref": "#/components/schemas/OutboundConnection"
           }
         },
@@ -6792,7 +6792,7 @@
     "securitySchemes": {
       "httpApiKeyAuth": {
         "type": "apiKey",
-        "description": "API key authentication via the 'Authorization' header",
+        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
         "name": "Authorization",
         "in": "header"
       }
