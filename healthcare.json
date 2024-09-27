@@ -7047,6 +7047,35 @@
                     "name"
                 ]
             },
+            "ContactInformationSubscriberDependent": {
+                "type": "object",
+                "description": "Only use this object for payer administrative contacts on property and casualty claims. Otherwise, you shoudn't include contact information here. If you include this object, you must supply at least one communication method (phone, fax, or email).",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The full name of the person or office."
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code. For example, you would format the phone number `123-456-7890` as `1234567890`. You should always include the area code, if applicable. Don't include long distance access numbers (such as `1`) or extensions in this field."
+                    },
+                    "faxNumber": {
+                        "type": "string",
+                        "description": "The fax number."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "The email address."
+                    },
+                    "phoneExtension": {
+                        "type": "string",
+                        "description": "The phone extension, if applicable."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
             "ContactMethod": {
                 "type": "object",
                 "properties": {
@@ -7320,10 +7349,10 @@
                         "$ref": "#/components/schemas/RelationshipToSubscriberCode"
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
                     }
                 },
                 "required": [
@@ -12076,6 +12105,44 @@
                     }
                 }
             },
+            "RequestSubscriberDependentAddress": {
+                "type": "object",
+                "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object.",
+                "properties": {
+                    "address1": {
+                        "type": "string",
+                        "description": "The first line of the street address. This typically contains the building number and street name."
+                    },
+                    "address2": {
+                        "type": "string",
+                        "description": "The second line of the street address. This typically contains the apartment or suite number."
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "The city name."
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "The state or province code. Only required when the city is in the Unites States and Canada."
+                    },
+                    "postalCode": {
+                        "type": "string",
+                        "description": "The postal zone or zip code. Exclude punctuation and spaces."
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "description": "Use the alpha-2 country codes from Part 1 of ISO 3166."
+                    },
+                    "countrySubDivisionCode": {
+                        "type": "string",
+                        "description": "Use the country subdivision codes from Part 2 of ISO 3166."
+                    }
+                },
+                "required": [
+                    "address1",
+                    "city"
+                ]
+            },
             "RequestSubscriberGender": {
                 "type": "string",
                 "description": "Code indiciating the subscriber's gender.",
@@ -12507,18 +12574,18 @@
             },
             "ServiceFacilityLocation": {
                 "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this loop is to identify specifically where the service was rendered. When reporting ambulance services, do not use this loop. Use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "The last name (if the provider was an individual) or the organization's business name."
+                        "description": "The laboratory or facility name. When services were rendered in the patient's home, we recommend setting this to `Residence` or something similar."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
                     },
                     "npi": {
                         "type": "string",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
                     },
                     "secondaryIdentifier": {
                         "type": "array",
@@ -13231,10 +13298,10 @@
                         "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
                     }
                 },
                 "required": [
