@@ -4063,7 +4063,7 @@
             },
             "BenefitsDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD.",
+                "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD. Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -4093,7 +4093,8 @@
                         "type": "string"
                     },
                     "plan": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
                     },
                     "benefit": {
                         "type": "string"
@@ -4123,7 +4124,8 @@
                         "type": "string"
                     },
                     "planBegin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
                     },
                     "planEnd": {
                         "type": "string"
@@ -7750,7 +7752,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseMember"
                         },
-                        "description": "Information about the dependents listed in the original eligibility check request."
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/Payer"
@@ -7773,7 +7775,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BenefitsInformation"
                         },
-                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
+                        "description": "Information about the subscriber or dependents' healthcare benefits, such as coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Payers typically return at least the following properties: `code`, `coverageLevelCode`, `serviceTypeCodes`, and either `benefitAmount` or `benefitPercent`. However, the exact properties returned in this object are up to the payer's discretion. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
                     },
                     "errors": {
                         "type": "array",
@@ -7824,7 +7826,7 @@
                     },
                     "applicationMode": {
                         "type": "string",
-                        "description": "Not currently used."
+                        "description": "The type of data in the request. This is always `production`."
                     },
                     "traceId": {
                         "type": "string",
@@ -7883,7 +7885,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseMember"
                         },
-                        "description": "Information about the dependents listed in the original eligibility check request."
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/Payer"
@@ -7906,7 +7908,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BenefitsInformation"
                         },
-                        "description": "Information about the subscriber or dependents' healthcare benefits. This includes coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
+                        "description": "Information about the subscriber or dependents' healthcare benefits, such as coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Payers typically return at least the following properties: `code`, `coverageLevelCode`, `serviceTypeCodes`, and either `benefitAmount` or `benefitPercent`. However, the exact properties returned in this object are up to the payer's discretion. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
                     },
                     "errors": {
                         "type": "array",
@@ -9744,7 +9746,7 @@
             },
             "Payer": {
                 "type": "object",
-                "description": "Information about the payer providing the benefits information and the organization receiving it.",
+                "description": "Information about the payer providing the benefits information. The response will always include the payer's business name and an identifier, such as the payer's tax ID. Most payers also include contact information.",
                 "properties": {
                     "entityIdentifier": {
                         "type": "string",
@@ -10611,7 +10613,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits. All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges). Properties contain a single date unless otherwise noted.",
+                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits. All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges). The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object. Properties contain a single date unless otherwise noted. Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -10637,7 +10639,7 @@
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Can be formatted as a single date or as a range of dates in YYYYMMDD-YYYYMMDD format. Used only if multiple plans apply to the individual or multiple plan periods apply. Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided."
+                        "description": "Can be formatted as a single date or as a range of dates in YYYYMMDD-YYYYMMDD format."
                     },
                     "benefit": {
                         "type": "string",
@@ -10670,7 +10672,7 @@
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format. Used only if multiple plans apply to the individual or multiple plan periods apply. Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided."
+                        "description": "Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
                     },
                     "planEnd": {
                         "type": "string"
@@ -10808,7 +10810,7 @@
                     },
                     "patientAccountNumber": {
                         "type": "string",
-                        "description": "The patient account number"
+                        "description": "The patient account number. If you included this value in the original eligibility request, the payer will return the same value here in the response."
                     },
                     "hicNumber": {
                         "type": "string",
@@ -12206,7 +12208,7 @@
             },
             "ResponseMember": {
                 "type": "object",
-                "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request.",
+                "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information.",
                 "properties": {
                     "healthCareDiagnosisCodes": {
                         "type": "array",
@@ -12243,7 +12245,7 @@
                     },
                     "entityType": {
                         "type": "string",
-                        "description": "The entity type for the patient. It can be set to `1` for Person."
+                        "description": "The entity type for the patient. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
@@ -12381,7 +12383,7 @@
             },
             "ResponseProvider": {
                 "type": "object",
-                "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.",
+                "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's NPI, tax ID, or EIN.",
                 "properties": {
                     "providerName": {
                         "type": "string",
