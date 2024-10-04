@@ -3601,67 +3601,67 @@
                     "planNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The insurance plan number."
                     },
                     "policyNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The insurance group or policy number."
                     },
                     "memberIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The member identification number. Use only when checking eligibility with a Workers' Compensation or Property and Casualty insurer."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The contract number for an existing contract between the payer and the provider requesting the eligibility check."
                     },
                     "medicalRecordIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The medical record identification number."
                     },
                     "patientAccountNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The patient account number."
                     },
                     "healthInsuranceClaimNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The health insurance claim number."
                     },
                     "identificationCardSerialNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The identification card serial number. You can include this when the ID card has a number in addition to the member ID number. The Identification Card Serial Number uniquely identifies the card when multiple cards have been or will be issued to a member, such as a replacement card."
                     },
                     "insurancePolicyNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The insurance policy number."
                     },
                     "planNetworkIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The plan network identification number."
                     },
                     "agencyClaimNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The Property and Casualty Claim Number associated with the patient. You should only submit this value when when you are submitting an eligibility request to a property and casualty payer."
                     }
                 }
@@ -3681,39 +3681,43 @@
                     "address1": {
                         "type": "string",
                         "maxLength": 55,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The first line of the address."
                     },
                     "address2": {
                         "type": "string",
                         "maxLength": 55,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The second line of the address."
                     },
                     "city": {
                         "type": "string",
                         "maxLength": 30,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The city."
                     },
                     "state": {
                         "type": "string",
                         "maxLength": 2,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The state code. For example, TN for Tennessee or WA for Washington."
                     },
                     "postalCode": {
                         "type": "string",
                         "maxLength": 15,
-                        "minLength": 0,
+                        "minLength": 3,
                         "description": "The United States postal code, excluding punctuation and blanks."
                     },
                     "countryCode": {
                         "type": "string",
+                        "maxLength": 3,
+                        "minLength": 2,
                         "description": "The country code. Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
+                        "maxLength": 3,
+                        "minLength": 1,
                         "description": "The country subdivision code. Use the country subdivision codes from Part 2 of ISO 3166."
                     }
                 }
@@ -7927,7 +7931,7 @@
                     "procedureCode": {
                         "type": "string",
                         "maxLength": 48,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The procedure code."
                     },
                     "procedureModifiers": {
@@ -8401,7 +8405,7 @@
                     "diagnosisCode": {
                         "type": "string",
                         "maxLength": 30,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The diagnosis code. Omit the decimal points in diagnosis codes - the decimal point is assumed."
                     }
@@ -8536,49 +8540,49 @@
                     "stateLicenceNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
                     },
                     "medicareProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's Medicare provider number."
                     },
                     "medicaidProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's Medicaid provider number."
                     },
                     "facilityIdNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The ID number for the provider's facility."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's contract number."
                     },
                     "devicePinNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's electronic device pin number."
                     },
                     "submitterIdNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's submitter identification number."
                     },
                     "nationalProviderIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's National Provider Identifier (NPI) from the Centers for Medicare and Medicaid Services.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
@@ -8587,25 +8591,25 @@
                     "providerPlanNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's plan network identification number."
                     },
                     "facilityNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's facility network identification number."
                     },
                     "priorIdentifierNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's prior identifier number."
                     },
                     "socialSecurityNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's social security number. Don't use this for Federally administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -8614,14 +8618,14 @@
                     "federalTaxpayerIdentificationNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's federal taxpayer identification number."
                     },
                     "informationReceiverAdditionalIdentifierState": {
                         "type": "string",
-                        "maxLength": 50,
-                        "minLength": 0,
-                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`. or `federalTaxpayerIdentificationNumber`."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -8789,7 +8793,7 @@
                     "procedureCode": {
                         "type": "string",
                         "maxLength": 48,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The procedure code."
                     },
                     "procedureModifiers": {
@@ -11017,25 +11021,25 @@
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's business name. This property is required if the provider is not a person."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's first name. This property is required if the provider is an individual."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The provider's last name. This property is required if the provider is an individual."
                     },
                     "npi": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use another identifier instead, such as the `serviceProviderNumber` or `ssn`.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
@@ -11044,24 +11048,25 @@
                     "serviceProviderNumber": {
                         "type": "string",
                         "maxLength": 80,
+                        "minLength": 2,
                         "description": "The provider's service provider number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "payorId": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "Only used for payer-to-payer transactions, which are not currently supported. Do not use."
                     },
                     "taxId": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` property instead."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The provider's Social Security Number (SSN). Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service. Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -11070,19 +11075,19 @@
                     "pharmacyProcessorNumber": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The provider's pharmacy processor number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "servicesPlanID": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "The provider's Centers for Medicare and Medicaid Services (CMS) Plan ID. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "employersId": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "description": "Deprecated; The submitter's Employer's Identification Number (EIN). Only use when an employer is checking the eligibility and benefits of their employees.\nThis shape is deprecated: This property is no longer used.",
                         "deprecated": true
                     },
@@ -11701,7 +11706,7 @@
                     "birthSequenceNumber": {
                         "type": "string",
                         "maxLength": 9,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[0-9]+$",
                         "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Use to indicate the birth order when there are multiple births associated with the provided birth date."
                     },
@@ -11711,13 +11716,13 @@
                     "issueNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The issue number for the dependent's insurance policy."
                     },
                     "eligibilityCategory": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The eligibility category for the dependent."
                     },
                     "memberId": {
@@ -11730,25 +11735,25 @@
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's first name. Can be 0-35 alphanumeric characters."
                     },
                     "middleName": {
                         "type": "string",
                         "maxLength": 25,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's middle name or middle initial. Can be 0-25 alphanumeric characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's last name. Can be 0-60 alphanumeric characters."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's name suffix, such as Sr. or III. Can be 0-10 alphanumeric characters."
                     },
                     "gender": {
@@ -11761,7 +11766,7 @@
                     "ssn": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's social security number. Can be 0-50 alphanumeric characters. Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -11770,13 +11775,13 @@
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The group number for the dependent's insurance plan. Can be 0-50 alphanumeric characters."
                     },
                     "idCard": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The dependent's insurance card number."
                     },
                     "providerCode": {
@@ -11788,7 +11793,7 @@
                     "providerIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
@@ -11890,71 +11895,69 @@
                     "birthSequenceNumber": {
                         "type": "string",
                         "maxLength": 9,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[0-9]+$",
                         "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Use to indicate the birth order when there are multiple births associated with the provided birth date."
                     },
                     "caseNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The case number associated with the subscriber."
                     },
                     "medicaidRecipientIdentificationNumber": {
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 0,
+                        "maxLength": 50,
+                        "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The Medicaid Recipient Identification Number. You can provide this number to identify the subscriber when it is the primary number the payer knows a member by (such as for Medicare or Medicaid). Do not supply this value unless it is different from the `memberId`."
                     },
                     "spendDownAmount": {
                         "type": "string",
-                        "maxLength": 18,
-                        "minLength": 0,
+                        "maxLength": 15,
+                        "minLength": 1,
                         "description": "Identify the dollar amount the subscriber will apply toward their spend down amount, if required. For some Medicaid programs, individuals must pay a certain amount towards their healthcare cost (spend down) before coverage starts."
                     },
                     "spendDownTotalBilledAmount": {
                         "type": "string",
-                        "maxLength": 18,
-                        "minLength": 0,
+                        "maxLength": 15,
+                        "minLength": 1,
                         "description": "The subscriber's spend down total billed amount."
                     },
                     "coverageLevelCode": {
                         "type": "string",
-                        "maxLength": 3,
-                        "minLength": 0,
                         "description": "This property is no longer used."
                     },
                     "memberId": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 0,
+                        "minLength": 2,
                         "pattern": "^[A-Za-z0-9-]+$",
                         "description": "The member ID for the subscriber's insurance policy."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The patient's first name. Can be 0-35 alphanumeric characters."
                     },
                     "middleName": {
                         "type": "string",
                         "maxLength": 25,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The patient's middle name or middle initial. Can be 0-25 alphanumeric characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The subscriber's last name. Can be 0-60 alphanumeric characters."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The name suffix, such as Jr., Sr., or III. Can be 0-10 alphanumeric characters."
                     },
                     "gender": {
@@ -11967,7 +11970,7 @@
                     "ssn": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The subscriber's Social Security Number (SSN). Many commercial and government payers ignore this property due to concerns about member privacy. However, some Medicaid programs support alternative searches using the patient's Social Security Number, instead of the member ID.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -11976,13 +11979,13 @@
                     "groupNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The group number associated with the subscriber's insurance policy."
                     },
                     "idCard": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "description": "The subscriber's identification card number. Include this property when this number is different than the subscriber's member ID. This is common in Medicaid."
                     },
                     "providerCode": {
@@ -11994,7 +11997,7 @@
                     "providerIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "minLength": 0,
+                        "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
                         "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
