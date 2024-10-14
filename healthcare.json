@@ -2772,6 +2772,290 @@
                 }
             }
         },
+        "/change/medicalnetwork/institutionalclaims/v1/submission": {
+            "post": {
+                "operationId": "InstitutionalClaimsSubmission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InstitutionalClaimsSubmissionRequestContent"
+                            },
+                            "examples": {
+                                "InstitutionalClaimsSubmission_example1": {
+                                    "summary": "Institutional Claim",
+                                    "description": "",
+                                    "value": {
+                                        "controlNumber": "1234567890",
+                                        "submitter": {
+                                            "organizationName": "SOME HOSPITAL",
+                                            "contactInformation": {
+                                                "name": "JANE DOE",
+                                                "phoneNumber": "1115553333"
+                                            },
+                                            "taxId": "12345"
+                                        },
+                                        "receiver": {
+                                            "organizationName": "MEDICARE",
+                                            "taxId": "11111"
+                                        },
+                                        "subscriber": {
+                                            "memberId": "030005074A",
+                                            "paymentResponsibilityLevelCode": "P",
+                                            "firstName": "JOHN",
+                                            "lastName": "DOE",
+                                            "middleName": "Z",
+                                            "address": {
+                                                "address1": "125 CITY AVENUE",
+                                                "city": "CITYVILLE",
+                                                "state": "PA",
+                                                "postalCode": "12345"
+                                            },
+                                            "dateOfBirth": "19261111",
+                                            "gender": "M"
+                                        },
+                                        "claimInformation": {
+                                            "claimFilingCode": "MB",
+                                            "patientControlNumber": "22266555",
+                                            "claimChargeAmount": "89.93",
+                                            "placeOfServiceCode": "14",
+                                            "claimFrequencyCode": "1",
+                                            "planParticipationCode": "A",
+                                            "benefitsAssignmentCertificationIndicator": "Y",
+                                            "releaseInformationCode": "Y",
+                                            "serviceLines": [
+                                                {
+                                                    "assignedNumber": "1",
+                                                    "serviceDate": "19960911",
+                                                    "lineItemControlNumber": "111222333",
+                                                    "institutionalService": {
+                                                        "serviceLineRevenueCode": "0305",
+                                                        "lineItemChargeAmount": "13.39",
+                                                        "measurementUnit": "UN",
+                                                        "serviceUnitCount": "1",
+                                                        "procedureCode": "85025",
+                                                        "procedureIdentifier": "HC"
+                                                    }
+                                                },
+                                                {
+                                                    "assignedNumber": "2",
+                                                    "serviceDate": "19960911",
+                                                    "lineItemControlNumber": "444555666",
+                                                    "institutionalService": {
+                                                        "serviceLineRevenueCode": "0730",
+                                                        "lineItemChargeAmount": "76.54",
+                                                        "measurementUnit": "UN",
+                                                        "serviceUnitCount": "3",
+                                                        "procedureCode": "93005",
+                                                        "procedureIdentifier": "HC"
+                                                    }
+                                                }
+                                            ],
+                                            "claimCodeInformation": {
+                                                "admissionTypeCode": "3",
+                                                "patientStatusCode": "01"
+                                            },
+                                            "valueInformationList": [
+                                                [
+                                                    {
+                                                        "valueCode": "A2",
+                                                        "valueCodeAmount": "15.31"
+                                                    }
+                                                ]
+                                            ],
+                                            "claimDateInformation": {
+                                                "statementBeginDate": "19960911",
+                                                "statementEndDate": "19960911"
+                                            },
+                                            "principalDiagnosis": {
+                                                "qualifierCode": "ABK",
+                                                "principalDiagnosisCode": "H269"
+                                            },
+                                            "otherDiagnosisInformationList": [
+                                                [
+                                                    {
+                                                        "qualifierCode": "ABF",
+                                                        "otherDiagnosisCode": "I10"
+                                                    },
+                                                    {
+                                                        "qualifierCode": "ABF",
+                                                        "otherDiagnosisCode": "R9431"
+                                                    }
+                                                ]
+                                            ],
+                                            "occurrenceInformationList": [
+                                                [
+                                                    {
+                                                        "occurrenceSpanCode": "A1",
+                                                        "occurrenceSpanCodeDate": "19261111"
+                                                    },
+                                                    {
+                                                        "occurrenceSpanCode": "A2",
+                                                        "occurrenceSpanCodeDate": "19911101"
+                                                    },
+                                                    {
+                                                        "occurrenceSpanCode": "B1",
+                                                        "occurrenceSpanCodeDate": "19261111"
+                                                    },
+                                                    {
+                                                        "occurrenceSpanCode": "B2",
+                                                        "occurrenceSpanCodeDate": "19870101"
+                                                    }
+                                                ]
+                                            ],
+                                            "conditionCodesList": [
+                                                [
+                                                    {
+                                                        "conditionCode": "09"
+                                                    }
+                                                ]
+                                            ],
+                                            "otherSubscriberInformation": {
+                                                "paymentResponsibilityLevelCode": "S",
+                                                "individualRelationshipCode": "01",
+                                                "groupNumber": "351630",
+                                                "otherInsuredGroupName": "INSURANCE GROUP",
+                                                "claimFilingIndicatorCode": "MB",
+                                                "benefitsAssignmentCertificationIndicator": "Y",
+                                                "releaseOfInformationCode": "Y",
+                                                "otherSubscriberName": {
+                                                    "otherInsuredQualifier": "1",
+                                                    "otherInsuredLastName": "DOE",
+                                                    "otherInsuredFirstName": "JANE",
+                                                    "otherInsuredMiddleName": "S",
+                                                    "otherInsuredIdentifierTypeCode": "MI",
+                                                    "otherInsuredIdentifier": "222004433",
+                                                    "address": {
+                                                        "address1": "125 CITY AVENUE",
+                                                        "city": "CITYVILLE",
+                                                        "state": "PA",
+                                                        "postalCode": "12345"
+                                                    }
+                                                },
+                                                "otherPayerName": {
+                                                    "otherPayerOrganizationName": "INSURANCE GROUP",
+                                                    "otherPayerIdentifierTypeCode": "PI",
+                                                    "otherPayerIdentifier": "1135"
+                                                }
+                                            }
+                                        },
+                                        "billing": {
+                                            "providerType": "BillingProvider",
+                                            "npi": "9876540809",
+                                            "employerId": "567891234",
+                                            "taxonomyCode": "282N00000X",
+                                            "organizationName": "SOME HOSPITAL",
+                                            "secondaryIdentificationQualifierCode": "G2",
+                                            "secondaryIdentifier": "330127",
+                                            "address": {
+                                                "address1": "225 MAIN STREET",
+                                                "city": "CITYVILLE",
+                                                "state": "PA",
+                                                "postalCode": "12345"
+                                            },
+                                            "contactInformation": {
+                                                "name": "PERSON",
+                                                "phoneNumber": "1235551234"
+                                            }
+                                        },
+                                        "attending": {
+                                            "providerType": "AttendingProvider",
+                                            "firstName": "JAMES",
+                                            "lastName": "JONES",
+                                            "middleName": "J",
+                                            "secondaryIdentificationQualifierCode": "1G",
+                                            "secondaryIdentifier": "B99937"
+                                        },
+                                        "usageIndicator": "T",
+                                        "tradingPartnerName": "MEDICARE B",
+                                        "tradingPartnerServiceId": "CMS"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "Stedi-Transaction-Setting-Id",
+                        "in": "header",
+                        "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Institutional Claims guide.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Institutional Claims guide."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "InstitutionalClaimsSubmission 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InstitutionalClaimsSubmissionResponseContent"
+                                },
+                                "examples": {
+                                    "InstitutionalClaimsSubmission_example1": {
+                                        "summary": "Institutional Claim",
+                                        "description": "",
+                                        "value": {
+                                            "status": "SUCCESS",
+                                            "controlNumber": "555123",
+                                            "tradingPartnerServiceId": "CMS",
+                                            "claimReference": {
+                                                "correlationId": "01HTCX97F6XS6F2K22D4KD59TK",
+                                                "patientControlNumber": "22266555",
+                                                "timeOfResponse": "2024-04-01T13:23:54.255Z",
+                                                "payerId": "CMS",
+                                                "formatVersion": "5010",
+                                                "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK",
+                                                "serviceLines": [
+                                                    {
+                                                        "lineItemControlNumber": "111222333"
+                                                    },
+                                                    {
+                                                        "lineItemControlNumber": "444555666"
+                                                    }
+                                                ]
+                                            },
+                                            "httpStatusCode": "200 OK",
+                                            "meta": {
+                                                "traceId": "a7f7c912-77f7-489d-96fc-c4ab3b5c33fc"
+                                            },
+                                            "payer": {
+                                                "payerName": "MEDICARE B",
+                                                "payerId": "CMS"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/change/medicalnetwork/professionalclaims/v3/raw-x12-submission": {
             "post": {
                 "operationId": "ClaimsRawX12Submission",
@@ -3755,6 +4039,28 @@
                     }
                 }
             },
+            "AdmittingDiagnosis": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/AdmittingDiagnosisQualifierCode"
+                    },
+                    "admittingDiagnosisCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "admittingDiagnosisCode",
+                    "qualifierCode"
+                ]
+            },
+            "AdmittingDiagnosisQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "ABJ",
+                    "BJ"
+                ]
+            },
             "AmbulanceCertification": {
                 "type": "object",
                 "description": "Required when the claim involves ambulance transport services.",
@@ -3904,6 +4210,54 @@
                     "SG",
                     "V5",
                     "XP"
+                ]
+            },
+            "Attending": {
+                "type": "object",
+                "description": "Information about the individual who has overall responsibility for the patient's medical care and treatment reported in the claim. This object is required when the claim contains any services other than non-scheduled transportation claims.",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string"
+                    },
+                    "employerId": {
+                        "type": "string"
+                    },
+                    "taxonomyCode": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    }
+                },
+                "required": [
+                    "providerType"
                 ]
             },
             "AutoAccidentStateCode": {
@@ -5081,6 +5435,24 @@
                     }
                 }
             },
+            "ClaimCodeInformation": {
+                "type": "object",
+                "properties": {
+                    "admissionTypeCode": {
+                        "type": "string"
+                    },
+                    "admissionSourceCode": {
+                        "type": "string"
+                    },
+                    "patientStatusCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "admissionTypeCode",
+                    "patientStatusCode"
+                ]
+            },
             "ClaimContractInformation": {
                 "type": "object",
                 "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
@@ -5485,6 +5857,15 @@
                     "Y"
                 ]
             },
+            "ClaimInformationConditionCodesItem": {
+                "type": "string",
+                "enum": [
+                    "AV",
+                    "NU",
+                    "S2",
+                    "ST"
+                ]
+            },
             "ClaimInformationRelatedCausesCodeItem": {
                 "type": "string",
                 "description": "Code identifying an accompanying cause of an illness, injury or an accident. Can be set to `AA` - Auto Accident, `EM` - Employment, or `OA` - Other Accident.",
@@ -5636,6 +6017,70 @@
                         "description": "A value that identifies a further subdivision within the payer's organization."
                     }
                 }
+            },
+            "ClaimPricingInformation": {
+                "type": "object",
+                "properties": {
+                    "pricingMethodologyCode": {
+                        "$ref": "#/components/schemas/PricingMethodologyCode"
+                    },
+                    "repricedAllowedAmount": {
+                        "type": "string"
+                    },
+                    "repricedSavingAmount": {
+                        "type": "string"
+                    },
+                    "repricedOrgIdentifier": {
+                        "type": "string"
+                    },
+                    "repricedPerDiem": {
+                        "type": "string"
+                    },
+                    "repricedApprovedDRGCode": {
+                        "type": "string"
+                    },
+                    "repricedApprovedAmount": {
+                        "type": "string"
+                    },
+                    "repricedApprovedRevenueCode": {
+                        "type": "string"
+                    },
+                    "repricedApprovedServiceUnitCode": {
+                        "$ref": "#/components/schemas/RepricedApprovedServiceUnitCode"
+                    },
+                    "repricedApprovedServiceUnitCount": {
+                        "type": "string"
+                    },
+                    "rejectReasonCode": {
+                        "$ref": "#/components/schemas/RejectReasonCode"
+                    },
+                    "policyComplianceCode": {
+                        "$ref": "#/components/schemas/PolicyComplianceCode"
+                    },
+                    "exceptionCode": {
+                        "$ref": "#/components/schemas/ClaimsExceptionCode"
+                    },
+                    "productOrServiceIDQualifier": {
+                        "$ref": "#/components/schemas/ClaimPricingInformationProductOrServiceIDQualifier"
+                    },
+                    "repricedApprovedHCPCSCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "pricingMethodologyCode",
+                    "repricedAllowedAmount"
+                ]
+            },
+            "ClaimPricingInformationProductOrServiceIDQualifier": {
+                "type": "string",
+                "enum": [
+                    "ER",
+                    "HC",
+                    "HP",
+                    "IV",
+                    "WK"
+                ]
             },
             "ClaimPricingRepricingInformation": {
                 "type": "object",
@@ -6668,7 +7113,7 @@
                     },
                     "usageIndicator": {
                         "type": "string",
-                        "description": "Whether you want to send a test or production claim. This property corresponds to the Interchange Usage Indicator (`ISA-15`) in the X12 EDI file. It also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a claim as test data."
+                        "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a claim as test data."
                     },
                     "billing": {
                         "$ref": "#/components/schemas/Billing"
@@ -7337,6 +7782,17 @@
                         "description": "Information relevant to the claim and claim payment, including the subscriber, providers, and service lines. Note that the amount paid may not match the claim amount, even when the claim was not denied. This can hapen for several reasons, including adjustments and corrected balances due from other claims."
                     }
                 }
+            },
+            "DiagnosisRelatedGroupInformation": {
+                "type": "object",
+                "properties": {
+                    "drugRelatedGroupCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "drugRelatedGroupCode"
+                ]
             },
             "DiagnosisTypeCode": {
                 "type": "string",
@@ -8296,6 +8752,40 @@
                     }
                 }
             },
+            "ExternalCauseOfInjury": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/ExternalCauseOfInjuryQualifierCode"
+                    },
+                    "externalCauseOfInjury": {
+                        "type": "string"
+                    },
+                    "presentOnAdmissionIndicator": {
+                        "$ref": "#/components/schemas/ExternalCauseOfInjuryPresentOnAdmissionIndicator"
+                    }
+                },
+                "required": [
+                    "externalCauseOfInjury",
+                    "qualifierCode"
+                ]
+            },
+            "ExternalCauseOfInjuryPresentOnAdmissionIndicator": {
+                "type": "string",
+                "enum": [
+                    "N",
+                    "U",
+                    "Y",
+                    "W"
+                ]
+            },
+            "ExternalCauseOfInjuryQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "ABN",
+                    "BN"
+                ]
+            },
             "Failure": {
                 "type": "object",
                 "description": "Currently not used.",
@@ -8356,6 +8846,14 @@
                     "1",
                     "4",
                     "6"
+                ]
+            },
+            "Gender": {
+                "type": "string",
+                "enum": [
+                    "F",
+                    "M",
+                    "U"
                 ]
             },
             "GetPDF1500OutputPayload": {
@@ -8632,6 +9130,1408 @@
                     }
                 }
             },
+            "InstitutionalAdjustmentGroupCode": {
+                "type": "string",
+                "enum": [
+                    "CO",
+                    "CR",
+                    "OA",
+                    "PI",
+                    "PR"
+                ]
+            },
+            "InstitutionalClaimAdjustment": {
+                "type": "object",
+                "properties": {
+                    "adjustmentGroupCode": {
+                        "$ref": "#/components/schemas/InstitutionalAdjustmentGroupCode"
+                    },
+                    "claimAdjustmentDetails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalClaimAdjustmentDetails"
+                        },
+                        "maxItems": 6,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "adjustmentGroupCode"
+                ]
+            },
+            "InstitutionalClaimAdjustmentDetails": {
+                "type": "object",
+                "properties": {
+                    "adjustmentReasonCode": {
+                        "type": "string"
+                    },
+                    "adjustmentAmount": {
+                        "type": "string"
+                    },
+                    "adjustmentQuantity": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "adjustmentAmount",
+                    "adjustmentReasonCode"
+                ]
+            },
+            "InstitutionalClaimDateInformation": {
+                "type": "object",
+                "properties": {
+                    "admissionDateAndHour": {
+                        "type": "string"
+                    },
+                    "statementBeginDate": {
+                        "type": "string"
+                    },
+                    "statementEndDate": {
+                        "type": "string"
+                    },
+                    "dischargeHour": {
+                        "type": "string"
+                    },
+                    "repricerReceivedDate": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "statementBeginDate",
+                    "statementEndDate"
+                ]
+            },
+            "InstitutionalClaimFilingIndicatorCode": {
+                "type": "string",
+                "enum": [
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "AM",
+                    "BL",
+                    "CH",
+                    "DS",
+                    "FI",
+                    "HM",
+                    "LM",
+                    "MA",
+                    "MB",
+                    "MC",
+                    "OF",
+                    "TV",
+                    "VA",
+                    "WC",
+                    "ZZ"
+                ]
+            },
+            "InstitutionalClaimInformation": {
+                "type": "object",
+                "description": "Information about the healthcare claim. Note that the objects and properties marked as required are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the `claimChargeAmount`, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
+                "properties": {
+                    "claimFilingCode": {
+                        "$ref": "#/components/schemas/ClaimFilingCode"
+                    },
+                    "propertyCasualtyClaimNumber": {
+                        "type": "string"
+                    },
+                    "patientWeight": {
+                        "type": "string"
+                    },
+                    "patientControlNumber": {
+                        "type": "string"
+                    },
+                    "claimChargeAmount": {
+                        "type": "string"
+                    },
+                    "placeOfServiceCode": {
+                        "type": "string"
+                    },
+                    "claimFrequencyCode": {
+                        "type": "string"
+                    },
+                    "signatureIndicator": {
+                        "type": "string"
+                    },
+                    "planParticipationCode": {
+                        "$ref": "#/components/schemas/PlanParticipationCode"
+                    },
+                    "benefitsAssignmentCertificationIndicator": {
+                        "$ref": "#/components/schemas/InstitutionalClaimInformationBenefitsAssignmentCertificationIndicator"
+                    },
+                    "releaseInformationCode": {
+                        "$ref": "#/components/schemas/ReleaseInformationCode"
+                    },
+                    "delayReasonCode": {
+                        "$ref": "#/components/schemas/InstitutionalDelayReasonCode"
+                    },
+                    "patientAmountPaid": {
+                        "type": "string"
+                    },
+                    "patientEstimatedAmountDue": {
+                        "type": "string"
+                    },
+                    "fileInformation": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 10,
+                        "minItems": 0
+                    },
+                    "billingNote": {
+                        "type": "string"
+                    },
+                    "claimNotes": {
+                        "$ref": "#/components/schemas/ClaimNote"
+                    },
+                    "claimDateInformation": {
+                        "$ref": "#/components/schemas/InstitutionalClaimDateInformation"
+                    },
+                    "claimContractInformation": {
+                        "$ref": "#/components/schemas/ClaimContractInformation"
+                    },
+                    "claimSupplementalInformation": {
+                        "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation"
+                    },
+                    "conditionCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimInformationConditionCodesItem"
+                        },
+                        "maxItems": 12,
+                        "minItems": 1
+                    },
+                    "principalDiagnosis": {
+                        "$ref": "#/components/schemas/PrincipalDiagnosis"
+                    },
+                    "admittingDiagnosis": {
+                        "$ref": "#/components/schemas/AdmittingDiagnosis"
+                    },
+                    "patientReasonForVisits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PatientReasonForVisit"
+                        },
+                        "maxItems": 3,
+                        "minItems": 0
+                    },
+                    "externalCauseOfInjuries": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ExternalCauseOfInjury"
+                        },
+                        "maxItems": 12,
+                        "minItems": 0
+                    },
+                    "diagnosisRelatedGroupInformation": {
+                        "$ref": "#/components/schemas/DiagnosisRelatedGroupInformation"
+                    },
+                    "otherDiagnosisInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/OtherDiagnosisInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "principalProcedureInformation": {
+                        "$ref": "#/components/schemas/PrincipalProcedureInformation"
+                    },
+                    "otherProcedureInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/OtherProcedureInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "occurrenceSpanInformations": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/OccurrenceSpanInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "valueInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/ValueInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "occurrenceInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/OccurrenceInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "treatmentCodeInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "conditionCodesList": {
+                        "type": "array",
+                        "items": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/InstitutionalConditionInformation"
+                            },
+                            "minItems": 1
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "claimPricingInformation": {
+                        "$ref": "#/components/schemas/ClaimPricingInformation"
+                    },
+                    "serviceFacilityLocation": {
+                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                    },
+                    "otherSubscriberInformation": {
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformation"
+                    },
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalServiceLine"
+                        },
+                        "minItems": 1
+                    },
+                    "claimCodeInformation": {
+                        "$ref": "#/components/schemas/ClaimCodeInformation"
+                    },
+                    "epsdtReferral": {
+                        "$ref": "#/components/schemas/EpsdtReferral"
+                    }
+                },
+                "required": [
+                    "benefitsAssignmentCertificationIndicator",
+                    "claimChargeAmount",
+                    "claimCodeInformation",
+                    "claimFilingCode",
+                    "claimFrequencyCode",
+                    "patientControlNumber",
+                    "placeOfServiceCode",
+                    "planParticipationCode",
+                    "principalDiagnosis",
+                    "releaseInformationCode",
+                    "serviceLines"
+                ]
+            },
+            "InstitutionalClaimInformationBenefitsAssignmentCertificationIndicator": {
+                "type": "string",
+                "enum": [
+                    "N",
+                    "W",
+                    "Y"
+                ]
+            },
+            "InstitutionalClaimSupplementalInformation": {
+                "type": "object",
+                "properties": {
+                    "reportInformation": {
+                        "$ref": "#/components/schemas/InstitutionalReportInformation"
+                    },
+                    "priorAuthorizationNumber": {
+                        "type": "string"
+                    },
+                    "referralNumber": {
+                        "type": "string"
+                    },
+                    "claimControlNumber": {
+                        "type": "string"
+                    },
+                    "repricedClaimNumber": {
+                        "type": "string"
+                    },
+                    "investigationalDeviceExemptionNumber": {
+                        "type": "string"
+                    },
+                    "claimNumber": {
+                        "type": "string"
+                    },
+                    "medicalRecordNumber": {
+                        "type": "string"
+                    },
+                    "demoProjectIdentifier": {
+                        "type": "string"
+                    },
+                    "serviceAuthorizationExceptionCode": {
+                        "$ref": "#/components/schemas/InstitutionalServiceAuthorizationExceptionCode"
+                    },
+                    "autoAccidentState": {
+                        "type": "string"
+                    },
+                    "peerReviewAuthorizationNumber": {
+                        "type": "string"
+                    },
+                    "adjustedRepricedClaimRefNumber": {
+                        "type": "string"
+                    }
+                }
+            },
+            "InstitutionalClaimsSubmissionRequestContent": {
+                "type": "object",
+                "properties": {
+                    "controlNumber": {
+                        "type": "string"
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record."
+                    },
+                    "submitter": {
+                        "$ref": "#/components/schemas/InstitutionalSubmitter"
+                    },
+                    "receiver": {
+                        "$ref": "#/components/schemas/InstitutionalReceiver"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/InstitutionalSubscriber"
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/Dependent"
+                    },
+                    "providers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Attending"
+                        },
+                        "maxItems": 2147483647,
+                        "minItems": 1,
+                        "description": "Another way to send information for each provider relevant to the claim. This object overwrites the information you send in the `billing`, `referring`, `rendering`, and `attending` objects."
+                    },
+                    "billingPayToPlanName": {
+                        "$ref": "#/components/schemas/PayToPlanName"
+                    },
+                    "billingPayToAddressName": {
+                        "$ref": "#/components/schemas/PayToAddressName"
+                    },
+                    "operatingPhysician": {
+                        "$ref": "#/components/schemas/OperatingPhysician"
+                    },
+                    "otherOperatingPhysician": {
+                        "$ref": "#/components/schemas/OtherOperatingPhysician"
+                    },
+                    "claimInformation": {
+                        "$ref": "#/components/schemas/InstitutionalClaimInformation"
+                    },
+                    "payerAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "usageIndicator": {
+                        "type": "string",
+                        "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to desginate a claim as test data."
+                    },
+                    "billing": {
+                        "$ref": "#/components/schemas/Billing"
+                    },
+                    "referring": {
+                        "$ref": "#/components/schemas/InstitutionalReferring"
+                    },
+                    "rendering": {
+                        "$ref": "#/components/schemas/InstitutionalRendering"
+                    },
+                    "attending": {
+                        "$ref": "#/components/schemas/Attending"
+                    },
+                    "tradingPartnerName": {
+                        "type": "string",
+                        "description": "This is the payer's business name, like Cigna or Aetna."
+                    }
+                },
+                "required": [
+                    "billing",
+                    "claimInformation",
+                    "controlNumber",
+                    "receiver",
+                    "submitter",
+                    "subscriber",
+                    "tradingPartnerServiceId"
+                ]
+            },
+            "InstitutionalClaimsSubmissionResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the claim submission."
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "An identifier for the transaction."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "claimReference": {
+                        "$ref": "#/components/schemas/ClaimReference"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsError"
+                        },
+                        "description": "A list of errors. Currently not used."
+                    },
+                    "httpStatusCode": {
+                        "$ref": "#/components/schemas/HttpStatusCode"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResponseMeta"
+                    },
+                    "editStatus": {
+                        "type": "string",
+                        "description": "Currently not used."
+                    },
+                    "editResponses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EditResponse"
+                        },
+                        "description": "Currently not used."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/ClaimsPayer"
+                    },
+                    "failure": {
+                        "$ref": "#/components/schemas/Failure"
+                    }
+                }
+            },
+            "InstitutionalConditionInformation": {
+                "type": "object",
+                "properties": {
+                    "conditionCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "conditionCode"
+                ]
+            },
+            "InstitutionalDelayReasonCode": {
+                "type": "string",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "15"
+                ]
+            },
+            "InstitutionalDrugIdentification": {
+                "type": "object",
+                "properties": {
+                    "nationalDrugCode": {
+                        "type": "string"
+                    },
+                    "nationalDrugUnitCount": {
+                        "type": "string"
+                    },
+                    "measurementUnitCode": {
+                        "$ref": "#/components/schemas/InstitutionalMeasurementUnitCode"
+                    },
+                    "linkSequenceNumber": {
+                        "type": "string"
+                    },
+                    "pharmacyPrescriptionNumber": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "measurementUnitCode",
+                    "nationalDrugCode",
+                    "nationalDrugUnitCount"
+                ]
+            },
+            "InstitutionalIndividualRelationshipCode": {
+                "type": "string",
+                "enum": [
+                    "01",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "39",
+                    "40",
+                    "53",
+                    "G8"
+                ]
+            },
+            "InstitutionalLineAdjudicationInformation": {
+                "type": "object",
+                "properties": {
+                    "otherPayerPrimaryIdentifier": {
+                        "type": "string"
+                    },
+                    "serviceLinePaidAmount": {
+                        "type": "string"
+                    },
+                    "productOrServiceIDQualifier": {
+                        "$ref": "#/components/schemas/LineAdjudicationInformationProductOrServiceIDQualifier"
+                    },
+                    "procedureCode": {
+                        "type": "string"
+                    },
+                    "procedureModifier": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 0
+                    },
+                    "serviceLineRevenueCode": {
+                        "type": "string"
+                    },
+                    "procedureCodeDescription": {
+                        "type": "string"
+                    },
+                    "paidServiceUnitCount": {
+                        "type": "string"
+                    },
+                    "bundledLineNumber": {
+                        "type": "string"
+                    },
+                    "adjudicationOrPaymentDate": {
+                        "type": "string"
+                    },
+                    "remainingPatientLiability": {
+                        "type": "string"
+                    },
+                    "lineAdjustment": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
+                        }
+                    }
+                },
+                "required": [
+                    "adjudicationOrPaymentDate",
+                    "otherPayerPrimaryIdentifier",
+                    "paidServiceUnitCount",
+                    "serviceLinePaidAmount",
+                    "serviceLineRevenueCode"
+                ]
+            },
+            "InstitutionalMeasurementUnit": {
+                "type": "string",
+                "enum": [
+                    "DA",
+                    "UN"
+                ]
+            },
+            "InstitutionalMeasurementUnitCode": {
+                "type": "string",
+                "enum": [
+                    "F2",
+                    "GR",
+                    "ME",
+                    "ML",
+                    "UN"
+                ]
+            },
+            "InstitutionalOtherInsuredIdentifierTypeCode": {
+                "type": "string",
+                "enum": [
+                    "II",
+                    "MI"
+                ]
+            },
+            "InstitutionalOtherInsuredQualifier": {
+                "type": "string",
+                "enum": [
+                    "1",
+                    "2"
+                ]
+            },
+            "InstitutionalOtherPayerBillingProvider": {
+                "type": "object",
+                "properties": {
+                    "otherPayerBillingProviderIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerBillingProviderIdentifier"
+                ]
+            },
+            "InstitutionalOtherPayerIdentifierTypeCode": {
+                "type": "string",
+                "enum": [
+                    "PI",
+                    "XV"
+                ]
+            },
+            "InstitutionalOtherPayerName": {
+                "type": "object",
+                "properties": {
+                    "otherInsuredAdditionalIdentifier": {
+                        "type": "string"
+                    },
+                    "otherPayerOrganizationName": {
+                        "type": "string"
+                    },
+                    "otherPayerIdentifierTypeCode": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerIdentifierTypeCode"
+                    },
+                    "otherPayerIdentifier": {
+                        "type": "string"
+                    },
+                    "otherPayerAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "otherPayerAdjudicationOrPaymentDate": {
+                        "type": "string"
+                    },
+                    "otherPayerSecondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "otherPayerPriorAuthorizationNumber": {
+                        "type": "string"
+                    },
+                    "otherPayerPriorAuthorizationOrReferralNumber": {
+                        "type": "string"
+                    },
+                    "otherPayerClaimAdjustmentIndicator": {
+                        "type": "boolean"
+                    },
+                    "otherPayerClaimControlNumber": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "otherPayerIdentifier",
+                    "otherPayerIdentifierTypeCode",
+                    "otherPayerOrganizationName"
+                ]
+            },
+            "InstitutionalOtherPayerReferringProvider": {
+                "type": "object",
+                "properties": {
+                    "otherPayerReferringProviderIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerReferringProviderIdentifier"
+                ]
+            },
+            "InstitutionalOtherPayerRenderingProvider": {
+                "type": "object",
+                "properties": {
+                    "otherPayerRenderingProviderIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerRenderingProviderIdentifier"
+                ]
+            },
+            "InstitutionalOtherPayerServiceFacilityLocation": {
+                "type": "object",
+                "properties": {
+                    "otherPayerServiceFacilityLocationIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerServiceFacilityLocationIdentifier"
+                ]
+            },
+            "InstitutionalOtherSubscriberInformation": {
+                "type": "object",
+                "properties": {
+                    "paymentResponsibilityLevelCode": {
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationPaymentResponsibilityLevelCode"
+                    },
+                    "individualRelationshipCode": {
+                        "$ref": "#/components/schemas/InstitutionalIndividualRelationshipCode"
+                    },
+                    "policyNumber": {
+                        "type": "string"
+                    },
+                    "groupNumber": {
+                        "type": "string"
+                    },
+                    "otherInsuredGroupName": {
+                        "type": "string"
+                    },
+                    "claimFilingIndicatorCode": {
+                        "$ref": "#/components/schemas/InstitutionalClaimFilingIndicatorCode"
+                    },
+                    "payerPaidAmount": {
+                        "type": "string"
+                    },
+                    "remainingPatientLiability": {
+                        "type": "string"
+                    },
+                    "nonCoveredChargeAmount": {
+                        "type": "string"
+                    },
+                    "benefitsAssignmentCertificationIndicator": {
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationBenefitsAssignmentCertificationIndicator"
+                    },
+                    "releaseOfInformationCode": {
+                        "$ref": "#/components/schemas/ReleaseOfInformationCode"
+                    },
+                    "medicareInpatientAdjudication": {
+                        "$ref": "#/components/schemas/MedicareInpatientAdjudication"
+                    },
+                    "medicareOutpatientAdjudication": {
+                        "$ref": "#/components/schemas/MedicareOutpatientAdjudication"
+                    },
+                    "otherSubscriberName": {
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberName"
+                    },
+                    "claimLevelAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
+                        },
+                        "maxItems": 5,
+                        "minItems": 0
+                    },
+                    "otherPayerName": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerName"
+                    },
+                    "otherPayerAttendingProvider": {
+                        "$ref": "#/components/schemas/OtherPayerAttendingProvider"
+                    },
+                    "otherPayerOperatingPhysician": {
+                        "$ref": "#/components/schemas/OtherPayerOperatingPhysician"
+                    },
+                    "otherPayerOtherOperatingPhysician": {
+                        "$ref": "#/components/schemas/OtherPayerOtherOperatingPhysician"
+                    },
+                    "otherPayerServiceFacilityLocation": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerServiceFacilityLocation"
+                    },
+                    "otherPayerRenderingProvider": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerRenderingProvider"
+                    },
+                    "otherPayerReferringProvider": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerReferringProvider"
+                    },
+                    "otherPayerBillingProvider": {
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerBillingProvider"
+                    }
+                },
+                "required": [
+                    "benefitsAssignmentCertificationIndicator",
+                    "claimFilingIndicatorCode",
+                    "individualRelationshipCode",
+                    "otherPayerName",
+                    "otherSubscriberName",
+                    "paymentResponsibilityLevelCode",
+                    "releaseOfInformationCode"
+                ]
+            },
+            "InstitutionalOtherSubscriberInformationBenefitsAssignmentCertificationIndicator": {
+                "type": "string",
+                "enum": [
+                    "N",
+                    "Y",
+                    "W"
+                ]
+            },
+            "InstitutionalOtherSubscriberInformationPaymentResponsibilityLevelCode": {
+                "type": "string",
+                "enum": [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "H",
+                    "P",
+                    "S",
+                    "T",
+                    "U"
+                ]
+            },
+            "InstitutionalOtherSubscriberName": {
+                "type": "object",
+                "properties": {
+                    "otherInsuredQualifier": {
+                        "$ref": "#/components/schemas/InstitutionalOtherInsuredQualifier"
+                    },
+                    "otherInsuredLastName": {
+                        "type": "string"
+                    },
+                    "otherInsuredFirstName": {
+                        "type": "string"
+                    },
+                    "otherInsuredMiddleName": {
+                        "type": "string"
+                    },
+                    "otherInsuredSuffix": {
+                        "type": "string"
+                    },
+                    "otherInsuredIdentifierTypeCode": {
+                        "$ref": "#/components/schemas/InstitutionalOtherInsuredIdentifierTypeCode"
+                    },
+                    "otherInsuredIdentifier": {
+                        "type": "string"
+                    },
+                    "otherInsuredAdditionalIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 2,
+                        "minItems": 0
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "otherInsuredIdentifier",
+                    "otherInsuredIdentifierTypeCode",
+                    "otherInsuredLastName",
+                    "otherInsuredQualifier"
+                ]
+            },
+            "InstitutionalProcedureIdentifier": {
+                "type": "string",
+                "enum": [
+                    "ER",
+                    "HC",
+                    "HP",
+                    "IV",
+                    "WK"
+                ]
+            },
+            "InstitutionalProviderType": {
+                "type": "string",
+                "enum": [
+                    "BillingProvider",
+                    "AttendingProvider",
+                    "ReferringProvider",
+                    "RenderingProvider"
+                ]
+            },
+            "InstitutionalReceiver": {
+                "type": "object",
+                "description": "The entity responsible for the payment of the claim, such as an insurance company or government agency.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "organizationName"
+                ]
+            },
+            "InstitutionalReferenceIdentification": {
+                "type": "object",
+                "properties": {
+                    "qualifier": {
+                        "type": "string"
+                    },
+                    "identifier": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "identifier",
+                    "qualifier"
+                ]
+            },
+            "InstitutionalReferring": {
+                "type": "object",
+                "description": "Information about the provider who referred the patient for care. Include this object only when the referring provider is different than the provider listed in the `attending` object. Use this object for providers that apply to the entire claim.",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/ReferringSecondaryIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string"
+                    },
+                    "employerId": {
+                        "type": "string"
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string"
+                    },
+                    "taxonomyCode": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "InstitutionalRendering": {
+                "type": "object",
+                "description": "Information about the provider who delivered the medical services or non-surgical procecures listed in the claim. Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. Use this object for providers that apply to the entire claim.",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/RenderingSecondaryIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string"
+                    },
+                    "employerId": {
+                        "type": "string"
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string"
+                    },
+                    "taxonomyCode": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "InstitutionalReportInformation": {
+                "type": "object",
+                "properties": {
+                    "attachmentReportTypeCode": {
+                        "$ref": "#/components/schemas/ReportInformationAttachmentReportTypeCode"
+                    },
+                    "attachmentTransmissionCode": {
+                        "$ref": "#/components/schemas/InstitutionalReportInformationAttachmentTransmissionCode"
+                    },
+                    "attachmentControlNumber": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "attachmentControlNumber",
+                    "attachmentReportTypeCode",
+                    "attachmentTransmissionCode"
+                ]
+            },
+            "InstitutionalReportInformationAttachmentTransmissionCode": {
+                "type": "string",
+                "enum": [
+                    "AA",
+                    "BM",
+                    "EL",
+                    "EM",
+                    "FT",
+                    "FX"
+                ]
+            },
+            "InstitutionalService": {
+                "type": "object",
+                "properties": {
+                    "serviceLineRevenueCode": {
+                        "type": "string"
+                    },
+                    "procedureIdentifier": {
+                        "$ref": "#/components/schemas/InstitutionalProcedureIdentifier"
+                    },
+                    "procedureCode": {
+                        "type": "string"
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 0
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "lineItemChargeAmount": {
+                        "type": "string"
+                    },
+                    "measurementUnit": {
+                        "$ref": "#/components/schemas/InstitutionalMeasurementUnit"
+                    },
+                    "serviceUnitCount": {
+                        "type": "string"
+                    },
+                    "nonCoveredChargeAmount": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lineItemChargeAmount",
+                    "measurementUnit",
+                    "serviceLineRevenueCode",
+                    "serviceUnitCount"
+                ]
+            },
+            "InstitutionalServiceAuthorizationExceptionCode": {
+                "type": "string",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7"
+                ]
+            },
+            "InstitutionalServiceLine": {
+                "type": "object",
+                "properties": {
+                    "assignedNumber": {
+                        "type": "string"
+                    },
+                    "serviceDate": {
+                        "type": "string"
+                    },
+                    "serviceDateEnd": {
+                        "type": "string"
+                    },
+                    "serviceTaxAmount": {
+                        "type": "string"
+                    },
+                    "facilityTaxAmount": {
+                        "type": "string"
+                    },
+                    "thirdPartyOrganizationNotes": {
+                        "type": "string"
+                    },
+                    "lineItemControlNumber": {
+                        "type": "string"
+                    },
+                    "repricedLineItemReferenceNumber": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "adjustedRepricedLineItemReferenceNumber": {
+                        "type": "string"
+                    },
+                    "lineNoteText": {
+                        "type": "string"
+                    },
+                    "lineAdjudicationInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalLineAdjudicationInformation"
+                        },
+                        "maxItems": 15,
+                        "minItems": 0
+                    },
+                    "renderingProvider": {
+                        "$ref": "#/components/schemas/ServiceLineProvider"
+                    },
+                    "referringProvider": {
+                        "$ref": "#/components/schemas/ServiceLineProvider"
+                    },
+                    "lineSupplementInformation": {
+                        "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation"
+                    },
+                    "institutionalService": {
+                        "$ref": "#/components/schemas/InstitutionalService"
+                    },
+                    "serviceLineSupplementalInformation": {
+                        "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation"
+                    },
+                    "serviceLineDateInformation": {
+                        "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation"
+                    },
+                    "serviceLineReferenceInformation": {
+                        "$ref": "#/components/schemas/ServiceLineReferenceInformation"
+                    },
+                    "linePricingInformation": {
+                        "$ref": "#/components/schemas/LinePricingInformation"
+                    },
+                    "drugIdentification": {
+                        "$ref": "#/components/schemas/InstitutionalDrugIdentification"
+                    },
+                    "lineAdjustmentInformation": {
+                        "$ref": "#/components/schemas/LineAdjustmentInformation"
+                    },
+                    "operatingPhysician": {
+                        "$ref": "#/components/schemas/OperatingPhysician"
+                    },
+                    "otherOperatingPhysician": {
+                        "$ref": "#/components/schemas/OperatingPhysician"
+                    },
+                    "lineRepricingInformation": {
+                        "$ref": "#/components/schemas/ClaimPricingInformation"
+                    }
+                },
+                "required": [
+                    "assignedNumber",
+                    "institutionalService"
+                ]
+            },
+            "InstitutionalServiceLineDateInformation": {
+                "type": "object",
+                "properties": {
+                    "serviceDate": {
+                        "type": "string"
+                    },
+                    "beginServiceDate": {
+                        "type": "string"
+                    },
+                    "endServiceDate": {
+                        "type": "string"
+                    },
+                    "validDateInformation": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "InstitutionalServiceLineSupplementalInformation": {
+                "type": "object",
+                "properties": {
+                    "attachmentReportTypeCode": {
+                        "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentReportTypeCode"
+                    },
+                    "attachmentTransmissionCode": {
+                        "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentTransmissionCode"
+                    },
+                    "attachmentControlNumber": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "attachmentReportTypeCode",
+                    "attachmentTransmissionCode"
+                ]
+            },
+            "InstitutionalSubmitter": {
+                "type": "object",
+                "description": "The entity submitting the healthcare claim. This is an organization, such as a hospital or other treatment center.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    }
+                },
+                "required": [
+                    "contactInformation",
+                    "organizationName"
+                ]
+            },
+            "InstitutionalSubscriber": {
+                "type": "object",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.",
+                "properties": {
+                    "memberId": {
+                        "type": "string"
+                    },
+                    "standardHealthId": {
+                        "type": "string"
+                    },
+                    "ssn": {
+                        "type": "string"
+                    },
+                    "paymentResponsibilityLevelCode": {
+                        "$ref": "#/components/schemas/InstitutionalSubscriberPaymentResponsibilityLevelCode"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/Gender"
+                    },
+                    "dateOfBirth": {
+                        "type": "string"
+                    },
+                    "policyNumber": {
+                        "type": "string"
+                    },
+                    "groupNumber": {
+                        "type": "string"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName",
+                    "paymentResponsibilityLevelCode"
+                ]
+            },
+            "InstitutionalSubscriberPaymentResponsibilityLevelCode": {
+                "type": "string",
+                "enum": [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "H",
+                    "P",
+                    "S",
+                    "T",
+                    "U"
+                ]
+            },
             "LineAdjudicationInformation": {
                 "type": "object",
                 "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers.",
@@ -8699,6 +10599,16 @@
                     "serviceLinePaidAmount"
                 ]
             },
+            "LineAdjudicationInformationProductOrServiceIDQualifier": {
+                "type": "string",
+                "enum": [
+                    "ER",
+                    "HC",
+                    "HP",
+                    "IV",
+                    "WK"
+                ]
+            },
             "LineAdjudicationInformationServiceIdQualifier": {
                 "type": "string",
                 "description": "Code identifying the type of `procedureCode`. Visit `C00301` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.line_adjudication_information_SVD_loop.items.properties.line_adjudication_information_SVD.properties.composite_medical_procedure_identifier_03.properties.product_or_service_id_qualifier_01) for a complete list.",
@@ -8708,6 +10618,109 @@
                     "HP",
                     "IV",
                     "WK"
+                ]
+            },
+            "LineAdjustmentInformation": {
+                "type": "object",
+                "properties": {
+                    "otherPayerPrimaryIdentifier": {
+                        "type": "string"
+                    },
+                    "serviceLinePaidAmount": {
+                        "type": "string"
+                    },
+                    "serviceIdQualifier": {
+                        "type": "string"
+                    },
+                    "procedureCode": {
+                        "type": "string"
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 0
+                    },
+                    "procedureCodeDescription": {
+                        "type": "string"
+                    },
+                    "paidServiceUnitCount": {
+                        "type": "string"
+                    },
+                    "bundledOrUnbundledLineNumber": {
+                        "type": "string"
+                    },
+                    "remainingPatientLiability": {
+                        "type": "string"
+                    },
+                    "claimPaidDate": {
+                        "type": "string"
+                    },
+                    "claimAdjustment": {
+                        "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
+                    }
+                },
+                "required": [
+                    "claimPaidDate",
+                    "otherPayerPrimaryIdentifier",
+                    "paidServiceUnitCount",
+                    "procedureCode",
+                    "remainingPatientLiability",
+                    "serviceIdQualifier",
+                    "serviceLinePaidAmount"
+                ]
+            },
+            "LinePricingInformation": {
+                "type": "object",
+                "properties": {
+                    "pricingMethodologyCode": {
+                        "type": "string"
+                    },
+                    "repricedAllowedAmount": {
+                        "type": "string"
+                    },
+                    "repricedSavingAmount": {
+                        "type": "string"
+                    },
+                    "repricedOrganizationIdentifier": {
+                        "type": "string"
+                    },
+                    "flatRateAmount": {
+                        "type": "string"
+                    },
+                    "apgCode": {
+                        "type": "string"
+                    },
+                    "apgAmount": {
+                        "type": "string"
+                    },
+                    "serviceIdQualifier": {
+                        "type": "string"
+                    },
+                    "repricedApprovedHCPCSCode": {
+                        "type": "string"
+                    },
+                    "measurementUnitCode": {
+                        "type": "string"
+                    },
+                    "repricedApprovedServiceUnitCount": {
+                        "type": "string"
+                    },
+                    "rejectReasonCode": {
+                        "type": "string"
+                    },
+                    "policyComplianceCode": {
+                        "type": "string"
+                    },
+                    "exceptionCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "pricingMethodologyCode",
+                    "repricedAllowedAmount"
                 ]
             },
             "ListPayerRecordsResponseContent": {
@@ -8829,6 +10842,76 @@
                     "ZZ"
                 ]
             },
+            "MedicareInpatientAdjudication": {
+                "type": "object",
+                "properties": {
+                    "coveredDaysOrVisitsCount": {
+                        "type": "string"
+                    },
+                    "lifetimePsychiatricDaysCount": {
+                        "type": "string"
+                    },
+                    "claimDRGAmount": {
+                        "type": "string"
+                    },
+                    "claimPaymentRemarkCode": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5,
+                        "minItems": 0
+                    },
+                    "claimDisproportionateShareAmount": {
+                        "type": "string"
+                    },
+                    "claimMspPassThroughAmount": {
+                        "type": "string"
+                    },
+                    "claimPpsCapitalAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalHspDrgAmount": {
+                        "type": "string"
+                    },
+                    "capitalHSPDRGAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalDshDrgAmount": {
+                        "type": "string"
+                    },
+                    "oldCapitalAmount": {
+                        "type": "string"
+                    },
+                    "ppsCapitalImeAmount": {
+                        "type": "string"
+                    },
+                    "ppsOperatingHospitalSpecificDrgAmount": {
+                        "type": "string"
+                    },
+                    "costReportDayCount": {
+                        "type": "string"
+                    },
+                    "ppsOperatingFederalSpecificDrgAmount": {
+                        "type": "string"
+                    },
+                    "claimPpsCapitalOutlierAmmount": {
+                        "type": "string"
+                    },
+                    "claimIndirectTeachingAmount": {
+                        "type": "string"
+                    },
+                    "nonPayableProfessionalComponentBilledAmount": {
+                        "type": "string"
+                    },
+                    "capitalExceptionAmount": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "coveredDaysOrVisitsCount"
+                ]
+            },
             "MedicareOutpatientAdjudication": {
                 "type": "object",
                 "description": "Claim-level data related to the adjudication of Medicare claims not related to an inpatient setting. Required when outpatient adjudication information is reported in the remittance advice _or_ when you need to report remark codes.",
@@ -8926,6 +11009,82 @@
                     }
                 }
             },
+            "OccurrenceInformation": {
+                "type": "object",
+                "properties": {
+                    "occurrenceSpanCode": {
+                        "type": "string"
+                    },
+                    "occurrenceSpanCodeDate": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "occurrenceSpanCode",
+                    "occurrenceSpanCodeDate"
+                ]
+            },
+            "OccurrenceSpanInformation": {
+                "type": "object",
+                "properties": {
+                    "occurrenceSpanCode": {
+                        "type": "string"
+                    },
+                    "occurrenceSpanCodeStartDate": {
+                        "type": "string"
+                    },
+                    "occurrenceSpanCodeEndDate": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "occurrenceSpanCode",
+                    "occurrenceSpanCodeEndDate",
+                    "occurrenceSpanCodeStartDate"
+                ]
+            },
+            "OperatingPhysician": {
+                "type": "object",
+                "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "identificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lastName"
+                ]
+            },
+            "OperatingPhysicianIdentificationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "0B",
+                    "1G",
+                    "G2",
+                    "LU"
+                ]
+            },
             "Ordering": {
                 "type": "object",
                 "description": "Deprecated; please use `ClaimInformation.serviceLines.orderingProvider` instead.",
@@ -8995,6 +11154,40 @@
                     "providerType"
                 ]
             },
+            "OtherDiagnosisInformation": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/OtherDiagnosisInformationQualifierCode"
+                    },
+                    "otherDiagnosisCode": {
+                        "type": "string"
+                    },
+                    "presentOnAdmissionIndicator": {
+                        "$ref": "#/components/schemas/OtherDiagnosisInformationPresentOnAdmissionIndicator"
+                    }
+                },
+                "required": [
+                    "otherDiagnosisCode",
+                    "qualifierCode"
+                ]
+            },
+            "OtherDiagnosisInformationPresentOnAdmissionIndicator": {
+                "type": "string",
+                "enum": [
+                    "N",
+                    "Y",
+                    "U",
+                    "W"
+                ]
+            },
+            "OtherDiagnosisInformationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "ABF",
+                    "BF"
+                ]
+            },
             "OtherInsuredIdentifierTypeCode": {
                 "type": "string",
                 "description": "Code identifying the type of identifier. Can be set to `II` - Standard Unique Health Identifier for each individual in the United States or `MI` - Member Identification Number. The code `MI` should be the subscriber's identification number as assigned by the payer, such as their subscriber ID. You should also use `MI` in claims submitted to the Indian Health Service/Contract Health Services (IHS/CHS) Fiscal Intermediary for the purpose of reporting the Tribe Residency Code (Tribe County State). For IHS/CHS claims, you should also put the SSN in the `otherInsuredAdditionalIdentifier` property.)",
@@ -9009,6 +11202,64 @@
                 "enum": [
                     "1",
                     "2"
+                ]
+            },
+            "OtherOperatingPhysician": {
+                "type": "object",
+                "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "identificationQualifierCode": {
+                        "$ref": "#/components/schemas/OtherOperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "middleName": {
+                        "type": "string"
+                    },
+                    "suffix": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "lastName"
+                ]
+            },
+            "OtherOperatingPhysicianIdentificationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "0B",
+                    "1G",
+                    "G2",
+                    "LU"
+                ]
+            },
+            "OtherPayerAttendingProvider": {
+                "type": "object",
+                "properties": {
+                    "otherPayerAttendingProviderIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerAttendingProviderIdentifier"
                 ]
             },
             "OtherPayerBillingProvider": {
@@ -9102,6 +11353,38 @@
                     "otherPayerOrganizationName"
                 ]
             },
+            "OtherPayerOperatingPhysician": {
+                "type": "object",
+                "properties": {
+                    "otherPayerOperatingPhysicianIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerOperatingPhysicianIdentifier"
+                ]
+            },
+            "OtherPayerOtherOperatingPhysician": {
+                "type": "object",
+                "properties": {
+                    "otherPayerOtherOperatingPhysicianIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "otherPayerOtherOperatingPhysicianIdentifier"
+                ]
+            },
             "OtherPayerReferringProvider": {
                 "type": "object",
                 "description": "Information about the referring provider.",
@@ -9178,6 +11461,31 @@
                 },
                 "required": [
                     "otherPayerSupervisingProviderIdentifier"
+                ]
+            },
+            "OtherProcedureInformation": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/OtherProcedureInformationQualifierCode"
+                    },
+                    "otherProcedureCode": {
+                        "type": "string"
+                    },
+                    "otherProcedureDate": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "otherProcedureCode",
+                    "qualifierCode"
+                ]
+            },
+            "OtherProcedureInformationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "BBQ",
+                    "BQ"
                 ]
             },
             "OtherSubscriber": {
@@ -9550,6 +11858,46 @@
                     "L5"
                 ]
             },
+            "PatientReasonForVisit": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/PatientReasonForVisitQualifierCode"
+                    },
+                    "patientReasonForVisitCode": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "patientReasonForVisitCode",
+                    "qualifierCode"
+                ]
+            },
+            "PatientReasonForVisitQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "APR",
+                    "PR"
+                ]
+            },
+            "PayToAddressName": {
+                "type": "object",
+                "description": "Use when the address for payment is different than that of the billing provider for this claim.",
+                "properties": {
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "entityTypeQualifier": {
+                        "$ref": "#/components/schemas/PayToAddressNameEntityTypeQualifier"
+                    }
+                }
+            },
+            "PayToAddressNameEntityTypeQualifier": {
+                "type": "string",
+                "enum": [
+                    "2"
+                ]
+            },
             "PayToPlan": {
                 "type": "object",
                 "description": "Use for subrogation payment requests. If you include this information, you must also set the `claimInformation.otherSubscriberInformation.payerPaidAmount` to the amount the payer (for example, Medicaid) actually paid.",
@@ -9585,6 +11933,46 @@
                     "primaryIdentifier",
                     "primaryIdentifierTypeCode",
                     "taxIdentificationNumber"
+                ]
+            },
+            "PayToPlanName": {
+                "type": "object",
+                "description": "Use for subrogation payment requests. If you include this information, you must also set the `claimInformation.otherSubscriberInformation.payerPaidAmount` to the amount the payer (for example, Medicaid) actually paid.",
+                "properties": {
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "organizationName": {
+                        "type": "string"
+                    },
+                    "identificationCodeQualifier": {
+                        "$ref": "#/components/schemas/PayToPlanNameIdentificationCodeQualifier"
+                    },
+                    "identificationCode": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "taxId": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "taxId"
+                ]
+            },
+            "PayToPlanNameIdentificationCodeQualifier": {
+                "type": "string",
+                "enum": [
+                    "PI",
+                    "XV"
                 ]
             },
             "Payee": {
@@ -10911,6 +13299,66 @@
                     "XV"
                 ]
             },
+            "PrincipalDiagnosis": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/PrincipalDiagnosisQualifierCode"
+                    },
+                    "principalDiagnosisCode": {
+                        "type": "string"
+                    },
+                    "presentOnAdmissionIndicator": {
+                        "$ref": "#/components/schemas/PrincipalDiagnosisPresentOnAdmissionIndicator"
+                    }
+                },
+                "required": [
+                    "principalDiagnosisCode",
+                    "qualifierCode"
+                ]
+            },
+            "PrincipalDiagnosisPresentOnAdmissionIndicator": {
+                "type": "string",
+                "enum": [
+                    "N",
+                    "Y",
+                    "U",
+                    "W"
+                ]
+            },
+            "PrincipalDiagnosisQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "ABK",
+                    "BK"
+                ]
+            },
+            "PrincipalProcedureInformation": {
+                "type": "object",
+                "properties": {
+                    "qualifierCode": {
+                        "$ref": "#/components/schemas/PrincipalProcedureInformationQualifierCode"
+                    },
+                    "principalProcedureCode": {
+                        "type": "string"
+                    },
+                    "principalProcedureDate": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "principalProcedureCode",
+                    "qualifierCode"
+                ]
+            },
+            "PrincipalProcedureInformationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "BBR",
+                    "BR",
+                    "CAH"
+                ]
+            },
             "PriorAuthorization": {
                 "type": "object",
                 "properties": {
@@ -11505,6 +13953,15 @@
                     "providerType"
                 ]
             },
+            "ReferringSecondaryIdentificationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "0B",
+                    "1G",
+                    "G2",
+                    "LU"
+                ]
+            },
             "RejectReasonCode": {
                 "type": "string",
                 "description": "Code indicating the rejection message returned from the third party organization. Visit `HCP13` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
@@ -11610,6 +14067,15 @@
                     "providerType"
                 ]
             },
+            "RenderingSecondaryIdentificationQualifierCode": {
+                "type": "string",
+                "enum": [
+                    "0B",
+                    "1G",
+                    "G2",
+                    "LU"
+                ]
+            },
             "ReportInformation": {
                 "type": "object",
                 "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
@@ -11628,6 +14094,72 @@
                 "required": [
                     "attachmentReportTypeCode",
                     "attachmentTransmissionCode"
+                ]
+            },
+            "ReportInformationAttachmentReportTypeCode": {
+                "type": "string",
+                "enum": [
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "07",
+                    "08",
+                    "09",
+                    "10",
+                    "11",
+                    "13",
+                    "15",
+                    "21",
+                    "A3",
+                    "A4",
+                    "AM",
+                    "AS",
+                    "B2",
+                    "B3",
+                    "B4",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "CB",
+                    "CK",
+                    "CT",
+                    "D2",
+                    "DA",
+                    "DB",
+                    "DG",
+                    "DJ",
+                    "DS",
+                    "EB",
+                    "HC",
+                    "HR",
+                    "I5",
+                    "IR",
+                    "LA",
+                    "M1",
+                    "MT",
+                    "NN",
+                    "OB",
+                    "OC",
+                    "OD",
+                    "OE",
+                    "OX",
+                    "OZ",
+                    "P4",
+                    "P5",
+                    "PE",
+                    "PN",
+                    "PO",
+                    "PQ",
+                    "PY",
+                    "PZ",
+                    "RB",
+                    "RR",
+                    "RT",
+                    "RX",
+                    "SG",
+                    "V5",
+                    "XP"
                 ]
             },
             "ReportInformationAttachmentTransmissionCode": {
@@ -11699,6 +14231,13 @@
                         }
                     }
                 }
+            },
+            "RepricedApprovedServiceUnitCode": {
+                "type": "string",
+                "enum": [
+                    "DA",
+                    "UN"
+                ]
             },
             "RequestDependent": {
                 "type": "object",
@@ -13063,6 +15602,83 @@
                     }
                 }
             },
+            "ServiceLineSupplementalInformationAttachmentReportTypeCode": {
+                "type": "string",
+                "enum": [
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "07",
+                    "08",
+                    "09",
+                    "10",
+                    "11",
+                    "13",
+                    "15",
+                    "21",
+                    "A3",
+                    "A4",
+                    "AM",
+                    "AS",
+                    "B2",
+                    "B3",
+                    "B4",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "CB",
+                    "CK",
+                    "CT",
+                    "D2",
+                    "DA",
+                    "DB",
+                    "DG",
+                    "DJ",
+                    "DS",
+                    "EB",
+                    "HC",
+                    "HR",
+                    "I5",
+                    "IR",
+                    "LA",
+                    "M1",
+                    "MT",
+                    "NN",
+                    "OB",
+                    "OC",
+                    "OD",
+                    "OE",
+                    "OX",
+                    "OZ",
+                    "P4",
+                    "P5",
+                    "PE",
+                    "PN",
+                    "PO",
+                    "PQ",
+                    "PY",
+                    "PZ",
+                    "RB",
+                    "RR",
+                    "RT",
+                    "RX",
+                    "SG",
+                    "V5",
+                    "XP"
+                ]
+            },
+            "ServiceLineSupplementalInformationAttachmentTransmissionCode": {
+                "type": "string",
+                "enum": [
+                    "AA",
+                    "BM",
+                    "EL",
+                    "EM",
+                    "FT",
+                    "FX"
+                ]
+            },
             "ServiceProviderClaimStatus": {
                 "type": "object",
                 "properties": {
@@ -13535,6 +16151,21 @@
                 },
                 "required": [
                     "message"
+                ]
+            },
+            "ValueInformation": {
+                "type": "object",
+                "properties": {
+                    "valueCode": {
+                        "type": "string"
+                    },
+                    "valueCodeAmount": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "valueCode",
+                    "valueCodeAmount"
                 ]
             },
             "Warning": {
