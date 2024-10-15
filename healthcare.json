@@ -4008,7 +4008,7 @@
             },
             "AdjustmentGroupCode": {
                 "type": "string",
-                "description": "Code identifying the general category of payment adjustment. Visit `CAS01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.claim_level_adjustments_CAS.items.properties.claim_adjustment_group_code_01) for a complete list.",
+                "description": "Code identifying the general category of payment adjustment. Can be set to `CO` - Contractual Obligations, `CR` - Correction and Reversals, `OA` - Other Adjustments, `PI` - Payor Initiated Reductions, or `PR - Patient Responsibility.",
                 "enum": [
                     "CO",
                     "CR",
@@ -4074,8 +4074,7 @@
                             "$ref": "#/components/schemas/AmbulanceCertificationConditionCodesItem"
                         },
                         "maxItems": 5,
-                        "minItems": 1,
-                        "description": "Code indicating the condition of the patient at the time of tramsport. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_certification_CRC.items.properties.condition_code_03) for a complete list."
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -4093,7 +4092,7 @@
             },
             "AmbulanceCertificationConditionCodesItem": {
                 "type": "string",
-                "description": "Code indicating the condition of the patient at the time of tramsport. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_certification_CRC.items.properties.condition_code_03) for a complete list.",
+                "description": "Code indicating the condition of the patient at the time of transport. You can provide up to five codes. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#ambulance-certification-condition-codes) for a complete list.",
                 "enum": [
                     "01",
                     "04",
@@ -4136,7 +4135,7 @@
             },
             "AmbulanceTransportReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit `CR104` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.ambulance_transport_information_CR1) for a complete list.",
+                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#ambulance-transport-reason-codes) for a complete list.",
                 "enum": [
                     "A",
                     "B",
@@ -4147,7 +4146,7 @@
             },
             "AttachmentReportTypeCode": {
                 "type": "string",
-                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit `PWK01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_supplemental_information_PWK) for a complete list.",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-report-type-codes) for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -5578,7 +5577,7 @@
             },
             "ClaimFilingCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR09` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a2/01GRYB6EJ999Y6MZ53ZBAHYBHE#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#claim-filing-indicator-codes) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -5607,7 +5606,7 @@
             },
             "ClaimFilingIndicatorCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit `SBR09` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.claim_filing_indicator_code_09) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#claim-filing-indicator-codes) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -6951,7 +6950,7 @@
             },
             "ClaimsExceptionCode": {
                 "type": "string",
-                "description": "Code specifying the exception reason for consideration of out-of-network health care services. This is the reason generated by the third-party health organization. Visit `HCP15` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP.properties.exception_code_15) for a complete list.",
+                "description": "Code specifying the exception reason for consideration of out-of-network health care services. This is the reason generated by the third-party health organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#exception-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -6979,7 +6978,7 @@
             },
             "ClaimsIndividualRelationshipCode": {
                 "type": "string",
-                "description": "Code identifying the relationship to the person insured. Visit `SBR02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.individual_relationship_code_02) for a complete list.",
+                "description": "Code identifying the relationship to the person insured. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#individual-relationship-codes) for a complete list.",
                 "enum": [
                     "01",
                     "18",
@@ -7558,7 +7557,7 @@
             },
             "ContractInformationContractTypeCode": {
                 "type": "string",
-                "description": "Code indicating the type of contract. Visit `CN101` in the [Professional Claims specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.contract_information_CN1.properties.contract_type_code_01) for a complete list.",
+                "description": "Code indicating the type of contract. Can be set to `01` - Diagnosis Related Group (DRG), `02` - Per Diem, `03` - Variable Per Diem, `04` - Flat, `05` - Capitated, `06` - Percent, or `09` - Other.",
                 "enum": [
                     "01",
                     "02",
@@ -7682,7 +7681,7 @@
             },
             "DelayReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the delay in claim submission. Visit `CLM20` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_information_CLM.properties.delay_reason_code_20) for a complete list.",
+                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#delay-reason-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -7839,7 +7838,7 @@
             },
             "DrugIdentificationServiceIdQualifier": {
                 "type": "string",
-                "description": "Code indicating the source of the drug code or product number. Visit `LIN02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.drug_identification_LIN_loop.properties.drug_identification_LIN.properties.product_or_service_id_qualifier_02) for a complete list.",
+                "description": "Code indicating the source of the drug code or product number. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#drug-identification-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "EN",
                     "EO",
@@ -7881,7 +7880,7 @@
             },
             "DurableMedicalEquipmentCertificateOfMedicalNecessityAttachmentTransmissionCode": {
                 "type": "string",
-                "description": "Code indicating the timing, transmission method, or format by which attachments will be sent. Required when the actual attachment is maintained by an attachment warehouse or similar vendor. Visit `PWK02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.durable_medical_equipment_certificate_of_medical_necessity_indicator_PWK.properties.attachment_transmission_code_02) for a complete list. Use code `NS` when the paperwork is available on request at the provider's site, but is not being sent with the claim at this time.",
+                "description": "Code indicating the timing, transmission method, or format by which attachments will be sent. Required when the actual attachment is maintained by an attachment warehouse or similar vendor. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-transmission-codes) for a complete list. Use code `NS` when the paperwork is available on request at the provider's site, but is not being sent with the claim at this time.",
                 "enum": [
                     "AB",
                     "AD",
@@ -10611,7 +10610,7 @@
             },
             "LineAdjudicationInformationServiceIdQualifier": {
                 "type": "string",
-                "description": "Code identifying the type of `procedureCode`. Visit `C00301` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.line_adjudication_information_SVD_loop.items.properties.line_adjudication_information_SVD.properties.composite_medical_procedure_identifier_03.properties.product_or_service_id_qualifier_01) for a complete list.",
+                "description": "Code identifying the type of `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -11646,7 +11645,7 @@
             },
             "OtherSubscriberInformationInsuranceTypeCode": {
                 "type": "string",
-                "description": "Code identifying the type of insurance policy within a specific insurance program. Visit `SBR05` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
+                "description": "Code identifying the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#insurance-type-codes) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -11661,7 +11660,7 @@
             },
             "OtherSubscriberInformationPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit `SBR01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.other_subscriber_information_SBR_loop.items.properties.other_subscriber_information_SBR.properties.payer_responsibility_sequence_number_code_01) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
+                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
                 "enum": [
                     "A",
                     "B",
@@ -11830,7 +11829,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Code indicating the reason for the vision services. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.patient_condition_information_vision_CRC.items.properties.condition_code_03) for a complete list."
+                        "description": "Code indicating the reason for the vision services. Visit [Claim code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#vision-condition-codes) for a complete list."
                     }
                 },
                 "required": [
@@ -11849,7 +11848,7 @@
             },
             "PatientConditionInformationVisionConditionCodesItem": {
                 "type": "string",
-                "description": "Code indicating the reason for the vision services. Visit `CRC03` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.patient_condition_information_vision_CRC.items.properties.condition_code_03) for a complete list.",
+                "description": "Code indicating the reason for the vision services. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#vision-condition-codes) for a complete list.",
                 "enum": [
                     "L1",
                     "L2",
@@ -13254,7 +13253,7 @@
             },
             "PolicyComplianceCode": {
                 "type": "string",
-                "description": "Code indicating the policy compliance. Visit `HCP14` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
+                "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/doc/healthcare/professional-claims-code-lists#policy-compliance-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -13272,7 +13271,7 @@
             },
             "PricingMethodologyCode": {
                 "type": "string",
-                "description": "Code indicating the pricing or repricing methodology. Visit the `HCP01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
+                "description": "Code indicating the pricing or repricing methodology. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#pricing-methodology-codes) for a complete list.",
                 "enum": [
                     "00",
                     "01",
@@ -13376,7 +13375,7 @@
             },
             "ProcedureIdentifier": {
                 "type": "string",
-                "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit `C00301` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_line_number_LX_loop.items.properties.professional_service_SV1.properties.composite_medical_procedure_identifier_01.properties.product_or_service_id_qualifier_01) for a complete list.",
+                "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -13386,7 +13385,7 @@
             },
             "ProductOrServiceIDQualifier": {
                 "type": "string",
-                "description": "A code identifying the type/source of the descriptive number used in Product/Service ID. Visit [Check claim status](https://www.stedi.com/docs/healthcare/send-claims#product-or-service-id-qualifier-codes) for a complete list.",
+                "description": "A code identifying the type/source of the descriptive number used in Product/Service ID. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list.",
                 "enum": [
                     "AD",
                     "ER",
@@ -13964,7 +13963,7 @@
             },
             "RejectReasonCode": {
                 "type": "string",
-                "description": "Code indicating the rejection message returned from the third party organization. Visit `HCP13` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.claim_pricing_repricing_information_HCP) for a complete list.",
+                "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#reject-reason-codes) for a complete list.",
                 "enum": [
                     "T1",
                     "T2",
@@ -15012,7 +15011,7 @@
             },
             "ServiceAuthorizationExceptionCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the service authorization exception. Visit `REF02` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.service_authorization_exception_code_REF.properties.service_authorization_exception_code_02) for a complete list.",
+                "description": "Code indicating the reason for the service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#service-authorization-exception-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -15098,7 +15097,7 @@
             },
             "ServiceIdQualifierCode": {
                 "type": "string",
-                "description": "A code identifying the type/source of the `procedureId`. Visit [Check claim status](https://www.stedi.com/docs/healthcare/send-claims#product-or-service-id-qualifier-codes) for a complete list.",
+                "description": "A code identifying the type/source of the `procedureId`. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list.",
                 "enum": [
                     "AD",
                     "ER",
@@ -15719,7 +15718,7 @@
                 "properties": {
                     "patientConditionCode": {
                         "type": "string",
-                        "description": "A code indicating the nature of a patient's condition. Visit `CR208` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.patient_hierarchical_level_HL_loop.items.properties.claim_information_CLM_loop.items.properties.spinal_manipulation_service_information_CR2.properties.patient_condition_code_08) for a complete list."
+                        "description": "A code indicating the nature of a patient's condition. Can be set to `A` - Acute Condition, `C` - Chronic Condition, ``D`- Non-acute, `E` - Non-Life Threatening, `F` - Routine, `G` - Symptomatic, or `M` - Acute Manifestation of a Chronic Condition."
                     },
                     "patientConditionDescription1": {
                         "$ref": "#/components/schemas/PatientConditionDescription1"
@@ -15878,7 +15877,7 @@
             },
             "SubscriberInsuranceTypeCode": {
                 "type": "string",
-                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [`SBR05` in the Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR.properties.insurance_type_code_05) for a complete list.",
+                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#insurance-type-codes) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -15893,7 +15892,7 @@
             },
             "SubscriberPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit `SBR01` in the [Professional Claim specification](https://www.stedi.com/app/guides/view/hipaa/health-care-claim-professional-x222a1/01HR60MDFAGCSEJNKY8J38867Y#properties.detail.properties.billing_provider_hierarchical_level_HL_loop.items.properties.subscriber_hierarchical_level_HL_loop.items.properties.subscriber_information_SBR.properties.payer_responsibility_sequence_number_code_01) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
+                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
                 "enum": [
                     "A",
                     "B",
