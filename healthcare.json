@@ -4752,7 +4752,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
@@ -7096,7 +7097,8 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Deprecated; please set all providers individually by type. For example, `Referring`."
+                        "description": "Deprecated; please set all providers individually by type. For example, `Referring`.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "claimInformation": {
                         "$ref": "#/components/schemas/ClaimInformation"
@@ -11193,7 +11195,7 @@
             },
             "Ordering": {
                 "type": "object",
-                "description": "Deprecated; please use `ClaimInformation.serviceLines.orderingProvider` instead.",
+                "description": "Deprecated; please use `claimInformation.serviceLines.orderingProvider` instead.\nThis shape is deprecated.",
                 "properties": {
                     "providerType": {
                         "type": "string"
@@ -11258,7 +11260,8 @@
                 },
                 "required": [
                     "providerType"
-                ]
+                ],
+                "deprecated": true
             },
             "OtherDiagnosisInformation": {
                 "type": "object",
@@ -11493,7 +11496,7 @@
             },
             "OtherPayerReferringProvider": {
                 "type": "object",
-                "description": "Information about the referring provider.",
+                "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist.",
                 "properties": {
                     "otherPayerReferringProviderIdentifier": {
                         "type": "array",
@@ -11700,7 +11703,7 @@
                         "items": {
                             "$ref": "#/components/schemas/OtherPayerReferringProvider"
                         },
-                        "description": "Information about the referring provider."
+                        "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist."
                     },
                     "otherPayerRenderingProvider": {
                         "type": "array",
@@ -14002,7 +14005,7 @@
             },
             "Referring": {
                 "type": "object",
-                "description": "Information about the referring provider. Use when the referring provider applies to the entire claim, not just a specific service line.",
+                "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist. Use when the referring provider applies to the entire claim, not just a specific service line.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -14022,7 +14025,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
@@ -14136,7 +14140,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
@@ -14148,7 +14153,7 @@
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual."
+                        "description": "The provider's last name, if the provider is an individual. You must include either the `lastName` or `organizationName` property in this object."
                     },
                     "middleName": {
                         "type": "string",
@@ -14160,7 +14165,7 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name."
+                        "description": "The provider's business name, if the provider is an organization. You must include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -15221,7 +15226,8 @@
                 "properties": {
                     "assignedNumber": {
                         "type": "string",
-                        "description": "Deprecated; Stedi computes this value for you."
+                        "description": "Deprecated; Stedi computes this value for you.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "serviceDate": {
                         "type": "string",
@@ -15342,7 +15348,7 @@
                         "$ref": "#/components/schemas/ServiceLineProvider"
                     },
                     "purchasedServiceProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider"
+                        "$ref": "#/components/schemas/ServiceLineProviderPurchasedService"
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ServiceFacilityLocation"
@@ -15518,7 +15524,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
@@ -15609,7 +15616,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
@@ -15621,7 +15629,7 @@
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual."
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "middleName": {
                         "type": "string",
@@ -15633,7 +15641,7 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name."
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -15651,6 +15659,120 @@
                         },
                         "maxItems": 20,
                         "minItems": 0
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "ServiceLineProviderPurchasedService": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string",
+                        "description": "Set to `PurchasedServiceProvider`."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "description": "The provider's state license number."
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "description": "The provider's commercial number."
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The payer identification number. This must match the value you provided in `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerIdentifier`."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 0,
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
                     }
                 },
                 "required": [
@@ -16043,7 +16165,7 @@
             },
             "Supervising": {
                 "type": "object",
-                "description": "The entity responsible for supervising the healthcare services provided. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.",
+                "description": "The entity responsible for overseeing the rendering provider and the care reported in this claim. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.",
                 "properties": {
                     "providerType": {
                         "type": "string"
@@ -16074,7 +16196,8 @@
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "description": "Deprecated; do not use."
+                        "description": "Deprecated; do not use.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string",
