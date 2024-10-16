@@ -9465,6 +9465,43 @@
                     "Y"
                 ]
             },
+            "InstitutionalClaimReference": {
+                "type": "object",
+                "properties": {
+                    "correlationId": {
+                        "type": "string",
+                        "description": "Claim correlation ID"
+                    },
+                    "submitterId": {
+                        "type": "string",
+                        "description": "Submitter ID for transaction"
+                    },
+                    "customerClaimNumber": {
+                        "type": "string",
+                        "description": "Claim Number"
+                    },
+                    "patientControlNumber": {
+                        "type": "string",
+                        "description": "Control number for claim"
+                    },
+                    "timeOfResponse": {
+                        "type": "string",
+                        "description": "Time of response for claim"
+                    },
+                    "formatVersion": {
+                        "type": "string",
+                        "description": "Claim format version"
+                    },
+                    "claimType": {
+                        "type": "string",
+                        "description": "Claim Type"
+                    },
+                    "rhClaimNumber": {
+                        "type": "string",
+                        "description": "RH Claim Number"
+                    }
+                }
+            },
             "InstitutionalClaimSupplementalInformation": {
                 "type": "object",
                 "properties": {
@@ -9594,35 +9631,34 @@
                 "properties": {
                     "status": {
                         "type": "string",
-                        "description": "The status of the claim submission."
+                        "description": "Status of claim"
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "An identifier for the transaction."
+                        "description": "Transaction Set Control Number"
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                        "description": "Payer ID"
                     },
                     "claimReference": {
-                        "$ref": "#/components/schemas/ClaimReference"
+                        "$ref": "#/components/schemas/InstitutionalClaimReference"
                     },
                     "errors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ClaimsError"
+                            "$ref": "#/components/schemas/InstitutionalError"
                         },
-                        "description": "A list of errors. Currently not used."
+                        "description": "List of errors"
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
                     },
                     "meta": {
-                        "$ref": "#/components/schemas/ResponseMeta"
+                        "$ref": "#/components/schemas/InstitutionalResponseMeta"
                     },
                     "editStatus": {
-                        "type": "string",
-                        "description": "Currently not used."
+                        "type": "string"
                     },
                     "editResponses": {
                         "type": "array",
@@ -9632,7 +9668,7 @@
                         "description": "Currently not used."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/ClaimsPayer"
+                        "$ref": "#/components/schemas/InstitutionalPayer"
                     },
                     "failure": {
                         "$ref": "#/components/schemas/Failure"
@@ -9691,6 +9727,35 @@
                     "nationalDrugCode",
                     "nationalDrugUnitCount"
                 ]
+            },
+            "InstitutionalError": {
+                "type": "object",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The field related to the error"
+                    },
+                    "value": {
+                        "type": "string",
+                        "description": "Value for bad data error"
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Error code"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Description of error message."
+                    },
+                    "followupAction": {
+                        "type": "string",
+                        "description": "Follow up action to correct"
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "Location of error"
+                    }
+                }
             },
             "InstitutionalIndividualRelationshipCode": {
                 "type": "string",
@@ -10071,6 +10136,17 @@
                     "otherInsuredQualifier"
                 ]
             },
+            "InstitutionalPayer": {
+                "type": "object",
+                "properties": {
+                    "payerName": {
+                        "type": "string"
+                    },
+                    "payerID": {
+                        "type": "string"
+                    }
+                }
+            },
             "InstitutionalProcedureIdentifier": {
                 "type": "string",
                 "enum": [
@@ -10269,6 +10345,30 @@
                     "FT",
                     "FX"
                 ]
+            },
+            "InstitutionalResponseMeta": {
+                "type": "object",
+                "properties": {
+                    "submitterId": {
+                        "type": "string",
+                        "description": "submitterId assigned to this request"
+                    },
+                    "senderId": {
+                        "type": "string",
+                        "description": "senderId assigned to this request"
+                    },
+                    "billerId": {
+                        "type": "string",
+                        "description": "billerId assigned to this request"
+                    },
+                    "traceId": {
+                        "type": "string",
+                        "description": "Unique Id assigned to each request"
+                    },
+                    "applicationMode": {
+                        "type": "string"
+                    }
+                }
             },
             "InstitutionalService": {
                 "type": "object",
