@@ -3049,34 +3049,43 @@
                         "$ref": "#/components/schemas/InstitutionalProviderType"
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier referenced by `secondaryIdentificationQualifierCode`. For example, if `secondaryIdentificationQualifierCode` is set to `0B`, this property should be the provider's state license number."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's employer ID, also known as an EIN or TIN. Must be a string of exactly nine numbers with no separators. Only applies to the billing provider."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's [taxnonomy code](https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/health-care-taxonomy), a unique 10-character code that designates their classification and specialization. Only applies to the attending provider."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's last name. Can be up to 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's business name, when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -7674,6 +7683,7 @@
             },
             "Gender": {
                 "type": "string",
+                "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.",
                 "enum": [
                     "F",
                     "M",
@@ -8292,38 +8302,39 @@
             },
             "InstitutionalClaimReference": {
                 "type": "object",
+                "description": "Information about the claim.",
                 "properties": {
                     "correlationId": {
                         "type": "string",
-                        "description": "Claim correlation ID"
+                        "description": "An identifier Stedi assigns to the claim."
                     },
                     "submitterId": {
                         "type": "string",
-                        "description": "Submitter ID for transaction"
+                        "description": "Stedi's ID for the entity that submitted the claim."
                     },
                     "customerClaimNumber": {
                         "type": "string",
-                        "description": "Claim Number"
+                        "description": "A tracking number that Stedi assigns to the claim."
                     },
                     "patientControlNumber": {
                         "type": "string",
-                        "description": "Control number for claim"
+                        "description": "The `patientControlNumber` from the original request, if supplied. This is a unique identifier that you assign to the claim so you can track the claim and correlate it with responses from the payer."
                     },
                     "timeOfResponse": {
                         "type": "string",
-                        "description": "Time of response for claim"
+                        "description": "A timestamp for Stedi's response to the claim submission."
                     },
                     "formatVersion": {
                         "type": "string",
-                        "description": "Claim format version"
+                        "description": "The X12 EDI version Stedi used to generate the claim for the payer. This is always `5010`."
                     },
                     "claimType": {
                         "type": "string",
-                        "description": "Claim Type"
+                        "description": "The type of claim, always `INST`."
                     },
                     "rhClaimNumber": {
                         "type": "string",
-                        "description": "RH Claim Number"
+                        "description": "A tracking number Stedi assigns to the claim. This is the same as the `correlationId`."
                     }
                 }
             },
@@ -8375,7 +8386,8 @@
                 "type": "object",
                 "properties": {
                     "controlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A nine-digit number that uniquely identifies the transaction. If you don't set this property, Stedi autogenerates a control number for you."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
@@ -8454,15 +8466,15 @@
                 "properties": {
                     "status": {
                         "type": "string",
-                        "description": "Status of claim"
+                        "description": "The status of the claim submission."
                     },
                     "controlNumber": {
                         "type": "string",
-                        "description": "Transaction Set Control Number"
+                        "description": "An identifier for the transaction."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
-                        "description": "Payer ID"
+                        "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
                     },
                     "claimReference": {
                         "$ref": "#/components/schemas/InstitutionalClaimReference"
@@ -8472,7 +8484,7 @@
                         "items": {
                             "$ref": "#/components/schemas/InstitutionalError"
                         },
-                        "description": "List of errors"
+                        "description": "A list of errors. Currently not used."
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
@@ -8481,7 +8493,8 @@
                         "$ref": "#/components/schemas/InstitutionalResponseMeta"
                     },
                     "editStatus": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Currently not used."
                     },
                     "editResponses": {
                         "type": "array",
@@ -8556,27 +8569,27 @@
                 "properties": {
                     "field": {
                         "type": "string",
-                        "description": "The field related to the error"
+                        "description": "The field related to the error."
                     },
                     "value": {
                         "type": "string",
-                        "description": "Value for bad data error"
+                        "description": "The value for the data causing the error."
                     },
                     "code": {
                         "type": "string",
-                        "description": "Error code"
+                        "description": "The error code."
                     },
                     "description": {
                         "type": "string",
-                        "description": "Description of error message."
+                        "description": "The description of the error code."
                     },
                     "followupAction": {
                         "type": "string",
-                        "description": "Follow up action to correct"
+                        "description": "Recommended followup actions to correct the error."
                     },
                     "location": {
                         "type": "string",
-                        "description": "Location of error"
+                        "description": "Where the error is located in the original request."
                     }
                 }
             },
@@ -8961,12 +8974,15 @@
             },
             "InstitutionalPayer": {
                 "type": "object",
+                "description": "Information about the payer for the submitted claim.",
                 "properties": {
                     "payerName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's business name, such as Aetna or Cigna."
                     },
                     "payerID": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`."
                     }
                 }
             },
@@ -8994,10 +9010,12 @@
                 "description": "The entity responsible for the payment of the claim, such as an insurance company or government agency.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The business name of the payer receiving the claim, such as Aetna or Cigna."
                     },
                     "taxId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The receiver's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. This may be the same as the payer's TIN, but it can also be another unique identifier."
                     }
                 },
                 "required": [
@@ -9048,7 +9066,9 @@
                         "type": "string"
                     },
                     "providerUpinNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string"
@@ -9108,7 +9128,9 @@
                         "type": "string"
                     },
                     "providerUpinNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This shape is deprecated.",
+                        "deprecated": true
                     },
                     "taxonomyCode": {
                         "type": "string"
@@ -9171,25 +9193,27 @@
             },
             "InstitutionalResponseMeta": {
                 "type": "object",
+                "description": "Metadata from Stedi about the request.",
                 "properties": {
                     "submitterId": {
                         "type": "string",
-                        "description": "submitterId assigned to this request"
+                        "description": "The submitter ID assigned to this request."
                     },
                     "senderId": {
                         "type": "string",
-                        "description": "senderId assigned to this request"
+                        "description": "The sender ID assigned to this request."
                     },
                     "billerId": {
                         "type": "string",
-                        "description": "billerId assigned to this request"
+                        "description": "The biller ID assigned to this request."
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "Unique Id assigned to each request"
+                        "description": "The file execution ID, a unique identifier assigned to the processed file within the Stedi platform."
                     },
                     "applicationMode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Indicates where this request can be found for support."
                     }
                 }
             },
@@ -9377,10 +9401,12 @@
                 "description": "The entity submitting the healthcare claim. This is an organization, such as a hospital or other treatment center.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The business name of the institution submitting the claim."
                     },
                     "taxId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The submitter's Electronic Transmitter Identification Number (ETIN), **as assigned by the payer**. For some payers, this may be the same as the submitter's NPI, EIN/TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation"
@@ -9396,40 +9422,52 @@
                 "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.",
                 "properties": {
                     "memberId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
                     },
                     "standardHealthId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Deprecated. Use the `memberId` property instead.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "ssn": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, `123456789`."
                     },
                     "paymentResponsibilityLevelCode": {
                         "$ref": "#/components/schemas/InstitutionalSubscriberPaymentResponsibilityLevelCode"
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's last name. Can be up to 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/Gender"
                     },
                     "dateOfBirth": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's date of birth, formatted as `YYYYMMDD`."
                     },
                     "policyNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Deprecated.\nThis shape is deprecated.",
+                        "deprecated": true
                     },
                     "groupNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's health plan group number."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -9443,6 +9481,7 @@
             },
             "InstitutionalSubscriberPaymentResponsibilityLevelCode": {
                 "type": "string",
+                "description": "The payer's level of responsibility for paying this claim. Can be set to `A` - Payer Responsibility Four, `B` - Payer Responsibility Five, `C` - Payer Responsibility Six, `D` - Payer Responsibility Seven, `E` - Payer Responsibility Eight, `F` - Payer Responsibility Nine, `G` - Payer Responsibility Ten, `H` - Payer Responsibility Eleven, `P` - Primary, `S` - Secondary, `T` Tertiary, or `U` - Unknown (only use in payer-to-payer COB claims).",
                 "enum": [
                     "A",
                     "B",
@@ -10008,6 +10047,7 @@
             },
             "OperatingPhysicianIdentificationQualifierCode": {
                 "type": "string",
+                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and should not be used.",
                 "enum": [
                     "0B",
                     "1G",
@@ -10170,6 +10210,7 @@
             },
             "OtherOperatingPhysicianIdentificationQualifierCode": {
                 "type": "string",
+                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and should not be used.",
                 "enum": [
                     "0B",
                     "1G",
