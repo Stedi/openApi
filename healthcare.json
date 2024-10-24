@@ -4151,7 +4151,7 @@
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "The provider's suffix, such as Jr. or III. Can be up to 10 characters."
+                        "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
@@ -10139,7 +10139,7 @@
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "The provider's suffix, such as Jr. or III. Can be up to 10 characters."
+                        "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
@@ -10195,28 +10195,39 @@
                 "description": "Information about the provider who referred the patient for care. Include this object only when the referring provider is different than the provider listed in the `attending` object. Use this object for providers that apply to the entire claim.",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                        "type": "string",
+                        "description": "Set to `ReferringProvider`."
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/ReferringSecondaryIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -10224,31 +10235,43 @@
                         "description": "This shape is deprecated."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's last name. Can be up:: 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This object is deprecated.\nThis shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This object is deprecated.\nThis shape is deprecated."
                     }
                 },
                 "required": [
+                    "lastName",
                     "providerType"
                 ]
             },
@@ -10257,28 +10280,39 @@
                 "description": "Information about the provider who delivered the medical services or non-surgical procecures listed in the claim. Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. Use this object for providers that apply to the entire claim.",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                        "type": "string",
+                        "description": "Set to `RenderingProvider`."
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/RenderingSecondaryIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in the `secondaryIdentificationQualifierCode`."
                     },
                     "employerId": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The provider's commercial number.\nThis shape is deprecated."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The provider's location number.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The provider's state license number.\nThis shape is deprecated."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -10286,31 +10320,43 @@
                         "description": "This shape is deprecated."
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's last name. Can be up to 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This object is deprecated.\nThis shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This object is deprecated.\nThis shape is deprecated."
                     }
                 },
                 "required": [
+                    "lastName",
                     "providerType"
                 ]
             },
@@ -10604,7 +10650,7 @@
                     },
                     "suffix": {
                         "type": "string",
-                        "description": "The subscriber's suffix, such as Jr. or III. Can be up to 10 characters."
+                        "description": "The subscriber's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/Gender"
@@ -11171,28 +11217,35 @@
                 "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's business name. Can be up to 60 characters."
                     },
                     "identificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `identificationQualififerCode`."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's last name. Can be up to 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     }
                 },
                 "required": [
@@ -11334,28 +11387,35 @@
                 "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's business name. Can be up to 60 characters."
                     },
                     "identificationQualifierCode": {
                         "$ref": "#/components/schemas/OtherOperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `identificationQualififerCode`."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's first name. Can be up to 35 characters."
                     },
                     "lastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's last name. Can be up to 60 characters."
                     },
                     "middleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The physician's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     }
                 },
                 "required": [
@@ -12011,15 +12071,21 @@
                 "description": "Use when the address for payment is different than that of the billing provider for this claim.",
                 "properties": {
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address information."
                     },
                     "entityTypeQualifier": {
                         "$ref": "#/components/schemas/PayToAddressNameEntityTypeQualifier"
                     }
-                }
+                },
+                "required": [
+                    "address",
+                    "entityTypeQualifier"
+                ]
             },
             "PayToAddressNameEntityTypeQualifier": {
                 "type": "string",
+                "description": "Code identifying the type of entity. Can be set to `2` - Non-Person Entity.",
                 "enum": [
                     "2"
                 ]
@@ -12066,36 +12132,47 @@
                 "description": "Use for subrogation payment requests. If you include this information, you must also set the `claimInformation.otherSubscriberInformation.payerPaidAmount` to the amount the payer (for example, Medicaid) actually paid.",
                 "properties": {
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "Specify the location of the named party."
                     },
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The business name of the organization to which the payment should be made."
                     },
                     "identificationCodeQualifier": {
                         "$ref": "#/components/schemas/PayToPlanNameIdentificationCodeQualifier"
                     },
                     "identificationCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identification code specified by the `identificationCodeQualifier`."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number. You should only include this information when the `identificationCodeQualifier` is set to `XV` - Centers for Medicare and Medicaid Services PlanID."
                     },
                     "claimOfficeNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Claim Office Number."
                     },
                     "taxId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer tax identification number (TIN). This is a unique number assigned to the payer by the IRS."
                     },
                     "naic": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The National Association of Insurance Commisioners (NAIC) code. This is the five-digit identifier assigned to each insurance company."
                     }
                 },
                 "required": [
+                    "identificationCode",
+                    "identificationCodeQualifier",
+                    "organizationName",
                     "taxId"
                 ]
             },
             "PayToPlanNameIdentificationCodeQualifier": {
                 "type": "string",
+                "description": "The type of identification code used to identify the organization. Can be set to `PI` - Payer Identification or `XV` - Centers for Medicare and Medicaid Services PlanID. Use `XV` when reporting the Health Plan ID (HPID) or Other Entity Identifier (OEID).",
                 "enum": [
                     "PI",
                     "XV"
@@ -14083,11 +14160,11 @@
             },
             "ReferringSecondaryIdentificationQualifierCode": {
                 "type": "string",
+                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and should not be used.",
                 "enum": [
                     "0B",
                     "1G",
-                    "G2",
-                    "LU"
+                    "G2"
                 ]
             },
             "RejectReasonCode": {
@@ -14198,6 +14275,7 @@
             },
             "RenderingSecondaryIdentificationQualifierCode": {
                 "type": "string",
+                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and should not be used.",
                 "enum": [
                     "0B",
                     "1G",
