@@ -4054,7 +4054,8 @@
                         "$ref": "#/components/schemas/AdmittingDiagnosisQualifierCode"
                     },
                     "admittingDiagnosisCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The admitting diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     }
                 },
                 "required": [
@@ -4064,6 +4065,7 @@
             },
             "AdmittingDiagnosisQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of admitting diagnosis code used. Can be set to `ABJ` - International Classification of Diseases Clinical Modification (ICD-10-CM) Admitting Diagnosis or `BJ` - International Classification of Diseases Clinical Modification (ICD-9-CM) Admitting Diagnosis. Note that ICD-9 is deprecated and cannot be used in new claims.",
                 "enum": [
                     "ABJ",
                     "BJ"
@@ -7944,7 +7946,8 @@
                 "type": "object",
                 "properties": {
                     "drugRelatedGroupCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The diagnosis related group code."
                     }
                 },
                 "required": [
@@ -8917,7 +8920,8 @@
                         "$ref": "#/components/schemas/ExternalCauseOfInjuryQualifierCode"
                     },
                     "externalCauseOfInjury": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The external cause of injury code(s) for the patient. These must be valid codes from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
                         "$ref": "#/components/schemas/ExternalCauseOfInjuryPresentOnAdmissionIndicator"
@@ -8930,6 +8934,7 @@
             },
             "ExternalCauseOfInjuryPresentOnAdmissionIndicator": {
                 "type": "string",
+                "description": "Indicates whether the external cause of injury was present on admission. Can be set to `N` - No (onset did NOT occur prior to admission to the hospital), `Y` - Yes (onset occurred prior to admission to the hospital), `U` - Unknown, or `W` - Not Applicable.",
                 "enum": [
                     "N",
                     "U",
@@ -8939,6 +8944,7 @@
             },
             "ExternalCauseOfInjuryQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of external cause of injury code used. Can be set to `ABN` - International Classification of Diseases Clinical Modification External Cause of Injury Code or `BN` - International Classification of Diseases Clinical Modification External Cause of Injury Code. Note that ICD-9 is deprecated and cannot be used in new claims.",
                 "enum": [
                     "ABN",
                     "BN"
@@ -9343,21 +9349,27 @@
             },
             "InstitutionalClaimDateInformation": {
                 "type": "object",
+                "description": "Dates and times related to the claim. For example, when the patient was discharged from the hospital.",
                 "properties": {
                     "admissionDateAndHour": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "When the patient was admitted to the hospital or facility. This property is **required** on inpatient claims. Can be expressed as a date and time (YYYYMMDDHHMM) or a single date (YYYYMMDD)."
                     },
                     "statementBeginDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The beginning date of the statement, formatted as YYYYMMDD."
                     },
                     "statementEndDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The ending date of the statement, formatted as YYYYMMDD."
                     },
                     "dischargeHour": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The time the patient was discharged from the hospital or facility. This property is **required** on final inpatient claims. Can be expressed as a time in format HHMM."
                     },
                     "repricerReceivedDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the repricer received the claim, expressed as YYYYMMDD. Required when a repricer is passing the claim onto the payer."
                     }
                 },
                 "required": [
@@ -9400,31 +9412,41 @@
                         "$ref": "#/components/schemas/ClaimFilingCode"
                     },
                     "propertyCasualtyClaimNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The agency claim number for this transaction. Used when services included in this claim are part of a property and casualty claim. This property is typically not used by Stedi customers."
                     },
                     "patientWeight": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "patientControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this property so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA).)"
                     },
                     "claimChargeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The total dollar amount charged for the services on this claim, expressed as a decimal. For example, `100.50`. This is the total amount before any adjustments or payments. The amount must balance to the sum of the service line charges."
                     },
                     "placeOfServiceCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code identifying the type of facility where the services were or may be performed. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
                     },
                     "claimFrequencyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code specifying the frequency of the claim. Not all payers allow all codes. Can be set to `1` - Original claim submission, `2` - Interim – First Claim, `3` - Interim – Continuing Claim, `4` - Interim – Last Claim, `7` - Replacement, `8` - Void, and `9` - Final Claim for a Home Health PPS Episode."
                     },
                     "signatureIndicator": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "planParticipationCode": {
                         "$ref": "#/components/schemas/PlanParticipationCode"
                     },
                     "benefitsAssignmentCertificationIndicator": {
-                        "$ref": "#/components/schemas/InstitutionalClaimInformationBenefitsAssignmentCertificationIndicator"
+                        "$ref": "#/components/schemas/InstitutionalClaimInformationBenefitsAssignmentCertificationIndicator",
+                        "description": "A code indicating whether the patient or an authorized person has authorized the plan to remit payment directly to the provider. Use `W` when the patient refuses to assign benefits. Can be set to `N` - No, `Y` - Yes, or `W` - Not Applicable."
                     },
                     "releaseInformationCode": {
                         "$ref": "#/components/schemas/ReleaseInformationCode"
@@ -9433,10 +9455,13 @@
                         "$ref": "#/components/schemas/InstitutionalDelayReasonCode"
                     },
                     "patientAmountPaid": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "patientEstimatedAmountDue": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The total estimated amount the patient must pay for the services listed in this claim. Expressed as a decimal, such as `20.50`. This includes any co-payments, co-insurance, or other costs."
                     },
                     "fileInformation": {
                         "type": "array",
@@ -9444,10 +9469,12 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
                     },
                     "billingNote": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "To communicate special instructions regarding claim billing. Required when the provider judges the information is needed to substantiate the medical treatment and cannot be provided elsewhere in the request. Can be up to 80 characters."
                     },
                     "claimNotes": {
                         "$ref": "#/components/schemas/ClaimNotes"
@@ -9467,13 +9494,16 @@
                             "$ref": "#/components/schemas/ClaimInformationConditionCodesItem"
                         },
                         "maxItems": 12,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Indicates the condition of the patient for EPSDT referral situations. Can be set to `AV` - Available-Not Used, `NU` - Not Used, `S2` - Under Treatment, `ST` - New Services Requested. Uset `AV` when the patient refused a referral. Use `S2` when the patient is currently under treatment for the referred diagnostic or corrective health problem. Use `ST` when the patient is referred to another provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals) OR the patient is scheduled for another appointment with the screening provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals)."
                     },
                     "principalDiagnosis": {
-                        "$ref": "#/components/schemas/PrincipalDiagnosis"
+                        "$ref": "#/components/schemas/PrincipalDiagnosis",
+                        "description": "This is the diagnosis for the condition determined to be primarily responsible for admission of the patient into the health facility for care."
                     },
                     "admittingDiagnosis": {
-                        "$ref": "#/components/schemas/AdmittingDiagnosis"
+                        "$ref": "#/components/schemas/AdmittingDiagnosis",
+                        "description": "The diagnosis for which the patient sought medical care. This may be different from the principal diagnosis."
                     },
                     "patientReasonForVisits": {
                         "type": "array",
@@ -9481,7 +9511,8 @@
                             "$ref": "#/components/schemas/PatientReasonForVisit"
                         },
                         "maxItems": 3,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "The diagnosis for which the patient visited an outpatient provider. Required when the claim involves outpatient visits. This may be different from the principal diagnosis."
                     },
                     "externalCauseOfInjuries": {
                         "type": "array",
@@ -9489,10 +9520,12 @@
                             "$ref": "#/components/schemas/ExternalCauseOfInjury"
                         },
                         "maxItems": 12,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Diagnosis codes to describe the patient's condition. Required when an external Cause of Injury is needed to describe an injury, poisoning, or adverse effect. Note that to fully describe an injury using ICD-10-CM, it will be necessary to report a series of 3 external cause of injury codes. Refer to the [ICD-10-CM Official Guidelines for Coding and Reporting](https://www.cms.gov/Outreach-and-Education/MLN/WBT/MLN6447308-ICD-10-CM/icd10cm/lesson04/03-coding-guidelines/index.html)."
                     },
                     "diagnosisRelatedGroupInformation": {
-                        "$ref": "#/components/schemas/DiagnosisRelatedGroupInformation"
+                        "$ref": "#/components/schemas/DiagnosisRelatedGroupInformation",
+                        "description": "Diagnosis related group (DRG) code. Required when an inpatient hospital is under DRG contract with a payer and the contract requires the provider to identify the DRG to the payer."
                     },
                     "otherDiagnosisInformationList": {
                         "type": "array",
@@ -9504,10 +9537,12 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 0
+                        "minItems": 0,
+                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array."
                     },
                     "principalProcedureInformation": {
-                        "$ref": "#/components/schemas/PrincipalProcedureInformation"
+                        "$ref": "#/components/schemas/PrincipalProcedureInformation",
+                        "description": "The procedure code for the primary procedure performed on the patient. Required on inpatient claims when a procedure was performed."
                     },
                     "otherProcedureInformationList": {
                         "type": "array",
@@ -9666,45 +9701,58 @@
             },
             "InstitutionalClaimSupplementalInformation": {
                 "type": "object",
+                "description": "Additional information or documentation required for the claim.",
                 "properties": {
                     "reportInformation": {
                         "$ref": "#/components/schemas/InstitutionalReportInformation"
                     },
                     "priorAuthorizationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when an authorization number is assigned by the payer or UMO and the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to decide the outcome of a health services review or the owner of the information. This value applies to the entire claim unless overridden within a specific service line."
                     },
                     "referralNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when a referral number is assigned by the payer or Utilization Management Organization (UMO) and a referral is involved. This value applies to the entire claim unless overridden within a specific service line."
                     },
                     "claimControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "An identifier the payer previously assigned to the claim. Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim."
                     },
                     "repricedClaimNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
                     },
                     "investigationalDeviceExemptionNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when claim involves a Food and Drug Administration (FDA) assigned investigational device exemption (IDE) number. When more than one IDE applies, you must split into separate claims."
                     },
                     "claimNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The identifier assigned by clearinghouse, van, etc. when they need to assign their own unique claim number. Providers should not complete this property.\nThis shape is deprecated."
                     },
                     "medicalRecordNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when the provider needs to identify the actual medical record of the patient for this episode of care."
                     },
                     "demoProjectIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when it is necessary to identify claims that are atypical in ways such as content, purpose, and/or payment. For example, claims made as the result of a demonstration or a clinical trial."
                     },
                     "serviceAuthorizationExceptionCode": {
                         "$ref": "#/components/schemas/InstitutionalServiceAuthorizationExceptionCode"
                     },
                     "autoAccidentState": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when the services reported on this claim are related to an auto accident and the accident occurred in a country or location that has a state, province, or sub-country code."
                     },
                     "peerReviewAuthorizationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when an external Peer Review Organization assigns an Approval Number to services deemed medically necessary by that organization."
                     },
                     "adjustedRepricedClaimRefNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The adjusted repriced claim reference number. Required when the repricer believes this information is necessary. Providers should not complete this property."
                     }
                 }
             },
@@ -9748,10 +9796,12 @@
                         "$ref": "#/components/schemas/PayToAddressName"
                     },
                     "operatingPhysician": {
-                        "$ref": "#/components/schemas/OperatingPhysician"
+                        "$ref": "#/components/schemas/OperatingPhysician",
+                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim."
                     },
                     "otherOperatingPhysician": {
-                        "$ref": "#/components/schemas/OtherOperatingPhysician"
+                        "$ref": "#/components/schemas/OtherOperatingPhysician",
+                        "description": "Information about any other operating physician involved in the surgical procedures listed in the claim. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim."
                     },
                     "claimInformation": {
                         "$ref": "#/components/schemas/InstitutionalClaimInformation"
@@ -9852,6 +9902,7 @@
             },
             "InstitutionalDelayReasonCode": {
                 "type": "string",
+                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#delay-reason-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -10595,6 +10646,7 @@
             },
             "InstitutionalReportInformation": {
                 "type": "object",
+                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/ReportInformationAttachmentReportTypeCode"
@@ -10603,7 +10655,8 @@
                         "$ref": "#/components/schemas/InstitutionalReportInformationAttachmentTransmissionCode"
                     },
                     "attachmentControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`."
                     }
                 },
                 "required": [
@@ -10614,6 +10667,7 @@
             },
             "InstitutionalReportInformationAttachmentTransmissionCode": {
                 "type": "string",
+                "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.",
                 "enum": [
                     "AA",
                     "BM",
@@ -10694,6 +10748,7 @@
             },
             "InstitutionalServiceAuthorizationExceptionCode": {
                 "type": "string",
+                "description": "Code indicating the type of service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#service-authorization-exception-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -10779,10 +10834,12 @@
                         "$ref": "#/components/schemas/LineAdjustmentInformation"
                     },
                     "operatingPhysician": {
-                        "$ref": "#/components/schemas/OperatingPhysician"
+                        "$ref": "#/components/schemas/OperatingPhysician",
+                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the service line. Required when a surgical procedure code is listed."
                     },
                     "otherOperatingPhysician": {
-                        "$ref": "#/components/schemas/OperatingPhysician"
+                        "$ref": "#/components/schemas/OperatingPhysician",
+                        "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the service line."
                     },
                     "lineRepricingInformation": {
                         "$ref": "#/components/schemas/ClaimPricingInformation"
@@ -11464,7 +11521,6 @@
             },
             "OperatingPhysician": {
                 "type": "object",
-                "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -11589,10 +11645,12 @@
                         "$ref": "#/components/schemas/OtherDiagnosisInformationQualifierCode"
                     },
                     "otherDiagnosisCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
-                        "$ref": "#/components/schemas/OtherDiagnosisInformationPresentOnAdmissionIndicator"
+                        "$ref": "#/components/schemas/OtherDiagnosisInformationPresentOnAdmissionIndicator",
+                        "description": "Indicates whether the other diagnosis was present on admission. Can be set to `N` - No (onset did NOT occur prior to admission to the hospital), `Y` - Yes (onset occurred prior to admission to the hospital), `U` - Unknown, or `W` - Not Applicable."
                     }
                 },
                 "required": [
@@ -11611,6 +11669,7 @@
             },
             "OtherDiagnosisInformationQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of diagnosis code used. Can be set to `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) or `BF` - International Classification of Diseases Clinical Modification (ICD-9-CM). Note that ICD-9 is deprecated and cannot be used in new claims.",
                 "enum": [
                     "ABF",
                     "BF"
@@ -11634,7 +11693,6 @@
             },
             "OtherOperatingPhysician": {
                 "type": "object",
-                "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -12301,7 +12359,8 @@
                         "$ref": "#/components/schemas/PatientReasonForVisitQualifierCode"
                     },
                     "patientReasonForVisitCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The patient's reason for visit code. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     }
                 },
                 "required": [
@@ -12311,6 +12370,7 @@
             },
             "PatientReasonForVisitQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of reason for visit code used. Can be set to `APR` - International Classification of Diseases Clinical Modification Patient's Reason for Visit or `PR` - International Classification of Diseases Clinical Modification Patient's Reason for Visit. Note that ICD-9 is deprecated and cannot be used in new claims.",
                 "enum": [
                     "APR",
                     "PR"
@@ -13760,7 +13820,8 @@
                         "$ref": "#/components/schemas/PrincipalDiagnosisQualifierCode"
                     },
                     "principalDiagnosisCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The principal diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
                         "$ref": "#/components/schemas/PrincipalDiagnosisPresentOnAdmissionIndicator"
@@ -13773,6 +13834,7 @@
             },
             "PrincipalDiagnosisPresentOnAdmissionIndicator": {
                 "type": "string",
+                "description": "Indicates whether the principal diagnosis was present on admission. Can be set to `N` - No (onset did NOT occur prior to admission to the hospital), `Y` - Yes (onset occurred prior to admission to the hospital), `U` - Unknown, or `W` - Not Applicable.",
                 "enum": [
                     "N",
                     "Y",
@@ -13782,6 +13844,7 @@
             },
             "PrincipalDiagnosisQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of diagnosis code used. Can be set to `ABK` - International Classification of Diseases Clinical Modification Principal Diagnosis or `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis. Note that ICD-9 is deprecated and cannot be used in new claims.",
                 "enum": [
                     "ABK",
                     "BK"
@@ -13794,10 +13857,12 @@
                         "$ref": "#/components/schemas/PrincipalProcedureInformationQualifierCode"
                     },
                     "principalProcedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The principal procedure code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "principalProcedureDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the procedure was performed, formatted as YYYYMMDD."
                     }
                 },
                 "required": [
@@ -13807,6 +13872,7 @@
             },
             "PrincipalProcedureInformationQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of procedure code used. Can be set to `BBR` - International Classification of Diseases Clinical Modification (ICD-10-PCS) Principal Procedure Codes, `BR` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Procedure Codes, or `CAH` - Advanced Billing Concepts (ABC) Codes. Note that ICD-9 and ABC codes are deprecated and cannot be used in new claims.",
                 "enum": [
                     "BBR",
                     "BR",
@@ -14555,6 +14621,7 @@
             },
             "ReportInformationAttachmentReportTypeCode": {
                 "type": "string",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-report-type-codes) for a complete list.",
                 "enum": [
                     "03",
                     "04",
