@@ -9815,7 +9815,8 @@
                         "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to desginate a claim as test data."
                     },
                     "billing": {
-                        "$ref": "#/components/schemas/Billing"
+                        "$ref": "#/components/schemas/Billing",
+                        "description": "Information about the billing provider. For tax identification, you **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both. Note that the provider's 10-digit National Provider Identifier (NPI) is also **required**, if one is assigned."
                     },
                     "referring": {
                         "$ref": "#/components/schemas/InstitutionalReferring"
@@ -10392,7 +10393,7 @@
                     },
                     "npi": {
                         "type": "string",
-                        "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The National Provider Identifier (NPI) of the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards. Note that this is **required** for billing providers that have an NPI assigned."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -10452,7 +10453,7 @@
                     },
                     "taxId": {
                         "type": "string",
-                        "description": "The receiver's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. This may be the same as the payer's TIN, but it can also be another unique identifier."
+                        "description": "The receiver's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. This may be the same as the payer's TIN, but it can also be another unique identifier. We **strongly recommend** including this property in your request."
                     }
                 },
                 "required": [
@@ -10903,7 +10904,8 @@
                 },
                 "required": [
                     "contactInformation",
-                    "organizationName"
+                    "organizationName",
+                    "taxId"
                 ]
             },
             "InstitutionalSubscriber": {
