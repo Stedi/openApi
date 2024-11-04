@@ -4231,6 +4231,9 @@
                     },
                     "npi": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^\\d{10}$",
                         "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -4247,26 +4250,34 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "The provider's [taxnonomy code](https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/health-care-taxonomy), a unique 10-character code that designates their classification and specialization. Only applies to the attending provider."
                     },
                     "firstName": {
                         "type": "string",
+                        "maxLength": 35,
                         "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The provider's last name. Can be up to 60 characters. This is **required** when the provider is an individual."
                     },
                     "middleName": {
                         "type": "string",
+                        "maxLength": 25,
                         "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
                         "type": "string",
+                        "maxLength": 10,
                         "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The provider's business name. This is **required** when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
