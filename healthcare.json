@@ -4231,9 +4231,6 @@
                     },
                     "npi": {
                         "type": "string",
-                        "maxLength": 10,
-                        "minLength": 10,
-                        "pattern": "^\\d{10}$",
                         "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -9811,7 +9808,7 @@
                         "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim."
                     },
                     "otherOperatingPhysician": {
-                        "$ref": "#/components/schemas/OtherOperatingPhysician",
+                        "$ref": "#/components/schemas/OperatingPhysician",
                         "description": "Information about any other operating physician involved in the surgical procedures listed in the claim. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim."
                     },
                     "claimInformation": {
@@ -10419,26 +10416,34 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "The provider's [taxnonomy code](https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/health-care-taxonomy), a unique 10-character code that designates their classification and specialization. Only applies to the attending provider."
                     },
                     "firstName": {
                         "type": "string",
+                        "maxLength": 35,
                         "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The provider's last name. Can be up to 60 characters."
                     },
                     "middleName": {
                         "type": "string",
+                        "maxLength": 25,
                         "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
                         "type": "string",
+                        "maxLength": 10,
                         "description": "The provider's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The provider's business name, when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
@@ -10944,6 +10949,7 @@
                     },
                     "ssn": {
                         "type": "string",
+                        "pattern": "^[0-9]{9}$",
                         "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, `123456789`."
                     },
                     "paymentResponsibilityLevelCode": {
@@ -10951,18 +10957,22 @@
                     },
                     "firstName": {
                         "type": "string",
+                        "maxLength": 35,
                         "description": "The subscriber's first name. Can be up to 35 characters."
                     },
                     "lastName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The subscriber's last name. Can be up to 60 characters."
                     },
                     "middleName": {
                         "type": "string",
+                        "maxLength": 25,
                         "description": "The subscriber's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
                         "type": "string",
+                        "maxLength": 10,
                         "description": "The subscriber's name suffix, such as Jr. or III. Can be up to 10 characters."
                     },
                     "gender": {
@@ -10970,6 +10980,7 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The subscriber's date of birth, formatted as `YYYYMMDD`."
                     },
                     "policyNumber": {
@@ -11719,55 +11730,6 @@
                 "enum": [
                     "1",
                     "2"
-                ]
-            },
-            "OtherOperatingPhysician": {
-                "type": "object",
-                "properties": {
-                    "organizationName": {
-                        "type": "string",
-                        "description": "The physician's business name. Can be up to 60 characters."
-                    },
-                    "identificationQualifierCode": {
-                        "$ref": "#/components/schemas/OtherOperatingPhysicianIdentificationQualifierCode"
-                    },
-                    "secondaryIdentifier": {
-                        "type": "string",
-                        "description": "The identifier specified in `identificationQualififerCode`."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The physician's first name. Can be up to 35 characters."
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The physician's last name. Can be up to 60 characters."
-                    },
-                    "middleName": {
-                        "type": "string",
-                        "description": "The physician's middle name or initial. Can be up to 25 characters."
-                    },
-                    "suffix": {
-                        "type": "string",
-                        "description": "The physician's name suffix, such as Jr. or III. Can be up to 10 characters."
-                    },
-                    "npi": {
-                        "type": "string",
-                        "description": "The physician's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
-                    }
-                },
-                "required": [
-                    "lastName"
-                ]
-            },
-            "OtherOperatingPhysicianIdentificationQualifierCode": {
-                "type": "string",
-                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and should not be used.",
-                "enum": [
-                    "0B",
-                    "1G",
-                    "G2",
-                    "LU"
                 ]
             },
             "OtherPayerAttendingProvider": {
