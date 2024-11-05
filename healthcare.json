@@ -9361,22 +9361,27 @@
                 "properties": {
                     "admissionDateAndHour": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])([01]\\d|2[0-3])[0-5]\\d$|^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "When the patient was admitted to the hospital or facility. This property is **required** on inpatient claims. Can be expressed as a date and time (YYYYMMDDHHMM) or a single date (YYYYMMDD)."
                     },
                     "statementBeginDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The beginning date of the statement, formatted as YYYYMMDD."
                     },
                     "statementEndDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The ending date of the statement, formatted as YYYYMMDD."
                     },
                     "dischargeHour": {
                         "type": "string",
+                        "pattern": "^([01]\\d|2[0-3])[0-5]\\d$",
                         "description": "The time the patient was discharged from the hospital or facility. This property is **required** on final inpatient claims. Can be expressed as a time in format HHMM."
                     },
                     "repricerReceivedDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The date the repricer received the claim, expressed as YYYYMMDD. Required when a repricer is passing the claim onto the payer."
                     }
                 },
@@ -9430,10 +9435,12 @@
                     },
                     "patientControlNumber": {
                         "type": "string",
+                        "maxLength": 20,
                         "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this property so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA).)"
                     },
                     "claimChargeAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total dollar amount charged for the services on this claim, expressed as a decimal. For example, `100.50`. This is the total amount before any adjustments or payments. The amount must balance to the sum of the service line charges."
                     },
                     "placeOfServiceCode": {
@@ -9469,6 +9476,7 @@
                     },
                     "patientEstimatedAmountDue": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total estimated amount the patient must pay for the services listed in this claim. Expressed as a decimal, such as `20.50`. This includes any co-payments, co-insurance, or other costs."
                     },
                     "fileInformation": {
@@ -9482,6 +9490,7 @@
                     },
                     "billingNote": {
                         "type": "string",
+                        "maxLength": 80,
                         "description": "To communicate special instructions regarding claim billing. Required when the provider judges the information is needed to substantiate the medical treatment and cannot be provided elsewhere in the request. Can be up to 80 characters."
                     },
                     "claimNotes": {
@@ -12462,6 +12471,7 @@
                     },
                     "naic": {
                         "type": "string",
+                        "pattern": "^\\d{5}$",
                         "description": "The National Association of Insurance Commisioners (NAIC) code. This is the five-digit identifier assigned to each insurance company."
                     }
                 },
@@ -13854,6 +13864,7 @@
                     },
                     "principalProcedureDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The date when the procedure was performed, formatted as YYYYMMDD."
                     }
                 },
