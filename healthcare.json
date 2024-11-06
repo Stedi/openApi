@@ -4283,7 +4283,7 @@
                         "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
                         "deprecated": true,
                         "description": "This shape is deprecated."
                     }
@@ -9829,7 +9829,7 @@
                         "$ref": "#/components/schemas/InstitutionalSubscriber"
                     },
                     "dependent": {
-                        "$ref": "#/components/schemas/Dependent",
+                        "$ref": "#/components/schemas/InstitutionalDependent",
                         "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present."
                     },
                     "providers": {
@@ -9953,6 +9953,36 @@
                     "conditionCode"
                 ]
             },
+            "InstitutionalContactInformation": {
+                "type": "object",
+                "description": "PER",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "Loop: 1000A, Segment: PER, Element: PER02"
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "maxLength": 256,
+                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes: PER04-6-8 where PER03-5-7=TE"
+                    },
+                    "faxNumber": {
+                        "type": "string",
+                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes:PER04-6-8 where PER03-5-7=FX"
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes:PER04-6-8 where PER03-5-7=EM"
+                    },
+                    "validContact": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
             "InstitutionalDelayReasonCode": {
                 "type": "string",
                 "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#delay-reason-codes) for a complete list.",
@@ -9969,6 +9999,57 @@
                     "10",
                     "11",
                     "15"
+                ]
+            },
+            "InstitutionalDependent": {
+                "type": "object",
+                "description": "Loop: 2000B and 2000C",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "description": "Loop: 2010CA, Segment: NM1, Element: NM104"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "Loop: 2010CA, Segment: NM1, Element: NM103 where NM102=1"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "description": "Loop: 2010CA, Segment: NM1, Element: NM105"
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "description": "Loop: 2010CA, Segment: NM1, Element: NM107"
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/Gender"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "Loop: 2010CA, Segment: DMG, Element: DMG02 where DMG01=D8 YYYYMMDD"
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "Loop: 2010CA, Segment: REF, Element: REF02 where REF01=SY"
+                    },
+                    "relationshipToSubscriberCode": {
+                        "$ref": "#/components/schemas/InstitutionalRelationshipToSubscriberCode"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    }
+                },
+                "required": [
+                    "dateOfBirth",
+                    "firstName",
+                    "gender",
+                    "lastName",
+                    "relationshipToSubscriberCode"
                 ]
             },
             "InstitutionalDrugIdentification": {
@@ -10509,7 +10590,7 @@
                         "description": "The provider's business address. Only applies to the billing provider."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
                         "description": "The provider's contact information. Only applies to the billing provider. You must include at least one communication method (phone, fax, or email) in this object."
                     }
                 },
@@ -10523,10 +10604,13 @@
                 "properties": {
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The business name of the payer receiving the claim, such as Aetna or Cigna."
                     },
                     "taxId": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The receiver's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. This may be the same as the payer's TIN, but it can also be another unique identifier. We **strongly recommend** including this property in your request."
                     }
                 },
@@ -10629,7 +10713,7 @@
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
                         "deprecated": true,
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     }
@@ -10637,6 +10721,18 @@
                 "required": [
                     "lastName",
                     "providerType"
+                ]
+            },
+            "InstitutionalRelationshipToSubscriberCode": {
+                "type": "string",
+                "enum": [
+                    "01",
+                    "19",
+                    "20",
+                    "39",
+                    "40",
+                    "53",
+                    "G8"
                 ]
             },
             "InstitutionalRendering": {
@@ -10719,7 +10815,7 @@
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
                         "deprecated": true,
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     }
@@ -11025,14 +11121,17 @@
                 "properties": {
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The business name of the institution submitting the claim."
                     },
                     "taxId": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The submitter's Electronic Transmitter Identification Number (ETIN), **as assigned by the payer**. For some payers, this may be the same as the submitter's NPI, EIN/TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/InstitutionalContactInformation"
                     }
                 },
                 "required": [
