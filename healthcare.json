@@ -4055,6 +4055,7 @@
                     },
                     "admittingDiagnosisCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The admitting diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     }
                 },
@@ -7969,6 +7970,7 @@
                 "properties": {
                     "drugRelatedGroupCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The diagnosis related group code."
                     }
                 },
@@ -8943,6 +8945,7 @@
                     },
                     "externalCauseOfInjury": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The external cause of injury code(s) for the patient. These must be valid codes from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
@@ -9459,10 +9462,12 @@
                     },
                     "placeOfServiceCode": {
                         "type": "string",
+                        "maxLength": 2,
                         "description": "Code identifying the type of facility where the services were or may be performed. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
                     },
                     "claimFrequencyCode": {
                         "type": "string",
+                        "maxLength": 1,
                         "description": "Code specifying the frequency of the claim. Not all payers allow all codes. Can be set to `1` - Original claim submission, `2` - Interim – First Claim, `3` - Interim – Continuing Claim, `4` - Interim – Last Claim, `7` - Replacement, `8` - Void, and `9` - Final Claim for a Home Health PPS Episode."
                     },
                     "signatureIndicator": {
@@ -9946,7 +9951,8 @@
                 "type": "object",
                 "properties": {
                     "conditionCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 30
                     }
                 },
                 "required": [
@@ -9955,25 +9961,20 @@
             },
             "InstitutionalContactInformation": {
                 "type": "object",
-                "description": "PER",
                 "properties": {
                     "name": {
                         "type": "string",
-                        "maxLength": 60,
-                        "description": "Loop: 1000A, Segment: PER, Element: PER02"
+                        "maxLength": 60
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "maxLength": 256,
-                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes: PER04-6-8 where PER03-5-7=TE"
+                        "maxLength": 256
                     },
                     "faxNumber": {
-                        "type": "string",
-                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes:PER04-6-8 where PER03-5-7=FX"
+                        "type": "string"
                     },
                     "email": {
-                        "type": "string",
-                        "description": "Loop: 1000A, Segment: PER, Element: PER04, Notes:PER04-6-8 where PER03-5-7=EM"
+                        "type": "string"
                     },
                     "validContact": {
                         "type": "boolean"
@@ -10003,39 +10004,32 @@
             },
             "InstitutionalDependent": {
                 "type": "object",
-                "description": "Loop: 2000B and 2000C",
                 "properties": {
                     "firstName": {
                         "type": "string",
-                        "maxLength": 35,
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM104"
+                        "maxLength": 35
                     },
                     "lastName": {
                         "type": "string",
-                        "maxLength": 60,
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM103 where NM102=1"
+                        "maxLength": 60
                     },
                     "middleName": {
                         "type": "string",
-                        "maxLength": 25,
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM105"
+                        "maxLength": 25
                     },
                     "suffix": {
                         "type": "string",
-                        "maxLength": 10,
-                        "description": "Loop: 2010CA, Segment: NM1, Element: NM107"
+                        "maxLength": 10
                     },
                     "gender": {
                         "$ref": "#/components/schemas/Gender"
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
-                        "description": "Loop: 2010CA, Segment: DMG, Element: DMG02 where DMG01=D8 YYYYMMDD"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "ssn": {
-                        "type": "string",
-                        "description": "Loop: 2010CA, Segment: REF, Element: REF02 where REF01=SY"
+                        "type": "string"
                     },
                     "relationshipToSubscriberCode": {
                         "$ref": "#/components/schemas/InstitutionalRelationshipToSubscriberCode"
@@ -10949,11 +10943,9 @@
             },
             "InstitutionalServiceFacilityLocation": {
                 "type": "object",
-                "description": "Loop: 2310E",
                 "properties": {
                     "organizationName": {
-                        "type": "string",
-                        "description": "Loop: 2310E, Segment: NM1, Element: NM103"
+                        "type": "string"
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -10963,12 +10955,10 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "maxLength": 50,
-                        "description": "Loop: 2310E, Segment: REF, Element: REF02"
+                        "maxLength": 50
                     },
                     "identificationCode": {
-                        "type": "string",
-                        "description": "Loop: 2310E, Segment: NM1, Element: NM109, Notes: Required when the service location to be identified has an NPI and is not a component or subpart of the Billing Provider entity. If not required by this implementation guide, do not send."
+                        "type": "string"
                     }
                 },
                 "required": [
@@ -11032,10 +11022,10 @@
                         "minItems": 0
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider"
                     },
                     "referringProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider"
                     },
                     "lineSupplementInformation": {
                         "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation"
@@ -11097,6 +11087,85 @@
                     }
                 }
             },
+            "InstitutionalServiceLineProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                    },
+                    "npi": {
+                        "type": "string"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "maxLength": 50
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9]{10}$"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "maxLength": 10
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/InstitutionalContactInformation"
+                    },
+                    "referenceIdentification": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 0
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
             "InstitutionalServiceLineSupplementalInformation": {
                 "type": "object",
                 "properties": {
@@ -11146,6 +11215,8 @@
                 "properties": {
                     "memberId": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The member ID for the subscriber's insurance policy."
                     },
                     "standardHealthId": {
@@ -11155,7 +11226,7 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "pattern": "^[0-9]{9}$",
+                        "pattern": "^\\d{9}$",
                         "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, `123456789`."
                     },
                     "paymentResponsibilityLevelCode": {
@@ -11191,11 +11262,13 @@
                     },
                     "policyNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "deprecated": true,
                         "description": "Deprecated.\nThis shape is deprecated."
                     },
                     "groupNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "The subscriber's health plan group number."
                     },
                     "address": {
@@ -11744,10 +11817,12 @@
                 "type": "object",
                 "properties": {
                     "occurrenceSpanCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 30
                     },
                     "occurrenceSpanCodeDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     }
                 },
                 "required": [
@@ -11759,13 +11834,16 @@
                 "type": "object",
                 "properties": {
                     "occurrenceSpanCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 30
                     },
                     "occurrenceSpanCodeStartDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "occurrenceSpanCodeEndDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     }
                 },
                 "required": [
@@ -11908,6 +11986,7 @@
                     },
                     "otherDiagnosisCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "A diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
@@ -12177,10 +12256,12 @@
                         "$ref": "#/components/schemas/OtherProcedureInformationQualifierCode"
                     },
                     "otherProcedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 30
                     },
                     "otherProcedureDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     }
                 },
                 "required": [
@@ -12573,6 +12654,7 @@
                     },
                     "patientReasonForVisitCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The patient's reason for visit code. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     }
                 },
@@ -12660,6 +12742,7 @@
                     },
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
                         "description": "The business name of the organization to which the payment should be made."
                     },
                     "identificationCodeQualifier": {
@@ -12667,18 +12750,23 @@
                     },
                     "identificationCode": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The identification code specified by the `identificationCodeQualifier`."
                     },
                     "payerIdentificationNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "The payer identification number. You should only include this information when the `identificationCodeQualifier` is set to `XV` - Centers for Medicare and Medicaid Services PlanID."
                     },
                     "claimOfficeNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "The Claim Office Number."
                     },
                     "taxId": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "The payer tax identification number (TIN). This is a unique number assigned to the payer by the IRS."
                     },
                     "naic": {
@@ -14035,6 +14123,7 @@
                     },
                     "principalDiagnosisCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The principal diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "presentOnAdmissionIndicator": {
@@ -14072,6 +14161,7 @@
                     },
                     "principalProcedureCode": {
                         "type": "string",
+                        "maxLength": 30,
                         "description": "The principal procedure code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
                     },
                     "principalProcedureDate": {
@@ -15841,7 +15931,6 @@
             },
             "ServiceFacilityLocationSecondaryIdentificationQualifierCode": {
                 "type": "string",
-                "description": "Loop: 2310E, Segment: REF, Element: REF01, Notes: Allowed Values are: '0B' State License Number, 'G2' Provider Commercial Number, 'LU' Location Number",
                 "enum": [
                     "0B",
                     "G2",
@@ -17044,10 +17133,12 @@
                 "type": "object",
                 "properties": {
                     "valueCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 30
                     },
                     "valueCodeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     }
                 },
                 "required": [
