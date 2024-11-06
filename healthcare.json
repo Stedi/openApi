@@ -6194,31 +6194,39 @@
                         "$ref": "#/components/schemas/PricingMethodologyCode"
                     },
                     "repricedAllowedAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedSavingAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedOrgIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "repricedPerDiem": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedApprovedDRGCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "repricedApprovedAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedApprovedRevenueCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "repricedApprovedServiceUnitCode": {
                         "$ref": "#/components/schemas/RepricedApprovedServiceUnitCode"
                     },
                     "repricedApprovedServiceUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
                     },
                     "rejectReasonCode": {
                         "$ref": "#/components/schemas/RejectReasonCode"
@@ -6227,7 +6235,7 @@
                         "$ref": "#/components/schemas/PolicyComplianceCode"
                     },
                     "exceptionCode": {
-                        "$ref": "#/components/schemas/ClaimsExceptionCode"
+                        "$ref": "#/components/schemas/InstitutionalClaimsExceptionCode"
                     },
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/ClaimPricingInformationProductOrServiceIDQualifier"
@@ -9643,7 +9651,7 @@
                         "$ref": "#/components/schemas/ClaimPricingInformation"
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                        "$ref": "#/components/schemas/InstitutionalServiceFacilityLocation"
                     },
                     "otherSubscriberInformation": {
                         "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformation"
@@ -9731,22 +9739,27 @@
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when an authorization number is assigned by the payer or UMO and the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to decide the outcome of a health services review or the owner of the information. This value applies to the entire claim unless overridden within a specific service line."
                     },
                     "referralNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when a referral number is assigned by the payer or Utilization Management Organization (UMO) and a referral is involved. This value applies to the entire claim unless overridden within a specific service line."
                     },
                     "claimControlNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "An identifier the payer previously assigned to the claim. Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim."
                     },
                     "repricedClaimNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
                     },
                     "investigationalDeviceExemptionNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when claim involves a Food and Drug Administration (FDA) assigned investigational device exemption (IDE) number. When more than one IDE applies, you must split into separate claims."
                     },
                     "claimNumber": {
@@ -9756,10 +9769,12 @@
                     },
                     "medicalRecordNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when the provider needs to identify the actual medical record of the patient for this episode of care."
                     },
                     "demoProjectIdentifier": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when it is necessary to identify claims that are atypical in ways such as content, purpose, and/or payment. For example, claims made as the result of a demonstration or a clinical trial."
                     },
                     "serviceAuthorizationExceptionCode": {
@@ -9767,17 +9782,31 @@
                     },
                     "autoAccidentState": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when the services reported on this claim are related to an auto accident and the accident occurred in a country or location that has a state, province, or sub-country code."
                     },
                     "peerReviewAuthorizationNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "Required when an external Peer Review Organization assigns an Approval Number to services deemed medically necessary by that organization."
                     },
                     "adjustedRepricedClaimRefNumber": {
                         "type": "string",
+                        "maxLength": 50,
                         "description": "The adjusted repriced claim reference number. Required when the repricer believes this information is necessary. Providers should not complete this property."
                     }
                 }
+            },
+            "InstitutionalClaimsExceptionCode": {
+                "type": "string",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6"
+                ]
             },
             "InstitutionalClaimsSubmissionRequestContent": {
                 "type": "object",
@@ -9946,19 +9975,23 @@
                 "type": "object",
                 "properties": {
                     "nationalDrugCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "nationalDrugUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,15}$"
                     },
                     "measurementUnitCode": {
                         "$ref": "#/components/schemas/InstitutionalMeasurementUnitCode"
                     },
                     "linkSequenceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "pharmacyPrescriptionNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     }
                 },
                 "required": [
@@ -10014,16 +10047,20 @@
                 "type": "object",
                 "properties": {
                     "otherPayerPrimaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2
                     },
                     "serviceLinePaidAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/LineAdjudicationInformationProductOrServiceIDQualifier"
                     },
                     "procedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "procedureModifier": {
                         "type": "array",
@@ -10034,22 +10071,28 @@
                         "minItems": 0
                     },
                     "serviceLineRevenueCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "procedureCodeDescription": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80
                     },
                     "paidServiceUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
                     },
                     "bundledLineNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,6}$"
                     },
                     "adjudicationOrPaymentDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "remainingPatientLiability": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "lineAdjustment": {
                         "type": "array",
@@ -10698,6 +10741,8 @@
                     },
                     "attachmentControlNumber": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`."
                     }
                 },
@@ -10806,41 +10851,81 @@
                     "7"
                 ]
             },
+            "InstitutionalServiceFacilityLocation": {
+                "type": "object",
+                "description": "Loop: 2310E",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "description": "Loop: 2310E, Segment: NM1, Element: NM103"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/ServiceFacilityLocationSecondaryIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Loop: 2310E, Segment: REF, Element: REF02"
+                    },
+                    "identificationCode": {
+                        "type": "string",
+                        "description": "Loop: 2310E, Segment: NM1, Element: NM109, Notes: Required when the service location to be identified has an NPI and is not a component or subpart of the Billing Provider entity. If not required by this implementation guide, do not send."
+                    }
+                },
+                "required": [
+                    "address",
+                    "organizationName"
+                ]
+            },
             "InstitutionalServiceLine": {
                 "type": "object",
                 "properties": {
                     "assignedNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 6
                     },
                     "serviceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "serviceDateEnd": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "serviceTaxAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "facilityTaxAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "thirdPartyOrganizationNotes": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80
                     },
                     "lineItemControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "repricedLineItemReferenceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "description": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80
                     },
                     "adjustedRepricedLineItemReferenceNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 50
                     },
                     "lineNoteText": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80
                     },
                     "lineAdjudicationInformation": {
                         "type": "array",
@@ -10893,7 +10978,6 @@
                     }
                 },
                 "required": [
-                    "assignedNumber",
                     "institutionalService"
                 ]
             },
@@ -10901,13 +10985,16 @@
                 "type": "object",
                 "properties": {
                     "serviceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "beginServiceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "endServiceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "validDateInformation": {
                         "type": "boolean"
@@ -11150,16 +11237,20 @@
                 "type": "object",
                 "properties": {
                     "otherPayerPrimaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2
                     },
                     "serviceLinePaidAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "serviceIdQualifier": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/LineAdjudicationInformationProductOrServiceIDQualifier"
                     },
                     "procedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -11170,19 +11261,24 @@
                         "minItems": 0
                     },
                     "procedureCodeDescription": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 80
                     },
                     "paidServiceUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
                     },
                     "bundledOrUnbundledLineNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,6}"
                     },
                     "remainingPatientLiability": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "claimPaidDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "claimAdjustment": {
                         "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
@@ -11202,46 +11298,52 @@
                 "type": "object",
                 "properties": {
                     "pricingMethodologyCode": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/PricingMethodologyCode"
                     },
                     "repricedAllowedAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedSavingAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "repricedOrganizationIdentifier": {
                         "type": "string"
                     },
                     "flatRateAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "apgCode": {
                         "type": "string"
                     },
                     "apgAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$"
                     },
                     "serviceIdQualifier": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/InstitutionalProcedureIdentifier"
                     },
                     "repricedApprovedHCPCSCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 48
                     },
                     "measurementUnitCode": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/InstitutionalMeasurementUnit"
                     },
                     "repricedApprovedServiceUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
                     },
                     "rejectReasonCode": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/RejectReasonCode"
                     },
                     "policyComplianceCode": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/PolicyComplianceCode"
                     },
                     "exceptionCode": {
-                        "type": "string"
+                        "$ref": "#/components/schemas/InstitutionalClaimsExceptionCode"
                     }
                 },
                 "required": [
@@ -15636,6 +15738,15 @@
                 "required": [
                     "address",
                     "organizationName"
+                ]
+            },
+            "ServiceFacilityLocationSecondaryIdentificationQualifierCode": {
+                "type": "string",
+                "description": "Loop: 2310E, Segment: REF, Element: REF01, Notes: Allowed Values are: '0B' State License Number, 'G2' Provider Commercial Number, 'LU' Location Number",
+                "enum": [
+                    "0B",
+                    "G2",
+                    "LU"
                 ]
             },
             "ServiceIdQualifierCode": {
