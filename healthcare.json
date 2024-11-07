@@ -4103,7 +4103,7 @@
             },
             "AmbulanceCertificationConditionCodesItem": {
                 "type": "string",
-                "description": "Code indicating the condition of the patient at the time of transport. You can provide up to five codes. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#ambulance-certification-condition-codes) for a complete list.",
+                "description": "Code indicating the condition of the patient at the time of transport. You can provide up to five codes. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#ambulance-certification-condition-codes) for a complete list.",
                 "enum": [
                     "01",
                     "04",
@@ -4146,7 +4146,7 @@
             },
             "AmbulanceTransportReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#ambulance-transport-reason-codes) for a complete list.",
+                "description": "Code indicating the reason for ambulance transport. For example, `A` - Patient was transported to nearest facility for care of symptoms, complaints, or both. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#ambulance-transport-reason-codes) for a complete list.",
                 "enum": [
                     "A",
                     "B",
@@ -4157,7 +4157,7 @@
             },
             "AttachmentReportTypeCode": {
                 "type": "string",
-                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-report-type-codes) for a complete list.",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-report-type-codes) for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -5474,21 +5474,22 @@
             },
             "ClaimCodeInformation": {
                 "type": "object",
+                "description": "Supply information specific to hospital claims, such as the priority of the admission.",
                 "properties": {
                     "admissionTypeCode": {
                         "type": "string",
                         "maxLength": 1,
-                        "minLength": 1
+                        "minLength": 1,
+                        "description": "The code indicating the priority of the admission."
                     },
                     "admissionSourceCode": {
-                        "type": "string",
-                        "maxLength": 1,
-                        "minLength": 1
+                        "type": "string"
                     },
                     "patientStatusCode": {
                         "type": "string",
                         "maxLength": 2,
-                        "minLength": 1
+                        "minLength": 1,
+                        "description": "Code indicating patient status as of the 'statement covers through date'."
                     }
                 },
                 "required": [
@@ -5621,7 +5622,7 @@
             },
             "ClaimFilingCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#claim-filing-indicator-codes) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -5650,7 +5651,7 @@
             },
             "ClaimFilingIndicatorCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#claim-filing-indicator-codes) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
                 "enum": [
                     "11",
                     "12",
@@ -5738,7 +5739,7 @@
                     },
                     "patientSignatureSourceCode": {
                         "type": "boolean",
-                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set tp `P` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law."
+                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set to `P` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law."
                     },
                     "relatedCausesCode": {
                         "type": "array",
@@ -5950,6 +5951,7 @@
             },
             "ClaimNotes": {
                 "type": "object",
+                "description": "Free-form information to substantiate the medical treatment that isn't provided elsewhere in the claim submission. Also used to provide narrative information from the forms Home Health Certification and Plan of Treatment or Medical Update and Patient Information, as needed to substantiate home health services. You can provide up to 10 strings in this array.",
                 "properties": {
                     "goalRehabOrDischargePlans": {
                         "type": "array",
@@ -5957,7 +5959,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Goals, Rehabilitation Potential, or Discharge Plans"
                     },
                     "diagnosisDescription": {
                         "type": "array",
@@ -5965,7 +5968,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Diagnosis Description"
                     },
                     "allergies": {
                         "type": "array",
@@ -5973,7 +5977,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Allergies"
                     },
                     "dme": {
                         "type": "array",
@@ -5981,7 +5986,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Durable Medical Equipment (DME) and Supplies"
                     },
                     "medications": {
                         "type": "array",
@@ -5989,7 +5995,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Medications"
                     },
                     "nutritionalRequirments": {
                         "type": "array",
@@ -5997,7 +6004,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Nutritional Requirements"
                     },
                     "ordersForDiscipLinesAndTreatments": {
                         "type": "array",
@@ -6005,7 +6013,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Orders for Disciplines and Treatments"
                     },
                     "functionalLimitsOrReasonHomebound": {
                         "type": "array",
@@ -6013,7 +6022,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Functional Limitations, Reason Homebound, or Both"
                     },
                     "reasonsPatientLeavesHome": {
                         "type": "array",
@@ -6021,7 +6031,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Reasons Patient Leaves Home"
                     },
                     "timesAndReasonsPatientNotAtHome": {
                         "type": "array",
@@ -6029,7 +6040,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Times and Reasons Patient Not at Home"
                     },
                     "unusualHomeOrSocialEnv": {
                         "type": "array",
@@ -6037,7 +6049,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Unusual Home, Social Environment, or Both"
                     },
                     "safetyMeasures": {
                         "type": "array",
@@ -6045,7 +6058,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Safety Measures"
                     },
                     "supplementalPlanOfTreatment": {
                         "type": "array",
@@ -6053,7 +6067,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Supplementary Plan of Treatment"
                     },
                     "updatedInformation": {
                         "type": "array",
@@ -6061,13 +6076,16 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Updated Information"
                     },
                     "additionalInformation": {
                         "type": "array",
                         "items": {
                             "type": "string"
-                        }
+                        },
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 }
             },
@@ -6192,48 +6210,42 @@
                 "type": "object",
                 "properties": {
                     "pricingMethodologyCode": {
-                        "$ref": "#/components/schemas/PricingMethodologyCode"
+                        "$ref": "#/components/schemas/PricingMethodologyCode",
+                        "description": "The pricing methodology code. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-pricing-methodology-codes) for a complete list."
                     },
                     "repricedAllowedAmount": {
-                        "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "type": "string"
                     },
                     "repricedSavingAmount": {
-                        "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "type": "string"
                     },
                     "repricedOrgIdentifier": {
-                        "type": "string",
-                        "maxLength": 50
+                        "type": "string"
                     },
                     "repricedPerDiem": {
-                        "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "type": "string"
                     },
                     "repricedApprovedDRGCode": {
-                        "type": "string",
-                        "maxLength": 50
+                        "type": "string"
                     },
                     "repricedApprovedAmount": {
-                        "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "type": "string"
                     },
                     "repricedApprovedRevenueCode": {
-                        "type": "string",
-                        "maxLength": 48
+                        "type": "string"
                     },
                     "repricedApprovedServiceUnitCode": {
                         "$ref": "#/components/schemas/RepricedApprovedServiceUnitCode"
                     },
                     "repricedApprovedServiceUnitCount": {
-                        "type": "string",
-                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
+                        "type": "string"
                     },
                     "rejectReasonCode": {
                         "$ref": "#/components/schemas/RejectReasonCode"
                     },
                     "policyComplianceCode": {
-                        "$ref": "#/components/schemas/PolicyComplianceCode"
+                        "$ref": "#/components/schemas/PolicyComplianceCode",
+                        "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#policy-compliance-codes) for a complete list."
                     },
                     "exceptionCode": {
                         "$ref": "#/components/schemas/InstitutionalClaimsExceptionCode"
@@ -6242,7 +6254,8 @@
                         "$ref": "#/components/schemas/ClaimPricingInformationProductOrServiceIDQualifier"
                     },
                     "repricedApprovedHCPCSCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The approved procedure code. If you provide this property, you must also include `productOrServiceIDQualifier`."
                     }
                 },
                 "required": [
@@ -6252,6 +6265,7 @@
             },
             "ClaimPricingInformationProductOrServiceIDQualifier": {
                 "type": "string",
+                "description": "Code identifying the type of product or service ID used. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` - Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and should not be used in new claims. If you provide this property, you must also provide `repricedApprovedHCPCSCode` Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier-codes) for a complete list and additional usage notes.",
                 "enum": [
                     "ER",
                     "HC",
@@ -7130,7 +7144,7 @@
             },
             "ClaimsExceptionCode": {
                 "type": "string",
-                "description": "Code specifying the exception reason for consideration of out-of-network health care services. This is the reason generated by the third-party health organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#exception-codes) for a complete list.",
+                "description": "Code specifying the exception reason for consideration of out-of-network health care services. This is the reason generated by the third-party health organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#exception-codes-2) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -7158,7 +7172,7 @@
             },
             "ClaimsIndividualRelationshipCode": {
                 "type": "string",
-                "description": "Code identifying the relationship to the person insured. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#individual-relationship-codes) for a complete list.",
+                "description": "Code identifying the relationship to the person insured. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#individual-relationship-codes) for a complete list.",
                 "enum": [
                     "01",
                     "18",
@@ -7864,7 +7878,7 @@
             },
             "DelayReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#delay-reason-codes) for a complete list.",
+                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#delay-reason-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -8023,7 +8037,7 @@
             },
             "DrugIdentificationServiceIdQualifier": {
                 "type": "string",
-                "description": "Code indicating the source of the drug code or product number. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#drug-identification-product-or-service-id-qualifier-codes) for a complete list.",
+                "description": "Code indicating the source of the drug code or product number. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#drug-identification-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "EN",
                     "EO",
@@ -8065,7 +8079,7 @@
             },
             "DurableMedicalEquipmentCertificateOfMedicalNecessityAttachmentTransmissionCode": {
                 "type": "string",
-                "description": "Code indicating the timing, transmission method, or format by which attachments will be sent. Required when the actual attachment is maintained by an attachment warehouse or similar vendor. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-transmission-codes) for a complete list. Use code `NS` when the paperwork is available on request at the provider's site, but is not being sent with the claim at this time.",
+                "description": "Code indicating the timing, transmission method, or format by which attachments will be sent. Required when the actual attachment is maintained by an attachment warehouse or similar vendor. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-transmission-codes) for a complete list. Use code `NS` when the paperwork is available on request at the provider's site, but is not being sent with the claim at this time.",
                 "enum": [
                     "AB",
                     "AD",
@@ -9326,6 +9340,7 @@
             },
             "InstitutionalAdjustmentGroupCode": {
                 "type": "string",
+                "description": "Code identifying the general category of payment adjustment. Can be set to `CO` - Contractual Obligations, `CR` - Correction and Reversals, `OA` - Other adjustments, `PI` - Payor Initiated Reductions, or `PR` - Patient Responsibility.",
                 "enum": [
                     "CO",
                     "CR",
@@ -9346,7 +9361,8 @@
                             "$ref": "#/components/schemas/InstitutionalClaimAdjustmentDetails"
                         },
                         "maxItems": 6,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The adjustment reason code, amount, and quantity. You can include up to six of these `claimAdjustmentDetails` objects within a single `claimLevelAdjustments` object."
                     }
                 },
                 "required": [
@@ -9357,13 +9373,16 @@
                 "type": "object",
                 "properties": {
                     "adjustmentReasonCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The code identifying the detailed reason the adjustment was made. Visit the X12 [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) documentation for a complete list."
                     },
                     "adjustmentAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The amount of the adjustment, formatted as a decimal."
                     },
                     "adjustmentQuantity": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The units of service being adjusted, formatted as a decimal."
                     }
                 },
                 "required": [
@@ -9589,7 +9608,8 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required on inpatient claims when additional procedures must be reported. You can provide up to two objects in this array."
                     },
                     "occurrenceSpanInformations": {
                         "type": "array",
@@ -9601,7 +9621,8 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when there is an Occurrence Span Code that applies to this claim. You can provide up to two objects in this array."
                     },
                     "valueInformationList": {
                         "type": "array",
@@ -9613,7 +9634,8 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when there is a Value Code that applies to this claim. You can provide up to two objects in this array."
                     },
                     "occurrenceInformationList": {
                         "type": "array",
@@ -9625,7 +9647,8 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when there is a Occurrence Code that applies to this claim. You can provide up to two objects in this array."
                     },
                     "treatmentCodeInformationList": {
                         "type": "array",
@@ -9637,7 +9660,8 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when Home Health Agencies need to report Plan of Treatment information under various payer contracts. You can provide up to two objects in this array."
                     },
                     "conditionCodesList": {
                         "type": "array",
@@ -9649,10 +9673,12 @@
                             "minItems": 1
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when there is a Condition Code that applies to this claim. You can provide up to two objects in this array."
                     },
                     "claimPricingInformation": {
-                        "$ref": "#/components/schemas/ClaimPricingInformation"
+                        "$ref": "#/components/schemas/ClaimPricingInformation",
+                        "description": "Specifies pricing or repricing information about a claim. Required when this information is deemed necessary by the repricer. For capitated encounters, pricing or repricing information is usually not applicable and is provided to qualify other information within the claim."
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/InstitutionalServiceFacilityLocation"
@@ -9804,6 +9830,7 @@
             },
             "InstitutionalClaimsExceptionCode": {
                 "type": "string",
+                "description": "Code specifying the exception reason for consideration of out-of-network health care services. Can be set to `1` - Non-Network Professional Provider in Network Hospital, `2` - Emergency Care, `3` - Services or Specialist not in Network, `4` - Out-of-Service Area, `5` - State Mandates, or `6` - Other.",
                 "enum": [
                     "1",
                     "2",
@@ -9988,7 +10015,7 @@
             },
             "InstitutionalDelayReasonCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#delay-reason-codes) for a complete list.",
+                "description": "Code indicating the reason for the delay in claim submission. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#delay-reason-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -10205,6 +10232,7 @@
             },
             "InstitutionalOtherInsuredIdentifierTypeCode": {
                 "type": "string",
+                "description": "Code identifying the type of identifier used for the other insured. Can be set to `II` - Standard Unique Health Identifier for each Individual in the United States or `MI` - Member Identification Number. Note that `II` is deprecated and should not be used in new claims.",
                 "enum": [
                     "II",
                     "MI"
@@ -10212,6 +10240,7 @@
             },
             "InstitutionalOtherInsuredQualifier": {
                 "type": "string",
+                "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity.",
                 "enum": [
                     "1",
                     "2"
@@ -10219,6 +10248,7 @@
             },
             "InstitutionalOtherPayerBillingProvider": {
                 "type": "object",
+                "description": "Information regarding the other payer's billing provider.",
                 "properties": {
                     "otherPayerBillingProviderIdentifier": {
                         "type": "array",
@@ -10226,7 +10256,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The provider's identifier. The `qualifier` can be set to `G2` - Provider Commercial Number or `LU` - Location Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -10235,6 +10266,7 @@
             },
             "InstitutionalOtherPayerIdentifierTypeCode": {
                 "type": "string",
+                "description": "Code specifying the type of identifier used for the other payer. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare and Medicaid Services PlanID. Use `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
                 "enum": [
                     "PI",
                     "XV"
@@ -10244,19 +10276,24 @@
                 "type": "object",
                 "properties": {
                     "otherInsuredAdditionalIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "otherPayerOrganizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The business name of the other payer."
                     },
                     "otherPayerIdentifierTypeCode": {
                         "$ref": "#/components/schemas/InstitutionalOtherPayerIdentifierTypeCode"
                     },
                     "otherPayerIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `otherPayerIdentifierTypeCode`."
                     },
                     "otherPayerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address of the other payer. You must include at least the `address1` and `city` properties in this object."
                     },
                     "otherPayerAdjudicationOrPaymentDate": {
                         "type": "string"
@@ -10267,19 +10304,24 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Additional identification number for the other payer. The `qualifier` property can be set to `2U` - Payer Identification Number, `EI` - Employer's Identification Number, `FY` - Claim Office Number, or `NF` - National Addociation of Insurance Commissioners (NAIC) Code."
                     },
                     "otherPayerPriorAuthorizationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The other payer's prior authorization number. Required when this payer has assigned a prior authorization number to this claim."
                     },
                     "otherPayerPriorAuthorizationOrReferralNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The other payer's referral number. Required when this payer has assigned a referral number to this claim."
                     },
                     "otherPayerClaimAdjustmentIndicator": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Required when the claim is being sent in the payer-to-payer COB model, AND the destination payer is secondary to the payer identified in this object, AND the payer identified in this object re-adjudicated the claim. Can be set to `Y` - Yes."
                     },
                     "otherPayerClaimControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The other payer's claim control number for this claim."
                     }
                 },
                 "required": [
@@ -10290,6 +10332,7 @@
             },
             "InstitutionalOtherPayerReferringProvider": {
                 "type": "object",
+                "description": "Information regarding the other payer's referring provider. This is the provider who sent the patient to another provider for services.",
                 "properties": {
                     "otherPayerReferringProviderIdentifier": {
                         "type": "array",
@@ -10297,7 +10340,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The provider's identifier. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -10306,6 +10350,7 @@
             },
             "InstitutionalOtherPayerRenderingProvider": {
                 "type": "object",
+                "description": "Information regarding the other payer's rendering provider. The rendering provider is the provider who performed the service or non-surgical procedure.",
                 "properties": {
                     "otherPayerRenderingProviderIdentifier": {
                         "type": "array",
@@ -10313,7 +10358,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The provider's identifier. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -10322,6 +10368,7 @@
             },
             "InstitutionalOtherPayerServiceFacilityLocation": {
                 "type": "object",
+                "description": "Information regarding the other payer's service facility location. This is where the service was performed.",
                 "properties": {
                     "otherPayerServiceFacilityLocationIdentifier": {
                         "type": "array",
@@ -10329,7 +10376,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The facility's identifier. The `qualifier` can be set to `OB` - State License Number, `G2` - Provider Commercial Number, or `LU` - Location Number."
                     }
                 },
                 "required": [
@@ -10338,48 +10386,61 @@
             },
             "InstitutionalOtherSubscriberInformation": {
                 "type": "object",
+                "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios.",
                 "properties": {
                     "paymentResponsibilityLevelCode": {
-                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationPaymentResponsibilityLevelCode"
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationPaymentResponsibilityLevelCode",
+                        "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`."
                     },
                     "individualRelationshipCode": {
-                        "$ref": "#/components/schemas/InstitutionalIndividualRelationshipCode"
+                        "$ref": "#/components/schemas/InstitutionalIndividualRelationshipCode",
+                        "description": "Code identifying the relationship to the person insured. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#individual-relationship-codes) for a complete list."
                     },
                     "policyNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The policy number for the subscriber's health plan."
                     },
                     "groupNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The group number for the subscriber's health plan."
                     },
                     "otherInsuredGroupName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The name of the subscriber's health plan."
                     },
                     "claimFilingIndicatorCode": {
-                        "$ref": "#/components/schemas/InstitutionalClaimFilingIndicatorCode"
+                        "$ref": "#/components/schemas/InstitutionalClaimFilingIndicatorCode",
+                        "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list."
                     },
                     "payerPaidAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The total amount in dollars the payer has paid on this claim. It is acceptable to set this to `0` (Zero). This is required when you include the `payToPlan` object, and you should set it to the amount the Medicaid agency actually paid."
                     },
                     "remainingPatientLiability": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "This is the remaining amount (as determined by the provider) to be paid after the other payer identified in the `otherPayerName` object has adjudicated the claim. Required when the other payer adjudicated the claim and provided claim level information only _or_ when the other payer adjudicated the claim, and the provider received a paper remittance advice, and the provider does not have the ability to report line item information. Don't include this property if you're specifying remaining patient liability at the service line level."
                     },
                     "nonCoveredChargeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Required when the destination payer's cost avoidance policy allows providers to bypass claim submission to the otherwise prior payer identified in `otherPayerName`. The amount must equal the total claim charge amount you reported in `claimInformation.claimChargeAmount`."
                     },
                     "benefitsAssignmentCertificationIndicator": {
-                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationBenefitsAssignmentCertificationIndicator"
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationBenefitsAssignmentCertificationIndicator",
+                        "description": "Code indicating whether whether or not the insured has authorized the plan to remit payment directly to the provider. Can be set to `N` - No, `Y` - Yes, or `W` - Not Applicable. Use `W` when the patient refuses to assign benefits."
                     },
                     "releaseOfInformationCode": {
                         "$ref": "#/components/schemas/ReleaseOfInformationCode"
                     },
                     "medicareInpatientAdjudication": {
-                        "$ref": "#/components/schemas/MedicareInpatientAdjudication"
+                        "$ref": "#/components/schemas/MedicareInpatientAdjudication",
+                        "description": "Claim-level data related to the adjudication of Medicare inpatient claims. Required when inpatient adjudication information is reported in the remittance advice _or_ when you need to report remark codes."
                     },
                     "medicareOutpatientAdjudication": {
                         "$ref": "#/components/schemas/MedicareOutpatientAdjudication"
                     },
                     "otherSubscriberName": {
-                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberName"
+                        "$ref": "#/components/schemas/InstitutionalOtherSubscriberName",
+                        "description": "The person or entity who is the primary policyholder for the other payer's health plan."
                     },
                     "claimLevelAdjustments": {
                         "type": "array",
@@ -10387,10 +10448,12 @@
                             "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Supply adjustment reason codes and amounts as needed. Required when the claim has been adjudicated by the payer identified in this loop, and the claim has claim level adjustment information. Submitters must use this object to report prior payers' claim level adjustments that cause the amount paid to differ from the amount originally charged. Codes and associated amounts must come from either paper remittance advice or 835s (Electronic Remittance Advice) received on the claim. When the information originates from a paper remittance advice that does not use the standard Claim Adjustment Reason Codes, the paper values must be converted to standard Claim Adjustment Reason Codes. You can include up to five `claimLevelAdjustments` objects in this array."
                     },
                     "otherPayerName": {
-                        "$ref": "#/components/schemas/InstitutionalOtherPayerName"
+                        "$ref": "#/components/schemas/InstitutionalOtherPayerName",
+                        "description": "Details about the other payer."
                     },
                     "otherPayerAttendingProvider": {
                         "$ref": "#/components/schemas/OtherPayerAttendingProvider"
@@ -10456,22 +10519,27 @@
                         "$ref": "#/components/schemas/InstitutionalOtherInsuredQualifier"
                     },
                     "otherInsuredLastName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The last name (when the subscriber is an individual) or the name of the organization (when the subscriber is an organization)."
                     },
                     "otherInsuredFirstName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's first name."
                     },
                     "otherInsuredMiddleName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial."
                     },
                     "otherInsuredSuffix": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The subscriber's name suffix, such as Jr or III."
                     },
                     "otherInsuredIdentifierTypeCode": {
                         "$ref": "#/components/schemas/InstitutionalOtherInsuredIdentifierTypeCode"
                     },
                     "otherInsuredIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `otherInsuredIdentifierTypeCode`."
                     },
                     "otherInsuredAdditionalIdentifier": {
                         "type": "array",
@@ -10479,13 +10547,17 @@
                             "type": "string"
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The subscriber's social security number (SSN). This must be a string of exactly nine numbers with no separators."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The subscriber's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "firstName": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 },
                 "required": [
@@ -10618,10 +10690,12 @@
                 "type": "object",
                 "properties": {
                     "qualifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The code qualifying the type of `identifier`."
                     },
                     "identifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The identifier specified in `qualifier`."
                     }
                 },
                 "required": [
@@ -10931,7 +11005,7 @@
             },
             "InstitutionalServiceAuthorizationExceptionCode": {
                 "type": "string",
-                "description": "Code indicating the type of service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#service-authorization-exception-codes) for a complete list.",
+                "description": "Code indicating the type of service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#service-authorization-exception-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -11399,7 +11473,7 @@
             },
             "LineAdjudicationInformationServiceIdQualifier": {
                 "type": "string",
-                "description": "Code identifying the type of `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
+                "description": "Code identifying the type of `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -11653,13 +11727,16 @@
                 "type": "object",
                 "properties": {
                     "coveredDaysOrVisitsCount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The number of covered days, expressed as a decimal."
                     },
                     "lifetimePsychiatricDaysCount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The number of lifetime psychiatric days, expressed as a decimal."
                     },
                     "claimDRGAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Diagnosis Related Group (DRG) amount, expressed as a decimal."
                     },
                     "claimPaymentRemarkCode": {
                         "type": "array",
@@ -11667,52 +11744,68 @@
                             "type": "string"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The claim payment remark code. Refer to the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codesdocumentation) for a complete list. You can include up to four codes in this array."
                     },
                     "claimDisproportionateShareAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The disproportionate share amount, expressed as a decimal."
                     },
                     "claimMspPassThroughAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Medicare Secondary Payer (MSP) pass-through amount, expressed as a decimal."
                     },
                     "claimPpsCapitalAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Prospective Payment System (PPS) capital amount, expressed as a decimal."
                     },
                     "ppsCapitalHspDrgAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Prospective Payment System (PPS) capital, disproportionate share, hospital Diagnosis Related Group (DRG) amount. Expressed as a decimal."
                     },
                     "capitalHSPDRGAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Prospective Payment System (PPS) capital, hospital specific portion, Diagnosis Related Group (DRG) amount. Expressed as a decimal."
                     },
                     "ppsCapitalDshDrgAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The prospective Payment System (PPS) capital, disproportionate share, hospital Diagnosis Related Group (DRG) amount. Expressed as a decimal."
                     },
                     "oldCapitalAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The old capital amount, expressed as a decimal."
                     },
                     "ppsCapitalImeAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Prospective Payment System (PPS) capital Indirect Medical Education (IME) claim amount, expressed as a decimal."
                     },
                     "ppsOperatingHospitalSpecificDrgAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The hospital specific Diagnosis Related Group (DRG) amount, expressed as a decimal."
                     },
                     "costReportDayCount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The number of cost report days, expressed as a decimal."
                     },
                     "ppsOperatingFederalSpecificDrgAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The federal specific Diagnosis Related Group (DRG) amount, expressed as a decimal."
                     },
                     "claimPpsCapitalOutlierAmmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Prospective Payment System (PPS) capital outlier amount, expressed as a decimal."
                     },
                     "claimIndirectTeachingAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The indirect teaching amount, expressed as a decimal."
                     },
                     "nonPayableProfessionalComponentBilledAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The professional component amount billed but not payable, expressed as a decimal."
                     },
                     "capitalExceptionAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The capital exception amount, expressed as a decimal."
                     }
                 },
                 "required": [
@@ -12037,6 +12130,7 @@
             },
             "OtherPayerAttendingProvider": {
                 "type": "object",
+                "description": "Information regarding the other payer's attending provider. The attending provider is the provider who is primarily responsible for the care of the patient.",
                 "properties": {
                     "otherPayerAttendingProviderIdentifier": {
                         "type": "array",
@@ -12044,7 +12138,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The provider's identifier. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -12144,6 +12239,7 @@
             },
             "OtherPayerOperatingPhysician": {
                 "type": "object",
+                "description": "Information regarding the other payer's operating physician. The operating physician is the provider who performed the procedure.",
                 "properties": {
                     "otherPayerOperatingPhysicianIdentifier": {
                         "type": "array",
@@ -12151,7 +12247,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -12160,6 +12257,7 @@
             },
             "OtherPayerOtherOperatingPhysician": {
                 "type": "object",
+                "description": "Information regarding the other payer's other operating physician. The other operating physician is the provider who performed a secondary surgical procedure or assisted the `otherPayerOperatingPhysician`.",
                 "properties": {
                     "otherPayerOtherOperatingPhysicianIdentifier": {
                         "type": "array",
@@ -12167,7 +12265,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The physician's identifier. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN numbers are deprecated and should not be used in new claims."
                     }
                 },
                 "required": [
@@ -12437,7 +12536,7 @@
             },
             "OtherSubscriberInformationInsuranceTypeCode": {
                 "type": "string",
-                "description": "Code identifying the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#insurance-type-codes) for a complete list.",
+                "description": "Code identifying the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -12452,7 +12551,7 @@
             },
             "OtherSubscriberInformationPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
+                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. You may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial payer first as `P` and then bill the Medicare payer second as `S`.",
                 "enum": [
                     "A",
                     "B",
@@ -12621,7 +12720,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Code indicating the reason for the vision services. Visit [Claim code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#vision-condition-codes) for a complete list."
+                        "description": "Code indicating the reason for the vision services. Visit [Claim code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#vision-condition-codes) for a complete list."
                     }
                 },
                 "required": [
@@ -12640,7 +12739,7 @@
             },
             "PatientConditionInformationVisionConditionCodesItem": {
                 "type": "string",
-                "description": "Code indicating the reason for the vision services. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#vision-condition-codes) for a complete list.",
+                "description": "Code indicating the reason for the vision services. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#vision-condition-codes) for a complete list.",
                 "enum": [
                     "L1",
                     "L2",
@@ -14073,7 +14172,7 @@
             },
             "PolicyComplianceCode": {
                 "type": "string",
-                "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/doc/healthcare/professional-claims-code-lists#policy-compliance-codes) for a complete list.",
+                "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#policy-compliance-codes-2) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -14091,7 +14190,7 @@
             },
             "PricingMethodologyCode": {
                 "type": "string",
-                "description": "Code indicating the pricing or repricing methodology. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#pricing-methodology-codes) for a complete list.",
+                "description": "Code indicating the pricing or repricing methodology. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#pricing-methodology-codes-2) for a complete list.",
                 "enum": [
                     "00",
                     "01",
@@ -14204,7 +14303,7 @@
             },
             "ProcedureIdentifier": {
                 "type": "string",
-                "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
+                "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list.",
                 "enum": [
                     "ER",
                     "HC",
@@ -14796,7 +14895,7 @@
             },
             "RejectReasonCode": {
                 "type": "string",
-                "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#reject-reason-codes) for a complete list.",
+                "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#reject-reason-codes-2) for a complete list.",
                 "enum": [
                     "T1",
                     "T2",
@@ -14830,7 +14929,7 @@
             },
             "ReleaseOfInformationCode": {
                 "type": "string",
-                "description": "Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations. Can be set to `I` - Informed Consent to Release Medical Information or `Y` - Yes. Set to `I` when the provider has not collected a signature AND state or federal laws do not require a signature be collected.",
+                "description": "Code indicating whether the provider has on file a signed statement by the patient authorizing the release of medical data to other organizations. Can be set to `I` - Informed Consent to Release Medical Information or `Y` - Yes. Code `I` is required when the provider has not collected a signature AND state or federal laws do not require a signature be collected. Code `Y` is required when the provider has collected a signature OR when state or federal laws require a signature be collected.",
                 "enum": [
                     "I",
                     "Y"
@@ -14932,7 +15031,7 @@
             },
             "ReportInformationAttachmentReportTypeCode": {
                 "type": "string",
-                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#attachment-report-type-codes) for a complete list.",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-report-type-codes) for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -15069,6 +15168,7 @@
             },
             "RepricedApprovedServiceUnitCode": {
                 "type": "string",
+                "description": "The approved service units or inpatient days. Can be set to `DA` - Days or `UN` - Unit.",
                 "enum": [
                     "DA",
                     "UN"
@@ -15850,7 +15950,7 @@
             },
             "ServiceAuthorizationExceptionCode": {
                 "type": "string",
-                "description": "Code indicating the reason for the service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#service-authorization-exception-codes) for a complete list.",
+                "description": "Code indicating the reason for the service authorization exception. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#service-authorization-exception-codes) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -16854,7 +16954,7 @@
             },
             "SubscriberInsuranceTypeCode": {
                 "type": "string",
-                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#insurance-type-codes) for a complete list.",
+                "description": "Identifies the type of insurance policy within a specific insurance program. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list.",
                 "enum": [
                     "12",
                     "13",
@@ -16869,7 +16969,7 @@
             },
             "SubscriberPaymentResponsibilityLevelCode": {
                 "type": "string",
-                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.",
+                "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial plan first as `P` and then bill the Medicare payer second as `S`.",
                 "enum": [
                     "A",
                     "B",
