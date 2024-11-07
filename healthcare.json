@@ -2829,7 +2829,7 @@
                                         "usageIndicator": "T",
                                         "tradingPartnerName": "UnitedHealthcare",
                                         "tradingPartnerServiceId": "87726",
-                                        "controlNumber": "123456",
+                                        "controlNumber": "123456789",
                                         "submitter": {
                                             "organizationName": "Test Facility",
                                             "contactInformation": {
@@ -2947,7 +2947,7 @@
                                         "description": "",
                                         "value": {
                                             "status": "SUCCESS",
-                                            "controlNumber": "123456",
+                                            "controlNumber": "123456789",
                                             "tradingPartnerServiceId": "87726",
                                             "claimReference": {
                                                 "correlationId": "01JABEX6DPF4FCT2J0Y0SGFCY8",
@@ -9679,6 +9679,7 @@
                     "benefitsAssignmentCertificationIndicator",
                     "claimChargeAmount",
                     "claimCodeInformation",
+                    "claimDateInformation",
                     "claimFilingCode",
                     "claimFrequencyCode",
                     "patientControlNumber",
@@ -9818,7 +9819,9 @@
                 "properties": {
                     "controlNumber": {
                         "type": "string",
-                        "description": "A nine-digit number that uniquely identifies the transaction. If you don't set this property, Stedi autogenerates a control number for you."
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "description": "A nine-digit number that uniquely identifies the transaction. You must use exactly nine numbers in this property - letters or other types of characters return an error. Stedi autogenerates a control number for you if you don't set one."
                     },
                     "tradingPartnerServiceId": {
                         "type": "string",
@@ -10970,8 +10973,7 @@
                 "type": "object",
                 "properties": {
                     "assignedNumber": {
-                        "type": "string",
-                        "maxLength": 6
+                        "type": "string"
                     },
                     "serviceDate": {
                         "type": "string",
@@ -11064,6 +11066,7 @@
                     }
                 },
                 "required": [
+                    "assignedNumber",
                     "institutionalService"
                 ]
             },
