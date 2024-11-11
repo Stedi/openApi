@@ -334,6 +334,7 @@
                                         "submitterTransactionIdentifier": "123456789",
                                         "controlNumber": "123456789",
                                         "tradingPartnerServiceId": "AHS",
+                                        "externalPatientId": "UAA111222333",
                                         "encounter": {
                                             "serviceTypeCodes": [
                                                 "MH"
@@ -4393,9 +4394,6 @@
                 "type": "object",
                 "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD. Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
                 "properties": {
-                    "discharge": {
-                        "type": "string"
-                    },
                     "discharges": {
                         "type": "array",
                         "items": {
@@ -4473,9 +4471,6 @@
                     "enrollment": {
                         "type": "string"
                     },
-                    "admission": {
-                        "type": "string"
-                    },
                     "admissions": {
                         "type": "array",
                         "items": {
@@ -4501,6 +4496,12 @@
                         "type": "string"
                     },
                     "status": {
+                        "type": "string"
+                    },
+                    "discharge": {
+                        "type": "string"
+                    },
+                    "admission": {
                         "type": "string"
                     }
                 }
@@ -4604,12 +4605,6 @@
                     "benefitsAdditionalInformation": {
                         "$ref": "#/components/schemas/BenefitsAdditionalInformation"
                     },
-                    "benefitsDateInformation": {
-                        "$ref": "#/components/schemas/BenefitsDateInformation"
-                    },
-                    "benefitsRelatedEntity": {
-                        "$ref": "#/components/schemas/BenefitsRelatedEntity"
-                    },
                     "benefitsRelatedEntities": {
                         "type": "array",
                         "items": {
@@ -4630,15 +4625,21 @@
                             "$ref": "#/components/schemas/AdditionalInformation"
                         }
                     },
-                    "eligibilityAdditionalInformation": {
-                        "$ref": "#/components/schemas/EligibilityAdditionalInformation"
-                    },
                     "eligibilityAdditionalInformationList": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityAdditionalInformation"
                         },
                         "description": "Used when there are multiple Nature of Injury Codes or a Facility Type Codes included in the response."
+                    },
+                    "benefitsDateInformation": {
+                        "$ref": "#/components/schemas/BenefitsDateInformation"
+                    },
+                    "benefitsRelatedEntity": {
+                        "$ref": "#/components/schemas/BenefitsRelatedEntity"
+                    },
+                    "eligibilityAdditionalInformation": {
+                        "$ref": "#/components/schemas/EligibilityAdditionalInformation"
                     }
                 }
             },
