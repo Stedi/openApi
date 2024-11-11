@@ -3175,7 +3175,7 @@
                                         },
                                         "billing": {
                                             "providerType": "BillingProvider",
-                                            "npi": "<YOUR-BILLING-PROVIDER-NPI>",
+                                            "npi": "1234567890",
                                             "employerId": "123456789",
                                             "taxonomyCode": "2084P0800X",
                                             "organizationName": "Therapy Associates",
@@ -3215,7 +3215,7 @@
                                                     "state": "NY",
                                                     "postalCode": "123450000"
                                                 },
-                                                "npi": "123456789"
+                                                "npi": "1234567890"
                                             },
                                             "serviceLines": [
                                                 {
@@ -3238,7 +3238,7 @@
                                                     "providerControlNumber": "111222333",
                                                     "renderingProvider": {
                                                         "providerType": "RenderingProvider",
-                                                        "npi": "<YOUR-PROVIDER-NPI>",
+                                                        "npi": "1234567890",
                                                         "taxonomyCode": "111YP2000X",
                                                         "firstName": "Jane",
                                                         "lastName": "Smith"
@@ -4233,6 +4233,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -4280,7 +4281,7 @@
                         "description": "The provider's business name. This is **required** when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "deprecated": true,
                         "description": "This shape is deprecated."
                     },
@@ -4771,6 +4772,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The billing provider's National Provider Identifier (NPI)."
                     },
                     "ssn": {
@@ -4792,6 +4794,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the billing provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
@@ -5375,6 +5380,7 @@
                     },
                     "adjustmentAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The dollar amount of the adjustment, expressed as a decimal. For example, `100.50`."
                     },
                     "adjustmentQuantity": {
@@ -5507,6 +5513,7 @@
                     },
                     "contractAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
                     },
                     "contractPercentage": {
@@ -5716,6 +5723,7 @@
                     },
                     "claimChargeAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total dollar amount charged for the services on this claim, expressed as a decimal. For example, `100.50`. This is the total amount before any adjustments or payments. The amount must balance to the sum of the service line charges."
                     },
                     "placeOfServiceCode": {
@@ -5766,6 +5774,7 @@
                     },
                     "patientAmountPaid": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient."
                     },
                     "fileInformation": {
@@ -6284,10 +6293,12 @@
                     },
                     "repricedAllowedAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The dollar amount, expressed as a decimal. For example, `100.50`."
                     },
                     "repricedSavingAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The dollar amount, expressed as a decimal."
                     },
                     "repricingOrganizationIdentifier": {
@@ -6304,6 +6315,7 @@
                     },
                     "repricedApprovedAmbulatoryPatientGroupAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The dollar amount, expressed as a decimal."
                     },
                     "rejectReasonCode": {
@@ -7729,6 +7741,7 @@
                     },
                     "contractAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
                     },
                     "contractPercentage": {
@@ -9339,6 +9352,47 @@
                     }
                 }
             },
+            "InstitutionalAddress": {
+                "type": "object",
+                "properties": {
+                    "address1": {
+                        "type": "string",
+                        "maxLength": 55
+                    },
+                    "address2": {
+                        "type": "string",
+                        "maxLength": 55
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 30
+                    },
+                    "state": {
+                        "type": "string",
+                        "maxLength": 2,
+                        "minLength": 2
+                    },
+                    "postalCode": {
+                        "type": "string",
+                        "maxLength": 15,
+                        "minLength": 3
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 2
+                    },
+                    "countrySubDivisionCode": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 1
+                    }
+                },
+                "required": [
+                    "address1",
+                    "city"
+                ]
+            },
             "InstitutionalAdjustmentGroupCode": {
                 "type": "string",
                 "description": "Code identifying the general category of payment adjustment. Can be set to `CO` - Contractual Obligations, `CR` - Correction and Reversals, `OA` - Other adjustments, `PI` - Payor Initiated Reductions, or `PR` - Patient Responsibility.",
@@ -9348,6 +9402,93 @@
                     "OA",
                     "PI",
                     "PR"
+                ]
+            },
+            "InstitutionalBilling": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "Segment: NM1, Element:NM109 where NM108=XX"
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02"
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02 where REF01=EI"
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02 where REF01=G2, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02 where REF01=LU, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02 where REF01=0B, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "Segment: REF, Element: REF02 where REF01=1G, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Segment: PRV03, Element: PRV03 where PRV02=PXC"
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "description": "Segment: NM1, Element: NM104"
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "Segment: NM1, Element: NM103"
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "description": "Segment: NM1, Element: NM105"
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "description": "Segment: NM1, Element: NM107"
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "Segment: NM1, Element:NM103"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/InstitutionalAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/InstitutionalContactInformation"
+                    }
+                },
+                "required": [
+                    "providerType"
                 ]
             },
             "InstitutionalClaimAdjustment": {
@@ -9894,7 +10035,7 @@
                         "$ref": "#/components/schemas/InstitutionalClaimInformation"
                     },
                     "payerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "Address information for the entity responsible for payment of the claim, listed in the `receiver` object."
                     },
                     "usageIndicator": {
@@ -9902,7 +10043,7 @@
                         "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to desginate a claim as test data."
                     },
                     "billing": {
-                        "$ref": "#/components/schemas/Billing",
+                        "$ref": "#/components/schemas/InstitutionalBilling",
                         "description": "Information about the billing provider. For tax identification, you **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both. Note that the provider's 10-digit National Provider Identifier (NPI) is also **required**, if one is assigned."
                     },
                     "referring": {
@@ -10065,7 +10206,7 @@
                         "$ref": "#/components/schemas/InstitutionalRelationshipToSubscriberCode"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress"
                     }
                 },
                 "required": [
@@ -10293,7 +10434,7 @@
                         "description": "The identifier specified in `otherPayerIdentifierTypeCode`."
                     },
                     "otherPayerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "The address of the other payer. You must include at least the `address1` and `city` properties in this object."
                     },
                     "otherPayerAdjudicationOrPaymentDate": {
@@ -10552,7 +10693,7 @@
                         "description": "The subscriber's social security number (SSN). This must be a string of exactly nine numbers with no separators."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "The subscriber's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "firstName": {
@@ -10609,6 +10750,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) of the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards. Note that this is **required** for billing providers that have an NPI assigned."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -10655,7 +10797,7 @@
                         "description": "The provider's business name, when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "The provider's business address. Only applies to the billing provider."
                     },
                     "contactInformation": {
@@ -10714,6 +10856,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -10782,7 +10925,7 @@
                         "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "deprecated": true,
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     },
@@ -10819,6 +10962,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
@@ -10887,7 +11031,7 @@
                         "description": "The provider's business name. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "deprecated": true,
                         "description": "This object is deprecated.\nThis shape is deprecated."
                     },
@@ -11030,7 +11174,7 @@
                         "type": "string"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress"
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/ServiceFacilityLocationSecondaryIdentificationQualifierCode"
@@ -11178,7 +11322,8 @@
                         "$ref": "#/components/schemas/InstitutionalProviderType"
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$"
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -11234,7 +11379,7 @@
                         "maxLength": 60
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress"
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/InstitutionalContactInformation"
@@ -11358,7 +11503,7 @@
                         "description": "The subscriber's health plan group number."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object."
                     }
                 },
@@ -11413,6 +11558,7 @@
                     },
                     "serviceLinePaidAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The amount paid for this service line, expressed as a decimal. Zero (0) is an acceptable value."
                     },
                     "serviceIdQualifier": {
@@ -11458,6 +11604,7 @@
                     },
                     "remainingPatientLiability": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
                     }
                 },
@@ -11831,6 +11978,7 @@
                     },
                     "hcpcsPayableAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The claim Health Care Financing Administration Common Procedural Coding System (HCPCS) payable amount, expressed as a decimal."
                     },
                     "claimPaymentRemarkCode": {
@@ -11844,10 +11992,12 @@
                     },
                     "endStageRenalDiseasePaymentAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The End-Stage Renal Disease (ESRD) payment amount, expressed as a decimal."
                     },
                     "nonPayableProfessionalComponentBilledAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The professional component amount billed but not payable, expressed as a decimal."
                     }
                 }
@@ -11994,8 +12144,7 @@
                     },
                     "npi": {
                         "type": "string",
-                        "maxLength": 15,
-                        "minLength": 10,
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The physician's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     }
                 },
@@ -12022,7 +12171,8 @@
                         "type": "string"
                     },
                     "npi": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$"
                     },
                     "ssn": {
                         "type": "string"
@@ -12055,7 +12205,10 @@
                         "type": "string"
                     },
                     "taxonomyCode": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$"
                     },
                     "firstName": {
                         "type": "string"
@@ -12459,14 +12612,17 @@
                     },
                     "payerPaidAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total amount in dollars the payer has paid on this claim. It is acceptable to set this to `0` (Zero). This is required when you include the `payToPlan` object, and you should set it to the amount the Medicaid agency actually paid."
                     },
                     "nonCoveredChargeAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "Required when the destination payer's cost avoidance policy allows providers to bypass claim submission to the otherwise prior payer identified in `otherSubscriberInformation.otherPayerName`. The amount must equal the total claim charge amount you reported in `claimInformation.claimChargeAmount`."
                     },
                     "remainingPatientLiability": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "This is the remaining amount (as determined by the provider) to be paid after the other payer identified in the `otherPayerName` object has adjudicated the claim."
                     },
                     "benefitsAssignmentCertificationIndicator": {
@@ -12787,7 +12943,7 @@
                 "description": "Use when the address for payment is different than that of the billing provider for this claim.",
                 "properties": {
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "The address information."
                     },
                     "entityTypeQualifier": {
@@ -12848,7 +13004,7 @@
                 "description": "Use for subrogation payment requests. If you include this information, you must also set the `claimInformation.otherSubscriberInformation.payerPaidAmount` to the amount the payer (for example, Medicaid) actually paid.",
                 "properties": {
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "$ref": "#/components/schemas/InstitutionalAddress",
                         "description": "Specify the location of the named party."
                     },
                     "organizationName": {
@@ -14362,6 +14518,7 @@
                     },
                     "lineItemChargeAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The total charge amount for the service, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero)."
                     },
                     "measurementUnit": {
@@ -14843,6 +15000,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "commercialNumber": {
@@ -14860,6 +15018,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
@@ -14954,6 +15115,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "commercialNumber": {
@@ -14975,6 +15137,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
@@ -16014,6 +16179,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
                     },
                     "secondaryIdentifier": {
@@ -16075,10 +16241,12 @@
                     },
                     "serviceDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The date the service was rendered (for services performed on a single day), expressed as YYYYMMDD. When you send this property with `serviceDateEnd`, it will be used as the start date for the date range in which the service was rendered."
                     },
                     "serviceDateEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The end date of the service period, expressed as YYYYMMDD. If you send this property, you must also send `serviceDate`."
                     },
                     "providerControlNumber": {
@@ -16156,6 +16324,7 @@
                     },
                     "postageTaxAmount": {
                         "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The amount of the postage, formatted as a decimal. When you include this property, the total `lineItemChargeAmount` for this service line must include this postage value."
                     },
                     "fileInformation": {
@@ -16248,41 +16417,51 @@
                 "properties": {
                     "prescriptionDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required when a drug is billed for this line and a prescription was written (or otherwise communicated by the prescriber if not written)."
                     },
                     "certificationRevisionOrRecertificationDate": {
-                        "type": "string"
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
                     },
                     "beginTherapyDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or DMERC Information Form (DIF), or Oxygen Therapy Certification is included on this service line."
                     },
                     "lastCertificationDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "This is the date the ordering physician signed the CMN or Oxygen Therapy Certification, or the date the supplier signed the DMERC Information Form (DIF)."
                     },
                     "treatmentOrTherapyDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "This is the date of the latest visit or consultation."
                     },
                     "hemoglobinTestDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported."
                     },
                     "serumCreatineTestDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported."
                     },
                     "shippedDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required when billing or reporting products that were shipped."
                     },
                     "lastXRayDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required for claims involving spinal manipulation."
                     },
                     "initialTreatmentDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "Required when this date is known to impact adjudication for claims involving spinal manipulation, physcial therapy, occupational therapy, or speech language pathology."
                     }
                 }
@@ -16342,6 +16521,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
@@ -16381,6 +16561,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
@@ -16433,6 +16616,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
@@ -16473,6 +16657,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
@@ -16526,6 +16713,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) assigned to the provider."
                     },
                     "stateLicenseNumber": {
@@ -16577,6 +16765,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "deprecated": true,
                         "description": "This shape is deprecated."
                     },
@@ -17029,6 +17220,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
                         "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "ssn": {
@@ -17058,6 +17250,9 @@
                     },
                     "taxonomyCode": {
                         "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
                         "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
                     },
                     "firstName": {
