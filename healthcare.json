@@ -3841,6 +3841,8 @@
                                                         "eligibilityCheck": "SUPPORTED",
                                                         "claimStatus": "SUPPORTED",
                                                         "claimSubmission": "SUPPORTED",
+                                                        "professionalClaimSubmission": "SUPPORTED",
+                                                        "institutionalClaimSubmission": "SUPPORTED",
                                                         "claimPayment": "ENROLLMENT_REQUIRED"
                                                     }
                                                 }
@@ -17533,7 +17535,16 @@
                     },
                     "claimSubmission": {
                         "$ref": "#/components/schemas/TransactionSupportValue",
-                        "description": "Whether you can send 837 professional claims to this payer."
+                        "deprecated": true,
+                        "description": "Whether you can send 837 professional claims to this payer.\nThis shape is deprecated since 2024-11-13: This `claimSubmission` property is deprecated and will be removed in a future release. Instead, use the `professionalClaimSubmission` property."
+                    },
+                    "professionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837p professional claims to this payer."
+                    },
+                    "institutionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837i institutional claims to this payer."
                     },
                     "claimPayment": {
                         "$ref": "#/components/schemas/TransactionSupportValue",
@@ -17544,7 +17555,9 @@
                     "claimPayment",
                     "claimStatus",
                     "claimSubmission",
-                    "eligibilityCheck"
+                    "eligibilityCheck",
+                    "institutionalClaimSubmission",
+                    "professionalClaimSubmission"
                 ]
             },
             "TransactionSupportValue": {
