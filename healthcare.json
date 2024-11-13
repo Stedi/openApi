@@ -11267,7 +11267,7 @@
                         "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation"
                     },
                     "serviceLineReferenceInformation": {
-                        "$ref": "#/components/schemas/ServiceLineReferenceInformation"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineReferenceInformation"
                     },
                     "linePricingInformation": {
                         "$ref": "#/components/schemas/LinePricingInformation"
@@ -11395,6 +11395,50 @@
                 },
                 "required": [
                     "providerType"
+                ]
+            },
+            "InstitutionalServiceLineReferenceInformation": {
+                "description": "Loop 2400, Segment: REF",
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "providerControlNumber",
+                        "properties": {
+                            "providerControlNumber": {
+                                "type": "string",
+                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 6R"
+                            }
+                        },
+                        "required": [
+                            "providerControlNumber"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "repricedLineItemRefNumber",
+                        "properties": {
+                            "repricedLineItemRefNumber": {
+                                "type": "string",
+                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 9B"
+                            }
+                        },
+                        "required": [
+                            "repricedLineItemRefNumber"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "adjustedRepricedLineItemRefNumber",
+                        "properties": {
+                            "adjustedRepricedLineItemRefNumber": {
+                                "type": "string",
+                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 9D"
+                            }
+                        },
+                        "required": [
+                            "adjustedRepricedLineItemRefNumber"
+                        ]
+                    }
                 ]
             },
             "InstitutionalServiceLineSupplementalInformation": {
