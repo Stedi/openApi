@@ -6224,31 +6224,39 @@
                         "description": "The pricing methodology code. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-pricing-methodology-codes) for a complete list."
                     },
                     "repricedAllowedAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The allowed amount, expressed as a decimal."
                     },
                     "repricedSavingAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The savings amount, expressed as a decimal."
                     },
                     "repricedOrgIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The organization identification number."
                     },
                     "repricedPerDiem": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The pricing rate associated with per diem or flat rate pricing, expressed as a decimal."
                     },
                     "repricedApprovedDRGCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The approved DRG code."
                     },
                     "repricedApprovedAmount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The approved DRG amount, expressed as a decimal."
                     },
                     "repricedApprovedRevenueCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The approved revenue code."
                     },
                     "repricedApprovedServiceUnitCode": {
                         "$ref": "#/components/schemas/RepricedApprovedServiceUnitCode"
                     },
                     "repricedApprovedServiceUnitCount": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The approved service units or inpatient days. The maximum length for this field is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "rejectReasonCode": {
                         "$ref": "#/components/schemas/RejectReasonCode"
@@ -9357,35 +9365,42 @@
                 "properties": {
                     "address1": {
                         "type": "string",
-                        "maxLength": 55
+                        "maxLength": 55,
+                        "description": "The first line of the street address. This typically contains the building number and street name."
                     },
                     "address2": {
                         "type": "string",
-                        "maxLength": 55
+                        "maxLength": 55,
+                        "description": "The second line of the street address. This typically contains the apartment or suite number."
                     },
                     "city": {
                         "type": "string",
-                        "maxLength": 30
+                        "maxLength": 30,
+                        "description": "The city name."
                     },
                     "state": {
                         "type": "string",
                         "maxLength": 2,
-                        "minLength": 2
+                        "minLength": 2,
+                        "description": "The state or province code. Only required when the city is in the Unites States and Canada."
                     },
                     "postalCode": {
                         "type": "string",
                         "maxLength": 15,
-                        "minLength": 3
+                        "minLength": 3,
+                        "description": "The postal zone or zip code. Exclude punctuation and spaces."
                     },
                     "countryCode": {
                         "type": "string",
                         "maxLength": 3,
-                        "minLength": 2
+                        "minLength": 2,
+                        "description": "Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
                         "maxLength": 3,
-                        "minLength": 1
+                        "minLength": 1,
+                        "description": "Use the country subdivision codes from Part 2 of ISO 3166."
                     }
                 },
                 "required": [
@@ -9408,12 +9423,13 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                        "$ref": "#/components/schemas/InstitutionalProviderType",
+                        "description": "The type of provider. Set to `BillingProvider`."
                     },
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "Segment: NM1, Element:NM109 where NM108=XX"
+                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -9421,70 +9437,76 @@
                     "secondaryIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02"
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
                     },
                     "employerId": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02 where REF01=EI"
+                        "description": "The provider's employer ID, also known as an EIN or TIN. Must be a string of exactly nine numbers with no separators."
                     },
                     "commercialNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02 where REF01=G2, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                        "deprecated": true,
+                        "description": "Segment: REF, Element: REF02 where REF01=G2, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider.\nThis shape is deprecated."
                     },
                     "locationNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02 where REF01=LU, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                        "deprecated": true,
+                        "description": "Segment: REF, Element: REF02 where REF01=LU, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02 where REF01=0B, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                        "deprecated": true,
+                        "description": "Segment: REF, Element: REF02 where REF01=0B, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider.\nThis shape is deprecated."
                     },
                     "providerUpinNumber": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "Segment: REF, Element: REF02 where REF01=1G, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider."
+                        "deprecated": true,
+                        "description": "Segment: REF, Element: REF02 where REF01=1G, Notes: Deprecated see otherPayerAttendingProvider, otherPayerRenderingProvider and otherPayerReferringProvider.\nThis shape is deprecated."
                     },
                     "taxonomyCode": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Segment: PRV03, Element: PRV03 where PRV02=PXC"
+                        "description": "The provider's [taxnonomy code](https://www.cms.gov/medicare/enrollment-renewal/providers-suppliers/health-care-taxonomy), a unique 10-character code that designates their classification and specialization."
                     },
                     "firstName": {
                         "type": "string",
                         "maxLength": 35,
-                        "description": "Segment: NM1, Element: NM104"
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "Segment: NM1, Element: NM103"
+                        "description": "The provider's last name, when the provider is an individual. Can be up to 60 characters. Either this property or `organizationName` is required."
                     },
                     "middleName": {
                         "type": "string",
                         "maxLength": 25,
-                        "description": "Segment: NM1, Element: NM105"
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
-                        "description": "Segment: NM1, Element: NM107"
+                        "description": "The provider's suffix, such as Jr. or Sr. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "Segment: NM1, Element:NM103"
+                        "description": "The provider's business name, when the provider is not an individual. Can be up to 60 characters."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InstitutionalAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress",
+                        "description": "The provider's address."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/InstitutionalContactInformation"
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
+                        "description": "The provider's contact information.You must include at least one communication method (phone, fax, or email) in this object."
                     }
                 },
                 "required": [
@@ -9504,7 +9526,7 @@
                         },
                         "maxItems": 6,
                         "minItems": 1,
-                        "description": "The adjustment reason code, amount, and quantity. You can include up to six of these `claimAdjustmentDetails` objects within a single `claimLevelAdjustments` object."
+                        "description": "The adjustment reason, amount, and quantity. You can include up to six of these objects to describe a single `adjustmentGroupCode`."
                     }
                 },
                 "required": [
@@ -9516,15 +9538,15 @@
                 "properties": {
                     "adjustmentReasonCode": {
                         "type": "string",
-                        "description": "The code identifying the detailed reason the adjustment was made. Visit the X12 [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) documentation for a complete list."
+                        "description": "Code identifying the detailed reason the adjustment was made. Visit the X12 [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) for a complete list."
                     },
                     "adjustmentAmount": {
                         "type": "string",
-                        "description": "The amount of the adjustment, formatted as a decimal."
+                        "description": "The dollar amount of the adjustment, expressed as a decimal."
                     },
                     "adjustmentQuantity": {
                         "type": "string",
-                        "description": "The units of service being adjusted, formatted as a decimal."
+                        "description": "The units of service being adjusted, expressed as a decimal."
                     }
                 },
                 "required": [
@@ -9833,7 +9855,8 @@
                         "items": {
                             "$ref": "#/components/schemas/InstitutionalServiceLine"
                         },
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day."
                     },
                     "claimCodeInformation": {
                         "$ref": "#/components/schemas/ClaimCodeInformation"
@@ -10050,7 +10073,8 @@
                         "$ref": "#/components/schemas/InstitutionalReferring"
                     },
                     "rendering": {
-                        "$ref": "#/components/schemas/InstitutionalRendering"
+                        "$ref": "#/components/schemas/InstitutionalRendering",
+                        "description": "Information about the provider who delivered the medical services or non-surgical procecures listed in the claim. Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. Use this object for providers that apply to the entire claim."
                     },
                     "attending": {
                         "$ref": "#/components/schemas/Attending"
@@ -10135,20 +10159,26 @@
                 "properties": {
                     "name": {
                         "type": "string",
-                        "maxLength": 60
+                        "maxLength": 60,
+                        "description": "The full name of the person or office."
                     },
                     "phoneNumber": {
                         "type": "string",
-                        "maxLength": 256
+                        "maxLength": 256,
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code, BBB is the telephone number prefix, and CCCC is the telephone number. The phone number should only include the digits 0 to 9. Don't include separators, such as dashes, and don't include long distance access numbers, such as 1. For example, you would format the phone number 123-456-7890 as 1234567890."
                     },
                     "faxNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The fax number."
                     },
                     "email": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The email address."
                     },
                     "validContact": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 },
                 "required": [
@@ -10222,22 +10252,26 @@
                 "properties": {
                     "nationalDrugCode": {
                         "type": "string",
-                        "maxLength": 48
+                        "maxLength": 48,
+                        "description": "The National Drug Code (NDC) number for the drug or biologic. This is a unique number that identifies the drug or biologic, including the labeler code, product code, and package code. The NDC number must be formatted as 5-4-2, with hyphens separating the three parts. For example, 12345-6789-01."
                     },
                     "nationalDrugUnitCount": {
                         "type": "string",
-                        "pattern": "^\\d{1,15}$"
+                        "pattern": "^\\d{1,15}$",
+                        "description": "The number of units of the drug or biologic, formtted as a decimal."
                     },
                     "measurementUnitCode": {
                         "$ref": "#/components/schemas/InstitutionalMeasurementUnitCode"
                     },
                     "linkSequenceNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "The sequence number assigned to the drug or biologic. Required when the provided medication involves the compounding of two or more drugs being reported and there is no prescription number. The link sequence number is a provider-assigned number unique to this claim. Its purpose is to enable the receiver to piece together the components of the compound. Note that you can set either this property _or_ `pharmacyPrescriptionNumber`, but not both."
                     },
                     "pharmacyPrescriptionNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "The prescription number assigned by the pharmacy. Required when dispensing of the drug has been done with an assigned prescription number. In cases where a compound drug is being billed, the components of the compound will all have the same prescription number. Payers receiving the claim can relate all the components by matching the prescription number. Note that you can set either this property _or_ `linkSequenceNumber`, but not both."
                     }
                 },
                 "required": [
@@ -10295,18 +10329,21 @@
                     "otherPayerPrimaryIdentifier": {
                         "type": "string",
                         "maxLength": 80,
-                        "minLength": 2
+                        "minLength": 2,
+                        "description": "The payer ID for the payer responsible for reimbursement."
                     },
                     "serviceLinePaidAmount": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount paid for this service line, expressed as a decimal. Zero (0) is an acceptable value."
                     },
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/LineAdjudicationInformationProductOrServiceIDQualifier"
                     },
                     "procedureCode": {
                         "type": "string",
-                        "maxLength": 48
+                        "maxLength": 48,
+                        "description": "The procedure code."
                     },
                     "procedureModifier": {
                         "type": "array",
@@ -10314,37 +10351,45 @@
                             "type": "string"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "A modifier that conveys special circumstances related to the performance of the service."
                     },
                     "serviceLineRevenueCode": {
                         "type": "string",
-                        "maxLength": 48
+                        "maxLength": 48,
+                        "description": "The revenue code for the service line."
                     },
                     "procedureCodeDescription": {
                         "type": "string",
-                        "maxLength": 80
+                        "maxLength": 80,
+                        "description": "A description of the procedure identified in `procedureCode`."
                     },
                     "paidServiceUnitCount": {
                         "type": "string",
-                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$"
+                        "pattern": "^\\d{1,8}(\\.\\d{1,3})?$",
+                        "description": "The number of paid units from the remittance advice. When paid units are not present on the remittance advice, use the original billed units. The maximum length for this property is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "bundledLineNumber": {
                         "type": "string",
-                        "pattern": "^\\d{1,6}$"
+                        "pattern": "^\\d{1,6}$",
+                        "description": "The LX assigned number of the service line into which this service line is bundled. It's only used to bundle service lines."
                     },
                     "adjudicationOrPaymentDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the claim was paid, formatted as YYYYMMDD."
                     },
                     "remainingPatientLiability": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The remaining amount (as determined by the provider) to be paid after the other payer identified in the `otherPayerPrimaryIdentifier` property has adjudicated the claim. Expressed as a decimal. Only used in claims submitted by providers - not in payer-to-payer coordination of benefits (COB). Don't include this if you already provided `claimInformation.otherSubscriberInformation.remainingPatientLiability` for the claim."
                     },
                     "lineAdjustment": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
-                        }
+                        },
+                        "description": "Adjustment reason codes and amounts as needed for the service line. You can include up to five of these objects within `claimInformation.serviceLines.lineAdjudicationInformation.claimAdjustmentInformation`."
                     }
                 },
                 "required": [
@@ -10357,6 +10402,7 @@
             },
             "InstitutionalMeasurementUnit": {
                 "type": "string",
+                "description": "The unit of measurement for the service. Can be set to `DA` - Days or `UN` - Unit.",
                 "enum": [
                     "DA",
                     "UN"
@@ -10364,6 +10410,7 @@
             },
             "InstitutionalMeasurementUnitCode": {
                 "type": "string",
+                "description": "Code identifying the unit of measure for the drug or biologic. Can be set to `F2` - International Unit, `GR` - Gram, `ME` - Milligram, `ML` - Milliliter, or `UN` - Unit.",
                 "enum": [
                     "F2",
                     "GR",
@@ -10725,6 +10772,7 @@
             },
             "InstitutionalProcedureIdentifier": {
                 "type": "string",
+                "description": "Code identifying the type of `procedureCode`. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier-codes) for more information.",
                 "enum": [
                     "ER",
                     "HC",
@@ -10954,7 +11002,6 @@
             },
             "InstitutionalRendering": {
                 "type": "object",
-                "description": "Information about the provider who delivered the medical services or non-surgical procecures listed in the claim. Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. Use this object for providers that apply to the entire claim.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -11112,13 +11159,15 @@
                 "properties": {
                     "serviceLineRevenueCode": {
                         "type": "string",
-                        "maxLength": 48
+                        "maxLength": 48,
+                        "description": "The identifying number for the product or service. Visit the [National Uniform Billing Committee (NUBC) Codes](https://www.hhs.gov/guidance/document/new-national-uniform-billing-committee-nubc-codes-and-other-chapter-25-revisions-revision) documentation for a complete list."
                     },
                     "procedureIdentifier": {
                         "$ref": "#/components/schemas/InstitutionalProcedureIdentifier"
                     },
                     "procedureCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -11126,25 +11175,30 @@
                             "type": "string"
                         },
                         "maxItems": 4,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "A modifier that conveys special circumstances related to the performance of the service."
                     },
                     "description": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The description of the procedure identified in `procedureCode`."
                     },
                     "lineItemChargeAmount": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount charged for the service line, expressed as a decimal. This should include the provider's base charge and any applicable tax amounts reported within the service line."
                     },
                     "measurementUnit": {
                         "$ref": "#/components/schemas/InstitutionalMeasurementUnit"
                     },
                     "serviceUnitCount": {
                         "type": "string",
-                        "maxLength": 15
+                        "maxLength": 15,
+                        "description": "The number of units of service provided. The maximum length for this property is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "nonCoveredChargeAmount": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The non-covered service amount, expressed as a decimal."
                     }
                 },
                 "required": [
@@ -11169,22 +11223,27 @@
             },
             "InstitutionalServiceFacilityLocation": {
                 "type": "object",
+                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address. When an organization's healthcare provider's NPI is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab). The service location can't be a component or subpart of the billing provider entity.",
                 "properties": {
                     "organizationName": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The business name of the laboratory or facility."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InstitutionalAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress",
+                        "description": "The location where services were rendered. If this was in an an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/ServiceFacilityLocationSecondaryIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
                     },
                     "identificationCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The service facility location's National Provider Identifier (NPI). Required when the service location to be identified has an NPI and is not a component or subpart of the billing provider."
                     }
                 },
                 "required": [
@@ -11196,49 +11255,60 @@
                 "type": "object",
                 "properties": {
                     "assignedNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 6,
+                        "deprecated": true,
+                        "description": "Stedi assigns this value automatically. It's a unique number identifying the service line within the claim.\nThis shape is deprecated."
                     },
                     "serviceDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "Either a single date of service or the beginning of a range of service dates, formatted as YYYYMMDD. If a range is provided, the end date should be provided in `serviceDateEnd`. This property is required on outpatient service lines where a drug is not being billed and the Statement Covers Period is greater than one day. It's also required when a drug is being billed and the payer's adjudication is known to be impacted by the drug duration or the date the prescription was written. In cases where a drug is being billed on a service line, this property may be used to indicate the date the prescription was written (or otherwise communicated by the prescriber if not written). It may also be used to indicate the beginning of the duration for which the drug supply will be used by the patient. The difference in dates, including both the begin and end dates, are the days supply of the drug. Example: 20000101-20000107 (1/1/00 to 1/7/00) is used for a 7 day supply where the first day of the drug used by the patient is 1/1/00. In the event a drug is administered on less than a daily basis (for example, every other day) the date range would include the entire period during which the drug was supplied, including the last day the drug was used. Example: 20000101-20000108 (1/1/00 to 1/8/00) is used for an 8 days supply where the prescription is written for Q48 (every 48 hours), four doses of the drug are dispensed and the first dose is used on 1/1/00."
                     },
                     "serviceDateEnd": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end of a range of service dates, formatted as YYYYMMDD. If you include this property, you must also include `serviceDate` to indicate the beginning of the range."
                     },
                     "serviceTaxAmount": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount of the service tax or surcharge, formatted as a decimal. Required when a service tax or surcharge applies to the service being reported. The `claimInformation.serviceLines.institutionalService.lineItemChargeAmount` must include the amount you report here."
                     },
                     "facilityTaxAmount": {
                         "type": "string",
-                        "pattern": "^\\d+(\\.\\d{1,2})?$"
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount of the facility tax or surcharge, formatted as a decimal. Required when a facility tax applies to the service being reported. The `claimInformation.serviceLines.institutionalService.lineItemChargeAmount` must include the amount you report here."
                     },
                     "thirdPartyOrganizationNotes": {
                         "type": "string",
-                        "maxLength": 80
+                        "maxLength": 80,
+                        "description": "To provide additional information for comment or special instruction. Required when the TPO/repricer needs to forward additional information to the payer."
                     },
                     "lineItemControlNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value."
                     },
                     "repricedLineItemReferenceNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line in their submission to their payer organization."
                     },
                     "description": {
                         "type": "string",
                         "maxLength": 80,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "A free-form description to clarify information about the service line. You can use this to further describe the service/product/supply reported in the service line or for non-specific procedure codes. Non-specific procedure codes may include descriptors such as 'Not Otherwise Classified (NOC)', 'Unlisted', 'Unspecified', 'Other', 'Prescription Drug: Generic', 'Prescription Drug, Brand Name', or 'Miscellaneous'."
                     },
                     "adjustedRepricedLineItemReferenceNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on an adjusted service line in their submission to their payer organization. Providers shouldn't complete this property."
                     },
                     "lineNoteText": {
                         "type": "string",
-                        "maxLength": 80
+                        "maxLength": 80,
+                        "description": "Another way to provide additional information for comment or special instruction - same as `thirdPartyOrganizationNotes`. Required when the TPO/repricer needs to forward additional information to the payer."
                     },
                     "lineAdjudicationInformation": {
                         "type": "array",
@@ -11246,37 +11316,51 @@
                             "$ref": "#/components/schemas/InstitutionalLineAdjudicationInformation"
                         },
                         "maxItems": 15,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers."
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider",
+                        "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line. Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim."
                     },
                     "referringProvider": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider",
+                        "description": "Information about the provider who referred the patient for care. Include this object only when the referring provider is different than the provider listed in the `attending` object."
                     },
                     "lineSupplementInformation": {
-                        "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation"
+                        "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "institutionalService": {
-                        "$ref": "#/components/schemas/InstitutionalService"
+                        "$ref": "#/components/schemas/InstitutionalService",
+                        "description": "Details about the service line, including the procedure code and the line item charge amount."
                     },
                     "serviceLineSupplementalInformation": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation",
+                        "description": "Additional information or documentation required for the service line."
                     },
                     "serviceLineDateInformation": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation"
+                        "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "serviceLineReferenceInformation": {
                         "$ref": "#/components/schemas/InstitutionalServiceLineReferenceInformation"
                     },
                     "linePricingInformation": {
-                        "$ref": "#/components/schemas/LinePricingInformation"
+                        "$ref": "#/components/schemas/LinePricingInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "drugIdentification": {
-                        "$ref": "#/components/schemas/InstitutionalDrugIdentification"
+                        "$ref": "#/components/schemas/InstitutionalDrugIdentification",
+                        "description": "Report drugs and biologics related to the service line. Required when government regulation mandates that prescribed drugs and biologics are reported with NDC numbers _or_ when when the provider or submitter chooses to report NDC numbers to enhance the claim reporting or adjudication processes."
                     },
                     "lineAdjustmentInformation": {
-                        "$ref": "#/components/schemas/LineAdjustmentInformation"
+                        "$ref": "#/components/schemas/LineAdjustmentInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "operatingPhysician": {
                         "$ref": "#/components/schemas/OperatingPhysician",
@@ -11287,11 +11371,11 @@
                         "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the service line."
                     },
                     "lineRepricingInformation": {
-                        "$ref": "#/components/schemas/ClaimPricingInformation"
+                        "$ref": "#/components/schemas/ClaimPricingInformation",
+                        "description": "Information about the pricing or repricing of the service line. This information should only be completed by repricers."
                     }
                 },
                 "required": [
-                    "assignedNumber",
                     "institutionalService"
                 ]
             },
@@ -11319,70 +11403,91 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                        "$ref": "#/components/schemas/InstitutionalProviderType",
+                        "description": "The type of provider. Set to the type that matches this object's name."
                     },
                     "npi": {
                         "type": "string",
-                        "pattern": "^\\d{10}$|^\\d{15}$"
+                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
                     },
                     "employerId": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "locationNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "providerUpinNumber": {
                         "type": "string",
-                        "maxLength": 50
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "taxonomyCode": {
                         "type": "string",
-                        "maxLength": 10,
-                        "minLength": 10,
-                        "pattern": "^[A-Za-z0-9]{10}$"
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
-                        "maxLength": 35
+                        "maxLength": 35,
+                        "description": "The provider's first name. Can be up to 35 characters."
                     },
                     "lastName": {
                         "type": "string",
-                        "maxLength": 60
+                        "maxLength": 60,
+                        "description": "The provider's last name, when the provider is an individual. Can be up to 60 characters. Either this property or `organizationName` is required."
                     },
                     "middleName": {
                         "type": "string",
-                        "maxLength": 25
+                        "maxLength": 25,
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
                     },
                     "suffix": {
                         "type": "string",
-                        "maxLength": 10
+                        "maxLength": 10,
+                        "description": "The provider's suffix, such as Jr. or Sr. Can be up to 10 characters."
                     },
                     "organizationName": {
                         "type": "string",
-                        "maxLength": 60
+                        "maxLength": 60,
+                        "description": "The provider's business name. Can be up to 60 characters. Either this property or `lastName` is required."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InstitutionalAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/InstitutionalContactInformation"
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "referenceIdentification": {
                         "type": "array",
@@ -11390,7 +11495,8 @@
                             "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Additional identifiers for the provider. You can set `qualifier` to `2U` - Payer Identification Number."
                     }
                 },
                 "required": [
@@ -11398,7 +11504,7 @@
                 ]
             },
             "InstitutionalServiceLineReferenceInformation": {
-                "description": "Loop 2400, Segment: REF",
+                "description": "Additional identifiers for the service line. We **strongly recommend** setting the `providerControlNumber` property for each service line within the claim.",
                 "oneOf": [
                     {
                         "type": "object",
@@ -11406,7 +11512,7 @@
                         "properties": {
                             "providerControlNumber": {
                                 "type": "string",
-                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 6R"
+                                "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value."
                             }
                         },
                         "required": [
@@ -11419,7 +11525,7 @@
                         "properties": {
                             "repricedLineItemRefNumber": {
                                 "type": "string",
-                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 9B"
+                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line in their submission to their payer organization. Providers shouldn't complete this property."
                             }
                         },
                         "required": [
@@ -11432,7 +11538,7 @@
                         "properties": {
                             "adjustedRepricedLineItemRefNumber": {
                                 "type": "string",
-                                "description": "Loop 2400, Segment: REF, Element: REF02, Notes: Where REF01 = 9D"
+                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on an adjusted service line in their submission to their payer organization. Providers shouldn't complete this property."
                             }
                         },
                         "required": [
@@ -11451,7 +11557,8 @@
                         "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentTransmissionCode"
                     },
                     "attachmentControlNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`."
                     }
                 },
                 "required": [
@@ -11663,6 +11770,7 @@
             },
             "LineAdjudicationInformationProductOrServiceIDQualifier": {
                 "type": "string",
+                "description": "Code identifying the type of `procedureCode`. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list and usage guidelines.",
                 "enum": [
                     "ER",
                     "HC",
@@ -16255,6 +16363,7 @@
             },
             "ServiceFacilityLocationSecondaryIdentificationQualifierCode": {
                 "type": "string",
+                "description": "Code identifying the type of secondary identification. Can be set to `0B` - State License Number, `G2` - Provider Commercial Number, or `LU` - Location Number.",
                 "enum": [
                     "0B",
                     "G2",
@@ -16923,6 +17032,7 @@
             },
             "ServiceLineSupplementalInformationAttachmentReportTypeCode": {
                 "type": "string",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `08` - Plan of Treatment or `CT` - Certification. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-report-type-codes) for a complete list.",
                 "enum": [
                     "03",
                     "04",
@@ -16989,6 +17099,7 @@
             },
             "ServiceLineSupplementalInformationAttachmentTransmissionCode": {
                 "type": "string",
+                "description": "Code indicating the method by which the attachment was transmitted. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.",
                 "enum": [
                     "AA",
                     "BM",
