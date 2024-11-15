@@ -5191,7 +5191,14 @@
                             "type": "string",
                             "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
                         },
-                        "required": true
+                        "required": true,
+                        "examples": {
+                            "GetPDF1500_example1": {
+                                "summary": "Get PDF 1500 Request",
+                                "description": "",
+                                "value": "a10b1111-7233-484c-8dee-b240c590c767"
+                            }
+                        }
                     }
                 ],
                 "responses": {
@@ -5201,6 +5208,13 @@
                             "application/octet-stream": {
                                 "schema": {
                                     "$ref": "#/components/schemas/GetPDF1500OutputPayload"
+                                },
+                                "examples": {
+                                    "GetPDF1500_example1": {
+                                        "summary": "Get PDF 1500 Request",
+                                        "description": "",
+                                        "value": "JVBERi0xLjcKJYGBgYEKCjcgMCBvYmoKPDwKL0ZpbHRlciAvRmxhdGVEZWNvZGUKL0xlbmd0aCAxMAo ..."
+                                    }
                                 }
                             }
                         }
