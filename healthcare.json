@@ -5809,8 +5809,9 @@
                         "items": {
                             "$ref": "#/components/schemas/RequestDependent"
                         },
+                        "maxItems": 1,
                         "minItems": 1,
-                        "description": "One or more dependents for which you want to retrieve benefits information. The patient qualifies as a dependent for eligibility checks when the patient is listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify the patient through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. Each payer has different requirements, so you should supply the fields necessary for each payer to identify the patient in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
+                        "description": "A dependent for which you want to retrieve benefits information. You can only submit one dependent per eligibility check. An individual qualifies as a dependent for eligibility checks when they are listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify them through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. Each payer has different requirements, so you should supply the fields necessary for each payer to identify the dependent in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
@@ -9895,8 +9896,9 @@
                         "items": {
                             "$ref": "#/components/schemas/RequestDependent"
                         },
+                        "maxItems": 1,
                         "minItems": 1,
-                        "description": "One or more dependents for which you want to retrieve benefits information. The patient qualifies as a dependent for eligibility checks when the patient is listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify the patient through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. Each payer has different requirements, so you should supply the fields necessary for each payer to identify the patient in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
+                        "description": "A dependent for which you want to retrieve benefits information. You can only submit one dependent per eligibility check. An individual qualifies as a dependent for eligibility checks when they are listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify them through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. Each payer has different requirements, so you should supply the fields necessary for each payer to identify the dependent in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
