@@ -1,0 +1,41 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Stedi Enrollment",
+        "version": "2024-09-01",
+        "contact": {
+            "email": "healthcare@stedi.com"
+        },
+        "license": {
+            "name": "Proprietary",
+            "url": "https://stedi.com"
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "httpApiKeyAuth": {
+                "type": "apiKey",
+                "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "httpApiKeyAuth": []
+        }
+    ],
+    "x-stedi": {
+        "lifecycle": "general_availability",
+        "product": "enrollment",
+        "public": true
+    },
+    "tags": [],
+    "servers": [
+        {
+            "url": "https://enrollments.us.stedi.com/2024-09-01",
+            "description": "Production"
+        }
+    ]
+}
