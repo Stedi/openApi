@@ -11,7 +11,2050 @@
             "url": "https://stedi.com"
         }
     },
+    "paths": {
+        "/enrollments": {
+            "get": {
+                "operationId": "ListEnrollments",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+                        "schema": {
+                            "type": "number",
+                            "maximum": 500,
+                            "minimum": 1,
+                            "description": "The maximum number of elements to return in a page. If not specified, the default is 100."
+                        }
+                    },
+                    {
+                        "name": "pageToken",
+                        "in": "query",
+                        "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned.",
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 1024,
+                            "minLength": 1,
+                            "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned."
+                        }
+                    },
+                    {
+                        "name": "providerId",
+                        "in": "query",
+                        "description": "The Stedi-assigned identifier for an existing provider. Stedi will return all enrollments associated with the provider.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for an existing provider. Stedi will return all enrollments associated with the provider."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ListEnrollments 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListEnrollmentsResponseContent"
+                                },
+                                "examples": {
+                                    "ListEnrollments_example1": {
+                                        "summary": "List Enrollments",
+                                        "description": "",
+                                        "value": {
+                                            "nextPageToken": "945ff6de213d3ef481d028065d4c12fb996a166a3a90ef98564318decfae50ce4b36d74b7e9d9bafa6e1d169",
+                                            "items": [
+                                                {
+                                                    "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                                                    "provider": {
+                                                        "name": "Test Medical Provider",
+                                                        "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                                    },
+                                                    "payer": {
+                                                        "name": "UnitedHealthcare",
+                                                        "id": "87726"
+                                                    },
+                                                    "transactions": {
+                                                        "claimPayment": {
+                                                            "enroll": true
+                                                        }
+                                                    },
+                                                    "status": "LIVE"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "CreateEnrollment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEnrollmentRequestContent"
+                            },
+                            "examples": {
+                                "CreateEnrollment_example1": {
+                                    "summary": "Create Enrollment",
+                                    "description": "",
+                                    "value": {
+                                        "transactions": {
+                                            "claimPayment": {
+                                                "enroll": true
+                                            }
+                                        },
+                                        "primaryContact": {
+                                            "firstName": "John",
+                                            "lastName": "Doe",
+                                            "email": "test@example.com",
+                                            "phone": "555-123-34354",
+                                            "streetAddress": "123 Some Str.",
+                                            "city": "A City",
+                                            "state": "MD",
+                                            "zipCode": "20814"
+                                        },
+                                        "payer": {
+                                            "id": "87726"
+                                        },
+                                        "provider": {
+                                            "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "CreateEnrollment 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateEnrollmentResponseContent"
+                                },
+                                "examples": {
+                                    "CreateEnrollment_example1": {
+                                        "summary": "Create Enrollment",
+                                        "description": "",
+                                        "value": {
+                                            "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                                            "primaryContact": {
+                                                "firstName": "John",
+                                                "lastName": "Doe",
+                                                "email": "test@example.com",
+                                                "phone": "555-123-34354",
+                                                "streetAddress": "123 Some Str.",
+                                                "city": "A City",
+                                                "state": "MD",
+                                                "zipCode": "20814"
+                                            },
+                                            "createdAt": "2023-11-07T05:31:56Z",
+                                            "updatedAt": "2023-11-07T05:31:56Z",
+                                            "transactions": {
+                                                "claimPayment": {
+                                                    "enroll": true
+                                                }
+                                            },
+                                            "status": "PENDING",
+                                            "provider": {
+                                                "name": "Test Medical Provider",
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                            },
+                                            "payer": {
+                                                "name": "UnitedHealthcare",
+                                                "id": "87726"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/enrollments/{enrollmentId}": {
+            "delete": {
+                "operationId": "DeleteEnrollment",
+                "parameters": [
+                    {
+                        "name": "enrollmentId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the enrollment you want to delete.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the enrollment you want to delete."
+                        },
+                        "required": true,
+                        "examples": {
+                            "DeleteEnrollment_example1": {
+                                "summary": "Delete Enrollment",
+                                "description": "",
+                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DeleteEnrollment 200 response"
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "GetEnrollment",
+                "parameters": [
+                    {
+                        "name": "enrollmentId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the enrollment you want to retrieve.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the enrollment you want to retrieve."
+                        },
+                        "required": true,
+                        "examples": {
+                            "GetEnrollment_example1": {
+                                "summary": "Get Enrollment",
+                                "description": "",
+                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetEnrollment 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetEnrollmentResponseContent"
+                                },
+                                "examples": {
+                                    "GetEnrollment_example1": {
+                                        "summary": "Get Enrollment",
+                                        "description": "",
+                                        "value": {
+                                            "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                                            "primaryContact": {
+                                                "firstName": "John",
+                                                "lastName": "Doe",
+                                                "email": "test@example.com",
+                                                "phone": "555-123-34354",
+                                                "streetAddress": "123 Some Str.",
+                                                "city": "A City",
+                                                "state": "MD",
+                                                "zipCode": "20814"
+                                            },
+                                            "createdAt": "2023-11-07T05:31:56Z",
+                                            "updatedAt": "2023-11-07T05:31:56Z",
+                                            "transactions": {
+                                                "professionalClaimSubmission": {
+                                                    "enroll": true
+                                                },
+                                                "claimStatus": {
+                                                    "enroll": false
+                                                }
+                                            },
+                                            "status": "PROVISIONING",
+                                            "provider": {
+                                                "name": "Test Medical Provider",
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                            },
+                                            "payer": {
+                                                "name": "UnitedHealthcare",
+                                                "id": "87726"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "UpdateEnrollment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateEnrollmentRequestContent"
+                            },
+                            "examples": {
+                                "UpdateEnrollment_example1": {
+                                    "summary": "Update Enrollment",
+                                    "description": "",
+                                    "value": {
+                                        "transactions": {
+                                            "claimPayment": {
+                                                "enroll": true
+                                            }
+                                        },
+                                        "primaryContact": {
+                                            "firstName": "Updated First Name",
+                                            "lastName": "Updated Last Name",
+                                            "email": "test@example.com",
+                                            "phone": "333-123-34354",
+                                            "streetAddress": "123 Some Str.",
+                                            "city": "A City",
+                                            "state": "MD",
+                                            "zipCode": "20814"
+                                        },
+                                        "payer": {
+                                            "id": "87726"
+                                        },
+                                        "provider": {
+                                            "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "enrollmentId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the enrollment.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the enrollment."
+                        },
+                        "required": true,
+                        "examples": {
+                            "UpdateEnrollment_example1": {
+                                "summary": "Update Enrollment",
+                                "description": "",
+                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UpdateEnrollment 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateEnrollmentResponseContent"
+                                },
+                                "examples": {
+                                    "UpdateEnrollment_example1": {
+                                        "summary": "Update Enrollment",
+                                        "description": "",
+                                        "value": {
+                                            "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                                            "primaryContact": {
+                                                "firstName": "Updated First Name",
+                                                "lastName": "Updated Last Name",
+                                                "email": "test@example.com",
+                                                "phone": "333-123-34354",
+                                                "streetAddress": "123 Some Str.",
+                                                "city": "A City",
+                                                "state": "MD",
+                                                "zipCode": "20814"
+                                            },
+                                            "createdAt": "2024-11-07T05:31:56Z",
+                                            "updatedAt": "2024-11-18T07:25:42Z",
+                                            "transactions": {
+                                                "claimPayment": {
+                                                    "enroll": true
+                                                }
+                                            },
+                                            "status": "PENDING",
+                                            "provider": {
+                                                "name": "Test Medical Provider",
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                            },
+                                            "payer": {
+                                                "name": "UnitedHealthcare",
+                                                "id": "87726"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/providers": {
+            "get": {
+                "operationId": "ListProviders",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+                        "schema": {
+                            "type": "number",
+                            "maximum": 500,
+                            "minimum": 1,
+                            "description": "The maximum number of elements to return in a page. If not specified, the default is 100."
+                        }
+                    },
+                    {
+                        "name": "pageToken",
+                        "in": "query",
+                        "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned.",
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 1024,
+                            "minLength": 1,
+                            "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ListProviders 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListProvidersResponseContent"
+                                },
+                                "examples": {
+                                    "ListProviders_example1": {
+                                        "summary": "List Providers",
+                                        "description": "",
+                                        "value": {
+                                            "items": [
+                                                {
+                                                    "id": "10334e76-f073-4b5d-8984-81d8e5107857",
+                                                    "name": "BDQ Dental Inc",
+                                                    "npi": "1999999992",
+                                                    "taxIdType": "EIN",
+                                                    "taxId": "555123456"
+                                                },
+                                                {
+                                                    "id": "10234e76-f067-4b5d-8984-81d8e5107123",
+                                                    "name": "Example Medical Associates",
+                                                    "npi": "1999999984",
+                                                    "taxIdType": "EIN",
+                                                    "taxId": "100100111"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "CreateProvider",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateProviderRequestContent"
+                            },
+                            "examples": {
+                                "CreateProvider_example1": {
+                                    "summary": "Create Provider",
+                                    "description": "",
+                                    "value": {
+                                        "name": "BDQ Dental Inc",
+                                        "npi": "1999999992",
+                                        "taxIdType": "EIN",
+                                        "taxId": "555123456",
+                                        "contacts": [
+                                            {
+                                                "firstName": "Bob",
+                                                "lastName": "Dentist",
+                                                "email": "bob@fortdental.center",
+                                                "phone": "555-123-2135",
+                                                "streetAddress": "123 Some Str",
+                                                "city": "Chevy Chase",
+                                                "zipCode": "20814",
+                                                "state": "MD"
+                                            },
+                                            {
+                                                "firstName": "Tom",
+                                                "lastName": "Dentist",
+                                                "email": "tom@fortdental.center",
+                                                "phone": "555-123-2133",
+                                                "streetAddress": "123 Some Str",
+                                                "city": "Chevy Chase",
+                                                "zipCode": "20814",
+                                                "state": "MD"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "CreateProvider 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateProviderResponseContent"
+                                },
+                                "examples": {
+                                    "CreateProvider_example1": {
+                                        "summary": "Create Provider",
+                                        "description": "",
+                                        "value": {
+                                            "createdAt": "2024-11-18T17:39:52.406Z",
+                                            "id": "10334e76-f073-4b5d-8984-81d8e5107857",
+                                            "name": "BDQ Dental Inc",
+                                            "npi": "1999999992",
+                                            "taxId": "555123456",
+                                            "taxIdType": "EIN",
+                                            "updatedAt": "2024-11-18T17:39:52.406Z",
+                                            "contacts": [
+                                                {
+                                                    "organizationName": "",
+                                                    "firstName": "Bob",
+                                                    "lastName": "Dentist",
+                                                    "email": "bob@fortdental.center",
+                                                    "phone": "555-123-2135",
+                                                    "streetAddress": "123 Some Str",
+                                                    "city": "Chevy Chase",
+                                                    "zipCode": "20814",
+                                                    "state": "MD"
+                                                },
+                                                {
+                                                    "organizationName": "",
+                                                    "firstName": "Tom",
+                                                    "lastName": "Dentist",
+                                                    "email": "tom@fortdental.center",
+                                                    "phone": "555-123-2133",
+                                                    "streetAddress": "123 Some Str",
+                                                    "city": "Chevy Chase",
+                                                    "zipCode": "20814",
+                                                    "state": "MD"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/providers/{providerId}": {
+            "delete": {
+                "operationId": "DeleteProvider",
+                "parameters": [
+                    {
+                        "name": "providerId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the provider you want to delete.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the provider you want to delete."
+                        },
+                        "required": true,
+                        "examples": {
+                            "DeleteProvider_example1": {
+                                "summary": "Delete Provider",
+                                "description": "",
+                                "value": "10334e76-f073-4b5d-8984-81d8e5107857"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DeleteProvider 200 response"
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "operationId": "GetProvider",
+                "parameters": [
+                    {
+                        "name": "providerId",
+                        "in": "path",
+                        "description": "The unique ID Stedi assigned to the provider when it was created in the system.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The unique ID Stedi assigned to the provider when it was created in the system."
+                        },
+                        "required": true,
+                        "examples": {
+                            "GetProvider_example1": {
+                                "summary": "Get Provider",
+                                "description": "",
+                                "value": "10334e76-f073-4b5d-8984-81d8e5107857"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetProvider 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetProviderResponseContent"
+                                },
+                                "examples": {
+                                    "GetProvider_example1": {
+                                        "summary": "Get Provider",
+                                        "description": "",
+                                        "value": {
+                                            "createdAt": "2024-11-18T17:39:52.406Z",
+                                            "id": "10334e76-f073-4b5d-8984-81d8e5107857",
+                                            "name": "BDQ Dental Inc",
+                                            "npi": "1999999992",
+                                            "taxId": "555123456",
+                                            "taxIdType": "EIN",
+                                            "updatedAt": "2024-11-18T17:39:52.406Z",
+                                            "contacts": [
+                                                {
+                                                    "organizationName": "",
+                                                    "firstName": "Bob",
+                                                    "lastName": "Dentist",
+                                                    "email": "bob@fortdental.center",
+                                                    "phone": "555-123-213342",
+                                                    "streetAddress": "123 Some Str",
+                                                    "city": "Chevy Chase",
+                                                    "zipCode": "20814",
+                                                    "state": "MD"
+                                                },
+                                                {
+                                                    "organizationName": "",
+                                                    "firstName": "Tom",
+                                                    "lastName": "Dentist",
+                                                    "email": "tom@fortdental.center",
+                                                    "phone": "555-123-213342",
+                                                    "streetAddress": "123 Some Str",
+                                                    "city": "Chevy Chase",
+                                                    "zipCode": "20814",
+                                                    "state": "MD"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "UpdateProvider",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateProviderRequestContent"
+                            },
+                            "examples": {
+                                "UpdateProvider_example1": {
+                                    "summary": "Update Provider",
+                                    "description": "",
+                                    "value": {
+                                        "name": "TEST Updated Dental Inc",
+                                        "npi": "1999999999",
+                                        "taxIdType": "EIN",
+                                        "taxId": "111222333",
+                                        "contacts": [
+                                            {
+                                                "firstName": "Test",
+                                                "lastName": "Tester",
+                                                "email": "bob@fortdental.center",
+                                                "phone": "555-123-213342",
+                                                "streetAddress": "123 Some Str",
+                                                "city": "A City",
+                                                "zipCode": "12345",
+                                                "state": "WA"
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "providerId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the provider you want to update.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the provider you want to update."
+                        },
+                        "required": true,
+                        "examples": {
+                            "UpdateProvider_example1": {
+                                "summary": "Update Provider",
+                                "description": "",
+                                "value": "10334e76-f073-4b5d-8984-81d8e5107857"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UpdateProvider 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateProviderResponseContent"
+                                },
+                                "examples": {
+                                    "UpdateProvider_example1": {
+                                        "summary": "Update Provider",
+                                        "description": "",
+                                        "value": {
+                                            "createdAt": "2024-11-18T17:39:52.406Z",
+                                            "id": "10334e76-f073-4b5d-8984-81d8e5107857",
+                                            "name": "TEST Updated Dental Inc",
+                                            "npi": "1999999999",
+                                            "taxId": "111222333",
+                                            "taxIdType": "EIN",
+                                            "updatedAt": "2024-11-19T19:24:33.246Z",
+                                            "contacts": [
+                                                {
+                                                    "organizationName": "",
+                                                    "firstName": "Test",
+                                                    "lastName": "Tester",
+                                                    "email": "bob@fortdental.center",
+                                                    "phone": "555-123-213342",
+                                                    "streetAddress": "123 Some Str",
+                                                    "city": "A City",
+                                                    "zipCode": "12345",
+                                                    "state": "WA"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
     "components": {
+        "schemas": {
+            "AccessDeniedExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response for authorization failure.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "AllEnrolledPayerFields": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The payer's name, such as `Cigna` or `UnitedHealthcare`."
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "AllEnrolledProviderFields": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The provider's name, such as `Example Dental Associates, LLC`."
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the provider."
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "CreateEnrollmentRequestContent": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "primaryContact": {
+                        "$ref": "#/components/schemas/ProviderContact"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "internal_note": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/EnrolledProviderInput",
+                        "description": "Information about the provider enrolling with the payer. You **must** use the [Create Provider](https://www.stedi.com/docs/api-reference/healthcare/post-enrollment-create-provider) endpoint to add the provider to Stedi before you can enroll them with one or more payers."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/EnrolledPayerInput",
+                        "description": "Information about the payer the provider is enrolling with."
+                    }
+                },
+                "required": [
+                    "payer",
+                    "primaryContact",
+                    "provider",
+                    "transactions"
+                ]
+            },
+            "CreateEnrollmentResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the enrollment request."
+                    },
+                    "primaryContact": {
+                        "$ref": "#/components/schemas/ProviderContact"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was created.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was updated.",
+                        "format": "date-time"
+                    },
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "internal_note": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/AllEnrolledProviderFields",
+                        "description": "Information about the provider enrolling with the payer."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "description": "Information about the payer the provider is enrolling with."
+                    }
+                },
+                "required": [
+                    "id",
+                    "payer",
+                    "primaryContact",
+                    "provider",
+                    "transactions"
+                ]
+            },
+            "CreateProviderRequestContent": {
+                "type": "object",
+                "description": "Information about the provider you want to add to your account. The provider **must** have a unique NPI from other providers in your account.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}$",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderContact"
+                        },
+                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                    }
+                },
+                "required": [
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "CreateProviderResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "A unique identifier Stedi assigns to this provider."
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi created the provider record.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi last updated the provider record.",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}$",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderContact"
+                        },
+                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "EnrolledPayerInput": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "EnrolledProviderInput": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the provider."
+                    }
+                },
+                "required": [
+                    "id"
+                ]
+            },
+            "EnrolledTransaction": {
+                "type": "object",
+                "properties": {
+                    "enroll": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "enroll"
+                ]
+            },
+            "EnrolledTransactionsList": {
+                "type": "object",
+                "properties": {
+                    "eligibilityCheck": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    },
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    },
+                    "professionalClaimSubmission": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    },
+                    "institutionalClaimSubmission": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    },
+                    "dentalClaimSubmission": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    },
+                    "claimPayment": {
+                        "$ref": "#/components/schemas/EnrolledTransaction"
+                    }
+                }
+            },
+            "EnrollmentStatus": {
+                "type": "string",
+                "enum": [
+                    "PENDING",
+                    "PROVISIONING",
+                    "LIVE"
+                ]
+            },
+            "EnrollmentSummary": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the enrollment."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/AllEnrolledProviderFields",
+                        "description": "Information about the provider enrolling with the payer."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "description": "Information about the payer the provider is enrolling with."
+                    },
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    }
+                },
+                "required": [
+                    "id",
+                    "payer",
+                    "provider",
+                    "status",
+                    "transactions"
+                ]
+            },
+            "GetEnrollmentResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the enrollment request."
+                    },
+                    "primaryContact": {
+                        "$ref": "#/components/schemas/ProviderContact"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was created.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was updated.",
+                        "format": "date-time"
+                    },
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "internal_note": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/AllEnrolledProviderFields",
+                        "description": "Information about the provider enrolling with the payer."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "description": "Information about the payer the provider is enrolling with."
+                    }
+                },
+                "required": [
+                    "id",
+                    "payer",
+                    "primaryContact",
+                    "provider",
+                    "transactions"
+                ]
+            },
+            "GetProviderResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "A unique identifier Stedi assigns to this provider."
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi created the provider record.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi last updated the provider record.",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}$",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderContact"
+                        },
+                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "InternalFailureExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response when an unexpected error occurred while processing request.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "ListEnrollmentsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "nextPageToken": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "minLength": 1,
+                        "description": "The token used for pagination"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentSummary"
+                        },
+                        "description": "Details about the enrollments matching the search criteria."
+                    }
+                }
+            },
+            "ListProvidersResponseContent": {
+                "type": "object",
+                "properties": {
+                    "nextPageToken": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "minLength": 1,
+                        "description": "The token used for pagination"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderSummary"
+                        },
+                        "description": "Details about every provider your organization has created within Stedi."
+                    }
+                }
+            },
+            "ProviderContact": {
+                "type": "object",
+                "description": "The contact information for the provider or the entity completing the enrollment on the provider's behalf. Either `organizationName` _or_ `firstName` and `lastName` are required. Payers may use this information to contact the provider or their representative directly regarding the status of the enrollment.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The contact's business name."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The contact's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The contact's last name."
+                    },
+                    "email": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The contact's email address."
+                    },
+                    "phone": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The contact's phone number, starting with the area code and formatted with dashes as separators. For example, `555-555-5555`."
+                    },
+                    "streetAddress": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The contact's complete street address, including the street number, name, and any suite or apartment number."
+                    },
+                    "city": {
+                        "type": "string",
+                        "minLength": 2,
+                        "description": "The contact's city."
+                    },
+                    "zipCode": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The contact's five-digit ZIP code."
+                    },
+                    "state": {
+                        "type": "string",
+                        "minLength": 2,
+                        "description": "The contact's two-letter state abbreviation. For example, `PA`, or `MD`."
+                    }
+                },
+                "required": [
+                    "city",
+                    "email",
+                    "phone",
+                    "state",
+                    "streetAddress",
+                    "zipCode"
+                ]
+            },
+            "ProviderSummary": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "A unique identifier Stedi assigns to this provider internally."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "ResourceNotFoundExceptionResponseContent": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "TaxIdType": {
+                "type": "string",
+                "enum": [
+                    "EIN",
+                    "SSN"
+                ]
+            },
+            "UnauthorizedExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response when the authorizer failed to authenticate the caller.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "UpdateEnrollmentRequestContent": {
+                "type": "object",
+                "properties": {
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "primaryContact": {
+                        "$ref": "#/components/schemas/ProviderContact"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "internal_note": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/EnrolledProviderInput",
+                        "description": "Information about the provider enrolling with the payer."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/EnrolledPayerInput",
+                        "description": "Information about the payer the provider is enrolling with."
+                    }
+                },
+                "required": [
+                    "payer",
+                    "primaryContact",
+                    "provider",
+                    "transactions"
+                ]
+            },
+            "UpdateEnrollmentResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The Stedi-assigned identifier for the enrollment request."
+                    },
+                    "primaryContact": {
+                        "$ref": "#/components/schemas/ProviderContact"
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was created.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment record was updated.",
+                        "format": "date-time"
+                    },
+                    "transactions": {
+                        "$ref": "#/components/schemas/EnrolledTransactionsList",
+                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "internal_note": {
+                        "type": "string"
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/AllEnrolledProviderFields",
+                        "description": "Information about the provider enrolling with the payer."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "description": "Information about the payer the provider is enrolling with."
+                    }
+                },
+                "required": [
+                    "id",
+                    "payer",
+                    "primaryContact",
+                    "provider",
+                    "transactions"
+                ]
+            },
+            "UpdateProviderRequestContent": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}$",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderContact"
+                        },
+                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                    }
+                },
+                "required": [
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "UpdateProviderResponseContent": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "A unique identifier Stedi assigns to this provider."
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi created the provider record.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time Stedi last updated the provider record.",
+                        "format": "date-time"
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^[0-9]{10}$",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                    },
+                    "taxIdType": {
+                        "$ref": "#/components/schemas/TaxIdType",
+                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "contacts": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ProviderContact"
+                        },
+                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
+                ]
+            },
+            "ValidationExceptionField": {
+                "type": "object",
+                "description": "Describes one specific validation failure for an input member.",
+                "properties": {
+                    "path": {
+                        "type": "string",
+                        "description": "A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A detailed description of the validation failure."
+                    }
+                },
+                "required": [
+                    "message",
+                    "path"
+                ]
+            },
+            "ValidationExceptionResponseContent": {
+                "type": "object",
+                "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "A summary of the validation failure."
+                    },
+                    "fieldList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationExceptionField"
+                        },
+                        "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            }
+        },
         "securitySchemes": {
             "httpApiKeyAuth": {
                 "type": "apiKey",
