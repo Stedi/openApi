@@ -5293,7 +5293,8 @@
                                                         "claimSubmission": "SUPPORTED",
                                                         "professionalClaimSubmission": "SUPPORTED",
                                                         "institutionalClaimSubmission": "SUPPORTED",
-                                                        "claimPayment": "ENROLLMENT_REQUIRED"
+                                                        "claimPayment": "ENROLLMENT_REQUIRED",
+                                                        "coordinationOfBenefits": "SUPPORTED"
                                                     }
                                                 }
                                             ]
@@ -19140,12 +19141,17 @@
                     "claimPayment": {
                         "$ref": "#/components/schemas/TransactionSupportValue",
                         "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+                    },
+                    "coordinationOfBenefits": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Coordination of Benefits (COB) support."
                     }
                 },
                 "required": [
                     "claimPayment",
                     "claimStatus",
                     "claimSubmission",
+                    "coordinationOfBenefits",
                     "eligibilityCheck",
                     "institutionalClaimSubmission",
                     "professionalClaimSubmission"
