@@ -7291,17 +7291,6 @@
                         "type": "string",
                         "description": "The agency claim number for this transaction. Used when services included in this claim are part of a property and casualty claim."
                     },
-                    "deathDate": {
-                        "type": "string",
-                        "description": "The patient's date of death, formatted as YYYYMMDD."
-                    },
-                    "patientWeight": {
-                        "type": "string",
-                        "description": "The patient's weight in pounds, such as `150`. You should only set this property if the payer specifically requests it, such as for some Medicare DME claims. Otherwise, including this property can trigger claim edits."
-                    },
-                    "pregnancyIndicator": {
-                        "$ref": "#/components/schemas/PregnancyIndicator"
-                    },
                     "patientControlNumber": {
                         "type": "string",
                         "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this property so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA)."
@@ -7374,17 +7363,52 @@
                         "maxItems": 10,
                         "minItems": 1
                     },
-                    "claimDateInformation": {
-                        "$ref": "#/components/schemas/ClaimDateInformation"
-                    },
                     "claimContractInformation": {
                         "$ref": "#/components/schemas/ClaimContractInformation"
                     },
-                    "claimSupplementalInformation": {
-                        "$ref": "#/components/schemas/ClaimSupplementalInformation"
-                    },
                     "claimNote": {
                         "$ref": "#/components/schemas/ClaimNote"
+                    },
+                    "healthCareCodeInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsHealthCareInformation"
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                    },
+                    "claimPricingRepricingInformation": {
+                        "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
+                    },
+                    "serviceFacilityLocation": {
+                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                    },
+                    "otherSubscriberInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherSubscriberInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 1,
+                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
+                    },
+                    "deathDate": {
+                        "type": "string",
+                        "description": "The patient's date of death, formatted as YYYYMMDD."
+                    },
+                    "patientWeight": {
+                        "type": "string",
+                        "description": "The patient's weight in pounds, such as `150`. You should only set this property if the payer specifically requests it, such as for some Medicare DME claims. Otherwise, including this property can trigger claim edits."
+                    },
+                    "pregnancyIndicator": {
+                        "$ref": "#/components/schemas/PregnancyIndicator"
+                    },
+                    "claimDateInformation": {
+                        "$ref": "#/components/schemas/ClaimDateInformation"
+                    },
+                    "claimSupplementalInformation": {
+                        "$ref": "#/components/schemas/ClaimSupplementalInformation"
                     },
                     "ambulanceTransportInformation": {
                         "$ref": "#/components/schemas/AmbulanceTransportInformation"
@@ -7417,15 +7441,6 @@
                     "epsdtReferral": {
                         "$ref": "#/components/schemas/EpsdtReferral"
                     },
-                    "healthCareCodeInformation": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClaimsHealthCareInformation"
-                        },
-                        "maxItems": 12,
-                        "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
-                    },
                     "anesthesiaRelatedSurgicalProcedure": {
                         "type": "array",
                         "items": {
@@ -7444,12 +7459,6 @@
                         "minItems": 1,
                         "description": "Required when condition information applies to the claim. You can include up to 24 codes in the array. Visit the National Uniform Claim Committee for a complete list of possible [condition codes](https://www.nucc.org/index.php/code-sets-mainmenu-41/condition-codes-mainmenu-38)."
                     },
-                    "claimPricingRepricingInformation": {
-                        "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
-                    },
-                    "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation"
-                    },
                     "ambulancePickUpLocation": {
                         "$ref": "#/components/schemas/ClaimsAddress",
                         "description": "The address where the ambulance picked up the patient. If the ambulance pickup location is in an area where there are no street addresses, enter a description of where the service was rendered. For example `Exit near mile marker 123 on I-95.`"
@@ -7457,15 +7466,6 @@
                     "ambulanceDropOffLocation": {
                         "$ref": "#/components/schemas/ClaimsAddress",
                         "description": "The address where the ambulance dropped off the patient."
-                    },
-                    "otherSubscriberInformation": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/OtherSubscriberInformation"
-                        },
-                        "maxItems": 10,
-                        "minItems": 1,
-                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
                     },
                     "serviceLines": {
                         "type": "array",
@@ -9539,11 +9539,11 @@
                     "relationshipToSubscriberCode": {
                         "$ref": "#/components/schemas/RelationshipToSubscriberCode"
                     },
-                    "contactInformation": {
-                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
-                    },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
                     }
                 },
                 "required": [
@@ -18881,11 +18881,11 @@
                         "type": "string",
                         "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
                     },
-                    "contactInformation": {
-                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
-                    },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
                     }
                 },
                 "required": [
