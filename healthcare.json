@@ -5510,7 +5510,7 @@
                     "admittingDiagnosisCode": {
                         "type": "string",
                         "maxLength": 30,
-                        "description": "The admitting diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
+                        "description": "The admitting diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     }
                 },
                 "required": [
@@ -7361,7 +7361,8 @@
                             "type": "string"
                         },
                         "maxItems": 10,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
                     },
                     "claimContractInformation": {
                         "$ref": "#/components/schemas/ClaimContractInformation"
@@ -8768,7 +8769,7 @@
                     },
                     "diagnosisCode": {
                         "type": "string",
-                        "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied."
+                        "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     }
                 },
                 "required": [
@@ -9185,7 +9186,8 @@
                             "type": "string"
                         },
                         "maxItems": 12,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An array of condition codes."
                     }
                 },
                 "required": [
@@ -11344,7 +11346,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array."
+                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     },
                     "principalProcedureInformation": {
                         "$ref": "#/components/schemas/PrincipalProcedureInformation",
@@ -13991,7 +13993,7 @@
                     "otherDiagnosisCode": {
                         "type": "string",
                         "maxLength": 30,
-                        "description": "A diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
+                        "description": "A diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     },
                     "presentOnAdmissionIndicator": {
                         "$ref": "#/components/schemas/OtherDiagnosisInformationPresentOnAdmissionIndicator",
@@ -14668,7 +14670,7 @@
                     "patientReasonForVisitCode": {
                         "type": "string",
                         "maxLength": 30,
-                        "description": "The patient's reason for visit code. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
+                        "description": "The patient's reason for visit code. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     }
                 },
                 "required": [
@@ -16137,7 +16139,7 @@
                     "principalDiagnosisCode": {
                         "type": "string",
                         "maxLength": 30,
-                        "description": "The principal diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied."
+                        "description": "The principal diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
                     },
                     "presentOnAdmissionIndicator": {
                         "$ref": "#/components/schemas/PrincipalDiagnosisPresentOnAdmissionIndicator"
