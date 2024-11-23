@@ -5881,13 +5881,113 @@
                     },
                     "items": {
                         "type": "array",
-                        "items": {},
+                        "items": {
+                            "$ref": "#/components/schemas/BatchEligibilityResultItem"
+                        },
                         "description": "Each eligibility check response is included as a separate item in this array. The response shape is identical to the shape of the response for the real-time [Eligibility Check](/api-reference/healthcare/post-healthcare-eligibility) endpoint, with the addition of two new properties for each check result. The first additional property `batchId` contains the `batchId` Stedi returned from the [Batch Eligibility Checks](/api-reference/healthcare/post-healthcare-batch-eligibility) endpoint when making the request. The second additional property `submitterTransactionIdentifier` contains the unique identifier for the eligibility check that you submitted in the request. These two properties help you correlate the results with individual eligibility checks."
                     }
                 },
                 "required": [
                     "items"
                 ]
+            },
+            "BatchEligibilityResultItem": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "$ref": "#/components/schemas/EligibilityMetaData"
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "The control number you sent in the original eligibility check request."
+                    },
+                    "reassociationKey": {
+                        "type": "string",
+                        "description": "Deprecated; do not use."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original eligibility check request. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/ResponseMember"
+                    },
+                    "subscriberTraceNumbers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubscriberTraceNumber"
+                        },
+                        "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
+                    },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseMember"
+                        },
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/Payer"
+                    },
+                    "planInformation": {
+                        "$ref": "#/components/schemas/PlanInformation"
+                    },
+                    "planDateInformation": {
+                        "$ref": "#/components/schemas/PlanDateInformation"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Warning"
+                        },
+                        "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer."
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "transactionSetAcknowledgement": {
+                        "type": "string",
+                        "description": "The transaction set acknowledgment code provided in in the [X12 EDI 999 response](https://www.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5)."
+                    },
+                    "implementationTransactionSetSyntaxError": {
+                        "type": "string",
+                        "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction."
+                    },
+                    "x12": {
+                        "type": "string",
+                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                    },
+                    "planStatus": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlanStatus"
+                        },
+                        "description": "Deprecated; please use `benefitsInformation`."
+                    },
+                    "benefitsInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BenefitsInformation"
+                        },
+                        "description": "Information about the subscriber or dependents' healthcare benefits, such as coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. Payers typically return at least the following properties: `code`, `coverageLevelCode`, `serviceTypeCodes`, and either `benefitAmount` or `benefitPercent`. However, the exact properties returned in this object are up to the payer's discretion. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
+                    },
+                    "batchId": {
+                        "type": "string"
+                    },
+                    "submitterTransactionIdentifier": {
+                        "type": "string"
+                    }
+                }
             },
             "BenefitsAdditionalInformation": {
                 "type": "object",
