@@ -5806,15 +5806,6 @@
                     "subscriber": {
                         "$ref": "#/components/schemas/RequestSubscriber"
                     },
-                    "dependents": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/RequestDependent"
-                        },
-                        "maxItems": 1,
-                        "minItems": 1,
-                        "description": "A dependent for which you want to retrieve benefits information. \n- You can only submit one dependent per eligibility check. \n- An individual qualifies as a dependent for eligibility checks when they are listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify them through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. \n- Each payer has different requirements, so you should supply the fields necessary for each payer to identify the dependent in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
-                    },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
                     },
@@ -5922,13 +5913,6 @@
                         },
                         "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
                     },
-                    "dependents": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ResponseMember"
-                        },
-                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
-                    },
                     "payer": {
                         "$ref": "#/components/schemas/Payer"
                     },
@@ -5973,6 +5957,13 @@
                             "$ref": "#/components/schemas/PlanStatus"
                         },
                         "description": "Deprecated; please use `benefitsInformation`."
+                    },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseMember"
+                        },
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "benefitsInformation": {
                         "type": "array",
@@ -6078,7 +6069,7 @@
             },
             "BenefitsDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the benefits. \n- All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD. \n- Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
+                "description": "Dates associated with the benefits.\n- All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD.\n- Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
                 "properties": {
                     "discharges": {
                         "type": "array",
@@ -7465,15 +7456,6 @@
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ServiceFacilityLocation"
                     },
-                    "otherSubscriberInformation": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/OtherSubscriberInformation"
-                        },
-                        "maxItems": 10,
-                        "minItems": 1,
-                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
-                    },
                     "deathDate": {
                         "type": "string",
                         "description": "The patient's date of death, formatted as YYYYMMDD."
@@ -7577,6 +7559,15 @@
                         "maxItems": 50,
                         "minItems": 1,
                         "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day."
+                    },
+                    "otherSubscriberInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherSubscriberInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 1,
+                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
                     }
                 },
                 "required": [
@@ -9995,15 +9986,6 @@
                     "subscriber": {
                         "$ref": "#/components/schemas/RequestSubscriber"
                     },
-                    "dependents": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/RequestDependent"
-                        },
-                        "maxItems": 1,
-                        "minItems": 1,
-                        "description": "A dependent for which you want to retrieve benefits information. \n- You can only submit one dependent per eligibility check. \n- An individual qualifies as a dependent for eligibility checks when they are listed as a dependent on the subscriber’s insurance plan AND the payer cannot uniquely identify them through information outside the subscriber’s policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead. \n- Each payer has different requirements, so you should supply the fields necessary for each payer to identify the dependent in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
-                    },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
                     },
@@ -10014,6 +9996,15 @@
                     "eligibilitySearchId": {
                         "type": "string",
                         "description": "The unique identifier for the eligibility search being edited and 'retried'."
+                    },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/RequestDependent"
+                        },
+                        "maxItems": 1,
+                        "minItems": 1,
+                        "description": "A dependent for which you want to retrieve benefits information.\n- You can only submit one dependent per eligibility check.\n- An individual qualifies as a dependent for eligibility checks when they are listed as a dependent on the subscriber's insurance plan AND the payer cannot uniquely identify them through information outside the subscriber's policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead.\n- Each payer has different requirements, so you should supply the fields necessary for each payer to identify the dependent in their system. However, we **strongly recommend** including the dependent's date of birth in the request when available because many payers return errors without it."
                     }
                 },
                 "required": [
@@ -10053,13 +10044,6 @@
                             "$ref": "#/components/schemas/SubscriberTraceNumber"
                         },
                         "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
-                    },
-                    "dependents": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ResponseMember"
-                        },
-                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "payer": {
                         "$ref": "#/components/schemas/Payer"
@@ -10105,6 +10089,13 @@
                             "$ref": "#/components/schemas/PlanStatus"
                         },
                         "description": "Deprecated; please use `benefitsInformation`."
+                    },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseMember"
+                        },
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "benefitsInformation": {
                         "type": "array",
@@ -10187,13 +10178,6 @@
                         },
                         "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
                     },
-                    "dependents": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ResponseMember"
-                        },
-                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
-                    },
                     "payer": {
                         "$ref": "#/components/schemas/Payer"
                     },
@@ -10239,6 +10223,13 @@
                         },
                         "description": "Deprecated; please use `benefitsInformation`."
                     },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseMember"
+                        },
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
+                    },
                     "benefitsInformation": {
                         "type": "array",
                         "items": {
@@ -10257,7 +10248,7 @@
             },
             "Encounter": {
                 "type": "object",
-                "description": "Details about the eligibility or benefit information you are requesting for the patient. \n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone. \n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value. \n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months. \n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
@@ -14477,21 +14468,8 @@
                     "benefitsAssignmentCertificationIndicator": {
                         "$ref": "#/components/schemas/OtherSubscriberInformationBenefitsAssignmentCertificationIndicator"
                     },
-                    "patientSignatureGeneratedForPatient": {
-                        "type": "boolean",
-                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set to `true` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law. This property is **required** for claims submitted to Medicare."
-                    },
                     "releaseOfInformationCode": {
                         "$ref": "#/components/schemas/ReleaseOfInformationCode"
-                    },
-                    "medicareOutpatientAdjudication": {
-                        "$ref": "#/components/schemas/MedicareOutpatientAdjudication"
-                    },
-                    "otherSubscriberName": {
-                        "$ref": "#/components/schemas/OtherSubscriberName"
-                    },
-                    "otherPayerName": {
-                        "$ref": "#/components/schemas/OtherPayerName"
                     },
                     "otherPayerReferringProvider": {
                         "type": "array",
@@ -14527,6 +14505,19 @@
                             "$ref": "#/components/schemas/OtherPayerBillingProvider"
                         },
                         "description": "Information about the billing provider."
+                    },
+                    "patientSignatureGeneratedForPatient": {
+                        "type": "boolean",
+                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set to `true` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law. This property is **required** for claims submitted to Medicare."
+                    },
+                    "medicareOutpatientAdjudication": {
+                        "$ref": "#/components/schemas/MedicareOutpatientAdjudication"
+                    },
+                    "otherSubscriberName": {
+                        "$ref": "#/components/schemas/OtherSubscriberName"
+                    },
+                    "otherPayerName": {
+                        "$ref": "#/components/schemas/OtherPayerName"
                     }
                 },
                 "required": [
@@ -15875,7 +15866,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits. \n- All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges). \n- Properties contain a single date unless otherwise noted. \n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object. \n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.",
+                "description": "Contains the dates associated with the subscriber's insurance plan. This information is used to determine the patient's eligibility for benefits.\n- All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n- Properties contain a single date unless otherwise noted.\n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -16461,7 +16452,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's Social Security Number (SSN). \n    - Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service. \n    - Don't use this for Federally-administered programs, such as Medicare.",
+                        "description": "The provider's Social Security Number (SSN).\n    - Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service.\n    - Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
                         }
@@ -17377,7 +17368,7 @@
             },
             "RequestDependentReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligiblity check, such as the referring provider. \n- Set to `HPI` when the National Provider ID is mandated for use. \n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the dependent. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY` - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
+                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligiblity check, such as the referring provider.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the dependent. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY` - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -17390,7 +17381,7 @@
             },
             "RequestSubscriber": {
                 "type": "object",
-                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty. \n- At a minimum, our API requires that you supply at least one of these fields in the request: `memberId`, `dateOfBirth`, or `lastName`. However, each payer has different requirements, so you should supply the fields necessary for each payer to identify the subscriber in their system. \n- When you provide all four of `memberId`, `dateOfBirth`, `firstName`, and `lastName`, payers are required to return a response if the member is in their database. Some payers may be able to search with less information, but this varies by payer. \n- We recommend always including the patient’s member ID when possible.",
+                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty.\n- At a minimum, our API requires that you supply at least one of these fields in the request: `memberId`, `dateOfBirth`, or `lastName`. However, each payer has different requirements, so you should supply the fields necessary for each payer to identify the subscriber in their system.\n- When you provide all four of `memberId`, `dateOfBirth`, `firstName`, and `lastName`, payers are required to return a response if the member is in their database. Some payers may be able to search with less information, but this varies by payer.\n- We recommend always including the patient's member ID when possible.",
                 "properties": {
                     "birthSequenceNumber": {
                         "type": "string",
@@ -17620,7 +17611,7 @@
             },
             "RequestSubscriberReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "Use this for providers that are not requesting the eligibility check. This is the type of `providerIdentifier` you are providing. \n- Set to `HPI` when the National Provider ID is mandated for use. \n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the subscriber. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
+                "description": "Use this for providers that are not requesting the eligibility check. This is the type of `providerIdentifier` you are providing.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the subscriber. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
