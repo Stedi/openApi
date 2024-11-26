@@ -7412,9 +7412,6 @@
                     "signatureIndicator": {
                         "$ref": "#/components/schemas/SignatureIndicator"
                     },
-                    "planParticipationCode": {
-                        "$ref": "#/components/schemas/PlanParticipationCode"
-                    },
                     "benefitsAssignmentCertificationIndicator": {
                         "$ref": "#/components/schemas/ClaimInformationBenefitsAssignmentCertificationIndicator"
                     },
@@ -7441,9 +7438,6 @@
                         "type": "string",
                         "description": "The country code where the accident occurred. Use when `relatedCausesCode` = `AA` and the accident occurred in a country other than US or Canada."
                     },
-                    "specialProgramCode": {
-                        "$ref": "#/components/schemas/SpecialProgramCode"
-                    },
                     "delayReasonCode": {
                         "$ref": "#/components/schemas/DelayReasonCode"
                     },
@@ -7464,21 +7458,6 @@
                         "maxItems": 10,
                         "minItems": 1,
                         "description": "Used to send additional data specifically requested by the payer. Not commonly used."
-                    },
-                    "claimContractInformation": {
-                        "$ref": "#/components/schemas/ClaimContractInformation"
-                    },
-                    "claimNote": {
-                        "$ref": "#/components/schemas/ClaimNote"
-                    },
-                    "healthCareCodeInformation": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClaimsHealthCareInformation"
-                        },
-                        "maxItems": 12,
-                        "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "claimPricingRepricingInformation": {
                         "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
@@ -7536,6 +7515,15 @@
                         "minItems": 1,
                         "description": "Required on vision claims involving replacement lenses or frames when this information is known to impact reimbursement."
                     },
+                    "claimContractInformation": {
+                        "$ref": "#/components/schemas/ClaimContractInformation"
+                    },
+                    "planParticipationCode": {
+                        "$ref": "#/components/schemas/PlanParticipationCode"
+                    },
+                    "specialProgramCode": {
+                        "$ref": "#/components/schemas/SpecialProgramCode"
+                    },
                     "homeboundIndicator": {
                         "type": "boolean",
                         "description": "Required for Medicare claims when an independent laboratory renders an EKG tracing or obtains a specimen from a homebound or institutionalized patient."
@@ -7561,6 +7549,9 @@
                         "minItems": 1,
                         "description": "Required when condition information applies to the claim. You can include up to 24 codes in the array. Visit the National Uniform Claim Committee for a complete list of possible [condition codes](https://www.nucc.org/index.php/code-sets-mainmenu-41/condition-codes-mainmenu-38)."
                     },
+                    "claimNote": {
+                        "$ref": "#/components/schemas/ClaimNote"
+                    },
                     "ambulancePickUpLocation": {
                         "$ref": "#/components/schemas/ClaimsAddress",
                         "description": "The address where the ambulance picked up the patient. If the ambulance pickup location is in an area where there are no street addresses, enter a description of where the service was rendered. For example `Exit near mile marker 123 on I-95.`"
@@ -7568,6 +7559,15 @@
                     "ambulanceDropOffLocation": {
                         "$ref": "#/components/schemas/ClaimsAddress",
                         "description": "The address where the ambulance dropped off the patient."
+                    },
+                    "healthCareCodeInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsHealthCareInformation"
+                        },
+                        "maxItems": 12,
+                        "minItems": 1,
+                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "serviceLines": {
                         "type": "array",
