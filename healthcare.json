@@ -5784,10 +5784,6 @@
                         "minLength": 1,
                         "description": "The payer's name, such as Cigna or Aetna."
                     },
-                    "provider": {
-                        "$ref": "#/components/schemas/Provider",
-                        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
-                    },
                     "portalUsername": {
                         "type": "string",
                         "maxLength": 50,
@@ -5799,9 +5795,6 @@
                         "maxLength": 50,
                         "minLength": 1,
                         "description": "The password that the provider uses to log in to the payer's portal. This is not commonly used."
-                    },
-                    "informationReceiverName": {
-                        "$ref": "#/components/schemas/InformationReceiverName"
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/RequestSubscriber"
@@ -5820,7 +5813,6 @@
                 },
                 "required": [
                     "controlNumber",
-                    "provider",
                     "submitterTransactionIdentifier",
                     "subscriber",
                     "tradingPartnerServiceId"
@@ -7899,7 +7891,7 @@
                 "properties": {
                     "pricingMethodologyCode": {
                         "$ref": "#/components/schemas/PricingMethodologyCode",
-                        "description": "The pricing methodology code. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-pricing-methodology-codes) for a complete list."
+                        "description": "The pricing methodology code. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#pricing-methodology-codes) for a complete list."
                     },
                     "repricedAllowedAmount": {
                         "type": "string",
@@ -7937,7 +7929,8 @@
                         "description": "The approved service units or inpatient days. The maximum length for this field is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
                     },
                     "rejectReasonCode": {
-                        "$ref": "#/components/schemas/RejectReasonCode"
+                        "$ref": "#/components/schemas/RejectReasonCode",
+                        "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#reject-reason-codes) for a complete list."
                     },
                     "policyComplianceCode": {
                         "$ref": "#/components/schemas/PolicyComplianceCode",
@@ -8005,10 +7998,12 @@
                         "description": "The dollar amount, expressed as a decimal."
                     },
                     "rejectReasonCode": {
-                        "$ref": "#/components/schemas/RejectReasonCode"
+                        "$ref": "#/components/schemas/RejectReasonCode",
+                        "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#reject-reason-codes-2) for a complete list."
                     },
                     "policyComplianceCode": {
-                        "$ref": "#/components/schemas/PolicyComplianceCode"
+                        "$ref": "#/components/schemas/PolicyComplianceCode",
+                        "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#policy-compliance-codes-2) for a complete list."
                     },
                     "exceptionCode": {
                         "$ref": "#/components/schemas/ClaimsExceptionCode"
@@ -9964,10 +9959,6 @@
                         "minLength": 1,
                         "description": "The payer's name, such as Cigna or Aetna."
                     },
-                    "provider": {
-                        "$ref": "#/components/schemas/Provider",
-                        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
-                    },
                     "portalUsername": {
                         "type": "string",
                         "maxLength": 50,
@@ -9979,9 +9970,6 @@
                         "maxLength": 50,
                         "minLength": 1,
                         "description": "The password that the provider uses to log in to the payer's portal. This is not commonly used."
-                    },
-                    "informationReceiverName": {
-                        "$ref": "#/components/schemas/InformationReceiverName"
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/RequestSubscriber"
@@ -9996,6 +9984,13 @@
                     "eligibilitySearchId": {
                         "type": "string",
                         "description": "The unique identifier for the eligibility search being edited and 'retried'."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/Provider",
+                        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
+                    },
+                    "informationReceiverName": {
+                        "$ref": "#/components/schemas/InformationReceiverName"
                     },
                     "dependents": {
                         "type": "array",
@@ -13454,7 +13449,7 @@
             },
             "LineAdjudicationInformationProductOrServiceIDQualifier": {
                 "type": "string",
-                "description": "Code identifying the type of `procedureCode`. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/professional-claims-code-lists#composite-medical-procedure-product-or-service-id-qualifier-codes) for a complete list and usage guidelines.",
+                "description": "Code identifying the type of `procedureCode`. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier-codes) for a complete list and usage guidelines.",
                 "enum": [
                     "ER",
                     "HC",
@@ -16179,7 +16174,6 @@
             },
             "PolicyComplianceCode": {
                 "type": "string",
-                "description": "Code indicating the policy compliance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#policy-compliance-codes-2) for a complete list.",
                 "enum": [
                     "1",
                     "2",
@@ -16907,7 +16901,6 @@
             },
             "RejectReasonCode": {
                 "type": "string",
-                "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#reject-reason-codes-2) for a complete list.",
                 "enum": [
                     "T1",
                     "T2",
