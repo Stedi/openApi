@@ -9418,9 +9418,6 @@
                 "type": "object",
                 "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
                 "properties": {
-                    "contractTypeCode": {
-                        "$ref": "#/components/schemas/ContractInformationContractTypeCode"
-                    },
                     "contractAmount": {
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
@@ -9441,6 +9438,9 @@
                     "contractVersionIdentifier": {
                         "type": "string",
                         "description": "An additional identifier for the contract. Identifies the revision level of a particular format, program, technique or algorithm."
+                    },
+                    "contractTypeCode": {
+                        "$ref": "#/components/schemas/ContractInformationContractTypeCode"
                     }
                 },
                 "required": [
@@ -13391,9 +13391,6 @@
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The amount paid for this service line, expressed as a decimal. Zero (0) is an acceptable value."
                     },
-                    "serviceIdQualifier": {
-                        "$ref": "#/components/schemas/LineAdjudicationInformationServiceIdQualifier"
-                    },
                     "procedureCode": {
                         "type": "string",
                         "description": "The procedure code."
@@ -13436,6 +13433,9 @@
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
                         "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
+                    },
+                    "serviceIdQualifier": {
+                        "$ref": "#/components/schemas/LineAdjudicationInformationServiceIdQualifier"
                     }
                 },
                 "required": [
