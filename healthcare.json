@@ -3743,6 +3743,364 @@
                 }
             }
         },
+        "/dental-claims/raw-x12-submission": {
+            "post": {
+                "operationId": "DentalClaimsRawX12Submission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DentalClaimsRawX12SubmissionRequestContent"
+                            },
+                            "examples": {
+                                "DentalClaimsRawX12Submission_example1": {
+                                    "summary": "Submit Raw X12 Dental Claim",
+                                    "description": "",
+                                    "value": {
+                                        "x12": "ISA*00*          *00*          *ZZ*001690149382   *ZZ*STEDITEST      *240630*0847*^*00501*000000001*0*T*>~GS*HC*001690149382*STEDITEST*20240630*084744*000000001*X*005010X224A2~ST*837*3456*005010X224A2~BHT*0019*00*0123*20061123*1023*CH~NM1*41*2*PREMIER BILLING SERVICE*****46*TGJ23~PER*IC*JERRY*TE*7176149999~NM1*40*2*INSURANCE COMPANY XYZ*****46*66783JJT~HL*1**20*1~NM1*85*2*DENTAL ASSOCIATES*****XX*1234567890~N3*234 SEAWAY ST~N4*MIAMI*FL*33111~REF*EI*587654321~HL*2*1*22*1~SBR*P********CI~NM1*IL*1*SMITH*JANE****MI*111223333~NM1*PR*2*INSURANCE COMPANY XYZ*****PI*66783JJT~HL*3*2*23*0~PAT*19~NM1*QC*1*SMITH*TED~N3*236 N MAIN ST~N4*MIAMI*FL*33413~DMG*D8*19920501*M~CLM*26403774*150***11>B>1*Y*A*Y*I~DTP*472*D8*20061029~REF*D9*17312345600006351~NM1*82*1*KILDARE*BEN****XX*9876543210~PRV*PE*PXC*1223G0001X~LX*1~SV3*AD>D2150*100****1~TOO*JP*12*M>O~LX*2~SV3*AD>D1110*50****1~SE*31*3456~GE*1*000000001~IEA*1*000000001~"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "Stedi-Transaction-Setting-Id",
+                        "in": "header",
+                        "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Dental Claims guide needs to be used.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Dental Claims guide needs to be used."
+                        },
+                        "examples": {
+                            "DentalClaimsRawX12Submission_example1": {
+                                "summary": "Submit Raw X12 Dental Claim",
+                                "description": "",
+                                "value": "005010X224A2-837"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DentalClaimsRawX12Submission 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DentalClaimsRawX12SubmissionResponseContent"
+                                },
+                                "examples": {
+                                    "DentalClaimsRawX12Submission_example1": {
+                                        "summary": "Submit Raw X12 Dental Claim",
+                                        "description": "",
+                                        "value": {
+                                            "status": "SUCCESS",
+                                            "controlNumber": "000000001",
+                                            "tradingPartnerServiceId": "60054",
+                                            "claimReference": {
+                                                "correlationId": "01J1M588QT2TAV2N093GNJ998T",
+                                                "patientControlNumber": "22266555",
+                                                "timeOfResponse": "2024-07-10T22:05:32.203Z",
+                                                "payerId": "60054",
+                                                "formatVersion": "5010",
+                                                "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
+                                                "serviceLines": [
+                                                    {
+                                                        "lineItemControlNumber": "111222333"
+                                                    }
+                                                ]
+                                            },
+                                            "httpStatusCode": "200 OK",
+                                            "meta": {
+                                                "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
+                                            },
+                                            "payer": {
+                                                "payerName": "Cigna",
+                                                "payerId": "60054"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/dental-claims/submission": {
+            "post": {
+                "operationId": "DentalClaimsSubmission",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DentalClaimsSubmissionRequestContent"
+                            },
+                            "examples": {
+                                "DentalClaimsSubmission_example1": {
+                                    "summary": "Submit Raw X12 Dental Claim",
+                                    "description": "",
+                                    "value": {
+                                        "tradingPartnerServiceId": "1748",
+                                        "tradingPartnerName": "Tricare West AZ",
+                                        "subscriber": {
+                                            "paymentResponsibilityLevelCode": "P",
+                                            "memberId": "123412345",
+                                            "lastName": "Doe",
+                                            "groupNumber": "1234567890",
+                                            "gender": "F",
+                                            "firstName": "John",
+                                            "dateOfBirth": "2018-06-15",
+                                            "contactInformation": {
+                                                "name": "John Doe"
+                                            },
+                                            "address": {
+                                                "state": "AZ",
+                                                "postalCode": "85326",
+                                                "city": "Buckeye",
+                                                "address1": "1234 Some St"
+                                            }
+                                        },
+                                        "submitter": {
+                                            "organizationName": "ABA Inc",
+                                            "contactInformation": {
+                                                "phoneNumber": "3131234567",
+                                                "name": "BILLING DEPARTMENT"
+                                            }
+                                        },
+                                        "rendering": {
+                                            "taxonomyCode": "106S00000X",
+                                            "providerType": "RenderingProvider",
+                                            "lastName": "Doe",
+                                            "firstName": "Jane"
+                                        },
+                                        "receiver": {
+                                            "organizationName": "Tricare West AZ"
+                                        },
+                                        "payerAddress": {
+                                            "state": "SC",
+                                            "postalCode": "29000",
+                                            "city": "Camden",
+                                            "address1": "PO Box 7000"
+                                        },
+                                        "claimInformation": {
+                                            "signatureIndicator": "Y",
+                                            "toothStatus": [
+                                                {
+                                                    "toothNumber": "3",
+                                                    "toothStatusCode": "E"
+                                                }
+                                            ],
+                                            "serviceLines": [
+                                                {
+                                                    "serviceDate": "20230428",
+                                                    "renderingProvider": {
+                                                        "taxonomyCode": "122300000X",
+                                                        "providerType": "RenderingProvider",
+                                                        "lastName": "Doe",
+                                                        "firstName": "Jane"
+                                                    },
+                                                    "providerControlNumber": "a0UDo000000dd2dMAA",
+                                                    "dentalService": {
+                                                        "procedureCode": "D7140",
+                                                        "description": "1400-1800",
+                                                        "lineItemChargeAmount": "832.00",
+                                                        "placeOfServiceCode": "12",
+                                                        "oralCavityDesignationCode": [
+                                                            "1",
+                                                            "2"
+                                                        ],
+                                                        "prosthesisCrownOrInlayCode": "I",
+                                                        "procedureCount": 2,
+                                                        "compositeDiagnosisCodePointers": {
+                                                            "diagnosisCodePointers": [
+                                                                "1"
+                                                            ]
+                                                        }
+                                                    },
+                                                    "teethInformation": [
+                                                        {
+                                                            "toothCode": "3",
+                                                            "toothSurface": [
+                                                                "M",
+                                                                "O"
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "serviceFacilityLocation": {
+                                                "phoneNumber": "3131234567",
+                                                "organizationName": "ABA Inc",
+                                                "npi": "1234567893",
+                                                "address": {
+                                                    "state": "CO",
+                                                    "postalCode": "802383100",
+                                                    "city": "Denver",
+                                                    "address1": "ABA Inc 123 Some St"
+                                                }
+                                            },
+                                            "releaseInformationCode": "Y",
+                                            "planParticipationCode": "A",
+                                            "placeOfServiceCode": "12",
+                                            "patientControlNumber": "0000112233",
+                                            "healthCareCodeInformation": [
+                                                {
+                                                    "diagnosisTypeCode": "ABK",
+                                                    "diagnosisCode": "K081"
+                                                }
+                                            ],
+                                            "claimSupplementalInformation": {
+                                                "priorAuthorizationNumber": "20231010012345678"
+                                            },
+                                            "claimFrequencyCode": "1",
+                                            "claimFilingCode": "FI",
+                                            "claimChargeAmount": "832.00",
+                                            "benefitsAssignmentCertificationIndicator": "Y"
+                                        },
+                                        "billing": {
+                                            "taxonomyCode": "106S00000X",
+                                            "providerType": "BillingProvider",
+                                            "organizationName": "ABA Inc",
+                                            "npi": "1999999992",
+                                            "employerId": "123456789",
+                                            "contactInformation": {
+                                                "phoneNumber": "3134893157",
+                                                "name": "ABA Inc"
+                                            },
+                                            "address": {
+                                                "state": "CO",
+                                                "postalCode": "802383000",
+                                                "city": "Denver",
+                                                "address1": "ABA Inc 123 Some St"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "Stedi-Transaction-Setting-Id",
+                        "in": "header",
+                        "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Dental Claims guide.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Dental Claims guide."
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DentalClaimsSubmission 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/DentalClaimsSubmissionResponseContent"
+                                },
+                                "examples": {
+                                    "DentalClaimsSubmission_example1": {
+                                        "summary": "Submit Raw X12 Dental Claim",
+                                        "description": "",
+                                        "value": {
+                                            "status": "SUCCESS",
+                                            "controlNumber": "1",
+                                            "tradingPartnerServiceId": "1748",
+                                            "claimReference": {
+                                                "correlationId": "01JDQMX92Q1T561BH8NKX750TQ",
+                                                "patientControlNumber": "0U1LBRS4",
+                                                "timeOfResponse": "2024-11-27T20:27:27.077Z",
+                                                "payerId": "1748",
+                                                "formatVersion": "5010",
+                                                "rhclaimNumber": "01JDQMX92Q1T561BH8NKX750TQ",
+                                                "serviceLines": [
+                                                    {
+                                                        "lineItemControlNumber": "a0UDo000000dd2dMAA"
+                                                    }
+                                                ]
+                                            },
+                                            "httpStatusCode": "200 OK",
+                                            "meta": {
+                                                "traceId": "9b491769-052e-4738-93d6-e0b5f6d83f53"
+                                            },
+                                            "payer": {
+                                                "payerName": "Tricare West AZ",
+                                                "payerId": "1748"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/eligibility-manager/batch-eligibility": {
             "post": {
                 "operationId": "BatchEligibilityChecks",
@@ -5608,6 +5966,67 @@
                     "C",
                     "D",
                     "E"
+                ]
+            },
+            "AssistantSurgeon": {
+                "type": "object",
+                "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.",
+                "properties": {
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "description": "The provider's commercial number."
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "description": "The provider's location number."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "description": "The provider's state license number."
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The assistant surgeon's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The assistant surgeon's last name, if the provider is an individual. You must include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The assistant surgeon's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The assistant surgeon's name suffix, such as Jr. or III."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    }
+                },
+                "required": [
+                    "lastName",
+                    "taxonomyCode"
                 ]
             },
             "AttachmentReportTypeCode": {
@@ -9588,6 +10007,1271 @@
                     "10",
                     "11",
                     "15"
+                ]
+            },
+            "DentalAttachmentReportTypeCode": {
+                "type": "string",
+                "description": "Code indicating the title or contents of a document, report or supporting item. For example, `B4` - Referral Form or `DA` - Dental Models. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-report-type-codes) for a complete list.",
+                "enum": [
+                    "B4",
+                    "DA",
+                    "DG",
+                    "EB",
+                    "OZ",
+                    "P6",
+                    "RB",
+                    "RR"
+                ]
+            },
+            "DentalClaimContractInformation": {
+                "type": "object",
+                "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
+                "properties": {
+                    "contractTypeCode": {
+                        "$ref": "#/components/schemas/DentalContractTypeCode"
+                    },
+                    "contractAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
+                    },
+                    "contractPercentage": {
+                        "type": "string",
+                        "description": "The allowance or charge percent, expressed as a decimal. For example, `0.80`."
+                    },
+                    "contractCode": {
+                        "type": "string",
+                        "description": "The contract code. This is a unique identifier for the contract."
+                    },
+                    "termsDiscountPercentage": {
+                        "type": "string",
+                        "description": "Terms discount percentage, expressed as a percent, available to the purchaser if an invoice is paid on or before the Terms Discount Due Date."
+                    },
+                    "contractVersionIdentifier": {
+                        "type": "string",
+                        "description": "An additional identifer for the contract. Identifies the revision level of a particular format, program, technique or algorithm."
+                    }
+                },
+                "required": [
+                    "contractTypeCode"
+                ]
+            },
+            "DentalClaimDateInformation": {
+                "type": "object",
+                "properties": {
+                    "accidentDate": {
+                        "type": "string",
+                        "description": "The date of the accident related to this claim. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident."
+                    },
+                    "applianclePlacementDate": {
+                        "type": "string",
+                        "description": "TODO"
+                    },
+                    "serviceDate": {
+                        "type": "string",
+                        "description": "TODO"
+                    },
+                    "repricerReceivedDate": {
+                        "type": "string",
+                        "description": "The date the repricing entity received the initial claim. Required when a repricer is passing the claim onto the payer."
+                    }
+                }
+            },
+            "DentalClaimInformation": {
+                "type": "object",
+                "properties": {
+                    "claimFilingCode": {
+                        "$ref": "#/components/schemas/ClaimFilingCode"
+                    },
+                    "propertyCasualtyClaimNumber": {
+                        "type": "string",
+                        "description": "The agency claim number for this transaction. Used when services included in this claim are part of a property and casualty claim."
+                    },
+                    "patientControlNumber": {
+                        "type": "string",
+                        "description": "An identifier you assign to the claim. It can be up to 20 characters. We strongly recommend submitting a unique value for this property so that you can use it to correlate this claim with responses from the payer, such as the 835 Electronic Remittance Advice (ERA)."
+                    },
+                    "claimChargeAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total dollar amount charged for the services on this claim, expressed as a decimal. For example, `100.50`. This is the total amount before any adjustments or payments. The amount must balance to the sum of the service line charges."
+                    },
+                    "placeOfServiceCode": {
+                        "$ref": "#/components/schemas/PlaceOfServiceCode",
+                        "description": "Code identifying the type of facility where the services were or may be performed. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
+                    },
+                    "claimFrequencyCode": {
+                        "$ref": "#/components/schemas/ClaimFrequencyCode",
+                        "description": "Code specifying the frequency of the claim. Can be set to `1` - Admit thru Discharge Claim, `7` - Replacement of Prior Claim, or `8` - Void/Cancel of Prior Claim. Visit the National Uniform Billing Committee for a [complete code list](https://www.nubc.org/system/files/media/file/2019/06/billTypeFrequencyCodes837.pdf) and usage notes."
+                    },
+                    "signatureIndicator": {
+                        "$ref": "#/components/schemas/SignatureIndicator"
+                    },
+                    "benefitsAssignmentCertificationIndicator": {
+                        "$ref": "#/components/schemas/ClaimInformationBenefitsAssignmentCertificationIndicator"
+                    },
+                    "releaseInformationCode": {
+                        "$ref": "#/components/schemas/ReleaseInformationCode"
+                    },
+                    "patientSignatureSourceCode": {
+                        "type": "boolean",
+                        "description": "Code indicating how the patient or subscriber authorization signatures were obtained and how they are being retained by the provider. Can be set to `true` - Signature generated by provider because the patient was not physically present for services. This means the signature was generated by an entity other than the patient according to State or Federal law. This property is **required** for claims submitted to Medicare."
+                    },
+                    "relatedCausesCode": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimInformationRelatedCausesCodeItem"
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "description": "Code identifying an accompanying cause of an illness, injury or an accident. Can be set to `AA` - Auto Accident, `EM` - Employment, or `OA` - Other Accident. You can include up to two codes in this array."
+                    },
+                    "autoAccidentStateCode": {
+                        "$ref": "#/components/schemas/AutoAccidentStateCode"
+                    },
+                    "autoAccidentCountryCode": {
+                        "type": "string",
+                        "description": "The country code where the accident occurred. Use when `relatedCausesCode` = `AA` and the accident occurred in a country other than US or Canada."
+                    },
+                    "delayReasonCode": {
+                        "$ref": "#/components/schemas/DelayReasonCode"
+                    },
+                    "patientAmountPaid": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient."
+                    },
+                    "fileInformation": {
+                        "type": "string",
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
+                    },
+                    "fileInformationList": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 10,
+                        "minItems": 1,
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
+                    },
+                    "claimPricingRepricingInformation": {
+                        "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
+                    },
+                    "serviceFacilityLocation": {
+                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                    },
+                    "orthodonticTotalMonthsOfTreatment": {
+                        "$ref": "#/components/schemas/OrthodonticTotalMonthsOfTreatment"
+                    },
+                    "toothStatus": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ToothStatus"
+                        }
+                    },
+                    "claimDateInformation": {
+                        "$ref": "#/components/schemas/DentalClaimDateInformation"
+                    },
+                    "claimSupplementalInformation": {
+                        "$ref": "#/components/schemas/DentalClaimSupplementalInformation"
+                    },
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DentalServiceLine"
+                        }
+                    },
+                    "claimNotes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    },
+                    "planParticipationCode": {
+                        "$ref": "#/components/schemas/DentalPlanParticipationCode"
+                    },
+                    "predeterminationOfBenefits": {
+                        "type": "boolean"
+                    },
+                    "specialProgramCode": {
+                        "$ref": "#/components/schemas/DentalSpecialProgramCode"
+                    },
+                    "claimContractInformation": {
+                        "$ref": "#/components/schemas/DentalClaimContractInformation"
+                    },
+                    "healthCareCodeInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DentalHealthCareInformation"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                    },
+                    "otherSubscriberInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DentalOtherSubscriberInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 1,
+                        "description": "Required when other payers are known to potentially be involved in paying on this claim. This object contains information about other health plans under which the patient has coverage. It's used for coordination of benefits scenarios."
+                    }
+                },
+                "required": [
+                    "benefitsAssignmentCertificationIndicator",
+                    "claimChargeAmount",
+                    "claimFilingCode",
+                    "claimFrequencyCode",
+                    "healthCareCodeInformation",
+                    "patientControlNumber",
+                    "placeOfServiceCode",
+                    "releaseInformationCode",
+                    "serviceLines",
+                    "signatureIndicator"
+                ]
+            },
+            "DentalClaimSupplementalInformation": {
+                "type": "object",
+                "description": "Additional information or documentation required for the claim.",
+                "properties": {
+                    "reportInformation": {
+                        "$ref": "#/components/schemas/DentalReportInformation"
+                    },
+                    "predeterminationOfBenefits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PredeterminationOfBenefits"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    },
+                    "claimControlNumber": {
+                        "type": "string",
+                        "description": "Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim."
+                    },
+                    "priorAuthorizationNumber": {
+                        "type": "string",
+                        "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information."
+                    },
+                    "referralNumber": {
+                        "type": "string",
+                        "description": "Required when a referral number is assigned by the payer or Utilization Management Organization (UMO) _and_ a referral is involved."
+                    },
+                    "repricedClaimNumber": {
+                        "type": "string",
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
+                    },
+                    "adjustedRepricedClaimNumber": {
+                        "type": "string",
+                        "description": "Required when the repricer believes this information is necessary. Providers should not complete this property."
+                    },
+                    "claimNumber": {
+                        "type": "string",
+                        "description": "The claim number assigned by clearinghouse, van, etc. Providers should not complete this property."
+                    },
+                    "serviceAuthorizationExceptionCode": {
+                        "$ref": "#/components/schemas/ServiceAuthorizationExceptionCode"
+                    }
+                }
+            },
+            "DentalClaimsRawX12SubmissionRequestContent": {
+                "type": "object",
+                "properties": {
+                    "x12": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "x12"
+                ]
+            },
+            "DentalClaimsRawX12SubmissionResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the claim submission."
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "An identifier for the transaction."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "claimReference": {
+                        "$ref": "#/components/schemas/ClaimReference"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsError"
+                        },
+                        "description": "A list of errors. Currently not used."
+                    },
+                    "httpStatusCode": {
+                        "$ref": "#/components/schemas/HttpStatusCode"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResponseMeta"
+                    },
+                    "editStatus": {
+                        "type": "string",
+                        "description": "Currently not used."
+                    },
+                    "editResponses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EditResponse"
+                        },
+                        "description": "Currently not used."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/ClaimsPayer"
+                    },
+                    "failure": {
+                        "$ref": "#/components/schemas/Failure"
+                    }
+                }
+            },
+            "DentalClaimsSubmissionRequestContent": {
+                "type": "object",
+                "properties": {
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record."
+                    },
+                    "tradingPartnerName": {
+                        "type": "string",
+                        "description": "This is the payer's business name, like Cigna or Aetna."
+                    },
+                    "usageIndicator": {
+                        "type": "string",
+                        "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a claim as test data."
+                    },
+                    "submitter": {
+                        "$ref": "#/components/schemas/Submitter"
+                    },
+                    "receiver": {
+                        "$ref": "#/components/schemas/Receiver"
+                    },
+                    "billing": {
+                        "$ref": "#/components/schemas/Billing"
+                    },
+                    "payToAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "Use when the address for payment is different than that of the billing provider for this claim."
+                    },
+                    "payToPlan": {
+                        "$ref": "#/components/schemas/PayToPlan"
+                    },
+                    "payerAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/DentalSubscriber"
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/DentalDependent"
+                    },
+                    "claimInformation": {
+                        "$ref": "#/components/schemas/DentalClaimInformation"
+                    },
+                    "referring": {
+                        "$ref": "#/components/schemas/Referring"
+                    },
+                    "rendering": {
+                        "$ref": "#/components/schemas/Rendering"
+                    },
+                    "supervising": {
+                        "$ref": "#/components/schemas/Supervising"
+                    },
+                    "assistantSurgeon": {
+                        "$ref": "#/components/schemas/AssistantSurgeon"
+                    }
+                },
+                "required": [
+                    "billing",
+                    "claimInformation",
+                    "receiver",
+                    "submitter",
+                    "subscriber",
+                    "tradingPartnerServiceId"
+                ]
+            },
+            "DentalClaimsSubmissionResponseContent": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the claim submission."
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "An identifier for the transaction."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "claimReference": {
+                        "$ref": "#/components/schemas/ClaimReference"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsError"
+                        },
+                        "description": "A list of errors. Currently not used."
+                    },
+                    "httpStatusCode": {
+                        "$ref": "#/components/schemas/HttpStatusCode"
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResponseMeta"
+                    },
+                    "editStatus": {
+                        "type": "string",
+                        "description": "Currently not used."
+                    },
+                    "editResponses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EditResponse"
+                        },
+                        "description": "Currently not used."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/ClaimsPayer"
+                    },
+                    "failure": {
+                        "$ref": "#/components/schemas/Failure"
+                    }
+                }
+            },
+            "DentalContractInformation": {
+                "type": "object",
+                "description": "Required when the submitter is contractually obligated to supply this information on post-adjudicated claims.",
+                "properties": {
+                    "contractAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total dollar amount of the contract, expressed as a decimal. For example, `100.50`."
+                    },
+                    "contractPercentage": {
+                        "type": "string",
+                        "description": "The allowance or charge percent, expressed as a decimal. For example, `0.80`."
+                    },
+                    "contractCode": {
+                        "type": "string",
+                        "description": "The contract code. This is an identifier for the contract."
+                    },
+                    "termsDiscountPercentage": {
+                        "type": "string",
+                        "description": "Terms discount percentage, expressed as a decimal, available to the purchaser if an invoice is paid on or before the Terms Discount Due Date."
+                    },
+                    "contractVersionIdentifier": {
+                        "type": "string",
+                        "description": "An additional identifier for the contract. Identifies the revision level of a particular format, program, technique or algorithm."
+                    },
+                    "contractTypeCode": {
+                        "$ref": "#/components/schemas/DentalContractInformationContractTypeCode"
+                    }
+                },
+                "required": [
+                    "contractTypeCode"
+                ]
+            },
+            "DentalContractInformationContractTypeCode": {
+                "type": "string",
+                "description": "Code indicating the type of contract. Can be set to `02` - Per Diem, `03` - Variable Per Diem, `04` - Flat, `05` - Capitated, `06` - Percent, or `09` - Other.",
+                "enum": [
+                    "02",
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "09"
+                ]
+            },
+            "DentalContractTypeCode": {
+                "type": "string",
+                "description": "A code identifying the type of contract. Can be set to `02` - Per Diem, `03` - Variable Per Diem, `04` - Flat, `05` - Capitated, `06` - Percent, or `09` - Other.",
+                "enum": [
+                    "02",
+                    "03",
+                    "04",
+                    "05",
+                    "06",
+                    "09"
+                ]
+            },
+            "DentalDependent": {
+                "type": "object",
+                "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "description": "The patient's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The patient's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The patient's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The patient's name suffix, such as Jr. or III."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/DependentGender"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The patient's date of birth, formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The patient's Social Security Number. Only used for Property and Casualty claims. The Social Security Number must be a string of exactly nine numbers with no separators. For example `123456789`."
+                    },
+                    "memberId": {
+                        "type": "string",
+                        "description": "The patient's identification number. Only used in Property and Casualty claims."
+                    },
+                    "relationshipToSubscriberCode": {
+                        "$ref": "#/components/schemas/RelationshipToSubscriberCode"
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                    }
+                },
+                "required": [
+                    "dateOfBirth",
+                    "firstName",
+                    "gender",
+                    "lastName",
+                    "relationshipToSubscriberCode"
+                ]
+            },
+            "DentalDiagnosisTypeCode": {
+                "type": "string",
+                "description": "Code indicating the specific industry code list. Can be set to `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis, 'TQ' Systemized Nomenclature of Dentistry (SNODENT).",
+                "enum": [
+                    "ABK",
+                    "ABF",
+                    "TQ"
+                ]
+            },
+            "DentalHealthCareInformation": {
+                "type": "object",
+                "properties": {
+                    "diagnosisTypeCode": {
+                        "$ref": "#/components/schemas/DentalDiagnosisTypeCode"
+                    },
+                    "diagnosisCode": {
+                        "type": "string",
+                        "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
+                    }
+                },
+                "required": [
+                    "diagnosisCode",
+                    "diagnosisTypeCode"
+                ]
+            },
+            "DentalLineAdjudicationInformation": {
+                "type": "object",
+                "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers.",
+                "properties": {
+                    "otherPayerPrimaryIdentifier": {
+                        "type": "string",
+                        "description": "The payer ID for the payer responsible for reimbursement."
+                    },
+                    "serviceLinePaidAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount paid for this service line, expressed as a decimal. Zero (0) is an acceptable value."
+                    },
+                    "procedureCode": {
+                        "type": "string",
+                        "description": "The procedure code."
+                    },
+                    "procedureModifier": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "A modifier that conveys special circumstances related to the performance of the service."
+                    },
+                    "procedureCodeDescription": {
+                        "type": "string",
+                        "description": "The meaning of the procedure code."
+                    },
+                    "paidServiceUnitCount": {
+                        "type": "string",
+                        "description": "The number of paid units from the remittance advice. expressed as a decimal. When paid units are not present on the remittance advice, use the original billed units. The maximum length for this property is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three."
+                    },
+                    "bundledOrUnbundledLineNumber": {
+                        "type": "string",
+                        "description": "The LX assigned number of the service line into which this service line is bundled. It's only used to bundle service lines."
+                    },
+                    "claimAdjustmentInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAdjustment"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1,
+                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged."
+                    },
+                    "adjudicationOrPaymentDate": {
+                        "type": "string",
+                        "description": "The date the other payer adjudicated or paid the claim, formatted as YYYYMMDD."
+                    },
+                    "remainingPatientLiability": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
+                    },
+                    "serviceIdQualifier": {
+                        "$ref": "#/components/schemas/DentalLineAdjudicationInformationServiceIdQualifier"
+                    }
+                },
+                "required": [
+                    "adjudicationOrPaymentDate",
+                    "otherPayerPrimaryIdentifier",
+                    "paidServiceUnitCount",
+                    "procedureCode",
+                    "serviceIdQualifier",
+                    "serviceLinePaidAmount"
+                ]
+            },
+            "DentalLineAdjudicationInformationServiceIdQualifier": {
+                "type": "string",
+                "enum": [
+                    "AD",
+                    "ER"
+                ]
+            },
+            "DentalMeasurementUnitCode": {
+                "type": "string",
+                "enum": [
+                    "UN"
+                ]
+            },
+            "DentalMedicareOutpatientAdjudication": {
+                "type": "object",
+                "description": "Claim-level data related to the adjudication of Medicare claims not related to an inpatient setting. Required when outpatient adjudication information is reported in the remittance advice _or_ when you need to report remark codes.",
+                "properties": {
+                    "reimbursementRate": {
+                        "type": "string",
+                        "description": "The reimbursement percentage, expressed as a decimal."
+                    },
+                    "hcpcsPayableAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The claim Health Care Financing Administration Common Procedural Coding System (HCPCS) payable amount, expressed as a decimal."
+                    },
+                    "claimPaymentRemarkCode": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1,
+                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
+                    },
+                    "nonPayableProfessionalComponentBilledAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The professional component amount billed but not payable, expressed as a decimal."
+                    }
+                }
+            },
+            "DentalOtherPayerName": {
+                "type": "object",
+                "description": "Details about the other payer.",
+                "properties": {
+                    "otherPayerOrganizationName": {
+                        "type": "string",
+                        "description": "The payer's organization name."
+                    },
+                    "otherPayerIdentifierTypeCode": {
+                        "$ref": "#/components/schemas/OtherPayerIdentifierTypeCode"
+                    },
+                    "otherPayerIdentifier": {
+                        "type": "string",
+                        "description": "The identifier specified in `otherPayerIdentifierCode`. When sending Line Adjudication Information for this payer, the identifier sent in `lineAdjudicationInformation.otherPayerPrimaryIdentifier` must match this value."
+                    },
+                    "otherPayerAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "otherPayerAdjudicationOrPaymentDate": {
+                        "type": "string",
+                        "description": "The date the other payer adjudicated the claim. Required when this payer has previously adjudicated the claim and you aren’t including a value for `LineAdjudicationInformation.adjudicationOrPaymentDate`."
+                    },
+                    "otherPayerSecondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "description": "An additional identication number to identify the other payer."
+                    },
+                    "otherPayerPriorAuthorizationNumber": {
+                        "type": "string",
+                        "description": "The authorization number assigned by this payer."
+                    },
+                    "otherPayerPriorAuthorizationOrReferralNumber": {
+                        "type": "string",
+                        "description": "The referral number assigned by this payer."
+                    },
+                    "otherPayerClaimAdjustmentIndicator": {
+                        "type": "boolean",
+                        "description": "The only valid value is `true`. Required when Required when the claim is being sent in the payer-to-payer COB model AND the destination payer is secondary to this payer AND this payer has re-adjudicated the claim."
+                    },
+                    "otherPayerClaimControlNumber": {
+                        "type": "string",
+                        "description": "The claim control number assigned by this payer."
+                    },
+                    "otherPayerPredeterminationIdentification": {
+                        "type": "string",
+                        "description": "The authorization number assigned by this payer."
+                    }
+                },
+                "required": [
+                    "otherPayerIdentifier",
+                    "otherPayerIdentifierTypeCode",
+                    "otherPayerOrganizationName"
+                ]
+            },
+            "DentalOtherSubscriberInformation": {
+                "type": "object",
+                "properties": {
+                    "paymentResponsibilityLevelCode": {
+                        "$ref": "#/components/schemas/OtherSubscriberInformationPaymentResponsibilityLevelCode"
+                    },
+                    "individualRelationshipCode": {
+                        "$ref": "#/components/schemas/ClaimsIndividualRelationshipCode"
+                    },
+                    "insuranceGroupOrPolicyNumber": {
+                        "type": "string",
+                        "description": "The group or policy number."
+                    },
+                    "otherInsuredGroupName": {
+                        "type": "string",
+                        "description": "The name of the health plan."
+                    },
+                    "insuranceTypeCode": {
+                        "$ref": "#/components/schemas/OtherSubscriberInformationInsuranceTypeCode"
+                    },
+                    "claimFilingIndicatorCode": {
+                        "$ref": "#/components/schemas/ClaimFilingIndicatorCode"
+                    },
+                    "claimLevelAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAdjustment"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1,
+                        "description": "Use this object to report prior payers' claim level adjustments that cause the amount paid to differ from the amount originally charged. Codes and associated amounts must come from either paper remittance advice or 835s (Electronic Remittance Advice) received on the claim. When the information originates from a paper remittance advice that does not use the standard Claim Adjustment Reason Codes, you must convert them to standard Claim Adjustment Reason Codes."
+                    },
+                    "payerPaidAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total amount in dollars the payer has paid on this claim. It is acceptable to set this to `0` (Zero). This is required when you include the `payToPlan` object, and you should set it to the amount the Medicaid agency actually paid."
+                    },
+                    "nonCoveredChargeAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "Required when the destination payer's cost avoidance policy allows providers to bypass claim submission to the otherwise prior payer identified in `otherSubscriberInformation.otherPayerName`. The amount must equal the total claim charge amount you reported in `claimInformation.claimChargeAmount`."
+                    },
+                    "remainingPatientLiability": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "This is the remaining amount (as determined by the provider) to be paid after the other payer identified in the `otherPayerName` object has adjudicated the claim."
+                    },
+                    "benefitsAssignmentCertificationIndicator": {
+                        "$ref": "#/components/schemas/OtherSubscriberInformationBenefitsAssignmentCertificationIndicator"
+                    },
+                    "releaseOfInformationCode": {
+                        "$ref": "#/components/schemas/ReleaseOfInformationCode"
+                    },
+                    "otherPayerReferringProvider": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherPayerReferringProvider"
+                        },
+                        "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist."
+                    },
+                    "otherPayerRenderingProvider": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherPayerRenderingProvider"
+                        },
+                        "description": "Information about the rendering provider."
+                    },
+                    "otherPayerServiceFacilityLocation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherPayerServiceFacilityLocation"
+                        },
+                        "description": "Information about the service facility location."
+                    },
+                    "otherPayerSupervisingProvider": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherPayerSupervisingProvider"
+                        },
+                        "description": "Information about the supervising provider."
+                    },
+                    "otherPayerBillingProvider": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/OtherPayerBillingProvider"
+                        },
+                        "description": "Information about the billing provider."
+                    },
+                    "medicareOutpatientAdjudication": {
+                        "$ref": "#/components/schemas/DentalMedicareOutpatientAdjudication"
+                    },
+                    "otherSubscriberName": {
+                        "$ref": "#/components/schemas/DentalOtherSubscriberName"
+                    },
+                    "otherPayerName": {
+                        "$ref": "#/components/schemas/DentalOtherPayerName"
+                    }
+                },
+                "required": [
+                    "benefitsAssignmentCertificationIndicator",
+                    "claimFilingIndicatorCode",
+                    "individualRelationshipCode",
+                    "otherPayerName",
+                    "otherSubscriberName",
+                    "paymentResponsibilityLevelCode",
+                    "releaseOfInformationCode"
+                ]
+            },
+            "DentalOtherSubscriberName": {
+                "type": "object",
+                "description": "The person or entity who is the primary policyholder for the other payer's health plan.",
+                "properties": {
+                    "otherInsuredQualifier": {
+                        "$ref": "#/components/schemas/OtherInsuredQualifier"
+                    },
+                    "otherInsuredLastName": {
+                        "type": "string",
+                        "description": "The primary policyholder's last name or organizational name."
+                    },
+                    "otherInsuredFirstName": {
+                        "type": "string",
+                        "description": "The primary policyholder's first name, if they are an individual."
+                    },
+                    "otherInsuredMiddleName": {
+                        "type": "string",
+                        "description": "The primary policyholder's middle name or initial, if they are an individual."
+                    },
+                    "otherInsuredNameSuffix": {
+                        "type": "string",
+                        "description": "The primary policyholder's name suffix, such as Jr. or III."
+                    },
+                    "otherInsuredIdentifierTypeCode": {
+                        "$ref": "#/components/schemas/OtherInsuredIdentifierTypeCode"
+                    },
+                    "otherInsuredIdentifier": {
+                        "type": "string",
+                        "description": "The identifier you specified in `otherInsuredIdentifierTypeCode`."
+                    },
+                    "otherInsuredAddress": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "otherInsuredAdditionalIdentifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 2,
+                        "minItems": 1,
+                        "description": "The primary policyholder's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. For example `123456789`."
+                    }
+                },
+                "required": [
+                    "otherInsuredIdentifier",
+                    "otherInsuredIdentifierTypeCode",
+                    "otherInsuredLastName",
+                    "otherInsuredQualifier"
+                ]
+            },
+            "DentalPlanParticipationCode": {
+                "type": "string",
+                "enum": [
+                    "A",
+                    "C"
+                ]
+            },
+            "DentalReportInformation": {
+                "type": "object",
+                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
+                "properties": {
+                    "attachmentReportTypeCode": {
+                        "$ref": "#/components/schemas/DentalAttachmentReportTypeCode"
+                    },
+                    "attachmentTransmissionCode": {
+                        "$ref": "#/components/schemas/ReportInformationAttachmentTransmissionCode"
+                    },
+                    "attachmentControlNumber": {
+                        "type": "string",
+                        "description": "The control number assigned to the attachment."
+                    }
+                },
+                "required": [
+                    "attachmentReportTypeCode",
+                    "attachmentTransmissionCode"
+                ]
+            },
+            "DentalService": {
+                "type": "object",
+                "properties": {
+                    "procedureCode": {
+                        "type": "string",
+                        "description": "The procedure code."
+                    },
+                    "description": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "A free form description to clarify the procedure code and any procedure modifiers, as needed. Can be up to 80 characters."
+                    },
+                    "lineItemChargeAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The total charge amount for the service, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero)."
+                    },
+                    "placeOfServiceCode": {
+                        "type": "string"
+                    },
+                    "oralCavityDesignation": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1,
+                        "description": "Required when the nomenclature associated with the procedure reported in SV301-2 refers to a quadrant or arch and the area of the oral cavity is not uniquely defined. Report individual tooth numbers in one or more TOO segments. (TODO reword)"
+                    },
+                    "prosthesisCrownOrInlayCode": {
+                        "$ref": "#/components/schemas/ProsthesisCrownOrInlayCode"
+                    },
+                    "procedureCount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "compositeDiagnosisCodePointers": {
+                        "$ref": "#/components/schemas/CompositeDiagnosisCodePointers"
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "A modifier code that clarifies or improves the reporting accuracy of the associated procedure code. If not required, do not send."
+                    }
+                },
+                "required": [
+                    "lineItemChargeAmount",
+                    "procedureCode"
+                ]
+            },
+            "DentalServiceIdQualifier": {
+                "type": "string",
+                "enum": [
+                    "AD"
+                ]
+            },
+            "DentalServiceLine": {
+                "type": "object",
+                "properties": {
+                    "serviceDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYY-MM-DD."
+                    },
+                    "providerControlNumber": {
+                        "type": "string",
+                        "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response."
+                    },
+                    "contractInformation": {
+                        "$ref": "#/components/schemas/DentalContractInformation"
+                    },
+                    "serviceLineDateInformation": {
+                        "$ref": "#/components/schemas/DentalServiceLineDateInformation"
+                    },
+                    "serviceLineReferenceInformation": {
+                        "$ref": "#/components/schemas/DentalServiceLineReferenceInformation"
+                    },
+                    "salesTaxAmount": {
+                        "type": "string",
+                        "description": "Sales tax, formatted as a decimal. When you include this property, the total `lineItemChargeAmount` for this service line must include this sales tax value."
+                    },
+                    "postageTaxAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The amount of the postage, formatted as a decimal. When you include this property, the total `lineItemChargeAmount` for this service line must include this postage value."
+                    },
+                    "fileInformation": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 10,
+                        "minItems": 1,
+                        "description": "Used to send additional data specifically requested by the payer. Not commonly used."
+                    },
+                    "linePricingRepricingInformation": {
+                        "$ref": "#/components/schemas/DentalServiceLinePricingRepricingInformation"
+                    },
+                    "renderingProvider": {
+                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
+                    },
+                    "assistantSurgeon": {
+                        "$ref": "#/components/schemas/ServiceLineProvider"
+                    },
+                    "serviceFacilityLocation": {
+                        "$ref": "#/components/schemas/ServiceFacilityLocation",
+                        "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
+                    },
+                    "supervisingProvider": {
+                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim."
+                    },
+                    "lineAdjudicationInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DentalLineAdjudicationInformation"
+                        },
+                        "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers."
+                    },
+                    "dentalService": {
+                        "$ref": "#/components/schemas/DentalService"
+                    },
+                    "teethInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ToothInformation"
+                        }
+                    }
+                },
+                "required": [
+                    "dentalService"
+                ]
+            },
+            "DentalServiceLineDateInformation": {
+                "type": "object",
+                "description": "Identify specific dates related to the service rendered, formatted as YYYY-MM-DD.",
+                "properties": {
+                    "priorPlacementDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    },
+                    "estimatedPriorPlacementDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    },
+                    "applianceDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    },
+                    "replacementDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    },
+                    "treatmentStartDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    },
+                    "treatmentCompletionDate": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                    }
+                }
+            },
+            "DentalServiceLinePricingRepricingInformation": {
+                "type": "object",
+                "description": "Repricing information about the line item. This information is completed by repricers, not providers. For capitated encounters, pricing or repricing information usually is not applicable and is provided to qualify other information within the claim.",
+                "properties": {
+                    "pricingMethodologyCode": {
+                        "$ref": "#/components/schemas/PricingMethodologyCode"
+                    },
+                    "repricedAllowedAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The dollar amount, expressed as a decimal. For example, `100.50`."
+                    },
+                    "repricedSavingAmount": {
+                        "type": "string",
+                        "pattern": "^\\d+(\\.\\d{1,2})?$",
+                        "description": "The dollar amount, expressed as a decimal."
+                    },
+                    "repricingOrganizationIdentifier": {
+                        "type": "string",
+                        "description": "The identifier of the organization that repriced the claim."
+                    },
+                    "repricingPerDiemOrFlatRateAmount": {
+                        "type": "string",
+                        "description": "The pricing rate associated with per diem or flat rate repricing, expressed as a decimal."
+                    },
+                    "serviceIdQualifier": {
+                        "$ref": "#/components/schemas/DentalServiceIdQualifier"
+                    },
+                    "repricedApprovedHCPCSCode": {
+                        "type": "string"
+                    },
+                    "measurementUnitCode": {
+                        "$ref": "#/components/schemas/DentalMeasurementUnitCode"
+                    },
+                    "repricedApprovedServiceUnitCount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "rejectReasonCode": {
+                        "$ref": "#/components/schemas/RejectReasonCode"
+                    },
+                    "policyComplianceCode": {
+                        "$ref": "#/components/schemas/PolicyComplianceCode"
+                    },
+                    "exceptionCode": {
+                        "$ref": "#/components/schemas/ClaimsExceptionCode"
+                    }
+                },
+                "required": [
+                    "pricingMethodologyCode",
+                    "repricedAllowedAmount"
+                ]
+            },
+            "DentalServiceLineReferenceInformation": {
+                "type": "object",
+                "description": "Additional identifiers for the service line.",
+                "properties": {
+                    "priorAuthorization": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PriorAuthorization"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    },
+                    "predeterminationOfBenefits": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PredeterminationOfBenefits"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    },
+                    "repricedLineItemReferenceNumber": {
+                        "type": "string",
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line."
+                    },
+                    "adjustedRepricedLineItemReferenceNumber": {
+                        "type": "string",
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line."
+                    },
+                    "referralNumber": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    }
+                }
+            },
+            "DentalSpecialProgramCode": {
+                "type": "string",
+                "description": "Code indicating the Special Program under which the services rendered to the patient were performed. Used for Medicaid claims only. Can be set to `01` - Early & Periodic Screening, Diagnosis and Treatment (EPSDT) or Child Assessment Program (CHAP), `02` - Physically Handicapped Children's Program, `03` - Special Federal Funding, or `05` - Disability",
+                "enum": [
+                    "01",
+                    "02",
+                    "03",
+                    "05"
+                ]
+            },
+            "DentalSubscriber": {
+                "type": "object",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.",
+                "properties": {
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy. This property is **required** if the subscriber is an individual."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, send `111002222` instead of `111-00-2222`."
+                    },
+                    "paymentResponsibilityLevelCode": {
+                        "$ref": "#/components/schemas/SubscriberPaymentResponsibilityLevelCode"
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object."
+                    },
+                    "insuranceTypeCode": {
+                        "$ref": "#/components/schemas/SubscriberInsuranceTypeCode"
+                    },
+                    "subscriberGroupName": {
+                        "type": "string",
+                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Some payers reject requests without the `firstName` property."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The subscriber's last name. This property is **required** if the subscriber is an individual."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The suffix of the subscriber's name, such as Jr. or Sr."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/SubscriberGender"
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The subscriber's date of birth. Expressed in format YYYYMMDD. This property is **required** if the subscriber is an individual."
+                    },
+                    "policyNumber": {
+                        "type": "string",
+                        "description": "The subscriber's health plan policy number. You should provide either this property OR the `groupNumber`, not both."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                    }
+                },
+                "required": [
+                    "paymentResponsibilityLevelCode"
                 ]
             },
             "Dependent": {
@@ -14071,6 +15755,22 @@
                     "providerType"
                 ]
             },
+            "OrthodonticTotalMonthsOfTreatment": {
+                "type": "object",
+                "properties": {
+                    "monthsCount": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "monthsRemaining": {
+                        "type": "number",
+                        "format": "double"
+                    },
+                    "treatmentIndicator": {
+                        "type": "string"
+                    }
+                }
+            },
             "OtherDiagnosisInformation": {
                 "type": "object",
                 "properties": {
@@ -16182,6 +17882,20 @@
                     "5"
                 ]
             },
+            "PredeterminationOfBenefits": {
+                "type": "object",
+                "properties": {
+                    "predeterminationOfBenefits": {
+                        "type": "string"
+                    },
+                    "otherPayerPrimaryIdentifier": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "predeterminationOfBenefits"
+                ]
+            },
             "PregnancyIndicator": {
                 "type": "string",
                 "description": "Code indicating whether the patient is pregnant. Can be set to `Y` - Yes.",
@@ -16391,6 +18105,13 @@
                     "procedureCode",
                     "procedureIdentifier",
                     "serviceUnitCount"
+                ]
+            },
+            "ProsthesisCrownOrInlayCode": {
+                "type": "string",
+                "enum": [
+                    "I",
+                    "R"
                 ]
             },
             "Provider": {
@@ -19330,6 +21051,61 @@
                         "description": "The contact telephone extension, if applicable."
                     }
                 }
+            },
+            "ToothInformation": {
+                "type": "object",
+                "properties": {
+                    "toothCode": {
+                        "type": "string"
+                    },
+                    "toothSurfaceCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ToothSurfaceCode"
+                        },
+                        "maxItems": 5,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "toothCode"
+                ]
+            },
+            "ToothStatus": {
+                "type": "object",
+                "properties": {
+                    "toothNumber": {
+                        "type": "string",
+                        "description": "American Dental Association tooth designation system."
+                    },
+                    "toothStatusCode": {
+                        "$ref": "#/components/schemas/ToothStatusCode"
+                    }
+                },
+                "required": [
+                    "toothNumber",
+                    "toothStatusCode"
+                ]
+            },
+            "ToothStatusCode": {
+                "type": "string",
+                "description": "Can be set to `E` - To Be Extracted, `M` - Missing.",
+                "enum": [
+                    "E",
+                    "M"
+                ]
+            },
+            "ToothSurfaceCode": {
+                "type": "string",
+                "enum": [
+                    "B",
+                    "D",
+                    "F",
+                    "I",
+                    "L",
+                    "M",
+                    "O"
+                ]
             },
             "TransactionIdentifier": {
                 "type": "object",
