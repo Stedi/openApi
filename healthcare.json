@@ -10063,13 +10063,11 @@
                         "type": "string",
                         "description": "The date of the accident related to this claim. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident."
                     },
-                    "applianclePlacementDate": {
-                        "type": "string",
-                        "description": "TODO"
+                    "appliancePlacementDate": {
+                        "type": "string"
                     },
                     "serviceDate": {
-                        "type": "string",
-                        "description": "TODO"
+                        "type": "string"
                     },
                     "repricerReceivedDate": {
                         "type": "string",
@@ -10967,13 +10965,14 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Required when the nomenclature associated with the procedure reported in SV301-2 refers to a quadrant or arch and the area of the oral cavity is not uniquely defined. Report individual tooth numbers in one or more TOO segments. (TODO reword)"
+                        "description": "Required when the nomenclature associated with the procedure reported in `claimInformation.serviceLines.dentalService.procedureCode` refers to a quadrant or arch and the area of the oral cavity is not uniquely defined. \n- You can include up to five codes per service line. \n- You should report individual tooth numbers in one or more `teethInformation` objects."
                     },
                     "prosthesisCrownOrInlayCode": {
                         "$ref": "#/components/schemas/ProsthesisCrownOrInlayCode"
                     },
                     "procedureCount": {
                         "type": "number",
+                        "description": "The number of procedures performed.",
                         "format": "double"
                     },
                     "compositeDiagnosisCodePointers": {
@@ -11071,7 +11070,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ToothInformation"
-                        }
+                        },
+                        "description": "Identify a tooth by its number and the surfaces involved in the service."
                     }
                 },
                 "required": [
@@ -21056,7 +21056,8 @@
                 "type": "object",
                 "properties": {
                     "toothCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "An [American Dental Association CDT Code](https://www.ada.org/publications/cdt) for the procedures performed on a specific tooth. You can only use this object to report individual teeth. You can't use it to report areas of the oral cavity, such as quadrants or sextants. Areas of the oral cavity are reported in the `claimInformation.serviceLines.dentalService.oralCavityDesignation` property. You can only include multiples of this object when `claimInformation.serviceLines.dentalService.procedureCount` is equal to 1. When applicable, you can include this object up to 32 times within a single service line."
                     },
                     "toothSurfaceCodes": {
                         "type": "array",
@@ -21097,6 +21098,7 @@
             },
             "ToothSurfaceCode": {
                 "type": "string",
+                "description": "Code identifying the area of the tooth that was treated. Can be set to `B` - Buccal, `D`- Distal, `F`- Facial, `I`- Incisal`, `L` - Lingual, `M` - Mesial, or `O` Occlusal.",
                 "enum": [
                     "B",
                     "D",
