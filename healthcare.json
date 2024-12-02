@@ -10232,13 +10232,8 @@
                     "reportInformation": {
                         "$ref": "#/components/schemas/DentalReportInformation"
                     },
-                    "predeterminationOfBenefits": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/PredeterminationOfBenefits"
-                        },
-                        "maxItems": 5,
-                        "minItems": 1
+                    "predeterminationOfBenefitsIdentifier": {
+                        "type": "string"
                     },
                     "claimControlNumber": {
                         "type": "string",
@@ -10842,6 +10837,9 @@
                     },
                     "otherPayerName": {
                         "$ref": "#/components/schemas/DentalOtherPayerName"
+                    },
+                    "otherPayerAssistantSurgeon": {
+                        "$ref": "#/components/schemas/OtherPayerAssistantSurgeon"
                     }
                 },
                 "required": [
@@ -15818,6 +15816,27 @@
                     "2"
                 ]
             },
+            "OtherPayerAssistantSurgeon": {
+                "type": "object",
+                "description": "Information about the assistant surgeon.",
+                "properties": {
+                    "entityTypeQualifier": {
+                        "$ref": "#/components/schemas/OtherPayerEntityTypeQualifier"
+                    },
+                    "otherPayerAssistantSurgeonIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "entityTypeQualifier",
+                    "otherPayerAssistantSurgeonIdentifier"
+                ]
+            },
             "OtherPayerAttendingProvider": {
                 "type": "object",
                 "description": "Information regarding the other payer's attending provider. The attending provider is the provider who is primarily responsible for the care of the patient.",
@@ -15860,6 +15879,13 @@
             "OtherPayerBillingProviderEntityTypeQualifier": {
                 "type": "string",
                 "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity.",
+                "enum": [
+                    "1",
+                    "2"
+                ]
+            },
+            "OtherPayerEntityTypeQualifier": {
+                "type": "string",
                 "enum": [
                     "1",
                     "2"
