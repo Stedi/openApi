@@ -155,6 +155,7 @@
                                             "state": "MD",
                                             "zipCode": "20814"
                                         },
+                                        "user_email": "test@example.com",
                                         "payer": {
                                             "id": "87726"
                                         },
@@ -192,6 +193,7 @@
                                                 "state": "MD",
                                                 "zipCode": "20814"
                                             },
+                                            "user_email": "test@example.com",
                                             "createdAt": "2023-11-07T05:31:56Z",
                                             "updatedAt": "2023-11-07T05:31:56Z",
                                             "transactions": {
@@ -390,6 +392,7 @@
                                                 "state": "MD",
                                                 "zipCode": "20814"
                                             },
+                                            "user_email": "test@example.com",
                                             "createdAt": "2023-11-07T05:31:56Z",
                                             "updatedAt": "2023-11-07T05:31:56Z",
                                             "transactions": {
@@ -495,6 +498,7 @@
                                             "state": "MD",
                                             "zipCode": "20814"
                                         },
+                                        "user_email": "test@example.com",
                                         "payer": {
                                             "id": "87726"
                                         },
@@ -551,6 +555,7 @@
                                                 "state": "MD",
                                                 "zipCode": "20814"
                                             },
+                                            "user_email": "test@example.com",
                                             "createdAt": "2024-11-07T05:31:56Z",
                                             "updatedAt": "2024-11-18T07:25:42Z",
                                             "transactions": {
@@ -1094,9 +1099,6 @@
                                     "description": "",
                                     "value": {
                                         "name": "TEST Updated Dental Inc",
-                                        "npi": "1999999999",
-                                        "taxIdType": "EIN",
-                                        "taxId": "111222333",
                                         "contacts": [
                                             {
                                                 "firstName": "Test",
@@ -1289,6 +1291,10 @@
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact"
                     },
+                    "user_email": {
+                        "type": "string",
+                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                    },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
                         "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
@@ -1314,7 +1320,8 @@
                     "payer",
                     "primaryContact",
                     "provider",
-                    "transactions"
+                    "transactions",
+                    "user_email"
                 ]
             },
             "CreateEnrollmentResponseContent": {
@@ -1340,6 +1347,10 @@
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
+                    },
+                    "user_email": {
+                        "type": "string",
+                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
@@ -1367,18 +1378,14 @@
                     "payer",
                     "primaryContact",
                     "provider",
-                    "transactions"
+                    "transactions",
+                    "user_email"
                 ]
             },
             "CreateProviderRequestContent": {
                 "type": "object",
                 "description": "Information about the provider you want to add to your account. The provider **must** have a unique NPI from other providers in your account.",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
-                    },
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
@@ -1391,7 +1398,12 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
                     },
                     "contacts": {
                         "type": "array",
@@ -1425,11 +1437,6 @@
                         "description": "The date and time Stedi last updated the provider record.",
                         "format": "date-time"
                     },
-                    "name": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
-                    },
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
@@ -1442,7 +1449,12 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
                     },
                     "contacts": {
                         "type": "array",
@@ -1590,6 +1602,10 @@
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
                     },
+                    "user_email": {
+                        "type": "string",
+                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                    },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
                         "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
@@ -1616,7 +1632,8 @@
                     "payer",
                     "primaryContact",
                     "provider",
-                    "transactions"
+                    "transactions",
+                    "user_email"
                 ]
             },
             "GetProviderResponseContent": {
@@ -1636,11 +1653,6 @@
                         "description": "The date and time Stedi last updated the provider record.",
                         "format": "date-time"
                     },
-                    "name": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
-                    },
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
@@ -1653,7 +1665,12 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
                     },
                     "contacts": {
                         "type": "array",
@@ -1866,6 +1883,10 @@
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact"
                     },
+                    "user_email": {
+                        "type": "string",
+                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                    },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
                         "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
@@ -1891,7 +1912,8 @@
                     "payer",
                     "primaryContact",
                     "provider",
-                    "transactions"
+                    "transactions",
+                    "user_email"
                 ]
             },
             "UpdateEnrollmentResponseContent": {
@@ -1917,6 +1939,10 @@
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
+                    },
+                    "user_email": {
+                        "type": "string",
+                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
@@ -1944,7 +1970,8 @@
                     "payer",
                     "primaryContact",
                     "provider",
-                    "transactions"
+                    "transactions",
+                    "user_email"
                 ]
             },
             "UpdateProviderRequestContent": {
@@ -1955,20 +1982,6 @@
                         "minLength": 5,
                         "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
                     },
-                    "npi": {
-                        "type": "string",
-                        "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
-                    },
-                    "taxIdType": {
-                        "$ref": "#/components/schemas/TaxIdType",
-                        "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
-                    },
-                    "taxId": {
-                        "type": "string",
-                        "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
-                    },
                     "contacts": {
                         "type": "array",
                         "items": {
@@ -1978,10 +1991,7 @@
                     }
                 },
                 "required": [
-                    "name",
-                    "npi",
-                    "taxId",
-                    "taxIdType"
+                    "name"
                 ]
             },
             "UpdateProviderResponseContent": {
@@ -2001,11 +2011,6 @@
                         "description": "The date and time Stedi last updated the provider record.",
                         "format": "date-time"
                     },
-                    "name": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
-                    },
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
@@ -2018,7 +2023,12 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                    },
+                    "name": {
+                        "type": "string",
+                        "minLength": 5,
+                        "description": "The provider's business name. This is typically the provider's practice name, such as `Dental Associates, LLC`, but it can also be the provider's first and last name."
                     },
                     "contacts": {
                         "type": "array",
