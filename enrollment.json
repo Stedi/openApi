@@ -397,7 +397,7 @@
                                                     "enroll": true
                                                 },
                                                 "claimStatus": {
-                                                    "enroll": false
+                                                    "enroll": true
                                                 }
                                             },
                                             "status": "PROVISIONING",
@@ -1284,20 +1284,22 @@
                 "properties": {
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact"
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     },
                     "reason": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status or may take additional time to process. Only Stedi can set or update this property. \n\n May contain extra required steps for processing that are specific to the payer. For example, perhaps the provider needs to log into an online portal and enter additional information before the enrollment can continue. Contact Stedi customer support with questions."
                     },
                     "internal_note": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Internal notes about the enrollment. Only Stedi can read, set, or update this property."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
@@ -1327,27 +1329,29 @@
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was created.",
+                        "description": "The date and time when the enrollment was created within Stedi.",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was updated.",
+                        "description": "The date and time when the enrollment was updated.",
                         "format": "date-time"
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     },
                     "reason": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status or may take additional time to process. Only Stedi can set or update this property. \n\n May contain extra required steps for processing that are specific to the payer. For example, perhaps the provider needs to log into an online portal and enter additional information before the enrollment can continue. Contact Stedi customer support with questions."
                     },
                     "internal_note": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Internal notes about the enrollment. Only Stedi can read, set, or update this property."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -1378,7 +1382,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -1387,7 +1391,7 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
                     },
                     "contacts": {
                         "type": "array",
@@ -1429,7 +1433,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -1438,7 +1442,7 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
                     },
                     "contacts": {
                         "type": "array",
@@ -1495,28 +1499,34 @@
                 "type": "object",
                 "properties": {
                     "eligibilityCheck": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 270 Eligibility Checks are included in the enrollment."
                     },
                     "claimStatus": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 276 Claim Status Requests are included in the enrollment."
                     },
                     "professionalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 837P Professional Claims are included in the enrollment."
                     },
                     "institutionalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 837I Institutional Claims are included in the enrollment."
                     },
                     "dentalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 837D Dental Claims are included in the enrollment."
                     },
                     "claimPayment": {
-                        "$ref": "#/components/schemas/EnrolledTransaction"
+                        "$ref": "#/components/schemas/EnrolledTransaction",
+                        "description": "Whether 835 Electronic Remittance Advice (ERAs) are included in the enrollment."
                     }
                 }
             },
             "EnrollmentStatus": {
                 "type": "string",
-                "description": "The status of the enrollment. Only Stedi can set or update this property.",
+                "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status. The default is `DRAFT` if you don't include a status in the request. Once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.",
                 "enum": [
                     "DRAFT",
                     "SUBMITTED",
@@ -1541,11 +1551,11 @@
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     }
                 },
                 "required": [
@@ -1568,27 +1578,29 @@
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was created.",
+                        "description": "The date and time when the enrollment was created within Stedi.",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was updated.",
+                        "description": "The date and time when the enrollment was updated.",
                         "format": "date-time"
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     },
                     "reason": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status or may take additional time to process. Only Stedi can set or update this property. \n\n May contain extra required steps for processing that are specific to the payer. For example, perhaps the provider needs to log into an online portal and enter additional information before the enrollment can continue. Contact Stedi customer support with questions."
                     },
                     "internal_note": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Internal notes about the enrollment. Only Stedi can read, set, or update this property."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -1632,7 +1644,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -1641,7 +1653,7 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
                     },
                     "contacts": {
                         "type": "array",
@@ -1849,20 +1861,22 @@
                 "properties": {
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact"
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     },
                     "reason": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status or may take additional time to process. Only Stedi can set or update this property. \n\n May contain extra required steps for processing that are specific to the payer. For example, perhaps the provider needs to log into an online portal and enter additional information before the enrollment can continue. Contact Stedi customer support with questions."
                     },
                     "internal_note": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Internal notes about the enrollment. Only Stedi can read, set, or update this property."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
@@ -1892,27 +1906,29 @@
                     },
                     "createdAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was created.",
+                        "description": "The date and time when the enrollment was created within Stedi.",
                         "format": "date-time"
                     },
                     "updatedAt": {
                         "type": "string",
-                        "description": "The date and time when the enrollment record was updated.",
+                        "description": "The date and time when the enrollment was updated.",
                         "format": "date-time"
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
-                        "description": "The type of transactions included in the enrollment. Can be set to one or more of the following: `270` - Eligibility Checks, `837I` - Institutional Claims, `837P` - Professional Claims, `837D` - Dental Claims, or `835` - Electronic Remittance Advice (ERAs)."
+                        "description": "The type of transactions included in the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. Only Stedi can set or update this property. A `PENDING` enrollment means that you have successfully submitted the request and it is in Stedi's queue for review. A `PROVISIONING` enrollment means that Stedi has begun the process of completing the enrollment with the payer. A `LIVE` enrollment means the process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
+                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer. \n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer."
                     },
                     "reason": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status or may take additional time to process. Only Stedi can set or update this property. \n\n May contain extra required steps for processing that are specific to the payer. For example, perhaps the provider needs to log into an online portal and enter additional information before the enrollment can continue. Contact Stedi customer support with questions."
                     },
                     "internal_note": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Internal notes about the enrollment. Only Stedi can read, set, or update this property."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -1942,7 +1958,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -1951,7 +1967,7 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
                     },
                     "contacts": {
                         "type": "array",
@@ -1993,7 +2009,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider. Note that each provider record must have a unique NPI within Stedi - you cannot create a provider with an NPI that is already in use."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -2002,7 +2018,7 @@
                     "taxId": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example, 111-22-3333 is represented as `111223333`."
                     },
                     "contacts": {
                         "type": "array",
