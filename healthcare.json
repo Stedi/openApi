@@ -9373,6 +9373,294 @@
                     }
                 }
             },
+            "ClaimsServiceLineReferringProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "ClaimsServiceLineRenderingProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "ClaimsServiceLineSupervisingProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
             "ClaimsSubmissionRequestContent": {
                 "type": "object",
                 "properties": {
@@ -11033,18 +11321,18 @@
                         "$ref": "#/components/schemas/DentalServiceLinePricingRepricingInformation"
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "$ref": "#/components/schemas/DentalServiceLineRenderingProvider",
                         "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
                     },
                     "assistantSurgeon": {
-                        "$ref": "#/components/schemas/ServiceLineProvider"
+                        "$ref": "#/components/schemas/AssistantSurgeon"
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ServiceFacilityLocation",
                         "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
                     },
                     "supervisingProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "$ref": "#/components/schemas/DentalServiceLineSupervisingProvider",
                         "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim."
                     },
                     "lineAdjudicationInformation": {
@@ -11189,6 +11477,198 @@
                         "minItems": 1
                     }
                 }
+            },
+            "DentalServiceLineRenderingProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "DentalServiceLineSupervisingProvider": {
+                "type": "object",
+                "properties": {
+                    "providerType": {
+                        "type": "string"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "commercialNumber": {
+                        "type": "string"
+                    },
+                    "locationNumber": {
+                        "type": "string"
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string"
+                    },
+                    "employerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                    },
+                    "claimOfficeNumber": {
+                        "type": "string"
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string"
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "minLength": 10,
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name, if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial, if the provider is an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr. or III."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress"
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                    },
+                    "otherIdentifier": {
+                        "type": "string"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 20,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
             },
             "DentalSpecialProgramCode": {
                 "type": "string",
@@ -11663,13 +12143,12 @@
                         "description": "The unique identifier for the eligibility search being edited and 'retried'."
                     },
                     "provider": {
-                        "$ref": "#/components/schemas/Provider",
-                        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
+                        "$ref": "#/components/schemas/Provider"
                     },
                     "informationReceiverName": {
                         "$ref": "#/components/schemas/InformationReceiverName",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "Include all information about the provider requesting the benefits information in the `provider` object.\nThis shape is deprecated."
                     },
                     "dependents": {
                         "type": "array",
@@ -12616,19 +13095,22 @@
             },
             "InformationReceiverName": {
                 "type": "object",
-                "description": "Provide additional information to identify the entity making the eligibility request. For example, if a provider has multiple locations, you may need to provide the address of the specific location. This is also where you can include the Federal Taxpayers Identification Number (EIN) for providers with an NPI.",
+                "deprecated": true,
+                "description": "This shape is deprecated.",
                 "properties": {
                     "stateLicenceNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "medicareProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's Medicare provider number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "medicaidProviderNumber": {
                         "type": "string",
@@ -12640,31 +13122,36 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The ID number for the provider's facility."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's contract number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "devicePinNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's electronic device pin number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "submitterIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's submitter identification number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "nationalProviderIdentifier": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's National Provider Identifier (NPI) from the Centers for Medicare and Medicaid Services.",
+                        "deprecated": true,
+                        "description": "This shape is deprecated.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
                         }
@@ -12673,25 +13160,29 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's plan network identification number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "facilityNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's facility network identification number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "priorIdentifierNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's prior identifier number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "socialSecurityNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's social security number. Don't use this for Federally administered programs, such as Medicare.",
+                        "deprecated": true,
+                        "description": "This shape is deprecated.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
                         }
@@ -12700,17 +13191,20 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's federal taxpayer identification number."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "informationReceiverAdditionalIdentifierState": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 1,
-                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
-                        "description": "The address of the entity requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 }
             },
@@ -18141,7 +18635,7 @@
             },
             "Provider": {
                 "type": "object",
-                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`).",
+                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. \n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual). \n - You must also provide an identifier - this is typically the provider's National Provider ID (`npi`). If the provider doesn't have an NPI, you can supply their `taxId` or `ssn`.\n - You shouldn't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -18165,7 +18659,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use another identifier instead, such as the `serviceProviderNumber` or `ssn`.",
+                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers who are eligible to receive an NPI. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners are not eligible to receive an NPI. If the provider doesn't have an NPI, you can supply either their `taxId` or `ssn`.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
                         }
@@ -18186,7 +18680,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` property instead."
+                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
                     },
                     "ssn": {
                         "type": "string",
@@ -18295,7 +18789,7 @@
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
-                        "description": "The address of the entity requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
+                        "description": "The address of the provider requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
             },
@@ -20150,7 +20644,7 @@
                         "$ref": "#/components/schemas/DrugIdentification"
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "$ref": "#/components/schemas/ClaimsServiceLineRenderingProvider",
                         "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
                     },
                     "purchasedServiceProvider": {
@@ -20162,7 +20656,7 @@
                         "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
                     },
                     "supervisingProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "$ref": "#/components/schemas/ClaimsServiceLineSupervisingProvider",
                         "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim."
                     },
                     "orderingProvider": {
@@ -20170,7 +20664,7 @@
                         "description": "Information about the provider who requested the services or items reported in this service line."
                     },
                     "referringProvider": {
-                        "$ref": "#/components/schemas/ServiceLineProvider",
+                        "$ref": "#/components/schemas/ClaimsServiceLineReferringProvider",
                         "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care provider may refer patients to a specialist. Include this object when the referring provider is different than the one listed in the `referring` object for the entire claim."
                     },
                     "ambulancePickUpLocation": {
@@ -20383,102 +20877,6 @@
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ContactInformationOrderingProvider"
-                    },
-                    "otherIdentifier": {
-                        "type": "string"
-                    },
-                    "secondaryIdentifier": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
-                        },
-                        "maxItems": 20,
-                        "minItems": 1
-                    }
-                },
-                "required": [
-                    "providerType"
-                ]
-            },
-            "ServiceLineProvider": {
-                "type": "object",
-                "properties": {
-                    "providerType": {
-                        "type": "string"
-                    },
-                    "npi": {
-                        "type": "string",
-                        "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
-                    },
-                    "ssn": {
-                        "type": "string",
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
-                    },
-                    "employerId": {
-                        "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
-                    },
-                    "commercialNumber": {
-                        "type": "string"
-                    },
-                    "locationNumber": {
-                        "type": "string"
-                    },
-                    "payerIdentificationNumber": {
-                        "type": "string"
-                    },
-                    "employerIdentificationNumber": {
-                        "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
-                    },
-                    "claimOfficeNumber": {
-                        "type": "string"
-                    },
-                    "naic": {
-                        "type": "string",
-                        "description": "The National Association of Insurance Commissioners (NAIC) code."
-                    },
-                    "stateLicenseNumber": {
-                        "type": "string"
-                    },
-                    "providerUpinNumber": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "Deprecated; do not use.\nThis shape is deprecated."
-                    },
-                    "taxonomyCode": {
-                        "type": "string",
-                        "maxLength": 10,
-                        "minLength": 10,
-                        "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
-                    },
-                    "middleName": {
-                        "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
-                    },
-                    "suffix": {
-                        "type": "string",
-                        "description": "The provider's name suffix, such as Jr. or III."
-                    },
-                    "organizationName": {
-                        "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
-                    },
-                    "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
-                    },
-                    "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
                     },
                     "otherIdentifier": {
                         "type": "string"
