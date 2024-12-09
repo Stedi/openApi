@@ -11667,7 +11667,9 @@
                         "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
                     },
                     "informationReceiverName": {
-                        "$ref": "#/components/schemas/InformationReceiverName"
+                        "$ref": "#/components/schemas/InformationReceiverName",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "dependents": {
                         "type": "array",
@@ -13366,6 +13368,7 @@
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 9,
+                        "pattern": "^\\d+$",
                         "description": "A nine-digit number that uniquely identifies the transaction. You must use exactly nine numbers in this property - letters or other types of characters return an error. Stedi autogenerates a control number for you if you don't set one."
                     },
                     "tradingPartnerServiceId": {
@@ -14611,6 +14614,7 @@
                     "assignedNumber": {
                         "type": "string",
                         "maxLength": 6,
+                        "pattern": "^\\d+$",
                         "deprecated": true,
                         "description": "Stedi assigns this value automatically. It's a unique number identifying the service line within the claim.\nThis shape is deprecated."
                     },
@@ -18222,6 +18226,76 @@
                     },
                     "providerType": {
                         "$ref": "#/components/schemas/ProviderType"
+                    },
+                    "stateLicenceNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
+                    },
+                    "medicareProviderNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's Medicare provider number."
+                    },
+                    "medicaidProviderNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's Medicaid provider number."
+                    },
+                    "facilityIdNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The ID number for the provider's facility."
+                    },
+                    "contractNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's contract number."
+                    },
+                    "devicePinNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's electronic device pin number."
+                    },
+                    "submitterIdNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's submitter identification number."
+                    },
+                    "providerPlanNetworkIdNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's plan network identification number."
+                    },
+                    "facilityNetworkIdNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's facility network identification number."
+                    },
+                    "priorIdentifierNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The provider's prior identifier number."
+                    },
+                    "informationReceiverAdditionalIdentifierState": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The address of the entity requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
             },
