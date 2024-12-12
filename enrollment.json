@@ -398,9 +398,6 @@
                                             "transactions": {
                                                 "professionalClaimSubmission": {
                                                     "enroll": true
-                                                },
-                                                "claimStatus": {
-                                                    "enroll": true
                                                 }
                                             },
                                             "status": "PROVISIONING",
@@ -1508,33 +1505,86 @@
                 ]
             },
             "EnrolledTransactionsList": {
-                "type": "object",
-                "properties": {
-                    "eligibilityCheck": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 270 Eligibility Checks are included in the enrollment."
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "eligibilityCheck",
+                        "properties": {
+                            "eligibilityCheck": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 270 Eligibility Checks are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "eligibilityCheck"
+                        ]
                     },
-                    "claimStatus": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 276 Claim Status Requests are included in the enrollment."
+                    {
+                        "type": "object",
+                        "title": "claimStatus",
+                        "properties": {
+                            "claimStatus": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 276 Claim Status Requests are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "claimStatus"
+                        ]
                     },
-                    "professionalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 837P Professional Claims are included in the enrollment."
+                    {
+                        "type": "object",
+                        "title": "professionalClaimSubmission",
+                        "properties": {
+                            "professionalClaimSubmission": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 837P Professional Claims are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "professionalClaimSubmission"
+                        ]
                     },
-                    "institutionalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 837I Institutional Claims are included in the enrollment."
+                    {
+                        "type": "object",
+                        "title": "institutionalClaimSubmission",
+                        "properties": {
+                            "institutionalClaimSubmission": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 837I Institutional Claims are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "institutionalClaimSubmission"
+                        ]
                     },
-                    "dentalClaimSubmission": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 837D Dental Claims are included in the enrollment."
+                    {
+                        "type": "object",
+                        "title": "dentalClaimSubmission",
+                        "properties": {
+                            "dentalClaimSubmission": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 837D Dental Claims are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "dentalClaimSubmission"
+                        ]
                     },
-                    "claimPayment": {
-                        "$ref": "#/components/schemas/EnrolledTransaction",
-                        "description": "Whether 835 Electronic Remittance Advice (ERAs) are included in the enrollment."
+                    {
+                        "type": "object",
+                        "title": "claimPayment",
+                        "properties": {
+                            "claimPayment": {
+                                "$ref": "#/components/schemas/EnrolledTransaction",
+                                "description": "Whether 835 Electronic Remittance Advice (ERAs) are included in the enrollment."
+                            }
+                        },
+                        "required": [
+                            "claimPayment"
+                        ]
                     }
-                }
+                ]
             },
             "EnrollmentStatus": {
                 "type": "string",
