@@ -7173,7 +7173,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. When the `providerType` = `BillingProvider`, you must provide the provider's `etin`."
+                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. \n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -12229,7 +12229,7 @@
                     },
                     "dependent": {
                         "$ref": "#/components/schemas/InstitutionalDependent",
-                        "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present."
+                        "description": "Dependent who received the medical care associated with the claim. When the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present."
                     },
                     "providers": {
                         "type": "array",
@@ -13796,7 +13796,7 @@
             },
             "InstitutionalSubscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -19618,7 +19618,7 @@
             },
             "Subscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. The subscriber can be an individual or a business entity.\n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request.  Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
