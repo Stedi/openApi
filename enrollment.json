@@ -196,6 +196,7 @@
                                             "userEmail": "test@example.com",
                                             "createdAt": "2023-11-07T05:31:56Z",
                                             "updatedAt": "2023-11-07T05:31:56Z",
+                                            "submittedAt": "2023-11-07T05:31:56Z",
                                             "transactions": {
                                                 "claimPayment": {
                                                     "enroll": true
@@ -395,6 +396,7 @@
                                             "userEmail": "test@example.com",
                                             "createdAt": "2023-11-07T05:31:56Z",
                                             "updatedAt": "2023-11-07T05:31:56Z",
+                                            "submittedAt": "2023-11-07T05:31:56Z",
                                             "transactions": {
                                                 "professionalClaimSubmission": {
                                                     "enroll": true
@@ -1341,6 +1343,11 @@
                         "description": "The date and time when the enrollment was updated.",
                         "format": "date-time"
                     },
+                    "submittedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
+                        "format": "date-time"
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -1646,6 +1653,11 @@
                     "updatedAt": {
                         "type": "string",
                         "description": "The date and time when the enrollment was updated.",
+                        "format": "date-time"
+                    },
+                    "submittedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
                         "format": "date-time"
                     },
                     "transactions": {
@@ -1984,6 +1996,11 @@
                     "updatedAt": {
                         "type": "string",
                         "description": "The date and time when the enrollment was updated.",
+                        "format": "date-time"
+                    },
+                    "submittedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
                         "format": "date-time"
                     },
                     "transactions": {
