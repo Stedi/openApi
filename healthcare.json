@@ -3878,29 +3878,28 @@
                                         "subscriber": {
                                             "paymentResponsibilityLevelCode": "P",
                                             "memberId": "123412345",
+                                            "firstName": "John",
                                             "lastName": "Doe",
                                             "groupNumber": "1234567890",
                                             "gender": "F",
-                                            "firstName": "John",
-                                            "dateOfBirth": "2018-06-15",
-                                            "contactInformation": {
-                                                "name": "John Doe"
-                                            },
                                             "address": {
-                                                "state": "AZ",
-                                                "postalCode": "85326",
+                                                "address1": "1234 Some St",
                                                 "city": "Buckeye",
-                                                "address1": "1234 Some St"
-                                            }
+                                                "state": "AZ",
+                                                "postalCode": "85326"
+                                            },
+                                            "dateOfBirth": "20180615"
                                         },
                                         "submitter": {
                                             "organizationName": "ABA Inc",
+                                            "submitterIdentification": "123456789",
                                             "contactInformation": {
                                                 "phoneNumber": "3131234567",
                                                 "name": "BILLING DEPARTMENT"
                                             }
                                         },
                                         "rendering": {
+                                            "npi": "1234567893",
                                             "taxonomyCode": "106S00000X",
                                             "providerType": "RenderingProvider",
                                             "lastName": "Doe",
@@ -3910,10 +3909,10 @@
                                             "organizationName": "Tricare West AZ"
                                         },
                                         "payerAddress": {
-                                            "state": "SC",
-                                            "postalCode": "29000",
+                                            "address1": "PO Box 7000",
                                             "city": "Camden",
-                                            "address1": "PO Box 7000"
+                                            "state": "SC",
+                                            "postalCode": "29000"
                                         },
                                         "claimInformation": {
                                             "signatureIndicator": "Y",
@@ -3927,6 +3926,7 @@
                                                 {
                                                     "serviceDate": "20230428",
                                                     "renderingProvider": {
+                                                        "npi": "1234567893",
                                                         "taxonomyCode": "122300000X",
                                                         "providerType": "RenderingProvider",
                                                         "lastName": "Doe",
@@ -3935,7 +3935,6 @@
                                                     "providerControlNumber": "a0UDo000000dd2dMAA",
                                                     "dentalService": {
                                                         "procedureCode": "D7140",
-                                                        "description": "1400-1800",
                                                         "lineItemChargeAmount": "832.00",
                                                         "placeOfServiceCode": "12",
                                                         "oralCavityDesignationCode": [
@@ -3966,10 +3965,10 @@
                                                 "organizationName": "ABA Inc",
                                                 "npi": "1234567893",
                                                 "address": {
-                                                    "state": "CO",
-                                                    "postalCode": "802383100",
+                                                    "address1": "ABA Inc 123 Some St",
                                                     "city": "Denver",
-                                                    "address1": "ABA Inc 123 Some St"
+                                                    "state": "CO",
+                                                    "postalCode": "802383100"
                                                 }
                                             },
                                             "releaseInformationCode": "Y",
@@ -4001,10 +4000,10 @@
                                                 "name": "ABA Inc"
                                             },
                                             "address": {
-                                                "state": "CO",
-                                                "postalCode": "802383000",
+                                                "address1": "ABA Inc 123 Some St",
                                                 "city": "Denver",
-                                                "address1": "ABA Inc 123 Some St"
+                                                "state": "CO",
+                                                "postalCode": "802383000"
                                             }
                                         }
                                     }
@@ -4562,7 +4561,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `\t1223S0112X` is for Oral and Maxillofacial Surgery."
                     },
                     "firstName": {
                         "type": "string",
@@ -5235,7 +5234,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the billing provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the billing provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -5810,7 +5809,7 @@
             },
             "ClaimAdjustmentDetails": {
                 "type": "object",
-                "description": "The adjustment reason codes and amounts.",
+                "description": "The adjustment reason codes and amounts. You can include up to six objects in this array to describe a single adjustment group code.",
                 "properties": {
                     "adjustmentReasonCode": {
                         "type": "string",
@@ -6735,7 +6734,7 @@
             },
             "ClaimPricingRepricingInformation": {
                 "type": "object",
-                "description": "Repricing information about the claim or a line item. This information is completed by repricers, not providers. For capitated encounters, pricing or repricing information usually is not applicable and is provided to qualify other information within the claim.",
+                "description": "Repricing information to be completed by repricers, not providers. For capitated encounters, pricing or repricing information usually is not applicable and is provided to qualify other information within the claim.",
                 "properties": {
                     "pricingMethodologyCode": {
                         "$ref": "#/components/schemas/PricingMethodologyCode"
@@ -7728,7 +7727,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to the provider matching the object name, with no spaces."
                     },
                     "npi": {
                         "type": "string",
@@ -7744,13 +7744,16 @@
                         "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
@@ -7764,7 +7767,8 @@
                         "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -7776,7 +7780,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -7813,7 +7817,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -7824,7 +7829,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to the provider matching the object name, with no spaces."
                     },
                     "npi": {
                         "type": "string",
@@ -7840,13 +7846,16 @@
                         "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
@@ -7860,7 +7869,8 @@
                         "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -7872,7 +7882,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -7909,7 +7919,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -7920,7 +7931,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to the provider matching the object name, with no spaces."
                     },
                     "npi": {
                         "type": "string",
@@ -7936,13 +7948,16 @@
                         "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
@@ -7956,7 +7971,8 @@
                         "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -7968,7 +7984,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -8005,7 +8021,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -8704,10 +8721,12 @@
                         "description": "The date of the accident related to this claim. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident."
                     },
                     "appliancePlacementDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date the appliance was placed."
                     },
                     "serviceDate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A single service date, expressed as YYYYMMDD or a range of service dates, expressed as YYYYMMDD-YYYYMMDD."
                     },
                     "repricerReceivedDate": {
                         "type": "string",
@@ -8792,19 +8811,23 @@
                         "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                        "$ref": "#/components/schemas/ServiceFacilityLocation",
+                        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home."
                     },
                     "orthodonticTotalMonthsOfTreatment": {
-                        "$ref": "#/components/schemas/OrthodonticTotalMonthsOfTreatment"
+                        "$ref": "#/components/schemas/OrthodonticTotalMonthsOfTreatment",
+                        "description": "Information about orthodontic treatment. Required when the claim contains services related to treatment for orthodontic purposes. You **must** include one of these properties in this object: `monthsCount`, `monthsRemaining`, or `treatmentIndicator`."
                     },
                     "toothStatus": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ToothStatus"
-                        }
+                        },
+                        "description": "The status of the teeth involved in the service. Required when the submitter is reporting a missing tooth or a tooth to be extracted in the future. You can include up to 35 objects in this array."
                     },
                     "claimDateInformation": {
-                        "$ref": "#/components/schemas/DentalClaimDateInformation"
+                        "$ref": "#/components/schemas/DentalClaimDateInformation",
+                        "description": "Dates related to services within the claim, including the date an appliance was placed and the date of the accident (if applicable). All dates are single dates formatted as YYYYMMDD unless otherwise noted. All dates apply to all services in the claim unless specifically overridden within an individual service line."
                     },
                     "claimSupplementalInformation": {
                         "$ref": "#/components/schemas/DentalClaimSupplementalInformation"
@@ -8813,7 +8836,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/DentalServiceLine"
-                        }
+                        },
+                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day."
                     },
                     "claimNotes": {
                         "type": "array",
@@ -8821,13 +8845,16 @@
                             "type": "string"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Include comments or special instructions related to the claim. Required when the provider needs to include additional information to substantiate the medical treatment that can't be provided elsewhere in the claim submission. You can include up to five objects in this array."
                     },
                     "planParticipationCode": {
-                        "$ref": "#/components/schemas/DentalPlanParticipationCode"
+                        "$ref": "#/components/schemas/DentalPlanParticipationCode",
+                        "description": "The code indicating whether the provider accepts assignment in their relationship with the payer. Can be set to `A` - Assigned or `C` - Not Assigned. Code `A` is required when either the provider accepts assignment or has a participation agreement with the payer OR when the provider doesn't accept assignment or have a participation agreement but is advising the payer to adjudicate this specific claim under participating provider benefits allowed in certain plans.\n\n Note that this is **not** where you should indicate whether the patient has assigned benefits to the provider - you must indicate that in the `benefitsAssignmentCertificationIndicator` property."
                     },
                     "predeterminationOfBenefits": {
-                        "type": "boolean"
+                        "type": "boolean",
+                        "description": "Indicates whether the services reported in this claim were previously determined to be covered by the patient's dental benefits. Can be set to `true` to indicate predetermination of dental benefits."
                     },
                     "specialProgramCode": {
                         "$ref": "#/components/schemas/DentalSpecialProgramCode"
@@ -8873,7 +8900,8 @@
                         "$ref": "#/components/schemas/DentalReportInformation"
                     },
                     "predeterminationOfBenefitsIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Predetermination of Benefits Identification Number assigned by the payer. Required for services that have been previously predetermined and are now being submitted for payment. The identifier you supply here applies to the entire claim."
                     },
                     "claimControlNumber": {
                         "type": "string",
@@ -8881,7 +8909,7 @@
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
-                        "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information."
+                        "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. This authorization number applies to the payer you listed in the `receiver` object. If you need to include authorization numbers for other payers, you can include them in `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerPriorAuthorizationNumber`. \n\nGenerally, preauthorization numbers are assigned by the payer or UMO to authorize a service prior to its being performed. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information."
                     },
                     "referralNumber": {
                         "type": "string",
@@ -8981,7 +9009,8 @@
                         "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a claim as test data."
                     },
                     "submitter": {
-                        "$ref": "#/components/schemas/Submitter"
+                        "$ref": "#/components/schemas/Submitter",
+                        "description": "The entity submitting the healthcare claim. This can be either an individual or an organization, such as a doctor, hospital, or insurance company. You must submit at least `organizationName` or `lastName` properties and the `contactInformation` object. If you don't supply the `submitterIdentification` property, Stedi uses the value from `billing.npi` in the request."
                     },
                     "receiver": {
                         "$ref": "#/components/schemas/Receiver"
@@ -8997,7 +9026,8 @@
                         "$ref": "#/components/schemas/PayToPlan"
                     },
                     "payerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The payer's address. Required when the payer address is available and the submitter intends for the claim to be printed on paper at the next EDI location (for example, a clearinghouse)."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/DentalSubscriber"
@@ -9006,7 +9036,8 @@
                         "$ref": "#/components/schemas/DentalDependent"
                     },
                     "claimInformation": {
-                        "$ref": "#/components/schemas/DentalClaimInformation"
+                        "$ref": "#/components/schemas/DentalClaimInformation",
+                        "description": "Information about the healthcare claim. Note that the objects and properties marked as required are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the `placeOfServiceCode` property, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties."
                     },
                     "referring": {
                         "$ref": "#/components/schemas/Referring"
@@ -9189,7 +9220,7 @@
             },
             "DentalDiagnosisTypeCode": {
                 "type": "string",
-                "description": "Code indicating the specific industry code list. Can be set to `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis, 'TQ' Systemized Nomenclature of Dentistry (SNODENT).",
+                "description": "Code indicating the specific industry code list. Can be set to `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis or `ABF` - International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis, `TQ` Systemized Nomenclature of Dentistry (SNODENT).",
                 "enum": [
                     "ABK",
                     "ABF",
@@ -9236,7 +9267,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "A modifier that conveys special circumstances related to the performance of the service."
+                        "description": "Modifiers that convey special circumstances related to the performance of the service. You can include up to four modifiers in this array."
                     },
                     "procedureCodeDescription": {
                         "type": "string",
@@ -9257,7 +9288,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged."
+                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged. You can include up to five objects in this array."
                     },
                     "adjudicationOrPaymentDate": {
                         "type": "string",
@@ -9266,10 +9297,11 @@
                     "remainingPatientLiability": {
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
-                        "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
+                        "description": "The amount of the service line that the patient is still responsible for, expressed as a decimal."
                     },
                     "serviceIdQualifier": {
-                        "$ref": "#/components/schemas/DentalLineAdjudicationInformationServiceIdQualifier"
+                        "$ref": "#/components/schemas/DentalLineAdjudicationInformationServiceIdQualifier",
+                        "description": "Code identifying the the type of product or service ID. Can be set to `AD` - American Dental Association Codes or `ER` - Jurisdiction Specific Procedure and Supply Codes."
                     }
                 },
                 "required": [
@@ -9314,7 +9346,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
+                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list. You can include up to five codes in this array."
                     },
                     "nonPayableProfessionalComponentBilledAmount": {
                         "type": "string",
@@ -9339,7 +9371,8 @@
                         "description": "The identifier specified in `otherPayerIdentifierCode`. When sending Line Adjudication Information for this payer, the identifier sent in `lineAdjudicationInformation.otherPayerPrimaryIdentifier` must match this value."
                     },
                     "otherPayerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The payer's address."
                     },
                     "otherPayerAdjudicationOrPaymentDate": {
                         "type": "string",
@@ -9352,7 +9385,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "An additional identication number to identify the other payer."
+                        "description": "An additional identification number to identify the other payer. The `qualifier` can be set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code."
                     },
                     "otherPayerPriorAuthorizationNumber": {
                         "type": "string",
@@ -9522,7 +9555,8 @@
                         "description": "The identifier you specified in `otherInsuredIdentifierTypeCode`."
                     },
                     "otherInsuredAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The other subscriber's address."
                     },
                     "otherInsuredAdditionalIdentifiers": {
                         "type": "array",
@@ -9587,7 +9621,8 @@
                         "description": "The total charge amount for the service, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero)."
                     },
                     "placeOfServiceCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Code identifying the type of facility where the services were or may be performed. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list."
                     },
                     "oralCavityDesignation": {
                         "type": "array",
@@ -9616,7 +9651,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "A modifier code that clarifies or improves the reporting accuracy of the associated procedure code. If not required, do not send."
+                        "description": "Modifier codes that clarify or improve the reporting accuracy of the associated procedure code. You can include up to four modifiers in this array. Only include modifier codes when required; otherwise, do not send."
                     }
                 },
                 "required": [
@@ -9636,7 +9671,7 @@
                     "serviceDate": {
                         "type": "string",
                         "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
-                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYY-MM-DD."
+                        "description": "The date the service was rendered (for services performed on a single day), expressed as YYYYMMDD. **Do not** supply a date here if you are including the `serviceLineDateInformation.treatmentStartDate` property in the service line."
                     },
                     "providerControlNumber": {
                         "type": "string",
@@ -9677,11 +9712,12 @@
                         "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
                     },
                     "assistantSurgeon": {
-                        "$ref": "#/components/schemas/AssistantSurgeon"
+                        "$ref": "#/components/schemas/AssistantSurgeon",
+                        "description": "Information about the provider who assisted in the rendering of the surgical services. Include this object when the assistant surgeon is different than the one listed in the `assistantSurgeon` object for the entire claim."
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ServiceFacilityLocation",
-                        "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
+                        "description": "Information about where the services were rendered."
                     },
                     "supervisingProvider": {
                         "$ref": "#/components/schemas/DentalServiceLineSupervisingProvider",
@@ -9695,7 +9731,8 @@
                         "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers."
                     },
                     "dentalService": {
-                        "$ref": "#/components/schemas/DentalService"
+                        "$ref": "#/components/schemas/DentalService",
+                        "description": "Information about the service rendered to the patient, including the procedure code, the line item charge amount, and the place of service."
                     },
                     "teethInformation": {
                         "type": "array",
@@ -9711,31 +9748,37 @@
             },
             "DentalServiceLineDateInformation": {
                 "type": "object",
-                "description": "Identify specific dates related to the service rendered, formatted as YYYY-MM-DD.",
+                "description": "Identify specific dates related to the service rendered. All properties are single dates formatted as YYYYMMDD.",
                 "properties": {
                     "priorPlacementDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The exact date when the previous appliance was placed. Either this property or `estimatedPriorPlacementDate` is required when the `claimInformation.serviceLines.dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement."
                     },
                     "estimatedPriorPlacementDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The estimated date when the previous appliance was placed. Either this property or `priorPlacementDate` is required when the `claimInformation.serviceLines.dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement."
                     },
                     "applianceDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the appliance was placed. Required when the orthodontic appliance placement date is different than the date you supplied in `claimInformation.claimDateInformation.appliancePlacementDate`."
                     },
                     "replacementDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the orthodontic appliance was replaced."
                     },
                     "treatmentStartDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the treatment began. This may apply to the following scenarios: initial impression or preparation for a crown or denture, reporting initial endontic treatment, or reporting the implant fixture placement. If you include this property, **do not** include the `serviceDate` property in this service line."
                     },
                     "treatmentCompletionDate": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date the treatment was completed. If you include this property, **do not** include the `serviceDate` property in this service line."
                     }
                 }
             },
@@ -9765,23 +9808,29 @@
                         "description": "The pricing rate associated with per diem or flat rate repricing, expressed as a decimal."
                     },
                     "serviceIdQualifier": {
-                        "$ref": "#/components/schemas/DentalServiceIdQualifier"
+                        "$ref": "#/components/schemas/DentalServiceIdQualifier",
+                        "description": "The qualifier for the type of code included in `repricedApprovedHCPCSCode`. Can be set to `AD` - American Dental Association Codes."
                     },
                     "repricedApprovedHCPCSCode": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The procedure code for the service that was repriced."
                     },
                     "measurementUnitCode": {
-                        "$ref": "#/components/schemas/DentalMeasurementUnitCode"
+                        "$ref": "#/components/schemas/DentalMeasurementUnitCode",
+                        "description": "The unit of measure for the service that was repriced. Can be set to `UN` - Units."
                     },
                     "repricedApprovedServiceUnitCount": {
                         "type": "number",
+                        "description": "The number of units for the service that was repriced, expressed as a decimal. The maximum length for this field is 8 digits excluding the decimal. When a decimal is used, the maximum number of digits allowed to the right of the decimal is three.",
                         "format": "double"
                     },
                     "rejectReasonCode": {
-                        "$ref": "#/components/schemas/RejectReasonCode"
+                        "$ref": "#/components/schemas/RejectReasonCode",
+                        "description": "Code indicating the rejection message returned from the third party organization. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#reject-reason-codes-2) for a complete list."
                     },
                     "policyComplianceCode": {
-                        "$ref": "#/components/schemas/PolicyComplianceCode"
+                        "$ref": "#/components/schemas/PolicyComplianceCode",
+                        "description": "Code indicating the policy compliance status of the claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#policy-compliance-codes-2) for a complete list."
                     },
                     "exceptionCode": {
                         "$ref": "#/components/schemas/ClaimsExceptionCode"
@@ -9802,7 +9851,8 @@
                             "$ref": "#/components/schemas/PriorAuthorization"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Prior authorization numbers relevant to this service line. Required when services have been previously authorized and are now being submitted for payment. You can include up to five objects in this array."
                     },
                     "predeterminationOfBenefits": {
                         "type": "array",
@@ -9810,15 +9860,16 @@
                             "$ref": "#/components/schemas/PredeterminationOfBenefits"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "The Predetermination of Benefits Identification Numbers relevant to this service line. Required for services that have been previously predetermined and are now being submitted for payment. You can include up to five objects in this array."
                     },
                     "repricedLineItemReferenceNumber": {
                         "type": "string",
-                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line."
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line. Only completed by repricing organizations."
                     },
                     "adjustedRepricedLineItemReferenceNumber": {
                         "type": "string",
-                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line."
+                        "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line. Only completed by repricing organizations."
                     },
                     "referralNumber": {
                         "type": "array",
@@ -9826,7 +9877,8 @@
                             "type": "string"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Required when this service line involved a referral number that is different than the number reported at the claim level. You can include up to five objects in this array."
                     }
                 }
             },
@@ -9834,7 +9886,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to the provider matching the object name, with no spaces."
                     },
                     "npi": {
                         "type": "string",
@@ -9850,13 +9903,16 @@
                         "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
@@ -9870,7 +9926,8 @@
                         "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -9882,7 +9939,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -9919,7 +9976,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -9930,7 +9988,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to the provider matching the object name, with no spaces."
                     },
                     "npi": {
                         "type": "string",
@@ -9946,13 +10005,16 @@
                         "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
                     },
                     "commercialNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's commercial number."
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's location number."
                     },
                     "payerIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The payer identification number."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
@@ -9966,7 +10028,8 @@
                         "description": "The National Association of Insurance Commissioners (NAIC) code."
                     },
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The provider's state license number."
                     },
                     "providerUpinNumber": {
                         "type": "string",
@@ -9978,7 +10041,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -10015,7 +10078,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -10024,7 +10088,7 @@
             },
             "DentalSpecialProgramCode": {
                 "type": "string",
-                "description": "Code indicating the Special Program under which the services rendered to the patient were performed. Used for Medicaid claims only. Can be set to `01` - Early & Periodic Screening, Diagnosis and Treatment (EPSDT) or Child Assessment Program (CHAP), `02` - Physically Handicapped Children's Program, `03` - Special Federal Funding, or `05` - Disability",
+                "description": "Code indicating the Special Program under which the services rendered to the patient were performed. Used for Medicaid claims only. Can be set to `01` - Early & Periodic Screening, Diagnosis and Treatment (EPSDT) or Child Assessment Program (CHAP), `02` - Physically Handicapped Children's Program, `03` - Special Federal Funding, or `05` - Disability. Codes `02`, `03`, and `05` are used for Medicaid claims only.",
                 "enum": [
                     "01",
                     "02",
@@ -10034,7 +10098,7 @@
             },
             "DentalSubscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -13926,7 +13990,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "A modifier that conveys special circumstances related to the performance of the service."
+                        "description": "Modifiers that convey special circumstances related to the performance of the service. You can include up to four modifiers in this array."
                     },
                     "procedureCodeDescription": {
                         "type": "string",
@@ -13947,7 +14011,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged."
+                        "description": "Required when the payer made line level adjustments which caused the amount paid to differ from the amount originally charged. You can include up to five objects in this array."
                     },
                     "adjudicationOrPaymentDate": {
                         "type": "string",
@@ -13956,7 +14020,7 @@
                     "remainingPatientLiability": {
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
-                        "description": "The amount of the service line that the other payer is responsible for, expressed as a decimal."
+                        "description": "The amount of the service line that the patient is still responsible for, expressed as a decimal."
                     },
                     "serviceIdQualifier": {
                         "$ref": "#/components/schemas/LineAdjudicationInformationServiceIdQualifier"
@@ -14347,7 +14411,7 @@
                         },
                         "maxItems": 5,
                         "minItems": 1,
-                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list."
+                        "description": "The remark code. Visit the X12 [Remittance Advice Remark Codes](https://x12.org/codes/remittance-advice-remark-codes) for a complete list. You can include up to five codes in this array."
                     },
                     "endStageRenalDiseasePaymentAmount": {
                         "type": "string",
@@ -14600,14 +14664,17 @@
                 "properties": {
                     "monthsCount": {
                         "type": "number",
+                        "description": "The estimated number of treatment months, expressed as a decimal.",
                         "format": "double"
                     },
                     "monthsRemaining": {
                         "type": "number",
+                        "description": "The number of months remaining in the treatment, expressed as a decimal.",
                         "format": "double"
                     },
                     "treatmentIndicator": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The only allowed value is `Y`, which indicates that services reported in this claim are for orthodontic purposes. Only include this property if you haven't set the `monthsCount` or `monthsRemaining` properties."
                     }
                 }
             },
@@ -14670,7 +14737,8 @@
                 "description": "Information about the assistant surgeon.",
                 "properties": {
                     "entityTypeQualifier": {
-                        "$ref": "#/components/schemas/OtherPayerEntityTypeQualifier"
+                        "$ref": "#/components/schemas/OtherPayerEntityTypeQualifier",
+                        "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity. In practice, you should always set this to `1` - Person."
                     },
                     "otherPayerAssistantSurgeonIdentifier": {
                         "type": "array",
@@ -14678,7 +14746,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the assistant surgeon. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used in new claims. You can include up to three objects in this array."
                     }
                 },
                 "required": [
@@ -14717,7 +14786,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 2,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the billing provider. The qualifier can be set to `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to two objects in this array."
                     }
                 },
                 "required": [
@@ -14764,7 +14834,8 @@
                         "description": "The identifier specified in `otherPayerIdentifierCode`. When sending Line Adjudication Information for this payer, the identifier sent in `lineAdjudicationInformation.otherPayerPrimaryIdentifier` must match this value."
                     },
                     "otherPayerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The payer's address."
                     },
                     "otherPayerAdjudicationOrPaymentDate": {
                         "type": "string",
@@ -14777,7 +14848,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "An additional identication number to identify the other payer."
+                        "description": "An additional identification number to identify the other payer. The `qualifier` can be set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code."
                     },
                     "otherPayerPriorAuthorizationNumber": {
                         "type": "string",
@@ -14848,7 +14919,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the referring provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array."
                     }
                 },
                 "required": [
@@ -14868,7 +14940,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array."
                     }
                 },
                 "required": [
@@ -14892,7 +14965,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "A secondary identifier for the service facility location. The qualifier can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array."
                     }
                 },
                 "required": [
@@ -14909,7 +14983,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 3,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the supervising provider. The qualifier can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU - Location Number or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array."
                     }
                 },
                 "required": [
@@ -15166,7 +15241,8 @@
                         "description": "The identifier you specified in `otherInsuredIdentifierTypeCode`."
                     },
                     "otherInsuredAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The other subscriber's address."
                     },
                     "otherInsuredAdditionalIdentifier": {
                         "type": "string",
@@ -15381,7 +15457,8 @@
                         "description": "The identifier you specified in `primaryIdentifierTypeCode`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address of the pay-to-plan organization."
                     },
                     "secondaryIdentifierTypeCode": {
                         "$ref": "#/components/schemas/SecondaryIdentifierTypeCode"
@@ -15391,7 +15468,10 @@
                         "description": "The secondary identifier you specified in `secondaryIdentifierTypeCode`."
                     },
                     "taxIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "description": "The Employer Identification Number (EIN). This must be a string of exactly nine numbers with no separators."
                     }
                 },
                 "required": [
@@ -16754,10 +16834,12 @@
                 "type": "object",
                 "properties": {
                     "predeterminationOfBenefits": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Predetermination of Benefits Identification Number. If you're including the identifier provided by the payer identified in `claimInformation.otherSubscriberInformation.otherPayerName`, you must also include the `otherPayerPrimaryIdentifier` property."
                     },
                     "otherPayerPrimaryIdentifier": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The primary identifier of the payer who assigned the `predeterminationOfBenefits` number. This must match the identifier in the `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerIdentifier` property."
                     }
                 },
                 "required": [
@@ -16873,7 +16955,8 @@
                 "type": "object",
                 "properties": {
                     "priorAuthorizationOrReferralNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The prior authorization number."
                     },
                     "otherPayerPrimaryIdentifier": {
                         "type": "string",
@@ -16977,6 +17060,7 @@
             },
             "ProsthesisCrownOrInlayCode": {
                 "type": "string",
+                "description": "Code indicating the placement status for the dental work. Can be set to `I` - Initial Placement or `R` - Replacement. When set to `R`, you must include either the `priorPlacementDate` or `estimatedPriorPlacementDate` properties within the `claimInformation.serviceLines.serviceLineDateInformation` object.",
                 "enum": [
                     "I",
                     "R"
@@ -17404,11 +17488,11 @@
             },
             "PurchasedServiceInformation": {
                 "type": "object",
-                "description": "Specify information about services that were purchased.",
+                "description": "Specify information about services that were purchased. Required on non-vision service lines when adjudication is known to be impacted by the charge amount for services purchased from another source OR when adjudication is known to be impacted by the acquisition cost of lenses.",
                 "properties": {
                     "purchasedServiceProviderIdentifier": {
                         "type": "string",
-                        "description": "The identifier for the purchased service provider."
+                        "description": "This must be the same identifier you provided within `claimInformation.serviceLines.purchasedServiceProvider`."
                     },
                     "purchasedServiceChargeAmount": {
                         "type": "string",
@@ -17470,7 +17554,7 @@
                 "properties": {
                     "qualifier": {
                         "type": "string",
-                        "description": "The code identifying the type of reference number. Can be set to `G2` - Provider Commercial Number or `LU` - Location Number."
+                        "description": "The code identifying the type of reference number."
                     },
                     "identifier": {
                         "type": "string",
@@ -17478,7 +17562,7 @@
                     },
                     "otherIdentifier": {
                         "type": "string",
-                        "description": "An additional identifier."
+                        "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `otherPayerName.otherPayerIdentifier` property."
                     }
                 },
                 "required": [
@@ -17517,7 +17601,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -17635,7 +17719,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -18810,7 +18894,8 @@
                         "description": "The laboratory or facility name. When services were rendered in the patient's home, we recommend setting this to `Residence` or something similar."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address of where services were rendered. If service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. Fo example, 'crossroad of State Road 34 and 45'."
                     },
                     "npi": {
                         "type": "string",
@@ -18824,7 +18909,7 @@
                         },
                         "maxItems": 3,
                         "minItems": 1,
-                        "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an NPI."
+                        "description": "An identifier for the service facility. The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number."
                     },
                     "phoneName": {
                         "type": "string",
@@ -19200,7 +19285,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -19237,7 +19322,8 @@
                             "$ref": "#/components/schemas/ReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -19586,7 +19672,7 @@
             },
             "Submitter": {
                 "type": "object",
-                "description": "The entity submitting the healthcare claim. This can be either an individual or an organization, such as a doctor, hospital, or insurance company.",
+                "description": "The entity submitting the healthcare claim. This can be either an individual or an organization, such as a doctor, hospital, or insurance company. You must submit at least `organizationName` or `lastName` properties and the `contactInformation` object. If you don't supply the `submitterIdentification` property, Stedi uses the value from `billing.npi` in the request.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -19606,7 +19692,7 @@
                     },
                     "submitterIdentification": {
                         "type": "string",
-                        "description": "The submitter's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. For some payers, this may be the same as the submitter's NPI or TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
+                        "description": "The submitter's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. For some payers, this may be the same as the submitter's NPI or TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names.\n\n If you don't provide this property, Stedi uses the billing provider's NPI from `billing.npi` property."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ClaimsContactInformation",
@@ -19757,7 +19843,8 @@
                 "description": "The entity responsible for overseeing the rendering provider and the care reported in this claim. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.",
                 "properties": {
                     "providerType": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Set to `SupervisingProvider`."
                     },
                     "npi": {
                         "type": "string",
@@ -19794,7 +19881,7 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty. For example, code `207QG0300X` is for geriatric medicine."
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
                     },
                     "firstName": {
                         "type": "string",
@@ -19907,7 +19994,8 @@
                             "$ref": "#/components/schemas/ToothSurfaceCode"
                         },
                         "maxItems": 5,
-                        "minItems": 1
+                        "minItems": 1,
+                        "description": "Code identifying the area of the tooth that was treated. Can be set to `B` - Buccal, `D`- Distal, `F`- Facial, `I`- Incisal, `L` - Lingual, `M` - Mesial, or `O` Occlusal."
                     }
                 },
                 "required": [
@@ -19919,7 +20007,7 @@
                 "properties": {
                     "toothNumber": {
                         "type": "string",
-                        "description": "American Dental Association tooth designation system."
+                        "description": "The tooth number according to the American Dental Association tooth designation system."
                     },
                     "toothStatusCode": {
                         "$ref": "#/components/schemas/ToothStatusCode"
@@ -19940,7 +20028,6 @@
             },
             "ToothSurfaceCode": {
                 "type": "string",
-                "description": "Code identifying the area of the tooth that was treated. Can be set to `B` - Buccal, `D`- Distal, `F`- Facial, `I`- Incisal`, `L` - Lingual, `M` - Mesial, or `O` Occlusal.",
                 "enum": [
                     "B",
                     "D",
