@@ -2892,7 +2892,7 @@
                                         "providers": [
                                             {
                                                 "providerType": "BillingProvider",
-                                                "npi": "0123456789",
+                                                "npi": "1999999976",
                                                 "employerId": "123456789",
                                                 "organizationName": "Test Facility",
                                                 "address": {
@@ -2908,7 +2908,7 @@
                                             },
                                             {
                                                 "providerType": "AttendingProvider",
-                                                "npi": "1234567890",
+                                                "npi": "1999999976",
                                                 "firstName": "Doctor",
                                                 "lastName": "Provider",
                                                 "contactInformation": {
@@ -13036,7 +13036,7 @@
             },
             "InstitutionalProcedureIdentifier": {
                 "type": "string",
-                "description": "Code identifying the type of `procedureCode`. Can be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier-codes) for more information.",
+                "description": "Code identifying the type of `procedureCode`. If you set this property, you must also set `procedureCode`.\n\nCan be set to `ER` - Jurisdiction Specific Procedure and Supply Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `HP` -  Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, or `WK` - Advanced Billing Concepts (ABC) Codes. Note that ABC codes are deprecated and shouldn't be used in new claims. \n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier-codes) for more information and usage instructions.",
                 "enum": [
                     "ER",
                     "HC",
@@ -13431,7 +13431,7 @@
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "The procedure code."
+                        "description": "The procedure code. If you set this property, you must also set the `procedureIdentifier`."
                     },
                     "procedureModifiers": {
                         "type": "array",
