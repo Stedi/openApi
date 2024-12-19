@@ -23,7 +23,7 @@
                             },
                             "examples": {
                                 "ClaimStatus_example1": {
-                                    "summary": "Request Claim Status",
+                                    "summary": "Status - Accepted Claim",
                                     "description": "",
                                     "value": {
                                         "controlNumber": "222222222",
@@ -49,6 +49,31 @@
                                         },
                                         "tradingPartnerServiceId": "3429"
                                     }
+                                },
+                                "ClaimStatus_example2": {
+                                    "summary": "Status - Denied Claim",
+                                    "description": "",
+                                    "value": {
+                                        "tradingPartnerServiceId": "423",
+                                        "controlNumber": "000000001",
+                                        "providers": [
+                                            {
+                                                "npi": "1112223334",
+                                                "organizationName": "PROVIDER NAME",
+                                                "providerType": "BillingProvider"
+                                            }
+                                        ],
+                                        "subscriber": {
+                                            "firstName": "JANE",
+                                            "lastName": "DOE",
+                                            "memberId": "XYZO9NUSPD6R",
+                                            "dateOfBirth": "19800101"
+                                        },
+                                        "encounter": {
+                                            "beginningDateOfService": "20241101",
+                                            "endDateOfService": "20241112"
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -65,7 +90,7 @@
                                 },
                                 "examples": {
                                     "ClaimStatus_example1": {
-                                        "summary": "Request Claim Status",
+                                        "summary": "Status - Accepted Claim",
                                         "description": "",
                                         "value": {
                                             "claims": [
@@ -136,6 +161,73 @@
                                                 "memberId": "111222333"
                                             },
                                             "tradingPartnerServiceId": "3429"
+                                        }
+                                    },
+                                    "ClaimStatus_example2": {
+                                        "summary": "Status - Denied Claim",
+                                        "description": "",
+                                        "value": {
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "amountPaid": "0",
+                                                        "claimServiceDate": "20241107-20241107",
+                                                        "effectiveDate": "2024-11-10",
+                                                        "paidDate": "2024-11-10",
+                                                        "patientAccountNumber": "12345678",
+                                                        "statusCategoryCode": "F0",
+                                                        "statusCategoryCodeValue": "Finalized - The claim/encounter has completed the adjudication cycle and no more action will be taken.",
+                                                        "statusCode": "1",
+                                                        "statusCodeValue": "For more detailed information,see remittance advice.",
+                                                        "submittedAmount": "200.02",
+                                                        "trackingNumber": "VZYTLPWDTPMIG66PX0GRNPFGR8",
+                                                        "tradingPartnerClaimNumber": "XP5BPO2GRUVIR"
+                                                    },
+                                                    "serviceDetails": [
+                                                        {
+                                                            "service": {
+                                                                "amountPaid": "0",
+                                                                "procedureId": "90800",
+                                                                "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "submittedAmount": "200.02",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "status": [
+                                                                {
+                                                                    "effectiveDate": "2024-11-10",
+                                                                    "statusCategoryCode": "F2",
+                                                                    "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                                                    "statusCode": "585",
+                                                                    "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ],
+                                            "controlNumber": "987654321",
+                                            "dependent": {
+                                                "firstName": "JANE",
+                                                "lastName": "DOE"
+                                            },
+                                            "payer": {
+                                                "organizationName": "ANTHEM BLUE CROSS BLUE SHIELD",
+                                                "payerIdentification": "423"
+                                            },
+                                            "providers": [
+                                                {
+                                                    "npi": "1112223334",
+                                                    "organizationName": "PROVIDER NAME",
+                                                    "providerType": "BillingProvider"
+                                                }
+                                            ],
+                                            "subscriber": {
+                                                "firstName": "JOHN",
+                                                "lastName": "DOE",
+                                                "memberId": "XYZO9NUSPD6R"
+                                            },
+                                            "tradingPartnerServiceId": "423"
                                         }
                                     }
                                 }
