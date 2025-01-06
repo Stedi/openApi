@@ -1680,7 +1680,7 @@
                                     "summary": "Submit Raw X12 Eligibility Check",
                                     "description": "",
                                     "value": {
-                                        "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *231106*1406*^*00501*000000001*0*T*>~GS*HS*STEDI*117151744*20231106*140631*000000001*X*005010X279A1~ST*270*0001*005010X279A1~BHT*0022*13*01J7KJQKYK7YYACBGWH9RWS2R3*20240912*1158~HL*1**20*1~NM1*PR*2*CIGNA*****PI*CIGNA~HL*2*1*21*1~NM1*1P*2*Doctors LLC*****XX*123456789~HL*3*2*22*0~NM1*IL*1*DOE*JORDAN~DMG*D8*19990101~DTP*291*D8*20241221~EQ*30~SE*12*0001~GE*1*000000001~IEA*1*000000001~"
+                                        "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *231106*1406*^*00501*000000001*0*T*>~GS*HS*SENDERGS*RECEIVERGS*20231106*140631*000000001*X*005010X279A1~ST*270*1234*005010X279A1~BHT*0022*13*10001234*20221122*1319~HL*1**20*1~NM1*PR*2*AETNA*****PI*60054~HL*2*1*21*1~NM1*1P*2*PROVIDER NAME*****SV*0001112223~HL*3*2*22*0~TRN*1*11122-12345*1234567890~NM1*IL*1*JANE*DOE****MI*AETNA12345~DMG*D8*20040404~DTP*291*D8*20240108~EQ*30~SE*13*1234~GE*1*000000001~IEA*1*000000001~"
                                     }
                                 }
                             }
@@ -1702,72 +1702,57 @@
                                         "description": "",
                                         "value": {
                                             "meta": {
-                                                "senderId": "117151744",
+                                                "senderId": "STEDI",
                                                 "submitterId": "117151744",
                                                 "applicationMode": "production",
-                                                "traceId": "01J2VZA127GH93JT74HJU",
-                                                "outboundTraceId": "01J2VZA127GH93JT74HJU"
+                                                "traceId": "11112222333344445555666677",
+                                                "outboundTraceId": "11112222333344445555666677"
                                             },
-                                            "controlNumber": "214976898",
-                                            "reassociationKey": "123456789",
-                                            "tradingPartnerServiceId": "123456789",
+                                            "controlNumber": "112233445",
+                                            "reassociationKey": "112233445",
+                                            "tradingPartnerServiceId": "60054",
                                             "provider": {
-                                                "providerName": "ACME HEALTH SERVICES",
                                                 "entityIdentifier": "Provider",
                                                 "entityType": "Non-Person Entity",
-                                                "npi": "1234567890"
+                                                "npi": "0001112223"
                                             },
                                             "subscriber": {
-                                                "memberId": "123456789",
+                                                "memberId": "AETNA12345",
                                                 "firstName": "JANE",
                                                 "lastName": "DOE",
-                                                "middleName": "A",
                                                 "gender": "F",
                                                 "entityIdentifier": "Insured or Subscriber",
                                                 "entityType": "Person",
-                                                "dateOfBirth": "19000101",
-                                                "groupNumber": "123456789",
+                                                "dateOfBirth": "20040404",
+                                                "groupNumber": "111222333444555",
+                                                "planNumber": "1122334",
                                                 "address": {
-                                                    "address1": "1234 FIRST ST",
-                                                    "city": "NEW YORK",
-                                                    "state": "WV",
-                                                    "postalCode": "123451111"
+                                                    "address1": "101 MAIN ST",
+                                                    "city": "TRENTON",
+                                                    "state": "NJ",
+                                                    "postalCode": "08601"
                                                 }
                                             },
                                             "payer": {
                                                 "entityIdentifier": "Payer",
                                                 "entityType": "Non-Person Entity",
-                                                "lastName": "ABCDE",
-                                                "name": "ABCDE",
-                                                "federalTaxpayersIdNumber": "123412345",
-                                                "contactInformation": {
-                                                    "contacts": [
-                                                        {
-                                                            "communicationMode": "Telephone",
-                                                            "communicationNumber": "1234567890"
-                                                        },
-                                                        {
-                                                            "communicationMode": "UR",
-                                                            "communicationNumber": "website.company.com"
-                                                        }
-                                                    ]
-                                                }
+                                                "name": "AETNA INC",
+                                                "payorIdentification": "953402799"
                                             },
                                             "planInformation": {
-                                                "groupNumber": "12341234",
-                                                "groupDescription": "ABCDE",
-                                                "priorIdNumber": "1234567890"
+                                                "planNumber": "1122334",
+                                                "groupNumber": "111222333444555",
+                                                "groupDescription": "New Jersey Plan"
                                             },
                                             "planDateInformation": {
-                                                "planBegin": "20240101",
-                                                "planEnd": "20241231",
-                                                "eligibilityBegin": "20220102"
+                                                "planBegin": "20240401",
+                                                "service": "20240917"
                                             },
                                             "planStatus": [
                                                 {
                                                     "statusCode": "1",
                                                     "status": "Active Coverage",
-                                                    "planDetails": "Open Access Plus",
+                                                    "planDetails": "Gold Plan",
                                                     "serviceTypeCodes": [
                                                         "30"
                                                     ]
@@ -1776,290 +1761,64 @@
                                                     "statusCode": "1",
                                                     "status": "Active Coverage",
                                                     "serviceTypeCodes": [
-                                                        "A7",
-                                                        "BC",
-                                                        "A8",
-                                                        "A4",
-                                                        "A5",
-                                                        "A6",
-                                                        "7",
-                                                        "4",
-                                                        "BB",
-                                                        "22"
-                                                    ]
-                                                },
-                                                {
-                                                    "statusCode": "1",
-                                                    "status": "Active Coverage",
-                                                    "serviceTypeCodes": [
-                                                        "MH"
+                                                        "1",
+                                                        "33",
+                                                        "47",
+                                                        "48",
+                                                        "50",
+                                                        "86",
+                                                        "98",
+                                                        "UC",
+                                                        "MH",
+                                                        "AL"
                                                     ]
                                                 }
                                             ],
                                             "benefitsInformation": [
                                                 {
-                                                    "code": "1",
-                                                    "name": "Active Coverage",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "planCoverage": "Open Access Plus",
-                                                    "additionalInformation": [
+                                                    "code": "W",
+                                                    "name": "Other Source of Data",
+                                                    "inPlanNetworkIndicatorCode": "W",
+                                                    "inPlanNetworkIndicator": "Not Applicable",
+                                                    "benefitsRelatedEntity": {
+                                                        "entityIdentifier": "Payer",
+                                                        "entityType": "Non-Person Entity",
+                                                        "entityName": "Aetna",
+                                                        "address": {
+                                                            "address1": "202 Main St",
+                                                            "city": "El Paso",
+                                                            "state": "TX",
+                                                            "postalCode": "79998"
+                                                        }
+                                                    },
+                                                    "benefitsRelatedEntities": [
                                                         {
-                                                            "description": "Complete Care Management"
+                                                            "entityIdentifier": "Payer",
+                                                            "entityType": "Non-Person Entity",
+                                                            "entityName": "Aetna",
+                                                            "address": {
+                                                                "address1": "202 Main St",
+                                                                "city": "El Paso",
+                                                                "state": "TX",
+                                                                "postalCode": "79998"
+                                                            }
                                                         }
                                                     ]
-                                                },
-                                                {
-                                                    "code": "G",
-                                                    "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "6000",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        },
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Copay does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "500",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "G",
-                                                    "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "3000",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        },
-                                                        {
-                                                            "description": "Copay does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "250",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "15000",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No"
-                                                },
-                                                {
-                                                    "code": "G",
-                                                    "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "30000",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "benefitPercent": "0.1",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes"
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "7500",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No"
-                                                },
-                                                {
-                                                    "code": "G",
-                                                    "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "23",
-                                                    "timeQualifier": "Calendar Year",
-                                                    "benefitAmount": "15000",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "benefitPercent": "0.5",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No"
                                                 },
                                                 {
                                                     "code": "1",
                                                     "name": "Active Coverage",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
                                                     "serviceTypeCodes": [
-                                                        "A7",
-                                                        "BC",
-                                                        "A8",
-                                                        "A4",
-                                                        "A5",
-                                                        "A6",
-                                                        "7",
-                                                        "4",
-                                                        "BB",
-                                                        "22"
+                                                        "30"
                                                     ],
                                                     "serviceTypes": [
-                                                        "Psychiatric - Inpatient",
-                                                        "Day Care (Psychiatric)",
-                                                        "Psychiatric - Outpatient",
-                                                        "Psychiatric",
-                                                        "Psychiatric - Room and Board",
-                                                        "Psychotherapy",
-                                                        "Anesthesia",
-                                                        "Diagnostic X-Ray",
-                                                        "Partial Hospitalization (Psychiatric)",
-                                                        "Social Work"
+                                                        "Health Benefit Plan Coverage"
                                                     ],
+                                                    "insuranceTypeCode": "PR",
+                                                    "insuranceType": "Preferred Provider Organization (PPO)",
+                                                    "planCoverage": "Gold Plan",
                                                     "inPlanNetworkIndicatorCode": "W",
                                                     "inPlanNetworkIndicator": "Not Applicable"
                                                 },
@@ -2069,646 +1828,25 @@
                                                     "coverageLevelCode": "IND",
                                                     "coverageLevel": "Individual",
                                                     "serviceTypeCodes": [
-                                                        "BC",
-                                                        "A4",
-                                                        "A6",
-                                                        "4",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Day Care (Psychiatric)",
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Diagnostic X-Ray",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Outpatient Hospital"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Outpatient Hospital"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A8"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric - Outpatient"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "4",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Diagnostic X-Ray",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "02"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "02"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "B",
-                                                    "name": "Co-Payment",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "timeQualifierCode": "27",
-                                                    "timeQualifier": "Visit",
-                                                    "benefitAmount": "20",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "4",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Diagnostic X-Ray",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "B",
-                                                    "name": "Co-Payment",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "timeQualifierCode": "27",
-                                                    "timeQualifier": "Visit",
-                                                    "benefitAmount": "20",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Included For Specific Services"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "02"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "02"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Included For Specific Services"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "02"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "02"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "02"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "02"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "4",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Diagnostic X-Ray",
-                                                        "Social Work"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "B",
-                                                    "name": "Co-Payment",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "timeQualifierCode": "27",
-                                                    "timeQualifier": "Visit",
-                                                    "benefitAmount": "20",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "02"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "02"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "B",
-                                                    "name": "Co-Payment",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "A4",
-                                                        "A6",
-                                                        "22"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Psychiatric",
-                                                        "Psychotherapy",
-                                                        "Social Work"
-                                                    ],
-                                                    "timeQualifierCode": "27",
-                                                    "timeQualifier": "Visit",
-                                                    "benefitAmount": "20",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "7"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Anesthesia"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "Y",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "CB",
-                                                    "name": "Coverage Basis",
-                                                    "serviceTypeCodes": [
-                                                        "7",
-                                                        "BB"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Anesthesia",
-                                                        "Partial Hospitalization (Psychiatric)"
-                                                    ],
-                                                    "authOrCertIndicator": "Y",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes"
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "7"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Anesthesia"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "Y",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "7"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Anesthesia"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "Y",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Office"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Office"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "4"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Diagnostic X-Ray"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Outpatient Hospital"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Outpatient Hospital"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "A",
-                                                    "name": "Co-Insurance",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "4"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Diagnostic X-Ray"
-                                                    ],
-                                                    "benefitPercent": "0",
-                                                    "authOrCertIndicator": "N",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Services rendered thru Client Specific Network"
-                                                        }
-                                                    ],
-                                                    "eligibilityAdditionalInformation": {
-                                                        "codeListQualifierCode": "Mutually Defined",
-                                                        "industryCode": "Outpatient Hospital"
-                                                    },
-                                                    "eligibilityAdditionalInformationList": [
-                                                        {
-                                                            "codeListQualifierCode": "Mutually Defined",
-                                                            "industryCode": "Outpatient Hospital"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "IND",
-                                                    "coverageLevel": "Individual",
-                                                    "serviceTypeCodes": [
-                                                        "BB"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Partial Hospitalization (Psychiatric)"
-                                                    ],
-                                                    "benefitAmount": "0",
-                                                    "authOrCertIndicator": "Y",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "1",
-                                                    "name": "Active Coverage",
-                                                    "serviceTypeCodes": [
-                                                        "MH"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Mental Health"
-                                                    ],
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": " Provider is out of network based on NPI ID provided in request."
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "G",
-                                                    "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
                                                         "30"
                                                     ],
                                                     "serviceTypes": [
                                                         "Health Benefit Plan Coverage"
                                                     ],
-                                                    "timeQualifierCode": "29",
-                                                    "timeQualifier": "Remaining",
-                                                    "benefitAmount": "5760",
+                                                    "timeQualifierCode": "25",
+                                                    "timeQualifier": "Contract",
+                                                    "benefitAmount": "500",
                                                     "inPlanNetworkIndicatorCode": "Y",
                                                     "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        },
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Copay does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
+                                                    "benefitsDateInformation": {
+                                                        "planBegin": "20240401"
+                                                    }
                                                 },
                                                 {
                                                     "code": "C",
                                                     "name": "Deductible",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
                                                     "serviceTypeCodes": [
                                                         "30"
                                                     ],
@@ -2719,12 +1857,24 @@
                                                     "timeQualifier": "Remaining",
                                                     "benefitAmount": "500",
                                                     "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
+                                                    "inPlanNetworkIndicator": "Yes"
+                                                },
+                                                {
+                                                    "code": "G",
+                                                    "name": "Out of Pocket (Stop Loss)",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "25",
+                                                    "timeQualifier": "Contract",
+                                                    "benefitAmount": "7000",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes"
                                                 },
                                                 {
                                                     "code": "G",
@@ -2739,23 +1889,29 @@
                                                     ],
                                                     "timeQualifierCode": "29",
                                                     "timeQualifier": "Remaining",
-                                                    "benefitAmount": "2760",
+                                                    "benefitAmount": "7000",
                                                     "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        },
-                                                        {
-                                                            "description": "Copay does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
+                                                    "inPlanNetworkIndicator": "Yes"
+                                                },
+                                                {
+                                                    "code": "C",
+                                                    "name": "Deductible",
+                                                    "coverageLevelCode": "IND",
+                                                    "coverageLevel": "Individual",
+                                                    "serviceTypeCodes": [
+                                                        "30"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Health Benefit Plan Coverage"
+                                                    ],
+                                                    "timeQualifierCode": "25",
+                                                    "timeQualifier": "Contract",
+                                                    "benefitAmount": "1000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "benefitsDateInformation": {
+                                                        "planBegin": "20240401"
+                                                    }
                                                 },
                                                 {
                                                     "code": "C",
@@ -2770,60 +1926,13 @@
                                                     ],
                                                     "timeQualifierCode": "29",
                                                     "timeQualifier": "Remaining",
-                                                    "benefitAmount": "250",
-                                                    "inPlanNetworkIndicatorCode": "Y",
-                                                    "inPlanNetworkIndicator": "Yes",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Includes services provided by Client Specific Network"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "29",
-                                                    "timeQualifier": "Remaining",
-                                                    "benefitAmount": "15000",
+                                                    "benefitAmount": "1000",
                                                     "inPlanNetworkIndicatorCode": "N",
                                                     "inPlanNetworkIndicator": "No"
                                                 },
                                                 {
                                                     "code": "G",
                                                     "name": "Out of Pocket (Stop Loss)",
-                                                    "coverageLevelCode": "FAM",
-                                                    "coverageLevel": "Family",
-                                                    "serviceTypeCodes": [
-                                                        "30"
-                                                    ],
-                                                    "serviceTypes": [
-                                                        "Health Benefit Plan Coverage"
-                                                    ],
-                                                    "timeQualifierCode": "29",
-                                                    "timeQualifier": "Remaining",
-                                                    "benefitAmount": "30000",
-                                                    "inPlanNetworkIndicatorCode": "N",
-                                                    "inPlanNetworkIndicator": "No",
-                                                    "additionalInformation": [
-                                                        {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
-                                                        },
-                                                        {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
-                                                        }
-                                                    ]
-                                                },
-                                                {
-                                                    "code": "C",
-                                                    "name": "Deductible",
                                                     "coverageLevelCode": "IND",
                                                     "coverageLevel": "Individual",
                                                     "serviceTypeCodes": [
@@ -2832,9 +1941,9 @@
                                                     "serviceTypes": [
                                                         "Health Benefit Plan Coverage"
                                                     ],
-                                                    "timeQualifierCode": "29",
-                                                    "timeQualifier": "Remaining",
-                                                    "benefitAmount": "7500",
+                                                    "timeQualifierCode": "25",
+                                                    "timeQualifier": "Contract",
+                                                    "benefitAmount": "14000",
                                                     "inPlanNetworkIndicatorCode": "N",
                                                     "inPlanNetworkIndicator": "No"
                                                 },
@@ -2851,21 +1960,286 @@
                                                     ],
                                                     "timeQualifierCode": "29",
                                                     "timeQualifier": "Remaining",
-                                                    "benefitAmount": "15000",
+                                                    "benefitAmount": "14000",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No"
+                                                },
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "1",
+                                                        "33",
+                                                        "47",
+                                                        "48",
+                                                        "50",
+                                                        "86",
+                                                        "98",
+                                                        "UC",
+                                                        "MH",
+                                                        "AL"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Medical Care",
+                                                        "Chiropractic",
+                                                        "Hospital",
+                                                        "Hospital - Inpatient",
+                                                        "Hospital - Outpatient",
+                                                        "Emergency Services",
+                                                        "Professional (Physician) Visit - Office",
+                                                        "Urgent Care",
+                                                        "Mental Health",
+                                                        "Vision (Optometry)"
+                                                    ],
+                                                    "inPlanNetworkIndicatorCode": "W",
+                                                    "inPlanNetworkIndicator": "Not Applicable"
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "33",
+                                                        "86",
+                                                        "98",
+                                                        "MH",
+                                                        "UC"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Chiropractic",
+                                                        "Emergency Services",
+                                                        "Professional (Physician) Visit - Office",
+                                                        "Mental Health",
+                                                        "Urgent Care"
+                                                    ],
+                                                    "benefitPercent": "0",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Chiropractic"
+                                                        },
+                                                        {
+                                                            "description": "Office Visits"
+                                                        },
+                                                        {
+                                                            "description": "Urgent Care"
+                                                        },
+                                                        {
+                                                            "description": "Walk in Clinic"
+                                                        },
+                                                        {
+                                                            "description": "Mental Health (outpatient)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "86"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Emergency Services"
+                                                    ],
+                                                    "benefitPercent": "0.2",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Emergency Room"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "48",
+                                                        "50",
+                                                        "MH"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Hospital - Inpatient",
+                                                        "Hospital - Outpatient",
+                                                        "Mental Health"
+                                                    ],
+                                                    "benefitPercent": "0.2",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "IP Hospital Room and Board"
+                                                        },
+                                                        {
+                                                            "description": "IP Hospital Miscellaneous"
+                                                        },
+                                                        {
+                                                            "description": "OP Hospital Miscellaneous"
+                                                        },
+                                                        {
+                                                            "description": "Mental Health (inpatient)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "33"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Chiropractic"
+                                                    ],
+                                                    "benefitAmount": "25",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Chiropractic"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "98",
+                                                        "MH",
+                                                        "UC"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Professional (Physician) Visit - Office",
+                                                        "Mental Health",
+                                                        "Urgent Care"
+                                                    ],
+                                                    "benefitAmount": "30",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Office Visits"
+                                                        },
+                                                        {
+                                                            "description": "Walk in Clinic"
+                                                        },
+                                                        {
+                                                            "description": "Mental Health (outpatient)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "B",
+                                                    "name": "Co-Payment",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "86",
+                                                        "UC"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Emergency Services",
+                                                        "Urgent Care"
+                                                    ],
+                                                    "benefitAmount": "40",
+                                                    "inPlanNetworkIndicatorCode": "Y",
+                                                    "inPlanNetworkIndicator": "Yes",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Urgent Care"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "33",
+                                                        "48",
+                                                        "50",
+                                                        "86",
+                                                        "98",
+                                                        "MH",
+                                                        "UC"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Chiropractic",
+                                                        "Hospital - Inpatient",
+                                                        "Hospital - Outpatient",
+                                                        "Emergency Services",
+                                                        "Professional (Physician) Visit - Office",
+                                                        "Mental Health",
+                                                        "Urgent Care"
+                                                    ],
+                                                    "benefitPercent": "0.5",
                                                     "inPlanNetworkIndicatorCode": "N",
                                                     "inPlanNetworkIndicator": "No",
                                                     "additionalInformation": [
                                                         {
-                                                            "description": "Deductible does apply to member's out-of-pocket maximum"
+                                                            "description": "Chiropractic"
                                                         },
                                                         {
-                                                            "description": "Coinsurance does apply to member's out-of-pocket maximum"
+                                                            "description": "IP Hospital Room and Board"
+                                                        },
+                                                        {
+                                                            "description": "IP Hospital Miscellaneous"
+                                                        },
+                                                        {
+                                                            "description": "Office Visits"
+                                                        },
+                                                        {
+                                                            "description": "Urgent Care"
+                                                        },
+                                                        {
+                                                            "description": "Walk in Clinic"
+                                                        },
+                                                        {
+                                                            "description": "OP Hospital Miscellaneous"
+                                                        },
+                                                        {
+                                                            "description": "Mental Health (inpatient)"
+                                                        },
+                                                        {
+                                                            "description": "Mental Health (outpatient)"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "code": "A",
+                                                    "name": "Co-Insurance",
+                                                    "coverageLevelCode": "EMP",
+                                                    "coverageLevel": "Employee Only",
+                                                    "serviceTypeCodes": [
+                                                        "86"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Emergency Services"
+                                                    ],
+                                                    "benefitPercent": "0.2",
+                                                    "inPlanNetworkIndicatorCode": "N",
+                                                    "inPlanNetworkIndicator": "No",
+                                                    "additionalInformation": [
+                                                        {
+                                                            "description": "Emergency Room"
                                                         }
                                                     ]
                                                 }
                                             ],
                                             "errors": [],
-                                            "x12": "ISA*00*          *00*          *01*123456789      *ZZ*AV12341234     *111111*1234*^*00501*123456782*0*P*>~GS*HB*123456789*1110111*20240326*111000*1*X*005010X279A1~ST*271*1001*005010X279A1~BHT*0022*11*1*20240326*1514~HL*1**20*1~NM1*PR*2*ABCDE*****FI*111000123~PER*IC**TE*123456789*UR*website.company.com~HL*2*1*21*1~NM1*1P*2*ACME HEALTH SERVICES*****XX*11234567890~HL*3*2*22*0~NM1*IL*1*DOE*JANE*A***MI*123456789~REF*6P*123456789*ABCDE~REF*Q4*123456789~N3*1234 FIRST ST~N4*NEW YORK*WV*123451111~DMG*D8*19000101*F~INS*Y*18*001*25~DTP*356*D8*20220102~DTP*346*D8*20240101~DTP*347*D8*20241231~EB*1**30**Open Access Plus~MSG*Complete Care Management~EB*G*FAM*30***23*6000.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*FAM*30***23*500.00*****Y~MSG*Includes services provided by Client Specific Network~EB*G*IND*30***23*3000.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***23*250.00*****Y~MSG*Includes services provided by Client Specific Network~EB*C*FAM*30***23*15000.00*****N~EB*G*FAM*30***23*30000.00*****N~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*A*IND*30*****.10****Y~EB*C*IND*30***23*7500.00*****N~EB*G*IND*30***23*15000.00*****N~MSG*Deductible does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~EB*A*IND*30*****.50****N~EB*1**A7^BC^A8^A4^A5^A6^7^4^BB^22*********W~EB*C*IND*BC^A4^A6^4^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*22~EB*C*IND*A8****0.00****N*Y~MSG*Includes services provided by Client Specific Network~EB*C*IND*A4^A6^4^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*11~EB*C*IND*A4^A6^22****0.00****N*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*02~EB*B*IND*A4^A6^22***27*20.00****N*Y~III*ZZ*11~EB*A*IND*A4^A6^4^22*****.00***N*Y~III*ZZ*11~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Included For Specific Services~III*ZZ*02~EB*A*IND*A4^A6^22*****.00***N*Y~MSG*Included For Specific Services~III*ZZ*02~EB*A*IND*A4^A6^22*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*02~EB*A*IND*A4^A6^4^22*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*02~EB*B*IND*A4^A6^22***27*20.00****N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*A*IND*7*****.00***Y*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*11~EB*CB**7^BB********Y*Y~EB*C*IND*7****0.00****Y*Y~MSG*Includes services provided by Client Specific Network~III*ZZ*11~EB*A*IND*7*****.00***Y*Y~III*ZZ*11~EB*A*IND*4*****.00***N*Y~III*ZZ*22~EB*A*IND*4*****.00***N*Y~MSG*Services rendered thru Client Specific Network~III*ZZ*22~EB*C*IND*BB****0.00****Y*Y~MSG*Includes services provided by Client Specific Network~EB*1**MH~MSG* Provider is out of network based on NPI ID provided in request.~EB*G*FAM*30***29*5760.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*FAM*30***29*500.00*****Y~MSG*Includes services provided by Client Specific Network~EB*G*IND*30***29*2760.00*****Y~MSG*Includes services provided by Client Specific Network~MSG*Copay does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***29*250.00*****Y~MSG*Includes services provided by Client Specific Network~EB*C*FAM*30***29*15000.00*****N~EB*G*FAM*30***29*30000.00*****N~MSG*Coinsurance does apply to member's out-of-pocket maximum~MSG*Deductible does apply to member's out-of-pocket maximum~EB*C*IND*30***29*7500.00*****N~EB*G*IND*30***29*15000.00*****N~MSG*Deductible does apply to member's out-of-pocket maximum~MSG*Coinsurance does apply to member's out-of-pocket maximum~SE*119*1001~GE*1*1~IEA*1*123456782~"
+                                            "x12": ""
                                         }
                                     }
                                 }
@@ -6303,7 +5677,7 @@
                         "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation"
+                        "$ref": "#/components/schemas/ClaimServiceFacilityLocation"
                     },
                     "deathDate": {
                         "type": "string",
@@ -6923,6 +6297,45 @@
                         "description": "Contains a unique identifier for each service line, listed in the order the service lines were included in the claim. You can use these identifiers to correlate payer responses to specific service lines."
                     }
                 }
+            },
+            "ClaimServiceFacilityLocation": {
+                "type": "object",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The laboratory or facility name. When services were rendered in the patient's home, we recommend setting this to `Residence` or something similar."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address of where services were rendered. If service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. Fo example, 'crossroad of State Road 34 and 45'."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
+                    },
+                    "phoneName": {
+                        "type": "string",
+                        "description": "The full name of the person or office."
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code, BBB is the telephone number prefix, and CCCC is the telephone number. The phone number should only include the digits 0 to 9. Don't include separators, such as dashes, and don't include long distance access numbers, such as 1. For example, you would format the phone number 123-456-7890 as 1234567890."
+                    },
+                    "phoneExtension": {
+                        "type": "string",
+                        "description": "The telephone extension, if applicable. Only submit the numeric extension. For example, don't include data that indicates an extension, such as 'ext.' or 'x-'."
+                    },
+                    "secondaryIdentifier": {
+                        "$ref": "#/components/schemas/ReferenceIdentification",
+                        "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an NPI. The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array."
+                    }
+                },
+                "required": [
+                    "address",
+                    "organizationName"
+                ]
             },
             "ClaimStatusContactInformation": {
                 "type": "object",
@@ -7829,11 +7242,13 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                        "deprecated": true,
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`.\nThis shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -7841,7 +7256,8 @@
                     },
                     "locationNumber": {
                         "type": "string",
-                        "description": "The provider's location number."
+                        "deprecated": true,
+                        "description": "The provider's location number.\nThis shape is deprecated."
                     },
                     "payerIdentificationNumber": {
                         "type": "string",
@@ -7849,14 +7265,18 @@
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "claimOfficeNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "naic": {
                         "type": "string",
-                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                        "deprecated": true,
+                        "description": "The National Association of Insurance Commissioners (NAIC) code.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -7872,7 +7292,8 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty.\nThis shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
@@ -7895,10 +7316,14 @@
                         "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "otherIdentifier": {
                         "type": "string"
@@ -7906,11 +7331,11 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
                         "minItems": 1,
-                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
+                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
                     }
                 },
                 "required": [
@@ -7922,7 +7347,7 @@
                 "properties": {
                     "providerType": {
                         "type": "string",
-                        "description": "Set to the provider matching the object name, with no spaces."
+                        "description": "Set to `RenderingProvider`."
                     },
                     "npi": {
                         "type": "string",
@@ -7931,11 +7356,13 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                        "deprecated": true,
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`.\nThis shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -7951,14 +7378,18 @@
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "claimOfficeNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "naic": {
                         "type": "string",
-                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                        "deprecated": true,
+                        "description": "The National Association of Insurance Commissioners (NAIC) code.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -7997,10 +7428,14 @@
                         "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "otherIdentifier": {
                         "type": "string"
@@ -8008,7 +7443,7 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
                         "minItems": 1,
@@ -8033,11 +7468,13 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`."
+                        "deprecated": true,
+                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`.\nThis shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -8049,18 +7486,23 @@
                     },
                     "payerIdentificationNumber": {
                         "type": "string",
-                        "description": "The payer identification number."
+                        "deprecated": true,
+                        "description": "The payer identification number.\nThis shape is deprecated."
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`.\nThis shape is deprecated."
                     },
                     "claimOfficeNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "naic": {
                         "type": "string",
-                        "description": "The National Association of Insurance Commissioners (NAIC) code."
+                        "deprecated": true,
+                        "description": "The National Association of Insurance Commissioners (NAIC) code.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -8076,7 +7518,8 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty.\nThis shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
@@ -8099,10 +7542,14 @@
                         "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "otherIdentifier": {
                         "type": "string"
@@ -8110,7 +7557,7 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
                         "minItems": 1,
@@ -8903,7 +8350,7 @@
                         "$ref": "#/components/schemas/ClaimPricingRepricingInformation"
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation",
+                        "$ref": "#/components/schemas/ClaimServiceFacilityLocation",
                         "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home."
                     },
                     "orthodonticTotalMonthsOfTreatment": {
@@ -9808,7 +9255,7 @@
                         "description": "Information about the provider who assisted in the rendering of the surgical services. Include this object when the assistant surgeon is different than the one listed in the `assistantSurgeon` object for the entire claim."
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation",
+                        "$ref": "#/components/schemas/ServiceLineServiceFacilityLocation",
                         "description": "Information about where the services were rendered."
                     },
                     "supervisingProvider": {
@@ -10065,11 +9512,10 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1,
-                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -10167,11 +9613,10 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1,
-                        "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims."
+                        "minItems": 1
                     }
                 },
                 "required": [
@@ -18977,50 +18422,6 @@
                     }
                 }
             },
-            "ServiceFacilityLocation": {
-                "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
-                "properties": {
-                    "organizationName": {
-                        "type": "string",
-                        "description": "The laboratory or facility name. When services were rendered in the patient's home, we recommend setting this to `Residence` or something similar."
-                    },
-                    "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress",
-                        "description": "The address of where services were rendered. If service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. Fo example, 'crossroad of State Road 34 and 45'."
-                    },
-                    "npi": {
-                        "type": "string",
-                        "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
-                    },
-                    "secondaryIdentifier": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
-                        },
-                        "maxItems": 3,
-                        "minItems": 1,
-                        "description": "An identifier for the service facility. The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number."
-                    },
-                    "phoneName": {
-                        "type": "string",
-                        "description": "The full name of the person or office."
-                    },
-                    "phoneNumber": {
-                        "type": "string",
-                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code, BBB is the telephone number prefix, and CCCC is the telephone number. The phone number should only include the digits 0 to 9. Don't include separators, such as dashes, and don't include long distance access numbers, such as 1. For example, you would format the phone number 123-456-7890 as 1234567890."
-                    },
-                    "phoneExtension": {
-                        "type": "string",
-                        "description": "The telephone extension, if applicable. Only submit the numeric extension. For example, don't include data that indicates an extension, such as 'ext.' or 'x-'."
-                    }
-                },
-                "required": [
-                    "address",
-                    "organizationName"
-                ]
-            },
             "ServiceFacilityLocationSecondaryIdentificationQualifierCode": {
                 "type": "string",
                 "description": "Code identifying the type of secondary identification. Can be set to `0B` - State License Number, `G2` - Provider Commercial Number, or `LU` - Location Number.",
@@ -19179,7 +18580,7 @@
                         "description": "Information about the provider who performed the purchased service. A purchased service provider performs a service on a contractual or reassignment basis for the billing provider. Examples of purchased services include processing a laboratory specimen and performing diagnostic testing services (excluding clinical laboratory testing) subject to Medicare's anti-markup rule. Note that a substitute provider (a locum tenens physician) is not considered a purchased service provider."
                     },
                     "serviceFacilityLocation": {
-                        "$ref": "#/components/schemas/ServiceFacilityLocation",
+                        "$ref": "#/components/schemas/ServiceLineServiceFacilityLocation",
                         "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
                     },
                     "supervisingProvider": {
@@ -19339,30 +18740,39 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators unless otherwise specified by the provider. If you include this value, you cannot include the provider's `employerId`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string"
                     },
                     "locationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "payerIdentificationNumber": {
                         "type": "string"
                     },
                     "employerIdentificationNumber": {
                         "type": "string",
-                        "description": "The provider's Employer Identification Number (EIN). This field is the same as `employerId`. The EIN is typically a string of exactly nine numbers with no separators, unless otherwise specified by the provider. If you include this value, you cannot also include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "claimOfficeNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "naic": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string"
@@ -19370,14 +18780,15 @@
                     "providerUpinNumber": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "Deprecated; do not use.\nThis shape is deprecated."
+                        "description": "This shape is deprecated."
                     },
                     "taxonomyCode": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
@@ -19411,7 +18822,7 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
                         "minItems": 1,
@@ -19532,16 +18943,36 @@
                     "secondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
                         },
                         "maxItems": 20,
-                        "minItems": 1,
+                        "minItems": 1
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "ServiceLineReferenceIdentification": {
+                "type": "object",
+                "properties": {
+                    "qualifier": {
+                        "type": "string",
+                        "description": "The code identifying the type of reference number."
+                    },
+                    "identifier": {
+                        "type": "string",
+                        "description": "The reference number."
+                    },
+                    "otherIdentifier": {
+                        "type": "string",
                         "deprecated": true,
                         "description": "This shape is deprecated."
                     }
                 },
                 "required": [
-                    "providerType"
+                    "identifier",
+                    "qualifier"
                 ]
             },
             "ServiceLineReferenceInformation": {
@@ -19594,6 +19025,53 @@
                         "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated a UUID for the service line."
                     }
                 }
+            },
+            "ServiceLineServiceFacilityLocation": {
+                "type": "object",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The laboratory or facility name. When services were rendered in the patient's home, we recommend setting this to `Residence` or something similar."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The address of where services were rendered. If service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. Fo example, 'crossroad of State Road 34 and 45'."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
+                    },
+                    "phoneName": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The full name of the person or office.\nThis shape is deprecated."
+                    },
+                    "phoneNumber": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code, BBB is the telephone number prefix, and CCCC is the telephone number. The phone number should only include the digits 0 to 9. Don't include separators, such as dashes, and don't include long distance access numbers, such as 1. For example, you would format the phone number 123-456-7890 as 1234567890.\nThis shape is deprecated."
+                    },
+                    "phoneExtension": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "The telephone extension, if applicable. Only submit the numeric extension. For example, don't include data that indicates an extension, such as 'ext.' or 'x-'.\nThis shape is deprecated."
+                    },
+                    "secondaryIdentifier": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1,
+                        "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an NPI. The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array."
+                    }
+                },
+                "required": [
+                    "address",
+                    "organizationName"
+                ]
             },
             "ServiceLineSupplementalInformationAttachmentReportTypeCode": {
                 "type": "string",
