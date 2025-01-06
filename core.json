@@ -5875,6 +5875,9 @@
             "maxLength": 5,
             "minLength": 5,
             "description": "Set [ISA-12](https://www.stedi.com/edi/x12/segment/ISA#ISA-12) to a different value. This code indicates the version of the `ISA` header segments included in the EDI file. By default, Stedi sets `ISA-12` to to be the X12 release number of the guide associated with the transaction setting."
+          },
+          "delimiters": {
+            "$ref": "#/components/schemas/X12Delimiters"
           }
         }
       },
@@ -6576,6 +6579,37 @@
           "06",
           "07",
           "08"
+        ]
+      },
+      "X12Delimiters": {
+        "type": "object",
+        "properties": {
+          "element": {
+            "type": "string",
+            "pattern": "^[\\W|_]{1}$",
+            "description": "The data element separator character."
+          },
+          "composite": {
+            "type": "string",
+            "pattern": "^[\\W|_]{1}$",
+            "description": "The component element separator character."
+          },
+          "repetition": {
+            "type": "string",
+            "pattern": "^[\\W|_]{1}$",
+            "description": "The repetition separator character."
+          },
+          "segment": {
+            "type": "string",
+            "pattern": "^[\\W|_]{1}$",
+            "description": "The segment terminator character."
+          }
+        },
+        "required": [
+          "composite",
+          "element",
+          "repetition",
+          "segment"
         ]
       },
       "X12FunctionalAcknowledgmentType": {
