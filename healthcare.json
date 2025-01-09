@@ -6756,7 +6756,8 @@
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
                     },
                     "dependent": {
-                        "$ref": "#/components/schemas/Member"
+                        "$ref": "#/components/schemas/Member",
+                        "description": "Information about the dependent listed in the referenced claim."
                     },
                     "claims": {
                         "type": "array",
@@ -6826,7 +6827,8 @@
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
                     },
                     "dependent": {
-                        "$ref": "#/components/schemas/Member"
+                        "$ref": "#/components/schemas/Member",
+                        "description": "Information about the dependent listed in the referenced claim. You must submit the dependent's `firstName`, `lastName`, `dateOfBirth`, and `gender` in the request."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/ClaimStatusEncounter"
@@ -6867,7 +6869,8 @@
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
                     },
                     "dependent": {
-                        "$ref": "#/components/schemas/Member"
+                        "$ref": "#/components/schemas/Member",
+                        "description": "Information about the dependent listed in the referenced claim."
                     },
                     "claims": {
                         "type": "array",
@@ -6932,7 +6935,7 @@
             },
             "ClaimStatusSubscriber": {
                 "type": "object",
-                "description": "Information about the subscriber listed in the referenced claim.",
+                "description": "Information about the subscriber listed in the referenced claim.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -6950,7 +6953,7 @@
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "The subscriber's last name as specified on their policy."
+                        "description": "The subscriber's last name as specified on their policy. The subscriber can be an individual or a business entity."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriberGender"
@@ -9776,7 +9779,7 @@
             },
             "DentalSubscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request. Note that the subscriber can be an individual or a business entity. Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -13538,7 +13541,7 @@
             },
             "InstitutionalSubscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -14105,7 +14108,6 @@
             },
             "Member": {
                 "type": "object",
-                "description": "Information about the dependent listed in the referenced claim.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -19416,7 +19418,7 @@
             },
             "Subscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. The subscriber can be an individual or a business entity.\n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request.  Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You can only set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. The subscriber can be an individual or a business entity.\n- When a dependent has a unique, payer-assigned member ID, treat them as the `subscriber` for the claim submission - include their information here and omit the `dependent` object from the request.  Stedi treats the subscriber as an individual when the request doesn't contain a value for the `subscriber.organizationName` property.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
