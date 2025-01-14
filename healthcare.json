@@ -6596,7 +6596,7 @@
             },
             "ClaimStatusEncounter": {
                 "type": "object",
-                "description": "Information about the referenced claim.",
+                "description": "Information about the referenced claim or claims for which you want to retrieve status information.\n\n We recommend supplying a date range that is at least plus or minus 7 days from the date of the services listed in the claim, using the `beginningDateOfService` and `endDateOfService` properties. The payer may have stored a different date for the encounter than the one in your records, so providing a date range increases the likelihood that the payer will find a match.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
@@ -6787,7 +6787,7 @@
                         "items": {
                             "$ref": "#/components/schemas/Claim"
                         },
-                        "description": "The status information for the claim referenced in the original claim status request."
+                        "description": "The status information for the claim referenced in the original claim status request.\n\nThe payer may return multiple claims in the response if they have more than one claim on file that matches the information you provided."
                     },
                     "reassociationKey": {
                         "type": "string",
@@ -6900,7 +6900,7 @@
                         "items": {
                             "$ref": "#/components/schemas/Claim"
                         },
-                        "description": "The status information for the claim referenced in the original claim status request."
+                        "description": "The status information for the claim referenced in the original claim status request.\n\nThe payer may return multiple claims in the response if they have more than one claim on file that matches the information you provided."
                     },
                     "reassociationKey": {
                         "type": "string",
