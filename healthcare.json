@@ -443,7 +443,6 @@
                                     "summary": "Benefit Check for Mental Health Coverage",
                                     "description": "",
                                     "value": {
-                                        "submitterTransactionIdentifier": "123456789",
                                         "controlNumber": "123456789",
                                         "tradingPartnerServiceId": "AHS",
                                         "externalPatientId": "UAA111222333",
@@ -10210,11 +10209,11 @@
             },
             "EligibilityCheckRequestContent": {
                 "type": "object",
-                "description": "MedicalEligibility",
                 "properties": {
                     "submitterTransactionIdentifier": {
                         "type": "string",
-                        "description": "An internal ID or other value that you use to track the eligibility check within your company's business system. You can use any string value up to 50 characters."
+                        "deprecated": true,
+                        "description": "This property is only relevant for asynchronous batch eligibility checks.\nThis shape is deprecated."
                     },
                     "controlNumber": {
                         "type": "string",
@@ -19892,18 +19891,15 @@
             },
             "ValidationExceptionResponseContent": {
                 "type": "object",
-                "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+                "description": "A standard error for input validation failures.\nThrown when a member of the input structure\nfalls outside of the modeled or documented constraints.",
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "A summary of the validation failure."
+                        "description": "A message describing the causes of the validation failure. There may be more than one."
                     },
-                    "fieldList": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ValidationExceptionField"
-                        },
-                        "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints."
+                    "code": {
+                        "type": "string",
+                        "description": "A code describing the type of validation failure."
                     }
                 },
                 "required": [
