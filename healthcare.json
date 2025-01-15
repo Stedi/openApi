@@ -4351,85 +4351,113 @@
                 "description": "Identifying information specific to this type of benefit.",
                 "properties": {
                     "stateLicenseNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The state license number for the provider who requested the eligibility check."
                     },
                     "medicareProviderNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Medicare provider number for the provider who requested the eligibility check."
                     },
                     "medicaidProviderNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Medicaid provider number for the provider who requested the eligibility check."
                     },
                     "facilityIdNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The facility ID number for the provider who requested the eligibility check."
                     },
                     "personalIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The personal identification number (PIN) for the provider who requested the eligibility check."
                     },
                     "planNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The insurance plan number."
                     },
                     "policyNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The patient's policy number."
                     },
                     "memberId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The patient's member ID."
                     },
                     "familyUnitNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The family unit number. This is returned when the payer is a pharmacy benefits manager (PBM) and the patient has a suffix to their member ID number that is used in the NCPDP Telecom Standard Insurance Segment, in field `303-C3` (Person Code). For all other uses, the family unit number (suffix) is considered part of the patient's member ID number."
                     },
                     "groupNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The group number for the patient's health insurance plan."
                     },
                     "referralNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The referral number."
                     },
                     "alternativeListId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The alternative list ID. This identifier allows the payer to specify a list of drugs and its alternative drugs with the associated formulary status for the patient."
                     },
                     "coverageListId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The coverage list ID. This identifier allows the payer to specify the identifier of a list of drugs that have coverage limitations for the associated patient."
                     },
                     "electronicDevicePin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The electronic device pin number for the provider who requested the eligibility check."
                     },
                     "submitterIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The submitter identification number for the provider who requested the eligibility check."
                     },
                     "hicNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The health insurance claim number (HICN). Note that CMS previously used the HICN to uniquely identify Medicare beneficiaries. However, they have since transitioned to a new, randomized Medicare Beneficiary Identifier (MBI) format. The HICN is no longer used for Medicare transactions but this property is now used by some payers to return MBI. If you receive a value in this property that matches the format specified in the [Medicare Beneficiary Identifier documentation](https://www.cms.gov/training-education/partner-outreach-resources/new-medicare-card/medical-beneficiary-identifiers-mbis), the number is likely an MBI and we recommend sending a follow-up eligibility check to CMS for additional benefits data. This most commonly occurs with patients who are covered by both Medicare and Medicaid."
                     },
                     "drugFormularyNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The drug formulary number."
                     },
                     "priorAuthorizationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The prior authorization number."
                     },
                     "centersForMedicareAndMedicaidServicesNPI": {
-                        "type": "string"
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "insurancePolicyNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The insurance policy number."
                     },
                     "userIdentification": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The user identification number for the provider who requested the eligibility check."
                     },
                     "medicalAssistanceCategory": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The medical assistance category."
                     },
                     "eligibilityCategory": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The eligibility category."
                     },
                     "planNetworkIdNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The plan network identification number."
                     },
                     "facilityNetworkIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The facility network identification number for the provider who requested the eligibility check."
                     },
                     "medicaidRecepientIdNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The Medicaid Recipient Identification number."
                     },
                     "federalTaxpayersIdentificationNumber": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The taxpayer identification number (TIN) for the patient."
                     }
                 }
             },
