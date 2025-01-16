@@ -9996,7 +9996,7 @@
             },
             "DiagnosisTypeCode": {
                 "type": "string",
-                "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
+                "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis. \n\n Note that ICD-9 codes are **deprecated** and should no longer be used in eligibility checks.",
                 "enum": [
                     "BK",
                     "ABK",
@@ -11102,7 +11102,7 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Information about the subscriber's healthcare diagnosis.",
+                "description": "Information about the subscriber's healthcare diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`.",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -17813,7 +17813,7 @@
                         },
                         "maxItems": 8,
                         "minItems": 1,
-                        "description": "Information about the dependent's health care diagnosis."
+                        "description": "Information about the dependent's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
@@ -18018,7 +18018,7 @@
                         },
                         "maxItems": 8,
                         "minItems": 1,
-                        "description": "Information about the subscriber's health care diagnosis."
+                        "description": "Information about the subscriber's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
