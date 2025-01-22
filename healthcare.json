@@ -17974,7 +17974,7 @@
                         "maxLength": 50,
                         "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. It is **required** if you set the `referenceIdentificationQualifier`. For example, this property could contain the provider's National Provider ID or Federal Taxpayer Identification number.\n\n If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
@@ -18072,7 +18072,7 @@
             },
             "RequestSubscriberProviderCode": {
                 "type": "string",
-                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n \n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
+                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n\n This property is **required** when the `providerIdentifier` and `referenceIdentificationQualifier` properties are populated. \n\n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
