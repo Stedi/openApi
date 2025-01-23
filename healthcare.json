@@ -4139,12 +4139,12 @@
             },
             "AssistantSurgeon": {
                 "type": "object",
-                "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.",
+                "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.\n\nThis should be an individual, not an organization, and you should supply at least the surgeon's `lastName`, `taxonomyCode`, and an identifier, which is typically the `npi`.",
                 "properties": {
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the surgeon."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -4172,15 +4172,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The assistant surgeon's first name, if the provider is an individual."
+                        "description": "The assistant surgeon's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The assistant surgeon's last name, if the provider is an individual. You must include either the `lastName` or `organizationName` property in this object."
+                        "description": "The assistant surgeon's last name. You must include either the `lastName` or `organizationName` property in this object."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The assistant surgeon's middle name or initial, if the provider is an individual."
+                        "description": "The assistant surgeon's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -4267,7 +4267,7 @@
             },
             "Attending": {
                 "type": "object",
-                "description": "Information about the individual who has overall responsibility for the patient's medical care and treatment reported in the claim. This object is required when the claim contains any services other than non-scheduled transportation claims.",
+                "description": "Information about the individual who has overall responsibility for the patient's medical care and treatment reported in the claim. This information is required when the claim contains any services other than non-scheduled transportation claims.\n\nThis provider should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -4276,7 +4276,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -4305,7 +4305,7 @@
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's last name. This is **required** when the provider is an individual."
+                        "description": "The provider's last name. This is **required**."
                     },
                     "middleName": {
                         "type": "string",
@@ -4320,7 +4320,7 @@
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's business name. This is **required** when the provider is not an individual."
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/InstitutionalAddress",
@@ -6494,7 +6494,7 @@
             },
             "ClaimServiceFacilityLocation": {
                 "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. \n\nDon't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -6507,7 +6507,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
+                        "description": "The organization National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
                     },
                     "phoneName": {
                         "type": "string",
@@ -7430,12 +7430,12 @@
                 "properties": {
                     "providerType": {
                         "type": "string",
-                        "description": "Set to the provider matching the object name, with no spaces."
+                        "description": "Set to `ReferringProvider`."
                     },
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
                         "type": "string",
@@ -7494,15 +7494,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -7510,7 +7510,7 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's organization name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress",
@@ -7606,15 +7606,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name. You should include either the `lastName` or `organizationName` property in this object."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -7656,17 +7656,17 @@
                 "properties": {
                     "providerType": {
                         "type": "string",
-                        "description": "Set to the provider matching the object name, with no spaces."
+                        "description": "Set to `SupervisingProvider`."
                     },
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "The provider's Social Security Number. The Social Security Number must be a string of exactly nine numbers with no separators. If you provider this value, you cannot include the provider's `employerId`.\nThis shape is deprecated."
+                        "description": "The provider's organization name.\nThis shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
@@ -7720,15 +7720,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -9451,15 +9451,15 @@
                     },
                     "assistantSurgeon": {
                         "$ref": "#/components/schemas/DentalServiceLineAssistantSurgeon",
-                        "description": "Information about the provider who assisted in the rendering of the surgical services. Include this object when the assistant surgeon is different than the one listed in the `assistantSurgeon` object for the entire claim."
+                        "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.\n\nThis should be an individual, not an organization, and you should supply at least the surgeon's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/DentalServiceLineServiceFacilityLocation",
-                        "description": "Information about where the services were rendered."
+                        "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home."
                     },
                     "supervisingProvider": {
                         "$ref": "#/components/schemas/DentalServiceLineSupervisingProvider",
-                        "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim."
+                        "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "lineAdjudicationInformation": {
                         "type": "array",
@@ -9486,12 +9486,11 @@
             },
             "DentalServiceLineAssistantSurgeon": {
                 "type": "object",
-                "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.",
                 "properties": {
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -9507,19 +9506,19 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's business name."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -9696,19 +9695,19 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's business name."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -9736,7 +9735,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The organization National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the billing provider. Don't include when the service facility is the patient's home."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -9752,7 +9751,7 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/ClaimsAddress"
@@ -9768,7 +9767,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -9784,19 +9783,19 @@
                     },
                     "organizationName": {
                         "type": "string",
-                        "description": "The provider's business name. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's business name."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual. You should include either the `lastName` or `organizationName` property in this object."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -11413,6 +11412,7 @@
             },
             "InstitutionalBilling": {
                 "type": "object",
+                "description": "Information about the billing provider. \n- You **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both. \n- The provider's 10-digit National Provider Identifier (NPI) is **required**, if one is assigned.\n- You must also supply the provider's `organizationName`.",
                 "properties": {
                     "providerType": {
                         "$ref": "#/components/schemas/InstitutionalProviderType",
@@ -11421,7 +11421,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The organization National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -11475,7 +11475,7 @@
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's last name, when the provider is an individual. Either this property or `organizationName` is required."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
@@ -11490,7 +11490,7 @@
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's business name, when the provider is not an individual."
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/InstitutionalAddress",
@@ -12044,11 +12044,11 @@
                     },
                     "operatingPhysician": {
                         "$ref": "#/components/schemas/OperatingPhysician",
-                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim."
+                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the claim. Required when a surgical procedure code is listed on the claim. Use this object for operating physicians that apply to the entire claim.\n\nThis should be an individual, not an organization, and you should supply at least the physician's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "otherOperatingPhysician": {
                         "$ref": "#/components/schemas/OperatingPhysician",
-                        "description": "Information about any other operating physician involved in the surgical procedures listed in the claim. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim."
+                        "description": "Information about any other operating physician involved in the surgical procedures listed in the claim. Required when another operating physician is involved in the surgical procedures listed in the claim. Use this object for physicians that apply to the entire claim.\n\nThis should be an individual, not an organization, and you should supply at least the physician's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "claimInformation": {
                         "$ref": "#/components/schemas/InstitutionalClaimInformation"
@@ -12062,15 +12062,13 @@
                         "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi app by production or test data. By default, this property is set to `P` for production data. Use `T` to desginate a claim as test data."
                     },
                     "billing": {
-                        "$ref": "#/components/schemas/InstitutionalBilling",
-                        "description": "Information about the billing provider. For tax identification, you **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both. Note that the provider's 10-digit National Provider Identifier (NPI) is also **required**, if one is assigned."
+                        "$ref": "#/components/schemas/InstitutionalBilling"
                     },
                     "referring": {
                         "$ref": "#/components/schemas/InstitutionalReferring"
                     },
                     "rendering": {
-                        "$ref": "#/components/schemas/InstitutionalRendering",
-                        "description": "Information about the provider who delivered the medical services or non-surgical procecures listed in the claim. Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. Use this object for providers that apply to the entire claim."
+                        "$ref": "#/components/schemas/InstitutionalRendering"
                     },
                     "attending": {
                         "$ref": "#/components/schemas/Attending"
@@ -12892,7 +12890,7 @@
             },
             "InstitutionalReferring": {
                 "type": "object",
-                "description": "Information about the provider who referred the patient for care. Include this object only when the referring provider is different than the provider listed in the `attending` object. Use this object for providers that apply to the entire claim.",
+                "description": "Information about the provider who referred the patient for care. \n- Include this object only when the referring provider is different than the provider listed in the `attending` object. \n- Use this object for providers that apply to the entire claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -12901,7 +12899,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/ReferringSecondaryIdentificationQualifierCode"
@@ -12998,6 +12996,7 @@
             },
             "InstitutionalRendering": {
                 "type": "object",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures listed in the claim. Use this object for providers that apply to the entire claim.\n- Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. \n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -13006,7 +13005,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/RenderingSecondaryIdentificationQualifierCode"
@@ -13219,7 +13218,7 @@
             },
             "InstitutionalServiceFacilityLocation": {
                 "type": "object",
-                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address. When an organization's healthcare provider's NPI is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab). The service location can't be a component or subpart of the billing provider entity.",
+                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address. \n- When an organization's healthcare provider's NPI is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab). \n- The service location can't be a component or subpart of the billing provider entity.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -13239,7 +13238,7 @@
                     },
                     "identificationCode": {
                         "type": "string",
-                        "description": "The service facility location's National Provider Identifier (NPI). Required when the service location to be identified has an NPI and is not a component or subpart of the billing provider."
+                        "description": "The organization National Provider Identifier (NPI) assigned to the service facility location. Required when the service location to be identified has an NPI and is not a component or subpart of the billing provider."
                     }
                 },
                 "required": [
@@ -13260,7 +13259,7 @@
                     "serviceDate": {
                         "type": "string",
                         "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
-                        "description": "Either a single date of service or the beginning of a range of service dates, formatted as YYYYMMDD. If a range is provided, the end date should be provided in `serviceDateEnd`. This property is required on outpatient service lines where a drug is not being billed and the Statement Covers Period is greater than one day. It's also required when a drug is being billed and the payer's adjudication is known to be impacted by the drug duration or the date the prescription was written. In cases where a drug is being billed on a service line, this property may be used to indicate the date the prescription was written (or otherwise communicated by the prescriber if not written). It may also be used to indicate the beginning of the duration for which the drug supply will be used by the patient. The difference in dates, including both the begin and end dates, are the days supply of the drug. Example: 20000101-20000107 (1/1/00 to 1/7/00) is used for a 7 day supply where the first day of the drug used by the patient is 1/1/00. In the event a drug is administered on less than a daily basis (for example, every other day) the date range would include the entire period during which the drug was supplied, including the last day the drug was used. Example: 20000101-20000108 (1/1/00 to 1/8/00) is used for an 8 days supply where the prescription is written for Q48 (every 48 hours), four doses of the drug are dispensed and the first dose is used on 1/1/00."
+                        "description": "Either a single date of service or the beginning of a range of service dates, formatted as YYYYMMDD. If a range is provided, the end date should be provided in `serviceDateEnd`. \n\nThis property is required on outpatient service lines where a drug is not being billed and the Statement Covers Period is greater than one day. \n\nIt's also required when a drug is being billed and the payer's adjudication is known to be impacted by the drug duration or the date the prescription was written. In cases where a drug is being billed on a service line, this property may be used to indicate the date the prescription was written (or otherwise communicated by the prescriber if not written). \n\nThis property may also be used to indicate the beginning of the duration for which the drug supply will be used by the patient. The difference in dates, including both the begin and end dates, are the days supply of the drug. Example: 20000101-20000107 (1/1/00 to 1/7/00) is used for a 7 day supply where the first day of the drug used by the patient is 1/1/00. In the event a drug is administered on less than a daily basis (for example, every other day) the date range would include the entire period during which the drug was supplied, including the last day the drug was used. Example: 20000101-20000108 (1/1/00 to 1/8/00) is used for an 8 days supply where the prescription is written for Q48 (every 48 hours), four doses of the drug are dispensed and the first dose is used on 1/1/00."
                     },
                     "serviceDateEnd": {
                         "type": "string",
@@ -13317,12 +13316,10 @@
                         "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers."
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider",
-                        "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line. Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim."
+                        "$ref": "#/components/schemas/InstitutionalServiceLineRenderingProvider"
                     },
                     "referringProvider": {
-                        "$ref": "#/components/schemas/InstitutionalServiceLineProvider",
-                        "description": "Information about the provider who referred the patient for care. Include this object only when the referring provider is different than the provider listed in the `attending` object."
+                        "$ref": "#/components/schemas/InstitutionalServiceLineReferringProvider"
                     },
                     "lineSupplementInformation": {
                         "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation",
@@ -13361,11 +13358,11 @@
                     },
                     "operatingPhysician": {
                         "$ref": "#/components/schemas/OperatingPhysician",
-                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the service line. Required when a surgical procedure code is listed."
+                        "description": "Information about the individual with primary responsibility for performing the surgical procedure(s) listed in the service line. Required when a surgical procedure code is listed.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "otherOperatingPhysician": {
                         "$ref": "#/components/schemas/OperatingPhysician",
-                        "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the service line."
+                        "description": "Information about the individual who performed a secondary surgical procedure or assisted the `operatingPhysician`. Required when another operating physician is involved in the surgical procedures listed in the service line.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "lineRepricingInformation": {
                         "$ref": "#/components/schemas/ClaimPricingInformation",
@@ -13398,16 +13395,61 @@
                     }
                 }
             },
-            "InstitutionalServiceLineProvider": {
+            "InstitutionalServiceLineReferenceInformation": {
+                "description": "Additional identifiers for the service line. We **strongly recommend** setting the `providerControlNumber` property for each service line within the claim.",
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "providerControlNumber",
+                        "properties": {
+                            "providerControlNumber": {
+                                "type": "string",
+                                "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value."
+                            }
+                        },
+                        "required": [
+                            "providerControlNumber"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "repricedLineItemRefNumber",
+                        "properties": {
+                            "repricedLineItemRefNumber": {
+                                "type": "string",
+                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line in their submission to their payer organization. Providers shouldn't complete this property."
+                            }
+                        },
+                        "required": [
+                            "repricedLineItemRefNumber"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "adjustedRepricedLineItemRefNumber",
+                        "properties": {
+                            "adjustedRepricedLineItemRefNumber": {
+                                "type": "string",
+                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on an adjusted service line in their submission to their payer organization. Providers shouldn't complete this property."
+                            }
+                        },
+                        "required": [
+                            "adjustedRepricedLineItemRefNumber"
+                        ]
+                    }
+                ]
+            },
+            "InstitutionalServiceLineReferringProvider": {
                 "type": "object",
+                "description": "Information about the provider who referred the patient for care. \n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "$ref": "#/components/schemas/InstitutionalProviderType",
-                        "description": "The type of provider. Set to the type that matches this object's name."
+                        "description": "Set to `ReferringProvider`."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "The provider's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "secondaryIdentificationQualifierCode": {
                         "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
@@ -13461,7 +13503,7 @@
                     "lastName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's last name, when the provider is an individual. Either this property or `organizationName` is required."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
@@ -13476,7 +13518,7 @@
                     "organizationName": {
                         "type": "string",
                         "maxLength": 60,
-                        "description": "The provider's business name. Either this property or `lastName` is required."
+                        "description": "The provider's business name."
                     },
                     "address": {
                         "$ref": "#/components/schemas/InstitutionalAddress",
@@ -13502,48 +13544,109 @@
                     "providerType"
                 ]
             },
-            "InstitutionalServiceLineReferenceInformation": {
-                "description": "Additional identifiers for the service line. We **strongly recommend** setting the `providerControlNumber` property for each service line within the claim.",
-                "oneOf": [
-                    {
-                        "type": "object",
-                        "title": "providerControlNumber",
-                        "properties": {
-                            "providerControlNumber": {
-                                "type": "string",
-                                "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value."
-                            }
-                        },
-                        "required": [
-                            "providerControlNumber"
-                        ]
+            "InstitutionalServiceLineRenderingProvider": {
+                "type": "object",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line. \n- Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "properties": {
+                    "providerType": {
+                        "$ref": "#/components/schemas/InstitutionalProviderType",
+                        "description": "Set to `RenderingProvider`."
                     },
-                    {
-                        "type": "object",
-                        "title": "repricedLineItemRefNumber",
-                        "properties": {
-                            "repricedLineItemRefNumber": {
-                                "type": "string",
-                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on the service line in their submission to their payer organization. Providers shouldn't complete this property."
-                            }
-                        },
-                        "required": [
-                            "repricedLineItemRefNumber"
-                        ]
+                    "npi": {
+                        "type": "string",
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
-                    {
-                        "type": "object",
-                        "title": "adjustedRepricedLineItemRefNumber",
-                        "properties": {
-                            "adjustedRepricedLineItemRefNumber": {
-                                "type": "string",
-                                "description": "Required when a repricing (pricing) organization needs to have an identifying number on an adjusted service line in their submission to their payer organization. Providers shouldn't complete this property."
-                            }
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
+                    },
+                    "secondaryIdentifier": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                    },
+                    "employerId": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "providerUpinNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "taxonomyCode": {
+                        "type": "string",
+                        "pattern": "^[A-Za-z0-9]{10}$",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "description": "The provider's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "The provider's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "description": "The provider's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "maxLength": 10,
+                        "description": "The provider's suffix, such as Jr. or Sr."
+                    },
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "The provider's business name."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/InstitutionalAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/InstitutionalContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "referenceIdentification": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
                         },
-                        "required": [
-                            "adjustedRepricedLineItemRefNumber"
-                        ]
+                        "maxItems": 20,
+                        "minItems": 1,
+                        "description": "Additional identifiers for the provider. You can set `qualifier` to `2U` - Payer Identification Number."
                     }
+                },
+                "required": [
+                    "providerType"
                 ]
             },
             "InstitutionalServiceLineSupplementalInformation": {
@@ -14299,7 +14402,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The physician's National Provider Identifier (NPI). The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the physician. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     }
                 },
                 "required": [
@@ -17319,7 +17422,7 @@
             },
             "Referring": {
                 "type": "object",
-                "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist. Use when the referring provider applies to the entire claim, not just a specific service line.",
+                "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist. Use when the referring provider applies to the entire claim, not just a specific service line.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -17328,7 +17431,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -17352,15 +17455,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -18795,15 +18898,15 @@
                     },
                     "supervisingProvider": {
                         "$ref": "#/components/schemas/ClaimsServiceLineSupervisingProvider",
-                        "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim."
+                        "description": "Information about the provider who oversaw the rendering provider and the care reported in this service line. Include this object when the supervising provider is different than the one listed in the `supervising` object for the entire claim.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "orderingProvider": {
                         "$ref": "#/components/schemas/ServiceLineOrderingProvider",
-                        "description": "Information about the provider who requested the services or items reported in this service line."
+                        "description": "Information about the provider who requested the services or items reported in this service line.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "referringProvider": {
                         "$ref": "#/components/schemas/ClaimsServiceLineReferringProvider",
-                        "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care provider may refer patients to a specialist. Include this object when the referring provider is different than the one listed in the `referring` object for the entire claim."
+                        "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care provider may refer patients to a specialist. Include this object when the referring provider is different than the one listed in the `referring` object for the entire claim.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`."
                     },
                     "ambulancePickUpLocation": {
                         "$ref": "#/components/schemas/ClaimsAddress",
@@ -18946,7 +19049,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the provider."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the provider."
                     },
                     "ssn": {
                         "type": "string",
@@ -19002,15 +19105,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The provider's first name, if the provider is an individual."
+                        "description": "The provider's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The provider's last name, if the provider is an individual."
+                        "description": "The provider's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The provider's middle name or initial, if the provider is an individual."
+                        "description": "The provider's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -19238,7 +19341,7 @@
             },
             "ServiceLineServiceFacilityLocation": {
                 "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. \n\nDon't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -19251,7 +19354,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
+                        "description": "The organization National Provider Identifier (NPI) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home."
                     },
                     "phoneName": {
                         "type": "string",
@@ -19620,7 +19723,7 @@
             },
             "Supervising": {
                 "type": "object",
-                "description": "The entity responsible for overseeing the rendering provider and the care reported in this claim. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.",
+                "description": "The entity responsible for overseeing the rendering provider and the care reported in this claim. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -19629,7 +19732,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$|^\\d{15}$",
-                        "description": "The National Provider Identifier (NPI) of the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
+                        "description": "The individual National Provider Identifier (NPI) assigned to the supervising provider. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
                     },
                     "ssn": {
                         "type": "string",
