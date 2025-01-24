@@ -3971,20 +3971,17 @@
                         "description": "The city."
                     },
                     "state": {
-                        "type": "string",
-                        "maxLength": 2,
-                        "minLength": 2,
-                        "description": "The state code. For example, TN for Tennessee or WA for Washington."
+                        "$ref": "#/components/schemas/StateOrProvinceCode"
                     },
                     "postalCode": {
                         "type": "string",
-                        "maxLength": 15,
-                        "minLength": 3,
-                        "description": "The United States postal code, excluding punctuation and blanks."
+                        "maxLength": 9,
+                        "minLength": 5,
+                        "description": "The United States or Canadian postal code, excluding punctuation and blanks."
                     },
                     "countryCode": {
                         "type": "string",
-                        "maxLength": 3,
+                        "maxLength": 2,
                         "minLength": 2,
                         "description": "The country code. Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
@@ -4337,6 +4334,15 @@
                     "providerType"
                 ]
             },
+            "AuthOrCertIndicator": {
+                "type": "string",
+                "description": "Code indicating whether the benefit is subject to prior authorization or certification.",
+                "enum": [
+                    "N",
+                    "U",
+                    "Y"
+                ]
+            },
             "AutoAccidentStateCode": {
                 "type": "string",
                 "description": "A code identifying the state or province in which the automobile accident occurred. Use this code when `relatedCausesCode` is set to `AA`.",
@@ -4350,26 +4356,6 @@
                 "type": "object",
                 "description": "Identifying information specific to this type of benefit.",
                 "properties": {
-                    "stateLicenseNumber": {
-                        "type": "string",
-                        "description": "The state license number for the provider who requested the eligibility check."
-                    },
-                    "medicareProviderNumber": {
-                        "type": "string",
-                        "description": "The Medicare provider number for the provider who requested the eligibility check."
-                    },
-                    "medicaidProviderNumber": {
-                        "type": "string",
-                        "description": "The Medicaid provider number for the provider who requested the eligibility check."
-                    },
-                    "facilityIdNumber": {
-                        "type": "string",
-                        "description": "The facility ID number for the provider who requested the eligibility check."
-                    },
-                    "personalIdentificationNumber": {
-                        "type": "string",
-                        "description": "The personal identification number (PIN) for the provider who requested the eligibility check."
-                    },
                     "planNumber": {
                         "type": "string",
                         "description": "The insurance plan number."
@@ -4402,14 +4388,6 @@
                         "type": "string",
                         "description": "The coverage list ID. This identifier allows the payer to specify the identifier of a list of drugs that have coverage limitations for the associated patient."
                     },
-                    "electronicDevicePin": {
-                        "type": "string",
-                        "description": "The electronic device pin number for the provider who requested the eligibility check."
-                    },
-                    "submitterIdentificationNumber": {
-                        "type": "string",
-                        "description": "The submitter identification number for the provider who requested the eligibility check."
-                    },
                     "hicNumber": {
                         "type": "string",
                         "description": "The health insurance claim number (HICN). Note that CMS previously used the HICN to uniquely identify Medicare beneficiaries. However, they have since transitioned to a new, randomized Medicare Beneficiary Identifier (MBI) format. The HICN is no longer used for Medicare transactions but this property is now used by some payers to return MBI. If you receive a value in this property that matches the format specified in the [Medicare Beneficiary Identifier documentation](https://www.cms.gov/training-education/partner-outreach-resources/new-medicare-card/medical-beneficiary-identifiers-mbis), the number is likely an MBI and we recommend sending a follow-up eligibility check to CMS for additional benefits data. This most commonly occurs with patients who are covered by both Medicare and Medicaid."
@@ -4422,42 +4400,21 @@
                         "type": "string",
                         "description": "The prior authorization number."
                     },
-                    "centersForMedicareAndMedicaidServicesNPI": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
                     "insurancePolicyNumber": {
                         "type": "string",
                         "description": "The insurance policy number."
-                    },
-                    "userIdentification": {
-                        "type": "string",
-                        "description": "The user identification number for the provider who requested the eligibility check."
                     },
                     "medicalAssistanceCategory": {
                         "type": "string",
                         "description": "The medical assistance category."
                     },
-                    "eligibilityCategory": {
-                        "type": "string",
-                        "description": "The eligibility category."
-                    },
                     "planNetworkIdNumber": {
                         "type": "string",
                         "description": "The plan network identification number."
                     },
-                    "facilityNetworkIdentificationNumber": {
-                        "type": "string",
-                        "description": "The facility network identification number for the provider who requested the eligibility check."
-                    },
                     "medicaidRecepientIdNumber": {
                         "type": "string",
                         "description": "The Medicaid Recipient Identification number."
-                    },
-                    "federalTaxpayersIdentificationNumber": {
-                        "type": "string",
-                        "description": "The taxpayer identification number (TIN) for the patient."
                     }
                 }
             },
@@ -4603,25 +4560,21 @@
                 "type": "object",
                 "properties": {
                     "code": {
-                        "type": "string",
-                        "description": "The eligibility or benefit information code. Visit [Eligibility and benefit codes](https://www.stedi.com/docs/healthcare/benefit-response#eligibility-and-benefit-type-codes) for a complete list and descriptions of common codes."
+                        "$ref": "#/components/schemas/BenefitsInformationCode"
                     },
                     "name": {
-                        "type": "string",
-                        "description": "The name of the benefit information code. For example, `Deductible`."
+                        "$ref": "#/components/schemas/BenefitsInformationName"
                     },
                     "coverageLevelCode": {
-                        "type": "string",
-                        "description": "Code indicating the level of coverage for the patient. Can be `CHD` - Children Only, `DEP` - Dependents Only, `ECH` - Employee and Children, `EMP` - Employee Only, `ESP` - Employee and Spouse, `FAM` - Family, `IND` - Individual, `SPC` - Spouse and Children, or `SPO` - Spouse Only."
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelCode"
                     },
                     "coverageLevel": {
-                        "type": "string",
-                        "description": "The name of the coverage level code. For example `Individual`."
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelName"
                     },
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "type": "string"
+                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
                         },
                         "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
                     },
@@ -4630,27 +4583,23 @@
                         "items": {
                             "type": "string"
                         },
-                        "description": "The full name of the listed `serviceTypeCodes`. For example `Psychiatric`, `Social Work`, etc. This may be empty if the payer sends unrecognized codes in the response."
+                        "description": "Loop: 2110C and 2110D, Segments: EB, Element: EB03, Notes: Service Types"
                     },
                     "insuranceTypeCode": {
-                        "type": "string",
-                        "description": "Code identifying the type of insurance policy. For example `MC` - Medicaid. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/eligibility-code-lists#insurance-type-codes) for a complete list."
+                        "$ref": "#/components/schemas/InsuranceTypeCode"
                     },
                     "insuranceType": {
-                        "type": "string",
-                        "description": "The name of the insurance type code. For example `Medicaid`."
+                        "$ref": "#/components/schemas/InsuranceTypeName"
                     },
                     "planCoverage": {
                         "type": "string",
                         "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`."
                     },
                     "timeQualifierCode": {
-                        "type": "string",
-                        "description": "Code indicating the time period for the benefit information. For example `23` - Calendar Year. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#time-qualifier-codes) for a complete list."
+                        "$ref": "#/components/schemas/TimeQualifierCode"
                     },
                     "timeQualifier": {
-                        "type": "string",
-                        "description": "The name of the time period qualifier code. For example `Calendar Year`. \n \n Note that for the patient's deductible, `Calendar Year` indicates the patient's total deductible amount for the year, while `Remaining` indicates the amount left to meet the deductible. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response#deductible) to learn more about deductibles."
+                        "$ref": "#/components/schemas/TimeQualifierName"
                     },
                     "benefitAmount": {
                         "type": "string",
@@ -4661,28 +4610,23 @@
                         "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient responsibility](https://www.stedi.com/docs/healthcare/benefit-response#patient-responsibility) codes."
                     },
                     "quantityQualifierCode": {
-                        "type": "string",
-                        "description": "Code indicating the type of quantity for the benefit. For example `VS` - Visits. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#quantity-qualifier-codes) for a complete list."
+                        "$ref": "#/components/schemas/QuantityQualifierCode"
                     },
                     "quantityQualifier": {
-                        "type": "string",
-                        "description": "The name of the quantity qualifier code. For example, `Visits`."
+                        "$ref": "#/components/schemas/QuantityQualifierName"
                     },
                     "benefitQuantity": {
                         "type": "string",
                         "description": "The quantity of the benefit, qualified by the type specified in `quantityQualifier`. For example, `10` when the `quantityQualifier` is `Visits`."
                     },
                     "authOrCertIndicator": {
-                        "type": "string",
-                        "description": "Code indicating whether the benefit is subject to prior authorization or certification. Can be `Y` - Yes, `N` - No or `U` - Unknown."
+                        "$ref": "#/components/schemas/AuthOrCertIndicator"
                     },
                     "inPlanNetworkIndicatorCode": {
-                        "type": "string",
-                        "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable (when benefits are the same regardless or the plan network does not apply to the benefit). \n \n Note that this **does not indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly."
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorCode"
                     },
                     "inPlanNetworkIndicator": {
-                        "type": "string",
-                        "description": "The name of the in-plan network indicator code. For example, `Yes`."
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorName"
                     },
                     "headerLoopIdentifierCode": {
                         "type": "string",
@@ -4736,13 +4680,129 @@
                     }
                 }
             },
+            "BenefitsInformationCode": {
+                "type": "string",
+                "description": "The code indicating the type of benefits information. Visit [Eligibility and benefit codes](https://www.stedi.com/docs/healthcare/benefit-response#eligibility-and-benefit-type-codes) for more information.",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "A",
+                    "B",
+                    "C",
+                    "CB",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "H",
+                    "I",
+                    "J",
+                    "K",
+                    "L",
+                    "M",
+                    "MC",
+                    "N",
+                    "O",
+                    "P",
+                    "Q",
+                    "R",
+                    "S",
+                    "T",
+                    "U",
+                    "V",
+                    "W",
+                    "X",
+                    "Y",
+                    "Unknown"
+                ]
+            },
+            "BenefitsInformationCoverageLevelCode": {
+                "type": "string",
+                "description": "Code indicating the level of coverage for the patient.",
+                "enum": [
+                    "CHD",
+                    "DEP",
+                    "ECH",
+                    "EMP",
+                    "ESP",
+                    "FAM",
+                    "IND",
+                    "SPC",
+                    "SPO",
+                    "Unknown"
+                ]
+            },
+            "BenefitsInformationCoverageLevelName": {
+                "type": "string",
+                "description": "The full name of the coverage level code.",
+                "enum": [
+                    "Children Only",
+                    "Dependents Only",
+                    "Employee and Children",
+                    "Employee Only",
+                    "Employee and Spouse",
+                    "Family",
+                    "Individual",
+                    "Spouse and Children",
+                    "Spouse Only",
+                    "Unknown"
+                ]
+            },
+            "BenefitsInformationName": {
+                "type": "string",
+                "description": "The full name of the benefits information code.",
+                "enum": [
+                    "Active Coverage",
+                    "Active - Full Risk Capitation",
+                    "Active - Services Capitated",
+                    "Active - Services Capitated to Primary Care Physician",
+                    "Active - Pending Investigation",
+                    "Inactive",
+                    "Inactive - Pending Eligibility Update",
+                    "Inactive - Pending Investigation",
+                    "Co-Insurance",
+                    "Co-Payment",
+                    "Deductible",
+                    "Coverage Basis",
+                    "Benefit Description",
+                    "Exclusions",
+                    "Limitations",
+                    "Out of Pocket (Stop Loss)",
+                    "Unlimited",
+                    "Non-Covered",
+                    "Cost Containment",
+                    "Reserve",
+                    "Primary Care Provider",
+                    "Pre-existing Condition",
+                    "Managed Care Coordinator",
+                    "Services Restricted to Following Provider",
+                    "Not Deemed a Medical Necessity",
+                    "Benefit Disclaimer",
+                    "Second Surgical Opinion Required",
+                    "Other or Additional Payor",
+                    "Prior Year(s) History",
+                    "Card(s) Reported Lost/Stolen",
+                    "Contact Following Entity for Eligibility or Benefit Information",
+                    "Cannot Process",
+                    "Other Source of Data",
+                    "Health Care Facility",
+                    "Spend Down",
+                    "Unknown"
+                ]
+            },
             "BenefitsRelatedEntity": {
                 "type": "object",
                 "description": "Identify another entity associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer.",
                 "properties": {
                     "entityIdentifier": {
-                        "type": "string",
-                        "description": "Code identifying an organizational entity, a physical location, property or an individual. Can be `1I` - Preferred Provider Organization (PPO),  `1P` - Provider, `2B` - Third-Party Administrator, `13` - Contracted Service Provider, `36` - Employer, `73` - Other Physician, `FA` - Facility, `GP` - Gateway Provider, `GW` - Group, `I3` - Independent Physicians Association (IPA), `IL` - Insured or Subscriber, `LR` - Legal Representative, `OC` - Origin Carrier, `P3` - Primary Care Provider, `P4` - Prior Insurance Carrier, `P5` - Plan Sponsor, `PR` - Payer, `PRP` - Primary Payer, `SEP` - Secondary Payer, `TTP` - Tertiary Payer, `VER` - Party Performing Verification, `VN` - Vendor, `VY` - Organization Completing Configuration Change, `X3` - Utilization Management Organization, `Y2` - Managed Care Organization."
+                        "$ref": "#/components/schemas/RelatedEntityIdentifierName",
+                        "description": "Code identifying an organizational entity, a physical location, property or an individual."
                     },
                     "entityType": {
                         "type": "string",
@@ -10535,108 +10595,7 @@
                     }
                 }
             },
-            "EmergencyIndicator": {
-                "type": "string",
-                "description": "Code indicating whether the service was related to an emergency. Can be set to `Y` - Yes. An emergency is when the patient requires immediate medical intervention as a result of severe, life threatening, or potentially disabling conditions.",
-                "enum": [
-                    "Y"
-                ]
-            },
-            "Encounter": {
-                "type": "object",
-                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
-                "properties": {
-                    "beginningDateOfService": {
-                        "type": "string",
-                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
-                    },
-                    "endDateOfService": {
-                        "type": "string",
-                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
-                    },
-                    "dateOfService": {
-                        "type": "string",
-                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone."
-                    },
-                    "serviceTypeCodes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/EncounterServiceTypeCodesItem"
-                        },
-                        "maxItems": 99,
-                        "minItems": 1,
-                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. \n \n If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
-                    },
-                    "priorAuthorizationOrReferralNumber": {
-                        "type": "string",
-                        "description": "The prior authorization or referral number for a particular benefit or procedure."
-                    },
-                    "referenceIdentificationQualifier": {
-                        "$ref": "#/components/schemas/EncounterReferenceIdentificationQualifier"
-                    },
-                    "industryCode": {
-                        "$ref": "#/components/schemas/IndustryCode"
-                    },
-                    "productOrServiceIDQualifier": {
-                        "$ref": "#/components/schemas/EncounterProductOrServiceIDQualifier"
-                    },
-                    "procedureCode": {
-                        "type": "string",
-                        "maxLength": 48,
-                        "minLength": 1,
-                        "description": "The procedure code."
-                    },
-                    "procedureModifiers": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "maxItems": 4,
-                        "minItems": 1,
-                        "description": "The procedure modifier that provides additional information related to the performance of the service."
-                    },
-                    "diagnosisCodePointer": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "maxItems": 4,
-                        "minItems": 1,
-                        "description": "Diagnosis code pointers in order of importance to the service. These pointers are an index to the ICD-10 codes you included in the `subscriber.healthCareCodeInformation` or `dependents.healthCareCodeInformation` object arrays. The pointer values can be from 1 - 8 (integer numbers). If you are including diagnosis codes, you **must** set at least one pointer here for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here."
-                    },
-                    "medicalProcedures": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/MedicalProcedure"
-                        },
-                        "maxItems": 98,
-                        "minItems": 1,
-                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties."
-                    }
-                }
-            },
-            "EncounterProductOrServiceIDQualifier": {
-                "type": "string",
-                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
-                "enum": [
-                    "AD",
-                    "CJ",
-                    "HC",
-                    "ID",
-                    "IV",
-                    "N4",
-                    "ZZ"
-                ]
-            },
-            "EncounterReferenceIdentificationQualifier": {
-                "type": "string",
-                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` property. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
-                "enum": [
-                    "9F",
-                    "G1"
-                ]
-            },
-            "EncounterServiceTypeCodesItem": {
+            "EligibilityServiceTypeCode": {
                 "type": "string",
                 "enum": [
                     "1",
@@ -10825,7 +10784,109 @@
                     "RT",
                     "TC",
                     "TN",
-                    "UC"
+                    "UC",
+                    "Unknown"
+                ]
+            },
+            "EmergencyIndicator": {
+                "type": "string",
+                "description": "Code indicating whether the service was related to an emergency. Can be set to `Y` - Yes. An emergency is when the patient requires immediate medical intervention as a result of severe, life threatening, or potentially disabling conditions.",
+                "enum": [
+                    "Y"
+                ]
+            },
+            "Encounter": {
+                "type": "object",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
+                "properties": {
+                    "beginningDateOfService": {
+                        "type": "string",
+                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
+                    },
+                    "endDateOfService": {
+                        "type": "string",
+                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
+                    },
+                    "dateOfService": {
+                        "type": "string",
+                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone."
+                    },
+                    "serviceTypeCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                        },
+                        "maxItems": 99,
+                        "minItems": 1,
+                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. \n \n If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
+                    },
+                    "priorAuthorizationOrReferralNumber": {
+                        "type": "string",
+                        "description": "The prior authorization or referral number for a particular benefit or procedure."
+                    },
+                    "referenceIdentificationQualifier": {
+                        "$ref": "#/components/schemas/EncounterReferenceIdentificationQualifier"
+                    },
+                    "industryCode": {
+                        "$ref": "#/components/schemas/IndustryCode"
+                    },
+                    "productOrServiceIDQualifier": {
+                        "$ref": "#/components/schemas/EncounterProductOrServiceIDQualifier"
+                    },
+                    "procedureCode": {
+                        "type": "string",
+                        "maxLength": 48,
+                        "minLength": 1,
+                        "description": "The procedure code."
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "The procedure modifier that provides additional information related to the performance of the service."
+                    },
+                    "diagnosisCodePointer": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "Diagnosis code pointers in order of importance to the service. These pointers are an index to the ICD-10 codes you included in the `subscriber.healthCareCodeInformation` or `dependents.healthCareCodeInformation` object arrays. The pointer values can be from 1 - 8 (integer numbers). If you are including diagnosis codes, you **must** set at least one pointer here for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here."
+                    },
+                    "medicalProcedures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MedicalProcedure"
+                        },
+                        "maxItems": 98,
+                        "minItems": 1,
+                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties."
+                    }
+                }
+            },
+            "EncounterProductOrServiceIDQualifier": {
+                "type": "string",
+                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
+                "enum": [
+                    "AD",
+                    "CJ",
+                    "HC",
+                    "ID",
+                    "IV",
+                    "N4",
+                    "ZZ"
+                ]
+            },
+            "EncounterReferenceIdentificationQualifier": {
+                "type": "string",
+                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` property. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
+                "enum": [
+                    "9F",
+                    "G1"
                 ]
             },
             "EpsdtIndicator": {
@@ -11130,6 +11191,26 @@
                 "enum": [
                     "200 OK",
                     "400 BAD_REQUEST"
+                ]
+            },
+            "InPlanNetworkIndicatorCode": {
+                "type": "string",
+                "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable (when benefits are the same regardless or the plan network does not apply to the benefit). \n \n Note that this **does not indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly.",
+                "enum": [
+                    "Y",
+                    "N",
+                    "U",
+                    "W"
+                ]
+            },
+            "InPlanNetworkIndicatorName": {
+                "type": "string",
+                "description": "The name of the in-plan network indicator code.",
+                "enum": [
+                    "Yes",
+                    "No",
+                    "Unknown",
+                    "Not Applicable"
                 ]
             },
             "IndividualRelationshipCode": {
@@ -13782,6 +13863,110 @@
                     "S",
                     "T",
                     "U"
+                ]
+            },
+            "InsuranceTypeCode": {
+                "type": "string",
+                "description": "Code identifying the type of insurance policy.",
+                "enum": [
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "41",
+                    "42",
+                    "43",
+                    "47",
+                    "AP",
+                    "C1",
+                    "CO",
+                    "CP",
+                    "D",
+                    "DB",
+                    "EP",
+                    "FF",
+                    "GP",
+                    "HM",
+                    "HN",
+                    "HS",
+                    "IN",
+                    "IP",
+                    "LC",
+                    "LD",
+                    "LI",
+                    "LT",
+                    "MA",
+                    "MB",
+                    "MC",
+                    "MH",
+                    "MI",
+                    "MP",
+                    "OT",
+                    "PE",
+                    "PL",
+                    "PP",
+                    "PR",
+                    "PS",
+                    "QM",
+                    "RP",
+                    "SP",
+                    "TF",
+                    "WC",
+                    "WU",
+                    "Unknown"
+                ]
+            },
+            "InsuranceTypeName": {
+                "type": "string",
+                "description": "The full name of the insurance type code.",
+                "enum": [
+                    "Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan",
+                    "Medicare Secondary End-Stage Renal Disease Beneficiary in the Mandated Coordination Period with an Employer's Group Health Plan",
+                    "Medicare Secondary, No-fault Insurance including Auto is Primary",
+                    "Medicare Secondary Worker's Compensation",
+                    "Medicare Secondary Public Health Service (PHS)or Other Federal Agency",
+                    "Medicare Secondary Black Lung",
+                    "Medicare Secondary Veteran's Administration",
+                    "Medicare Secondary Disabled Beneficiary Under Age 65 with Large Group Health Plan (LGHP)",
+                    "Medicare Secondary, Other Liability Insurance is Primary",
+                    "Auto Insurance Policy",
+                    "Commercial",
+                    "Consolidated Omnibus Budget Reconciliation Act (COBRA)",
+                    "Medicare Conditionally Primary",
+                    "Disability",
+                    "Disability Benefits",
+                    "Exclusive Provider Organization",
+                    "Family or Friends",
+                    "Group Policy",
+                    "Health Maintenance Organization (HMO)",
+                    "Health Maintenance Organization (HMO) - Medicare Risk",
+                    "Special Low Income Medicare Beneficiary",
+                    "Indemnity",
+                    "Individual Policy",
+                    "Long Term Care",
+                    "Long Term Policy",
+                    "Life Insurance",
+                    "Litigation",
+                    "Medicare Part A",
+                    "Medicare Part B",
+                    "Medicaid",
+                    "Medigap Part A",
+                    "Medigap Part B",
+                    "Medicare Primary",
+                    "Other",
+                    "Property Insurance - Personal",
+                    "Personal",
+                    "Personal Payment (Cash - No Insurance)",
+                    "Preferred Provider Organization (PPO)",
+                    "Point of Service (POS)",
+                    "Qualified Medicare Beneficiary",
+                    "Property Insurance - Real",
+                    "Supplemental Policy",
+                    "Tax Equity Fiscal Responsibility Act (TEFRA)",
+                    "Workers Compensation",
+                    "Wrap Up Policy",
+                    "Unknown"
                 ]
             },
             "InternalFailureExceptionResponseContent": {
@@ -16665,8 +16850,9 @@
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "type": "string"
-                        }
+                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                        },
+                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
                     }
                 }
             },
@@ -16918,7 +17104,7 @@
             },
             "Provider": {
                 "type": "object",
-                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. \n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual). \n - You must also provide an identifier - this is typically the provider's National Provider ID (`npi`). If the provider doesn't have an NPI, you can supply their `taxId` or `ssn`.\n - You shouldn't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer.",
+                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must also provide an identifier - this is typically the provider's National Provider ID (`npi`). If the provider doesn't have an NPI, you can supply their `taxId` or `ssn`.\n - You shouldn't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -17354,6 +17540,56 @@
                     "purchasedServiceProviderIdentifier"
                 ]
             },
+            "QuantityQualifierCode": {
+                "type": "string",
+                "description": "Code indicating the type of quantity for the benefit.",
+                "enum": [
+                    "8H",
+                    "99",
+                    "CA",
+                    "CE",
+                    "D3",
+                    "DB",
+                    "DY",
+                    "HS",
+                    "LA",
+                    "LE",
+                    "M2",
+                    "MN",
+                    "P6",
+                    "QA",
+                    "S7",
+                    "S8",
+                    "VS",
+                    "YY",
+                    "Unknown"
+                ]
+            },
+            "QuantityQualifierName": {
+                "type": "string",
+                "description": "The name of the quantity qualifier code.",
+                "enum": [
+                    "Minimum",
+                    "Quantity Used",
+                    "Covered - Actual",
+                    "Covered - Estimated",
+                    "Number of Co-insurance Days",
+                    "Deductible Blood Units",
+                    "Days",
+                    "Hours",
+                    "Life-time Reserve - Actual",
+                    "Life-time Reserve - Estimated",
+                    "Maximum",
+                    "Month",
+                    "Number of Services or Procedures",
+                    "Quantity Approved",
+                    "Age, High Value",
+                    "Age, Low Value",
+                    "Visits",
+                    "Years",
+                    "Unknown"
+                ]
+            },
             "QuestionResponseCode": {
                 "type": "string",
                 "description": "Code indicating a yes or no condition response to the question. Can be set to `N` - No, `W` - Not Applicable, or `Y` - Yes.",
@@ -17502,6 +17738,38 @@
                     "T4",
                     "T5",
                     "T6"
+                ]
+            },
+            "RelatedEntityIdentifierName": {
+                "type": "string",
+                "description": "Code identifying an organizational entity, a physical location, property or an individual. \n  - `PPO` is used to identify a PPO by name or identification number, and also may also be used if identifying the Network that benefits are restricted to for In-Network benefits.",
+                "enum": [
+                    "Contracted Service Provider",
+                    "Preferred Provider Organization (PPO)",
+                    "Provider",
+                    "Third-Party Administrator",
+                    "Employer",
+                    "Other Physician",
+                    "Facility",
+                    "Gateway Provider",
+                    "Group",
+                    "Independent Physicians Association (IPA)",
+                    "Insured or Subscriber",
+                    "Legal Representative",
+                    "Origin Carrier",
+                    "Primary Care Provider",
+                    "Prior Insurance Carrier",
+                    "Plan Sponsor",
+                    "Payer",
+                    "Primary Payer",
+                    "Secondary Payer",
+                    "Tertiary Payer",
+                    "Party Performing Verification",
+                    "Vendor",
+                    "Organization Completing Configuration Change",
+                    "Utilization Management Organization",
+                    "Managed Care Organization",
+                    "Unknown"
                 ]
             },
             "RelationshipToSubscriberCode": {
@@ -17955,7 +18223,7 @@
             },
             "RequestDependentReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligiblity check, such as the referring provider.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the dependent. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY` - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
+                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligibility check, such as the referring provider.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the dependent. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY` - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -18167,7 +18435,7 @@
             },
             "RequestSubscriberGender": {
                 "type": "string",
-                "description": "Code indiciating the subscriber's gender.",
+                "description": "Code indicating the subscriber's gender.",
                 "enum": [
                     "M",
                     "F"
@@ -19519,6 +19787,82 @@
                     "patientConditionCode"
                 ]
             },
+            "StateOrProvinceCode": {
+                "type": "string",
+                "description": "The US state or Canadian province code. For example, `TN` for Tennessee or `NB` for New Brunswick.",
+                "enum": [
+                    "NL",
+                    "PE",
+                    "NS",
+                    "NB",
+                    "QC",
+                    "ON",
+                    "MB",
+                    "SK",
+                    "AB",
+                    "BC",
+                    "YT",
+                    "NT",
+                    "NU",
+                    "DC",
+                    "AS",
+                    "GU",
+                    "MP",
+                    "PR",
+                    "UM",
+                    "VI",
+                    "AK",
+                    "AL",
+                    "AR",
+                    "AZ",
+                    "CA",
+                    "CO",
+                    "CT",
+                    "DE",
+                    "FL",
+                    "GA",
+                    "HI",
+                    "IA",
+                    "ID",
+                    "IL",
+                    "IN",
+                    "KS",
+                    "KY",
+                    "LA",
+                    "MA",
+                    "MD",
+                    "ME",
+                    "MI",
+                    "MN",
+                    "MO",
+                    "MS",
+                    "MT",
+                    "NC",
+                    "ND",
+                    "NE",
+                    "NH",
+                    "NJ",
+                    "NM",
+                    "NV",
+                    "NY",
+                    "OH",
+                    "OK",
+                    "OR",
+                    "PA",
+                    "RI",
+                    "SC",
+                    "SD",
+                    "TN",
+                    "TX",
+                    "UT",
+                    "VA",
+                    "VT",
+                    "WA",
+                    "WI",
+                    "WV",
+                    "WY"
+                ]
+            },
             "Status": {
                 "type": "object",
                 "description": "Information about the status, required action, and paid information of a service line.",
@@ -19879,6 +20223,58 @@
                 },
                 "required": [
                     "message"
+                ]
+            },
+            "TimeQualifierCode": {
+                "type": "string",
+                "description": "Code indicating the time period for the benefit information.",
+                "enum": [
+                    "6",
+                    "7",
+                    "13",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "29",
+                    "30",
+                    "31",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "Unknown"
+                ]
+            },
+            "TimeQualifierName": {
+                "type": "string",
+                "description": "The name of the time period qualifier code. \n \n Note that for the patient's deductible, `Calendar Year` indicates the patient's total deductible amount for the year, while `Remaining` indicates the amount left to meet the deductible. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response#deductible) to learn more about deductibles.",
+                "enum": [
+                    "Hour",
+                    "Day",
+                    "24 Hours",
+                    "Years",
+                    "Service Year",
+                    "Calendar Year",
+                    "Year to Date",
+                    "Contract",
+                    "Episode",
+                    "Visit",
+                    "Outlier",
+                    "Remaining",
+                    "Exceeded",
+                    "Not Exceeded",
+                    "Lifetime",
+                    "Lifetime Remaining",
+                    "Month",
+                    "Week",
+                    "Admission",
+                    "Unknown"
                 ]
             },
             "ToothInformation": {
