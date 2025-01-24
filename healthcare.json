@@ -8929,7 +8929,8 @@
                         "description": "The patient's name suffix, such as Jr. or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/DependentGender"
+                        "$ref": "#/components/schemas/DependentGender",
+                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -9871,7 +9872,8 @@
                         "description": "The suffix of the subscriber's name, such as Jr. or Sr."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/SubscriberGender"
+                        "$ref": "#/components/schemas/SubscriberGender",
+                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -9911,7 +9913,8 @@
                         "description": "The patient's name suffix, such as Jr. or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/DependentGender"
+                        "$ref": "#/components/schemas/DependentGender",
+                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -9945,7 +9948,7 @@
             },
             "DependentGender": {
                 "type": "string",
-                "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.",
+                "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records.",
                 "enum": [
                     "M",
                     "F",
@@ -11053,7 +11056,7 @@
             },
             "Gender": {
                 "type": "string",
-                "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.",
+                "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records.",
                 "enum": [
                     "F",
                     "M",
@@ -12225,35 +12228,46 @@
                 "properties": {
                     "firstName": {
                         "type": "string",
-                        "maxLength": 35
+                        "maxLength": 35,
+                        "description": "The patient's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "maxLength": 60
+                        "maxLength": 60,
+                        "description": "The patient's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "maxLength": 25
+                        "maxLength": 25,
+                        "description": "The patient's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
-                        "maxLength": 10
+                        "maxLength": 10,
+                        "description": "The patient's name suffix, such as Jr. or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/Gender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$"
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The patient's date of birth, formatted as YYYYMMDD."
                     },
                     "ssn": {
-                        "type": "string"
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "description": "The patient's Social Security Number. Only used for Property and Casualty claims. The Social Security Number must be a string of exactly nine numbers with no separators. For example 123456789."
                     },
                     "relationshipToSubscriberCode": {
-                        "$ref": "#/components/schemas/InstitutionalRelationshipToSubscriberCode"
+                        "$ref": "#/components/schemas/InstitutionalRelationshipToSubscriberCode",
+                        "description": "Identifies the relationship of the patient to the subscriber. Can be set to `01` - Spouse, `19` - Child, `20` - Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InstitutionalAddress"
+                        "$ref": "#/components/schemas/InstitutionalAddress",
+                        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object."
                     }
                 },
                 "required": [
@@ -13007,10 +13021,12 @@
             },
             "InstitutionalRelationshipToSubscriberCode": {
                 "type": "string",
+                "description": "Identifies the relationship of the patient to the subscriber. Can be set to `01` - Spouse, `19` - Child, `20` - Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.",
                 "enum": [
                     "01",
                     "19",
                     "20",
+                    "21",
                     "39",
                     "40",
                     "53",
@@ -13733,6 +13749,8 @@
                     },
                     "ssn": {
                         "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
                         "pattern": "^\\d{9}$",
                         "description": "The subscriber's Social Security Number. This must be a string of exactly nine numbers with no separators. For example, `123456789`."
                     },
@@ -13760,7 +13778,8 @@
                         "description": "The subscriber's name suffix, such as Jr. or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/Gender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -20035,7 +20054,8 @@
                         "description": "The suffix of the subscriber's name, such as Jr. or Sr."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/SubscriberGender"
+                        "$ref": "#/components/schemas/SubscriberGender",
+                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -20059,7 +20079,7 @@
             },
             "SubscriberGender": {
                 "type": "string",
-                "description": "Identifies the subscriber's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. This property is **required** if the subscriber is an individual.",
+                "description": "Identifies the subscriber's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nThis property is **required** if the subscriber is an individual. \n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records.",
                 "enum": [
                     "M",
                     "F",
