@@ -6767,67 +6767,9 @@
                     }
                 }
             },
-            "ClaimStatusProvider": {
-                "type": "object",
-                "properties": {
-                    "organizationName": {
-                        "type": "string",
-                        "maxLength": 60,
-                        "minLength": 1,
-                        "description": "The provider's organization name. Use when the provider is not an individual, such as a hospital or clinic."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "maxLength": 35,
-                        "minLength": 1,
-                        "description": "The provider's first name. Use when the provider is an individual."
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "maxLength": 60,
-                        "minLength": 1,
-                        "description": "The provider's last name. Use when the provider is an individual."
-                    },
-                    "npi": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
-                        "description": "The National Provider Identification (NPI) number. The [NPI](https://www.cms.gov/Regulations-and-Guidance/Administrative-Simplification/NationalProvIdentStand) is a unique, 10-digit identification number assigned to healthcare providers according to HIPAA standards."
-                    },
-                    "spn": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
-                        "description": "Deprecated; The service provider number. Use `npi` to identify the service provider instead."
-                    },
-                    "tin": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2
-                    },
-                    "taxId": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
-                        "description": "The Taxpayer Identification Number (TIN)."
-                    },
-                    "etin": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
-                        "description": "The Electronic Transmitter Identification Number (ETIN). This identifier is preferred if the payer specifically assigned one for the provider. If not, most payers will accept the provider's NPI or TIN instead."
-                    },
-                    "providerType": {
-                        "$ref": "#/components/schemas/ClaimStatusProviderType"
-                    }
-                },
-                "required": [
-                    "providerType"
-                ]
-            },
             "ClaimStatusProviderType": {
                 "type": "string",
-                "description": "Identifies the type of provider related to the referenced healthcare claim. You can include both a billing provider and a service provider if both are relevant to the request.",
+                "description": "Identifies the type of provider related to the referenced healthcare claim.",
                 "enum": [
                     "BillingProvider",
                     "ServiceProvider"
@@ -6861,9 +6803,9 @@
                     "providers": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ClaimStatusProvider"
+                            "$ref": "#/components/schemas/StatusResponseProvider"
                         },
-                        "description": "Information about the provider making the claim status request."
+                        "description": "Information about the billing and/or service providers related to the referenced claim."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -6929,7 +6871,7 @@
                     "providers": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ClaimStatusProvider",
+                            "$ref": "#/components/schemas/StatusRequestProvider",
                             "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. When the `providerType` = `BillingProvider`, you must provide the provider's `etin`."
                         },
                         "maxItems": 2147483647,
@@ -6974,9 +6916,9 @@
                     "providers": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ClaimStatusProvider"
+                            "$ref": "#/components/schemas/StatusResponseProvider"
                         },
-                        "description": "Information about the provider making the claim status request."
+                        "description": "Information about the billing and/or service providers related to the referenced claim."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -19896,6 +19838,124 @@
                         "description": "The date the service line was placed in this status by the payer's adjudication process. Formatted as `YYYYMMDD`."
                     }
                 }
+            },
+            "StatusRequestProvider": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's organization name. Use when the provider is not an individual, such as a hospital or clinic."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
+                        "description": "The provider's first name. Use when the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's last name. Use when the provider is an individual."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The National Provider Identification (NPI) number."
+                    },
+                    "spn": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "Deprecated; The service provider number. Use `npi` to identify the service provider instead."
+                    },
+                    "tin": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The Taxpayer Identification Number (TIN)."
+                    },
+                    "etin": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The Electronic Transmitter Identification Number (ETIN). This identifier is preferred if the payer specifically assigned one for the provider. If not, most payers will accept the provider's NPI or TIN instead."
+                    },
+                    "providerType": {
+                        "$ref": "#/components/schemas/ClaimStatusProviderType",
+                        "description": "Identifies the type of provider related to the referenced healthcare claim. You can include both a billing provider and a service provider if both are relevant to the request."
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
+            },
+            "StatusResponseProvider": {
+                "type": "object",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's organization name."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
+                        "description": "The provider's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's last name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The National Provider Identification (NPI) number."
+                    },
+                    "spn": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The service provider number."
+                    },
+                    "tin": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The Taxpayer Identification Number (TIN)."
+                    },
+                    "etin": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "The Electronic Transmitter Identification Number (ETIN)."
+                    },
+                    "providerType": {
+                        "$ref": "#/components/schemas/ClaimStatusProviderType",
+                        "description": "Identifies the type of provider related to the referenced healthcare claim."
+                    }
+                },
+                "required": [
+                    "providerType"
+                ]
             },
             "Submitter": {
                 "type": "object",
