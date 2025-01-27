@@ -146,12 +146,12 @@
                     {
                         "name": "pageSize",
                         "in": "query",
-                        "description": "The maximum number of elements to return in a page. You can set this to a maximum of 10 elements. If not specified, the default is 10.",
+                        "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. You can set this to a maximum of 10 checks. If not specified, the default is 10.",
                         "schema": {
                             "type": "number",
                             "maximum": 10,
                             "minimum": 1,
-                            "description": "The maximum number of elements to return in a page. You can set this to a maximum of 10 elements. If not specified, the default is 10."
+                            "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. You can set this to a maximum of 10 checks. If not specified, the default is 10."
                         }
                     },
                     {
@@ -1701,7 +1701,7 @@
                         "type": "string",
                         "maxLength": 1024,
                         "minLength": 1,
-                        "description": "The token used for pagination"
+                        "description": "A Stedi-generated token that you can submit in the `pageToken` query parameter to retrieve the next page of results. If there are no more results, this property is not included in the response."
                     },
                     "items": {
                         "type": "array",
