@@ -9853,7 +9853,7 @@
                     },
                     "subscriberGroupName": {
                         "type": "string",
-                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield."
+                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield. \n\nProvide either this property OR the `groupNumber`, not both. If `groupNumber` is set, Stedi ignores this value and uses the value in `groupNumber`."
                     },
                     "firstName": {
                         "type": "string",
@@ -9885,7 +9885,7 @@
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
+                        "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
@@ -12622,11 +12622,11 @@
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The group number for the subscriber's health plan."
+                        "description": "The group number for the subscriber's health plan.\n\nProvide this property OR the `otherInsuredGroupName`, not both. If this property is set, Stedi ignores the `otherInsuredGroupName` property."
                     },
                     "otherInsuredGroupName": {
                         "type": "string",
-                        "description": "The name of the subscriber's health plan."
+                        "description": "The name of the subscriber's health plan.\n\nProvide either this property OR the `groupNumber`, not both. If `groupNumber` is set, Stedi ignores this value and uses the value in `groupNumber`."
                     },
                     "claimFilingIndicatorCode": {
                         "$ref": "#/components/schemas/InstitutionalClaimFilingIndicatorCode",
@@ -20035,7 +20035,7 @@
                     },
                     "subscriberGroupName": {
                         "type": "string",
-                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield."
+                        "description": "The name of the subscriber's health plan. For example, Cigna or Blue Cross Blue Shield. \n\nProvide either this property OR the `groupNumber`, not both. If `groupNumber` is set, Stedi ignores this value and uses the value in `groupNumber`."
                     },
                     "firstName": {
                         "type": "string",
@@ -20067,7 +20067,7 @@
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan group number. You should provide this property OR the `policyNumber`, not both."
+                        "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
