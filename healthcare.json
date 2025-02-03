@@ -4134,6 +4134,15 @@
                     "E"
                 ]
             },
+            "ApplicationModes": {
+                "type": "string",
+                "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.",
+                "enum": [
+                    "production",
+                    "test",
+                    "information"
+                ]
+            },
             "AssistantSurgeon": {
                 "type": "object",
                 "description": "Information about the assistant surgeon who rendered the care. Use this object when the rendering providers provided these services in the role of the assistant surgeon.\n\nThis should be an individual, not an organization, and you should supply at least the surgeon's `lastName`, `taxonomyCode`, and an identifier, which is typically the `npi`.",
@@ -10630,8 +10639,8 @@
                         "description": "The biller ID Stedi assigns to this request."
                     },
                     "applicationMode": {
-                        "type": "string",
-                        "description": "The type of data in the request. This is always `production`."
+                        "$ref": "#/components/schemas/ApplicationModes",
+                        "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used."
                     },
                     "traceId": {
                         "type": "string",
