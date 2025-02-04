@@ -3309,6 +3309,238 @@
                 }
             }
         },
+        "/coordination-of-benefits": {
+            "post": {
+                "operationId": "CoordinationOfBenefits",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CoordinationOfBenefitsRequestContent"
+                            },
+                            "examples": {
+                                "CoordinationOfBenefits_example1": {
+                                    "summary": "COB example",
+                                    "description": "",
+                                    "value": {
+                                        "tradingPartnerServiceId": "SOMEID",
+                                        "provider": {
+                                            "organizationName": "ACME Health Services",
+                                            "npi": "1999999984"
+                                        },
+                                        "subscriber": {
+                                            "firstName": "John",
+                                            "lastName": "Doe",
+                                            "dateOfBirth": "1985-05-27",
+                                            "memberId": "W000000000"
+                                        },
+                                        "dependent": {
+                                            "firstName": "Jordan",
+                                            "lastName": "Doe",
+                                            "dateOfBirth": "2002-12-31"
+                                        },
+                                        "encounter": {
+                                            "dateOfService": "2024-08-02",
+                                            "serviceTypeCode": "30"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "CoordinationOfBenefits 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CoordinationOfBenefitsResponseContent"
+                                },
+                                "examples": {
+                                    "CoordinationOfBenefits_example1": {
+                                        "summary": "COB example",
+                                        "description": "",
+                                        "value": {
+                                            "benefitsInformation": [
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "1"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Medical Care"
+                                                    ],
+                                                    "benefitsDateInformation": {
+                                                        "benefitBegin": "2023-03-01"
+                                                    },
+                                                    "subscriber": {
+                                                        "dateOfBirth": "2002-02-27"
+                                                    }
+                                                },
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "88"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Pharmacy"
+                                                    ],
+                                                    "benefitsDateInformation": {
+                                                        "benefitBegin": "2023-03-01"
+                                                    },
+                                                    "subscriber": {
+                                                        "dateOfBirth": "2002-02-27"
+                                                    }
+                                                },
+                                                {
+                                                    "code": "1",
+                                                    "name": "Active Coverage",
+                                                    "serviceTypeCodes": [
+                                                        "AL"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Vision (Optometry)"
+                                                    ],
+                                                    "benefitsDateInformation": {
+                                                        "benefitBegin": "2023-03-01"
+                                                    },
+                                                    "subscriber": {
+                                                        "dateOfBirth": "2002-02-27"
+                                                    }
+                                                },
+                                                {
+                                                    "code": "R",
+                                                    "name": "Other or Additional Payor",
+                                                    "serviceTypeCodes": [
+                                                        "1"
+                                                    ],
+                                                    "serviceTypes": [
+                                                        "Medical Care"
+                                                    ],
+                                                    "benefitsDateInformation": {
+                                                        "coordinationOfBenefits": "2024-07-01"
+                                                    },
+                                                    "benefitsRelatedEntities": [
+                                                        {
+                                                            "entityIdentifier": "Primary Payer",
+                                                            "entityName": "CIGNA",
+                                                            "entityIdentification": "PI",
+                                                            "entityIdentificationValue": "1006"
+                                                        },
+                                                        {
+                                                            "entityIdentifier": "Insured or Subscriber",
+                                                            "entityFirstName": "JOHN",
+                                                            "entityMiddleName": "X",
+                                                            "entityIdentification": "MI",
+                                                            "entityIdentificationValue": "00000000000",
+                                                            "entityLastName": "DOE"
+                                                        }
+                                                    ],
+                                                    "subscriber": {
+                                                        "dateOfBirth": "2002-12-31"
+                                                    }
+                                                }
+                                            ],
+                                            "coordinationOfBenefits": {
+                                                "classification": "CobInstanceExistsPrimacyDetermined",
+                                                "instanceExists": true,
+                                                "primacyDetermined": true,
+                                                "coverageOverlap": true,
+                                                "benefitOverlap": true
+                                            },
+                                            "dependent": {
+                                                "firstName": "JORDAN",
+                                                "lastName": "DOE",
+                                                "gender": "M",
+                                                "dateOfBirth": "2002-12-31",
+                                                "relationToSubscriber": "Child",
+                                                "relationToSubscriberCode": "19",
+                                                "address": {
+                                                    "address1": "1 MAIN ST.",
+                                                    "city": "NEW YORK",
+                                                    "state": "NY",
+                                                    "postalCode": "10000"
+                                                }
+                                            },
+                                            "errors": [],
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "traceId": "01JDQFT4W3KTWZNTADEZ55BFFX",
+                                                "outboundTraceId": "01JDQFT4W3KTWZNTADEZ55BFFX"
+                                            },
+                                            "payer": {
+                                                "name": "Aetna",
+                                                "identification": "AETNA-USH"
+                                            },
+                                            "provider": {
+                                                "providerName": "ACME Health Services",
+                                                "entityType": "Non-Person Entity",
+                                                "npi": "1999999984"
+                                            },
+                                            "subscriber": {
+                                                "memberId": "W000000000",
+                                                "firstName": "JOHN",
+                                                "lastName": "DOE",
+                                                "address": {
+                                                    "address1": "1 MAIN ST.",
+                                                    "city": "NEW YORK",
+                                                    "state": "NY",
+                                                    "postalCode": "10000"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/dental-claims/raw-x12-submission": {
             "post": {
                 "operationId": "DentalClaimsRawX12Submission",
@@ -3982,13 +4214,13 @@
                         "type": "string",
                         "maxLength": 2,
                         "minLength": 2,
-                        "description": "The country code. Use the alpha-2 country codes from Part 1 of ISO 3166."
+                        "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
                         "maxLength": 3,
                         "minLength": 1,
-                        "description": "The country subdivision code. Use the country subdivision codes from Part 2 of ISO 3166."
+                        "description": "The country subdivision code from [Part 2 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-2)."
                     }
                 }
             },
@@ -5050,6 +5282,525 @@
                         }
                     }
                 }
+            },
+            "COB": {
+                "type": "object",
+                "properties": {
+                    "classification": {
+                        "type": "string",
+                        "description": "The classification for the benefits that have been discovered in the COB response. Stedi returns one of the following values:\n    - `CobInstanceExistsPrimacyDetermined`: COB Instance Exists and Primacy was determined\n    - `CobInstanceExistsPrimacyUndetermined`: COB Instance Exists and Primacy was NOT determined\n    - `CoverageOverlapNoBenefitOverlap`: Coverage Overlap detected with no Benefit Overlap\n    - `CoverageOverlapExistsNotSubjectToCob`: Coverage Overlap exists and is not subject to COB\n    - `MemberFoundNoCob`: Member found, no COB found"
+                    },
+                    "instanceExists": {
+                        "type": "boolean",
+                        "description": "If set to `true`, the COB response contains at least one coordination of benefits instance."
+                    },
+                    "primacyDetermined": {
+                        "type": "boolean",
+                        "description": "If set to `true`, Stedi was able to determine the primary payer for the patient. If Stedi was unable to determine the primary payer, you must contact the payers directly to determine primacy."
+                    },
+                    "coverageOverlap": {
+                        "type": "boolean",
+                        "description": "If set to `true`, the COB response contains a coverage overlap, meaning that the patient has active coverage with two or more payers during the service date submitted in the COB request.\n    - Coverage overlap can be for coverages from the same payer if the member ID is different between the two coverages.\n    - A coverage overlap is necessary for a COB instance to exist.\n    - A coverage overlap can exist without there being a COB instance if either of the two coverages is not subject to COB for any reason."
+                    },
+                    "benefitOverlap": {
+                        "type": "boolean",
+                        "description": "If set to `true`, the COB response contains benefits overlap. A benefits overlap indicates that the patient has active coverage from two or more payers for the same service type code, including the subtypes of medical coverage."
+                    }
+                }
+            },
+            "COBBenefitsDateInformation": {
+                "type": "object",
+                "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYY-MM-DD or as a range of dates, formatted as YYYY-MM-DD/YYYY-MM-DD. Dates listed only apply to the `benefitsInformation` object in which this benefitsDateInformation is provided.",
+                "properties": {
+                    "periodStart": {
+                        "type": "string",
+                        "description": "The start of the coverage overlap Included when Stedi finds an instance of coverage overlap."
+                    },
+                    "periodEnd": {
+                        "type": "string",
+                        "description": "The end of the coverage overlap. Included when Stedi finds an instance of coverage overlap."
+                    },
+                    "coordinationOfBenefits": {
+                        "type": "string",
+                        "description": "Date or date range used for coordination of benefits instance."
+                    },
+                    "planBegin": {
+                        "type": "string",
+                        "description": "Coverage start date. If multiple coverage start dates exist due to different start dates on various coverage/service types, this date applies to the medical coverage."
+                    },
+                    "benefitBegin": {
+                        "type": "string",
+                        "description": "The date the benefits begin."
+                    },
+                    "benefitEnd": {
+                        "type": "string",
+                        "description": "The date the benefits end."
+                    }
+                }
+            },
+            "COBBenefitsInformation": {
+                "type": "object",
+                "properties": {
+                    "benefitsDateInformation": {
+                        "$ref": "#/components/schemas/COBBenefitsDateInformation",
+                        "description": "Dates associated with the benefits. All properties may either be expressed as a single date, formatted as YYYY-MM-DD or as a range of dates, formatted as YYYY-MM-DD/YYYY-MM-DD. Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided."
+                    },
+                    "benefitsRelatedEntities": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/COBBenefitsRelatedEntity"
+                        },
+                        "description": "Contains either information about another payer with which the patient has coverage or information about the subscriber associated with the additional health plan.\n\nFor example, if you submit a COB check for a dependent to Cigna and Stedi finds additional coverage through Aetna, the `benefitsRelatedEntity` would include subscriber details for the Aetna plan."
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/COBResponseBenefitsInformationSubscriber",
+                        "description": "Information about the primary policyholder for the insurance plan related to this `benefitsInformation` instance."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/COBResponseBenefitsInformationCode",
+                        "description": "The COB benefits information code. \n\nStedi returns entries with `benefitsInformation.code` = `1` for every active coverage type for each health plan.\n\nStedi returns entries with `benefitsInformation.code` = `R` when overlapping coverage exists within the date of service provided in the COB check."
+                    },
+                    "name": {
+                        "$ref": "#/components/schemas/COBBenefitsInformationName",
+                        "description": "The name of the benefit information code."
+                    },
+                    "serviceTypeCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/COBResponseServiceTypeCode"
+                        },
+                        "description": "Code identifying the type of services."
+                    },
+                    "serviceTypes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/COBResponseServiceTypeCodeName"
+                        },
+                        "description": "The full names of the service type codes."
+                    }
+                }
+            },
+            "COBBenefitsInformationName": {
+                "type": "string",
+                "description": "The full name of the benefits information code.",
+                "enum": [
+                    "Active Coverage",
+                    "Inactive",
+                    "Other or Additional Payor",
+                    "Cannot Process"
+                ]
+            },
+            "COBBenefitsRelatedEntity": {
+                "type": "object",
+                "properties": {
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/EntityIdentifierName",
+                        "description": "Identifies the type of entity. This can either be a type of payer or the subscriber associated with the COB coverage.\n\nNote that Stedi uses `Payer` either when there is no COB instance or when Stedi is unable to determine primacy."
+                    },
+                    "entityName": {
+                        "type": "string",
+                        "description": "The payer's business name, when the entity is a payer."
+                    },
+                    "entityLastname": {
+                        "type": "string",
+                        "description": "The entity's last name, when the entity is a subscriber."
+                    },
+                    "entityFirstname": {
+                        "type": "string",
+                        "description": "The entity's first name, when the entity is a subscriber."
+                    },
+                    "entityMiddlename": {
+                        "type": "string",
+                        "description": "The entity's middle name or initial, when the entity is a subscriber."
+                    },
+                    "entityIdentification": {
+                        "$ref": "#/components/schemas/EntityIdentificationCode",
+                        "description": "Code identifying the type of `benefitsInformation.entityIdentificationValue`. This can be either `MI` - Member ID or `PI` - Payer ID."
+                    },
+                    "entityIdentificationValue": {
+                        "type": "string",
+                        "description": "The identification number for the entity, qualified by the code in `entityIdentification`."
+                    }
+                }
+            },
+            "COBDependent": {
+                "type": "object",
+                "description": "A dependent for which you want to check coordination of benefits.\n- An individual qualifies as a dependent when they are listed as a dependent on the subscriber's insurance plan AND the payer cannot uniquely identify them through information outside the subscriber's policy. For example, if the dependent has their own member ID number, you should identify them in the `subscriber` object instead.\n- The demographic information you provide **must** patch the payer's data exactly. For example, if the payer has the dependent's name as `Jonathan Doe`, a COB request for `Jon Doe` will fail because the name doesn't match the payer's records.",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
+                        "description": "The dependent's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The dependent's last name."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The dependent's date of birth in YYYY-MM-DD format."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The dependent's Social Security Number (SSN)."
+                    }
+                },
+                "required": [
+                    "dateOfBirth",
+                    "firstName",
+                    "lastName"
+                ]
+            },
+            "COBEncounter": {
+                "type": "object",
+                "description": "Information about the encounter.\n- You can submit COB checks with the `30` service type code for Health Benefit Plan Coverage. This is the broadest service type code that covers all medical services and subtypes included in the patient’s health plan.\n- The service dates you provide **must** be within the past 2 years. COB checks don't support requests with dates outside of this range.\n- If you don't specify a service date (either a single day or a range of dates), Stedi defaults to using the current date.",
+                "properties": {
+                    "dateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date of service of the encounter in YYYY-MM-DD format."
+                    },
+                    "beginningDateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The beginning date of service, formatted as YYYY-MM-DD. If you include this value, you must also include the `endDateOfService`."
+                    },
+                    "endDateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end date of service, formatted as YYYY-MM-DD. If you include this value, you must also include the `beginningDateOfService`."
+                    },
+                    "serviceTypeCode": {
+                        "$ref": "#/components/schemas/COBServiceTypeCode"
+                    }
+                }
+            },
+            "COBMetaData": {
+                "type": "object",
+                "properties": {
+                    "applicationMode": {
+                        "type": "string",
+                        "description": "The type of data in the request. Stedi uses `production` to identify transactions processed in our live clearinghouse environment."
+                    },
+                    "traceId": {
+                        "type": "string",
+                        "description": "A unique ID Stedi assigns to the COB request."
+                    },
+                    "outboundTraceId": {
+                        "type": "string",
+                        "description": "The value provided in the `submitterTransactionIdentifier` property in the original COB request."
+                    }
+                }
+            },
+            "COBPayer": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The payer's name, such as `CIGNA`."
+                    },
+                    "payerIdentification": {
+                        "type": "string",
+                        "description": "The `tradingPartnerServiceId` (Payer ID) you used to identify the payer in the COB request."
+                    }
+                }
+            },
+            "COBPlanDateInformation": {
+                "type": "object",
+                "description": "Dates associated with the patient's health plan coverage. This information is used to determine their eligibility for benefits. \n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.",
+                "properties": {
+                    "planBegin": {
+                        "type": "string",
+                        "description": "When the patient's health plan coverage begins. Can be formatted as a single date, or as a range of dates in YYYY-MM-DD/YYYY-MM-DD format."
+                    },
+                    "planEnd": {
+                        "type": "string",
+                        "description": "When the patient's health plan coverage ends. Can be formatted as a single date in YYYY-MM-DD format."
+                    }
+                }
+            },
+            "COBProvider": {
+                "type": "object",
+                "description": "Information about the entity requesting the coverage.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's business name."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
+                        "description": "The provider's first name. This property is required if the provider is an individual."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The provider's last name. This property is required if the provider is an individual."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "pattern": "^\\d{10}$|^\\d{15}$",
+                        "description": "The provider's National Provider Identifier (NPI)."
+                    }
+                },
+                "required": [
+                    "npi"
+                ]
+            },
+            "COBResponseBenefitsInformationCode": {
+                "type": "string",
+                "description": "The code indicating the type of benefits information. Can be `1` - Active Coverage, `6` - Inactive, `R` - Other or Additional Payor, or `V` - Cannot Process.",
+                "enum": [
+                    "1",
+                    "6",
+                    "R",
+                    "V"
+                ]
+            },
+            "COBResponseBenefitsInformationSubscriber": {
+                "type": "object",
+                "properties": {
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The subscriber's date of birth, formatted as YYYY-MM-DD."
+                    }
+                }
+            },
+            "COBResponseDependent": {
+                "type": "object",
+                "description": "Information about the dependent listed in the original COB request.",
+                "properties": {
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The dependent's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The dependent's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The dependent's middle name or initial."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Code indicating the dependent's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The dependent's date of birth, formatted as YYYY-MM-DD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The dependent's Social Security Number (SSN)."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The group number associated with the subscriber's insurance policy."
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/RelationToSubscriberCodeName",
+                        "description": "The name of the `relationToSubscriberCode`. For example, `Child` when the code is `19`."
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/RelationToSubscriberCode",
+                        "description": "For the dependent, this can be `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship."
+                    },
+                    "birthSequenceNumber": {
+                        "type": "string",
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The dependent's address."
+                    },
+                    "aaaErrors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a COB request fails, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions."
+                    }
+                }
+            },
+            "COBResponseProvider": {
+                "type": "object",
+                "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.",
+                "properties": {
+                    "providerName": {
+                        "type": "string",
+                        "description": "The provider's last name. This applies to providers that are an individual."
+                    },
+                    "providerFirstName": {
+                        "type": "string",
+                        "description": "The provider's first name. This applies to providers that are an individual."
+                    },
+                    "providerOrgName": {
+                        "type": "string",
+                        "description": "The provider's organization name."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI)."
+                    },
+                    "aaaErrors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a COB request fails, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions."
+                    }
+                }
+            },
+            "COBResponseServiceTypeCode": {
+                "type": "string",
+                "description": "Code identifying the type of services included in a `benefitsInformation` object.",
+                "enum": [
+                    "1",
+                    "30",
+                    "33",
+                    "35",
+                    "47",
+                    "52",
+                    "88",
+                    "98",
+                    "AL",
+                    "MH",
+                    "UC"
+                ]
+            },
+            "COBResponseServiceTypeCodeName": {
+                "type": "string",
+                "description": "The names of the `benefitsInformation.serviceTypeCodes` included in the response.",
+                "enum": [
+                    "Medical Care",
+                    "Health Benefit Plan Coverage",
+                    "Chiropractic",
+                    "Dental Care",
+                    "Hospital",
+                    "Hospital - Emergency Medical",
+                    "Pharmacy",
+                    "Professional (Physician) Visit - Office",
+                    "Vision (Optometry)",
+                    "Mental Health",
+                    "Urgent Care"
+                ]
+            },
+            "COBResponseSubscriber": {
+                "type": "object",
+                "description": "Information about the primary policyholder for the insurance plan listed in the COB request.",
+                "properties": {
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The subscriber's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The subscriber's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Code indicating the subscriber's gender. Can be `F`- Female, `M` - Male, or `U` - Unknown."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The subscriber's date of birth, formatted as YYYY-MM-DD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The subscriber's Social Security Number (SSN)."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The group number associated with the subscriber's insurance policy."
+                    },
+                    "birthSequenceNumber": {
+                        "type": "string",
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The subscriber's address."
+                    },
+                    "aaaErrors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your request, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions."
+                    }
+                }
+            },
+            "COBServiceTypeCode": {
+                "type": "string",
+                "description": "The service type code for the encounter. If not provided, the default value is `30`.",
+                "enum": [
+                    "30"
+                ]
+            },
+            "COBSubscriber": {
+                "type": "object",
+                "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependent` empty.\n\n\n\nThe demographic information you provide **must** match the payer's data exactly. For example, if the payer has the subscriber's name as `Jonathan Doe`, a COB request for `Jon Doe` will fail because the name doesn't match the payer's records. Also note that:\n  - Any prefix on the member's card is considered part of the `memberID` used for the search.\n  - Mismatches in the `memberId` are one of the most common causes of `Member Not Found` errors. We strongly recommend first performing an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) and using the `memberId` in the response to populate your COB check.\n  - We recommend including the `ssn` property in addition to the `memberId` if possible. This allows Stedi to do an additional search for the patient when the `memberId` doesn't return a match.\n  - Stedi can identify coverage overlap for the same payer if the member ID differs between the two coverages.",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
+                        "description": "The patient's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
+                        "description": "The patient's last name."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The subscriber's date of birth in YYYY-MM-DD format."
+                    },
+                    "memberId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "pattern": "^[A-Za-z0-9-]+$",
+                        "description": "The member ID for the subscriber's insurance policy. \n\nYou must provide at least one of the `memberId` or `ssn` properties in the request. However, we recommend including both if possible. This allows Stedi to do an additional search for patient information when the `memberId` doesn't return a match."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 9,
+                        "pattern": "^\\d{9}$",
+                        "description": "The subscriber's Social Security Number (SSN). \n\nYou must provide at least one of the `memberId` or `ssn` properties in the request. However, we recommend including both if possible. This allows Stedi to do an additional search for patient information when the `memberId` doesn't return a match."
+                    }
+                },
+                "required": [
+                    "dateOfBirth",
+                    "firstName",
+                    "lastName"
+                ]
             },
             "CdpediX12V5010NewmodelsClaimPaymentAdvicePayer": {
                 "type": "object",
@@ -8360,6 +9111,82 @@
                     "meta"
                 ]
             },
+            "CoordinationOfBenefitsRequestContent": {
+                "type": "object",
+                "properties": {
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list of supported payers for COB checks.\n\nEach check **must** be for a participating health plan for which the patient has coverage. For example, if the patient has coverage from Cigna and UnitedHealthcare, a COB check to Aetna will return an error."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/COBProvider",
+                        "description": "An object containing information about the entity requesting the COB check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.  You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide the provider's National Provider ID (`npi`)."
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/COBSubscriber"
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/COBDependent"
+                    },
+                    "encounter": {
+                        "$ref": "#/components/schemas/COBEncounter"
+                    }
+                },
+                "required": [
+                    "encounter",
+                    "provider",
+                    "subscriber",
+                    "tradingPartnerServiceId"
+                ]
+            },
+            "CoordinationOfBenefitsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "$ref": "#/components/schemas/COBResponseProvider",
+                        "description": "Information about the entity that submitted the original coordination of benefits request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include the provider's NPI."
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/COBResponseSubscriber",
+                        "description": "Information about the primary policyholder for the insurance plan listed in the COB request."
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/COBResponseDependent",
+                        "description": "Information about the dependent listed in the original COB request."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/COBPayer",
+                        "description": "Information about the payer listed in the COB request."
+                    },
+                    "planDateInformation": {
+                        "$ref": "#/components/schemas/COBPlanDateInformation"
+                    },
+                    "benefitsInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/COBBenefitsInformation"
+                        },
+                        "description": "Information about the patient's healthcare benefits, including:\n- Active coverage with the health plan identified in the COB request\n- Coverage overlap (if it exists) with one or more payers\n- Payer primacy details (if Stedi was able to determine)\n- Benefits details, such as coverage dates and service types"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "If the COB request fails, the COB response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions."
+                    },
+                    "coordinationOfBenefits": {
+                        "$ref": "#/components/schemas/COB",
+                        "description": "An overview of the COB response. It indicates whether there is a coverage overlap, whether that overlap creates a coordination of benefits instance, and whether Stedi was able to identify payer primacy (when a COB instance exists)."
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/COBMetaData",
+                        "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting."
+                    }
+                }
+            },
             "CopayStatusCode": {
                 "type": "string",
                 "description": "Code indicating whether co-payment requirements were met. Can be set to `O` - Copay exempt.",
@@ -11073,6 +11900,25 @@
                 "enum": [
                     "9F",
                     "G1"
+                ]
+            },
+            "EntityIdentificationCode": {
+                "type": "string",
+                "description": "Code identifying the type of `benefitsInformation.entityIdentificationValue`.",
+                "enum": [
+                    "MI",
+                    "PI"
+                ]
+            },
+            "EntityIdentifierName": {
+                "type": "string",
+                "description": "Identifies the type of `benefitsInformation.benefitsRelatedEntity`.",
+                "enum": [
+                    "Insured or Subscriber",
+                    "Payer",
+                    "Primary Payer",
+                    "Secondary Payer",
+                    "Tertiary Payer"
                 ]
             },
             "EntityTypeQualifier": {
@@ -18112,6 +18958,34 @@
                     "Utilization Management Organization",
                     "Managed Care Organization",
                     "Unknown"
+                ]
+            },
+            "RelationToSubscriberCode": {
+                "type": "string",
+                "description": "The code indicating the dependent's relationship to the subscriber.",
+                "enum": [
+                    "01",
+                    "19",
+                    "20",
+                    "21",
+                    "39",
+                    "40",
+                    "53",
+                    "G8"
+                ]
+            },
+            "RelationToSubscriberCodeName": {
+                "type": "string",
+                "description": "The name of the `relationToSubscriberCode`.",
+                "enum": [
+                    "Spouse",
+                    "Child",
+                    "Employee",
+                    "Unknown",
+                    "Organ Donor",
+                    "Cadaver Donor",
+                    "Life Partner",
+                    "Other Relationship"
                 ]
             },
             "RelationshipToSubscriberCode": {
