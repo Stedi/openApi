@@ -1665,11 +1665,11 @@
                         }
                     },
                     "400": {
-                        "description": "ValidationException 400 response",
+                        "description": "EligibilityCheck400Error 400 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                    "$ref": "#/components/schemas/EligibilityCheck400ErrorResponseContent"
                                 }
                             }
                         }
@@ -2288,11 +2288,11 @@
                         }
                     },
                     "400": {
-                        "description": "ValidationException 400 response",
+                        "description": "EligibilityRawX12Check400Error 400 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                    "$ref": "#/components/schemas/EligibilityRawX12Check400ErrorResponseContent"
                                 }
                             }
                         }
@@ -3499,11 +3499,11 @@
                         }
                     },
                     "400": {
-                        "description": "ValidationException 400 response",
+                        "description": "CoordinationOfBenefits400Error 400 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                    "$ref": "#/components/schemas/CoordinationOfBenefits400ErrorResponseContent"
                                 }
                             }
                         }
@@ -4590,6 +4590,23 @@
                     "AA",
                     "EM",
                     "OA"
+                ]
+            },
+            "BadRequestException": {
+                "type": "object",
+                "description": "The server cannot process the request due to an apparent client error.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
                 ]
             },
             "BenefitRelatedEntityIdentification": {
@@ -9111,6 +9128,34 @@
                     "meta"
                 ]
             },
+            "CoordinationOfBenefits400ErrorResponseContent": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "BadRequestException",
+                        "properties": {
+                            "BadRequestException": {
+                                "$ref": "#/components/schemas/BadRequestException"
+                            }
+                        },
+                        "required": [
+                            "BadRequestException"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "ValidationException",
+                        "properties": {
+                            "ValidationException": {
+                                "$ref": "#/components/schemas/ValidationException"
+                            }
+                        },
+                        "required": [
+                            "ValidationException"
+                        ]
+                    }
+                ]
+            },
             "CoordinationOfBenefitsRequestContent": {
                 "type": "object",
                 "properties": {
@@ -11247,6 +11292,34 @@
                     }
                 }
             },
+            "EligibilityCheck400ErrorResponseContent": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "EligibilityCheckOutputValidationErrors",
+                        "properties": {
+                            "EligibilityCheckOutputValidationErrors": {
+                                "$ref": "#/components/schemas/EligibilityCheckOutputValidationErrors"
+                            }
+                        },
+                        "required": [
+                            "EligibilityCheckOutputValidationErrors"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "ValidationException",
+                        "properties": {
+                            "ValidationException": {
+                                "$ref": "#/components/schemas/ValidationException"
+                            }
+                        },
+                        "required": [
+                            "ValidationException"
+                        ]
+                    }
+                ]
+            },
             "EligibilityCheckError": {
                 "type": "object",
                 "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
@@ -11274,6 +11347,78 @@
                     "possibleResolutions": {
                         "type": "string",
                         "description": "Information to help you correct the error."
+                    }
+                }
+            },
+            "EligibilityCheckOutputValidationErrors": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "$ref": "#/components/schemas/EligibilityMetaData"
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "An identifier for the payer's response."
+                    },
+                    "reassociationKey": {
+                        "type": "string",
+                        "description": "Deprecated; do not use."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original eligibility check request. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/ResponseSubscriber"
+                    },
+                    "subscriberTraceNumbers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubscriberTraceNumber"
+                        },
+                        "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/Payer"
+                    },
+                    "planInformation": {
+                        "$ref": "#/components/schemas/PlanInformation"
+                    },
+                    "planDateInformation": {
+                        "$ref": "#/components/schemas/PlanDateInformation"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Warning"
+                        },
+                        "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer."
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Errors Stedi encountered when generating or sending the final X12 EDI transaction to the payer. These can include validation errors and payer unavailable errors that prevent delivery."
+                    },
+                    "transactionSetAcknowledgement": {
+                        "type": "string",
+                        "description": "The transaction set acknowledgment code provided in in the [X12 EDI 999 response](https://www.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5)."
+                    },
+                    "implementationTransactionSetSyntaxError": {
+                        "type": "string",
+                        "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction."
+                    },
+                    "x12": {
+                        "type": "string",
+                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
                     }
                 }
             },
@@ -11477,6 +11622,34 @@
                         "description": "The value provided in the `submitterTransactionIdentifier` property in the original eligibility check request."
                     }
                 }
+            },
+            "EligibilityRawX12Check400ErrorResponseContent": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "RawEligibilityResponseValidationErrors",
+                        "properties": {
+                            "RawEligibilityResponseValidationErrors": {
+                                "$ref": "#/components/schemas/RawEligibilityResponseValidationErrors"
+                            }
+                        },
+                        "required": [
+                            "RawEligibilityResponseValidationErrors"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "ValidationException",
+                        "properties": {
+                            "ValidationException": {
+                                "$ref": "#/components/schemas/ValidationException"
+                            }
+                        },
+                        "required": [
+                            "ValidationException"
+                        ]
+                    }
+                ]
             },
             "EligibilityRawX12CheckRequestContent": {
                 "type": "object",
@@ -18980,6 +19153,99 @@
                     "Y"
                 ]
             },
+            "RawEligibilityResponseValidationErrors": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "$ref": "#/components/schemas/EligibilityMetaData"
+                    },
+                    "controlNumber": {
+                        "type": "string",
+                        "description": "An identifier for the payer's response."
+                    },
+                    "reassociationKey": {
+                        "type": "string",
+                        "description": "Deprecated; do not use."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "description": "An ID for the payer you identified in the original eligibility check request. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "provider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/ResponseSubscriber"
+                    },
+                    "subscriberTraceNumbers": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SubscriberTraceNumber"
+                        },
+                        "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/Payer"
+                    },
+                    "planInformation": {
+                        "$ref": "#/components/schemas/PlanInformation"
+                    },
+                    "planDateInformation": {
+                        "$ref": "#/components/schemas/PlanDateInformation"
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Warning"
+                        },
+                        "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer."
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "Errors Stedi encountered when generating or sending the final X12 EDI transaction to the payer. These can include validation errors and payer unavailable errors that prevent delivery."
+                    },
+                    "transactionSetAcknowledgement": {
+                        "type": "string",
+                        "description": "The transaction set acknowledgment code provided in in the [X12 EDI 999 response](https://www.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5)."
+                    },
+                    "implementationTransactionSetSyntaxError": {
+                        "type": "string",
+                        "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction."
+                    },
+                    "x12": {
+                        "type": "string",
+                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                    },
+                    "planStatus": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PlanStatus"
+                        },
+                        "description": "Deprecated; please use `benefitsInformation`."
+                    },
+                    "dependents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ResponseDependent"
+                        },
+                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
+                    },
+                    "benefitsInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/BenefitsInformation"
+                        },
+                        "description": "Information about the subscriber or dependents' healthcare benefits, such as coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. \n \n Payers typically return at least the following properties: `code`, `coverageLevelCode`, `serviceTypeCodes`, and either `benefitAmount` or `benefitPercent`. However, the exact properties returned in this object are up to the payer's discretion.\n \n Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
+                    }
+                }
+            },
             "Receiver": {
                 "type": "object",
                 "description": "The entity responsible for the payment of the claim, such as an insurance company or government agency.",
@@ -22031,6 +22297,26 @@
                     "WK",
                     "YR",
                     "Unknown"
+                ]
+            },
+            "ValidationException": {
+                "type": "object",
+                "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "A summary of the validation failure."
+                    },
+                    "fieldList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationExceptionField"
+                        },
+                        "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints."
+                    }
+                },
+                "required": [
+                    "message"
                 ]
             },
             "ValidationExceptionField": {
