@@ -5000,7 +5000,7 @@
             },
             "BenefitsInformationCoverageLevelCode": {
                 "type": "string",
-                "description": "Code indicating the level of coverage for the patient.",
+                "description": "Code indicating the level of coverage for the patient. \n\nThis will either be `CHD` - Children Only, `DEP` - Dependents Only, `ECH` - Employee and Children, `EMP` - Employee Only, `ESP` - Employee and Spouse, `FAM` - Family, `IND` - Individual, `SPC` - Spouse and Children, `SPO` - Spouse Only, or `Unknown`.",
                 "enum": [
                     "CHD",
                     "DEP",
@@ -19336,7 +19336,8 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
@@ -19359,10 +19360,14 @@
                         "description": "The provider's business name."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 },
                 "required": [
@@ -19537,10 +19542,14 @@
                         "description": "The provider's business name, if the provider is an organization. You must include either the `lastName` or `organizationName` property in this object."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 },
                 "required": [
@@ -21912,11 +21921,13 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The Social Security Number. Must be a string of nine numbers with no separators. If you include this value, you cannot include the provider's `employerId`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "employerId": {
                         "type": "string",
-                        "description": "Employer ID number is typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the provider's `ssn`."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "commercialNumber": {
                         "type": "string",
@@ -21940,7 +21951,8 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "firstName": {
                         "type": "string",
@@ -21963,10 +21975,14 @@
                         "description": "The supervising provider's business name, when the provider is not an individual."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/ClaimsContactInformation"
+                        "$ref": "#/components/schemas/ClaimsContactInformation",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 },
                 "required": [
