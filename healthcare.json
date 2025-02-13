@@ -7050,7 +7050,7 @@
             },
             "ClaimInformation": {
                 "type": "object",
-                "description": "Information about the healthcare claim. Note that the objects and properties marked as **required** are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the patient's diagnosis codes in the `healthCareCodeInformation` object, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
+                "description": "Information about the healthcare claim. \n\nNote that the objects and properties marked as **required** are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the patient's diagnosis codes in the `healthCareCodeInformation` object, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
                 "properties": {
                     "claimFilingCode": {
                         "$ref": "#/components/schemas/ClaimFilingCode"
@@ -7227,7 +7227,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                        "description": "Details about the patient's healthcare diagnosis. \n- **Don't** submit the decimal for ICD codes; the decimal is implied. \n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. \n- One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "serviceLines": {
                         "type": "array",
@@ -9179,7 +9179,7 @@
             },
             "CompositeDiagnosisCodePointers": {
                 "type": "object",
-                "description": "Diagnosis code pointers in order of importance to this service line. These pointers are an index to the ICD-10 codes you included in the `claimInformation.healthCareCodeInformation` object array. The pointer values can be from 1 - 12 (integer numbers). You **must** set at least one pointer for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here - they belong in `claimInformation.healthCareCodeInformation`.",
+                "description": "Diagnosis code pointers in order of importance to this service line. These pointers are an index to the ICD-10-CM codes you included in the `claimInformation.healthCareCodeInformation` object array. The pointer values can be from 1 to 12 (integer numbers). \n- You **must** set at least one pointer for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). \n- The number of pointers cannot exceed the number of diagnosis codes in the `claimInformation.healthCareCodeInformation` object array. For example, if you only supplied one diagnosis code, then the only valid pointer value is 1. \n- Don't put ICD-10-CM codes here - they belong in `claimInformation.healthCareCodeInformation`.",
                 "properties": {
                     "diagnosisCodePointers": {
                         "type": "array",
@@ -10039,7 +10039,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. **Do not** submit the decimal for ICD codes; the decimal is implied. Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                        "description": "Details about the patient's healthcare diagnosis. Only required when the diagnosis may have an impact on the adjudication of the claim in cases where specific dental procedures may minimize the risks associated with the connection between the patient's oral and systemic health conditions.\n- **Don't** submit the decimal for ICD codes; the decimal is implied. \n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. \n- Use one `ABK` code as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "otherSubscriberInformation": {
                         "type": "array",
@@ -10207,7 +10207,7 @@
                     },
                     "claimInformation": {
                         "$ref": "#/components/schemas/DentalClaimInformation",
-                        "description": "Information about the healthcare claim. Note that the objects and properties marked as required are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the `placeOfServiceCode` property, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties."
+                        "description": "Information about the healthcare claim. \n\n Note that the objects and properties marked as required are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the `placeOfServiceCode` property, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties."
                     },
                     "referring": {
                         "$ref": "#/components/schemas/Referring"
