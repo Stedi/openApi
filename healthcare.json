@@ -4296,6 +4296,86 @@
                 }
             }
         },
+        "/export/pdf": {
+            "get": {
+                "operationId": "ExportPDF",
+                "parameters": [
+                    {
+                        "name": "businessId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "ExportPDF_example1": {
+                                "summary": "Export PDF Request",
+                                "description": "",
+                                "value": "a10b1111-7233-484c-8dee-b240c590c767"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "ExportPDF 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExportPDFResponseContent"
+                                },
+                                "examples": {
+                                    "ExportPDF_example1": {
+                                        "summary": "Export PDF Request",
+                                        "description": "",
+                                        "value": {}
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/export/{transactionId}/1500/pdf": {
             "get": {
                 "operationId": "GetPDF1500",
@@ -12726,6 +12806,23 @@
                     }
                 }
             },
+            "ExportPDFResponseContent": {
+                "type": "object",
+                "properties": {
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PDFError"
+                        }
+                    },
+                    "pdfs": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PDFData"
+                        }
+                    }
+                }
+            },
             "ExtendedProviderStatus": {
                 "type": "object",
                 "properties": {
@@ -17154,6 +17251,29 @@
                     "otherInsuredLastName",
                     "otherInsuredQualifier"
                 ]
+            },
+            "PDFData": {
+                "type": "object",
+                "properties": {
+                    "transactionId": {
+                        "type": "string"
+                    },
+                    "data": {
+                        "type": "string",
+                        "contentEncoding": "byte"
+                    }
+                }
+            },
+            "PDFError": {
+                "type": "object",
+                "properties": {
+                    "transactionId": {
+                        "type": "string"
+                    },
+                    "error": {
+                        "type": "string"
+                    }
+                }
             },
             "PatientClaimStatusDetails": {
                 "type": "object",
