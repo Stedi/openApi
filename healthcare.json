@@ -7307,7 +7307,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. \n- **Don't** submit the decimal for ICD codes; the decimal is implied. \n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. \n- One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                        "description": "Details about the patient's healthcare diagnosis.\n- **Don't** submit the decimal for ICD codes; the decimal is implied.\n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n- One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "serviceLines": {
                         "type": "array",
@@ -8679,6 +8679,13 @@
                         },
                         "description": "A list of errors. Currently not used."
                     },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsWarning"
+                        },
+                        "description": "A list of warnings."
+                    },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
                     },
@@ -9149,6 +9156,13 @@
                         },
                         "description": "A list of errors. Currently not used."
                     },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsWarning"
+                        },
+                        "description": "A list of warnings."
+                    },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
                     },
@@ -9171,6 +9185,20 @@
                     },
                     "failure": {
                         "$ref": "#/components/schemas/Failure"
+                    }
+                }
+            },
+            "ClaimsWarning": {
+                "type": "object",
+                "description": "Warnings indicate issues that may cause some payers to reject the claim. Stedi doesn’t reject claims with warnings only - a response with warnings but no errors means Stedi still submitted the claim.\n\nIf you receive warnings, we recommend closely monitoring 277CA responses from the payer for rejections. If the claim is rejected, we recommend fixing the issues identified in the warnings before resubmitting.",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "A machine-readable code indicating the type of problem."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "A human-readable description of the problem."
                     }
                 }
             },
@@ -9259,7 +9287,7 @@
             },
             "CompositeDiagnosisCodePointers": {
                 "type": "object",
-                "description": "Diagnosis code pointers in order of importance to this service line. These pointers are an index to the ICD-10-CM codes you included in the `claimInformation.healthCareCodeInformation` object array. The pointer values can be from 1 to 12 (integer numbers). \n- You **must** set at least one pointer for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). \n- The number of pointers cannot exceed the number of diagnosis codes in the `claimInformation.healthCareCodeInformation` object array. For example, if you only supplied one diagnosis code, then the only valid pointer value is 1. \n- Don't put ICD-10-CM codes here - they belong in `claimInformation.healthCareCodeInformation`.",
+                "description": "Diagnosis code pointers in order of importance to this service line. These pointers are an index to the ICD-10-CM codes you included in the `claimInformation.healthCareCodeInformation` object array. The pointer values can be from 1 to 12 (integer numbers).\n- You **must** set at least one pointer for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total).\n- The number of pointers cannot exceed the number of diagnosis codes in the `claimInformation.healthCareCodeInformation` object array. For example, if you only supplied one diagnosis code, then the only valid pointer value is 1.\n- Don't put ICD-10-CM codes here - they belong in `claimInformation.healthCareCodeInformation`.",
                 "properties": {
                     "diagnosisCodePointers": {
                         "type": "array",
@@ -10218,6 +10246,13 @@
                         },
                         "description": "A list of errors. Currently not used."
                     },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsWarning"
+                        },
+                        "description": "A list of warnings."
+                    },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
                     },
@@ -10335,6 +10370,13 @@
                             "$ref": "#/components/schemas/ClaimsError"
                         },
                         "description": "A list of errors. Currently not used."
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsWarning"
+                        },
+                        "description": "A list of warnings."
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
@@ -13379,7 +13421,7 @@
             },
             "InstitutionalBilling": {
                 "type": "object",
-                "description": "Information about the billing provider. \n- You **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both. \n- The provider's 10-digit National Provider Identifier (NPI) is **required**, if one is assigned.\n- You must also supply the provider's `organizationName`.",
+                "description": "Information about the billing provider.\n- You **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both.\n- The provider's 10-digit National Provider Identifier (NPI) is **required**, if one is assigned.\n- You must also supply the provider's `organizationName`.",
                 "properties": {
                     "providerType": {
                         "$ref": "#/components/schemas/InstitutionalProviderType",
@@ -14077,6 +14119,13 @@
                             "$ref": "#/components/schemas/InstitutionalError"
                         },
                         "description": "A list of errors. Currently not used."
+                    },
+                    "warnings": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimsWarning"
+                        },
+                        "description": "A list of warnings."
                     },
                     "httpStatusCode": {
                         "$ref": "#/components/schemas/HttpStatusCode"
@@ -14868,7 +14917,7 @@
             },
             "InstitutionalReferring": {
                 "type": "object",
-                "description": "Information about the provider who referred the patient for care. \n- Include this object only when the referring provider is different than the provider listed in the `attending` object. \n- Use this object for providers that apply to the entire claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who referred the patient for care.\n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- Use this object for providers that apply to the entire claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -14976,7 +15025,7 @@
             },
             "InstitutionalRendering": {
                 "type": "object",
-                "description": "Information about the provider who delivered the medical services or non-surgical procedures listed in the claim. Use this object for providers that apply to the entire claim.\n- Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim. \n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures listed in the claim. Use this object for providers that apply to the entire claim.\n- Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -15198,7 +15247,7 @@
             },
             "InstitutionalServiceFacilityLocation": {
                 "type": "object",
-                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address. \n- When an organization's healthcare provider's NPI is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab). \n- The service location can't be a component or subpart of the billing provider entity.",
+                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address.\n- When an organization's healthcare provider's NPI is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab).\n- The service location can't be a component or subpart of the billing provider entity.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -15421,7 +15470,7 @@
             },
             "InstitutionalServiceLineReferringProvider": {
                 "type": "object",
-                "description": "Information about the provider who referred the patient for care. \n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who referred the patient for care.\n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "$ref": "#/components/schemas/InstitutionalProviderType",
@@ -15526,7 +15575,7 @@
             },
             "InstitutionalServiceLineRenderingProvider": {
                 "type": "object",
-                "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line. \n- Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line.\n- Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
                         "$ref": "#/components/schemas/InstitutionalProviderType",
@@ -15675,7 +15724,7 @@
             },
             "InstitutionalSubscriber": {
                 "type": "object",
-                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID. \n- When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
+                "description": "The person or entity who is the primary policyholder for the health plan _or_ a dependent with their own member ID.\n- When a dependent has a unique, payer-assigned member ID, treat them as the subscriber for the claim submission - include their information here and omit the `dependent` object from the request.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
                 "properties": {
                     "memberId": {
                         "type": "string",
