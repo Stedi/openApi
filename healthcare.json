@@ -5990,7 +5990,7 @@
             },
             "COBPlanDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the patient's health plan coverage. This information is used to determine their eligibility for benefits. \n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.",
+                "description": "Dates associated with the patient's health plan coverage. This information is used to determine their eligibility for benefits.\n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.",
                 "properties": {
                     "planBegin": {
                         "type": "string",
@@ -11804,7 +11804,7 @@
                     }
                 ]
             },
-            "EligibilityCheckError": {
+            "EligibilityCheckDependentError": {
                 "type": "object",
                 "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
@@ -11812,17 +11812,9 @@
                         "type": "string",
                         "description": "The error type, `AAA`."
                     },
-                    "code": {
-                        "type": "string",
-                        "description": "The error code."
-                    },
                     "description": {
                         "type": "string",
                         "description": "The error description."
-                    },
-                    "followupAction": {
-                        "type": "string",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     },
                     "location": {
                         "type": "string",
@@ -11831,8 +11823,165 @@
                     "possibleResolutions": {
                         "type": "string",
                         "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckDependentErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     }
                 }
+            },
+            "EligibilityCheckDependentErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "33",
+                    "35",
+                    "42",
+                    "43",
+                    "45",
+                    "47",
+                    "48",
+                    "49",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "77",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA"
+                ]
+            },
+            "EligibilityCheckError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckErrorCode": {
+                "type": "string",
+                "description": "This is a superset of all the possible codes in the sub-loops, as all errors are bubbled up to the top level of the response",
+                "enum": [
+                    "04",
+                    "15",
+                    "33",
+                    "35",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "97",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA",
+                    "T4"
+                ]
+            },
+            "EligibilityCheckFollowupAction": {
+                "type": "string",
+                "enum": [
+                    "Please Correct and Resubmit",
+                    "Resubmission Not Allowed",
+                    "Please Resubmit Original Transaction",
+                    "Resubmission allowed",
+                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
+                    "Please Wait 30 Days and Resubmit",
+                    "Please Wait 10 Days and Resubmit",
+                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
+                ]
             },
             "EligibilityCheckOutputValidationErrors": {
                 "type": "object",
@@ -11905,6 +12054,107 @@
                         "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://www.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
                     }
                 }
+            },
+            "EligibilityCheckPayerError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckPayerErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckPayerErrorCode": {
+                "type": "string",
+                "enum": [
+                    "04",
+                    "41",
+                    "42",
+                    "79",
+                    "80",
+                    "T4"
+                ]
+            },
+            "EligibilityCheckProviderAndMemberFollowupAction": {
+                "type": "string",
+                "enum": [
+                    "Please Correct and Resubmit",
+                    "Resubmission Not Allowed",
+                    "Please Resubmit Original Transaction",
+                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
+                    "Please Wait 30 Days and Resubmit",
+                    "Please Wait 10 Days and Resubmit",
+                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
+                ]
+            },
+            "EligibilityCheckProviderError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckProviderErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "41",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "50",
+                    "51",
+                    "79",
+                    "97",
+                    "T4"
+                ]
             },
             "EligibilityCheckRequestContent": {
                 "type": "object",
@@ -12076,6 +12326,81 @@
                         "description": "Information about the subscriber or dependents' healthcare benefits, such as coverage level (individual vs. family), coverage type (deductibles, copays, etc.), out of pocket maximums, and more. \n \n Payers typically return at least the following properties: `code`, `coverageLevelCode`, `serviceTypeCodes`, and either `benefitAmount` or `benefitPercent`. However, the exact properties returned in this object are up to the payer's discretion.\n \n Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/benefit-response) for more information about benefit types, details about how to interpret the response, and additional examples."
                     }
                 }
+            },
+            "EligibilityCheckSubscriberError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckSubscriberErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckSubscriberErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "33",
+                    "35",
+                    "42",
+                    "43",
+                    "45",
+                    "47",
+                    "48",
+                    "49",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "78",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA"
+                ]
             },
             "EligibilityMetaData": {
                 "type": "object",
@@ -17772,7 +18097,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckPayerError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     },
@@ -20819,7 +21144,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckDependentError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
@@ -20945,7 +21270,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckProviderError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
@@ -21094,7 +21419,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckSubscriberError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }

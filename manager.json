@@ -1734,7 +1734,7 @@
                         "$ref": "#/components/schemas/ResponseProvider"
                     },
                     "subscriber": {
-                        "$ref": "#/components/schemas/ResponseMember"
+                        "$ref": "#/components/schemas/ResponseSubscriber"
                     },
                     "subscriberTraceNumbers": {
                         "type": "array",
@@ -1746,7 +1746,7 @@
                     "dependents": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ResponseMember"
+                            "$ref": "#/components/schemas/ResponseDependent"
                         },
                         "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
@@ -2336,6 +2336,13 @@
                     }
                 }
             },
+            "DateTimePeriodFormatQualifier": {
+                "type": "string",
+                "enum": [
+                    "D8",
+                    "RD8"
+                ]
+            },
             "DiagnosisTypeCode": {
                 "type": "string",
                 "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
@@ -2393,7 +2400,7 @@
                     }
                 }
             },
-            "EligibilityCheckError": {
+            "EligibilityCheckDependentError": {
                 "type": "object",
                 "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
@@ -2401,17 +2408,9 @@
                         "type": "string",
                         "description": "The error type, `AAA`."
                     },
-                    "code": {
-                        "type": "string",
-                        "description": "The error code."
-                    },
                     "description": {
                         "type": "string",
                         "description": "The error description."
-                    },
-                    "followupAction": {
-                        "type": "string",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     },
                     "location": {
                         "type": "string",
@@ -2420,8 +2419,341 @@
                     "possibleResolutions": {
                         "type": "string",
                         "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckDependentErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     }
                 }
+            },
+            "EligibilityCheckDependentErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "33",
+                    "35",
+                    "42",
+                    "43",
+                    "45",
+                    "47",
+                    "48",
+                    "49",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "77",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA"
+                ]
+            },
+            "EligibilityCheckError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckErrorCode": {
+                "type": "string",
+                "description": "This is a superset of all the possible codes in the sub-loops, as all errors are bubbled up to the top level of the response",
+                "enum": [
+                    "04",
+                    "15",
+                    "33",
+                    "35",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "97",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA",
+                    "T4"
+                ]
+            },
+            "EligibilityCheckFollowupAction": {
+                "type": "string",
+                "enum": [
+                    "Please Correct and Resubmit",
+                    "Resubmission Not Allowed",
+                    "Please Resubmit Original Transaction",
+                    "Resubmission allowed",
+                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
+                    "Please Wait 30 Days and Resubmit",
+                    "Please Wait 10 Days and Resubmit",
+                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
+                ]
+            },
+            "EligibilityCheckPayerError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckPayerErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckPayerErrorCode": {
+                "type": "string",
+                "enum": [
+                    "04",
+                    "41",
+                    "42",
+                    "79",
+                    "80",
+                    "T4"
+                ]
+            },
+            "EligibilityCheckProviderAndMemberFollowupAction": {
+                "type": "string",
+                "enum": [
+                    "Please Correct and Resubmit",
+                    "Resubmission Not Allowed",
+                    "Please Resubmit Original Transaction",
+                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
+                    "Please Wait 30 Days and Resubmit",
+                    "Please Wait 10 Days and Resubmit",
+                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
+                ]
+            },
+            "EligibilityCheckProviderError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckProviderErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "41",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "50",
+                    "51",
+                    "79",
+                    "97",
+                    "T4"
+                ]
+            },
+            "EligibilityCheckSubscriberError": {
+                "type": "object",
+                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "properties": {
+                    "field": {
+                        "type": "string",
+                        "description": "The error type, `AAA`."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "The error description."
+                    },
+                    "location": {
+                        "type": "string",
+                        "description": "The location of the error within the original X12 EDI response."
+                    },
+                    "possibleResolutions": {
+                        "type": "string",
+                        "description": "Information to help you correct the error."
+                    },
+                    "code": {
+                        "$ref": "#/components/schemas/EligibilityCheckSubscriberErrorCode",
+                        "description": "The error code."
+                    },
+                    "followupAction": {
+                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                    }
+                }
+            },
+            "EligibilityCheckSubscriberErrorCode": {
+                "type": "string",
+                "enum": [
+                    "15",
+                    "33",
+                    "35",
+                    "42",
+                    "43",
+                    "45",
+                    "47",
+                    "48",
+                    "49",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "78",
+                    "98",
+                    "AA",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AO",
+                    "CI",
+                    "E8",
+                    "IA",
+                    "MA"
+                ]
             },
             "EligibilityMetaData": {
                 "type": "object",
@@ -2452,6 +2784,27 @@
                         "description": "The value provided in the `submitterTransactionIdentifier` property in the original eligibility check request."
                     }
                 }
+            },
+            "EmploymentStatusCode": {
+                "type": "string",
+                "enum": [
+                    "AE",
+                    "AO",
+                    "AS",
+                    "AT",
+                    "AU",
+                    "CC",
+                    "DD",
+                    "HD",
+                    "IR",
+                    "LX",
+                    "PE",
+                    "RE",
+                    "RM",
+                    "RR",
+                    "RU",
+                    "Unknown"
+                ]
             },
             "Encounter": {
                 "type": "object",
@@ -2739,6 +3092,32 @@
                     "UC"
                 ]
             },
+            "GovernmentServiceAffiliationCode": {
+                "type": "string",
+                "enum": [
+                    "A",
+                    "B",
+                    "C",
+                    "D",
+                    "E",
+                    "F",
+                    "G",
+                    "H",
+                    "I",
+                    "J",
+                    "K",
+                    "L",
+                    "M",
+                    "N",
+                    "O",
+                    "Q",
+                    "R",
+                    "S",
+                    "U",
+                    "W",
+                    "Unknown"
+                ]
+            },
             "HealthCareDiagnosisCode": {
                 "type": "object",
                 "description": "Information about the patient's healthcare diagnosis.",
@@ -2938,6 +3317,19 @@
                     }
                 }
             },
+            "InformationStatusCode": {
+                "type": "string",
+                "enum": [
+                    "A",
+                    "C",
+                    "L",
+                    "O",
+                    "P",
+                    "S",
+                    "T",
+                    "Unknown"
+                ]
+            },
             "InternalFailureExceptionResponseContent": {
                 "type": "object",
                 "description": "The server response when an unexpected error occurred while processing request.",
@@ -3003,6 +3395,67 @@
                     "IV",
                     "N4",
                     "ZZ"
+                ]
+            },
+            "MilitaryServiceRankCode": {
+                "type": "string",
+                "enum": [
+                    "A1",
+                    "A2",
+                    "A3",
+                    "B1",
+                    "B2",
+                    "C1",
+                    "C2",
+                    "C3",
+                    "C4",
+                    "C5",
+                    "C6",
+                    "C7",
+                    "C8",
+                    "C9",
+                    "E1",
+                    "F1",
+                    "F2",
+                    "F3",
+                    "F4",
+                    "G1",
+                    "G4",
+                    "L1",
+                    "L2",
+                    "L3",
+                    "L4",
+                    "L5",
+                    "L6",
+                    "M1",
+                    "M2",
+                    "M3",
+                    "M4",
+                    "M5",
+                    "M6",
+                    "P1",
+                    "P2",
+                    "P3",
+                    "P4",
+                    "P5",
+                    "R1",
+                    "R2",
+                    "S1",
+                    "S2",
+                    "S3",
+                    "S4",
+                    "S5",
+                    "S6",
+                    "S7",
+                    "S8",
+                    "S9",
+                    "SA",
+                    "SB",
+                    "SC",
+                    "T1",
+                    "V1",
+                    "W1",
+                    "Unknown"
                 ]
             },
             "Payer": {
@@ -3071,7 +3524,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckPayerError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     },
@@ -3935,9 +4388,9 @@
                     "message"
                 ]
             },
-            "ResponseMember": {
+            "ResponseDependent": {
                 "type": "object",
-                "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information.",
+                "description": "Information about the dependent listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the subscriber object. When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information.",
                 "properties": {
                     "healthCareDiagnosisCodes": {
                         "type": "array",
@@ -3951,15 +4404,15 @@
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The patient's first name."
+                        "description": "The dependent's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The patient's last name."
+                        "description": "The dependent's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The patient's middle name or initial."
+                        "description": "The dependent's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -3974,55 +4427,55 @@
                     },
                     "entityType": {
                         "type": "string",
-                        "description": "The entity type for the patient. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
-                        "description": "The patient's unique health identifier."
+                        "description": "The dependent's unique health identifier."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The patient's date of birth, formatted as YYYMMDD."
+                        "description": "The dependent's date of birth, formatted as YYYYMMDD."
                     },
                     "informationStatusCode": {
-                        "type": "string",
-                        "description": "The status of the patient's information, used to report military service data. Can be set to `A` - Partial, `C` - Current, `L` - Latest, `O` - Oldest, `P` - Prior, `S` - Second Most Current, or `T` - Third Most Current."
+                        "$ref": "#/components/schemas/InformationStatusCode",
+                        "description": "The status of the dependent's information, used to report military service data."
                     },
                     "employmentStatusCode": {
-                        "type": "string",
-                        "description": "The patient's employment status code, used to report military service data. Can be set to `AE` - Active Reserve, `AO` - Active Military - Overseas, `AS` - Academy Student, `AT` - Presidential Appointee, `AU` - Active Military - USA, `CC` - Contractor, `DD` - Dishonorably Discharged, `HD` - Honorably Discharged, `IR` - Inactive Reserves, `LX` - Leave of Absence: Military, `PE` - Plan to Enlist, `RE` - Recommissioned, `RM` - Retired Military - Overseas, `RR`- Retired Without Recall, or `RU` - Retired Military - USA."
+                        "$ref": "#/components/schemas/EmploymentStatusCode",
+                        "description": "The dependent's employment status code, used to report military service data."
                     },
                     "governmentServiceAffiliationCode": {
-                        "type": "string",
-                        "description": "The patient's government service affiliation code, used to report military service data. Can be set to `A` - Air Force, `B` - Air Force Reserves, `C` - Army, `D` - Army Reserves, `E` - Coast Guard, `F` - Marine Corps, `G` - Marine Corps Reserves, `H` - National Guard, `I` - Navy, `J` - Navy Reserves, `K` - Other, `L`- Peace Corp, `M` - Regular Armed Forces, `N` - Reserves, `O` - U.S. Public Health Service, `Q` - Foreign Military, `R` - American Red Cross, `S` - Department of Defense, `U` - United States Organization, `W` - Military Sealift Command."
+                        "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
+                        "description": "The dependent's government service affiliation code, used to report military service data."
                     },
                     "description": {
                         "type": "string",
                         "description": "Context that identifies the exact military unit. Used to report military service data."
                     },
                     "militaryServiceRankCode": {
-                        "type": "string",
-                        "description": "The patient's military service rank code. Can be set to `A1` - Admiral, `A2` - Airman, `A3` - Airman First Class, `B1` - Basic Airman, `B2` - Brigadier General, `C1` - Captain, `C2` - Chief Master Sergeant, `C3` - Chief Petty Officer, `C4` - Chief Warrant, `C5` - Colonel, `C6` - Commander, `C7` - Commodore, `C8` - Corporal, `C9` - Corporal Specialist 4, `E1` - Ensign, `F1` - First Lieutenant, `F2` - First Sergeant, `F3` - First Sergeant-Master Sergeant, `F4` - Fleet Admiral, `G1` - General, `G4` - Gunnery Sergeant, `L1` - Lance Corporal, `L2` - Lieutenant, `L3` - Lieutenant Colonel, `L4` - Lieutenant Commander, `L5` - Lieutenant General, `L6` - Lieutenant Junior Grade, `M1` - Major, `M2` - Major General, `M3` - Master Chief Petty Officer, `M4` - Master Gunnery Sergeant Major, `M5` - Master Sergeant, `M6` - Master Sergeant Specialist 8, `P1` - Petty Officer First Class, `P2` - Petty Officer Second Class, `P3` - Petty Officer Third Class, `P4` - Private, `P5` - Private First Class, `R1` - Rear Admiral, `R2` - Recruit, `S1` - Seaman, `S2` - Seaman Apprentice, `S3` - Seaman Recruit, `S4` - Second Lieutenant, `S5` - Senior Chief Petty Officer, `S6` - Senior Master Sergeant, `S7` - Sergeant, `S8` - Sergeant First Class Specialist 7, `S9` - Sergeant Major Specialist 9, `SA` - Sergeant Specialist 5, `SB` - Staff Sergeant, `SC` - Staff Sergeant Specialist 6, `T1` - Technical Sergeant, `V1` - Vice Admiral, `W1` - Warrant Officer."
+                        "$ref": "#/components/schemas/MilitaryServiceRankCode",
+                        "description": "The dependent's military service rank code."
                     },
                     "dateTimePeriodFormatQualifier": {
-                        "type": "string",
-                        "description": "The format of the date and time period. Can be set to `D8` - Date or `RD8` - Range of Dates."
+                        "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
+                        "description": "The format of the military service date and time period."
                     },
                     "dateTimePeriod": {
                         "type": "string",
-                        "description": "The date, formatted as YYYYMMDD."
-                    },
-                    "endDateTimePeriod": {
-                        "type": "string",
-                        "description": "The end of a time period, formatted as YYYYMMDD."
+                        "description": "The military service date, formatted as YYYYMMDD."
                     },
                     "startDateTimePeriod": {
                         "type": "string",
-                        "description": "The start of a time period, formatted as YYYYMMDD."
+                        "description": "The military service start date, formatted as YYYYMMDD."
+                    },
+                    "endDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service end date, formatted as YYYYMMDD."
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The patient's Social Security Number (SSN)."
+                        "description": "The dependent's Social Security Number (SSN)."
                     },
                     "groupNumber": {
                         "type": "string",
@@ -4069,7 +4522,7 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckDependentError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
@@ -4164,9 +4617,148 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckError"
+                            "$ref": "#/components/schemas/EligibilityCheckProviderError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                    }
+                }
+            },
+            "ResponseSubscriber": {
+                "type": "object",
+                "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information.",
+                "properties": {
+                    "healthCareDiagnosisCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCareDiagnosisCode"
+                        }
+                    },
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The subscriber's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The subscriber's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The name suffix, such as Jr., Sr., or III."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ResponseMemberGender"
+                    },
+                    "entityIdentifier": {
+                        "type": "string"
+                    },
+                    "entityType": {
+                        "type": "string",
+                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                    },
+                    "uniqueHealthIdentifier": {
+                        "type": "string",
+                        "description": "The subscriber's unique health identifier."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The subscriber's date of birth, formatted as YYYYMMDD."
+                    },
+                    "informationStatusCode": {
+                        "type": "string",
+                        "description": "The status of the subscriber's information, used to report military service data. Can be set to `A` - Partial, `C` - Current, `L` - Latest, `O` - Oldest, `P` - Prior, `S` - Second Most Current, or `T` - Third Most Current."
+                    },
+                    "employmentStatusCode": {
+                        "type": "string",
+                        "description": "The subscriber's employment status code, used to report military service data. Can be set to `AE` - Active Reserve, `AO` - Active Military - Overseas, `AS` - Academy Student, `AT` - Presidential Appointee, `AU` - Active Military - USA, `CC` - Contractor, `DD` - Dishonorably Discharged, `HD` - Honorably Discharged, `IR` - Inactive Reserves, `LX` - Leave of Absence: Military, `PE` - Plan to Enlist, `RE` - Recommissioned, `RM` - Retired Military - Overseas, `RR`- Retired Without Recall, or `RU` - Retired Military - USA."
+                    },
+                    "governmentServiceAffiliationCode": {
+                        "type": "string",
+                        "description": "The subscriber's government service affiliation code, used to report military service data. Can be set to `A` - Air Force, `B` - Air Force Reserves, `C` - Army, `D` - Army Reserves, `E` - Coast Guard, `F` - Marine Corps, `G` - Marine Corps Reserves, `H` - National Guard, `I` - Navy, `J` - Navy Reserves, `K` - Other, `L`- Peace Corp, `M` - Regular Armed Forces, `N` - Reserves, `O` - U.S. Public Health Service, `Q` - Foreign Military, `R` - American Red Cross, `S` - Department of Defense, `U` - United States Organization, `W` - Military Sealift Command."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Context that identifies the exact military unit. Used to report military service data."
+                    },
+                    "militaryServiceRankCode": {
+                        "type": "string",
+                        "description": "The subscriber's military service rank code. Can be set to `A1` - Admiral, `A2` - Airman, `A3` - Airman First Class, `B1` - Basic Airman, `B2` - Brigadier General, `C1` - Captain, `C2` - Chief Master Sergeant, `C3` - Chief Petty Officer, `C4` - Chief Warrant, `C5` - Colonel, `C6` - Commander, `C7` - Commodore, `C8` - Corporal, `C9` - Corporal Specialist 4, `E1` - Ensign, `F1` - First Lieutenant, `F2` - First Sergeant, `F3` - First Sergeant-Master Sergeant, `F4` - Fleet Admiral, `G1` - General, `G4` - Gunnery Sergeant, `L1` - Lance Corporal, `L2` - Lieutenant, `L3` - Lieutenant Colonel, `L4` - Lieutenant Commander, `L5` - Lieutenant General, `L6` - Lieutenant Junior Grade, `M1` - Major, `M2` - Major General, `M3` - Master Chief Petty Officer, `M4` - Master Gunnery Sergeant Major, `M5` - Master Sergeant, `M6` - Master Sergeant Specialist 8, `P1` - Petty Officer First Class, `P2` - Petty Officer Second Class, `P3` - Petty Officer Third Class, `P4` - Private, `P5` - Private First Class, `R1` - Rear Admiral, `R2` - Recruit, `S1` - Seaman, `S2` - Seaman Apprentice, `S3` - Seaman Recruit, `S4` - Second Lieutenant, `S5` - Senior Chief Petty Officer, `S6` - Senior Master Sergeant, `S7` - Sergeant, `S8` - Sergeant First Class Specialist 7, `S9` - Sergeant Major Specialist 9, `SA` - Sergeant Specialist 5, `SB` - Staff Sergeant, `SC` - Staff Sergeant Specialist 6, `T1` - Technical Sergeant, `V1` - Vice Admiral, `W1` - Warrant Officer."
+                    },
+                    "dateTimePeriodFormatQualifier": {
+                        "type": "string",
+                        "description": "The format of the military service date and time period. Can be set to `D8` - Date or `RD8` - Range of Dates."
+                    },
+                    "dateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service date, formatted as YYYYMMDD."
+                    },
+                    "startDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service start date, formatted as YYYYMMDD."
+                    },
+                    "endDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service end date, formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The subscriber's Social Security Number (SSN)."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The group number associated with the subscriber's insurance policy."
+                    },
+                    "planNumber": {
+                        "type": "string",
+                        "description": "The plan number associated with the subscriber's insurance policy."
+                    },
+                    "planNetworkIdNumber": {
+                        "type": "string",
+                        "description": "The network identification number associated with the subscriber's insurance policy."
+                    },
+                    "relationToSubscriber": {
+                        "type": "string",
+                        "description": "The name of the `relationToSubscriberCode`. For example `Self` when the code is set to `18`."
+                    },
+                    "relationToSubscriberCode": {
+                        "type": "string",
+                        "description": "For the subscriber, this is set to `18` for Self. For dependents, it can be set to `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship."
+                    },
+                    "insuredIndicator": {
+                        "type": "string",
+                        "description": "Indicates the status of the insured. A `Y` value indicates the insured is a subscriber. When set to `N`, the insured is a dependent."
+                    },
+                    "maintenanceTypeCode": {
+                        "type": "string",
+                        "description": "The maintenance type code. Used to acknowledge a change in the identifying elements for the patient from those submitted in the original eligibility check request. It can also be included when the payer used the birth sequence number from the original request to locate the subscriber in their system. Set to `001` - Change."
+                    },
+                    "maintenanceReasonCode": {
+                        "type": "string",
+                        "description": "Code identifying the reason for the changes to patient identifying information, such as name, date of birth, or address. Set to `25` - Change in Identifying Data Elements."
+                    },
+                    "birthSequenceNumber": {
+                        "type": "string",
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "responseProvider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "aaaErrors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckSubscriberError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
                 }
             },
