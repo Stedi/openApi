@@ -4350,21 +4350,31 @@
                         }
                     },
                     "400": {
-                        "description": "ValidationException 400 response",
+                        "description": "ExportPDF400Error 400 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                    "$ref": "#/components/schemas/ExportPDF400ErrorResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "MaxiumResponseSizeExceeded 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/MaxiumResponseSizeExceededResponseContent"
                                 }
                             }
                         }
                     },
                     "404": {
-                        "description": "ResourceNotFoundException 404 response",
+                        "description": "ExportPDF404Error 404 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                    "$ref": "#/components/schemas/ExportPDF404ErrorResponseContent"
                                 }
                             }
                         }
@@ -13197,6 +13207,62 @@
                     }
                 }
             },
+            "ExportPDF400ErrorResponseContent": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "MissingParameter",
+                        "properties": {
+                            "MissingParameter": {
+                                "$ref": "#/components/schemas/MissingParameter"
+                            }
+                        },
+                        "required": [
+                            "MissingParameter"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "ValidationException",
+                        "properties": {
+                            "ValidationException": {
+                                "$ref": "#/components/schemas/ValidationException"
+                            }
+                        },
+                        "required": [
+                            "ValidationException"
+                        ]
+                    }
+                ]
+            },
+            "ExportPDF404ErrorResponseContent": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "NoTransactionsFound",
+                        "properties": {
+                            "NoTransactionsFound": {
+                                "$ref": "#/components/schemas/NoTransactionsFound"
+                            }
+                        },
+                        "required": [
+                            "NoTransactionsFound"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "ResourceNotFoundException",
+                        "properties": {
+                            "ResourceNotFoundException": {
+                                "$ref": "#/components/schemas/ResourceNotFoundException"
+                            }
+                        },
+                        "required": [
+                            "ResourceNotFoundException"
+                        ]
+                    }
+                ]
+            },
             "ExportPDFResponseContent": {
                 "type": "object",
                 "properties": {
@@ -16528,6 +16594,20 @@
                     "001"
                 ]
             },
+            "MaxiumResponseSizeExceededResponseContent": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "string"
+                    }
+                }
+            },
             "MeasurementQualifier": {
                 "type": "string",
                 "description": "Code identifying the specific measurement. Can be set to `HT` - Height, `R1` - Hemoglobin, `R2` - Hematocrit, `R3` - Epoetin Starting Dosage, or `R4` - Creatinine.",
@@ -16884,6 +16964,34 @@
                     "W1",
                     "Unknown"
                 ]
+            },
+            "MissingParameter": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "string"
+                    }
+                }
+            },
+            "NoTransactionsFound": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "string"
+                    }
+                }
             },
             "OccurrenceInformation": {
                 "type": "object",
@@ -21021,6 +21129,23 @@
                     "PXC",
                     "SY",
                     "TJ"
+                ]
+            },
+            "ResourceNotFoundException": {
+                "type": "object",
+                "description": "//// Errors\nThe server response when the specified resource cannot be found after an API request passes authentication and authorization.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
                 ]
             },
             "ResourceNotFoundExceptionResponseContent": {
