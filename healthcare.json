@@ -14149,7 +14149,7 @@
                         },
                         "maxItems": 3,
                         "minItems": 1,
-                        "description": "The diagnosis for which the patient visited an outpatient provider. Required when the claim involves outpatient visits. This may be different from the principal diagnosis."
+                        "description": "The diagnosis for which the patient visited an outpatient provider. Required when the claim involves outpatient visits. This may be different from the principal diagnosis. This is an array of objects and you can provide up to three objects."
                     },
                     "externalCauseOfInjuries": {
                         "type": "array",
@@ -14158,7 +14158,7 @@
                         },
                         "maxItems": 12,
                         "minItems": 1,
-                        "description": "Diagnosis codes to describe the patient's condition. Required when an external Cause of Injury is needed to describe an injury, poisoning, or adverse effect. Note that to fully describe an injury using ICD-10-CM, it will be necessary to report a series of 3 external cause of injury codes. Refer to the [ICD-10-CM Official Guidelines for Coding and Reporting](https://stacks.cdc.gov/view/cdc/158747)."
+                        "description": "Diagnosis codes to describe the patient's condition. Required when an external Cause of Injury is needed to describe an injury, poisoning, or adverse effect. \n\nNote that to fully describe an injury using ICD-10-CM, it will be necessary to report a series of 3 external cause of injury codes. Refer to the [ICD-10-CM Official Guidelines for Coding and Reporting](https://stacks.cdc.gov/view/cdc/158747).\n\nYou can provide up to 12 objects in this array."
                     },
                     "diagnosisRelatedGroupInformation": {
                         "$ref": "#/components/schemas/DiagnosisRelatedGroupInformation",
@@ -14175,7 +14175,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions."
+                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. \n\n**Do not** submit the decimal for ICD codes; the decimal is implied. \n\nAlso, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.\n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each object array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `ABF`: International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis or `BF`: International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions. \n    - `otherDiagnosisCode`: The code from the code set specified in `qualifierCode`.\n\nEach object can contain the following additional property:\n    - `presentOnAdmissionIndicator`: A code indicating whether the condition was present on admission. You can set this to `N`: No, `Y`: Yes, `U`: Unknown, or `W`: Not Applicable."
                     },
                     "principalProcedureInformation": {
                         "$ref": "#/components/schemas/PrincipalProcedureInformation",
@@ -14192,7 +14192,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required on inpatient claims when additional procedures must be reported. You can provide up to two objects in this array."
+                        "description": "Required on inpatient claims when additional procedures must be reported. \n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `BBQ`: International Classification of Diseases Clinical Modification (ICD-10-PCS) Other Procedure Codes or `BQ`: International Classification of Diseases Clinical Modification (ICD-9-CM) Other Procedure Codes. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions. \n    - `otherProcedureCode`: The code from the code set specified in `qualifierCode`.\n    - `otherProcedureDate`: A date expressed in YYYYMMDD format."
                     },
                     "occurrenceSpanInformations": {
                         "type": "array",
@@ -14205,7 +14205,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required when there is an Occurrence Span Code that applies to this claim. You can provide up to two objects in this array."
+                        "description": "Required when there is an Occurrence Span Code that applies to this claim. This is an array or arrays of objects. You can provide up to two object arrays and each array can contain up to 12 objects.\n\n Each object must contain the following properties:\n    - `occurrenceSpanCode`: The occurrence span code.\n    - `occurrenceSpanCodeStartDate`: The start date for the occurrence span range, expressed as YYYYMMDD.\n    - `occurrenceSpanCodeEndDate`: The end date for the occurrence span range, expressed as YYYYMMDD."
                     },
                     "valueInformationList": {
                         "type": "array",
@@ -14218,7 +14218,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required when there is a Value Code that applies to this claim. You can provide up to two objects in this array."
+                        "description": "Required when there is a Value Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `valueCode`: The value code.\n    - `valueCodeAmount`: The monetary amount associated with the value code, expressed as a decimal."
                     },
                     "occurrenceInformationList": {
                         "type": "array",
@@ -14231,7 +14231,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required when there is a Occurrence Code that applies to this claim. You can provide up to two objects in this array."
+                        "description": "Required when there is a Occurrence Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following properties:\n    - `occurrenceSpanCode`: The occurrence span code.\n    - `occurrenceSpanCodeDate`: A date span for the occurrence, expressed as YYYYMMDD-YYYYMMDD."
                     },
                     "treatmentCodeInformationList": {
                         "type": "array",
@@ -14244,7 +14244,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required when Home Health Agencies need to report Plan of Treatment information under various payer contracts. You can provide up to two objects in this array."
+                        "description": "Required when Home Health Agencies need to report Plan of Treatment information under various payer contracts. This is an array of arrays of strings. You can provide up to two string arrays, and each array can contain up to 12 strings. Each string represents one treatment code."
                     },
                     "conditionCodesList": {
                         "type": "array",
@@ -14257,7 +14257,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required when there is a Condition Code that applies to this claim. You can provide up to two objects in this array."
+                        "description": "Required when there is a Condition Code that applies to this claim. \n\n This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects. Each object must have the following required property:\n    - `conditionCode`: The condition code."
                     },
                     "claimPricingInformation": {
                         "$ref": "#/components/schemas/ClaimPricingInformation",
