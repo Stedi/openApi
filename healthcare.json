@@ -4303,9 +4303,12 @@
                     {
                         "name": "businessId",
                         "in": "query",
+                        "description": "The business identifier for the claim PDF you want to retrieve. This value is returned as the `claimReference.correlationId` in the synchronous response Stedi returns when you submit a professional claim.",
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "The business identifier for the claim PDF you want to retrieve. This value is returned as the `claimReference.correlationId` in the synchronous response Stedi returns when you submit a professional claim."
                         },
+                        "required": true,
                         "examples": {
                             "ExportPDF_example1": {
                                 "summary": "Export PDF Request",
@@ -4337,10 +4340,16 @@
                                         "summary": "Export PDF Request",
                                         "description": "",
                                         "value": {
-                                            "errors": [
+                                            "pdfs": [
                                                 {
                                                     "transactionId": "a10b1111-7233-484c-8dee-b240c590c767",
-                                                    "error": "error occurred"
+                                                    "data": "JVBERi0xLjcKJYGBgYEKCjcgMCBvYmoKPDwKL0ZpbHRlciAvRmxhdGVEZWNvZGUKL0xlbmd0aCAxMAo ..."
+                                                }
+                                            ],
+                                            "errors": [
+                                                {
+                                                    "transactionId": "a10b3344-7288-484j-8dbb-b240c123c767",
+                                                    "error": "No artifacts found for transaction"
                                                 }
                                             ]
                                         }
@@ -4360,11 +4369,11 @@
                         }
                     },
                     "403": {
-                        "description": "MaxiumResponseSizeExceeded 403 response",
+                        "description": "MaximumResponseSizeExceeded 403 response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "$ref": "#/components/schemas/MaxiumResponseSizeExceededResponseContent"
+                                    "$ref": "#/components/schemas/MaximumResponseSizeExceededResponseContent"
                                 }
                             }
                         }
@@ -4409,10 +4418,10 @@
                     {
                         "name": "transactionId",
                         "in": "path",
-                        "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app.",
+                        "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi.",
                         "schema": {
                             "type": "string",
-                            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi app."
+                            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi."
                         },
                         "required": true,
                         "examples": {
@@ -13270,13 +13279,15 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PDFError"
-                        }
+                        },
+                        "description": "Errors that prevented Stedi from returning one or more PDFs for the specified `businessId`. This array may be empty if there were no errors."
                     },
                     "pdfs": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/PDFData"
-                        }
+                        },
+                        "description": "Data for PDF files Stedi generated for the specified `businessId`. This array may be empty if there are no PDFs available for the specified `businessId`. It may also contain multiple PDFs if there is more than one claim with the same `businessId` value."
                     }
                 }
             },
@@ -16594,7 +16605,7 @@
                     "001"
                 ]
             },
-            "MaxiumResponseSizeExceededResponseContent": {
+            "MaximumResponseSizeExceededResponseContent": {
                 "type": "object",
                 "properties": {
                     "code": {
@@ -17762,10 +17773,12 @@
                 "type": "object",
                 "properties": {
                     "transactionId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi."
                     },
                     "data": {
                         "type": "string",
+                        "description": "A base64 encoded string of the CMS-1500 Claim Form PDF. To render the PDF, you must decode the base64 string and save it to a file with a `.pdf` extension.",
                         "contentEncoding": "byte"
                     }
                 }
@@ -17774,10 +17787,12 @@
                 "type": "object",
                 "properties": {
                     "transactionId": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A unique identifier for the claim with one or more PDF errors."
                     },
                     "error": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "A message indicating the type of error that occurred."
                     }
                 }
             },
