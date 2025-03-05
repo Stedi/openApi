@@ -41,21 +41,124 @@
                     {
                         "name": "filter",
                         "in": "query",
+                        "description": "A partial search term matched against multiple columns.",
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "A partial search term matched against multiple columns."
                         }
                     },
                     {
                         "name": "status",
                         "in": "query",
+                        "description": "One or multiple statuses to filter by.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "type": "string"
-                            }
+                            },
+                            "description": "One or multiple statuses to filter by."
                         },
                         "explode": true
+                    },
+                    {
+                        "name": "providerNpis",
+                        "in": "query",
+                        "description": "One or multiple provider NPIs to filter by.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "One or multiple provider NPIs to filter by."
+                        },
+                        "explode": true
+                    },
+                    {
+                        "name": "providerTaxIds",
+                        "in": "query",
+                        "description": "One or multiple provider tax IDs to filter by.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "One or multiple provider tax IDs to filter by."
+                        },
+                        "explode": true
+                    },
+                    {
+                        "name": "providerNames",
+                        "in": "query",
+                        "description": "One or multiple provider names to filter by.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "One or multiple provider names to filter by."
+                        },
+                        "explode": true
+                    },
+                    {
+                        "name": "payerIds",
+                        "in": "query",
+                        "description": "One or multiple payer IDs to filter by.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "One or multiple payer IDs to filter by."
+                        },
+                        "explode": true
+                    },
+                    {
+                        "name": "sources",
+                        "in": "query",
+                        "description": "One or multiple sources to filter by.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            },
+                            "description": "One or multiple sources to filter by."
+                        },
+                        "explode": true
+                    },
+                    {
+                        "name": "transactions",
+                        "in": "query",
+                        "description": "Transactions to filter by. The string must be valid JSON. For a valid shape see EnrolledTransactionsList in CreateEnrollment.",
+                        "schema": {
+                            "type": "string",
+                            "description": "Transactions to filter by. The string must be valid JSON. For a valid shape see EnrolledTransactionsList in CreateEnrollment."
+                        }
+                    },
+                    {
+                        "name": "submittedFrom",
+                        "in": "query",
+                        "description": "The start date to filter enrollments submitted from this date.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The start date to filter enrollments submitted from this date.",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "submittedTo",
+                        "in": "query",
+                        "description": "The end date to filter enrollments submitted up to this date.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The end date to filter enrollments submitted up to this date.",
+                            "format": "date-time"
+                        }
                     }
                 ],
                 "responses": {
@@ -81,7 +184,7 @@
                                                     },
                                                     "payer": {
                                                         "name": "UnitedHealthcare",
-                                                        "id": "87726"
+                                                        "stediPayerId": "87726"
                                                     },
                                                     "transactions": {
                                                         "claimPayment": {
@@ -170,7 +273,7 @@
                                         },
                                         "userEmail": "test@example.com",
                                         "payer": {
-                                            "id": "87726"
+                                            "idOrAlias": "87726"
                                         },
                                         "provider": {
                                             "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
@@ -223,7 +326,7 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "id": "87726"
+                                                "stediPayerId": "87726"
                                             },
                                             "source": "API"
                                         }
@@ -424,7 +527,7 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "id": "87726"
+                                                "stediPayerId": "87726"
                                             },
                                             "source": "API"
                                         }
@@ -515,7 +618,7 @@
                                         },
                                         "userEmail": "test@example.com",
                                         "payer": {
-                                            "id": "87726"
+                                            "idOrAlias": "87726"
                                         },
                                         "provider": {
                                             "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
@@ -585,7 +688,7 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "id": "87726"
+                                                "stediPayerId": "87726"
                                             },
                                             "source": "API"
                                         }
@@ -1265,22 +1368,6 @@
                     "message"
                 ]
             },
-            "AllEnrolledPayerFields": {
-                "type": "object",
-                "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The payer's name, such as `Cigna` or `UnitedHealthcare`."
-                    },
-                    "id": {
-                        "type": "string",
-                        "description": "The Payer ID. This can be the primary Payer ID, the Stedi Payer ID, or any listed aliases for the payer. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
-                    }
-                },
-                "required": [
-                    "id"
-                ]
-            },
             "AllEnrolledProviderFields": {
                 "type": "object",
                 "properties": {
@@ -1410,7 +1497,7 @@
                         "description": "Information about the provider enrolling with the payer."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "$ref": "#/components/schemas/EnrolledPayerOutput",
                         "description": "Information about the payer the provider is enrolling with."
                     }
                 },
@@ -1520,11 +1607,28 @@
                 "properties": {
                     "id": {
                         "type": "string",
+                        "description": "Deprecated. Use `idOrAlias` instead. This field will be removed in the future."
+                    },
+                    "idOrAlias": {
+                        "type": "string",
                         "description": "The Payer ID. This can be the primary Payer ID, the Stedi Payer ID, or any listed aliases for the payer. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list."
+                    }
+                }
+            },
+            "EnrolledPayerOutput": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The payer's name, such as `Cigna` or `UnitedHealthcare`."
+                    },
+                    "stediPayerId": {
+                        "type": "string",
+                        "description": "The unique Stedi assigned identifier for the payer."
                     }
                 },
                 "required": [
-                    "id"
+                    "stediPayerId"
                 ]
             },
             "EnrolledProviderInput": {
@@ -1665,7 +1769,7 @@
                         "description": "Information about the provider enrolling with the payer."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "$ref": "#/components/schemas/EnrolledPayerOutput",
                         "description": "Information about the payer the provider is enrolling with."
                     },
                     "transactions": {
@@ -1765,7 +1869,7 @@
                         "description": "Information about the provider enrolling with the payer."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "$ref": "#/components/schemas/EnrolledPayerOutput",
                         "description": "Information about the payer the provider is enrolling with."
                     }
                 },
@@ -2130,7 +2234,7 @@
                         "description": "Information about the provider enrolling with the payer."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/AllEnrolledPayerFields",
+                        "$ref": "#/components/schemas/EnrolledPayerOutput",
                         "description": "Information about the payer the provider is enrolling with."
                     }
                 },
