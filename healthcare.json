@@ -6581,7 +6581,7 @@
                     },
                     "lineItemProviderPaymentAmount": {
                         "type": "string",
-                        "description": "The amount paid for the service, expressed as a decimal."
+                        "description": "The amount paid for the service, expressed as a decimal. \n\n This amount is calculated as follows: \n\n`servicePaymentInformation.lineItemProviderPaymentAmount =\n  servicePaymentInformation.lineItemChargeAmount - (sum(serviceAdjustments[].adjustmentAmount1) + sum(serviceAdjustments[].adjustmentAmount2) + sum(serviceAdjustments[].adjustmentAmount3) + sum(serviceAdjustments[].adjustmentAmount4) + sum(serviceAdjustments[].adjustmentAmount5) + sum(serviceAdjustments[].adjustmentAmount6))`\n\nAll properties in the formula are within a single `transactions.detailInfo.paymentInfo.serviceLines` array entry. Note that `serviceAdjustments` is an object array that could contain up to 99 entries, each with up to 6 adjustment amounts in separate properties. This allows for up to 594 total adjustments.\n\nAdjustments can be either positive or negative. When the adjustment amounts are positive, the payment decreases. When the adjustment amounts are negative, the payment amount increases, and will be larger than the `lineItemChargeAmount`."
                     },
                     "nationalUniformBillingCommitteeRevenueCode": {
                         "type": "string",
