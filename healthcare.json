@@ -10741,7 +10741,7 @@
                     "otherPayerSecondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/OtherPayerSecondaryIdentifierItem"
                         },
                         "maxItems": 2,
                         "minItems": 1,
@@ -17384,7 +17384,7 @@
                     "otherPayerSecondaryIdentifier": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReferenceIdentification"
+                            "$ref": "#/components/schemas/OtherPayerSecondaryIdentifierItem"
                         },
                         "maxItems": 2,
                         "minItems": 1,
@@ -17494,6 +17494,28 @@
                 "enum": [
                     "1",
                     "2"
+                ]
+            },
+            "OtherPayerSecondaryIdentifierItem": {
+                "type": "object",
+                "properties": {
+                    "qualifier": {
+                        "type": "string",
+                        "description": "The code identifying the type of reference number."
+                    },
+                    "identifier": {
+                        "type": "string",
+                        "description": "The reference number."
+                    },
+                    "otherIdentifier": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    }
+                },
+                "required": [
+                    "identifier",
+                    "qualifier"
                 ]
             },
             "OtherPayerServiceFacilityLocation": {
