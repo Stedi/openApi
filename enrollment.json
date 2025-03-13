@@ -134,11 +134,16 @@
                     {
                         "name": "transactions",
                         "in": "query",
-                        "description": "Transactions to filter by. The string must be valid JSON. For a valid shape see EnrolledTransactionsList in CreateEnrollment.",
+                        "description": "A list of enrollment transaction types to filter by.",
+                        "style": "form",
                         "schema": {
-                            "type": "string",
-                            "description": "Transactions to filter by. The string must be valid JSON. For a valid shape see EnrolledTransactionsList in CreateEnrollment."
-                        }
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/TransactionType"
+                            },
+                            "description": "A list of enrollment transaction types to filter by."
+                        },
+                        "explode": true
                     },
                     {
                         "name": "submittedFrom",
@@ -2128,6 +2133,19 @@
                 "enum": [
                     "EIN",
                     "SSN"
+                ]
+            },
+            "TransactionType": {
+                "type": "string",
+                "enum": [
+                    "claimStatus",
+                    "eligibilityCheck",
+                    "institutionalClaimSubmission",
+                    "professionalClaimSubmission",
+                    "dentalClaimSubmission",
+                    "claimPayment",
+                    "solicitedClaimAttachment",
+                    "unsolicitedClaimAttachment"
                 ]
             },
             "UnauthorizedExceptionResponseContent": {
