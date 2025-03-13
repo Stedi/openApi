@@ -18271,10 +18271,6 @@
                         "type": "string",
                         "description": "The payer's name suffix, such as Jr. or III. Used when the payer is an individual (not commonly used)."
                     },
-                    "employersId": {
-                        "type": "string",
-                        "description": "Deprecated; The payer's identification number for the entity receiving the benefits information."
-                    },
                     "federalTaxpayersIdNumber": {
                         "type": "string",
                         "description": "The payer's federal taxpayer's identification number."
@@ -18312,6 +18308,11 @@
                     "etin": {
                         "type": "string",
                         "description": "The payer's Electronic Transmitter Identification Number (ETIN)."
+                    },
+                    "employersId": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; The payer's identification number for the entity receiving the benefits information.\nThis shape is deprecated: This property is no longer used."
                     }
                 }
             },
@@ -19127,7 +19128,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n- Properties contain a single date unless otherwise noted.\n- The provided dates apply to every every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n- Properties contain a single date unless otherwise noted.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
                 "properties": {
                     "discharge": {
                         "type": "string"
@@ -19138,44 +19139,9 @@
                     "effectiveDateOfChange": {
                         "type": "string"
                     },
-                    "periodStart": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "periodEnd": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "completion": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "coordinationOfBenefits": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
                     "plan": {
                         "type": "string",
                         "description": "Can be formatted as a single date or as a range of dates in YYYYMMDD-YYYYMMDD format."
-                    },
-                    "benefit": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "primaryCareProvider": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "latestVisitOrConsultation": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
                     },
                     "eligibility": {
                         "type": "string",
@@ -19202,16 +19168,6 @@
                     },
                     "planEnd": {
                         "type": "string"
-                    },
-                    "benefitBegin": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "benefitEnd": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
                     },
                     "eligibilityBegin": {
                         "type": "string"
@@ -19247,6 +19203,51 @@
                     },
                     "status": {
                         "type": "string"
+                    },
+                    "periodStart": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "periodEnd": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "completion": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "coordinationOfBenefits": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "benefit": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "primaryCareProvider": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "latestVisitOrConsultation": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "benefitBegin": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "benefitEnd": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
                     }
                 }
             },
@@ -21471,11 +21472,6 @@
                         "type": "string",
                         "description": "The Health Care Provider Taxonomy Code."
                     },
-                    "employersId": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "Deprecated; The Employer's Identification Number (EIN). Only used when an employer is checking the eligibility and benefits of their employees.\nThis shape is deprecated: This property is no longer used."
-                    },
                     "ssn": {
                         "type": "string",
                         "description": "The Social Security Number (SSN)."
@@ -21510,6 +21506,11 @@
                             "$ref": "#/components/schemas/EligibilityCheckProviderError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                    },
+                    "employersId": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; The provider's identification number for the entity receiving the benefits information.\nThis shape is deprecated: This property is no longer used."
                     }
                 }
             },
@@ -21518,7 +21519,7 @@
                 "description": "A code identifying the type of provider.",
                 "enum": [
                     "Provider",
-                    "Third-Party Administrato",
+                    "Third-Party Administrator",
                     "Employer",
                     "Hospital",
                     "Facility",
