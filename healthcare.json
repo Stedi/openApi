@@ -4503,6 +4503,294 @@
                 }
             }
         },
+        "/insurance-discovery/check/v1": {
+            "post": {
+                "operationId": "InsuranceDiscoveryCheck",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/InsuranceDiscoveryCheckRequestContent"
+                            },
+                            "examples": {
+                                "InsuranceDiscoveryCheck_example1": {
+                                    "summary": "Insurance discovery check",
+                                    "description": "",
+                                    "value": {
+                                        "provider": {
+                                            "npi": "1234567890"
+                                        },
+                                        "subscriber": {
+                                            "firstName": "John",
+                                            "lastName": "Smith",
+                                            "middleName": "Robert",
+                                            "dateOfBirth": "19800101",
+                                            "ssn": "123456789",
+                                            "gender": "M",
+                                            "address": {
+                                                "address1": "123 Main St",
+                                                "city": "Springfield",
+                                                "state": "IL",
+                                                "postalCode": "62701"
+                                            }
+                                        },
+                                        "encounter": {
+                                            "beginningDateOfService": "20240326",
+                                            "endDateOfService": "20240326"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "InsuranceDiscoveryCheck 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InsuranceDiscoveryCheckResponseContent"
+                                },
+                                "examples": {
+                                    "InsuranceDiscoveryCheck_example1": {
+                                        "summary": "Insurance discovery check",
+                                        "description": "",
+                                        "value": {
+                                            "discoveryId": "12345678-abcd-4321-efgh-987654321abc",
+                                            "items": [
+                                                {
+                                                    "provider": {
+                                                        "providerName": "provider",
+                                                        "entityType": "Non-Person Entity",
+                                                        "npi": "1234567890"
+                                                    },
+                                                    "subscriber": {
+                                                        "memberId": "987654321000",
+                                                        "firstName": "John",
+                                                        "lastName": "Doe",
+                                                        "middleName": "Smith",
+                                                        "gender": "M",
+                                                        "dateOfBirth": "1990-01-15",
+                                                        "groupNumber": "123456-78",
+                                                        "planNumber": "123456-EXMPL9876",
+                                                        "groupDescription": "Individual On-Exchange",
+                                                        "address": {
+                                                            "address1": "123 Main Street",
+                                                            "city": "ANYTOWN",
+                                                            "state": "CA",
+                                                            "postalCode": "12345"
+                                                        }
+                                                    },
+                                                    "payer": {
+                                                        "name": "EXAMPLE INSURANCE CO"
+                                                    },
+                                                    "planInformation": {
+                                                        "planNumber": "123456-EXMPL9876",
+                                                        "groupNumber": "123456-78",
+                                                        "groupDescription": "Individual On-Exchange"
+                                                    },
+                                                    "planDateInformation": {
+                                                        "planBegin": "2025-01-01",
+                                                        "eligibilityBegin": "2025-01-01",
+                                                        "service": "2025-03-01"
+                                                    },
+                                                    "confidence": {
+                                                        "score": 0.8,
+                                                        "level": "REVIEW_NEEDED",
+                                                        "reason": "This record was identified as a low confidence match due to a DOB partial match"
+                                                    }
+                                                }
+                                            ],
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "traceId": "1-abcdef12-123456789abcdef123456789"
+                                            },
+                                            "status": "COMPLETE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/insurance-discovery/check/v1/{discoveryId}": {
+            "get": {
+                "operationId": "GetInsuranceDiscoveryCheck",
+                "parameters": [
+                    {
+                        "name": "discoveryId",
+                        "in": "path",
+                        "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/api-reference/healthcare/post-insurance-discovery) endpoint.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/api-reference/healthcare/post-insurance-discovery) endpoint."
+                        },
+                        "required": true,
+                        "examples": {
+                            "GetInsuranceDiscoveryCheck_example1": {
+                                "summary": "Poll for Insurance Discovery Results",
+                                "description": "",
+                                "value": "12345678-abcd-4321-efgh-987654321abc"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetInsuranceDiscoveryCheck 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetInsuranceDiscoveryCheckResponseContent"
+                                },
+                                "examples": {
+                                    "GetInsuranceDiscoveryCheck_example1": {
+                                        "summary": "Poll for Insurance Discovery Results",
+                                        "description": "",
+                                        "value": {
+                                            "discoveryId": "12345678-abcd-4321-efgh-987654321abc",
+                                            "items": [
+                                                {
+                                                    "provider": {
+                                                        "providerName": "provider",
+                                                        "entityType": "Non-Person Entity",
+                                                        "npi": "1234567890"
+                                                    },
+                                                    "subscriber": {
+                                                        "memberId": "987654321000",
+                                                        "firstName": "John",
+                                                        "lastName": "Doe",
+                                                        "middleName": "Smith",
+                                                        "gender": "M",
+                                                        "dateOfBirth": "1990-01-15",
+                                                        "groupNumber": "123456-78",
+                                                        "planNumber": "123456-EXMPL9876",
+                                                        "groupDescription": "Individual On-Exchange",
+                                                        "address": {
+                                                            "address1": "123 Main Street",
+                                                            "city": "ANYTOWN",
+                                                            "state": "CA",
+                                                            "postalCode": "12345"
+                                                        }
+                                                    },
+                                                    "payer": {
+                                                        "name": "EXAMPLE INSURANCE CO"
+                                                    },
+                                                    "planInformation": {
+                                                        "planNumber": "123456-EXMPL9876",
+                                                        "groupNumber": "123456-78",
+                                                        "groupDescription": "Individual On-Exchange"
+                                                    },
+                                                    "planDateInformation": {
+                                                        "planBegin": "2025-01-01",
+                                                        "eligibilityBegin": "2025-01-01",
+                                                        "service": "2025-03-01"
+                                                    },
+                                                    "confidence": {
+                                                        "score": 0.8,
+                                                        "level": "REVIEW_NEEDED",
+                                                        "reason": "This record was identified as a low confidence match due to a DOB partial match"
+                                                    }
+                                                }
+                                            ],
+                                            "meta": {
+                                                "applicationMode": "production",
+                                                "traceId": "1-abcdef12-123456789abcdef123456789"
+                                            },
+                                            "status": "COMPLETE"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payers": {
             "get": {
                 "operationId": "ListPayerRecords",
@@ -4545,7 +4833,8 @@
                                                         "professionalClaimSubmission": "SUPPORTED",
                                                         "institutionalClaimSubmission": "SUPPORTED",
                                                         "claimPayment": "ENROLLMENT_REQUIRED",
-                                                        "coordinationOfBenefits": "SUPPORTED"
+                                                        "coordinationOfBenefits": "SUPPORTED",
+                                                        "dentalClaimSubmission": "SUPPORTED"
                                                     }
                                                 }
                                             ]
@@ -8552,7 +8841,7 @@
                 "properties": {
                     "referencedTransactionTraceNumber": {
                         "type": "string",
-                        "description": "An identifier for the claim."
+                        "description": "The patient control number provided in the original claim. You can use this value to correlate the payer's response with the original claim."
                     },
                     "informationClaimStatuses": {
                         "type": "array",
@@ -9476,6 +9765,31 @@
                 },
                 "required": [
                     "conditionCodes"
+                ]
+            },
+            "Confidence": {
+                "type": "object",
+                "properties": {
+                    "score": {
+                        "type": "number",
+                        "description": "A confidence score that indicates how likely it is that this active coverage is a match for the patient submitted in the insurance discovery request. This is a number between 0 and 1, where 1 is the highest confidence. \n\n A higher score indicates a more likely match. However, you **must** always check the subscriber information to determine whether the coverage is a match for the patient.",
+                        "format": "float"
+                    },
+                    "level": {
+                        "$ref": "#/components/schemas/ConfidenceLevel",
+                        "description": "The confidence level for the match."
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "A reason for the confidence level. For example, `This record was identified as a low confidence match due to a DOB partial match`."
+                    }
+                }
+            },
+            "ConfidenceLevel": {
+                "type": "string",
+                "enum": [
+                    "REVIEW_NEEDED",
+                    "HIGH"
                 ]
             },
             "ContactInformation": {
@@ -11668,6 +11982,502 @@
                     "ABF"
                 ]
             },
+            "DiscoveryPayer": {
+                "type": "object",
+                "properties": {
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/PayerEntityIdentifier"
+                    },
+                    "entityType": {
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "The entity type qualifier for the payer. Can be set to `Person` (not commonly used) or `Non-Person Entity` (most common)."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The payer's first name, when the payer is an individual (not commonly used)."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The payer's last name. Used when the payer is an individual (not commonly used)."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The payer's business name, when the payer is not a person."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The payer's middle name or initial, when the payer is an individual (not commonly used)."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The payer's name suffix, such as Jr. or III. Used when the payer is an individual (not commonly used)."
+                    },
+                    "federalTaxpayersIdNumber": {
+                        "type": "string",
+                        "description": "The payer's federal taxpayer's identification number."
+                    },
+                    "naic": {
+                        "type": "string",
+                        "description": "The payer's National Association of Insurance Commissioners (NAIC) identification number."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The payer's National Provider Identifier (NPI).",
+                        "x-meta": {
+                            "title": "National Provider Identifier (NPI)"
+                        }
+                    },
+                    "centersForMedicareAndMedicaidPlanId": {
+                        "type": "string",
+                        "description": "The payer's Centers for Medicare and Medicaid Services PlanID."
+                    },
+                    "payorIdentification": {
+                        "type": "string",
+                        "description": "The payor identification."
+                    },
+                    "contactInformation": {
+                        "$ref": "#/components/schemas/ContactInformation",
+                        "description": "The payer's contact information.\n\nNote that when `contacts.communicationMode` is set to `UR`, the `communicationNumber` property may not contain a valid URL. Most payers provide a partial web address for their provider portal, or something similar, such as `www.example.com/portal`. You must add the appropriate scheme and separators, such as `https://` or `http://`, to make it a valid URL."
+                    },
+                    "etin": {
+                        "type": "string",
+                        "description": "The payer's Electronic Transmitter Identification Number (ETIN)."
+                    }
+                }
+            },
+            "DiscoveryPlanDateInformation": {
+                "type": "object",
+                "properties": {
+                    "discharge": {
+                        "type": "string"
+                    },
+                    "issue": {
+                        "type": "string"
+                    },
+                    "effectiveDateOfChange": {
+                        "type": "string"
+                    },
+                    "plan": {
+                        "type": "string",
+                        "description": "Can be formatted as a single date or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                    },
+                    "eligibility": {
+                        "type": "string",
+                        "description": "Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                    },
+                    "added": {
+                        "type": "string"
+                    },
+                    "cobraBegin": {
+                        "type": "string"
+                    },
+                    "cobraEnd": {
+                        "type": "string"
+                    },
+                    "premiumPaidToDateBegin": {
+                        "type": "string"
+                    },
+                    "premiumPaidToDateEnd": {
+                        "type": "string"
+                    },
+                    "planBegin": {
+                        "type": "string",
+                        "description": "Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                    },
+                    "planEnd": {
+                        "type": "string"
+                    },
+                    "eligibilityBegin": {
+                        "type": "string"
+                    },
+                    "eligibilityEnd": {
+                        "type": "string"
+                    },
+                    "enrollment": {
+                        "type": "string"
+                    },
+                    "admission": {
+                        "type": "string",
+                        "description": "Formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges)."
+                    },
+                    "dateOfDeath": {
+                        "type": "string"
+                    },
+                    "certification": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "type": "string",
+                        "description": "Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                    },
+                    "policyEffective": {
+                        "type": "string"
+                    },
+                    "policyExpiration": {
+                        "type": "string"
+                    },
+                    "dateOfLastUpdate": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "string"
+                    }
+                }
+            },
+            "DiscoveryResponseDependent": {
+                "type": "object",
+                "properties": {
+                    "healthCareDiagnosisCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCareDiagnosisCode"
+                        }
+                    },
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The dependent's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The dependent's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The dependent's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The name suffix, such as Jr., Sr., or III."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ResponseMemberGender"
+                    },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
+                    },
+                    "entityType": {
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                    },
+                    "uniqueHealthIdentifier": {
+                        "type": "string",
+                        "description": "The dependent's unique health identifier."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The dependent's date of birth, formatted as YYYYMMDD."
+                    },
+                    "informationStatusCode": {
+                        "$ref": "#/components/schemas/InformationStatusCode",
+                        "description": "The status of the dependent's information, used to report military service data."
+                    },
+                    "employmentStatusCode": {
+                        "$ref": "#/components/schemas/EmploymentStatusCode",
+                        "description": "The dependent's employment status code, used to report military service data."
+                    },
+                    "governmentServiceAffiliationCode": {
+                        "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
+                        "description": "The dependent's government service affiliation code, used to report military service data."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Context that identifies the exact military unit. Used to report military service data."
+                    },
+                    "militaryServiceRankCode": {
+                        "$ref": "#/components/schemas/MilitaryServiceRankCode",
+                        "description": "The dependent's military service rank code."
+                    },
+                    "dateTimePeriodFormatQualifier": {
+                        "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
+                        "description": "The format of the military service date and time period."
+                    },
+                    "dateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service date, formatted as YYYYMMDD."
+                    },
+                    "startDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service start date, formatted as YYYYMMDD."
+                    },
+                    "endDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service end date, formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The dependent's Social Security Number (SSN)."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The group number associated with the subscriber's insurance policy."
+                    },
+                    "planNumber": {
+                        "type": "string",
+                        "description": "The plan number associated with the subscriber's insurance policy."
+                    },
+                    "planNetworkIdNumber": {
+                        "type": "string",
+                        "description": "The network identification number associated with the subscriber's insurance policy."
+                    },
+                    "groupDescription": {
+                        "type": "string",
+                        "description": "Group name"
+                    },
+                    "planDescription": {
+                        "type": "string",
+                        "description": "Plan name"
+                    },
+                    "planNetworkDescription": {
+                        "type": "string",
+                        "description": "Plan network name"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/DependentRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/DependentRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/DependentInsuredIndicator"
+                    },
+                    "maintenanceTypeCode": {
+                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                    },
+                    "maintenanceReasonCode": {
+                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                    },
+                    "birthSequenceNumber": {
+                        "type": "string",
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "responseProvider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    }
+                }
+            },
+            "DiscoveryResponseProvider": {
+                "type": "object",
+                "properties": {
+                    "providerName": {
+                        "type": "string",
+                        "description": "The provider's last name. This applies to providers that are an individual."
+                    },
+                    "providerFirstName": {
+                        "type": "string",
+                        "description": "The provider's first name. This applies to providers that are an individual."
+                    },
+                    "providerOrgName": {
+                        "type": "string",
+                        "description": "The provider's organization name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name. This applies to providers that are an individual."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The provider's name suffix, such as Jr., Sr., or III."
+                    },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseProviderEntityIdentifier"
+                    },
+                    "entityType": {
+                        "$ref": "#/components/schemas/EntityTypeQualifier"
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI)."
+                    },
+                    "providerCode": {
+                        "$ref": "#/components/schemas/ProviderCode",
+                        "description": "A code that communicates the provider's role in the type of benefits information in the response."
+                    },
+                    "referenceIdentification": {
+                        "type": "string",
+                        "description": "The Health Care Provider Taxonomy Code."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The Social Security Number (SSN)."
+                    },
+                    "federalTaxpayersIdNumber": {
+                        "type": "string",
+                        "description": "The Federal Taxpayer Identification Number (also known as an EIN)."
+                    },
+                    "payorIdentification": {
+                        "type": "string",
+                        "description": "The Payor Identification."
+                    },
+                    "pharmacyProcessorNumber": {
+                        "type": "string",
+                        "description": "The pharmacy processor number."
+                    },
+                    "serviceProviderNumber": {
+                        "type": "string",
+                        "description": "The service provider number. This is an identification number assigned by the payer."
+                    },
+                    "servicesPlanID": {
+                        "type": "string",
+                        "description": "The Centers for Medicare and Medicaid Services (CMS) Plan ID."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The provider's contact information."
+                    }
+                }
+            },
+            "DiscoveryResponseSubscriber": {
+                "type": "object",
+                "properties": {
+                    "healthCareDiagnosisCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCareDiagnosisCode"
+                        }
+                    },
+                    "memberId": {
+                        "type": "string",
+                        "description": "The member ID for the subscriber's insurance policy."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The subscriber's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The subscriber's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The subscriber's middle name or initial."
+                    },
+                    "suffix": {
+                        "type": "string",
+                        "description": "The name suffix, such as Jr., Sr., or III."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/ResponseMemberGender"
+                    },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
+                    },
+                    "entityType": {
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                    },
+                    "uniqueHealthIdentifier": {
+                        "type": "string",
+                        "description": "The subscriber's unique health identifier."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "description": "The subscriber's date of birth, formatted as YYYYMMDD."
+                    },
+                    "informationStatusCode": {
+                        "$ref": "#/components/schemas/InformationStatusCode",
+                        "description": "The status of the subscriber's information, used to report military service data."
+                    },
+                    "employmentStatusCode": {
+                        "$ref": "#/components/schemas/EmploymentStatusCode",
+                        "description": "The subscriber's employment status code, used to report military service data."
+                    },
+                    "governmentServiceAffiliationCode": {
+                        "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
+                        "description": "The subscriber's government service affiliation code, used to report military service data."
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Context that identifies the exact military unit. Used to report military service data."
+                    },
+                    "militaryServiceRankCode": {
+                        "$ref": "#/components/schemas/MilitaryServiceRankCode",
+                        "description": "The subscriber's military service rank code."
+                    },
+                    "dateTimePeriodFormatQualifier": {
+                        "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
+                        "description": "The format of the military service date and time period."
+                    },
+                    "dateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service date, formatted as YYYYMMDD."
+                    },
+                    "startDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service start date, formatted as YYYYMMDD."
+                    },
+                    "endDateTimePeriod": {
+                        "type": "string",
+                        "description": "The military service end date, formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The subscriber's Social Security Number (SSN)."
+                    },
+                    "groupNumber": {
+                        "type": "string",
+                        "description": "The group number associated with the subscriber's insurance policy."
+                    },
+                    "planNumber": {
+                        "type": "string",
+                        "description": "The plan number associated with the subscriber's insurance policy."
+                    },
+                    "planNetworkIdNumber": {
+                        "type": "string",
+                        "description": "The network identification number associated with the subscriber's insurance policy."
+                    },
+                    "groupDescription": {
+                        "type": "string",
+                        "description": "Group name"
+                    },
+                    "planDescription": {
+                        "type": "string",
+                        "description": "Plan name"
+                    },
+                    "planNetworkDescription": {
+                        "type": "string",
+                        "description": "Plan network name"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/SubscriberRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
+                    },
+                    "maintenanceTypeCode": {
+                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                    },
+                    "maintenanceReasonCode": {
+                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                    },
+                    "birthSequenceNumber": {
+                        "type": "string",
+                        "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Indicates the birth order when there are multiple births associated with the provided birth date."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address"
+                    },
+                    "responseProvider": {
+                        "$ref": "#/components/schemas/ResponseProvider"
+                    }
+                }
+            },
+            "DiscoveryStatus": {
+                "type": "string",
+                "enum": [
+                    "PENDING",
+                    "COMPLETE"
+                ]
+            },
             "DrugIdentification": {
                 "type": "object",
                 "description": "To report prescribed drugs and biologics.",
@@ -13466,6 +14276,34 @@
                     "F",
                     "M",
                     "U"
+                ]
+            },
+            "GetInsuranceDiscoveryCheckResponseContent": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "$ref": "#/components/schemas/InsuranceDiscoveryMetadata"
+                    },
+                    "discoveryId": {
+                        "type": "string",
+                        "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/DiscoveryStatus",
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InsuranceDiscoveryResponseFields"
+                        },
+                        "description": "An array of potential coverage matches for the patient. This will only be populated if the insurance discovery check `status` is `COMPLETE`. Each item in the array contains information about a potential match, including the provider, subscriber, payer, and plan information."
+                    }
+                },
+                "required": [
+                    "discoveryId",
+                    "meta",
+                    "status"
                 ]
             },
             "GetPDF1500OutputPayload": {
@@ -16288,6 +17126,228 @@
                     "U"
                 ]
             },
+            "InsuranceDiscoveryCheckRequestContent": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "$ref": "#/components/schemas/InsuranceDiscoveryProvider"
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/InsuranceDiscoverySubscriber"
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/InsuranceDiscoveryDependent"
+                    },
+                    "encounter": {
+                        "$ref": "#/components/schemas/InsuranceDiscoveryEncounter"
+                    }
+                },
+                "required": [
+                    "provider",
+                    "subscriber"
+                ]
+            },
+            "InsuranceDiscoveryCheckResponseContent": {
+                "type": "object",
+                "properties": {
+                    "meta": {
+                        "$ref": "#/components/schemas/InsuranceDiscoveryMetadata"
+                    },
+                    "discoveryId": {
+                        "type": "string",
+                        "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/DiscoveryStatus",
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InsuranceDiscoveryResponseFields"
+                        },
+                        "description": "An array of potential coverage matches for the patient. This will only be populated if the insurance discovery check `status` is `COMPLETE`. Each item in the array contains information about a potential match, including the provider, subscriber, payer, and plan information."
+                    }
+                },
+                "required": [
+                    "discoveryId",
+                    "meta",
+                    "status"
+                ]
+            },
+            "InsuranceDiscoveryDependent": {
+                "type": "object",
+                "description": "Demographic information for the patient when they are a dependent on a health plan.  \n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code. \n- You should provide information for both the subscriber and the dependent in the request when possible. \n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The dependent's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The dependent's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The dependent's middle name or initial."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The dependent's date of birth (DOB), formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "maxLength": 11,
+                        "minLength": 1,
+                        "description": "The dependent's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/RequestSubscriberGender",
+                        "description": "The dependent's gender. This can be set to either `M` - Male or `F` - Female."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName"
+                ]
+            },
+            "InsuranceDiscoveryEncounter": {
+                "type": "object",
+                "description": "The date range for the service being requested. If you don't specify a service date (either a single day or a range of dates), the Stedi defaults to the current date.\n\n If you need to specify a single date, use the `beginningDateOfService` property and leave `endDateOfService` blank.",
+                "properties": {
+                    "beginningDateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The beginning date, formatted as YYYYMMDD."
+                    },
+                    "endDateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end date, formatted as YYYYMMDD. If you don't specify an end date, Stedi defaults to the same date as `beginningDateOfService`."
+                    }
+                }
+            },
+            "InsuranceDiscoveryMetadata": {
+                "type": "object",
+                "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
+                "properties": {
+                    "applicationMode": {
+                        "$ref": "#/components/schemas/ApplicationModes",
+                        "description": "The type of data in the request. This is always `production`."
+                    },
+                    "traceId": {
+                        "type": "string",
+                        "description": "The unique ID Stedi assigns to this request."
+                    }
+                }
+            },
+            "InsuranceDiscoveryProvider": {
+                "type": "object",
+                "description": "Information about the provider requesting the insurance discovery check.",
+                "properties": {
+                    "npi": {
+                        "type": "string",
+                        "maxLength": 15,
+                        "minLength": 10,
+                        "pattern": "^[12].*$",
+                        "description": "The provider's National Provider Identifier (NPI)."
+                    }
+                },
+                "required": [
+                    "npi"
+                ]
+            },
+            "InsuranceDiscoveryResponseFields": {
+                "type": "object",
+                "properties": {
+                    "provider": {
+                        "$ref": "#/components/schemas/DiscoveryResponseProvider",
+                        "description": "Information about the provider who requested the insurance discovery check."
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/DiscoveryResponseSubscriber",
+                        "description": "Information about the subscriber for this coverage. You should **always** review this information to ensure that the coverage Stedi found is a match for the patient."
+                    },
+                    "dependent": {
+                        "$ref": "#/components/schemas/DiscoveryResponseDependent",
+                        "description": "Information about the dependent for this coverage. You should **always** review this information to ensure that the coverage Stedi found is a match for the patient."
+                    },
+                    "payer": {
+                        "$ref": "#/components/schemas/DiscoveryPayer",
+                        "description": "Information about the payer for this coverage."
+                    },
+                    "planInformation": {
+                        "$ref": "#/components/schemas/PlanInformation",
+                        "description": "Additional identification for the patient's health plan."
+                    },
+                    "planDateInformation": {
+                        "$ref": "#/components/schemas/DiscoveryPlanDateInformation",
+                        "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits. \n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
+                    },
+                    "confidence": {
+                        "$ref": "#/components/schemas/Confidence",
+                        "description": "Information indicating how likely it is that this coverage is a match for the patient submitted in the insurance discovery request. \n\n Even if the confidence score is high, you **must** always check the subscriber information to confirm that the coverage is a match for the patient."
+                    }
+                }
+            },
+            "InsuranceDiscoverySubscriber": {
+                "type": "object",
+                "description": "Demographic information for the patient when they are the health plan subscriber.\n\n We strongly recommend providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the subscriber's Social Security Number and their address - particularly their zip code.",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The subscriber's first name."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The subscriber's last name."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
+                        "description": "The subscriber's middle name or initial."
+                    },
+                    "dateOfBirth": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The subscriber's date of birth (DOB), formatted as YYYYMMDD."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "maxLength": 11,
+                        "minLength": 1,
+                        "description": "The subscriber's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                    },
+                    "gender": {
+                        "$ref": "#/components/schemas/RequestSubscriberGender",
+                        "description": "The subscriber's gender. This can be set to either `M` - Male or `F` - Female."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The subscriber's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                    }
+                },
+                "required": [
+                    "firstName",
+                    "lastName"
+                ]
+            },
             "InsuranceTypeCode": {
                 "type": "string",
                 "description": "Code identifying the type of insurance policy.",
@@ -18305,13 +19365,6 @@
                         "$ref": "#/components/schemas/ContactInformation",
                         "description": "The payer's contact information.\n\nNote that when `contacts.communicationMode` is set to `UR`, the `communicationNumber` property may not contain a valid URL. Most payers provide a partial web address for their provider portal, or something similar, such as `www.example.com/portal`. You must add the appropriate scheme and separators, such as `https://` or `http://`, to make it a valid URL."
                     },
-                    "aaaErrors": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckPayerError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
-                    },
                     "etin": {
                         "type": "string",
                         "description": "The payer's Electronic Transmitter Identification Number (ETIN)."
@@ -18320,6 +19373,13 @@
                         "type": "string",
                         "deprecated": true,
                         "description": "Deprecated; The payer's identification number for the entity receiving the benefits information.\nThis shape is deprecated: This property is no longer used."
+                    },
+                    "aaaErrors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckPayerError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
                 }
             },
@@ -21514,17 +22574,17 @@
                         "$ref": "#/components/schemas/Address",
                         "description": "The provider's contact information."
                     },
+                    "employersId": {
+                        "type": "string",
+                        "deprecated": true,
+                        "description": "Deprecated; The provider's identification number for the entity receiving the benefits information.\nThis shape is deprecated: This property is no longer used."
+                    },
                     "aaaErrors": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckProviderError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
-                    },
-                    "employersId": {
-                        "type": "string",
-                        "deprecated": true,
-                        "description": "Deprecated; The provider's identification number for the entity receiving the benefits information.\nThis shape is deprecated: This property is no longer used."
                     }
                 }
             },
@@ -23405,6 +24465,10 @@
                     "coordinationOfBenefits": {
                         "$ref": "#/components/schemas/TransactionSupportValue",
                         "description": "Coordination of Benefits (COB) support."
+                    },
+                    "dentalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837p dental claims to this payer."
                     }
                 },
                 "required": [
@@ -23412,6 +24476,7 @@
                     "claimStatus",
                     "claimSubmission",
                     "coordinationOfBenefits",
+                    "dentalClaimSubmission",
                     "eligibilityCheck",
                     "institutionalClaimSubmission",
                     "professionalClaimSubmission"
