@@ -4955,7 +4955,9 @@
                                                         "institutionalClaimSubmission": "SUPPORTED",
                                                         "claimPayment": "ENROLLMENT_REQUIRED",
                                                         "coordinationOfBenefits": "SUPPORTED",
-                                                        "dentalClaimSubmission": "SUPPORTED"
+                                                        "dentalClaimSubmission": "SUPPORTED",
+                                                        "solicitedClaimAttachment": "SUPPORTED",
+                                                        "unsolicitedClaimAttachment": "SUPPORTED"
                                                     }
                                                 }
                                             ]
@@ -24749,6 +24751,14 @@
                     "dentalClaimSubmission": {
                         "$ref": "#/components/schemas/TransactionSupportValue",
                         "description": "Whether you can send 837p dental claims to this payer."
+                    },
+                    "solicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send solicited claim attachments to this payer."
+                    },
+                    "unsolicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send unsolicited claim attachments to this payer."
                     }
                 },
                 "required": [
@@ -24759,7 +24769,9 @@
                     "dentalClaimSubmission",
                     "eligibilityCheck",
                     "institutionalClaimSubmission",
-                    "professionalClaimSubmission"
+                    "professionalClaimSubmission",
+                    "solicitedClaimAttachment",
+                    "unsolicitedClaimAttachment"
                 ]
             },
             "TransactionSupportValue": {
