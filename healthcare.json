@@ -7051,7 +7051,7 @@
                 "properties": {
                     "allowedActual": {
                         "type": "string",
-                        "description": "The amount the payer deems payable prior to considering patient responsibility."
+                        "description": "The payer payment plus any assigned patient responsibility."
                     },
                     "deductionAmount": {
                         "type": "string",
@@ -7758,7 +7758,8 @@
                         "description": "Required for Medicare claims when an independent laboratory renders an EKG tracing or obtains a specimen from a homebound or institutionalized patient."
                     },
                     "epsdtReferral": {
-                        "$ref": "#/components/schemas/EpsdtReferral"
+                        "$ref": "#/components/schemas/EpsdtReferral",
+                        "description": "Required on Early & Periodic Screening, Diagnosis, and Treatment (EPSDT) claims when the screening service is being billed in this claim.\n\n This is **required** if any of the claim service lines are for EPSDT services. That means you must include this object if any `claimInformation.serviceLines.professionalService.epsdtIndicator` properties are set to `Y`."
                     },
                     "anesthesiaRelatedSurgicalProcedure": {
                         "type": "array",
@@ -21025,7 +21026,8 @@
                         "$ref": "#/components/schemas/EmergencyIndicator"
                     },
                     "epsdtIndicator": {
-                        "$ref": "#/components/schemas/EpsdtIndicator"
+                        "$ref": "#/components/schemas/EpsdtIndicator",
+                        "description": "Code indicating whether there was EPSDT involvement in the service. Can be set to `Y` - Yes. EPSDT is a program that provides comprehensive and preventive health care services for children under age 21 who are enrolled in Medicaid.\n\nIf this value is set to `Y`, you must also include the `claimInformation.epsdtReferral` object in your claim submission."
                     },
                     "familyPlanningIndicator": {
                         "$ref": "#/components/schemas/FamilyPlanningIndicator"
