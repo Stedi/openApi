@@ -5839,8 +5839,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/BenefitsServiceDelivery"
-                        },
-                        "description": "The delivery or usage pattern for the benefits."
+                        }
                     },
                     "additionalInformation": {
                         "type": "array",
@@ -12196,8 +12195,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/BenefitsServiceDelivery"
-                        },
-                        "description": "The delivery or usage pattern for the benefits."
+                        }
                     },
                     "additionalInformation": {
                         "type": "array",
@@ -12913,7 +12911,6 @@
             },
             "EligibilityAdditionalInformation": {
                 "type": "object",
-                "description": "Identify the Nature of Injury Code or a Facility Type Code.",
                 "properties": {
                     "codeListQualifierCode": {
                         "type": "string",
@@ -12953,7 +12950,7 @@
             },
             "EligibilityCheckDependentError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
@@ -13174,8 +13171,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     },
                     "warnings": {
                         "type": "array",
@@ -13204,7 +13200,7 @@
             },
             "EligibilityCheckPayerError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
@@ -13257,7 +13253,7 @@
             },
             "EligibilityCheckProviderError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
@@ -13424,8 +13420,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     },
                     "warnings": {
                         "type": "array",
@@ -13475,7 +13470,7 @@
             },
             "EligibilityCheckSubscriberError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
+                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
@@ -13648,8 +13643,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     },
                     "warnings": {
                         "type": "array",
@@ -14633,7 +14627,6 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Information about the subscriber's healthcare diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`.",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -14671,7 +14664,7 @@
             },
             "InPlanNetworkIndicatorCode": {
                 "type": "string",
-                "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable\n\n Code `U` indicates that it is unknown whether the benefits are in or out-of-network. Code `W` indicates that the benefit applies to both in and out-of-network providers. \n \n Note that this property **does not indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly.",
+                "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable\n\n Code `U` indicates that it is unknown whether the benefits are in or out-of-network. Code `W` indicates that the benefit applies to both in and out-of-network providers. \n \n Note that this property **doesn't indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly.",
                 "enum": [
                     "Y",
                     "N",
@@ -18050,7 +18043,6 @@
             },
             "MedicalProcedure": {
                 "type": "object",
-                "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties.",
                 "properties": {
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/MedicalProcedureProductOrServiceIDQualifier"
@@ -19643,8 +19635,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckPayerError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     }
                 }
             },
@@ -21602,8 +21593,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more 'AAA' errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     },
                     "warnings": {
                         "type": "array",
@@ -22741,8 +22731,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckDependentError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     }
                 }
             },
@@ -22867,8 +22856,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckProviderError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     }
                 }
             },
@@ -23028,8 +23016,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EligibilityCheckSubscriberError"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     }
                 }
             },
@@ -24358,7 +24345,6 @@
             },
             "SubscriberTraceNumber": {
                 "type": "object",
-                "description": "The unique trace number assigned to the transaction by either the payer, the provider, or the clearinghouse.",
                 "properties": {
                     "traceTypeCode": {
                         "type": "string",
@@ -24882,7 +24868,7 @@
             },
             "Warning": {
                 "type": "object",
-                "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer.",
+                "description": "A warning that the payer returned in the eligibility response.",
                 "properties": {
                     "code": {
                         "type": "string",
