@@ -14550,13 +14550,14 @@
                             "$ref": "#/components/schemas/InsuranceDiscoveryResponseFields"
                         },
                         "description": "An array of potential coverage matches for the patient. This will only be populated if the insurance discovery check `status` is `COMPLETE`. Each item in the array contains information about a potential match, including the provider, subscriber, payer, and plan information."
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        }
                     }
-                },
-                "required": [
-                    "discoveryId",
-                    "meta",
-                    "status"
-                ]
+                }
             },
             "GetPDF1500OutputPayload": {
                 "type": "string",
@@ -17418,13 +17419,14 @@
                             "$ref": "#/components/schemas/InsuranceDiscoveryResponseFields"
                         },
                         "description": "An array of potential coverage matches for the patient. This will only be populated if the insurance discovery check `status` is `COMPLETE`. Each item in the array contains information about a potential match, including the provider, subscriber, payer, and plan information."
+                    },
+                    "errors": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EligibilityCheckError"
+                        }
                     }
-                },
-                "required": [
-                    "discoveryId",
-                    "meta",
-                    "status"
-                ]
+                }
             },
             "InsuranceDiscoveryDependent": {
                 "type": "object",
