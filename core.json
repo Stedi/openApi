@@ -5081,7 +5081,7 @@
             "type": "string"
           },
           "metadata": {
-            "type": "string"
+            "$ref": "#/components/schemas/DeliveryReportMetadata"
           }
         },
         "required": [
@@ -5096,6 +5096,17 @@
           "partnershipId",
           "status"
         ]
+      },
+      "DeliveryReportMetadata": {
+        "type": "object",
+        "properties": {
+          "attempts": {
+            "type": "number"
+          },
+          "mdn_file": {
+            "$ref": "#/components/schemas/MdnFile"
+          }
+        }
       },
       "DeliveryReportStatus": {
         "type": "string",
@@ -6014,6 +6025,21 @@
         },
         "required": [
           "start"
+        ]
+      },
+      "MdnFile": {
+        "type": "object",
+        "properties": {
+          "repository": {
+            "type": "string"
+          },
+          "pointer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pointer",
+          "repository"
         ]
       },
       "Mode": {
