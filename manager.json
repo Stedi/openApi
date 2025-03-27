@@ -1578,7 +1578,6 @@
             },
             "BatchEligibilityCheckError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
@@ -1760,7 +1759,8 @@
                         "$ref": "#/components/schemas/ResponseProvider"
                     },
                     "subscriber": {
-                        "$ref": "#/components/schemas/ResponseMember"
+                        "$ref": "#/components/schemas/ResponseMember",
+                        "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information."
                     },
                     "subscriberTraceNumbers": {
                         "type": "array",
@@ -1796,8 +1796,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Warning"
-                        },
-                        "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer."
+                        }
                     },
                     "status": {
                         "type": "string"
@@ -2151,7 +2150,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/AdditionalInformation"
-                        }
+                        },
+                        "description": "A free-form message containing additional information about the benefits in the response."
                     },
                     "eligibilityAdditionalInformationList": {
                         "type": "array",
@@ -2235,7 +2235,6 @@
             },
             "BenefitsServiceDelivery": {
                 "type": "object",
-                "description": "The delivery or usage pattern for the benefits.",
                 "properties": {
                     "quantityQualifierCode": {
                         "type": "string",
@@ -2395,7 +2394,6 @@
             },
             "EligibilityAdditionalInformation": {
                 "type": "object",
-                "description": "Identify the Nature of Injury Code or a Facility Type Code.",
                 "properties": {
                     "codeListQualifierCode": {
                         "type": "string",
@@ -3937,7 +3935,6 @@
             },
             "ResponseMember": {
                 "type": "object",
-                "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information.",
                 "properties": {
                     "healthCareDiagnosisCodes": {
                         "type": "array",
@@ -4071,7 +4068,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BatchEligibilityCheckError"
                         },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
                 }
             },
