@@ -17871,6 +17871,16 @@
                     "G1"
                 ]
             },
+            "EnrollmentInfo": {
+                "type": "object",
+                "description": "Information about enrollment requirements for the payer",
+                "properties": {
+                    "ptanRequired": {
+                        "type": "boolean",
+                        "description": "Indicates whether a PTAN (Provider Transaction Access Number) is required for enrollment"
+                    }
+                }
+            },
             "EntityIdentificationCode": {
                 "type": "string",
                 "description": "Code identifying the type of `benefitsInformation.entityIdentificationValue`.",
@@ -23372,6 +23382,19 @@
                     },
                     "transactionSupport": {
                         "$ref": "#/components/schemas/TransactionSupport"
+                    },
+                    "employerIdentificationNumbers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "^[0-9]{2}-[0-9]{7}$",
+                            "description": "A valid Employer Identification Number (EIN) in the format XX-XXXXXXX"
+                        },
+                        "description": "Employer Identification Numbers (EINs) associated with this payer."
+                    },
+                    "enrollment": {
+                        "$ref": "#/components/schemas/EnrollmentInfo",
+                        "description": "Enrollment-related information for this payer."
                     }
                 }
             },
