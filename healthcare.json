@@ -8681,6 +8681,81 @@
                     }
                 }
             }
+        },
+        "/payers/groups": {
+            "get": {
+                "operationId": "ListPayerGroups",
+                "responses": {
+                    "200": {
+                        "description": "ListPayerGroups 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListPayerGroupsResponseContent"
+                                },
+                                "examples": {
+                                    "ListPayerGroups_example1": {
+                                        "summary": "List Payer Groups",
+                                        "description": "",
+                                        "value": {
+                                            "items": [
+                                                {
+                                                    "id": "GROUP1",
+                                                    "displayName": "Blue Cross Blue Shield"
+                                                },
+                                                {
+                                                    "id": "GROUP2",
+                                                    "displayName": "UnitedHealthcare"
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -21141,7 +21216,10 @@
                         "type": "string",
                         "maxLength": 11,
                         "minLength": 1,
-                        "description": "The dependent's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                        "description": "The dependent's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage.",
+                        "x-meta": {
+                            "title": "Social Security Number (SSN)"
+                        }
                     },
                     "gender": {
                         "$ref": "#/components/schemas/RequestSubscriberGender",
@@ -21196,7 +21274,10 @@
                         "maxLength": 15,
                         "minLength": 10,
                         "pattern": "^[12].*$",
-                        "description": "The provider's National Provider Identifier (NPI)."
+                        "description": "The provider's National Provider Identifier (NPI).",
+                        "x-meta": {
+                            "title": "National Provider Identifier (NPI)"
+                        }
                     }
                 },
                 "required": [
@@ -21622,6 +21703,21 @@
                 "required": [
                     "pricingMethodologyCode",
                     "repricedAllowedAmount"
+                ]
+            },
+            "ListPayerGroupsResponseContent": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PayerGroup"
+                        },
+                        "description": "Payer groups listing"
+                    }
+                },
+                "required": [
+                    "items"
                 ]
             },
             "ListPayerRecordsResponseContent": {
@@ -23349,6 +23445,23 @@
                     "Gateway Provider",
                     "Plan Sponsor",
                     "Payer"
+                ]
+            },
+            "PayerGroup": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique ID of the payer group"
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "The display name of the payer group"
+                    }
+                },
+                "required": [
+                    "displayName",
+                    "id"
                 ]
             },
             "PayerRecord": {
