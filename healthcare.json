@@ -10146,7 +10146,7 @@
             },
             "COBEncounter": {
                 "type": "object",
-                "description": "Information about the encounter.\n- You can submit COB checks with the `30` service type code for Health Benefit Plan Coverage. This is the broadest service type code that covers all medical services and subtypes included in the patient’s health plan.\n- The service dates you provide **must** be within the past 2 years. COB checks don't support requests with dates outside of this range.\n- If you don't specify a service date (either a single day or a range of dates), Stedi defaults to using the current date.",
+                "description": "Information about the encounter.\n- You can submit COB checks with the `30` service type code for Health Benefit Plan Coverage. This is the broadest service type code that covers all medical services and subtypes included in the patient’s health plan.\n- The service dates you provide **must** be within the past 2 years. COB checks don't support requests with dates outside of this range.\n- Don't send service dates that are in the future. Future service dates typically result in errors from the payer.\n- If you don't specify a service date (either a single day or a range of dates), Stedi defaults to using the current date.",
                 "properties": {
                     "dateOfService": {
                         "type": "string",
@@ -11440,7 +11440,7 @@
                     "patientAmountPaid": {
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
-                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient."
+                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient.\n\nIf the patient has not paid anything, you should omit this property entirely - **don't** set it to `0`."
                     },
                     "fileInformation": {
                         "type": "string",
@@ -13930,7 +13930,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 1,
-                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list of supported payers for COB checks.\n\nEach check **must** be for a participating health plan for which the patient has coverage. For example, if the patient has coverage from Cigna and UnitedHealthcare, a COB check to Aetna will return an error."
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list of supported payers for COB checks.\n    - Each check **must** be for a participating health plan for which the patient has coverage. For example, if the patient has coverage from Cigna and UnitedHealthcare, a COB check to Aetna will return an error.\n    - Medicare and Medicare Advantage plans aren't supported. If you submit a COB check for a Medicare or Medicare Advantage plan, the request will fail with an `AAA` = `75` error (Subscriber/Insured Not Found).\n    - Ensure that you're sending the request to the correct payer entity. For example, Blue Cross Blue Shield (BCBS) has multiple entities that operate in different states. If you send a request to the wrong entity, the request will fail with an `AAA` = `75` error (Subscriber/Insured Not Found)."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/COBProvider",
@@ -14350,7 +14350,7 @@
                     "patientAmountPaid": {
                         "type": "string",
                         "pattern": "^\\d+(\\.\\d{1,2})?$",
-                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient."
+                        "description": "The total amount in dollars the patient or their representatives have paid on this claim. For example, `20.50`. This includes any co-payments, co-insurance, or other amounts already collected from the patient.\n\nIf the patient has not paid anything, you should omit this property entirely - **don't** set it to `0`."
                     },
                     "fileInformation": {
                         "type": "string",
