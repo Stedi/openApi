@@ -18692,7 +18692,7 @@
                         "description": "This shape is deprecated."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/Address",
+                        "$ref": "#/components/schemas/RequestAddress",
                         "deprecated": true,
                         "description": "This shape is deprecated."
                     }
@@ -25052,7 +25052,7 @@
                         "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/Address",
+                        "$ref": "#/components/schemas/RequestAddress",
                         "description": "The address of the provider requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
@@ -25969,6 +25969,54 @@
                     "UN"
                 ]
             },
+            "RequestAddress": {
+                "type": "object",
+                "properties": {
+                    "address1": {
+                        "type": "string",
+                        "maxLength": 55,
+                        "minLength": 1,
+                        "description": "The first line of the address."
+                    },
+                    "address2": {
+                        "type": "string",
+                        "maxLength": 55,
+                        "minLength": 1,
+                        "description": "The second line of the address."
+                    },
+                    "city": {
+                        "type": "string",
+                        "maxLength": 30,
+                        "minLength": 2,
+                        "description": "The city."
+                    },
+                    "state": {
+                        "$ref": "#/components/schemas/StateOrProvinceCode"
+                    },
+                    "postalCode": {
+                        "type": "string",
+                        "maxLength": 9,
+                        "minLength": 5,
+                        "description": "The United States or Canadian postal code, excluding punctuation and blanks."
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "maxLength": 2,
+                        "minLength": 2,
+                        "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
+                    },
+                    "countrySubDivisionCode": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 1,
+                        "description": "The country subdivision code from [Part 2 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-2)."
+                    }
+                },
+                "required": [
+                    "address1",
+                    "city"
+                ]
+            },
             "RequestDependent": {
                 "type": "object",
                 "properties": {
@@ -26106,7 +26154,7 @@
                         "description": "Information about the dependent's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/Address",
+                        "$ref": "#/components/schemas/RequestAddress",
                         "description": "The dependent's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "additionalIdentification": {
@@ -26311,7 +26359,7 @@
                         "description": "Information about the subscriber's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/Address",
+                        "$ref": "#/components/schemas/RequestAddress",
                         "description": "The subscriber's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "additionalIdentification": {
