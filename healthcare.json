@@ -10864,15 +10864,15 @@
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "The payer's business name, such as Cigna or Aetna."
+                        "description": "The payer or intermediary clearinghouse's business name."
                     },
                     "entityIdentifierCode": {
-                        "type": "string",
-                        "description": "Code identifying the type of organization. Can be `AY` - Clearinghouse or `PR` - Payer."
+                        "$ref": "#/components/schemas/EntityIdentifierCode",
+                        "description": "Code identifying the type of organization (CLEARINGHOUSE or PAYER)."
                     },
                     "entityIdentifierCodeValue": {
-                        "type": "string",
-                        "description": "The description of the `entityIdentifierCode`."
+                        "$ref": "#/components/schemas/EntityIdentifierCodeValue",
+                        "description": "The human-readable description of the entity identifier code."
                     },
                     "etin": {
                         "type": "string",
@@ -17978,6 +17978,22 @@
                 "enum": [
                     "MI",
                     "PI"
+                ]
+            },
+            "EntityIdentifierCode": {
+                "type": "string",
+                "description": "Code identifying the type of organization.",
+                "enum": [
+                    "AY",
+                    "PR"
+                ]
+            },
+            "EntityIdentifierCodeValue": {
+                "type": "string",
+                "description": "Human-readable description of the entity identifier code.",
+                "enum": [
+                    "Clearinghouse",
+                    "Payer"
                 ]
             },
             "EntityIdentifierName": {
@@ -25911,7 +25927,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediPayer"
                         },
-                        "description": "Information about the payer and the claim status transactions included in the response."
+                        "description": "Information about the payer (or intermediary clearinghouse) and the claim status transactions included in the response."
                     }
                 }
             },
