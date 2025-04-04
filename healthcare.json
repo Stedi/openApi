@@ -9361,7 +9361,7 @@
             },
             "BenefitsDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the benefits.\n- All properties may either be expressed as a single date, formatted as YYYYMMDD or as a range of dates, formatted as YYYYMMDD-YYYYMMDD.\n- Dates listed only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
+                "description": "Dates associated with the benefits.\n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n  - Most properties contain a single date, but some can contain either a single date or a date range. Each property's documentation specifies its format.\n  - These dates only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
                 "properties": {
                     "discharges": {
                         "type": "array",
@@ -9372,89 +9372,102 @@
                     "issue": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The issue date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "effectiveDateOfChange": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The effective date of change. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "periodStart": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The start of a period. Single date (YYYYMMDD)."
                     },
                     "periodEnd": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The end of a period. Single date (YYYYMMDD)."
                     },
                     "completion": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The completion date. Single date (YYYYMMDD)."
                     },
                     "coordinationOfBenefits": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The coordination of benefits date. Single date (YYYYMMDD)."
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "benefit": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The benefit date. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "primaryCareProvider": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The primary care provider date. Single date (YYYYMMDD)."
                     },
                     "latestVisitOrConsultation": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The latest visit or consultation date. Single date (YYYYMMDD)."
                     },
                     "eligibility": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Plan eligibility dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "added": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "Added date. Payers may return this information in the case of retroactive eligibility. Single date (YYYYMMDD)."
                     },
                     "cobraBegin": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date when COBRA coverage begins. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "cobraEnd": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date when COBRA coverage ends. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "premiumPaidtoDateBegin": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The start of the period when the plan premium was paid in full. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "premiumPaidToDateEnd": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The end of period when the plan premium payments are up-to-date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply. Single date (YYYYMMDD)."
                     },
                     "planEnd": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date coverage from the plan ends. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "benefitBegin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the benefit begins. Single date (YYYYMMDD)."
                     },
                     "benefitEnd": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the benefit ends. Single date (YYYYMMDD)."
                     },
                     "eligibilityBegin": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the patient is first eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "eligibilityEnd": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the patient is no longer eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "enrollment": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date when the patient is enrolled in the plan. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
                     },
                     "admissions": {
                         "type": "array",
@@ -9463,37 +9476,43 @@
                         }
                     },
                     "dateOfDeath": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date of death. Single date (YYYYMMDD)."
                     },
                     "certification": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The certification date. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
                     },
                     "service": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The service date or dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "policyEffective": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date when the policy becomes effective. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
                     },
                     "policyExpiration": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The date when the policy expires. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "dateOfLastUpdate": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The date when the plan information was last updated. Single date (YYYYMMDD)."
                     },
                     "status": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The status date. Single date (YYYYMMDD)."
                     },
                     "discharge": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The discharge date. Single date (YYYYMMDD)."
                     },
                     "admission": {
-                        "type": "string"
+                        "type": "string",
+                        "description": "The admission date or dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     }
                 }
             },
@@ -16051,95 +16070,95 @@
                 "properties": {
                     "discharge": {
                         "type": "string",
-                        "description": "The discharge date."
+                        "description": "The discharge date. Single date (YYYYMMDD)."
                     },
                     "issue": {
                         "type": "string",
-                        "description": "The issue date."
+                        "description": "The issue date. Single date (YYYYMMDD)."
                     },
                     "effectiveDateOfChange": {
                         "type": "string",
-                        "description": "The effective date of change."
+                        "description": "The effective date of change. Single date (YYYYMMDD)."
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Plan effective dates. Can be formatted as a single date (YYYYMMDD) or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "Plan effective dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "eligibility": {
                         "type": "string",
-                        "description": "Plan eligibility dates. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "Plan eligibility dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "added": {
                         "type": "string",
-                        "description": "Added date. Payers may return this information in the case of retroactive eligibility."
+                        "description": "Added date. Payers may return this information in the case of retroactive eligibility. Single date (YYYYMMDD)."
                     },
                     "cobraBegin": {
                         "type": "string",
-                        "description": "The date when COBRA coverage begins."
+                        "description": "The date when COBRA coverage begins. Single date (YYYYMMDD)."
                     },
                     "cobraEnd": {
                         "type": "string",
-                        "description": "The date when COBRA coverage ends."
+                        "description": "The date when COBRA coverage ends. Single date (YYYYMMDD)."
                     },
                     "premiumPaidToDateBegin": {
                         "type": "string",
-                        "description": "The start of the period when the plan premium was paid in full."
+                        "description": "The start of the period when the plan premium was paid in full. Single date (YYYYMMDD)."
                     },
                     "premiumPaidToDateEnd": {
                         "type": "string",
-                        "description": "The end of period when the plan premium payments are up-to-date."
+                        "description": "The end of period when the plan premium payments are up-to-date. Single date (YYYYMMDD)."
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "The date coverage from the plan begins. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "The date coverage from the plan begins. Single date (YYYYMMDD)."
                     },
                     "planEnd": {
                         "type": "string",
-                        "description": "The date coverage from the plan ends."
+                        "description": "The date coverage from the plan ends. Single date (YYYYMMDD)."
                     },
                     "eligibilityBegin": {
                         "type": "string",
-                        "description": "The date when the patient is first eligible for benefits under the plan."
+                        "description": "The date when the patient is first eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "eligibilityEnd": {
                         "type": "string",
-                        "description": "The date when the patient is no longer eligible for benefits under the plan."
+                        "description": "The date when the patient is no longer eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "enrollment": {
                         "type": "string",
-                        "description": "The date when the patient is enrolled in the plan."
+                        "description": "The date when the patient is enrolled in the plan. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "admission": {
                         "type": "string",
-                        "description": "The admission date or dates. Formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges)."
+                        "description": "The admission date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "dateOfDeath": {
                         "type": "string",
-                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent."
+                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent. Single date (YYYYMMDD)."
                     },
                     "certification": {
                         "type": "string",
-                        "description": "The certification date."
+                        "description": "The certification date. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "service": {
                         "type": "string",
-                        "description": "The service date or dates. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "The service date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "policyEffective": {
                         "type": "string",
-                        "description": "The date when the policy becomes effective."
+                        "description": "The date when the policy becomes effective. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "policyExpiration": {
                         "type": "string",
-                        "description": "The date when the policy expires."
+                        "description": "The date when the policy expires. Single date (YYYYMMDD)."
                     },
                     "dateOfLastUpdate": {
                         "type": "string",
-                        "description": "The date when the plan information was last updated."
+                        "description": "The date when the plan information was last updated. Single date (YYYYMMDD)."
                     },
                     "status": {
                         "type": "string",
-                        "description": "The status date."
+                        "description": "The status date. Single date (YYYYMMDD)."
                     }
                 }
             },
@@ -24296,144 +24315,144 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n- Properties contain a single date unless otherwise noted.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats: \n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
                 "properties": {
                     "discharge": {
                         "type": "string",
-                        "description": "The discharge date."
+                        "description": "The discharge date. Single date (YYYYMMDD)."
                     },
                     "issue": {
                         "type": "string",
-                        "description": "The issue date."
+                        "description": "The issue date. Single date (YYYYMMDD)."
                     },
                     "effectiveDateOfChange": {
                         "type": "string",
-                        "description": "The effective date of change."
+                        "description": "The effective date of change. Single date (YYYYMMDD)."
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Plan effective dates. Can be formatted as a single date (YYYYMMDD) or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "Plan effective dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "eligibility": {
                         "type": "string",
-                        "description": "Plan eligibility dates. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "Plan eligibility dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "added": {
                         "type": "string",
-                        "description": "Added date. Payers may return this information in the case of retroactive eligibility."
+                        "description": "Added date. Payers may return this information in the case of retroactive eligibility. Single date (YYYYMMDD)."
                     },
                     "cobraBegin": {
                         "type": "string",
-                        "description": "The date when COBRA coverage begins."
+                        "description": "The date when COBRA coverage begins. Single date (YYYYMMDD)."
                     },
                     "cobraEnd": {
                         "type": "string",
-                        "description": "The date when COBRA coverage ends."
+                        "description": "The date when COBRA coverage ends. Single date (YYYYMMDD)."
                     },
                     "premiumPaidToDateBegin": {
                         "type": "string",
-                        "description": "The start of the period when the plan premium was paid in full."
+                        "description": "The start of the period when the plan premium was paid in full. Single date (YYYYMMDD)."
                     },
                     "premiumPaidToDateEnd": {
                         "type": "string",
-                        "description": "The end of period when the plan premium payments are up-to-date."
+                        "description": "The end of period when the plan premium payments are up-to-date. Single date (YYYYMMDD)."
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "The date coverage from the plan begins. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "The date coverage from the plan begins. Single date (YYYYMMDD)."
                     },
                     "planEnd": {
                         "type": "string",
-                        "description": "The date coverage from the plan ends."
+                        "description": "The date coverage from the plan ends. Single date (YYYYMMDD)."
                     },
                     "eligibilityBegin": {
                         "type": "string",
-                        "description": "The date when the patient is first eligible for benefits under the plan."
+                        "description": "The date when the patient is first eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "eligibilityEnd": {
                         "type": "string",
-                        "description": "The date when the patient is no longer eligible for benefits under the plan."
+                        "description": "The date when the patient is no longer eligible for benefits under the plan. Single date (YYYYMMDD)."
                     },
                     "enrollment": {
                         "type": "string",
-                        "description": "The date when the patient is enrolled in the plan."
+                        "description": "The date when the patient is enrolled in the plan. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "admission": {
                         "type": "string",
-                        "description": "The admission date or dates. Formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges)."
+                        "description": "The admission date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "dateOfDeath": {
                         "type": "string",
-                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent."
+                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent. Single date (YYYYMMDD)."
                     },
                     "certification": {
                         "type": "string",
-                        "description": "The certification date."
+                        "description": "The certification date. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "service": {
                         "type": "string",
-                        "description": "The service date or dates. Can be formatted as a single date, or as a range of dates in YYYYMMDD-YYYYMMDD format."
+                        "description": "The service date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "policyEffective": {
                         "type": "string",
-                        "description": "The date when the policy becomes effective."
+                        "description": "The date when the policy becomes effective. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
                     },
                     "policyExpiration": {
                         "type": "string",
-                        "description": "The date when the policy expires."
+                        "description": "The date when the policy expires. Single date (YYYYMMDD)."
                     },
                     "dateOfLastUpdate": {
                         "type": "string",
-                        "description": "The date when the plan information was last updated."
+                        "description": "The date when the plan information was last updated. Single date (YYYYMMDD)."
                     },
                     "status": {
                         "type": "string",
-                        "description": "The status date."
+                        "description": "The status date. Single date (YYYYMMDD)."
                     },
                     "periodStart": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The start of a period. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "periodEnd": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The end of a period. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "completion": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The completion date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "coordinationOfBenefits": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The coordination of benefits date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "benefit": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The benefit date. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
                     },
                     "primaryCareProvider": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The primary care provider date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "latestVisitOrConsultation": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The latest visit or consultation date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "benefitBegin": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The benefit begin date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     },
                     "benefitEnd": {
                         "type": "string",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The benefit end date. Single date (YYYYMMDD).\nThis shape is deprecated."
                     }
                 }
             },
