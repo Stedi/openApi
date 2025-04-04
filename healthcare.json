@@ -14799,7 +14799,8 @@
                         "$ref": "#/components/schemas/RelationshipToSubscriberCode"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
+                        "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     }
                 },
                 "required": [
@@ -15739,7 +15740,8 @@
                         "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
+                        "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     }
                 }
             },
@@ -15783,7 +15785,8 @@
                         "$ref": "#/components/schemas/RelationshipToSubscriberCode"
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
+                        "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
@@ -19627,7 +19630,7 @@
                     },
                     "address": {
                         "$ref": "#/components/schemas/InstitutionalAddress",
-                        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object."
+                        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     }
                 },
                 "required": [
@@ -21159,7 +21162,7 @@
                     },
                     "address": {
                         "$ref": "#/components/schemas/InstitutionalAddress",
-                        "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object."
+                        "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependents` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     }
                 },
                 "required": [
@@ -26388,7 +26391,7 @@
             },
             "RequestSubscriberDependentAddress": {
                 "type": "object",
-                "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object.",
+                "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n- The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n- If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n- If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach.",
                 "properties": {
                     "address1": {
                         "type": "string",
@@ -28185,7 +28188,8 @@
                         "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress"
+                        "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
+                        "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
                     },
                     "contactInformation": {
                         "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
