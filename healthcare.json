@@ -22123,7 +22123,7 @@
             },
             "InsuranceDiscoveryEncounter": {
                 "type": "object",
-                "description": "The date range for the service being requested. If you don't specify a service date (either a single day or a range of dates), the Stedi defaults to the current date.\n\n If you need to specify a single date, use the `beginningDateOfService` property and leave `endDateOfService` blank.",
+                "description": "The date range for the service being requested. If you don't specify a service date (either a single day or a range of dates), Stedi defaults to the current date.\n\n You can specify either a single `dateOfService` or a `beginningDateOfService` and `endDateOfService`.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
@@ -22134,6 +22134,11 @@
                         "type": "string",
                         "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "description": "The end date, formatted as YYYYMMDD. If you don't specify an end date, Stedi defaults to the same date as `beginningDateOfService`."
+                    },
+                    "dateOfService": {
+                        "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion. If you don't specify a service date (either a single day or a range of dates), Stedi defaults to the current date."
                     }
                 }
             },
