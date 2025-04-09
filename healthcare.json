@@ -15809,7 +15809,8 @@
                         "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object."
                     },
                     "insuranceTypeCode": {
-                        "$ref": "#/components/schemas/SubscriberInsuranceTypeCode"
+                        "$ref": "#/components/schemas/SubscriberInsuranceTypeCode",
+                        "description": "Identifies the type of insurance policy within a specific insurance program. This property is **required** when sending claims to Medicare and Medicare is not the primary payer (`paymentResponsibilityLevelCode` is not set to `P`). Otherwise, don't include this property in the claim.\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list of insurance type codes."
                     },
                     "subscriberGroupName": {
                         "type": "string",
@@ -29131,7 +29132,8 @@
                         "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object."
                     },
                     "insuranceTypeCode": {
-                        "$ref": "#/components/schemas/SubscriberInsuranceTypeCode"
+                        "$ref": "#/components/schemas/SubscriberInsuranceTypeCode",
+                        "description": "Identifies the type of insurance policy within a specific insurance program. This property is **required** when sending claims to Medicare and Medicare is not the primary payer (`paymentResponsibilityLevelCode` is not set to `P`). Otherwise, don't include this property in the claim.\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list of insurance type codes."
                     },
                     "subscriberGroupName": {
                         "type": "string",
