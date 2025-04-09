@@ -1824,11 +1824,17 @@
                       }
                     }
                   }
+                },
+                "CreateTransactionGroup_example2": {
+                  "summary": "Stage transaction async",
+                  "description": "",
+                  "value": {
+                    "async": true
+                  }
                 }
               }
             }
-          },
-          "required": true
+          }
         },
         "parameters": [
           {
@@ -1848,6 +1854,11 @@
                 "summary": "Stage transaction",
                 "description": "",
                 "value": "acme_amazon"
+              },
+              "CreateTransactionGroup_example2": {
+                "summary": "Stage transaction async",
+                "description": "",
+                "value": "acme_amazon"
               }
             }
           },
@@ -1863,6 +1874,11 @@
             "examples": {
               "CreateTransactionGroup_example1": {
                 "summary": "Stage transaction",
+                "description": "",
+                "value": "004010-850"
+              },
+              "CreateTransactionGroup_example2": {
+                "summary": "Stage transaction async",
                 "description": "",
                 "value": "004010-850"
               }
@@ -1882,16 +1898,21 @@
                 "summary": "Stage transaction",
                 "description": "",
                 "value": "tx-group-02-21-2024"
+              },
+              "CreateTransactionGroup_example2": {
+                "summary": "Stage transaction async",
+                "description": "",
+                "value": "tx-group-02-21-2024"
               }
             }
           },
           {
             "name": "Idempotency-Key",
             "in": "header",
-            "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. Required if providing `async: true` [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
             "schema": {
               "type": "string",
-              "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys)."
+              "description": "A unique string to identify this request to the server. The key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents sending duplicate data to your trading partners in case of network errors or other intermittent failures. Required if providing `async: true` [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys)."
             }
           }
         ],
@@ -1911,6 +1932,16 @@
                       "transactionGroupId": "tx-group-02-21-2024",
                       "createdAt": "2024-02-21T00:00:00Z",
                       "transactionId": "d3b3e3e3-3e3e-3e3e-3e3e-3e3e3e3e3e3e"
+                    }
+                  },
+                  "CreateTransactionGroup_example2": {
+                    "summary": "Stage transaction async",
+                    "description": "",
+                    "value": {
+                      "transactionGroupId": "tx-group-02-21-2024",
+                      "createdAt": "2024-02-21T00:00:00Z",
+                      "transactionId": "d3b3e3e3-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+                      "uploadUrl": "https://s3.amazonaws.com/bucket/key"
                     }
                   }
                 }
@@ -4904,6 +4935,15 @@
           "as2"
         ]
       },
+      "CoreCharacterSet": {
+        "type": "string",
+        "description": "When generating EDI, the character set determines the set of characters allowed in the EDI message. Characters outside of the specified set (after applying any repairs specified in RepairOptions) will result in an error.",
+        "enum": [
+          "Basic",
+          "Extended",
+          "ExtendedHipaa"
+        ]
+      },
       "CoreX12UsageIndicator": {
         "type": "string",
         "description": "Set [ISA-15](https://www.stedi.com/edi/x12/segment/ISA#ISA-15) to a different value. If not set, the default value is `P (Production Data)`.",
@@ -4959,6 +4999,12 @@
       "CreatePartnershipOutboundTransactionRequestContent": {
         "type": "object",
         "properties": {
+          "characterSet": {
+            "$ref": "#/components/schemas/CoreCharacterSet"
+          },
+          "repairOptions": {
+            "$ref": "#/components/schemas/RepairOptions"
+          },
           "transaction": {
             "description": "The data for an EDI transaction. If you are not using a mapping, this transaction data must be < 5MB and the shape should match the [Guide JSON](https://www.stedi.com/docs/edi-platform/operate/transform-json/guide-json) format for the specified outbound transaction setting. If you are using a mapping, this transaction data must be < 4MB and the shape must match the source schema for the specified mapping."
           },
@@ -5007,19 +5053,20 @@
         "type": "object",
         "properties": {
           "transaction": {
-            "description": "The data for an EDI transaction. If you are not using a mapping, this transaction data must be < 5MB and the shape should match the [Guide JSON](https://www.stedi.com/docs/edi-platform/operate/transform-json/guide-json) format for the specified outbound transaction setting. If you are using a mapping, this transaction data must be < 4MB and the shape must match the source schema for the specified mapping."
+            "description": "The data for an EDI transaction. If you are not using a mapping, this transaction data must be < 5MB and the shape should match the [Guide JSON](https://www.stedi.com/docs/edi-platform/operate/transform-json/guide-json) format for the specified outbound transaction setting. If you are using a mapping, this transaction data must be < 4MB and the shape must match the source schema for the specified mapping. Either `transaction` or `async: true` is required."
           },
           "mappingId": {
             "type": "string",
-            "description": "Specify a mapping id to transform the transaction to Stedi's Guide JSON format."
+            "description": "Specify a mapping id to transform the transaction to Stedi's Guide JSON format. Can not be used with async: true."
           },
           "groupOverrides": {
             "$ref": "#/components/schemas/TransactionGroupOverrides"
+          },
+          "async": {
+            "type": "boolean",
+            "description": "Determines if the transaction should be uploaded asynchronously through a presigned url. Either `transaction` or `async: true` is required. Idempotency-Key header is required when using async: true."
           }
-        },
-        "required": [
-          "transaction"
-        ]
+        }
       },
       "CreateTransactionGroupResponseContent": {
         "type": "object",
@@ -5036,6 +5083,10 @@
           "transactionId": {
             "type": "string",
             "description": "A unique ID for the staged transaction Stedi created within the group."
+          },
+          "uploadUrl": {
+            "type": "string",
+            "description": "A pre-signed URL to upload the file using a `PUT` request."
           }
         },
         "required": [
@@ -5419,6 +5470,12 @@
       "GenerateEdiRequestContent": {
         "type": "object",
         "properties": {
+          "characterSet": {
+            "$ref": "#/components/schemas/CoreCharacterSet"
+          },
+          "repairOptions": {
+            "$ref": "#/components/schemas/RepairOptions"
+          },
           "transactionGroups": {
             "type": "array",
             "items": {
@@ -5472,6 +5529,12 @@
       "GenerateTransactionGroupEdiRequestContent": {
         "type": "object",
         "properties": {
+          "characterSet": {
+            "$ref": "#/components/schemas/CoreCharacterSet"
+          },
+          "repairOptions": {
+            "$ref": "#/components/schemas/RepairOptions"
+          },
           "filename": {
             "type": "string",
             "maxLength": 300,
@@ -6319,6 +6382,32 @@
           },
           "processingConfiguration": {
             "$ref": "#/components/schemas/ProcessingConfiguration"
+          }
+        }
+      },
+      "RepairOptions": {
+        "type": "object",
+        "description": "Options for repairing EDI data during generation to ensure it meets X12 requirements",
+        "properties": {
+          "trimTrailingSpaces": {
+            "type": "boolean",
+            "description": "Whether to trim trailing spaces from data elements"
+          },
+          "uppercase": {
+            "type": "boolean",
+            "description": "Whether to convert text to uppercase"
+          },
+          "replaceConfusable": {
+            "type": "boolean",
+            "description": "Whether to replace characters that are visually similar but technically different"
+          },
+          "removeDiacritical": {
+            "type": "boolean",
+            "description": "Whether to remove diacritical marks from characters"
+          },
+          "trimTrailingZeroes": {
+            "type": "boolean",
+            "description": "Whether to trim trailing zeros from numeric data elements"
           }
         }
       },
