@@ -12524,7 +12524,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`."
+                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. \n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -18371,7 +18371,7 @@
                     },
                     "status": {
                         "$ref": "#/components/schemas/DiscoveryStatus",
-                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
                     },
                     "items": {
                         "type": "array",
@@ -19270,7 +19270,6 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -22054,7 +22053,7 @@
                     },
                     "status": {
                         "$ref": "#/components/schemas/DiscoveryStatus",
-                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
                     },
                     "items": {
                         "type": "array",
@@ -22077,7 +22076,7 @@
             },
             "InsuranceDiscoveryDependent": {
                 "type": "object",
-                "description": "Demographic information for the patient when they are a dependent on a health plan.\n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code.\n- You should provide information for both the subscriber and the dependent in the request when possible.\n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
+                "description": "Demographic information for the patient when they are a dependent on a health plan.  \n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code. \n- You should provide information for both the subscriber and the dependent in the request when possible. \n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -22204,7 +22203,7 @@
                     },
                     "planDateInformation": {
                         "$ref": "#/components/schemas/DiscoveryPlanDateInformation",
-                        "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits.\n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
+                        "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits. \n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
                     },
                     "benefitsInformation": {
                         "type": "array",
@@ -25173,7 +25172,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats:\n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats: \n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
                 "properties": {
                     "discharge": {
                         "type": "string",
