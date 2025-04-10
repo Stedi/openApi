@@ -1551,48 +1551,49 @@
                         "description": "The city."
                     },
                     "state": {
-                        "$ref": "#/components/schemas/StateOrProvinceCode"
-                    },
-                    "postalCode": {
-                        "type": "string",
-                        "maxLength": 9,
-                        "minLength": 5,
-                        "description": "The United States or Canadian postal code, excluding punctuation and blanks."
-                    },
-                    "countryCode": {
                         "type": "string",
                         "maxLength": 2,
                         "minLength": 2,
-                        "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
+                        "description": "The state code. For example, TN for Tennessee or WA for Washington."
+                    },
+                    "postalCode": {
+                        "type": "string",
+                        "maxLength": 15,
+                        "minLength": 3,
+                        "description": "The United States postal code, excluding punctuation and blanks."
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "maxLength": 3,
+                        "minLength": 2,
+                        "description": "The country code. Use the alpha-2 country codes from Part 1 of ISO 3166."
                     },
                     "countrySubDivisionCode": {
                         "type": "string",
                         "maxLength": 3,
                         "minLength": 1,
-                        "description": "The country subdivision code from [Part 2 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-2)."
+                        "description": "The country subdivision code. Use the country subdivision codes from Part 2 of ISO 3166."
                     }
                 }
             },
-            "ApplicationModes": {
-                "type": "string",
-                "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.",
-                "enum": [
-                    "production",
-                    "test",
-                    "information"
-                ]
-            },
             "BatchEligibilityCheckError": {
                 "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more AAA errors that specify the reasons for the rejection and any recommended follow-up actions. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
                 "properties": {
                     "field": {
                         "type": "string",
                         "description": "The error type, `AAA`."
                     },
+                    "code": {
+                        "type": "string",
+                        "description": "The error code."
+                    },
                     "description": {
                         "type": "string",
                         "description": "The error description."
+                    },
+                    "followupAction": {
+                        "type": "string",
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     },
                     "location": {
                         "type": "string",
@@ -1601,14 +1602,6 @@
                     "possibleResolutions": {
                         "type": "string",
                         "description": "Information to help you correct the error."
-                    },
-                    "code": {
-                        "$ref": "#/components/schemas/EligibilityCheckErrorCode",
-                        "description": "The error code."
-                    },
-                    "followupAction": {
-                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
                     }
                 }
             },
@@ -1803,8 +1796,7 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/Warning"
-                        },
-                        "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer."
+                        }
                     },
                     "status": {
                         "type": "string"
@@ -1844,26 +1836,6 @@
                         "description": "The unique identifier for the eligibility check that you submitted in the original batch request."
                     }
                 }
-            },
-            "BenefitRelatedEntityIdentification": {
-                "type": "string",
-                "description": "Code identifying the type of value provided in `entityIdentificationValue`. For example, `FI` - Federal Taxpayer's Identification Number.",
-                "enum": [
-                    "24",
-                    "34",
-                    "46",
-                    "FA",
-                    "FI",
-                    "II",
-                    "MI",
-                    "NI",
-                    "PI",
-                    "PP",
-                    "SV",
-                    "XV",
-                    "XX",
-                    "Unknown"
-                ]
             },
             "BenefitsAdditionalInformation": {
                 "type": "object",
@@ -2215,11 +2187,12 @@
                 "description": "Identify another entity associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer.",
                 "properties": {
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/RelatedEntityIdentifierName",
-                        "description": "Code identifying an organizational entity, a physical location, property or an individual."
+                        "type": "string",
+                        "description": "Code identifying an organizational entity, a physical location, property or an individual. Can be set to `1I` - Preferred Provider Organization (PPO),  `1P` - Provider, `2B` - Third-Party Administrator, `13` - Contracted Service Provider, `36` - Employer, `73` - Other Physician, `FA` - Facility, `GP` - Gateway Provider, `GW` - Group, `I3` - Independent Physicians Association (IPA), `IL` - Insured or Subscriber, `LR` - Legal Representative, `OC` - Origin Carrier, `P3` - Primary Care Provider, `P4` - Prior Insurance Carrier, `P5` - Plan Sponsor, `PR` - Payer, `PRP` - Primary Payer, `SEP` - Secondary Payer, `TTP` - Tertiary Payer, `VER` - Party Performing Verification, `VN` - Vendor, `VY` - Organization Completing Configuration Change, `X3` - Utilization Management Organization, `Y2` - Managed Care Organization."
                     },
                     "entityType": {
-                        "$ref": "#/components/schemas/EntityTypeQualifier"
+                        "type": "string",
+                        "description": "The type of entity. Can be `1` - Person or `2` - Non-Person Entity."
                     },
                     "entityName": {
                         "type": "string",
@@ -2238,14 +2211,16 @@
                         "description": "The name suffix, such as Sr. Jr. or III."
                     },
                     "entityIdentification": {
-                        "$ref": "#/components/schemas/BenefitRelatedEntityIdentification"
+                        "type": "string",
+                        "description": "Code identifying the type of value provided in `entityIdentificationValue`. For example, `FI` - Federal Taxpayer's Identification Number."
                     },
                     "entityIdentificationValue": {
                         "type": "string",
                         "description": "The identification number for the entity, qualified by the code in `entityIdentification`."
                     },
                     "entityRelationship": {
-                        "$ref": "#/components/schemas/BenefitsRelatedEntityRelationshipCode"
+                        "type": "string",
+                        "description": "Code specifying the relationship between the entity and the patient. Can be set to `01` - Parent, `02` - Child, `27` - Domestic Partner, `41` - Spouse, `48` - Employee, `65` - Other, or `72` - Unknown."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -2258,101 +2233,71 @@
                     }
                 }
             },
-            "BenefitsRelatedEntityRelationshipCode": {
-                "type": "string",
-                "description": "Code specifying the relationship between the entity and the patient.",
-                "enum": [
-                    "01",
-                    "02",
-                    "27",
-                    "41",
-                    "48",
-                    "65",
-                    "72"
-                ]
-            },
             "BenefitsServiceDelivery": {
                 "type": "object",
-                "description": "The delivery or usage pattern for the benefits.",
                 "properties": {
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifierCode"
+                        "type": "string",
+                        "description": "Code specifying the type of quantity. Can be set to `DY` - Days, `FL` - Units, `HS` - Hours, `MN` - Month, or `VS` - Visits."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifier"
+                        "type": "string",
+                        "description": "The name of the `quantityQualifierCode`. For example, `Days`."
                     },
                     "quantity": {
                         "type": "string",
                         "description": "The quantity of the benefit. For example, `10` when the `quantityQualifier` is `Visits`."
                     },
                     "unitForMeasurementCode": {
-                        "$ref": "#/components/schemas/UnitForMeasurement",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "unitForMeasurementQualifierCode": {
-                        "$ref": "#/components/schemas/UnitForMeasurementCode"
-                    },
-                    "unitForMeasurementQualifier": {
-                        "$ref": "#/components/schemas/UnitForMeasurement"
+                        "type": "string",
+                        "description": "The name of the `unitForMeasurementQualifierCode`. For example, `Days`."
                     },
                     "sampleSelectionModulus": {
                         "type": "string",
                         "description": "Specifies the sampling frequency, based on the unit of measure. For example `every 2 months` or `once per calendar year`."
                     },
                     "timePeriodQualifierCode": {
-                        "$ref": "#/components/schemas/TimePeriodQualifierCode"
+                        "type": "string",
+                        "description": "Code specifying the time period for the benefit information. Can be set to `6` - Hour, `7` - Day, `21` - Years, `22` - Service Year, `23` - Calendar Year, `24` - Year to Date, `25` - Contract, `26` - Episode, `27` - Visit, `28` - Outlier, `29` - Remaining, `30` - Exceeded, `31` - Not Exceeded, `32` - Lifetime, `33` - Lifetime Remaining, `34` - Month, or `35` - Week."
                     },
                     "timePeriodQualifier": {
-                        "$ref": "#/components/schemas/TimePeriodQualifier"
+                        "type": "string",
+                        "description": "The name of the `timePeriodQualifierCode`. For example, `Calendar Year`."
                     },
                     "numOfPeriods": {
                         "type": "string",
                         "description": "The number of periods in the time period. For example, `12` when the `timePeriodQualifier` is `Hour`."
                     },
                     "deliveryOrCalendarPatternCode": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier"
-                    },
-                    "deliveryOrCalendarPatternQualifierCode": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifierCode"
-                    },
-                    "deliveryOrCalendarPatternQualifier": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier"
+                        "type": "string"
                     },
                     "deliveryPatternTimeCode": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
+                        "type": "string"
+                    },
+                    "unitForMeasurementQualifierCode": {
+                        "type": "string",
+                        "description": "Code specifying the unit of measurement for the quantity. Can be set to `DA` - Days, `MO` - Months, `VS` - Visit, `WK - Week, or `YR` - Years."
+                    },
+                    "unitForMeasurementQualifier": {
+                        "type": "string"
+                    },
+                    "deliveryOrCalendarPatternQualifierCode": {
+                        "type": "string",
+                        "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period."
+                    },
+                    "deliveryOrCalendarPatternQualifier": {
+                        "type": "string",
+                        "description": "The name of the `deliveryOrCalendarPatternCode`. For example, `Last Working Day of Period`."
                     },
                     "deliveryPatternTimeQualifierCode": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifierCode"
+                        "type": "string",
+                        "description": "Code that specifies the time for routine shipments or deliveries. For example `E` - P.M."
                     },
                     "deliveryPatternTimeQualifier": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
+                        "type": "string",
+                        "description": "The name of the `deliveryPatternTimeCode`. For example, `P.M.`."
                     }
                 }
-            },
-            "BenefitsServiceDeliveryQuantityQualifier": {
-                "type": "string",
-                "description": "The name of the `quantityQualifierCode`. For example, `Days`.",
-                "enum": [
-                    "Days",
-                    "Units",
-                    "Hours",
-                    "Month",
-                    "Visits",
-                    "Unknown"
-                ]
-            },
-            "BenefitsServiceDeliveryQuantityQualifierCode": {
-                "type": "string",
-                "description": "Code specifying the type of quantity.",
-                "enum": [
-                    "DY",
-                    "FL",
-                    "HS",
-                    "MN",
-                    "VS",
-                    "Unknown"
-                ]
             },
             "CompositeMedicalProcedureIdentifier": {
                 "type": "object",
@@ -2360,7 +2305,7 @@
                 "properties": {
                     "productOrServiceIdQualifierCode": {
                         "type": "string",
-                        "description": "Identifies the external code list used to provide the specified procedure or service codes. Can be `AD` - American Dental Association, `CJ` - Current Procedural Terminology (CPT) codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined"
+                        "description": "Identifies the external code list used to provide the specified procedure or service codes. Can be set to `AD` - American Dental Association, `CJ` - Current Procedural Terminology (CPT) codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined"
                     },
                     "productOrServiceIdQualifier": {
                         "type": "string",
@@ -2416,135 +2361,13 @@
                     },
                     "communicationNumber": {
                         "type": "string",
-                        "description": "The communication number referenced in `communicationMode`. It includes the country or area code when applicable. \n \n Note that phone numbers are formatted as AAABBBCCCC, where AAA represents the area code, BBB represents the telephone number prefix, and CCCC represents the telephone number. Phone numbers are provided without separators, such as dashes or parentheses. For example, `5551123345` for `555-112-3345`."
+                        "description": "The communication number referenced in `communicationMode`. It includes the country or area code when applicable. Note that phone numbers are formatted as AAABBBCCCC, where AAA represents the area code, BBB represents the telephone number prefix, and CCCC represents the telephone number. Phone numbers are provided without separators, such as dashes or parentheses. For example, `5551123345` for `555-112-3345`."
                     }
                 }
             },
-            "DeliveryOrCalendarPatternQualifier": {
-                "type": "string",
-                "description": "The name of the `deliveryOrCalendarPatternCode`. For example, `Last Working Day of Period`.",
-                "enum": [
-                    "1st Week of the Month",
-                    "2nd Week of the Month",
-                    "3rd Week of the Month",
-                    "4th Week of the Month",
-                    "5th Week of the Month",
-                    "1st & 3rd Week of the Month",
-                    "2nd & 4th Week of the Month",
-                    "1st Working Day of Period",
-                    "Last Working Day of Period",
-                    "Monday through Friday",
-                    "Monday through Saturday",
-                    "Monday through Sunday",
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                    "Saturday",
-                    "Sunday",
-                    "Monday through Thursday",
-                    "Immediately",
-                    "As Directed",
-                    "Daily Mon. Through Fri.",
-                    "1/2 Mon. & 1/2 Tues.",
-                    "1/2 Tues. & 1/2 Thurs.",
-                    "1/2 Wed. & 1/2 Fri.",
-                    "Once Anytime Mon. through Fri.",
-                    "Tuesday through Friday",
-                    "Monday, Tuesday and Thursday",
-                    "Monday, Tuesday and Friday",
-                    "Wednesday and Thursday",
-                    "Monday, Wednesday and Thursday",
-                    "Tuesday, Thursday and Friday",
-                    "1/2 Tues. & 1/2 Fri.",
-                    "1/2 Mon. & 1/2 Wed.",
-                    "1/3 Mon., 1/3 Wed., 1/3 Fri.",
-                    "Whenever Necessary",
-                    "1/2 By Wed. Bal. By Fri.",
-                    "None (Also Used to Cancel or Override a Previous Pattern)",
-                    "Unknown"
-                ]
-            },
-            "DeliveryOrCalendarPatternQualifierCode": {
-                "type": "string",
-                "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-or-calendar-pattern-qualifier-codes) for a complete list.",
-                "enum": [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "A",
-                    "B",
-                    "C",
-                    "D",
-                    "E",
-                    "F",
-                    "G",
-                    "H",
-                    "J",
-                    "K",
-                    "L",
-                    "M",
-                    "N",
-                    "O",
-                    "P",
-                    "Q",
-                    "R",
-                    "S",
-                    "SG",
-                    "SL",
-                    "SP",
-                    "SX",
-                    "SY",
-                    "SZ",
-                    "T",
-                    "U",
-                    "V",
-                    "W",
-                    "X",
-                    "Y",
-                    "Unknown"
-                ]
-            },
-            "DeliveryPatternTimeQualifier": {
-                "type": "string",
-                "description": "The name of the `deliveryPatternTimeCode`.",
-                "enum": [
-                    "1st Shift (Normal Working Hours)",
-                    "2nd Shift",
-                    "3rd Shift",
-                    "A.M.",
-                    "P.M.",
-                    "As Directed",
-                    "Any Shift",
-                    "None (Also Used to Cancel or Override a Previous Pattern)",
-                    "Unknown"
-                ]
-            },
-            "DeliveryPatternTimeQualifierCode": {
-                "type": "string",
-                "description": "A code specifying the time for routine shipments or deliveries.",
-                "enum": [
-                    "A",
-                    "B",
-                    "C",
-                    "D",
-                    "E",
-                    "F",
-                    "G",
-                    "Y",
-                    "Unknown"
-                ]
-            },
             "DiagnosisTypeCode": {
                 "type": "string",
-                "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis. \n\n Note that ICD-9 codes are **deprecated** and should no longer be used in eligibility checks.",
+                "description": "The type of diagnosis code you are providing. You can set to `BK` - International Classification of Diseases Clinical Modification (ICD-9-CM) Principal Diagnosis, `ABK` - International Classification of Diseases Clinical Modification (ICD-10-CM) Principal Diagnosis, `BF`- International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis, or `ABF`- International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis",
                 "enum": [
                     "BK",
                     "ABK",
@@ -2598,256 +2421,6 @@
                     }
                 }
             },
-            "EligibilityCheckErrorCode": {
-                "type": "string",
-                "description": "This is a superset of all the possible codes in the sub-loops, as all errors are bubbled up to the top level of the response",
-                "enum": [
-                    "04",
-                    "15",
-                    "33",
-                    "35",
-                    "41",
-                    "42",
-                    "43",
-                    "44",
-                    "45",
-                    "46",
-                    "47",
-                    "48",
-                    "49",
-                    "50",
-                    "51",
-                    "52",
-                    "53",
-                    "54",
-                    "55",
-                    "56",
-                    "57",
-                    "58",
-                    "60",
-                    "61",
-                    "62",
-                    "63",
-                    "64",
-                    "65",
-                    "66",
-                    "67",
-                    "68",
-                    "69",
-                    "70",
-                    "71",
-                    "72",
-                    "73",
-                    "74",
-                    "75",
-                    "76",
-                    "77",
-                    "78",
-                    "79",
-                    "80",
-                    "97",
-                    "98",
-                    "AA",
-                    "AE",
-                    "AF",
-                    "AG",
-                    "AO",
-                    "CI",
-                    "E8",
-                    "IA",
-                    "MA",
-                    "T4"
-                ]
-            },
-            "EligibilityCheckFollowupAction": {
-                "type": "string",
-                "enum": [
-                    "Please Correct and Resubmit",
-                    "Resubmission Not Allowed",
-                    "Please Resubmit Original Transaction",
-                    "Resubmission allowed",
-                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
-                    "Please Wait 30 Days and Resubmit",
-                    "Please Wait 10 Days and Resubmit",
-                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
-                ]
-            },
-            "EligibilityCheckPayerError": {
-                "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
-                "properties": {
-                    "field": {
-                        "type": "string",
-                        "description": "The error type, `AAA`."
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "The error description."
-                    },
-                    "location": {
-                        "type": "string",
-                        "description": "The location of the error within the original X12 EDI response."
-                    },
-                    "possibleResolutions": {
-                        "type": "string",
-                        "description": "Information to help you correct the error."
-                    },
-                    "code": {
-                        "$ref": "#/components/schemas/EligibilityCheckPayerErrorCode",
-                        "description": "The error code."
-                    },
-                    "followupAction": {
-                        "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
-                    }
-                }
-            },
-            "EligibilityCheckPayerErrorCode": {
-                "type": "string",
-                "enum": [
-                    "04",
-                    "41",
-                    "42",
-                    "79",
-                    "80",
-                    "T4"
-                ]
-            },
-            "EligibilityCheckProviderAndMemberFollowupAction": {
-                "type": "string",
-                "enum": [
-                    "Please Correct and Resubmit",
-                    "Resubmission Not Allowed",
-                    "Please Resubmit Original Transaction",
-                    "Do Not Resubmit; Inquiry Initiated to a Third Party",
-                    "Please Wait 30 Days and Resubmit",
-                    "Please Wait 10 Days and Resubmit",
-                    "Do Not Resubmit; We Will Hold Your Request and Respond Again Shortly"
-                ]
-            },
-            "EligibilityCheckProviderError": {
-                "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
-                "properties": {
-                    "field": {
-                        "type": "string",
-                        "description": "The error type, `AAA`."
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "The error description."
-                    },
-                    "location": {
-                        "type": "string",
-                        "description": "The location of the error within the original X12 EDI response."
-                    },
-                    "possibleResolutions": {
-                        "type": "string",
-                        "description": "Information to help you correct the error."
-                    },
-                    "code": {
-                        "$ref": "#/components/schemas/EligibilityCheckProviderErrorCode",
-                        "description": "The error code."
-                    },
-                    "followupAction": {
-                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
-                    }
-                }
-            },
-            "EligibilityCheckProviderErrorCode": {
-                "type": "string",
-                "enum": [
-                    "15",
-                    "41",
-                    "43",
-                    "44",
-                    "45",
-                    "46",
-                    "47",
-                    "48",
-                    "50",
-                    "51",
-                    "79",
-                    "97",
-                    "T4"
-                ]
-            },
-            "EligibilityCheckSubscriberError": {
-                "type": "object",
-                "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
-                "properties": {
-                    "field": {
-                        "type": "string",
-                        "description": "The error type, `AAA`."
-                    },
-                    "description": {
-                        "type": "string",
-                        "description": "The error description."
-                    },
-                    "location": {
-                        "type": "string",
-                        "description": "The location of the error within the original X12 EDI response."
-                    },
-                    "possibleResolutions": {
-                        "type": "string",
-                        "description": "Information to help you correct the error."
-                    },
-                    "code": {
-                        "$ref": "#/components/schemas/EligibilityCheckSubscriberErrorCode",
-                        "description": "The error code."
-                    },
-                    "followupAction": {
-                        "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
-                    }
-                }
-            },
-            "EligibilityCheckSubscriberErrorCode": {
-                "type": "string",
-                "enum": [
-                    "15",
-                    "33",
-                    "35",
-                    "42",
-                    "43",
-                    "45",
-                    "47",
-                    "48",
-                    "49",
-                    "51",
-                    "52",
-                    "53",
-                    "54",
-                    "55",
-                    "56",
-                    "57",
-                    "58",
-                    "60",
-                    "61",
-                    "62",
-                    "63",
-                    "69",
-                    "70",
-                    "71",
-                    "72",
-                    "73",
-                    "74",
-                    "75",
-                    "76",
-                    "78",
-                    "98",
-                    "AA",
-                    "AE",
-                    "AF",
-                    "AG",
-                    "AO",
-                    "CI",
-                    "E8",
-                    "IA",
-                    "MA"
-                ]
-            },
             "EligibilityMetaData": {
                 "type": "object",
                 "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
@@ -2865,8 +2438,8 @@
                         "description": "The biller ID Stedi assigns to this request."
                     },
                     "applicationMode": {
-                        "$ref": "#/components/schemas/ApplicationModes",
-                        "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used."
+                        "type": "string",
+                        "description": "The type of data in the request. This is always `production`."
                     },
                     "traceId": {
                         "type": "string",
@@ -2878,7 +2451,101 @@
                     }
                 }
             },
-            "EligibilityServiceTypeCode": {
+            "Encounter": {
+                "type": "object",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone. If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value. We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months. Note that payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
+                "properties": {
+                    "beginningDateOfService": {
+                        "type": "string",
+                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
+                    },
+                    "endDateOfService": {
+                        "type": "string",
+                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
+                    },
+                    "dateOfService": {
+                        "type": "string",
+                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit."
+                    },
+                    "serviceTypeCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EncounterServiceTypeCodesItem"
+                        },
+                        "maxItems": 99,
+                        "minItems": 1,
+                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
+                    },
+                    "priorAuthorizationOrReferralNumber": {
+                        "type": "string",
+                        "description": "The prior authorization or referral number for a particular benefit or procedure."
+                    },
+                    "referenceIdentificationQualifier": {
+                        "$ref": "#/components/schemas/EncounterReferenceIdentificationQualifier"
+                    },
+                    "industryCode": {
+                        "$ref": "#/components/schemas/IndustryCode"
+                    },
+                    "productOrServiceIDQualifier": {
+                        "$ref": "#/components/schemas/EncounterProductOrServiceIDQualifier"
+                    },
+                    "procedureCode": {
+                        "type": "string",
+                        "maxLength": 48,
+                        "minLength": 1,
+                        "description": "The procedure code."
+                    },
+                    "procedureModifiers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "The procedure modifier that provides additional information related to the performance of the service."
+                    },
+                    "diagnosisCodePointer": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "maxItems": 4,
+                        "minItems": 1,
+                        "description": "Diagnosis code pointers in order of importance to the service. These pointers are an index to the ICD-10 codes you included in the `subscriber.healthCareCodeInformation` or `dependents.healthCareCodeInformation` object arrays. The pointer values can be from 1 - 8 (integer numbers). If you are including diagnosis codes, you **must** set at least one pointer here for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here."
+                    },
+                    "medicalProcedures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MedicalProcedure"
+                        },
+                        "maxItems": 98,
+                        "minItems": 1,
+                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties."
+                    }
+                }
+            },
+            "EncounterProductOrServiceIDQualifier": {
+                "type": "string",
+                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
+                "enum": [
+                    "AD",
+                    "CJ",
+                    "HC",
+                    "ID",
+                    "IV",
+                    "N4",
+                    "ZZ"
+                ]
+            },
+            "EncounterReferenceIdentificationQualifier": {
+                "type": "string",
+                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` property. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
+                "enum": [
+                    "9F",
+                    "G1"
+                ]
+            },
+            "EncounterServiceTypeCodesItem": {
                 "type": "string",
                 "enum": [
                     "1",
@@ -3067,110 +2734,7 @@
                     "RT",
                     "TC",
                     "TN",
-                    "UC",
-                    "Unknown"
-                ]
-            },
-            "Encounter": {
-                "type": "object",
-                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
-                "properties": {
-                    "beginningDateOfService": {
-                        "type": "string",
-                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
-                    },
-                    "endDateOfService": {
-                        "type": "string",
-                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
-                    },
-                    "dateOfService": {
-                        "type": "string",
-                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone."
-                    },
-                    "serviceTypeCodes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
-                        },
-                        "maxItems": 99,
-                        "minItems": 1,
-                        "description": "One or more codes classifying the type of services for which you want to receive benefits information. \n \n If you do not specify a service type code or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` - Health Benefit Plan Coverage. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that not all payers support all service type codes, and not all payers support multiple service type codes in the same request. We recommend including one service type code per request unless you're sure the payer supports multiple."
-                    },
-                    "priorAuthorizationOrReferralNumber": {
-                        "type": "string",
-                        "description": "The prior authorization or referral number for a particular benefit or procedure."
-                    },
-                    "referenceIdentificationQualifier": {
-                        "$ref": "#/components/schemas/EncounterReferenceIdentificationQualifier"
-                    },
-                    "industryCode": {
-                        "$ref": "#/components/schemas/IndustryCode"
-                    },
-                    "productOrServiceIDQualifier": {
-                        "$ref": "#/components/schemas/EncounterProductOrServiceIDQualifier"
-                    },
-                    "procedureCode": {
-                        "type": "string",
-                        "maxLength": 48,
-                        "minLength": 1,
-                        "description": "The procedure code."
-                    },
-                    "procedureModifiers": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "maxItems": 4,
-                        "minItems": 1,
-                        "description": "The procedure modifier that provides additional information related to the performance of the service."
-                    },
-                    "diagnosisCodePointer": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "maxItems": 4,
-                        "minItems": 1,
-                        "description": "Diagnosis code pointers in order of importance to the service. These pointers are an index to the ICD-10 codes you included in the `subscriber.healthCareCodeInformation` or `dependents.healthCareCodeInformation` object arrays. The pointer values can be from 1 - 8 (integer numbers). If you are including diagnosis codes, you **must** set at least one pointer here for the primary diagnosis. Then, you can add up to three additional pointers (up to four in total). Don't put ICD-10 codes here."
-                    },
-                    "medicalProcedures": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/MedicalProcedure"
-                        },
-                        "maxItems": 98,
-                        "minItems": 1,
-                        "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties."
-                    }
-                }
-            },
-            "EncounterProductOrServiceIDQualifier": {
-                "type": "string",
-                "description": "Code identifying the type/source of the `procedureCode`. You can set this to `AD` - American Dental Association Codes, `CJ` - Current Procedural Terminology (CPT) Codes, `HC` - Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes, `ID` - International Classification of Diseases, 9th Revision, Clinical Modification (ICD-9-CM) - Procedure, `IV` - Home Infusion EDI Coalition (HIEC) Product/Service Code, `N4` - National Drug Code in 5-4-2 Format, or `ZZ` - Mutually Defined.",
-                "enum": [
-                    "AD",
-                    "CJ",
-                    "HC",
-                    "ID",
-                    "IV",
-                    "N4",
-                    "ZZ"
-                ]
-            },
-            "EncounterReferenceIdentificationQualifier": {
-                "type": "string",
-                "description": "The type of information you provided in the `priorAuthorizationOrReferralNumber` property. You can set this to `9F` - Referral Number or `G1` - Prior Authorization Number.",
-                "enum": [
-                    "9F",
-                    "G1"
-                ]
-            },
-            "EntityTypeQualifier": {
-                "type": "string",
-                "description": "The type of entity.",
-                "enum": [
-                    "Person",
-                    "Non-Person Entity"
+                    "UC"
                 ]
             },
             "HealthCareDiagnosisCode": {
@@ -3189,7 +2753,7 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis",
+                "description": "Information about the subscriber's healthcare diagnosis.",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -3274,22 +2838,19 @@
             },
             "InformationReceiverName": {
                 "type": "object",
-                "deprecated": true,
-                "description": "This shape is deprecated.",
+                "description": "Provide additional information to identify the entity making the eligibility request. For example, if a provider has multiple locations, you may need to provide the address of the specific location. This is also where you can include the Federal Taxpayers Identification Number (EIN) for providers with an NPI.",
                 "properties": {
                     "stateLicenceNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
                     },
                     "medicareProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's Medicare provider number."
                     },
                     "medicaidProviderNumber": {
                         "type": "string",
@@ -3301,43 +2862,31 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The ID number for the provider's facility."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
-                    },
-                    "contactNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's contract number."
                     },
                     "devicePinNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's electronic device pin number."
                     },
                     "submitterIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's submitter identification number."
                     },
                     "nationalProviderIdentifier": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated.",
+                        "description": "The provider's National Provider Identifier (NPI) from the Centers for Medicare and Medicaid Services.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
                         }
@@ -3346,29 +2895,25 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's plan network identification number."
                     },
                     "facilityNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's facility network identification number."
                     },
                     "priorIdentifierNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's prior identifier number."
                     },
                     "socialSecurityNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated.",
+                        "description": "The provider's social security number. Don't use this for Federally administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
                         }
@@ -3377,20 +2922,17 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The provider's federal taxpayer identification number."
                     },
                     "informationReceiverAdditionalIdentifierState": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 1,
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestAddress",
-                        "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "$ref": "#/components/schemas/Address",
+                        "description": "The address of the entity requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
             },
@@ -3413,6 +2955,7 @@
             },
             "MedicalProcedure": {
                 "type": "object",
+                "description": "Use only when you need to send multiple procedure codes in a single request. Otherwise, use the `encounter.procedureCode` and `encounter.productOrServiceIDQualifier` properties.",
                 "properties": {
                     "productOrServiceIDQualifier": {
                         "$ref": "#/components/schemas/MedicalProcedureProductOrServiceIDQualifier"
@@ -3526,8 +3069,9 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckPayerError"
-                        }
+                            "$ref": "#/components/schemas/BatchEligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     },
                     "etin": {
                         "type": "string",
@@ -3833,14 +3377,13 @@
                         "type": "array",
                         "items": {
                             "type": "string"
-                        },
-                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
+                        }
                     }
                 }
             },
             "Provider": {
                 "type": "object",
-                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply their `taxId` or `ssn`.\n - You shouldn't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer.",
+                "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.  You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`).",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -3864,7 +3407,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). This identifier is required for all healthcare providers who are eligible to receive an NPI. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners are not eligible to receive an NPI. If the provider doesn't have an NPI, you can supply either their `taxId` or `ssn`.",
+                        "description": "The provider's National Provider Identifier (NPI). This identifier is required for all healthcare providers. If the provider doesn't have an NPI, you can use another identifier instead, such as the `serviceProviderNumber` or `ssn`.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
                         }
@@ -3873,7 +3416,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's service provider number. Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
+                        "description": "The provider's service provider number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "payorId": {
                         "type": "string",
@@ -3885,13 +3428,13 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
+                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN). Only include this value here when the provider doesn't have an NPI. If you need to supply the EIN for a provider that has an NPI, use the `informationReceiverName.federalTaxpayerIdentificationNumber` property instead."
                     },
                     "ssn": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's Social Security Number (SSN).\n    - Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service.\n    - Don't use this for Federally-administered programs, such as Medicare.",
+                        "description": "The provider's Social Security Number (SSN). Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service. Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
                         }
@@ -3900,7 +3443,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's pharmacy processor number. Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
+                        "description": "The provider's pharmacy processor number. Only include when the provider doesn't have an NPI. This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "servicesPlanID": {
                         "type": "string",
@@ -3917,8 +3460,7 @@
                         "description": "Deprecated; The submitter's Employer's Identification Number (EIN). Only use when an employer is checking the eligibility and benefits of their employees.\nThis shape is deprecated: This property is no longer used."
                     },
                     "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
-                        "description": "Communicate the provider's role in the type of benefits specified in the request."
+                        "$ref": "#/components/schemas/ProviderProviderCode"
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -3926,88 +3468,25 @@
                     },
                     "providerType": {
                         "$ref": "#/components/schemas/ProviderType"
-                    },
-                    "stateLicenceNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
-                    },
-                    "medicareProviderNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's Medicare provider number."
-                    },
-                    "medicaidProviderNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's Medicaid provider number."
-                    },
-                    "facilityIdNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The ID number for the provider's facility."
-                    },
-                    "contractNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's contract number."
-                    },
-                    "contactNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "deprecated": true,
-                        "description": "The provider's contract number.\nThis shape is deprecated: Use `contractNumber` instead."
-                    },
-                    "devicePinNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's electronic device pin number."
-                    },
-                    "submitterIdNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's submitter identification number."
-                    },
-                    "providerPlanNetworkIdNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's plan network identification number."
-                    },
-                    "facilityNetworkIdNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's facility network identification number."
-                    },
-                    "priorIdentifierNumber": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The provider's prior identifier number."
-                    },
-                    "informationReceiverAdditionalIdentifierState": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 1,
-                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
-                    },
-                    "address": {
-                        "$ref": "#/components/schemas/RequestAddress",
-                        "description": "The address of the provider requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
             },
-            "ProviderCode": {
+            "ProviderInformation": {
+                "type": "object",
+                "properties": {
+                    "providerCode": {
+                        "type": "string",
+                        "description": "The provider code."
+                    },
+                    "referenceIdentification": {
+                        "type": "string",
+                        "description": "The provider's taxonomy code. Can be set to `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, or `SU` - Supervising."
+                    }
+                }
+            },
+            "ProviderProviderCode": {
                 "type": "string",
+                "description": "Communicate the provider's role in the type of benefits specified in the request. For example, you could set this to `RF` if the provider is also the referring provider. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -4026,22 +3505,8 @@
                     "RF",
                     "SB",
                     "SK",
-                    "SU",
-                    "Unknown"
+                    "SU"
                 ]
-            },
-            "ProviderInformation": {
-                "type": "object",
-                "properties": {
-                    "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
-                        "description": "The provider code."
-                    },
-                    "referenceIdentification": {
-                        "type": "string",
-                        "description": "The provider's taxonomy code."
-                    }
-                }
             },
             "ProviderType": {
                 "type": "string",
@@ -4055,86 +3520,6 @@
                     "gateway provider",
                     "plan sponsor",
                     "provider"
-                ]
-            },
-            "RelatedEntityIdentifierName": {
-                "type": "string",
-                "description": "Code identifying an organizational entity, a physical location, property or an individual. \n  - `PPO` is used to identify a PPO by name or identification number, and also may also be used if identifying the Network that benefits are restricted to for In-Network benefits.",
-                "enum": [
-                    "Contracted Service Provider",
-                    "Preferred Provider Organization (PPO)",
-                    "Provider",
-                    "Third-Party Administrator",
-                    "Employer",
-                    "Other Physician",
-                    "Facility",
-                    "Gateway Provider",
-                    "Group",
-                    "Independent Physicians Association (IPA)",
-                    "Insured or Subscriber",
-                    "Legal Representative",
-                    "Origin Carrier",
-                    "Primary Care Provider",
-                    "Prior Insurance Carrier",
-                    "Plan Sponsor",
-                    "Payer",
-                    "Primary Payer",
-                    "Secondary Payer",
-                    "Tertiary Payer",
-                    "Party Performing Verification",
-                    "Vendor",
-                    "Organization Completing Configuration Change",
-                    "Utilization Management Organization",
-                    "Managed Care Organization",
-                    "Unknown"
-                ]
-            },
-            "RequestAddress": {
-                "type": "object",
-                "properties": {
-                    "address1": {
-                        "type": "string",
-                        "maxLength": 55,
-                        "minLength": 1,
-                        "description": "The first line of the address."
-                    },
-                    "address2": {
-                        "type": "string",
-                        "maxLength": 55,
-                        "minLength": 1,
-                        "description": "The second line of the address."
-                    },
-                    "city": {
-                        "type": "string",
-                        "maxLength": 30,
-                        "minLength": 2,
-                        "description": "The city."
-                    },
-                    "state": {
-                        "$ref": "#/components/schemas/StateOrProvinceCode"
-                    },
-                    "postalCode": {
-                        "type": "string",
-                        "maxLength": 9,
-                        "minLength": 5,
-                        "description": "The United States or Canadian postal code, excluding punctuation and blanks."
-                    },
-                    "countryCode": {
-                        "type": "string",
-                        "maxLength": 2,
-                        "minLength": 2,
-                        "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
-                    },
-                    "countrySubDivisionCode": {
-                        "type": "string",
-                        "maxLength": 3,
-                        "minLength": 1,
-                        "description": "The country subdivision code from [Part 2 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-2)."
-                    }
-                },
-                "required": [
-                    "address1",
-                    "city"
                 ]
             },
             "RequestDependent": {
@@ -4185,13 +3570,13 @@
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "The dependent's last name. **Don't** include the dependent's name suffix, such as Jr. or III. Use the designated `suffix` property instead."
+                        "description": "The dependent's last name."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 1,
-                        "description": "The dependent's name suffix, such as Sr. or III. Only include the dependent's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
+                        "description": "The dependent's name suffix, such as Sr. or III."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/RequestDependentGender"
@@ -4271,10 +3656,10 @@
                         },
                         "maxItems": 8,
                         "minItems": 1,
-                        "description": "Information about the dependent's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
+                        "description": "Information about the dependent's health care diagnosis."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestAddress",
+                        "$ref": "#/components/schemas/Address",
                         "description": "The dependent's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "additionalIdentification": {
@@ -4292,7 +3677,7 @@
             },
             "RequestDependentProviderCode": {
                 "type": "string",
-                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n\n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE`- Performing, `R`- Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
+                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE`- Performing, `R`- Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -4315,7 +3700,7 @@
             },
             "RequestDependentReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligibility check, such as the referring provider.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the dependent. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY` - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
+                "description": "The type of `providerIdentifier` you are using. Use for providers that are not requesting the eligiblity check, such as the referring provider. Set to `HPI` when the National Provider ID is mandated for use. If identifying a type of specialty associated with services provided to the dependent, use code `PXC`. Otherwise, you can set to the following: `9K`- Servicer, `D3`- National Council for Prescription Drug Programs Pharmacy Number, `EI`- Employer's Identification Number, `HPI`- Centers for Medicare and Medicaid Services National Provider Identifier, `PXC`- Health Care Provider Taxonomy Code, `SY`- Social Security Number, `TJ`- Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -4390,13 +3775,13 @@
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "The subscriber's last name. **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead."
+                        "description": "The subscriber's last name."
                     },
                     "suffix": {
                         "type": "string",
                         "maxLength": 10,
                         "minLength": 1,
-                        "description": "The name suffix, such as Jr., Sr., or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
+                        "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
                         "$ref": "#/components/schemas/RequestSubscriberGender"
@@ -4437,7 +3822,7 @@
                         "maxLength": 50,
                         "minLength": 1,
                         "pattern": "^[A-Za-z0-9]+$",
-                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. It is **required** if you set the `referenceIdentificationQualifier`. For example, this property could contain the provider's National Provider ID or Federal Taxpayer Identification number.\n\n If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
+                        "description": "The provider identifier you specified in the `referenceIdentificationQualifier` property. For example, the provider's National Provider ID or Federal Taxpayer Identification number. If you set the `referenceIdentificationQualifier` to `PXC`, then this property should contain the provider's taxonomy code."
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
@@ -4476,10 +3861,10 @@
                         },
                         "maxItems": 8,
                         "minItems": 1,
-                        "description": "Information about the subscriber's health care diagnosis. You can include up to eight entries in this array. \n\nThe first array entry must have `diagnosisTypeCode` set to `ABK`. All subsequent entries must have `diagnosisTypeCode` set to `ABF`."
+                        "description": "Information about the subscriber's health care diagnosis."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/RequestAddress",
+                        "$ref": "#/components/schemas/Address",
                         "description": "The subscriber's address. You must include at least the `address1` and `city` properties in this object."
                     },
                     "additionalIdentification": {
@@ -4489,7 +3874,7 @@
             },
             "RequestSubscriberGender": {
                 "type": "string",
-                "description": "Code indicating the subscriber's gender.",
+                "description": "Code indiciating the subscriber's gender.",
                 "enum": [
                     "M",
                     "F"
@@ -4497,7 +3882,7 @@
             },
             "RequestSubscriberProviderCode": {
                 "type": "string",
-                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n\n This property is **required** when the `providerIdentifier` and `referenceIdentificationQualifier` properties are populated. \n\n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
+                "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
                 "enum": [
                     "AD",
                     "AT",
@@ -4520,7 +3905,7 @@
             },
             "RequestSubscriberReferenceIdentificationQualifier": {
                 "type": "string",
-                "description": "Use this for providers that are not requesting the eligibility check. This is the type of `providerIdentifier` you are providing.\n- Set to `HPI` when the National Provider ID is mandated for use.\n- Set to `PXC` if you're identifying a type of specialty associated with services provided to the subscriber. \n \n Otherwise, you can set to the following: `9K` - Servicer, `D3` - National Council for Prescription Drug Programs Pharmacy Number, `EI` - Employer's Identification Number, `HPI` - Centers for Medicare and Medicaid Services National Provider Identifier, `PXC` - Health Care Provider Taxonomy Code, `SY - Social Security Number, `TJ` - Federal Taxpayer's Identification Number",
+                "description": "Use this for providers that are not requesting the eligibility check. This is the type of `providerIdentifier` you are providing. Set to `HPI` when the National Provider ID is mandated for use. If identifying a type of specialty associated with services provided to the subscriber, use code `PXC`. Otherwise, you can set to the following: `9K`- Servicer, `D3`- National Council for Prescription Drug Programs Pharmacy Number, `EI`- Employer's Identification Number, `HPI`- Centers for Medicare and Medicaid Services National Provider Identifier, `PXC`- Health Care Provider Taxonomy Code, `SY`- Social Security Number, `TJ`- Federal Taxpayer's Identification Number",
                 "enum": [
                     "9K",
                     "D3",
@@ -4681,8 +4066,9 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckSubscriberError"
-                        }
+                            "$ref": "#/components/schemas/BatchEligibilityCheckError"
+                        },
+                        "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
                 }
             },
@@ -4775,94 +4161,19 @@
                     "aaaErrors": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityCheckProviderError"
+                            "$ref": "#/components/schemas/BatchEligibilityCheckError"
                         },
                         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `provider` level include missing or incorrect information and issues with the provider's NPI registration with the payer. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)"
                     }
                 }
             },
-            "StateOrProvinceCode": {
-                "type": "string",
-                "description": "The US state or Canadian province code. For example, `TN` for Tennessee or `NB` for New Brunswick.",
-                "enum": [
-                    "NL",
-                    "PE",
-                    "NS",
-                    "NB",
-                    "QC",
-                    "ON",
-                    "MB",
-                    "SK",
-                    "AB",
-                    "BC",
-                    "YT",
-                    "NT",
-                    "NU",
-                    "DC",
-                    "AS",
-                    "GU",
-                    "MP",
-                    "PR",
-                    "UM",
-                    "VI",
-                    "AK",
-                    "AL",
-                    "AR",
-                    "AZ",
-                    "CA",
-                    "CO",
-                    "CT",
-                    "DE",
-                    "FL",
-                    "GA",
-                    "HI",
-                    "IA",
-                    "ID",
-                    "IL",
-                    "IN",
-                    "KS",
-                    "KY",
-                    "LA",
-                    "MA",
-                    "MD",
-                    "ME",
-                    "MI",
-                    "MN",
-                    "MO",
-                    "MS",
-                    "MT",
-                    "NC",
-                    "ND",
-                    "NE",
-                    "NH",
-                    "NJ",
-                    "NM",
-                    "NV",
-                    "NY",
-                    "OH",
-                    "OK",
-                    "OR",
-                    "PA",
-                    "RI",
-                    "SC",
-                    "SD",
-                    "TN",
-                    "TX",
-                    "UT",
-                    "VA",
-                    "VT",
-                    "WA",
-                    "WI",
-                    "WV",
-                    "WY"
-                ]
-            },
             "SubscriberTraceNumber": {
                 "type": "object",
+                "description": "The unique trace number assigned to the transaction by either the payer, the provider, or the clearinghouse.",
                 "properties": {
                     "traceTypeCode": {
                         "type": "string",
-                        "description": "The code that identifies the type of trace number. Can be `1` - Current Transaction Trace Numbers (refers to trace numbers assigned by the payer) or `2` - Referenced Trace Numbers (refers to numbers sent in the original eligibility check request)."
+                        "description": "The code that identifies the type of trace number. Can be set to `1` - Current Transaction Trace Numbers (refers to trace numbers assigned by the payer) or `2` - Referenced Trace Numbers (refers to numbers sent in the original eligibility check request)."
                     },
                     "traceType": {
                         "type": "string",
@@ -4882,54 +4193,6 @@
                     }
                 }
             },
-            "TimePeriodQualifier": {
-                "type": "string",
-                "description": "The name of the `timePeriodQualifierCode`. For example, `Calendar Year`.",
-                "enum": [
-                    "Hour",
-                    "Day",
-                    "Years",
-                    "Service Year",
-                    "Calendar Year",
-                    "Year to Date",
-                    "Contract",
-                    "Episode",
-                    "Visit",
-                    "Outlier",
-                    "Remaining",
-                    "Exceeded",
-                    "Not Exceeded",
-                    "Lifetime",
-                    "Lifetime Remaining",
-                    "Month",
-                    "Week",
-                    "Unknown"
-                ]
-            },
-            "TimePeriodQualifierCode": {
-                "type": "string",
-                "description": "Code specifying the time period for the benefit information.",
-                "enum": [
-                    "6",
-                    "7",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "29",
-                    "30",
-                    "31",
-                    "32",
-                    "33",
-                    "34",
-                    "35",
-                    "Unknown"
-                ]
-            },
             "UnauthorizedExceptionResponseContent": {
                 "type": "object",
                 "description": "The server response when the authorizer failed to authenticate the caller.",
@@ -4945,30 +4208,6 @@
                 },
                 "required": [
                     "message"
-                ]
-            },
-            "UnitForMeasurement": {
-                "type": "string",
-                "description": "The name of the `unitForMeasurementQualifierCode`. For example, `Days`.",
-                "enum": [
-                    "Days",
-                    "Months",
-                    "Visits",
-                    "Week",
-                    "Years",
-                    "Unknown"
-                ]
-            },
-            "UnitForMeasurementCode": {
-                "type": "string",
-                "description": "Code specifying the unit of measurement for the quantity.",
-                "enum": [
-                    "DA",
-                    "MO",
-                    "VS",
-                    "WK",
-                    "YR",
-                    "Unknown"
                 ]
             },
             "ValidationExceptionField": {
@@ -5011,6 +4250,7 @@
             },
             "Warning": {
                 "type": "object",
+                "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer.",
                 "properties": {
                     "code": {
                         "type": "string",
