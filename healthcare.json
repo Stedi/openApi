@@ -12524,7 +12524,7 @@
                         },
                         "maxItems": 2147483647,
                         "minItems": 1,
-                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. \n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`."
+                        "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/ClaimStatusSubscriber"
@@ -14533,7 +14533,7 @@
                     },
                     "predeterminationOfBenefits": {
                         "type": "boolean",
-                        "description": "Required when the entire claim is being submitted as a predetermination of benefits. Predetermination of benefits claims are submitted in advance of services to get an estimate of what the patient's health plan will pay. \n  - Can be set to `true` to indicate predetermination of dental benefits.\n  - Not all dental payers support predetermination of benefits claims.\n  - Some payers prohibit setting `claimInformation.claimDateInformation.serviceDate` for predetermination of benefits claims. Refer to your payer's specific guidelines for more information."
+                        "description": "Required when the entire claim is being submitted as a predetermination of benefits. Predetermination of benefits claims are submitted in advance of services to get an estimate of what the patient's health plan will pay.\n  - Can be set to `true` to indicate predetermination of dental benefits.\n  - Not all dental payers support predetermination of benefits claims.\n  - Some payers prohibit setting `claimInformation.claimDateInformation.serviceDate` for predetermination of benefits claims. Refer to your payer's specific guidelines for more information."
                     },
                     "specialProgramCode": {
                         "$ref": "#/components/schemas/DentalSpecialProgramCode"
@@ -14548,7 +14548,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "Details about the patient's healthcare diagnosis. Only required when the diagnosis may have an impact on the adjudication of the claim in cases where specific dental procedures may minimize the risks associated with the connection between the patient's oral and systemic health conditions.\n- **Don't** submit the decimal for ICD codes; the decimal is implied. \n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include. \n- Use one `ABK` code as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
+                        "description": "Details about the patient's healthcare diagnosis. Only required when the diagnosis may have an impact on the adjudication of the claim in cases where specific dental procedures may minimize the risks associated with the connection between the patient's oral and systemic health conditions.\n- **Don't** submit the decimal for ICD codes; the decimal is implied.\n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n- Use one `ABK` code as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims."
                     },
                     "otherSubscriberInformation": {
                         "type": "array",
@@ -15840,7 +15840,7 @@
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
+                        "description": "The subscriber's health plan group number.\n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
@@ -18371,7 +18371,7 @@
                     },
                     "status": {
                         "$ref": "#/components/schemas/DiscoveryStatus",
-                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
                     },
                     "items": {
                         "type": "array",
@@ -19964,7 +19964,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. \n\n**Do not** submit the decimal for ICD codes; the decimal is implied. \n\nAlso, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.\n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each object array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `ABF`: International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis or `BF`: International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions. \n    - `otherDiagnosisCode`: The code from the code set specified in `qualifierCode`.\n\nEach object can contain the following additional property:\n    - `presentOnAdmissionIndicator`: A code indicating whether the condition was present on admission. You can set this to `N`: No, `Y`: Yes, `U`: Unknown, or `W`: Not Applicable."
+                        "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. \n\n**Do not** submit the decimal for ICD codes; the decimal is implied. \n\nAlso, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.\n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each object array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `ABF`: International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis or `BF`: International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions.\n    - `otherDiagnosisCode`: The code from the code set specified in `qualifierCode`.\n\nEach object can contain the following additional property:\n    - `presentOnAdmissionIndicator`: A code indicating whether the condition was present on admission. You can set this to `N`: No, `Y`: Yes, `U`: Unknown, or `W`: Not Applicable."
                     },
                     "principalProcedureInformation": {
                         "$ref": "#/components/schemas/PrincipalProcedureInformation",
@@ -19981,7 +19981,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Required on inpatient claims when additional procedures must be reported. \n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `BBQ`: International Classification of Diseases Clinical Modification (ICD-10-PCS) Other Procedure Codes or `BQ`: International Classification of Diseases Clinical Modification (ICD-9-CM) Other Procedure Codes. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions. \n    - `otherProcedureCode`: The code from the code set specified in `qualifierCode`.\n    - `otherProcedureDate`: A date expressed in YYYYMMDD format."
+                        "description": "Required on inpatient claims when additional procedures must be reported. \n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `BBQ`: International Classification of Diseases Clinical Modification (ICD-10-PCS) Other Procedure Codes or `BQ`: International Classification of Diseases Clinical Modification (ICD-9-CM) Other Procedure Codes. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions.\n    - `otherProcedureCode`: The code from the code set specified in `qualifierCode`.\n    - `otherProcedureDate`: A date expressed in YYYYMMDD format."
                     },
                     "occurrenceSpanInformations": {
                         "type": "array",
@@ -22053,7 +22053,7 @@
                     },
                     "status": {
                         "$ref": "#/components/schemas/DiscoveryStatus",
-                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`. \n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+                        "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
                     },
                     "items": {
                         "type": "array",
@@ -22076,7 +22076,7 @@
             },
             "InsuranceDiscoveryDependent": {
                 "type": "object",
-                "description": "Demographic information for the patient when they are a dependent on a health plan.  \n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code. \n- You should provide information for both the subscriber and the dependent in the request when possible. \n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
+                "description": "Demographic information for the patient when they are a dependent on a health plan.\n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code.\n- You should provide information for both the subscriber and the dependent in the request when possible.\n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -22203,7 +22203,7 @@
                     },
                     "planDateInformation": {
                         "$ref": "#/components/schemas/DiscoveryPlanDateInformation",
-                        "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits. \n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
+                        "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits.\n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
                     },
                     "benefitsInformation": {
                         "type": "array",
@@ -25172,7 +25172,7 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats: \n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats:\n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
                 "properties": {
                     "discharge": {
                         "type": "string",
@@ -29169,7 +29169,7 @@
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The subscriber's health plan group number. \n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
+                        "description": "The subscriber's health plan group number.\n  - Provide this property OR the `policyNumber`, not both.\n  - Provide this property OR the `subscriberGroupName`, not both. If this property is set, Stedi ignores the `subscriberGroupName` property."
                     },
                     "address": {
                         "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
