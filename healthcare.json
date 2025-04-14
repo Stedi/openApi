@@ -11325,7 +11325,7 @@
             },
             "ClaimFilingCode": {
                 "type": "string",
-                "description": "A code identifying the type of claim. For example `DS` - Disability. Use `OF` when submitting Medicare Part D claims. Use `ZZ` when you don't know the type of insurance. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
+                "description": "A code identifying the type of claim. For example `DS` - Disability.\n- Use `OF` when submitting Medicare Part D claims.\n- Use `ZZ` when you don't know the type of insurance.\n- Some payers reject claims with invalid codes. If you're not sure which code to use, we recommend running a [real-time eligibility check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) and using the value returned in the most relevant `benefitsInformation.insuranceTypeCode` property. Note that the eligibility response uses a different code list than claims, so you may need to map that code value to the appropriate claim filing code.\n\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
                 "enum": [
                     "11",
                     "12",
