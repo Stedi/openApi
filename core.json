@@ -5261,10 +5261,10 @@
             "type": "string"
           },
           "receiverProfile": {
-            "$ref": "#/components/schemas/PartnershipReceiver"
+            "$ref": "#/components/schemas/ExecutionPartnershipProfile"
           },
           "senderProfile": {
-            "$ref": "#/components/schemas/PartnershipSender"
+            "$ref": "#/components/schemas/ExecutionPartnershipProfile"
           },
           "translateFaultContext": {},
           "transactionSetIdentifier": {
@@ -5330,6 +5330,40 @@
           "PREVIOUSLY_RETRIED",
           "TRANSLATION_ERROR",
           "UNKNOWN_ERROR"
+        ]
+      },
+      "ExecutionPartnershipProfile": {
+        "type": "object",
+        "properties": {
+          "interchangeQualifier": {
+            "$ref": "#/components/schemas/X12InterchangeQualifier"
+          },
+          "interchangeId": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 1,
+            "pattern": "^.*[^ ].*$"
+          },
+          "profileId": {
+            "type": "string",
+            "maxLength": 40,
+            "minLength": 1,
+            "pattern": "^([a-zA-Z0-9._-]+)$"
+          },
+          "profileType": {
+            "$ref": "#/components/schemas/ProfileType"
+          },
+          "applicationId": {
+            "type": "string",
+            "maxLength": 15,
+            "minLength": 2
+          }
+        },
+        "required": [
+          "interchangeId",
+          "interchangeQualifier",
+          "profileId",
+          "profileType"
         ]
       },
       "ExecutionSource": {
@@ -6374,6 +6408,13 @@
           "AnyTransaction"
         ]
       },
+      "ProfileType": {
+        "type": "string",
+        "enum": [
+          "local",
+          "partner"
+        ]
+      },
       "PutX12PartnershipConfigurationRequestContent": {
         "type": "object",
         "properties": {
@@ -6781,6 +6822,52 @@
             "description": "The security information referenced by the `securityInformationQualifier` (`ISA-04`). Typically, this is a password."
           }
         }
+      },
+      "X12InterchangeQualifier": {
+        "type": "string",
+        "enum": [
+          "01",
+          "02",
+          "03",
+          "04",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24",
+          "25",
+          "26",
+          "27",
+          "28",
+          "29",
+          "30",
+          "31",
+          "32",
+          "33",
+          "34",
+          "35",
+          "36",
+          "37",
+          "38",
+          "AM",
+          "NR",
+          "SA",
+          "SN",
+          "ZZ"
+        ]
       },
       "X12PartnershipAckConfiguration": {
         "type": "object",
