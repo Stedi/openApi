@@ -116,6 +116,16 @@
                             }
                         }
                     },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "ResourceNotFoundException 404 response",
                         "content": {
@@ -1422,6 +1432,16 @@
                             }
                         }
                     },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
                     "404": {
                         "description": "ResourceNotFoundException 404 response",
                         "content": {
@@ -1448,6 +1468,23 @@
     },
     "components": {
         "schemas": {
+            "AccessDeniedExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response for authorization failure.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
             "AdditionalIdentification": {
                 "type": "object",
                 "description": "Use this object when you need to provide an identification number other than or in addition to the member ID. For example, you may provide the patient account number. Don't include the health insurance claim number or the medicaid recipient ID number here unless they are different from the member ID.",
