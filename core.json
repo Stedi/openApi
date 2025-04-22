@@ -3485,6 +3485,244 @@
         }
       }
     },
+    "/transactions/{transactionId}/attachment/{artifactId}": {
+      "get": {
+        "description": "This endpoint retrieves a transaction's output document after it has been translated.",
+        "operationId": "GetTransactionAttachmentDocument",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "schema": {
+              "type": "string",
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            },
+            "required": true
+          },
+          {
+            "name": "artifactId",
+            "in": "path",
+            "description": "A unique identifier for the artifact within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "schema": {
+              "type": "string",
+              "description": "A unique identifier for the artifact within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "GetTransactionAttachmentDocument 302 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTransactionAttachmentDocumentResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transactions/{transactionId}/attachment/{artifactId}/url": {
+      "get": {
+        "description": "This endpoint is used to retrieve a transaction's attachment document url.\n\nThis endpoint returns the document download URL, it must be then fetched for the actual document content. There are no size restrictions on documents when fetching from this endpoint.\n",
+        "operationId": "GetTransactionAttachmentDocumentUrl",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "schema": {
+              "type": "string",
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            },
+            "required": true
+          },
+          {
+            "name": "artifactId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetTransactionAttachmentDocumentUrl 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTransactionAttachmentDocumentUrlResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/transactions/{transactionId}/fragments/{fragmentIndex}": {
       "get": {
         "description": "This endpoint fetches a fragment by its index for a given transaction.",
@@ -4889,12 +5127,17 @@
           "text/tsv",
           "application/edi-x12",
           "application/xml",
-          "application/zip"
+          "application/zip",
+          "image/jpeg",
+          "image/png",
+          "image/tiff",
+          "text/plain"
         ]
       },
       "ArtifactUsage": {
         "type": "string",
         "enum": [
+          "attachment",
           "input",
           "metadata",
           "output"
@@ -5740,6 +5983,24 @@
           "status",
           "updatedAt"
         ]
+      },
+      "GetTransactionAttachmentDocumentResponseContent": {
+        "type": "object",
+        "properties": {
+          "documentDownloadUrl": {
+            "type": "string",
+            "description": "A URL to download the document. This URL is available for 60 minutes."
+          }
+        }
+      },
+      "GetTransactionAttachmentDocumentUrlResponseContent": {
+        "type": "object",
+        "properties": {
+          "documentDownloadUrl": {
+            "type": "string",
+            "description": "A URL to download the document. This URL is available for 60 minutes."
+          }
+        }
       },
       "GetTransactionFragmentOutputDocumentResponseContent": {
         "type": "object",
