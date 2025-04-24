@@ -159,7 +159,7 @@
                         "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. You can set this to a maximum of 10 checks. If not specified, the default is 10.",
                         "schema": {
                             "type": "number",
-                            "maximum": 10,
+                            "maximum": 200,
                             "minimum": 1,
                             "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. You can set this to a maximum of 10 checks. If not specified, the default is 10."
                         }
@@ -1726,7 +1726,7 @@
                         "items": {
                             "$ref": "#/components/schemas/BatchEligibilityChecksItem"
                         },
-                        "maxItems": 500,
+                        "maxItems": 1000,
                         "minItems": 1,
                         "description": "Each entry in this array represents a single eligibility check. You can submit up to 500 eligibility checks in a single request. **Warning:** If _any_ of the individual checks contain invalid JSON data, such as missing required properties or invalid values, Stedi rejects the entire batch with a `400` status code and returns errors to help you correct the issues."
                     }
