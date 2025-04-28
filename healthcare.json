@@ -10106,7 +10106,7 @@
             },
             "Billing": {
                 "type": "object",
-                "description": "Information about the billing provider. For tax identification, you **must** include either the provider's Social Security Number (SSN) _or_ their Employer Identification Number (EIN), but not both.",
+                "description": "Information about the billing provider.\n- For tax identification, you **must** include either the provider's Social Security Number (SSN) _or_ their Employer Identification Number (EIN), but not both.\n- If the billing provider has an NPI, you must include it in the `npi` property. If the billing provider does not have an NPI, you must include either the `commercialNumber` or the `locationNumber` for identification. Some payers may require the `npi` **and** either the `commercialNumber` or the `locationNumber` as a secondary identifier.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -10133,6 +10133,14 @@
                         "type": "string",
                         "deprecated": true,
                         "description": "Deprecated; do not use.\nThis shape is deprecated."
+                    },
+                    "commercialNumber": {
+                        "type": "string",
+                        "description": "The billing provider's commercial number, as assigned by this payer. The commercial number is a unique identifier that the payer assigns to the provider. For providers without an NPI, you must provide either the `commercialNumber` or the `locationNumber` for identification."
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "description": "The billing provider's location number. For providers without an NPI, you must provide either the `commercialNumber` or the `locationNumber` for identification."
                     },
                     "taxonomyCode": {
                         "type": "string",
