@@ -26927,7 +26927,7 @@
             },
             "ReportInformation": {
                 "type": "object",
-                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
+                "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/AttachmentReportTypeCode"
@@ -26937,7 +26937,7 @@
                     },
                     "attachmentControlNumber": {
                         "type": "string",
-                        "description": "The control number assigned to the attachment."
+                        "description": "The control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters."
                     }
                 },
                 "required": [
@@ -27014,7 +27014,7 @@
             },
             "ReportInformationAttachmentTransmissionCode": {
                 "type": "string",
-                "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.",
+                "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.\n\nSet this to `EL` when you plan to submit attachments electronically through Stedi APIs.",
                 "enum": [
                     "AA",
                     "BM",
@@ -28486,11 +28486,12 @@
                 "description": "Identify a service line listed in the referenced claim. Used to request status for a specific service line.",
                 "properties": {
                     "productOrServiceIDQualifier": {
-                        "$ref": "#/components/schemas/ProductOrServiceIDQualifier"
+                        "$ref": "#/components/schemas/ProductOrServiceIDQualifier",
+                        "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list."
                     },
                     "procedureCode": {
                         "type": "string",
-                        "description": "The code identifying the product or service."
+                        "description": "The procedure code."
                     },
                     "procedureModifiers": {
                         "type": "array",
@@ -28499,7 +28500,7 @@
                         },
                         "maxItems": 4,
                         "minItems": 1,
-                        "description": "Identifies special circumstances related to the performance of the service."
+                        "description": "A modifier code that clarifies or improves the reporting accuracy of the associated `procedureCode`. If not required, do not send."
                     },
                     "lineItemChargeAmount": {
                         "type": "string",
@@ -28525,7 +28526,14 @@
                         "type": "string",
                         "description": "The date the service line ended, formatted as YYYYMMDD."
                     }
-                }
+                },
+                "required": [
+                    "lineItemChargeAmount",
+                    "procedureCode",
+                    "productOrServiceIDQualifier",
+                    "serviceLineDate",
+                    "unitsOfServiceCount"
+                ]
             },
             "ServiceLineOrderingProvider": {
                 "type": "object",
