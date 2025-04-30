@@ -9745,7 +9745,8 @@
                         "description": "The city."
                     },
                     "state": {
-                        "$ref": "#/components/schemas/StateOrProvinceCode"
+                        "$ref": "#/components/schemas/ResponseStateOrProvinceCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "postalCode": {
                         "type": "string",
@@ -9909,7 +9910,7 @@
             },
             "ApplicationModes": {
                 "type": "string",
-                "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.",
+                "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "production",
                     "test",
@@ -10118,7 +10119,7 @@
             },
             "AuthOrCertIndicator": {
                 "type": "string",
-                "description": "Code indicating whether the benefit is subject to prior authorization or certification.",
+                "description": "Code indicating whether the benefit is subject to prior authorization or certification.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "N",
                     "U",
@@ -10144,7 +10145,7 @@
             },
             "BenefitRelatedEntityIdentification": {
                 "type": "string",
-                "description": "Code identifying the type of value provided in `entityIdentificationValue`. For example, `FI` - Federal Taxpayer's Identification Number.",
+                "description": "Code identifying the type of value provided in `entityIdentificationValue`. For example, `FI` - Federal Taxpayer's Identification Number.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "24",
                     "34",
@@ -10158,8 +10159,7 @@
                     "PP",
                     "SV",
                     "XV",
-                    "XX",
-                    "Unknown"
+                    "XX"
                 ]
             },
             "BenefitsAdditionalInformation": {
@@ -10401,45 +10401,53 @@
                 "type": "object",
                 "properties": {
                     "code": {
-                        "$ref": "#/components/schemas/BenefitsInformationCode"
+                        "$ref": "#/components/schemas/BenefitsInformationCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "name": {
-                        "$ref": "#/components/schemas/BenefitsInformationName"
+                        "$ref": "#/components/schemas/BenefitsInformationName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "coverageLevelCode": {
-                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelCode"
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "coverageLevel": {
-                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelName"
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                            "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
                         "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
                     },
                     "serviceTypes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceType"
+                            "$ref": "#/components/schemas/ResponseEligibilityServiceType"
                         }
                     },
                     "insuranceTypeCode": {
-                        "$ref": "#/components/schemas/InsuranceTypeCode"
+                        "$ref": "#/components/schemas/InsuranceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuranceType": {
-                        "$ref": "#/components/schemas/InsuranceTypeName"
+                        "$ref": "#/components/schemas/InsuranceTypeName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "planCoverage": {
                         "type": "string",
                         "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`.\n\nPayers are normally required to send the plan name when `benefitsInformation.code` is set to values `1` - `8` and the `benefitsInformation.serviceTypeCodes` contains `30` (Health Benefit Plan Coverage). However, behavior may vary by payer, so don't rely on this information being present in the response. Note that the plan name returned in this property may not exactly match the name the payer uses in official plan documents or marketing literature.\n\nVisit [What's the plan name?](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#what’s-the-plan-name%3F) in the benefits response documentation for more details."
                     },
                     "timeQualifierCode": {
-                        "$ref": "#/components/schemas/TimeQualifierCode"
+                        "$ref": "#/components/schemas/TimeQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "timeQualifier": {
-                        "$ref": "#/components/schemas/TimeQualifierName"
+                        "$ref": "#/components/schemas/TimeQualifierName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "benefitAmount": {
                         "type": "string",
@@ -10450,23 +10458,28 @@
                         "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits)."
                     },
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/QuantityQualifierCode"
+                        "$ref": "#/components/schemas/QuantityQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/QuantityQualifierName"
+                        "$ref": "#/components/schemas/QuantityQualifierName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "benefitQuantity": {
                         "type": "string",
                         "description": "The quantity of the benefit, qualified by the type specified in `quantityQualifier`. For example, `10` when the `quantityQualifier` is `Visits`."
                     },
                     "authOrCertIndicator": {
-                        "$ref": "#/components/schemas/AuthOrCertIndicator"
+                        "$ref": "#/components/schemas/AuthOrCertIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "inPlanNetworkIndicatorCode": {
-                        "$ref": "#/components/schemas/InPlanNetworkIndicatorCode"
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "inPlanNetworkIndicator": {
-                        "$ref": "#/components/schemas/InPlanNetworkIndicatorName"
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "headerLoopIdentifierCode": {
                         "type": "string",
@@ -10526,7 +10539,7 @@
             },
             "BenefitsInformationCode": {
                 "type": "string",
-                "description": "The code indicating the type of benefits information. Visit [Eligibility and benefit codes](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#benefit-type-codes) for more information.",
+                "description": "The code indicating the type of benefits information. Visit [Eligibility and benefit codes](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#benefit-type-codes) for more information.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1",
                     "2",
@@ -10562,13 +10575,12 @@
                     "V",
                     "W",
                     "X",
-                    "Y",
-                    "Unknown"
+                    "Y"
                 ]
             },
             "BenefitsInformationCoverageLevelCode": {
                 "type": "string",
-                "description": "Code indicating the level of coverage for the patient. \n\nThis will either be `CHD` - Children Only, `DEP` - Dependents Only, `ECH` - Employee and Children, `EMP` - Employee Only, `ESP` - Employee and Spouse, `FAM` - Family, `IND` - Individual, `SPC` - Spouse and Children, `SPO` - Spouse Only, or `Unknown`.",
+                "description": "Code indicating the level of coverage for the patient. \n\nThis will either be `CHD` - Children Only, `DEP` - Dependents Only, `ECH` - Employee and Children, `EMP` - Employee Only, `ESP` - Employee and Spouse, `FAM` - Family, `IND` - Individual, `SPC` - Spouse and Children, `SPO` - Spouse Only, or `Unknown`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "CHD",
                     "DEP",
@@ -10578,13 +10590,12 @@
                     "FAM",
                     "IND",
                     "SPC",
-                    "SPO",
-                    "Unknown"
+                    "SPO"
                 ]
             },
             "BenefitsInformationCoverageLevelName": {
                 "type": "string",
-                "description": "The full name of the coverage level code.",
+                "description": "The full name of the coverage level code.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Children Only",
                     "Dependents Only",
@@ -10594,13 +10605,12 @@
                     "Family",
                     "Individual",
                     "Spouse and Children",
-                    "Spouse Only",
-                    "Unknown"
+                    "Spouse Only"
                 ]
             },
             "BenefitsInformationName": {
                 "type": "string",
-                "description": "The full name of the benefits information code.",
+                "description": "The full name of the benefits information code.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Active Coverage",
                     "Active - Full Risk Capitation",
@@ -10636,8 +10646,7 @@
                     "Cannot Process",
                     "Other Source of Data",
                     "Health Care Facility",
-                    "Spend Down",
-                    "Unknown"
+                    "Spend Down"
                 ]
             },
             "BenefitsRelatedEntity": {
@@ -10646,10 +10655,11 @@
                 "properties": {
                     "entityIdentifier": {
                         "$ref": "#/components/schemas/RelatedEntityIdentifierName",
-                        "description": "Code identifying an organizational entity, a physical location, property or an individual."
+                        "description": "Code identifying an organizational entity, a physical location, property or an individual.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "entityType": {
-                        "$ref": "#/components/schemas/EntityTypeQualifier"
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityName": {
                         "type": "string",
@@ -10668,14 +10678,16 @@
                         "description": "The name suffix, such as Sr. Jr. or III."
                     },
                     "entityIdentification": {
-                        "$ref": "#/components/schemas/BenefitRelatedEntityIdentification"
+                        "$ref": "#/components/schemas/BenefitRelatedEntityIdentification",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityIdentificationValue": {
                         "type": "string",
                         "description": "The identification number for the entity, qualified by the code in `entityIdentification`."
                     },
                     "entityRelationship": {
-                        "$ref": "#/components/schemas/BenefitsRelatedEntityRelationshipCode"
+                        "$ref": "#/components/schemas/BenefitsRelatedEntityRelationshipCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -10690,7 +10702,7 @@
             },
             "BenefitsRelatedEntityRelationshipCode": {
                 "type": "string",
-                "description": "Code specifying the relationship between the entity and the patient.",
+                "description": "Code specifying the relationship between the entity and the patient.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "01",
                     "02",
@@ -10706,10 +10718,12 @@
                 "description": "The delivery or usage pattern for the benefits.",
                 "properties": {
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifierCode"
+                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifier"
+                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "quantity": {
                         "type": "string",
@@ -10718,70 +10732,78 @@
                     "unitForMeasurementCode": {
                         "$ref": "#/components/schemas/UnitForMeasurement",
                         "deprecated": true,
-                        "description": "This shape is deprecated."
+                        "description": "Payers may sometimes return other non-compliant values.\nThis shape is deprecated."
                     },
                     "unitForMeasurementQualifierCode": {
-                        "$ref": "#/components/schemas/UnitForMeasurementCode"
+                        "$ref": "#/components/schemas/UnitForMeasurementCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "unitForMeasurementQualifier": {
-                        "$ref": "#/components/schemas/UnitForMeasurement"
+                        "$ref": "#/components/schemas/UnitForMeasurement",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "sampleSelectionModulus": {
                         "type": "string",
                         "description": "Specifies the sampling frequency, based on the unit of measure. For example `every 2 months` or `once per calendar year`."
                     },
                     "timePeriodQualifierCode": {
-                        "$ref": "#/components/schemas/TimePeriodQualifierCode"
+                        "$ref": "#/components/schemas/TimePeriodQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "timePeriodQualifier": {
-                        "$ref": "#/components/schemas/TimePeriodQualifier"
+                        "$ref": "#/components/schemas/TimePeriodQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "numOfPeriods": {
                         "type": "string",
                         "description": "The number of periods in the time period. For example, `12` when the `timePeriodQualifier` is `Hour`."
                     },
                     "deliveryOrCalendarPatternCode": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier"
+                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "deliveryOrCalendarPatternQualifierCode": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifierCode"
+                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "deliveryOrCalendarPatternQualifier": {
-                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier"
+                        "$ref": "#/components/schemas/DeliveryOrCalendarPatternQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "deliveryPatternTimeCode": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
+                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "deliveryPatternTimeQualifierCode": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifierCode"
+                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "deliveryPatternTimeQualifier": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
+                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     }
                 }
             },
             "BenefitsServiceDeliveryQuantityQualifier": {
                 "type": "string",
-                "description": "The name of the `quantityQualifierCode`. For example, `Days`.",
+                "description": "The name of the `quantityQualifierCode`. For example, `Days`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Days",
                     "Units",
                     "Hours",
                     "Month",
-                    "Visits",
-                    "Unknown"
+                    "Visits"
                 ]
             },
             "BenefitsServiceDeliveryQuantityQualifierCode": {
                 "type": "string",
-                "description": "Code specifying the type of quantity.",
+                "description": "Code specifying the type of quantity.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "DY",
                     "FL",
                     "HS",
                     "MN",
-                    "VS",
-                    "Unknown"
+                    "VS"
                 ]
             },
             "Billing": {
@@ -11193,7 +11215,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender",
-                        "description": "Code indicating the dependent's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown."
+                        "description": "Code indicating the dependent's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -11317,7 +11339,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender",
-                        "description": "Code indicating the subscriber's gender. Can be `F`- Female, `M` - Male, or `U` - Unknown."
+                        "description": "Code indicating the subscriber's gender. Can be `F`- Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -15089,6 +15111,7 @@
             },
             "DateTimePeriodFormatQualifier": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "D8",
                     "RD8"
@@ -15114,7 +15137,7 @@
             },
             "DeliveryOrCalendarPatternQualifier": {
                 "type": "string",
-                "description": "The name of the `deliveryOrCalendarPatternCode`. For example, `Last Working Day of Period`.",
+                "description": "The name of the `deliveryOrCalendarPatternCode`. For example, `Last Working Day of Period`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1st Week of the Month",
                     "2nd Week of the Month",
@@ -15154,13 +15177,12 @@
                     "1/3 Mon., 1/3 Wed., 1/3 Fri.",
                     "Whenever Necessary",
                     "1/2 By Wed. Bal. By Fri.",
-                    "None (Also Used to Cancel or Override a Previous Pattern)",
-                    "Unknown"
+                    "None (Also Used to Cancel or Override a Previous Pattern)"
                 ]
             },
             "DeliveryOrCalendarPatternQualifierCode": {
                 "type": "string",
-                "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-or-calendar-pattern-qualifier-codes) for a complete list.",
+                "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-or-calendar-pattern-qualifier-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1",
                     "2",
@@ -15200,13 +15222,12 @@
                     "V",
                     "W",
                     "X",
-                    "Y",
-                    "Unknown"
+                    "Y"
                 ]
             },
             "DeliveryPatternTimeQualifier": {
                 "type": "string",
-                "description": "The name of the `deliveryPatternTimeCode`.",
+                "description": "The name of the `deliveryPatternTimeCode`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1st Shift (Normal Working Hours)",
                     "2nd Shift",
@@ -15215,13 +15236,12 @@
                     "P.M.",
                     "As Directed",
                     "Any Shift",
-                    "None (Also Used to Cancel or Override a Previous Pattern)",
-                    "Unknown"
+                    "None (Also Used to Cancel or Override a Previous Pattern)"
                 ]
             },
             "DeliveryPatternTimeQualifierCode": {
                 "type": "string",
-                "description": "A code specifying the time for routine shipments or deliveries.",
+                "description": "A code specifying the time for routine shipments or deliveries.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "A",
                     "B",
@@ -15230,8 +15250,7 @@
                     "E",
                     "F",
                     "G",
-                    "Y",
-                    "Unknown"
+                    "Y"
                 ]
             },
             "DentalAttachmentReportTypeCode": {
@@ -16806,14 +16825,14 @@
             },
             "DependentInsuredIndicator": {
                 "type": "string",
-                "description": "Indicates the status of the insured. For the dependent, this is always `N`.",
+                "description": "Indicates the status of the insured. For the dependent, this is always `N`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "N"
                 ]
             },
             "DependentRelationship": {
                 "type": "string",
-                "description": "The name of the `relationToSubscriberCode`. For example, `Child` when the code is `19`.",
+                "description": "The name of the `relationToSubscriberCode`. For example, `Child` when the code is `19`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Spouse",
                     "Child",
@@ -16827,7 +16846,7 @@
             },
             "DependentRelationshipCode": {
                 "type": "string",
-                "description": "For the dependent, this can be `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.",
+                "description": "For the dependent, this can be `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "01",
                     "19",
@@ -16836,8 +16855,7 @@
                     "39",
                     "40",
                     "53",
-                    "G8",
-                    "Unknown"
+                    "G8"
                 ]
             },
             "DetailInfo": {
@@ -16890,45 +16908,53 @@
                 "type": "object",
                 "properties": {
                     "code": {
-                        "$ref": "#/components/schemas/BenefitsInformationCode"
+                        "$ref": "#/components/schemas/BenefitsInformationCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "name": {
-                        "$ref": "#/components/schemas/BenefitsInformationName"
+                        "$ref": "#/components/schemas/BenefitsInformationName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "coverageLevelCode": {
-                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelCode"
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "coverageLevel": {
-                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelName"
+                        "$ref": "#/components/schemas/BenefitsInformationCoverageLevelName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                            "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
                         "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
                     },
                     "serviceTypes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceType"
+                            "$ref": "#/components/schemas/ResponseEligibilityServiceType"
                         }
                     },
                     "insuranceTypeCode": {
-                        "$ref": "#/components/schemas/InsuranceTypeCode"
+                        "$ref": "#/components/schemas/InsuranceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuranceType": {
-                        "$ref": "#/components/schemas/InsuranceTypeName"
+                        "$ref": "#/components/schemas/InsuranceTypeName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "planCoverage": {
                         "type": "string",
                         "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`.\n\nPayers are normally required to send the plan name when `benefitsInformation.code` is set to values `1` - `8` and the `benefitsInformation.serviceTypeCodes` contains `30` (Health Benefit Plan Coverage). However, behavior may vary by payer, so don't rely on this information being present in the response. Note that the plan name returned in this property may not exactly match the name the payer uses in official plan documents or marketing literature.\n\nVisit [What's the plan name?](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#what’s-the-plan-name%3F) in the benefits response documentation for more details."
                     },
                     "timeQualifierCode": {
-                        "$ref": "#/components/schemas/TimeQualifierCode"
+                        "$ref": "#/components/schemas/TimeQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "timeQualifier": {
-                        "$ref": "#/components/schemas/TimeQualifierName"
+                        "$ref": "#/components/schemas/TimeQualifierName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "benefitAmount": {
                         "type": "string",
@@ -16939,23 +16965,28 @@
                         "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits)."
                     },
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/QuantityQualifierCode"
+                        "$ref": "#/components/schemas/QuantityQualifierCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/QuantityQualifierName"
+                        "$ref": "#/components/schemas/QuantityQualifierName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "benefitQuantity": {
                         "type": "string",
                         "description": "The quantity of the benefit, qualified by the type specified in `quantityQualifier`. For example, `10` when the `quantityQualifier` is `Visits`."
                     },
                     "authOrCertIndicator": {
-                        "$ref": "#/components/schemas/AuthOrCertIndicator"
+                        "$ref": "#/components/schemas/AuthOrCertIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "inPlanNetworkIndicatorCode": {
-                        "$ref": "#/components/schemas/InPlanNetworkIndicatorCode"
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "inPlanNetworkIndicator": {
-                        "$ref": "#/components/schemas/InPlanNetworkIndicatorName"
+                        "$ref": "#/components/schemas/InPlanNetworkIndicatorName",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "headerLoopIdentifierCode": {
                         "type": "string",
@@ -17004,11 +17035,12 @@
                 "type": "object",
                 "properties": {
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/PayerEntityIdentifier"
+                        "$ref": "#/components/schemas/PayerEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type qualifier for the payer. Can be set to `Person` (not commonly used) or `Non-Person Entity` (most common)."
+                        "description": "The entity type qualifier for the payer. Can be set to `Person` (not commonly used) or `Non-Person Entity` (most common).\n\nPayers may sometimes return other non-compliant values."
                     },
                     "firstName": {
                         "type": "string",
@@ -17190,14 +17222,16 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
@@ -17209,15 +17243,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the dependent's information, used to report military service data."
+                        "description": "The status of the dependent's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The dependent's employment status code, used to report military service data."
+                        "description": "The dependent's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The dependent's government service affiliation code, used to report military service data."
+                        "description": "The dependent's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -17225,11 +17259,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The dependent's military service rank code."
+                        "description": "The dependent's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period."
+                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
@@ -17272,19 +17306,24 @@
                         "description": "Plan network name"
                     },
                     "relationToSubscriber": {
-                        "$ref": "#/components/schemas/DependentRelationship"
+                        "$ref": "#/components/schemas/DependentRelationship",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/DependentRelationshipCode"
+                        "$ref": "#/components/schemas/DependentRelationshipCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuredIndicator": {
-                        "$ref": "#/components/schemas/DependentInsuredIndicator"
+                        "$ref": "#/components/schemas/DependentInsuredIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceTypeCode": {
-                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                        "$ref": "#/components/schemas/MaintenanceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceReasonCode": {
-                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                        "$ref": "#/components/schemas/MaintenanceReasonCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "birthSequenceNumber": {
                         "type": "string",
@@ -17322,18 +17361,20 @@
                         "description": "The provider's name suffix, such as Jr., Sr., or III."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseProviderEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseProviderEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
-                        "$ref": "#/components/schemas/EntityTypeQualifier"
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "npi": {
                         "type": "string",
                         "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier)."
                     },
                     "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
-                        "description": "A code that communicates the provider's role in the type of benefits information in the response."
+                        "$ref": "#/components/schemas/ResponseProviderCode",
+                        "description": "A code that communicates the provider's role in the type of benefits information in the response.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -17399,14 +17440,16 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
@@ -17418,15 +17461,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the subscriber's information, used to report military service data."
+                        "description": "The status of the subscriber's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The subscriber's employment status code, used to report military service data."
+                        "description": "The subscriber's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The subscriber's government service affiliation code, used to report military service data."
+                        "description": "The subscriber's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -17434,11 +17477,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The subscriber's military service rank code."
+                        "description": "The subscriber's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period."
+                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
@@ -17481,19 +17524,24 @@
                         "description": "Plan network name"
                     },
                     "relationToSubscriber": {
-                        "$ref": "#/components/schemas/SubscriberRelationship"
+                        "$ref": "#/components/schemas/SubscriberRelationship",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
+                        "$ref": "#/components/schemas/SubscriberRelationshipCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuredIndicator": {
-                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
+                        "$ref": "#/components/schemas/SubscriberInsuredIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceTypeCode": {
-                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                        "$ref": "#/components/schemas/MaintenanceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceReasonCode": {
-                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                        "$ref": "#/components/schemas/MaintenanceReasonCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "birthSequenceNumber": {
                         "type": "string",
@@ -17750,16 +17798,17 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckDependentErrorCode",
-                        "description": "The error code."
+                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
                     }
                 }
             },
             "EligibilityCheckDependentErrorCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "15",
                     "33",
@@ -17825,17 +17874,17 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckErrorCode",
-                        "description": "The error code."
+                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
                     }
                 }
             },
             "EligibilityCheckErrorCode": {
                 "type": "string",
-                "description": "This is a superset of all the possible codes in the sub-loops, as all errors are bubbled up to the top level of the response",
+                "description": "This is a superset of all the possible codes in the sub-loops, as all errors are bubbled up to the top level of the response\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "04",
                     "15",
@@ -17896,6 +17945,7 @@
             },
             "EligibilityCheckFollowupAction": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "Please Correct and Resubmit",
                     "Resubmission Not Allowed",
@@ -18000,16 +18050,17 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckPayerErrorCode",
-                        "description": "The error code."
+                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
                     }
                 }
             },
             "EligibilityCheckPayerErrorCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "04",
                     "41",
@@ -18021,6 +18072,7 @@
             },
             "EligibilityCheckProviderAndMemberFollowupAction": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "Please Correct and Resubmit",
                     "Resubmission Not Allowed",
@@ -18053,16 +18105,17 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckProviderErrorCode",
-                        "description": "The error code."
+                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
                     }
                 }
             },
             "EligibilityCheckProviderErrorCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "15",
                     "41",
@@ -18270,16 +18323,17 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckSubscriberErrorCode",
-                        "description": "The error code."
+                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`."
+                        "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
                     }
                 }
             },
             "EligibilityCheckSubscriberErrorCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "15",
                     "33",
@@ -18341,7 +18395,7 @@
                     },
                     "applicationMode": {
                         "$ref": "#/components/schemas/ApplicationModes",
-                        "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used."
+                        "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "traceId": {
                         "type": "string",
@@ -18471,392 +18525,6 @@
                     }
                 }
             },
-            "EligibilityServiceType": {
-                "type": "string",
-                "enum": [
-                    "Medical Care",
-                    "Surgical",
-                    "Consultation",
-                    "Diagnostic X-Ray",
-                    "Diagnostic Lab",
-                    "Radiation Therapy",
-                    "Anesthesia",
-                    "Surgical Assistance",
-                    "Other Medical",
-                    "Blood Charges",
-                    "Used Durable Medical Equipment",
-                    "Durable Medical Equipment Purchase",
-                    "Ambulatory Service Center Facility",
-                    "Renal Supplies in the Home",
-                    "Alternate Method Dialysis",
-                    "Chronic Renal Disease (CRD) Equipment",
-                    "Pre-Admission Testing",
-                    "Durable Medical Equipment Rental",
-                    "Pneumonia Vaccine",
-                    "Second Surgical Opinion",
-                    "Third Surgical Opinion",
-                    "Social Work",
-                    "Diagnostic Dental",
-                    "Periodontics",
-                    "Restorative",
-                    "Endodontics",
-                    "Maxillofacial Prosthetics",
-                    "Adjunctive Dental Services",
-                    "Health Benefit Plan Coverage",
-                    "Plan Waiting Period",
-                    "Chiropractic",
-                    "Chiropractic Office Visits",
-                    "Dental Care",
-                    "Dental Crowns",
-                    "Dental Accident",
-                    "Orthodontics",
-                    "Prosthodontics",
-                    "Oral Surgery",
-                    "Routine (Preventive) Dental",
-                    "Home Health Care",
-                    "Home Health Prescriptions",
-                    "Home Health Visits",
-                    "Hospice",
-                    "Respite Care",
-                    "Hospital",
-                    "Hospital - Inpatient",
-                    "Hospital - Room and Board",
-                    "Hospital - Outpatient",
-                    "Hospital - Emergency Accident",
-                    "Hospital - Emergency Medical",
-                    "Hospital - Ambulatory Surgical",
-                    "Long Term Care",
-                    "Major Medical",
-                    "Medically Related Transportation",
-                    "Air Transportation",
-                    "Cabulance",
-                    "Licensed Ambulance",
-                    "General Benefits",
-                    "In-vitro Fertilization",
-                    "MRI/CAT Scan",
-                    "Donor Procedures",
-                    "Acupuncture",
-                    "Newborn Care",
-                    "Pathology",
-                    "Smoking Cessation",
-                    "Well Baby Care",
-                    "Maternity",
-                    "Transplants",
-                    "Audiology Exam",
-                    "Inhalation Therapy",
-                    "Diagnostic Medical",
-                    "Private Duty Nursing",
-                    "Prosthetic Device",
-                    "Dialysis",
-                    "Otological Exam",
-                    "Chemotherapy",
-                    "Allergy Testing",
-                    "Immunizations",
-                    "Routine Physical",
-                    "Family Planning",
-                    "Infertility",
-                    "Abortion",
-                    "AIDS",
-                    "Emergency Services",
-                    "Cancer",
-                    "Pharmacy",
-                    "Free Standing Prescription Drug",
-                    "Mail Order Prescription Drug",
-                    "Brand Name Prescription Drug",
-                    "Generic Prescription Drug",
-                    "Podiatry",
-                    "Podiatry - Office Visits",
-                    "Podiatry - Nursing Home Visits",
-                    "Professional (Physician)",
-                    "Anesthesiologist",
-                    "Professional (Physician) Visit - Office",
-                    "Professional (Physician) Visit - Inpatient",
-                    "Professional (Physician) Visit - Outpatient",
-                    "Professional (Physician) Visit - Nursing Home",
-                    "Professional (Physician) Visit - Skilled Nursing Facility",
-                    "Professional (Physician) Visit - Home",
-                    "Psychiatric",
-                    "Psychiatric - Room and Board",
-                    "Psychotherapy",
-                    "Psychiatric - Inpatient",
-                    "Psychiatric - Outpatient",
-                    "Rehabilitation",
-                    "Rehabilitation - Room and Board",
-                    "Rehabilitation - Inpatient",
-                    "Rehabilitation - Outpatient",
-                    "Occupational Therapy",
-                    "Physical Medicine",
-                    "Speech Therapy",
-                    "Skilled Nursing Care",
-                    "Skilled Nursing Care - Room and Board",
-                    "Substance Abuse",
-                    "Alcoholism",
-                    "Drug Addiction",
-                    "Vision (Optometry)",
-                    "Frames",
-                    "Routine Exam",
-                    "Lenses",
-                    "Nonmedically Necessary Physical",
-                    "Experimental Drug Therapy",
-                    "Burn Care",
-                    "Brand Name Prescription Drug - Formulary",
-                    "Brand Name Prescription Drug - Non-Formulary",
-                    "Independent Medical Evaluation",
-                    "Partial Hospitalization (Psychiatric)",
-                    "Day Care (Psychiatric)",
-                    "Cognitive Therapy",
-                    "Massage Therapy",
-                    "Pulmonary Rehabilitation",
-                    "Cardiac Rehabilitation",
-                    "Pediatric",
-                    "Nursery",
-                    "Skin",
-                    "Orthopedic",
-                    "Cardiac",
-                    "Lymphatic",
-                    "Gastrointestinal",
-                    "Endocrine",
-                    "Neurology",
-                    "Eye",
-                    "Invasive Procedures",
-                    "Gynecological",
-                    "Obstetrical",
-                    "Obstetrical/Gynecological",
-                    "Mail Order Prescription Drug - Formulary",
-                    "Mail Order Prescription Drug - Non-Formulary",
-                    "Physician Visit - Office: Sick",
-                    "Physician Visit - Office: Well",
-                    "Coronary Care",
-                    "Private Duty Nursing - Inpatient",
-                    "Private Duty Nursing - Home",
-                    "Surgical Benefits - Professional (Physician)",
-                    "Surgical Benefits - Facility",
-                    "Mental Health Provider- Inpatient",
-                    "Mental Health Provider - Outpatient",
-                    "Mental Health Facility - Inpatient",
-                    "Mental Health Facility - Outpatient",
-                    "Substance Abuse Facility - Inpatient",
-                    "Substance Abuse Facility - Outpatient",
-                    "Screening X-ray",
-                    "Screening laboratory",
-                    "Mammogram, High Risk Patient",
-                    "Mammogram, Low Risk Patient",
-                    "Flu Vaccination",
-                    "Eyewear and Eyewear Accessories",
-                    "Case Management",
-                    "Dermatology",
-                    "Durable Medical Equipment",
-                    "Diabetic Supplies",
-                    "Generic Prescription Drug - Formulary",
-                    "Generic Prescription Drug - Non-Formulary",
-                    "Allergy",
-                    "Intensive Care",
-                    "Mental Health",
-                    "Neonatol Intensive Care",
-                    "Oncology",
-                    "Physical Therapy",
-                    "Pulmonary",
-                    "Renal",
-                    "Residential Psychiatric Treatment",
-                    "Transitional Care",
-                    "Transitional Nursery Care",
-                    "Urgent Care",
-                    "Unknown"
-                ]
-            },
-            "EligibilityServiceTypeCode": {
-                "type": "string",
-                "enum": [
-                    "1",
-                    "2",
-                    "3",
-                    "4",
-                    "5",
-                    "6",
-                    "7",
-                    "8",
-                    "9",
-                    "10",
-                    "11",
-                    "12",
-                    "13",
-                    "14",
-                    "15",
-                    "16",
-                    "17",
-                    "18",
-                    "19",
-                    "20",
-                    "21",
-                    "22",
-                    "23",
-                    "24",
-                    "25",
-                    "26",
-                    "27",
-                    "28",
-                    "30",
-                    "32",
-                    "33",
-                    "34",
-                    "35",
-                    "36",
-                    "37",
-                    "38",
-                    "39",
-                    "40",
-                    "41",
-                    "42",
-                    "43",
-                    "44",
-                    "45",
-                    "46",
-                    "47",
-                    "48",
-                    "49",
-                    "50",
-                    "51",
-                    "52",
-                    "53",
-                    "54",
-                    "55",
-                    "56",
-                    "57",
-                    "58",
-                    "59",
-                    "60",
-                    "61",
-                    "62",
-                    "63",
-                    "64",
-                    "65",
-                    "66",
-                    "67",
-                    "68",
-                    "69",
-                    "70",
-                    "71",
-                    "72",
-                    "73",
-                    "74",
-                    "75",
-                    "76",
-                    "77",
-                    "78",
-                    "79",
-                    "80",
-                    "81",
-                    "82",
-                    "83",
-                    "84",
-                    "85",
-                    "86",
-                    "87",
-                    "88",
-                    "89",
-                    "90",
-                    "91",
-                    "92",
-                    "93",
-                    "94",
-                    "95",
-                    "96",
-                    "97",
-                    "98",
-                    "99",
-                    "A0",
-                    "A1",
-                    "A2",
-                    "A3",
-                    "A4",
-                    "A5",
-                    "A6",
-                    "A7",
-                    "A8",
-                    "A9",
-                    "AA",
-                    "AB",
-                    "AC",
-                    "AD",
-                    "AE",
-                    "AF",
-                    "AG",
-                    "AH",
-                    "AI",
-                    "AJ",
-                    "AK",
-                    "AL",
-                    "AM",
-                    "AN",
-                    "AO",
-                    "AQ",
-                    "AR",
-                    "B1",
-                    "B2",
-                    "B3",
-                    "BA",
-                    "BB",
-                    "BC",
-                    "BD",
-                    "BE",
-                    "BF",
-                    "BG",
-                    "BH",
-                    "BI",
-                    "BJ",
-                    "BK",
-                    "BL",
-                    "BM",
-                    "BN",
-                    "BP",
-                    "BQ",
-                    "BR",
-                    "BS",
-                    "BT",
-                    "BU",
-                    "BV",
-                    "BW",
-                    "BX",
-                    "BY",
-                    "BZ",
-                    "C1",
-                    "CA",
-                    "CB",
-                    "CC",
-                    "CD",
-                    "CE",
-                    "CF",
-                    "CG",
-                    "CH",
-                    "CI",
-                    "CJ",
-                    "CK",
-                    "CL",
-                    "CM",
-                    "CN",
-                    "CO",
-                    "CP",
-                    "CQ",
-                    "DG",
-                    "DM",
-                    "DS",
-                    "GF",
-                    "GN",
-                    "GY",
-                    "IC",
-                    "MH",
-                    "NI",
-                    "ON",
-                    "PT",
-                    "PU",
-                    "RN",
-                    "RT",
-                    "TC",
-                    "TN",
-                    "UC",
-                    "Unknown"
-                ]
-            },
             "EmergencyIndicator": {
                 "type": "string",
                 "description": "Code indicating whether the service was related to an emergency. Can be set to `Y` - Yes. An emergency is when the patient requires immediate medical intervention as a result of severe, life threatening, or potentially disabling conditions.",
@@ -18866,6 +18534,7 @@
             },
             "EmploymentStatusCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "AE",
                     "AO",
@@ -18881,8 +18550,7 @@
                     "RE",
                     "RM",
                     "RR",
-                    "RU",
-                    "Unknown"
+                    "RU"
                 ]
             },
             "Encounter": {
@@ -18904,7 +18572,7 @@
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                            "$ref": "#/components/schemas/RequestEligibilityServiceTypeCode"
                         },
                         "maxItems": 99,
                         "minItems": 1,
@@ -19010,7 +18678,7 @@
             },
             "EntityTypeQualifier": {
                 "type": "string",
-                "description": "The type of entity.",
+                "description": "The type of entity.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Person",
                     "Non-Person Entity"
@@ -19301,6 +18969,7 @@
             },
             "GovernmentServiceAffiliationCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "A",
                     "B",
@@ -19321,8 +18990,7 @@
                     "R",
                     "S",
                     "U",
-                    "W",
-                    "Unknown"
+                    "W"
                 ]
             },
             "HealthCareCheckRemarkCodes": {
@@ -20210,7 +19878,7 @@
             },
             "InPlanNetworkIndicatorCode": {
                 "type": "string",
-                "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable\n\n Code `U` indicates that it is unknown whether the benefits are in or out-of-network. Code `W` indicates that the benefit applies to both in and out-of-network providers. \n \n Note that this property **doesn't indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly.",
+                "description": "Code indicating whether the benefit is in-network or out-of-network. Can be `Y` - Yes, `N` - No, `U` - Unknown, or `W` - Not Applicable\n\n Code `U` indicates that it is unknown whether the benefits are in or out-of-network. Code `W` indicates that the benefit applies to both in and out-of-network providers. \n \n Note that this property **doesn't indicate** whether the provider is in or out-of-network for the patient. To determine that, you must check with the payer directly.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Y",
                     "N",
@@ -20220,7 +19888,7 @@
             },
             "InPlanNetworkIndicatorName": {
                 "type": "string",
-                "description": "The name of the in-plan network indicator code.",
+                "description": "The name of the in-plan network indicator code.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Yes",
                     "No",
@@ -20456,6 +20124,7 @@
             },
             "InformationStatusCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "A",
                     "C",
@@ -20463,8 +20132,7 @@
                     "O",
                     "P",
                     "S",
-                    "T",
-                    "Unknown"
+                    "T"
                 ]
             },
             "InstitutionalAddress": {
@@ -21042,7 +20710,8 @@
                 "description": "Additional information or documentation required for the claim.",
                 "properties": {
                     "reportInformation": {
-                        "$ref": "#/components/schemas/InstitutionalReportInformation"
+                        "$ref": "#/components/schemas/InstitutionalReportInformation",
+                        "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request."
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
@@ -22226,19 +21895,20 @@
             },
             "InstitutionalReportInformation": {
                 "type": "object",
-                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
+                "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/ReportInformationAttachmentReportTypeCode"
                     },
                     "attachmentTransmissionCode": {
-                        "$ref": "#/components/schemas/InstitutionalReportInformationAttachmentTransmissionCode"
+                        "$ref": "#/components/schemas/InstitutionalReportInformationAttachmentTransmissionCode",
+                        "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.\n\nSet this to `EL` when you plan to submit attachments electronically through Stedi APIs."
                     },
                     "attachmentControlNumber": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`."
+                        "description": "The control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters."
                     }
                 },
                 "required": [
@@ -22468,7 +22138,7 @@
                     },
                     "serviceLineSupplementalInformation": {
                         "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation",
-                        "description": "Additional information or documentation required for the service line."
+                        "description": "Additional information or documentation required for the service line. This is where you should include information for any attachments related to this service line."
                     },
                     "serviceLineDateInformation": {
                         "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation",
@@ -22792,11 +22462,12 @@
                         "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentReportTypeCode"
                     },
                     "attachmentTransmissionCode": {
-                        "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentTransmissionCode"
+                        "$ref": "#/components/schemas/ServiceLineSupplementalInformationAttachmentTransmissionCode",
+                        "description": "Code identifying the method by which the provider's report is attached. Can be set to `AA` - Available on Request at Provider Site, `BM` - By Mail, `EL` - Electronically Only, `EM` - E-Mail, `FT` - File Transfer, or `FX` - By Fax.\n\nSet this to `EL` when you plan to submit attachments electronically through Stedi APIs."
                     },
                     "attachmentControlNumber": {
                         "type": "string",
-                        "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`."
+                        "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`. \n\nThe payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters."
                     }
                 },
                 "required": [
@@ -23054,7 +22725,7 @@
                 "properties": {
                     "applicationMode": {
                         "$ref": "#/components/schemas/ApplicationModes",
-                        "description": "The type of data in the request. This is always `production`."
+                        "description": "The type of data in the request. This is always `production`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "traceId": {
                         "type": "string",
@@ -23173,7 +22844,7 @@
             },
             "InsuranceTypeCode": {
                 "type": "string",
-                "description": "Code identifying the type of insurance policy.",
+                "description": "Code identifying the type of insurance policy.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "12",
                     "13",
@@ -23219,13 +22890,12 @@
                     "SP",
                     "TF",
                     "WC",
-                    "WU",
-                    "Unknown"
+                    "WU"
                 ]
             },
             "InsuranceTypeName": {
                 "type": "string",
-                "description": "The full name of the insurance type code.",
+                "description": "The full name of the insurance type code.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Medicare Secondary Working Aged Beneficiary or Spouse with Employer Group Health Plan",
                     "Medicare Secondary End-Stage Renal Disease Beneficiary in the Mandated Coordination Period with an Employer's Group Health Plan",
@@ -23271,8 +22941,7 @@
                     "Supplemental Policy",
                     "Tax Equity Fiscal Responsibility Act (TEFRA)",
                     "Workers Compensation",
-                    "Wrap Up Policy",
-                    "Unknown"
+                    "Wrap Up Policy"
                 ]
             },
             "InternalFailureExceptionResponseContent": {
@@ -23537,14 +23206,14 @@
             },
             "MaintenanceReasonCode": {
                 "type": "string",
-                "description": "Code identifying the reason for the changes to subscriber identifying information, such as name, date of birth, or address. This is always `25`",
+                "description": "Code identifying the reason for the changes to subscriber identifying information, such as name, date of birth, or address. This is always `25`\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "25"
                 ]
             },
             "MaintenanceTypeCode": {
                 "type": "string",
-                "description": "The maintenance type code. Used to acknowledge a change in the identifying elements for the subscriber from those submitted in the original eligibility check request. It can also be included when the payer used the birth sequence number from the original request to locate the subscriber in their system. This is always `001`",
+                "description": "The maintenance type code. Used to acknowledge a change in the identifying elements for the subscriber from those submitted in the original eligibility check request. It can also be included when the payer used the birth sequence number from the original request to locate the subscriber in their system. This is always `001`\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "001"
                 ]
@@ -23860,6 +23529,7 @@
             },
             "MilitaryServiceRankCode": {
                 "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
                 "enum": [
                     "A1",
                     "A2",
@@ -23915,8 +23585,7 @@
                     "SC",
                     "T1",
                     "V1",
-                    "W1",
-                    "Unknown"
+                    "W1"
                 ]
             },
             "MissingParameter": {
@@ -25149,11 +24818,12 @@
                 "description": "Information about the payer providing the benefits information. The response will always include the payer's business name and an identifier, such as the payer's tax ID. Most payers also include contact information.",
                 "properties": {
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/PayerEntityIdentifier"
+                        "$ref": "#/components/schemas/PayerEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type qualifier for the payer. Can be set to `Person` (not commonly used) or `Non-Person Entity` (most common)."
+                        "description": "The entity type qualifier for the payer. Can be set to `Person` (not commonly used) or `Non-Person Entity` (most common).\n\nPayers may sometimes return other non-compliant values."
                     },
                     "firstName": {
                         "type": "string",
@@ -25238,7 +24908,7 @@
             },
             "PayerEntityIdentifier": {
                 "type": "string",
-                "description": "The entity identifier code for the payer.",
+                "description": "The entity identifier code for the payer.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Third-Party Administrator",
                     "Employer",
@@ -26415,7 +26085,7 @@
                     "serviceTypeCodes": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/EligibilityServiceTypeCode"
+                            "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
                         "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
                     }
@@ -26747,7 +26417,7 @@
                         "description": "Deprecated; The submitter's Employer's Identification Number (EIN). Only use when an employer is checking the eligibility and benefits of their employees.\nThis shape is deprecated: This property is no longer used."
                     },
                     "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
+                        "$ref": "#/components/schemas/RequestProviderCode",
                         "description": "Communicate the provider's role in the type of benefits specified in the request."
                     },
                     "referenceIdentification": {
@@ -26872,30 +26542,6 @@
                     }
                 }
             },
-            "ProviderCode": {
-                "type": "string",
-                "enum": [
-                    "AD",
-                    "AT",
-                    "BI",
-                    "CO",
-                    "CV",
-                    "H",
-                    "HH",
-                    "LA",
-                    "OT",
-                    "P1",
-                    "P2",
-                    "PC",
-                    "PE",
-                    "R",
-                    "RF",
-                    "SB",
-                    "SK",
-                    "SU",
-                    "Unknown"
-                ]
-            },
             "ProviderEntityIdentifierCode": {
                 "type": "string",
                 "description": "Entity identifier code for providers in claim status reports",
@@ -26922,8 +26568,8 @@
                 "type": "object",
                 "properties": {
                     "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
-                        "description": "The provider code."
+                        "$ref": "#/components/schemas/ResponseProviderCode",
+                        "description": "The provider code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -27138,7 +26784,7 @@
             },
             "QuantityQualifierCode": {
                 "type": "string",
-                "description": "Code indicating the type of quantity for the benefit.",
+                "description": "Code indicating the type of quantity for the benefit.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "8H",
                     "99",
@@ -27157,13 +26803,12 @@
                     "S7",
                     "S8",
                     "VS",
-                    "YY",
-                    "Unknown"
+                    "YY"
                 ]
             },
             "QuantityQualifierName": {
                 "type": "string",
-                "description": "The name of the quantity qualifier code.",
+                "description": "The name of the quantity qualifier code.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Minimum",
                     "Quantity Used",
@@ -27182,8 +26827,7 @@
                     "Age, High Value",
                     "Age, Low Value",
                     "Visits",
-                    "Years",
-                    "Unknown"
+                    "Years"
                 ]
             },
             "QuestionResponseCode": {
@@ -27435,7 +27079,7 @@
             },
             "RelatedEntityIdentifierName": {
                 "type": "string",
-                "description": "Code identifying an organizational entity, a physical location, property or an individual. \n  - `PPO` is used to identify a PPO by name or identification number, and also may also be used if identifying the Network that benefits are restricted to for In-Network benefits.",
+                "description": "Code identifying an organizational entity, a physical location, property or an individual. \n  - `PPO` is used to identify a PPO by name or identification number, and also may also be used if identifying the Network that benefits are restricted to for In-Network benefits.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Contracted Service Provider",
                     "Preferred Provider Organization (PPO)",
@@ -27461,8 +27105,7 @@
                     "Vendor",
                     "Organization Completing Configuration Change",
                     "Utilization Management Organization",
-                    "Managed Care Organization",
-                    "Unknown"
+                    "Managed Care Organization"
                 ]
             },
             "RelationToSubscriberCode": {
@@ -27792,7 +27435,7 @@
                         "description": "The city."
                     },
                     "state": {
-                        "$ref": "#/components/schemas/StateOrProvinceCode"
+                        "$ref": "#/components/schemas/RequestStateOrProvinceCode"
                     },
                     "postalCode": {
                         "type": "string",
@@ -28005,6 +27648,297 @@
                     "PXC",
                     "SY",
                     "TJ"
+                ]
+            },
+            "RequestEligibilityServiceTypeCode": {
+                "type": "string",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "30",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99",
+                    "A0",
+                    "A1",
+                    "A2",
+                    "A3",
+                    "A4",
+                    "A5",
+                    "A6",
+                    "A7",
+                    "A8",
+                    "A9",
+                    "AA",
+                    "AB",
+                    "AC",
+                    "AD",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AH",
+                    "AI",
+                    "AJ",
+                    "AK",
+                    "AL",
+                    "AM",
+                    "AN",
+                    "AO",
+                    "AQ",
+                    "AR",
+                    "B1",
+                    "B2",
+                    "B3",
+                    "BA",
+                    "BB",
+                    "BC",
+                    "BD",
+                    "BE",
+                    "BF",
+                    "BG",
+                    "BH",
+                    "BI",
+                    "BJ",
+                    "BK",
+                    "BL",
+                    "BM",
+                    "BN",
+                    "BP",
+                    "BQ",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "BU",
+                    "BV",
+                    "BW",
+                    "BX",
+                    "BY",
+                    "BZ",
+                    "C1",
+                    "CA",
+                    "CB",
+                    "CC",
+                    "CD",
+                    "CE",
+                    "CF",
+                    "CG",
+                    "CH",
+                    "CI",
+                    "CJ",
+                    "CK",
+                    "CL",
+                    "CM",
+                    "CN",
+                    "CO",
+                    "CP",
+                    "CQ",
+                    "DG",
+                    "DM",
+                    "DS",
+                    "GF",
+                    "GN",
+                    "GY",
+                    "IC",
+                    "MH",
+                    "NI",
+                    "ON",
+                    "PT",
+                    "PU",
+                    "RN",
+                    "RT",
+                    "TC",
+                    "TN",
+                    "UC"
+                ]
+            },
+            "RequestProviderCode": {
+                "type": "string",
+                "enum": [
+                    "AD",
+                    "AT",
+                    "BI",
+                    "CO",
+                    "CV",
+                    "H",
+                    "HH",
+                    "LA",
+                    "OT",
+                    "P1",
+                    "P2",
+                    "PC",
+                    "PE",
+                    "R",
+                    "RF",
+                    "SB",
+                    "SK",
+                    "SU"
+                ]
+            },
+            "RequestStateOrProvinceCode": {
+                "type": "string",
+                "description": "The US state or Canadian province code. For example, `TN` for Tennessee or `NB` for New Brunswick.",
+                "enum": [
+                    "NL",
+                    "PE",
+                    "NS",
+                    "NB",
+                    "QC",
+                    "ON",
+                    "MB",
+                    "SK",
+                    "AB",
+                    "BC",
+                    "YT",
+                    "NT",
+                    "NU",
+                    "DC",
+                    "AS",
+                    "GU",
+                    "MP",
+                    "PR",
+                    "UM",
+                    "VI",
+                    "AK",
+                    "AL",
+                    "AR",
+                    "AZ",
+                    "CA",
+                    "CO",
+                    "CT",
+                    "DE",
+                    "FL",
+                    "GA",
+                    "HI",
+                    "IA",
+                    "ID",
+                    "IL",
+                    "IN",
+                    "KS",
+                    "KY",
+                    "LA",
+                    "MA",
+                    "MD",
+                    "ME",
+                    "MI",
+                    "MN",
+                    "MO",
+                    "MS",
+                    "MT",
+                    "NC",
+                    "ND",
+                    "NE",
+                    "NH",
+                    "NJ",
+                    "NM",
+                    "NV",
+                    "NY",
+                    "OH",
+                    "OK",
+                    "OR",
+                    "PA",
+                    "RI",
+                    "SC",
+                    "SD",
+                    "TN",
+                    "TX",
+                    "UT",
+                    "VA",
+                    "VT",
+                    "WA",
+                    "WI",
+                    "WV",
+                    "WY"
                 ]
             },
             "RequestSubscriber": {
@@ -28315,14 +28249,16 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
@@ -28334,15 +28270,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the dependent's information, used to report military service data."
+                        "description": "The status of the dependent's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The dependent's employment status code, used to report military service data."
+                        "description": "The dependent's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The dependent's government service affiliation code, used to report military service data."
+                        "description": "The dependent's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -28350,11 +28286,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The dependent's military service rank code."
+                        "description": "The dependent's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period."
+                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
@@ -28397,19 +28333,24 @@
                         "description": "Plan network name"
                     },
                     "relationToSubscriber": {
-                        "$ref": "#/components/schemas/DependentRelationship"
+                        "$ref": "#/components/schemas/DependentRelationship",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/DependentRelationshipCode"
+                        "$ref": "#/components/schemas/DependentRelationshipCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuredIndicator": {
-                        "$ref": "#/components/schemas/DependentInsuredIndicator"
+                        "$ref": "#/components/schemas/DependentInsuredIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceTypeCode": {
-                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                        "$ref": "#/components/schemas/MaintenanceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceReasonCode": {
-                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                        "$ref": "#/components/schemas/MaintenanceReasonCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "birthSequenceNumber": {
                         "type": "string",
@@ -28431,14 +28372,400 @@
             },
             "ResponseDependentEntityIdentifier": {
                 "type": "string",
-                "description": "The entity identifier for the dependent.",
+                "description": "The entity identifier for the dependent.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Dependent"
                 ]
             },
+            "ResponseEligibilityServiceType": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "Medical Care",
+                    "Surgical",
+                    "Consultation",
+                    "Diagnostic X-Ray",
+                    "Diagnostic Lab",
+                    "Radiation Therapy",
+                    "Anesthesia",
+                    "Surgical Assistance",
+                    "Other Medical",
+                    "Blood Charges",
+                    "Used Durable Medical Equipment",
+                    "Durable Medical Equipment Purchase",
+                    "Ambulatory Service Center Facility",
+                    "Renal Supplies in the Home",
+                    "Alternate Method Dialysis",
+                    "Chronic Renal Disease (CRD) Equipment",
+                    "Pre-Admission Testing",
+                    "Durable Medical Equipment Rental",
+                    "Pneumonia Vaccine",
+                    "Second Surgical Opinion",
+                    "Third Surgical Opinion",
+                    "Social Work",
+                    "Diagnostic Dental",
+                    "Periodontics",
+                    "Restorative",
+                    "Endodontics",
+                    "Maxillofacial Prosthetics",
+                    "Adjunctive Dental Services",
+                    "Health Benefit Plan Coverage",
+                    "Plan Waiting Period",
+                    "Chiropractic",
+                    "Chiropractic Office Visits",
+                    "Dental Care",
+                    "Dental Crowns",
+                    "Dental Accident",
+                    "Orthodontics",
+                    "Prosthodontics",
+                    "Oral Surgery",
+                    "Routine (Preventive) Dental",
+                    "Home Health Care",
+                    "Home Health Prescriptions",
+                    "Home Health Visits",
+                    "Hospice",
+                    "Respite Care",
+                    "Hospital",
+                    "Hospital - Inpatient",
+                    "Hospital - Room and Board",
+                    "Hospital - Outpatient",
+                    "Hospital - Emergency Accident",
+                    "Hospital - Emergency Medical",
+                    "Hospital - Ambulatory Surgical",
+                    "Long Term Care",
+                    "Major Medical",
+                    "Medically Related Transportation",
+                    "Air Transportation",
+                    "Cabulance",
+                    "Licensed Ambulance",
+                    "General Benefits",
+                    "In-vitro Fertilization",
+                    "MRI/CAT Scan",
+                    "Donor Procedures",
+                    "Acupuncture",
+                    "Newborn Care",
+                    "Pathology",
+                    "Smoking Cessation",
+                    "Well Baby Care",
+                    "Maternity",
+                    "Transplants",
+                    "Audiology Exam",
+                    "Inhalation Therapy",
+                    "Diagnostic Medical",
+                    "Private Duty Nursing",
+                    "Prosthetic Device",
+                    "Dialysis",
+                    "Otological Exam",
+                    "Chemotherapy",
+                    "Allergy Testing",
+                    "Immunizations",
+                    "Routine Physical",
+                    "Family Planning",
+                    "Infertility",
+                    "Abortion",
+                    "AIDS",
+                    "Emergency Services",
+                    "Cancer",
+                    "Pharmacy",
+                    "Free Standing Prescription Drug",
+                    "Mail Order Prescription Drug",
+                    "Brand Name Prescription Drug",
+                    "Generic Prescription Drug",
+                    "Podiatry",
+                    "Podiatry - Office Visits",
+                    "Podiatry - Nursing Home Visits",
+                    "Professional (Physician)",
+                    "Anesthesiologist",
+                    "Professional (Physician) Visit - Office",
+                    "Professional (Physician) Visit - Inpatient",
+                    "Professional (Physician) Visit - Outpatient",
+                    "Professional (Physician) Visit - Nursing Home",
+                    "Professional (Physician) Visit - Skilled Nursing Facility",
+                    "Professional (Physician) Visit - Home",
+                    "Psychiatric",
+                    "Psychiatric - Room and Board",
+                    "Psychotherapy",
+                    "Psychiatric - Inpatient",
+                    "Psychiatric - Outpatient",
+                    "Rehabilitation",
+                    "Rehabilitation - Room and Board",
+                    "Rehabilitation - Inpatient",
+                    "Rehabilitation - Outpatient",
+                    "Occupational Therapy",
+                    "Physical Medicine",
+                    "Speech Therapy",
+                    "Skilled Nursing Care",
+                    "Skilled Nursing Care - Room and Board",
+                    "Substance Abuse",
+                    "Alcoholism",
+                    "Drug Addiction",
+                    "Vision (Optometry)",
+                    "Frames",
+                    "Routine Exam",
+                    "Lenses",
+                    "Nonmedically Necessary Physical",
+                    "Experimental Drug Therapy",
+                    "Burn Care",
+                    "Brand Name Prescription Drug - Formulary",
+                    "Brand Name Prescription Drug - Non-Formulary",
+                    "Independent Medical Evaluation",
+                    "Partial Hospitalization (Psychiatric)",
+                    "Day Care (Psychiatric)",
+                    "Cognitive Therapy",
+                    "Massage Therapy",
+                    "Pulmonary Rehabilitation",
+                    "Cardiac Rehabilitation",
+                    "Pediatric",
+                    "Nursery",
+                    "Skin",
+                    "Orthopedic",
+                    "Cardiac",
+                    "Lymphatic",
+                    "Gastrointestinal",
+                    "Endocrine",
+                    "Neurology",
+                    "Eye",
+                    "Invasive Procedures",
+                    "Gynecological",
+                    "Obstetrical",
+                    "Obstetrical/Gynecological",
+                    "Mail Order Prescription Drug - Formulary",
+                    "Mail Order Prescription Drug - Non-Formulary",
+                    "Physician Visit - Office: Sick",
+                    "Physician Visit - Office: Well",
+                    "Coronary Care",
+                    "Private Duty Nursing - Inpatient",
+                    "Private Duty Nursing - Home",
+                    "Surgical Benefits - Professional (Physician)",
+                    "Surgical Benefits - Facility",
+                    "Mental Health Provider- Inpatient",
+                    "Mental Health Provider - Outpatient",
+                    "Mental Health Facility - Inpatient",
+                    "Mental Health Facility - Outpatient",
+                    "Substance Abuse Facility - Inpatient",
+                    "Substance Abuse Facility - Outpatient",
+                    "Screening X-ray",
+                    "Screening laboratory",
+                    "Mammogram, High Risk Patient",
+                    "Mammogram, Low Risk Patient",
+                    "Flu Vaccination",
+                    "Eyewear and Eyewear Accessories",
+                    "Case Management",
+                    "Dermatology",
+                    "Durable Medical Equipment",
+                    "Diabetic Supplies",
+                    "Generic Prescription Drug - Formulary",
+                    "Generic Prescription Drug - Non-Formulary",
+                    "Allergy",
+                    "Intensive Care",
+                    "Mental Health",
+                    "Neonatol Intensive Care",
+                    "Oncology",
+                    "Physical Therapy",
+                    "Pulmonary",
+                    "Renal",
+                    "Residential Psychiatric Treatment",
+                    "Transitional Care",
+                    "Transitional Nursery Care",
+                    "Urgent Care"
+                ]
+            },
+            "ResponseEligibilityServiceTypeCode": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "24",
+                    "25",
+                    "26",
+                    "27",
+                    "28",
+                    "30",
+                    "32",
+                    "33",
+                    "34",
+                    "35",
+                    "36",
+                    "37",
+                    "38",
+                    "39",
+                    "40",
+                    "41",
+                    "42",
+                    "43",
+                    "44",
+                    "45",
+                    "46",
+                    "47",
+                    "48",
+                    "49",
+                    "50",
+                    "51",
+                    "52",
+                    "53",
+                    "54",
+                    "55",
+                    "56",
+                    "57",
+                    "58",
+                    "59",
+                    "60",
+                    "61",
+                    "62",
+                    "63",
+                    "64",
+                    "65",
+                    "66",
+                    "67",
+                    "68",
+                    "69",
+                    "70",
+                    "71",
+                    "72",
+                    "73",
+                    "74",
+                    "75",
+                    "76",
+                    "77",
+                    "78",
+                    "79",
+                    "80",
+                    "81",
+                    "82",
+                    "83",
+                    "84",
+                    "85",
+                    "86",
+                    "87",
+                    "88",
+                    "89",
+                    "90",
+                    "91",
+                    "92",
+                    "93",
+                    "94",
+                    "95",
+                    "96",
+                    "97",
+                    "98",
+                    "99",
+                    "A0",
+                    "A1",
+                    "A2",
+                    "A3",
+                    "A4",
+                    "A5",
+                    "A6",
+                    "A7",
+                    "A8",
+                    "A9",
+                    "AA",
+                    "AB",
+                    "AC",
+                    "AD",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AH",
+                    "AI",
+                    "AJ",
+                    "AK",
+                    "AL",
+                    "AM",
+                    "AN",
+                    "AO",
+                    "AQ",
+                    "AR",
+                    "B1",
+                    "B2",
+                    "B3",
+                    "BA",
+                    "BB",
+                    "BC",
+                    "BD",
+                    "BE",
+                    "BF",
+                    "BG",
+                    "BH",
+                    "BI",
+                    "BJ",
+                    "BK",
+                    "BL",
+                    "BM",
+                    "BN",
+                    "BP",
+                    "BQ",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "BU",
+                    "BV",
+                    "BW",
+                    "BX",
+                    "BY",
+                    "BZ",
+                    "C1",
+                    "CA",
+                    "CB",
+                    "CC",
+                    "CD",
+                    "CE",
+                    "CF",
+                    "CG",
+                    "CH",
+                    "CI",
+                    "CJ",
+                    "CK",
+                    "CL",
+                    "CM",
+                    "CN",
+                    "CO",
+                    "CP",
+                    "CQ",
+                    "DG",
+                    "DM",
+                    "DS",
+                    "GF",
+                    "GN",
+                    "GY",
+                    "IC",
+                    "MH",
+                    "NI",
+                    "ON",
+                    "PT",
+                    "PU",
+                    "RN",
+                    "RT",
+                    "TC",
+                    "TN",
+                    "UC"
+                ]
+            },
             "ResponseMemberGender": {
                 "type": "string",
-                "description": "Code indicating the patient's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.",
+                "description": "Code indicating the patient's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "M",
                     "F",
@@ -28496,18 +28823,20 @@
                         "description": "The provider's name suffix, such as Jr., Sr., or III."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseProviderEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseProviderEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
-                        "$ref": "#/components/schemas/EntityTypeQualifier"
+                        "$ref": "#/components/schemas/EntityTypeQualifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "npi": {
                         "type": "string",
                         "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier)."
                     },
                     "providerCode": {
-                        "$ref": "#/components/schemas/ProviderCode",
-                        "description": "A code that communicates the provider's role in the type of benefits information in the response."
+                        "$ref": "#/components/schemas/ResponseProviderCode",
+                        "description": "A code that communicates the provider's role in the type of benefits information in the response.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -28554,9 +28883,33 @@
                     }
                 }
             },
+            "ResponseProviderCode": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "AD",
+                    "AT",
+                    "BI",
+                    "CO",
+                    "CV",
+                    "H",
+                    "HH",
+                    "LA",
+                    "OT",
+                    "P1",
+                    "P2",
+                    "PC",
+                    "PE",
+                    "R",
+                    "RF",
+                    "SB",
+                    "SK",
+                    "SU"
+                ]
+            },
             "ResponseProviderEntityIdentifier": {
                 "type": "string",
-                "description": "A code identifying the type of provider.",
+                "description": "A code identifying the type of provider.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Provider",
                     "Third-Party Administrator",
@@ -28565,8 +28918,83 @@
                     "Facility",
                     "Gateway Provider",
                     "Plan Sponsor",
-                    "Payer",
-                    "Unknown"
+                    "Payer"
+                ]
+            },
+            "ResponseStateOrProvinceCode": {
+                "type": "string",
+                "description": "The US state or Canadian province code. For example, `TN` for Tennessee or `NB` for New Brunswick.\n\nPayers may sometimes return other non-compliant values.",
+                "enum": [
+                    "NL",
+                    "PE",
+                    "NS",
+                    "NB",
+                    "QC",
+                    "ON",
+                    "MB",
+                    "SK",
+                    "AB",
+                    "BC",
+                    "YT",
+                    "NT",
+                    "NU",
+                    "DC",
+                    "AS",
+                    "GU",
+                    "MP",
+                    "PR",
+                    "UM",
+                    "VI",
+                    "AK",
+                    "AL",
+                    "AR",
+                    "AZ",
+                    "CA",
+                    "CO",
+                    "CT",
+                    "DE",
+                    "FL",
+                    "GA",
+                    "HI",
+                    "IA",
+                    "ID",
+                    "IL",
+                    "IN",
+                    "KS",
+                    "KY",
+                    "LA",
+                    "MA",
+                    "MD",
+                    "ME",
+                    "MI",
+                    "MN",
+                    "MO",
+                    "MS",
+                    "MT",
+                    "NC",
+                    "ND",
+                    "NE",
+                    "NH",
+                    "NJ",
+                    "NM",
+                    "NV",
+                    "NY",
+                    "OH",
+                    "OK",
+                    "OR",
+                    "PA",
+                    "RI",
+                    "SC",
+                    "SD",
+                    "TN",
+                    "TX",
+                    "UT",
+                    "VA",
+                    "VT",
+                    "WA",
+                    "WI",
+                    "WV",
+                    "WY"
                 ]
             },
             "ResponseSubscriber": {
@@ -28600,14 +29028,16 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/ResponseMemberGender",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
+                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`."
+                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
@@ -28619,15 +29049,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the subscriber's information, used to report military service data."
+                        "description": "The status of the subscriber's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The subscriber's employment status code, used to report military service data."
+                        "description": "The subscriber's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The subscriber's government service affiliation code, used to report military service data."
+                        "description": "The subscriber's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -28635,11 +29065,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The subscriber's military service rank code."
+                        "description": "The subscriber's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period."
+                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
@@ -28682,19 +29112,24 @@
                         "description": "Plan network name"
                     },
                     "relationToSubscriber": {
-                        "$ref": "#/components/schemas/SubscriberRelationship"
+                        "$ref": "#/components/schemas/SubscriberRelationship",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
+                        "$ref": "#/components/schemas/SubscriberRelationshipCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "insuredIndicator": {
-                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
+                        "$ref": "#/components/schemas/SubscriberInsuredIndicator",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceTypeCode": {
-                        "$ref": "#/components/schemas/MaintenanceTypeCode"
+                        "$ref": "#/components/schemas/MaintenanceTypeCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "maintenanceReasonCode": {
-                        "$ref": "#/components/schemas/MaintenanceReasonCode"
+                        "$ref": "#/components/schemas/MaintenanceReasonCode",
+                        "description": "Payers may sometimes return other non-compliant values."
                     },
                     "birthSequenceNumber": {
                         "type": "string",
@@ -28716,7 +29151,7 @@
             },
             "ResponseSubscriberEntityIdentifier": {
                 "type": "string",
-                "description": "The entity identifier for the subscriber.",
+                "description": "The entity identifier for the subscriber.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Insured or Subscriber"
                 ]
@@ -29728,82 +30163,6 @@
                     "patientConditionCode"
                 ]
             },
-            "StateOrProvinceCode": {
-                "type": "string",
-                "description": "The US state or Canadian province code. For example, `TN` for Tennessee or `NB` for New Brunswick.",
-                "enum": [
-                    "NL",
-                    "PE",
-                    "NS",
-                    "NB",
-                    "QC",
-                    "ON",
-                    "MB",
-                    "SK",
-                    "AB",
-                    "BC",
-                    "YT",
-                    "NT",
-                    "NU",
-                    "DC",
-                    "AS",
-                    "GU",
-                    "MP",
-                    "PR",
-                    "UM",
-                    "VI",
-                    "AK",
-                    "AL",
-                    "AR",
-                    "AZ",
-                    "CA",
-                    "CO",
-                    "CT",
-                    "DE",
-                    "FL",
-                    "GA",
-                    "HI",
-                    "IA",
-                    "ID",
-                    "IL",
-                    "IN",
-                    "KS",
-                    "KY",
-                    "LA",
-                    "MA",
-                    "MD",
-                    "ME",
-                    "MI",
-                    "MN",
-                    "MO",
-                    "MS",
-                    "MT",
-                    "NC",
-                    "ND",
-                    "NE",
-                    "NH",
-                    "NJ",
-                    "NM",
-                    "NV",
-                    "NY",
-                    "OH",
-                    "OK",
-                    "OR",
-                    "PA",
-                    "RI",
-                    "SC",
-                    "SD",
-                    "TN",
-                    "TX",
-                    "UT",
-                    "VA",
-                    "VT",
-                    "WA",
-                    "WI",
-                    "WV",
-                    "WY"
-                ]
-            },
             "Status": {
                 "type": "object",
                 "description": "Information about the status, required action, and paid information of a service line.",
@@ -30117,7 +30476,7 @@
             },
             "SubscriberInsuredIndicator": {
                 "type": "string",
-                "description": "Indicates the status of the insured. For the subscriber, this is always `Y`.",
+                "description": "Indicates the status of the insured. For the subscriber, this is always `Y`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Y"
                 ]
@@ -30142,14 +30501,14 @@
             },
             "SubscriberRelationship": {
                 "type": "string",
-                "description": "The name of the `relationToSubscriberCode`. For the subscriber, this is always `Self`.",
+                "description": "The name of the `relationToSubscriberCode`. For the subscriber, this is always `Self`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Self"
                 ]
             },
             "SubscriberRelationshipCode": {
                 "type": "string",
-                "description": "For the subscriber, this is always `18` for Self.",
+                "description": "For the subscriber, this is always `18` for Self.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "18"
                 ]
@@ -30348,7 +30707,7 @@
             },
             "TimePeriodQualifier": {
                 "type": "string",
-                "description": "The name of the `timePeriodQualifierCode`. For example, `Calendar Year`.",
+                "description": "The name of the `timePeriodQualifierCode`. For example, `Calendar Year`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Hour",
                     "Day",
@@ -30366,13 +30725,12 @@
                     "Lifetime",
                     "Lifetime Remaining",
                     "Month",
-                    "Week",
-                    "Unknown"
+                    "Week"
                 ]
             },
             "TimePeriodQualifierCode": {
                 "type": "string",
-                "description": "Code specifying the time period for the benefit information.",
+                "description": "Code specifying the time period for the benefit information.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "6",
                     "7",
@@ -30390,13 +30748,12 @@
                     "32",
                     "33",
                     "34",
-                    "35",
-                    "Unknown"
+                    "35"
                 ]
             },
             "TimeQualifierCode": {
                 "type": "string",
-                "description": "Code indicating the time period for the benefit information.",
+                "description": "Code indicating the time period for the benefit information.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "6",
                     "7",
@@ -30416,13 +30773,12 @@
                     "33",
                     "34",
                     "35",
-                    "36",
-                    "Unknown"
+                    "36"
                 ]
             },
             "TimeQualifierName": {
                 "type": "string",
-                "description": "The name of the time period qualifier code. \n \n Note that for the patient's deductible, `Calendar Year` indicates the patient's total deductible amount for the year, while `Remaining` indicates the amount left to meet the deductible. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits#deductible) to learn more about deductibles.",
+                "description": "The name of the time period qualifier code. \n \n Note that for the patient's deductible, `Calendar Year` indicates the patient's total deductible amount for the year, while `Remaining` indicates the amount left to meet the deductible. Visit [Payer benefit response](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits#deductible) to learn more about deductibles.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Hour",
                     "Day",
@@ -30442,8 +30798,7 @@
                     "Lifetime Remaining",
                     "Month",
                     "Week",
-                    "Admission",
-                    "Unknown"
+                    "Admission"
                 ]
             },
             "ToothInformation": {
@@ -30583,26 +30938,24 @@
             },
             "UnitForMeasurement": {
                 "type": "string",
-                "description": "The name of the `unitForMeasurementQualifierCode`. For example, `Days`.",
+                "description": "The name of the `unitForMeasurementQualifierCode`. For example, `Days`.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Days",
                     "Months",
                     "Visits",
                     "Week",
-                    "Years",
-                    "Unknown"
+                    "Years"
                 ]
             },
             "UnitForMeasurementCode": {
                 "type": "string",
-                "description": "Code specifying the unit of measurement for the quantity.",
+                "description": "Code specifying the unit of measurement for the quantity.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "DA",
                     "MO",
                     "VS",
                     "WK",
-                    "YR",
-                    "Unknown"
+                    "YR"
                 ]
             },
             "ValidationException": {
