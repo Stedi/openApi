@@ -10884,6 +10884,13 @@
                     "providerType"
                 ]
             },
+            "BillingProviderType": {
+                "type": "string",
+                "description": "Defines the billing provider type.",
+                "enum": [
+                    "BillingProvider"
+                ]
+            },
             "BusinessContactInformation": {
                 "type": "object",
                 "description": "A person or office to whom administrative communications should be directed.",
@@ -11036,7 +11043,7 @@
                     },
                     "entityIdentificationValue": {
                         "type": "string",
-                        "description": "The identification number for the entity, qualified by the code in `entityIdentification`."
+                        "description": "The identification number for the entity, qualified by the code in `entityIdentification`. The ID returned in this property is proprietary to our COB check product, so you can't use it as the Payer ID for eligibility checks or other API requests to Stedi. It likely doesn't match the Payer IDs listed in the [Payer Network](https://www.stedi.com/healthcare/network)."
                     }
                 }
             },
@@ -16683,7 +16690,8 @@
                         "maxLength": 10,
                         "minLength": 10,
                         "pattern": "^[A-Za-z0-9]{10}$",
-                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty."
+                        "deprecated": true,
+                        "description": "Code from the National Uniform Claims Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/). This identifies the provider's type and/or area of specialty.\nThis shape is deprecated."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -20208,8 +20216,8 @@
                 "description": "Information about the billing provider.\n- You **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both.\n- The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) is **required**, if one is assigned.\n- You must also supply the provider's `organizationName`.",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType",
-                        "description": "The type of provider. Set to `BillingProvider`."
+                        "$ref": "#/components/schemas/BillingProviderType",
+                        "description": "The provider type."
                     },
                     "npi": {
                         "type": "string",
@@ -21600,7 +21608,8 @@
                 "type": "object",
                 "properties": {
                     "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType"
+                        "$ref": "#/components/schemas/InstitutionalProviderType",
+                        "description": "The type of provider. Set to the type that matches the provider's role in the claim. For example, if the provider is the referring provider, set this to `ReferringProvider`."
                     },
                     "npi": {
                         "type": "string",
@@ -21705,8 +21714,8 @@
                 "description": "Information about the provider who referred the patient for care.\n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- Use this object for providers that apply to the entire claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
                     "providerType": {
-                        "type": "string",
-                        "description": "Set to `ReferringProvider`."
+                        "$ref": "#/components/schemas/ReferringProviderType",
+                        "description": "The provider type."
                     },
                     "npi": {
                         "type": "string",
@@ -22258,16 +22267,9 @@
                 "type": "object",
                 "description": "Information about the provider who referred the patient for care.\n- Include this object only when the referring provider is different than the provider listed in the `attending` object.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
-                    "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType",
-                        "description": "Set to `ReferringProvider`."
-                    },
                     "npi": {
                         "type": "string",
                         "description": "The individual [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the provider."
-                    },
-                    "secondaryIdentificationQualifierCode": {
-                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
                         "type": "string",
@@ -22353,26 +22355,24 @@
                         "maxItems": 20,
                         "minItems": 1,
                         "description": "Additional identifiers for the provider. You can set `qualifier` to `2U` - Payer Identification Number."
+                    },
+                    "providerType": {
+                        "$ref": "#/components/schemas/ReferringProviderType",
+                        "description": "The provider type."
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/ServiceLineReferringProviderIdentificationQualifierCode",
+                        "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and should not be used."
                     }
-                },
-                "required": [
-                    "providerType"
-                ]
+                }
             },
             "InstitutionalServiceLineRenderingProvider": {
                 "type": "object",
                 "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line.\n- Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
                 "properties": {
-                    "providerType": {
-                        "$ref": "#/components/schemas/InstitutionalProviderType",
-                        "description": "Set to `RenderingProvider`."
-                    },
                     "npi": {
                         "type": "string",
                         "description": "The individual [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the provider."
-                    },
-                    "secondaryIdentificationQualifierCode": {
-                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     },
                     "secondaryIdentifier": {
                         "type": "string",
@@ -22458,11 +22458,15 @@
                         "maxItems": 20,
                         "minItems": 1,
                         "description": "Additional identifiers for the provider. You can set `qualifier` to `2U` - Payer Identification Number."
+                    },
+                    "providerType": {
+                        "$ref": "#/components/schemas/RenderingProviderType",
+                        "description": "The provider type."
+                    },
+                    "secondaryIdentificationQualifierCode": {
+                        "$ref": "#/components/schemas/OperatingPhysicianIdentificationQualifierCode"
                     }
-                },
-                "required": [
-                    "providerType"
-                ]
+                }
             },
             "InstitutionalServiceLineSupplementalInformation": {
                 "type": "object",
@@ -27066,6 +27070,13 @@
                     "providerType"
                 ]
             },
+            "ReferringProviderType": {
+                "type": "string",
+                "description": "Defines the referring provider type.",
+                "enum": [
+                    "ReferringProvider"
+                ]
+            },
             "ReferringSecondaryIdentificationQualifierCode": {
                 "type": "string",
                 "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and should not be used.",
@@ -27245,6 +27256,13 @@
                 },
                 "required": [
                     "providerType"
+                ]
+            },
+            "RenderingProviderType": {
+                "type": "string",
+                "description": "Defines the rendering provider type.",
+                "enum": [
+                    "RenderingProvider"
                 ]
             },
             "RenderingSecondaryIdentificationQualifierCode": {
@@ -29949,6 +29967,15 @@
                         "minItems": 1
                     }
                 }
+            },
+            "ServiceLineReferringProviderIdentificationQualifierCode": {
+                "type": "string",
+                "description": "The type of identifier used in `secondaryIdentifier`. Can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and should not be used.",
+                "enum": [
+                    "0B",
+                    "1G",
+                    "G2"
+                ]
             },
             "ServiceLineResponseIdentifier": {
                 "type": "object",
