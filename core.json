@@ -381,6 +381,13 @@
               "type": "number",
               "minimum": 1,
               "description": "The maximum number of elements to return in a page. You can set this to a maximum of 500 elements. If not specified, the default is 100."
+            },
+            "examples": {
+              "ListExecutions_example1": {
+                "summary": "List executions",
+                "description": "",
+                "value": 200
+              }
             }
           },
           {
@@ -402,6 +409,62 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListExecutionsResponseContent"
+                },
+                "examples": {
+                  "ListExecutions_example1": {
+                    "summary": "List executions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "createdAt": "2025-04-04T17:14:35.481Z",
+                          "direction": "INBOUND",
+                          "executionId": "55907f88-999e-4912-9e9b-78326f8bade8",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": ".",
+                            "name": "test-inbound-ingest-30848232-fa0c-4151-8217-d03205e806f9.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-04-04T17:14:42.854Z"
+                        },
+                        {
+                          "createdAt": "2025-04-02T21:30:08.387Z",
+                          "direction": "INBOUND",
+                          "executionId": "95236a56-a020-4522-8fef-bcffcec0ec1d",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": ".",
+                            "name": "test-inbound-ingest-3f2efd94-2a81-4b57-b4de-9b970a50db60.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-04-02T21:30:16.185Z"
+                        },
+                        {
+                          "createdAt": "2025-02-28T19:16:26.041Z",
+                          "direction": "OUTBOUND",
+                          "executionId": "06bdccdc-4ab9-4add-b1dc-a76a0183f299",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": "f894c51a-14639/to-stedi",
+                            "name": "837-clearinghouse_outbound.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-02-28T19:16:27.706Z"
+                        }
+                      ],
+                      "nextPageToken": "eyJwYWdlIjoxLCJwYWdlU2l6ZSI6MTAsInBhZ2VUb3RhbCI6MzE0fQ=="
+                    }
+                  }
                 }
               }
             }
@@ -491,7 +554,7 @@
     },
     "/executions/{executionId}": {
       "get": {
-        "description": "Retrieve the file execution details for a given executionId.",
+        "description": "Retrieve the file execution details for a given `executionId`.",
         "operationId": "GetExecution",
         "parameters": [
           {
@@ -502,7 +565,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetExecution_example1": {
+                "summary": "Get execution",
+                "description": "",
+                "value": "1f8b2-3c4d-5e6f-7g8h-9i0j1k2l3m4n"
+              }
+            }
           }
         ],
         "responses": {
@@ -512,6 +582,29 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetExecutionResponseContent"
+                },
+                "examples": {
+                  "GetExecution_example1": {
+                    "summary": "Get execution",
+                    "description": "",
+                    "value": {
+                      "connectionId": "01J8JH26KBJTARWD17Q0S0ZD19",
+                      "connectionType": "bucket",
+                      "createdAt": "2025-02-12T22:21:08.815Z",
+                      "direction": "INBOUND",
+                      "executionId": "b1356ef2-a10d-482a-b2db-408f1d5e7ff5",
+                      "faultCount": 0,
+                      "partnershipId": "local-clearinghouse-test",
+                      "source": {
+                        "dirname": "clearinghouse/incoming",
+                        "name": "7a79135a-73ae-427b-b762-9d4d437d4aab.x12"
+                      },
+                      "retryable": true,
+                      "status": "COMPLETED",
+                      "transactionCount": 1,
+                      "updatedAt": "2025-02-12T22:21:15.839Z"
+                    }
+                  }
                 }
               }
             }
@@ -601,7 +694,7 @@
     },
     "/executions/{executionId}/input": {
       "get": {
-        "description": "This endpoint retrieves an execution's input document before it passes through any translation and mappings.",
+        "description": "Fetch a file execution's input document before any translation and mappings.",
         "operationId": "GetExecutionInputDocument",
         "parameters": [
           {
@@ -612,7 +705,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetExecutionInputDocument_example1": {
+                "summary": "Get execution input document",
+                "description": "",
+                "value": "06bdccdc-4aaa-4aaa-4aaa-abaa11110000"
+              }
+            }
           }
         ],
         "responses": {
@@ -622,6 +722,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetExecutionInputDocumentResponseContent"
+                },
+                "examples": {
+                  "GetExecutionInputDocument_example1": {
+                    "summary": "Get execution input document",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://stedi-default-core-artifacts.s3.us-east-1.amazonaws.com/write/input/06bdccdc-4aaa-4aaa..."
+                    }
+                  }
                 }
               }
             }
@@ -819,7 +928,7 @@
     },
     "/executions/{executionId}/metadata": {
       "get": {
-        "description": "This endpoint retrieves an execution's metadata document.",
+        "description": "Fetch a file execution's metadata document.",
         "operationId": "GetExecutionMetadataDocument",
         "parameters": [
           {
@@ -830,7 +939,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetExecutionMetadataDocument_example1": {
+                "summary": "Get execution metadata document",
+                "description": "",
+                "value": "06bdccdc-baa1-baa1-b111-a76a11110000"
+              }
+            }
           }
         ],
         "responses": {
@@ -840,6 +956,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetExecutionMetadataDocumentResponseContent"
+                },
+                "examples": {
+                  "GetExecutionMetadataDocument_example1": {
+                    "summary": "Get execution metadata document",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://stedi-default-core-artifacts.s3.us-east-1.amazonaws.com/06bdccdc-baa1-baa1-b111..."
+                    }
+                  }
                 }
               }
             }
@@ -1037,7 +1162,7 @@
     },
     "/executions/{executionId}/output": {
       "get": {
-        "description": "This endpoint retrieves an execution's output document.",
+        "description": "Fetch a file execution's output document. Only available for outbound files.",
         "operationId": "GetExecutionOutputDocument",
         "parameters": [
           {
@@ -1048,7 +1173,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file delivered event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-delivered), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetExecutionOutputDocument_example1": {
+                "summary": "Get execution output document",
+                "description": "",
+                "value": "06bdccdc-4aaa-4add-b111-abaa11110000"
+              }
+            }
           }
         ],
         "responses": {
@@ -1058,6 +1190,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetExecutionOutputDocumentResponseContent"
+                },
+                "examples": {
+                  "GetExecutionOutputDocument_example1": {
+                    "summary": "Get execution output document",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://stedi-default-core-artifacts.s3.us-east-1.amazonaws.com/write/output/06aaccdc-4aaa-4add..."
+                    }
+                  }
                 }
               }
             }
@@ -1255,7 +1396,7 @@
     },
     "/executions/{executionId}/transactions": {
       "get": {
-        "description": "Fetch a list of transactions for a given file execution, sorted by the date they were created from newest to oldest. Includes the full transaction details.",
+        "description": "Fetch a list of transactions for a file execution, including the full transaction details.",
         "operationId": "ListExecutionTransactions",
         "parameters": [
           {
@@ -1266,7 +1407,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "ListExecutionTransactions_example1": {
+                "summary": "List execution transactions",
+                "description": "",
+                "value": "1f8b2-3c4d-5e6f-7g8h-9i0j1k2l3m4n"
+              }
+            }
           },
           {
             "name": "pageSize",
@@ -1298,6 +1446,113 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListExecutionTransactionsResponseContent"
+                },
+                "examples": {
+                  "ListExecutionTransactions_example1": {
+                    "summary": "List execution transactions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "direction": "INBOUND",
+                          "mode": "test",
+                          "status": "succeeded",
+                          "fileExecutionId": "b1356ef2-a10d-482a-b2db-408f1d5e7ff5",
+                          "transactionId": "af5398d0-ac4b-4d79-8307-01b982ce7ca6",
+                          "processedAt": "2025-02-12T22:21:15.474Z",
+                          "artifacts": [
+                            {
+                              "artifactType": "application/edi-x12",
+                              "sizeBytes": 751,
+                              "model": "transaction",
+                              "usage": "input",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/af5398d0-ac4b-4d79-8307-01b982ce7ca6/input"
+                            },
+                            {
+                              "artifactType": "application/json",
+                              "sizeBytes": 4544,
+                              "model": "transaction",
+                              "usage": "output",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/af5398d0-ac4b-4d79-8307-01b982ce7ca6/output"
+                            }
+                          ],
+                          "partnership": {
+                            "partnershipId": "local-clearinghouse-test",
+                            "partnershipType": "x12",
+                            "sender": {
+                              "profileId": "clearinghouse-test"
+                            },
+                            "receiver": {
+                              "profileId": "local"
+                            }
+                          },
+                          "businessIdentifiers": [
+                            {
+                              "elementId": "127",
+                              "element": "BHT-03",
+                              "name": "Reference Identification",
+                              "value": "181135085"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "20250212170508224"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "12341234"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "01J99GTR3J1X4C303BCMEX2KSZ"
+                            }
+                          ],
+                          "x12": {
+                            "metadata": {
+                              "interchange": {
+                                "acknowledgmentRequestedCode": "0",
+                                "controlNumber": 11
+                              },
+                              "functionalGroup": {
+                                "controlNumber": 11,
+                                "release": "005010X214",
+                                "date": "2025-02-12",
+                                "time": "22:20:43",
+                                "functionalIdentifierCode": "HN"
+                              },
+                              "transaction": {
+                                "controlNumber": "1001",
+                                "transactionSetIdentifier": "277"
+                              },
+                              "receiver": {
+                                "applicationCode": "599264680681",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "599264680681"
+                                }
+                              },
+                              "sender": {
+                                "applicationCode": "STEDITEST",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "STEDITEST"
+                                }
+                              }
+                            },
+                            "transactionSetting": {
+                              "guideId": "01JJ49XQMFNV2KQQZDGWTZAZNR",
+                              "transactionSettingId": "01J8JH23XAQ2X5FFZ8T3393VDJ"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -2861,7 +3116,7 @@
     },
     "/pg-executions/{executionId}/transactions": {
       "get": {
-        "description": "Fetch a list of transactions for a given file execution, sorted by the date they were created from newest to oldest. Includes the full transaction details.",
+        "description": "Fetch a list of transactions for a file execution, including the full transaction details.",
         "operationId": "PgListExecutionTransactions",
         "parameters": [
           {
@@ -2872,7 +3127,14 @@
               "type": "string",
               "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "PgListExecutionTransactions_example1": {
+                "summary": "List execution transactions",
+                "description": "",
+                "value": "1f8b2-3c4d-5e6f-7g8h-9i0j1k2l3m4n"
+              }
+            }
           },
           {
             "name": "pageSize",
@@ -2904,6 +3166,113 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PgListExecutionTransactionsResponseContent"
+                },
+                "examples": {
+                  "PgListExecutionTransactions_example1": {
+                    "summary": "List execution transactions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "direction": "INBOUND",
+                          "mode": "test",
+                          "status": "succeeded",
+                          "fileExecutionId": "b1356ef2-a10d-482a-b2db-408f1d5e7ff5",
+                          "transactionId": "af5398d0-ac4b-4d79-8307-01b982ce7ca6",
+                          "processedAt": "2025-02-12T22:21:15.474Z",
+                          "artifacts": [
+                            {
+                              "artifactType": "application/edi-x12",
+                              "sizeBytes": 751,
+                              "model": "transaction",
+                              "usage": "input",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/af5398d0-ac4b-4d79-8307-01b982ce7ca6/input"
+                            },
+                            {
+                              "artifactType": "application/json",
+                              "sizeBytes": 4544,
+                              "model": "transaction",
+                              "usage": "output",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/af5398d0-ac4b-4d79-8307-01b982ce7ca6/output"
+                            }
+                          ],
+                          "partnership": {
+                            "partnershipId": "local-clearinghouse-test",
+                            "partnershipType": "x12",
+                            "sender": {
+                              "profileId": "clearinghouse-test"
+                            },
+                            "receiver": {
+                              "profileId": "local"
+                            }
+                          },
+                          "businessIdentifiers": [
+                            {
+                              "elementId": "127",
+                              "element": "BHT-03",
+                              "name": "Reference Identification",
+                              "value": "181135085"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "20250212170508224"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "12341234"
+                            },
+                            {
+                              "elementId": "127",
+                              "element": "TRN-02",
+                              "name": "Reference Identification",
+                              "value": "01J99GTR3J1X4C303BCMEX2KSZ"
+                            }
+                          ],
+                          "x12": {
+                            "metadata": {
+                              "interchange": {
+                                "acknowledgmentRequestedCode": "0",
+                                "controlNumber": 11
+                              },
+                              "functionalGroup": {
+                                "controlNumber": 11,
+                                "release": "005010X214",
+                                "date": "2025-02-12",
+                                "time": "22:20:43",
+                                "functionalIdentifierCode": "HN"
+                              },
+                              "transaction": {
+                                "controlNumber": "1001",
+                                "transactionSetIdentifier": "277"
+                              },
+                              "receiver": {
+                                "applicationCode": "599264680681",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "599264680681"
+                                }
+                              },
+                              "sender": {
+                                "applicationCode": "STEDITEST",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "STEDITEST"
+                                }
+                              }
+                            },
+                            "transactionSetting": {
+                              "guideId": "01JJ49XQMFNV2KQQZDGWTZAZNR",
+                              "transactionSettingId": "01J8JH23XAQ2X5FFZ8T3393VDJ"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -2993,7 +3362,7 @@
     },
     "/polling/executions": {
       "get": {
-        "description": "This endpoint is used to regularly poll for new executions that have been processed by Stedi.\n\nYou must define one of `startDateTime` or `pageToken` when making a request.\n\nYou may optionally define a `pageSize`. The minimum `pageSize` is 1, and the maximum `pageSize` is 1000. The default is 100.\n\n`startDateTime` takes a string in ISO 8601 format. (ex: `2023-08-10T18:00:00Z`). \n`startDateTime` must be set to at least 1 minute in the past.\n\nThe results will contain executions that occurred after this `startDateTime`. Starting from the oldest to newest executions ordered by the `processedAt` field. Note, this is _exclusive_ of the `startDateTime`, a execution occuring at exactly `2023-08-10T18:00:00Z` for instance, would not be included. In addition, there is a 15 second window where newly created executions will not be included to account for any network latency or clock drifts within the systems to ensure you do not miss any executions.\n\nEach request will _always_ return a `nextPageToken`, regardless of whether there are new executions or not.\n\nWe DO NOT recommend trying to roll your own polling strategy leveraging `startDateTime` only. There are edge cases around two executions occuring at the _exact_ same time and being on the edge of a pagination which could cause you to miss one due to the exclusive nature of `startDateTime`. We recommend using `pageToken`'s instead.\n\nWhen making subsequent polling requests (not initiating with `startDateTime`), the `pageToken` can be used to continue iterating through pages of executions. Usage of the `pageToken` guaruntees you will not miss any executions on the stream. If at any point there are no more new executions in the `item` array, you will still receive a `nextPageToken`. Continue to use this token to poll for new executions. Once there are new executions, they will be returned in the `item` array.\n\n`pageToken`'s you have retrieved can serve as checkpoints. They do not expire, and you can always start from that point in the execution stream again if you need to catch a system up or recover from a failure. Storing `pageToken`'s as part of your polling process is encouraged.\n\n`pageToken`'s are unique per request, opaque, and should not be parsed or modified in any way. They are not guaranteed to be in any particular format, and may change in the future.\n",
+        "description": "Poll for new file executions that Stedi has recently processed.",
         "operationId": "ListPollingExecutions",
         "parameters": [
           {
@@ -3004,26 +3373,33 @@
               "type": "number",
               "minimum": 1,
               "description": "The maximum number of elements to return in a page. You can set this to a maximum of 500 elements. If not specified, the default is 100."
+            },
+            "examples": {
+              "ListPollingExecutions_example1": {
+                "summary": "List executions",
+                "description": "",
+                "value": 200
+              }
             }
           },
           {
             "name": "pageToken",
             "in": "query",
-            "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.",
+            "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.\n\nYou must supply either this property or `startDateTime` in every request.",
             "schema": {
               "type": "string",
               "maxLength": 1024,
               "minLength": 1,
-              "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results."
+              "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.\n\nYou must supply either this property or `startDateTime` in every request."
             }
           },
           {
             "name": "startDateTime",
             "in": "query",
-            "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns executions processed after this time.",
+            "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns executions processed after this time.\n\nYou must supply either this property or `pageToken` in every request. The `startDateTime` must be at least one minute in the past.",
             "schema": {
               "type": "string",
-              "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns executions processed after this time.",
+              "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns executions processed after this time.\n\nYou must supply either this property or `pageToken` in every request. The `startDateTime` must be at least one minute in the past.",
               "format": "date-time"
             }
           }
@@ -3035,6 +3411,62 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListPollingExecutionsResponseContent"
+                },
+                "examples": {
+                  "ListPollingExecutions_example1": {
+                    "summary": "List executions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "createdAt": "2025-04-04T17:14:35.481Z",
+                          "direction": "INBOUND",
+                          "executionId": "55907f88-999e-4912-9e9b-78326f8bade8",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": ".",
+                            "name": "test-inbound-ingest-30848232-fa0c-4151-8217-d03205e806f9.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-04-04T17:14:42.854Z"
+                        },
+                        {
+                          "createdAt": "2025-04-02T21:30:08.387Z",
+                          "direction": "INBOUND",
+                          "executionId": "95236a56-a020-4522-8fef-bcffcec0ec1d",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": ".",
+                            "name": "test-inbound-ingest-3f2efd94-2a81-4b57-b4de-9b970a50db60.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-04-02T21:30:16.185Z"
+                        },
+                        {
+                          "createdAt": "2025-02-28T19:16:26.041Z",
+                          "direction": "OUTBOUND",
+                          "executionId": "06bdccdc-4ab9-4add-b1dc-a76a0183f299",
+                          "faultCount": 0,
+                          "partnershipId": "local-clearinghouse-test",
+                          "source": {
+                            "dirname": ".",
+                            "name": "837-clearinghouse_outbound.edi"
+                          },
+                          "retryable": true,
+                          "status": "COMPLETED",
+                          "transactionCount": 1,
+                          "updatedAt": "2025-02-28T19:16:27.706Z"
+                        }
+                      ],
+                      "nextPageToken": "eyJwYWdlIjoxLCJwYWdlU2l6ZSI6MTAsInBhZ2VUb3RhbCI6MzE0fQ=="
+                    }
+                  }
                 }
               }
             }
@@ -3124,7 +3556,7 @@
     },
     "/polling/transactions": {
       "get": {
-        "description": "This endpoint is used to regularly poll for new transactions that have been processed in Core.\n\nYou must define one of `startDateTime` or `pageToken` when making a request.\n\nYou may optionally define a `pageSize`. The minimum `pageSize` is 1, and the maximum `pageSize` is 1000. The default is 100.\n\n`startDateTime` takes a string in ISO 8601 format. (ex: `2023-08-10T18:00:00Z`). \n`startDateTime` must be set to at least 1 minute in the past.\n\nThe results will contain transactions that occurred after this `startDateTime`. Starting from the oldest to newest transactions ordered by the `processedAt` field. Note, this is _exclusive_ of the `startDateTime`, a transaction occuring at exactly `2023-08-10T18:00:00Z` for instance, would not be included. In addition, there is a 15 second window where newly created transactions will not be included to account for any network latency or clock drifts within the systems to ensure you do not miss any transactions.\n\nEach request will _always_ return a `nextPageToken`, regardless of whether there are new transactions or not.\n\nWe DO NOT recommend trying to roll your own polling strategy leveraging `startDateTime` only. There are edge cases around two transactions occuring at the _exact_ same time and being on the edge of a pagination which could cause you to miss one due to the exclusive nature of `startDateTime`. We recommend using `pageToken`'s instead.\n\nWhen making subsequent polling requests (not initiating with `startDateTime`), the `pageToken` can be used to continue iterating through pages of transactions. Usage of the `pageToken` guaruntees you will not miss any transactions on the stream. If at any point there are no more new transactions in the `item` array, you will still receive a `nextPageToken`. Continue to use this token to poll for new transactions. Once there are new transactions, they will be returned in the `item` array.\n\n`pageToken`'s you have retrieved can serve as checkpoints. They do not expire, and you can always start from that point in the transaction stream again if you need to catch a system up or recover from a failure. Storing `pageToken`'s as part of your polling process is encouraged.\n\n`pageToken`'s are unique per request, opaque, and should not be parsed or modified in any way. They are not guaranteed to be in any particular format, and may change in the future.\n",
+        "description": "Poll for new transactions that Stedi has processed.",
         "operationId": "ListPollingTransactions",
         "parameters": [
           {
@@ -3135,26 +3567,33 @@
               "type": "number",
               "minimum": 1,
               "description": "The maximum number of elements to return in a page. You can set this to a maximum of 500 elements. If not specified, the default is 100."
+            },
+            "examples": {
+              "ListPollingTransactions_example1": {
+                "summary": "List transactions",
+                "description": "",
+                "value": 200
+              }
             }
           },
           {
             "name": "pageToken",
             "in": "query",
-            "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.",
+            "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.\n\nYou must supply either this property or `startDateTime` in every request.",
             "schema": {
               "type": "string",
               "maxLength": 1024,
               "minLength": 1,
-              "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results."
+              "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results.\n\nYou must supply either this property or `startDateTime` in every request."
             }
           },
           {
             "name": "startDateTime",
             "in": "query",
-            "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns transactions processed after this time.",
+            "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. It must be at least one minute in the past.Stedi returns transactions processed after this time.\n\nYou must supply either this property or `pageToken` in every request. ",
             "schema": {
               "type": "string",
-              "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. Stedi returns transactions processed after this time.",
+              "description": "An ISO 8601 formatted string. For example `2023-08-28T00:00:00Z`. It must be at least one minute in the past.Stedi returns transactions processed after this time.\n\nYou must supply either this property or `pageToken` in every request.",
               "format": "date-time"
             }
           }
@@ -3166,6 +3605,95 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListPollingTransactionsResponseContent"
+                },
+                "examples": {
+                  "ListPollingTransactions_example1": {
+                    "summary": "List transactions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "direction": "INBOUND",
+                          "mode": "test",
+                          "status": "succeeded",
+                          "fileExecutionId": "95236a56-a020-4522-8fef-bcffcec0ec1d",
+                          "transactionId": "c8dd3a67-b8ca-4b0e-aa73-e0de82414b8f",
+                          "processedAt": "2025-04-02T21:30:15.801Z",
+                          "artifacts": [
+                            {
+                              "artifactType": "application/edi-x12",
+                              "sizeBytes": 8374,
+                              "model": "transaction",
+                              "usage": "input",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/4443355-b8ca-4b0e-aa73-e0de12314b8f/input"
+                            },
+                            {
+                              "artifactType": "application/json",
+                              "sizeBytes": 76898,
+                              "model": "transaction",
+                              "usage": "output",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/111222333-b8ca-4b0e-aa73-e0de67454b8f/output"
+                            }
+                          ],
+                          "partnership": {
+                            "partnershipId": "local-clearinghouse-test",
+                            "partnershipType": "x12",
+                            "sender": {
+                              "profileId": "clearinghouse-test"
+                            },
+                            "receiver": {
+                              "profileId": "local"
+                            }
+                          },
+                          "businessIdentifiers": [
+                            {
+                              "elementId": "127",
+                              "element": "BHT-03",
+                              "name": "Reference Identification",
+                              "value": "XXXXXX"
+                            }
+                          ],
+                          "x12": {
+                            "metadata": {
+                              "interchange": {
+                                "acknowledgmentRequestedCode": "0",
+                                "controlNumber": 1
+                              },
+                              "functionalGroup": {
+                                "controlNumber": 1,
+                                "release": "005010X222A1",
+                                "date": "2025-04-02",
+                                "time": "21:29:57",
+                                "functionalIdentifierCode": "HC"
+                              },
+                              "transaction": {
+                                "controlNumber": "0001",
+                                "transactionSetIdentifier": "837"
+                              },
+                              "receiver": {
+                                "applicationCode": "STEDI-TEST",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "STEDI-TEST"
+                                }
+                              },
+                              "sender": {
+                                "applicationCode": "TestSender",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "TestSender"
+                                }
+                              }
+                            },
+                            "transactionSetting": {
+                              "guideId": "01JQW6E5RSBSTKS3ZQ1SPR4019",
+                              "transactionSettingId": "01JQW6E72Q3HDXM40YYAQCBZDY"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  }
                 }
               }
             }
@@ -3255,7 +3783,7 @@
     },
     "/transactions": {
       "get": {
-        "description": "Fetch a list of transactions, sorted by the date they were created from newest to oldest.\nGenerally this endpoint is used to display a list of transactions in a UI.\nIf you are looking to regularly fetch and check for new transactions for programmatic usage, you should use the `ListPollingTransactions` operation instead.",
+        "description": "Fetch a list of transactions, sorted by the date they were created from newest to oldest.",
         "operationId": "ListTransactions",
         "parameters": [
           {
@@ -3267,6 +3795,13 @@
               "maximum": 500,
               "minimum": 1,
               "description": "The maximum number of elements to return in a page. You can set this to a maximum of 500 elements. If not specified, the default is 100."
+            },
+            "examples": {
+              "ListTransactions_example1": {
+                "summary": "List transactions",
+                "description": "",
+                "value": 200
+              }
             }
           },
           {
@@ -3288,6 +3823,96 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ListTransactionsResponseContent"
+                },
+                "examples": {
+                  "ListTransactions_example1": {
+                    "summary": "List transactions",
+                    "description": "",
+                    "value": {
+                      "items": [
+                        {
+                          "direction": "INBOUND",
+                          "mode": "test",
+                          "status": "succeeded",
+                          "fileExecutionId": "95236a56-a020-4522-8fef-bcffcec0ec1d",
+                          "transactionId": "c8dd3a67-b8ca-4b0e-aa73-e0de82414b8f",
+                          "processedAt": "2025-04-02T21:30:15.801Z",
+                          "artifacts": [
+                            {
+                              "artifactType": "application/edi-x12",
+                              "sizeBytes": 8374,
+                              "model": "transaction",
+                              "usage": "input",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/112233344-b8ca-4h1e-aa73-123482414b8f/input"
+                            },
+                            {
+                              "artifactType": "application/json",
+                              "sizeBytes": 76898,
+                              "model": "transaction",
+                              "usage": "output",
+                              "url": "https://core.us.stedi.com/2023-08-01/transactions/1115555-b8ca-1234-aa73-e0je82414hb8f/output"
+                            }
+                          ],
+                          "partnership": {
+                            "partnershipId": "stedi_test-sender",
+                            "partnershipType": "x12",
+                            "sender": {
+                              "profileId": "test-sender"
+                            },
+                            "receiver": {
+                              "profileId": "stedi"
+                            }
+                          },
+                          "businessIdentifiers": [
+                            {
+                              "elementId": "127",
+                              "element": "BHT-03",
+                              "name": "Reference Identification",
+                              "value": "XXXXXX"
+                            }
+                          ],
+                          "x12": {
+                            "metadata": {
+                              "interchange": {
+                                "acknowledgmentRequestedCode": "0",
+                                "controlNumber": 1
+                              },
+                              "functionalGroup": {
+                                "controlNumber": 1,
+                                "release": "005010X222A1",
+                                "date": "2025-04-02",
+                                "time": "21:29:57",
+                                "functionalIdentifierCode": "HC"
+                              },
+                              "transaction": {
+                                "controlNumber": "0001",
+                                "transactionSetIdentifier": "837"
+                              },
+                              "receiver": {
+                                "applicationCode": "STEDI-TEST",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "STEDI-TEST"
+                                }
+                              },
+                              "sender": {
+                                "applicationCode": "TestSender",
+                                "isa": {
+                                  "qualifier": "ZZ",
+                                  "id": "TestSender"
+                                }
+                              }
+                            },
+                            "transactionSetting": {
+                              "guideId": "01JQW6E5RSBSTKS3ZQ1SPR4019",
+                              "transactionSettingId": "01JQW6E72Q3HDXM40YYAQCBZDY"
+                            }
+                          }
+                        }
+                      ],
+                      "nextPageToken": "be08e5ba4bf36da9da27dcb651e64a6e5502685499994f354"
+                    }
+                  }
                 }
               }
             }
@@ -3377,18 +4002,25 @@
     },
     "/transactions/{transactionId}": {
       "get": {
-        "description": "Fetch a single transaction by its ID.",
+        "description": "Fetch details for a specific transaction.",
         "operationId": "GetTransaction",
         "parameters": [
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransaction_example1": {
+                "summary": "List transactions",
+                "description": "",
+                "value": "a15b68ca-fae0-42de-b8a3-f436668b8604"
+              }
+            }
           }
         ],
         "responses": {
@@ -3398,6 +4030,91 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetTransactionResponseContent"
+                },
+                "examples": {
+                  "GetTransaction_example1": {
+                    "summary": "List transactions",
+                    "description": "",
+                    "value": {
+                      "direction": "INBOUND",
+                      "mode": "test",
+                      "status": "succeeded",
+                      "fileExecutionId": "95236a56-a020-4522-8fef-bcffcec0ec1d",
+                      "transactionId": "c8dd3a67-b8ca-4b0e-aa73-e0de82414b8f",
+                      "processedAt": "2025-04-02T21:30:15.801Z",
+                      "artifacts": [
+                        {
+                          "artifactType": "application/edi-x12",
+                          "sizeBytes": 8374,
+                          "model": "transaction",
+                          "usage": "input",
+                          "url": "https://core.us.stedi.com/2023-08-01/transactions/c8dd1111-b8ca-4330e-aa73-e0de33314b8f/input"
+                        },
+                        {
+                          "artifactType": "application/json",
+                          "sizeBytes": 76898,
+                          "model": "transaction",
+                          "usage": "output",
+                          "url": "https://core.us.stedi.com/2023-08-01/transactions/c8dd3a67-b8ca-4b0e-kk73-55667882414b8f/output"
+                        }
+                      ],
+                      "partnership": {
+                        "partnershipId": "stedi_test-sender",
+                        "partnershipType": "x12",
+                        "sender": {
+                          "profileId": "test-sender"
+                        },
+                        "receiver": {
+                          "profileId": "stedi"
+                        }
+                      },
+                      "businessIdentifiers": [
+                        {
+                          "elementId": "127",
+                          "element": "BHT-03",
+                          "name": "Reference Identification",
+                          "value": "XXXXXX"
+                        }
+                      ],
+                      "x12": {
+                        "metadata": {
+                          "interchange": {
+                            "acknowledgmentRequestedCode": "0",
+                            "controlNumber": 1
+                          },
+                          "functionalGroup": {
+                            "controlNumber": 1,
+                            "release": "005010X222A1",
+                            "date": "2025-04-02",
+                            "time": "21:29:57",
+                            "functionalIdentifierCode": "HC"
+                          },
+                          "transaction": {
+                            "controlNumber": "0001",
+                            "transactionSetIdentifier": "837"
+                          },
+                          "receiver": {
+                            "applicationCode": "STEDI-TEST",
+                            "isa": {
+                              "qualifier": "ZZ",
+                              "id": "STEDI-TEST"
+                            }
+                          },
+                          "sender": {
+                            "applicationCode": "TestSender",
+                            "isa": {
+                              "qualifier": "ZZ",
+                              "id": "TestSender"
+                            }
+                          }
+                        },
+                        "transactionSetting": {
+                          "guideId": "01JQW6E5RSBSTKS3ZQ1SPR4019",
+                          "transactionSettingId": "01JQW6E72Q3HDXM40YYAQCBZDY"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -3487,7 +4204,7 @@
     },
     "/transactions/{transactionId}/attachment/{artifactId}": {
       "get": {
-        "description": "This endpoint retrieves a transaction's output document after it has been translated.",
+        "description": "Retrieve a transaction's output document.",
         "operationId": "GetTransactionAttachmentDocument",
         "parameters": [
           {
@@ -3613,10 +4330,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           },
@@ -3725,18 +4442,25 @@
     },
     "/transactions/{transactionId}/fragments/{fragmentIndex}": {
       "get": {
-        "description": "This endpoint fetches a fragment by its index for a given transaction.",
+        "description": "Retrieve metadata for a fragment.",
         "operationId": "GetTransactionFragment",
         "parameters": [
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionFragment_example1": {
+                "summary": "Get fragment",
+                "description": "",
+                "value": "a15b68ca-fae0-42de-b8a3-f436668b8604"
+              }
+            }
           },
           {
             "name": "fragmentIndex",
@@ -3746,7 +4470,14 @@
               "type": "number",
               "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionFragment_example1": {
+                "summary": "Get fragment",
+                "description": "",
+                "value": 1
+              }
+            }
           }
         ],
         "responses": {
@@ -3756,6 +4487,82 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetTransactionFragmentResponseContent"
+                },
+                "examples": {
+                  "GetTransactionFragment_example1": {
+                    "summary": "Get fragment",
+                    "description": "",
+                    "value": {
+                      "direction": "INBOUND",
+                      "mode": "production",
+                      "fileExecutionId": "29d6b95d-c611-bce6-b893-0e64821cd238",
+                      "transactionId": "7d0c6f84-4cec-4f4a-a681-e7a36eb48d25",
+                      "processedAt": "2023-10-12T15:34:01.435Z",
+                      "partnership": {
+                        "partnershipId": "me_another-merch",
+                        "partnershipType": "x12",
+                        "sender": {
+                          "profileId": "merch"
+                        },
+                        "receiver": {
+                          "profileId": "me"
+                        }
+                      },
+                      "x12": {
+                        "metadata": {
+                          "interchange": {
+                            "acknowledgmentRequestedCode": "0",
+                            "controlNumber": 103
+                          },
+                          "functionalGroup": {
+                            "controlNumber": 103,
+                            "release": "005010X220A1",
+                            "date": "2004-12-27",
+                            "time": "13:24",
+                            "functionalIdentifierCode": "BE"
+                          },
+                          "transaction": {
+                            "controlNumber": "13331",
+                            "transactionSetIdentifier": "846"
+                          },
+                          "receiver": {
+                            "applicationCode": "THISISME",
+                            "isa": {
+                              "qualifier": "02",
+                              "id": "THISISME"
+                            }
+                          },
+                          "sender": {
+                            "applicationCode": "ANOTHERMERCH",
+                            "isa": {
+                              "qualifier": "02",
+                              "id": "ANOTHERMERCH"
+                            }
+                          }
+                        },
+                        "transactionSetting": {
+                          "guideId": "01HAPYY1YPFWGVJH1HD75SP0A2",
+                          "transactionSettingId": "01HCAHP7PY84DBZG0FM5JB4MCE"
+                        }
+                      },
+                      "fragments": {
+                        "batchSize": 800,
+                        "keyName": "item_identification_LIN_loop",
+                        "fragmentCount": 1065
+                      },
+                      "fragmentIndex": 0,
+                      "artifacts": [
+                        {
+                          "artifactType": "application/json",
+                          "sizeBytes": 389388,
+                          "model": "fragment",
+                          "usage": "output",
+                          "url": "https://core.us.stedi.com/2023-08-01/transactions/7d0c6f84-4cec-4f4a-a681-e7a36eb48d25/fragments/0/output"
+                        }
+                      ],
+                      "transactionUrl": "https://core.us.stedi.com/2023-08-01/transactions/7d0c6f84-4cec-4f4a-a681-e7a36eb48d25"
+                    }
+                  }
                 }
               }
             }
@@ -3845,7 +4652,7 @@
     },
     "/transactions/{transactionId}/fragments/{fragmentIndex}/output": {
       "get": {
-        "description": "This endpoint retrieves a transaction fragment's output document after it has been translated.",
+        "description": "Retrieve a transaction fragment's output document after it has been translated.",
         "operationId": "GetTransactionFragmentOutputDocument",
         "parameters": [
           {
@@ -3856,7 +4663,14 @@
               "type": "string",
               "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionFragmentOutputDocument_example1": {
+                "summary": "Get fragment output",
+                "description": "",
+                "value": "a15b68ca-fae0-42de-b8a3-f436668b8604"
+              }
+            }
           },
           {
             "name": "fragmentIndex",
@@ -3866,7 +4680,14 @@
               "type": "number",
               "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionFragmentOutputDocument_example1": {
+                "summary": "Get fragment output",
+                "description": "",
+                "value": 1
+              }
+            }
           }
         ],
         "responses": {
@@ -3876,6 +4697,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetTransactionFragmentOutputDocumentResponseContent"
+                },
+                "examples": {
+                  "GetTransactionFragmentOutputDocument_example1": {
+                    "summary": "Get fragment output",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://core.us.stedi.com/2023-08-01/transactions/7d0c6f84-4cec-4f4a..."
+                    }
+                  }
                 }
               }
             }
@@ -3971,10 +4801,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           },
@@ -4083,7 +4913,7 @@
     },
     "/transactions/{transactionId}/input": {
       "get": {
-        "description": "This endpoint retrieves a transaction's input document before it passes through any translation and mappings.",
+        "description": "Retrieve a transaction's input document.",
         "operationId": "GetTransactionInputDocument",
         "parameters": [
           {
@@ -4094,7 +4924,14 @@
               "type": "string",
               "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionInputDocument_example1": {
+                "summary": "List transactions",
+                "description": "",
+                "value": "c8dd3a67-b8ca-4b0e-aa73-e0de82414b8f"
+              }
+            }
           }
         ],
         "responses": {
@@ -4104,6 +4941,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetTransactionInputDocumentResponseContent"
+                },
+                "examples": {
+                  "GetTransactionInputDocument_example1": {
+                    "summary": "List transactions",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://stedi-default-core-artifacts.s3.us-east-1.amazonaws.com/55907f88-999e-4912-9e9..."
+                    }
+                  }
                 }
               }
             }
@@ -4199,10 +5045,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -4303,7 +5149,7 @@
     },
     "/transactions/{transactionId}/output": {
       "get": {
-        "description": "This endpoint retrieves a transaction's output document after it has been translated.",
+        "description": "Retrieve a transaction's output document.",
         "operationId": "GetTransactionOutputDocument",
         "parameters": [
           {
@@ -4314,7 +5160,14 @@
               "type": "string",
               "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
             },
-            "required": true
+            "required": true,
+            "examples": {
+              "GetTransactionOutputDocument_example1": {
+                "summary": "List transactions",
+                "description": "",
+                "value": "c8dd3a67-b8ca-4b0e-aa73-e0de82414b8f"
+              }
+            }
           }
         ],
         "responses": {
@@ -4324,6 +5177,15 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GetTransactionOutputDocumentResponseContent"
+                },
+                "examples": {
+                  "GetTransactionOutputDocument_example1": {
+                    "summary": "List transactions",
+                    "description": "",
+                    "value": {
+                      "documentDownloadUrl": "https://stedi-default-core-artifacts.s3.us-east-1.amazonaws.com/55907f88-999e-4912-9e9..."
+                    }
+                  }
                 }
               }
             }
@@ -4419,10 +5281,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
             },
             "required": true
           }
@@ -4528,13 +5390,13 @@
           {
             "name": "partnershipId",
             "in": "path",
-            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
             "schema": {
               "type": "string",
               "maxLength": 81,
               "minLength": 1,
               "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "Identifier chosen by the user to uniquely identify a partnership."
+              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
             },
             "required": true
           }
@@ -4631,13 +5493,13 @@
           {
             "name": "partnershipId",
             "in": "path",
-            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
             "schema": {
               "type": "string",
               "maxLength": 81,
               "minLength": 1,
               "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "Identifier chosen by the user to uniquely identify a partnership."
+              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
             },
             "required": true
           }
@@ -4750,13 +5612,13 @@
           {
             "name": "partnershipId",
             "in": "path",
-            "description": "Identifier chosen by the user to uniquely identify a partnership.",
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
             "schema": {
               "type": "string",
               "maxLength": 81,
               "minLength": 1,
               "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "Identifier chosen by the user to uniquely identify a partnership."
+              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
             },
             "required": true
           }
@@ -5089,10 +5951,12 @@
             "$ref": "#/components/schemas/ArtifactUsage"
           },
           "sizeBytes": {
-            "type": "number"
+            "type": "number",
+            "description": "The size of the artifact in bytes."
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "description": "A URL to download the artifact."
           },
           "model": {
             "$ref": "#/components/schemas/ArtifactModel"
@@ -5108,6 +5972,7 @@
       },
       "ArtifactModel": {
         "type": "string",
+        "description": "The model of the artifact, which indicates the type of process or operation it represents. For example, an execution artifact represents a file that was processed, a fragment artifact represents a part of a larger transaction, and a fault artifact represents an error that occurred during processing.",
         "enum": [
           "execution",
           "fragment",
@@ -5117,6 +5982,7 @@
       },
       "ArtifactType": {
         "type": "string",
+        "description": "The format of the artifact.",
         "enum": [
           "text/csv",
           "application/edifact",
@@ -5136,6 +6002,7 @@
       },
       "ArtifactUsage": {
         "type": "string",
+        "description": "The type of data the artifact contains. For example, an input artifact represents the original data Stedi received before processing, while an output artifact represents the processed data.\n\nFor example, for an inbound 835 ERA from a payer, the input artifact would be the original X12 EDI, and the output artifact would be the JSON representation of the ERA.",
         "enum": [
           "attachment",
           "input",
@@ -5148,7 +6015,7 @@
         "properties": {
           "elementId": {
             "type": "string",
-            "description": "The identifier of the element as seen in the EDI ref."
+            "description": "The identifier of the element containing the business identifier in the EDI specification."
           },
           "element": {
             "type": "string",
@@ -5159,7 +6026,8 @@
             "description": "The friendly name of the business identifier. For example, `Purchase Order Number`."
           },
           "value": {
-            "type": "string"
+            "type": "string",
+            "description": "The value of the business identifier."
           }
         },
         "required": [
@@ -5171,6 +6039,7 @@
       },
       "ConnectionType": {
         "type": "string",
+        "description": "The type of connection used for exchanging files.",
         "enum": [
           "bucket",
           "remote-ftp",
@@ -5343,16 +6212,20 @@
         "properties": {
           "createdAt": {
             "type": "string",
+            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the delivery attempt."
           },
           "executionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "partnershipId": {
-            "type": "string"
+            "type": "string",
+            "description": "An identifier for the partnership within the Stedi platform."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -5360,19 +6233,22 @@
           "connectionId": {
             "type": "string",
             "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "Autogenerated identifier for a connection"
+            "description": "An autogenerated identifier for the connection within the Stedi platform."
           },
           "attempt": {
-            "type": "number"
+            "type": "number",
+            "description": "The attempt number for the delivery."
           },
           "filename": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the file Stedi attempted to deliver."
           },
           "status": {
             "$ref": "#/components/schemas/DeliveryReportStatus"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "A message providing more information about the delivery attempt. For example `Delivered to sftp://transfer.us.stedi.com/outbound/06bdccdc-4ab9-4add-b1dc-a76a0183f299.x12'."
           },
           "metadata": {
             "$ref": "#/components/schemas/DeliveryReportMetadata"
@@ -5393,9 +6269,11 @@
       },
       "DeliveryReportMetadata": {
         "type": "object",
+        "description": "Metadata about the file delivery.",
         "properties": {
           "attempts": {
-            "type": "number"
+            "type": "number",
+            "description": "The total number of delivery attempts for the file."
           },
           "mdn_file": {
             "$ref": "#/components/schemas/MdnFile"
@@ -5460,6 +6338,7 @@
       },
       "Direction": {
         "type": "string",
+        "description": "The direction of the transaction. Inbound transactions are those you receive from a payer, provider, or other trading partner. Outbound transactions are those you send to a payer, provider, or other trading partner.",
         "enum": [
           "INBOUND",
           "OUTBOUND",
@@ -5486,13 +6365,15 @@
         "properties": {
           "createdAt": {
             "type": "string",
+            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "id": {
             "type": "string"
           },
           "executionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi."
           },
           "faultCode": {
             "$ref": "#/components/schemas/ExecutionFaultCode"
@@ -5501,7 +6382,8 @@
             "type": "string"
           },
           "guideId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique identifier for the Stedi guide used to process the transactions in the file.\n\n[Stedi guides](https://www.stedi.com/docs/edi-platform/guides) are machine-readable specifications that describe how to structure and validate EDI files for each transaction type."
           },
           "receiverProfile": {
             "$ref": "#/components/schemas/ExecutionPartnershipProfile"
@@ -5533,6 +6415,7 @@
       },
       "ExecutionFaultCode": {
         "type": "string",
+        "description": "A code specifying the reason for the fault.",
         "enum": [
           "DELIVERY_FAILURE",
           "FAILED_TO_EXTRACT_BUSINESS_IDENTIFIERS",
@@ -5591,7 +6474,8 @@
             "type": "string",
             "maxLength": 40,
             "minLength": 1,
-            "pattern": "^([a-zA-Z0-9._-]+)$"
+            "pattern": "^([a-zA-Z0-9._-]+)$",
+            "description": "A unique identifier for the profile within the Stedi platform."
           },
           "profileType": {
             "$ref": "#/components/schemas/ProfileType"
@@ -5611,12 +6495,15 @@
       },
       "ExecutionSource": {
         "type": "object",
+        "description": "The source of the file, including the directory where Stedi received it and the file name.",
         "properties": {
           "dirname": {
-            "type": "string"
+            "type": "string",
+            "description": "The directory where Stedi received the file for processing."
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the file."
           }
         },
         "required": [
@@ -5626,6 +6513,7 @@
       },
       "ExecutionStatus": {
         "type": "string",
+        "description": "The status of the execution. An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
         "enum": [
           "COMPLETED",
           "PARTIALLY_COMPLETED",
@@ -5639,17 +6527,21 @@
       },
       "ExecutionSummary": {
         "type": "object",
+        "description": "The processed executions that match the request criteria. The `items` array is empty if there are no matching executions.",
         "properties": {
           "createdAt": {
             "type": "string",
+            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "updatedAt": {
             "type": "string",
+            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "executionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "status": {
             "$ref": "#/components/schemas/ExecutionStatus"
@@ -5658,35 +6550,41 @@
             "$ref": "#/components/schemas/Direction"
           },
           "transactionCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of individual transactions included in the file."
           },
           "faultCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of errors that occurred during processing. If the file was successfully processed completely, this value is `0`."
           },
           "faultCode": {
             "$ref": "#/components/schemas/ExecutionFaultCode"
           },
           "faultMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "A message providing more information about the fault. Note that if there are multiple faults, Stedi sets the first fault as the code and corresponding message."
           },
           "fileType": {
             "$ref": "#/components/schemas/FileType"
           },
           "retryable": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If `true`, you can [retry the file](https://www.stedi.com/docs/edi-platform/operate/transaction-data#manage-failed-files) in the Stedi portal."
           },
           "parentExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's parent execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "childExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's child execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "partnershipId": {
             "type": "string",
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "Identifier chosen by the user to uniquely identify a partnership."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -5694,13 +6592,10 @@
           "connectionId": {
             "type": "string",
             "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "Autogenerated identifier for a connection"
+            "description": "An autogenerated identifier for the connection within the Stedi platform."
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
-          },
-          "operation": {
-            "type": "string"
           }
         },
         "required": [
@@ -5713,6 +6608,7 @@
       },
       "FileType": {
         "type": "string",
+        "description": "The file format. For example, `EDI/EDIFACT` for an EDIFACT file or `EDI/X12` for an X12 EDI file.",
         "enum": [
           "CSV",
           "EDI/EDIFACT",
@@ -5903,14 +6799,17 @@
         "properties": {
           "createdAt": {
             "type": "string",
+            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "updatedAt": {
             "type": "string",
+            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "executionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "status": {
             "$ref": "#/components/schemas/ExecutionStatus"
@@ -5919,35 +6818,41 @@
             "$ref": "#/components/schemas/Direction"
           },
           "transactionCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of individual transactions included in the file."
           },
           "faultCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of errors that occurred during processing. If the file was successfully processed completely, this value is `0`."
           },
           "faultCode": {
             "$ref": "#/components/schemas/ExecutionFaultCode"
           },
           "faultMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "A message providing more information about the fault. Note that if there are multiple faults, Stedi sets the first fault as the code and corresponding message."
           },
           "fileType": {
             "$ref": "#/components/schemas/FileType"
           },
           "retryable": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If `true`, you can [retry the file](https://www.stedi.com/docs/edi-platform/operate/transaction-data#manage-failed-files) in the Stedi portal."
           },
           "parentExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's parent execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "childExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's child execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "partnershipId": {
             "type": "string",
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "Identifier chosen by the user to uniquely identify a partnership."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -5955,25 +6860,24 @@
           "connectionId": {
             "type": "string",
             "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "Autogenerated identifier for a connection"
+            "description": "An autogenerated identifier for the connection within the Stedi platform."
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
-          },
-          "operation": {
-            "type": "string"
           },
           "artifacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Artifact"
-            }
+            },
+            "description": "A list of artifacts related to the transaction. Input artifacts represent the original transaction data Stedi received before processing. Output artifacts represent the processed data.\n\nFor example, for an inbound 835 ERA from a payer, the input artifact would be the original X12 EDI, and the output artifact would be the JSON representation of the ERA."
           },
           "deliveryReports": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DeliveryReport"
-            }
+            },
+            "description": "Details about delivery attempts for outbound files./n/nStedi attempts to deliver a file to all configured connections every 6 minutes for up to 3 total attempts. If it cannot deliver the file after the third attempt, it marks the file execution as `FAILED` and emits the file failed event."
           }
         },
         "required": [
@@ -6025,10 +6929,11 @@
         "properties": {
           "transactionId": {
             "type": "string",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            "description": "A unique identifier for the processed transaction containing this fragment. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
           },
           "fileExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file containing this fragment. This ID is included in the file processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "direction": {
             "$ref": "#/components/schemas/Direction"
@@ -6038,22 +6943,26 @@
           },
           "processedAt": {
             "type": "string",
+            "description": "The date and time when Stedi processed the transaction containing the fragment, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "fragmentIndex": {
-            "type": "number"
+            "type": "number",
+            "description": "The identifier for the fragment within a processed transaction."
           },
           "fragments": {
             "$ref": "#/components/schemas/TransactionFragmentsSummary"
           },
           "transactionUrl": {
-            "type": "string"
+            "type": "string",
+            "description": "The URL to review the transaction within the Stedi portal."
           },
           "artifacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Artifact"
-            }
+            },
+            "description": "A list of artifacts related to the transaction containing the fragment."
           },
           "partnership": {
             "$ref": "#/components/schemas/Partnership"
@@ -6116,10 +7025,11 @@
         "properties": {
           "transactionId": {
             "type": "string",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
           },
           "fileExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "status": {
             "$ref": "#/components/schemas/TransactionStatus"
@@ -6132,13 +7042,15 @@
           },
           "processedAt": {
             "type": "string",
+            "description": "The date and time when Stedi processed the transaction, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "artifacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Artifact"
-            }
+            },
+            "description": "A list of artifacts related to the transaction."
           },
           "partnership": {
             "$ref": "#/components/schemas/Partnership"
@@ -6153,16 +7065,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TranslationError"
-            }
+            },
+            "description": "Details about errors that prevented Stedi from processing the transaction."
           },
           "businessIdentifiers": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BusinessIdentifier"
-            }
-          },
-          "operation": {
-            "type": "string"
+            },
+            "description": "Any business identifiers extracted from the transaction."
           }
         },
         "required": [
@@ -6230,10 +7141,12 @@
         "type": "object",
         "properties": {
           "line": {
-            "type": "number"
+            "type": "number",
+            "description": "The line number in the document where the problem occurred."
           },
           "column": {
-            "type": "number"
+            "type": "number",
+            "description": "The column number in the document where the problem occurred."
           }
         },
         "required": [
@@ -6402,6 +7315,7 @@
       },
       "Mode": {
         "type": "string",
+        "description": "Indicates whether the transaction contains test or production data. Stedi determines this from the value in [`ISA15` Usage Indicator Code](https://www.stedi.com/edi/x12/segment/ISA#ISA-15).",
         "enum": [
           "test",
           "production",
@@ -6417,7 +7331,7 @@
           "connectionId": {
             "type": "string",
             "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "Autogenerated identifier for a connection"
+            "description": "An autogenerated identifier for the connection within the Stedi platform."
           },
           "subdirectory": {
             "type": "string",
@@ -6437,13 +7351,14 @@
       },
       "Partnership": {
         "type": "object",
+        "description": "Information about the associated partnership.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
         "properties": {
           "partnershipId": {
             "type": "string",
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "Identifier chosen by the user to uniquely identify a partnership."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "partnershipType": {
             "$ref": "#/components/schemas/PartnershipType"
@@ -6464,12 +7379,14 @@
       },
       "PartnershipReceiver": {
         "type": "object",
+        "description": "The entity that is receiving the transaction.",
         "properties": {
           "profileId": {
             "type": "string",
             "maxLength": 40,
             "minLength": 1,
-            "pattern": "^([a-zA-Z0-9._-]+)$"
+            "pattern": "^([a-zA-Z0-9._-]+)$",
+            "description": "A unique identifier for the profile within the Stedi platform."
           }
         },
         "required": [
@@ -6478,12 +7395,14 @@
       },
       "PartnershipSender": {
         "type": "object",
+        "description": "The entity that initiated the transaction.",
         "properties": {
           "profileId": {
             "type": "string",
             "maxLength": 40,
             "minLength": 1,
-            "pattern": "^([a-zA-Z0-9._-]+)$"
+            "pattern": "^([a-zA-Z0-9._-]+)$",
+            "description": "A unique identifier for the profile within the Stedi platform."
           }
         },
         "required": [
@@ -6492,6 +7411,7 @@
       },
       "PartnershipType": {
         "type": "string",
+        "description": "The type of partnership, which determines the EDI standard used for exchanging transactions.",
         "enum": [
           "x12",
           "edifact"
@@ -6529,14 +7449,17 @@
         "properties": {
           "createdAt": {
             "type": "string",
+            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "updatedAt": {
             "type": "string",
+            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "executionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "status": {
             "$ref": "#/components/schemas/ExecutionStatus"
@@ -6545,35 +7468,41 @@
             "$ref": "#/components/schemas/Direction"
           },
           "transactionCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of individual transactions included in the file."
           },
           "faultCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The number of errors that occurred during processing. If the file was successfully processed completely, this value is `0`."
           },
           "faultCode": {
             "$ref": "#/components/schemas/ExecutionFaultCode"
           },
           "faultMessage": {
-            "type": "string"
+            "type": "string",
+            "description": "A message providing more information about the fault. Note that if there are multiple faults, Stedi sets the first fault as the code and corresponding message."
           },
           "fileType": {
             "$ref": "#/components/schemas/FileType"
           },
           "retryable": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "If `true`, you can [retry the file](https://www.stedi.com/docs/edi-platform/operate/transaction-data#manage-failed-files) in the Stedi portal."
           },
           "parentExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's parent execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "childExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "The ID of this execution's child execution, if it is part of a retry chain. When you retry a file, Stedi creates a child execution with a new ID and links it to the original (parent) execution."
           },
           "partnershipId": {
             "type": "string",
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "Identifier chosen by the user to uniquely identify a partnership."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -6581,25 +7510,24 @@
           "connectionId": {
             "type": "string",
             "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "Autogenerated identifier for a connection"
+            "description": "An autogenerated identifier for the connection within the Stedi platform."
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
-          },
-          "operation": {
-            "type": "string"
           },
           "artifacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Artifact"
-            }
+            },
+            "description": "A list of artifacts related to the transaction. Input artifacts represent the original transaction data Stedi received before processing. Output artifacts represent the processed data.\n\nFor example, for an inbound 835 ERA from a payer, the input artifact would be the original X12 EDI, and the output artifact would be the JSON representation of the ERA."
           },
           "deliveryReports": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/DeliveryReport"
-            }
+            },
+            "description": "Details about delivery attempts for outbound files./n/nStedi attempts to deliver a file to all configured connections every 6 minutes for up to 3 total attempts. If it cannot deliver the file after the third attempt, it marks the file execution as `FAILED` and emits the file failed event."
           }
         },
         "required": [
@@ -6819,15 +7747,19 @@
       },
       "TransactionFragmentsSummary": {
         "type": "object",
+        "description": "Details about fragments included in the transaction, if applicable. [Fragments](https://www.stedi.com/docs/edi-platform/fragments) break large transactions into smaller parts for easier processing and management.",
         "properties": {
           "keyName": {
-            "type": "string"
+            "type": "string",
+            "description": "The JSON schema key name for the segment in the Stedi guide used to split the transaction into fragments. For example, in an 834 Health Care Benefit Enrollment and Maintenance, this would be `member_level_detail_INS_loop`."
           },
           "fragmentCount": {
-            "type": "number"
+            "type": "number",
+            "description": "The total number of fragments in the transaction."
           },
           "batchSize": {
-            "type": "number"
+            "type": "number",
+            "description": "The maximum size of each fragment in kilobytes (KB). Stedi uses this to automatically split large inbound transactions into fragments."
           }
         },
         "required": [
@@ -6881,6 +7813,7 @@
       },
       "TransactionStatus": {
         "type": "string",
+        "description": "A status indicating whether Stedi was able to successfully process the transaction.",
         "enum": [
           "failed",
           "succeeded"
@@ -6888,13 +7821,15 @@
       },
       "TransactionSummary": {
         "type": "object",
+        "description": "The processed transactions that match the request criteria. The `items` array is empty if there are no matching transactions.",
         "properties": {
           "transactionId": {
             "type": "string",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [`transaction.processed.v2` event](https://www.stedi.com/docs/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
           },
           "fileExecutionId": {
-            "type": "string"
+            "type": "string",
+            "description": "A unique identifier for the processed file within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
           },
           "status": {
             "$ref": "#/components/schemas/TransactionStatus"
@@ -6907,13 +7842,15 @@
           },
           "processedAt": {
             "type": "string",
+            "description": "The date and time when Stedi processed the transaction, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
             "format": "date-time"
           },
           "artifacts": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Artifact"
-            }
+            },
+            "description": "A list of artifacts related to the transaction."
           },
           "partnership": {
             "$ref": "#/components/schemas/Partnership"
@@ -6928,16 +7865,15 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TranslationError"
-            }
+            },
+            "description": "Details about errors that prevented Stedi from processing the transaction."
           },
           "businessIdentifiers": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/BusinessIdentifier"
-            }
-          },
-          "operation": {
-            "type": "string"
+            },
+            "description": "Any business identifiers extracted from the transaction."
           }
         },
         "required": [
@@ -6961,7 +7897,8 @@
             "$ref": "#/components/schemas/Mark"
           },
           "message": {
-            "type": "string"
+            "type": "string",
+            "description": "A message describing the error that occurred during translation."
           }
         },
         "required": [
@@ -6972,10 +7909,12 @@
         "type": "object",
         "properties": {
           "code": {
-            "type": "string"
+            "type": "string",
+            "description": "The error code."
           },
           "schemaPath": {
-            "type": "string"
+            "type": "string",
+            "description": "The name of the JSON property where the error occurred."
           }
         }
       },
@@ -7170,6 +8109,7 @@
       },
       "X12TransactionMetadata": {
         "type": "object",
+        "description": "Metadata about the X12 EDI transaction, including information from the interchange, functional group, and transaction headers as well as the sender and receiver IDs.",
         "properties": {
           "interchange": {
             "$ref": "#/components/schemas/X12TransactionMetadataInterchange"
@@ -7197,23 +8137,29 @@
       },
       "X12TransactionMetadataFunctionalGroup": {
         "type": "object",
+        "description": "Data from the Functional Group Header of the X12 EDI file.",
         "properties": {
           "controlNumber": {
             "type": "number",
             "maximum": 999999999,
-            "minimum": 0
+            "minimum": 0,
+            "description": "The Group Control Number ([`GS06`](https://www.stedi.com/edi/x12/segment/GS#GS-06))."
           },
           "date": {
-            "type": "string"
+            "type": "string",
+            "description": "The date in the Functional Group Header ([`GS04`](https://www.stedi.com/edi/x12/segment/GS#GS-04)), formatted as `YYYY-MM-DD`. For example, `2023-08-28`."
           },
           "functionalIdentifierCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The Functional Identifier Code ([`GS01`](https://www.stedi.com/edi/x12/segment/GS#GS-01)), which indicates the type of transaction. For example, `HC` for an 837 Healthcare Claim."
           },
           "time": {
-            "type": "string"
+            "type": "string",
+            "description": "The Time ([`GS05`](https://www.stedi.com/edi/x12/segment/GS#GS-05)), formatted as `HH:MM:SS`. For example, `21:29:57`."
           },
           "release": {
-            "type": "string"
+            "type": "string",
+            "description": "The Version/Release/Industry Identifier Code ([`GS08`](https://www.stedi.com/edi/x12/segment/GS#GS-08)), which indicates the version of the X12 standard used. For example, `005010X222A1`."
           }
         },
         "required": [
@@ -7226,14 +8172,17 @@
       },
       "X12TransactionMetadataInterchange": {
         "type": "object",
+        "description": "Data from the Interchange Control Header of the X12 EDI file.",
         "properties": {
           "acknowledgmentRequestedCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The value of [`ISA14`](https://www.stedi.com/edi/x12/segment/ISA#ISA-14) in the Interchange Control Header, which indicates whether the sender is requesting an [interchange acknowledgment](https://www.stedi.com/docs/edi-platform/configure/trading-partners/functional-acknowledgments#ta1s)."
           },
           "controlNumber": {
             "type": "number",
             "maximum": 999999999,
-            "minimum": 0
+            "minimum": 0,
+            "description": "The control number in the Interchange Control Header."
           }
         },
         "required": [
@@ -7243,9 +8192,11 @@
       },
       "X12TransactionMetadataProfile": {
         "type": "object",
+        "description": "The Application Code and ISA ID for the profile.",
         "properties": {
           "applicationCode": {
-            "type": "string"
+            "type": "string",
+            "description": "The Application Code for the profile, which is used to identify the entity in the `GS` header of an EDI file."
           },
           "isa": {
             "$ref": "#/components/schemas/X12TransactionMetadataProfileISA"
@@ -7258,12 +8209,15 @@
       },
       "X12TransactionMetadataProfileISA": {
         "type": "object",
+        "description": "The Interchange ID and qualifier.",
         "properties": {
           "qualifier": {
-            "type": "string"
+            "type": "string",
+            "description": "The Interchange Sender ID Qualifier, which indicates the type of identifier. For example, `ZZ` for a mutually defined identifier."
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "description": "The Interchange ID, which is the unique identifier for the entity in the EDI file."
           }
         },
         "required": [
@@ -7273,12 +8227,15 @@
       },
       "X12TransactionMetadataTransaction": {
         "type": "object",
+        "description": "Data from the Transaction Set Header of the X12 EDI file.",
         "properties": {
           "controlNumber": {
-            "type": "string"
+            "type": "string",
+            "description": "The Transaction Set Control Number ([`ST02`](https://www.stedi.com/edi/x12/segment/ST#ST-02))."
           },
           "transactionSetIdentifier": {
-            "type": "string"
+            "type": "string",
+            "description": "The Transaction Set Identifier Code ([`ST01`](https://www.stedi.com/edi/x12/segment/ST#ST-01)), which indicates the type of transaction. For example, `837` for an 837 Healthcare Claim."
           }
         },
         "required": [
@@ -7288,17 +8245,21 @@
       },
       "X12TransactionSetting": {
         "type": "object",
+        "description": "The IDs for the guide and transaction setting Stedi used to process the transaction.",
         "properties": {
           "guideId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique identifier for the Stedi guide used to process the transaction.\n\n[Stedi guides](https://www.stedi.com/docs/edi-platform/guides) are machine-readable specifications for X12 EDI transactions. They describe how to structure and validate EDI files for each transaction type."
           },
           "transactionSettingId": {
-            "type": "string"
+            "type": "string",
+            "description": "The unique identifier for the transaction setting Stedi used to process the transaction.\n\n[Transaction settings](https://www.stedi.com/docs/edi-platform/configure/trading-partners/transaction-settings) configure how Stedi processes specific transaction types, such as which Stedi guide to use and other processing options."
           }
         }
       },
       "X12TransactionSummary": {
         "type": "object",
+        "description": "Details about the X12 EDI transaction.",
         "properties": {
           "metadata": {
             "$ref": "#/components/schemas/X12TransactionMetadata"
