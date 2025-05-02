@@ -22703,7 +22703,7 @@
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
-                        "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                        "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
                     }
                 },
                 "required": [
@@ -22807,7 +22807,7 @@
             },
             "InsuranceDiscoverySubscriber": {
                 "type": "object",
-                "description": "Demographic information for the patient when they are the health plan subscriber.\n\n We strongly recommend providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the subscriber's Social Security Number and their address - particularly their zip code.",
+                "description": "Demographic information for the patient when they are the health plan subscriber. We strongly recommend providing as much information as possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the subscriber's Social Security Number and their address - particularly their zip code.",
                 "properties": {
                     "firstName": {
                         "type": "string",
@@ -22847,7 +22847,7 @@
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address",
-                        "description": "The subscriber's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage."
+                        "description": "The subscriber's current or previous address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
                     }
                 },
                 "required": [
@@ -30389,22 +30389,32 @@
                 "properties": {
                     "organizationName": {
                         "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
                         "description": "The business name of the organization submitting the claim."
                     },
                     "lastName": {
                         "type": "string",
+                        "maxLength": 60,
+                        "minLength": 1,
                         "description": "The last name of the individual submitting the claim."
                     },
                     "firstName": {
                         "type": "string",
+                        "maxLength": 35,
+                        "minLength": 1,
                         "description": "The first name of the individual submitting the claim."
                     },
                     "middleName": {
                         "type": "string",
+                        "maxLength": 25,
+                        "minLength": 1,
                         "description": "The middle name or initial of the individual submitting the claim."
                     },
                     "submitterIdentification": {
                         "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
                         "description": "The submitter's Electronic Transmitter Identification Number (ETIN), as assigned by the payer. For some payers, this may be the same as the submitter's NPI or TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names.\n\n If you don't provide this property, Stedi uses the billing provider's NPI from `billing.npi` property."
                     },
                     "contactInformation": {
