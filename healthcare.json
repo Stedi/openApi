@@ -562,7 +562,7 @@
                                                             "communicationNumber": "1234567890"
                                                         },
                                                         {
-                                                            "communicationMode": "UR",
+                                                            "communicationMode": "Uniform Resource Locator (URL)",
                                                             "communicationNumber": "website.company.com"
                                                         }
                                                     ]
@@ -1824,7 +1824,7 @@
                                                             "communicationNumber": "1234567890"
                                                         },
                                                         {
-                                                            "communicationMode": "UR",
+                                                            "communicationMode": "Uniform Resource Locator (URL)",
                                                             "communicationNumber": "website.company.com"
                                                         }
                                                     ]
@@ -14510,6 +14510,26 @@
                     "E3"
                 ]
             },
+            "CodeListQualifierCode": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "National Council on Compensation Insurance (NCCI) Nature of Injury Code",
+                    "Nature of Injury Code",
+                    "Mutually Defined"
+                ]
+            },
+            "CommunicationMode": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "Electronic Data Interchange Access Number",
+                    "Electronic Mail",
+                    "Facsimile",
+                    "Telephone",
+                    "Uniform Resource Locator (URL)"
+                ]
+            },
             "ComponentsSchemasClaimStatus": {
                 "type": "object",
                 "description": "The status, required action, and paid information of a claim or service line.",
@@ -14843,8 +14863,8 @@
                 "description": "Contacts",
                 "properties": {
                     "communicationMode": {
-                        "type": "string",
-                        "description": "The type of communication number provided. Can be `ED` - Electronic Data Interchange Access Number, `EM` - Electronic Mail, `FX` - Facsimile, `TE` - Telephone, or `UR` - Uniform Resource Locator (URL)."
+                        "$ref": "#/components/schemas/CommunicationMode",
+                        "description": "The type of communication number provided.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "communicationNumber": {
                         "type": "string",
@@ -16813,14 +16833,14 @@
             },
             "DependentInsuredIndicator": {
                 "type": "string",
-                "description": "Indicates the status of the insured. For the dependent, this is always `N`.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "Indicates the status of the insured. For the dependent, this is always `N`.",
                 "enum": [
                     "N"
                 ]
             },
             "DependentRelationship": {
                 "type": "string",
-                "description": "The name of the `relationToSubscriberCode`. For example, `Child` when the code is `19`.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "The name of the `relationToSubscriberCode`. For example, `Child` when the code is `19`.",
                 "enum": [
                     "Spouse",
                     "Child",
@@ -16834,7 +16854,7 @@
             },
             "DependentRelationshipCode": {
                 "type": "string",
-                "description": "For the dependent, this can be `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "For the dependent, this can be `01` - Spouse, `19` - Child, `20` Employee, `21` - Unknown, `39` - Organ Donor, `40` - Cadaver Donor, `53` - Life Partner, or `G8` - Other Relationship.",
                 "enum": [
                     "01",
                     "19",
@@ -16843,7 +16863,8 @@
                     "39",
                     "40",
                     "53",
-                    "G8"
+                    "G8",
+                    "Unknown"
                 ]
             },
             "DetailInfo": {
@@ -17168,6 +17189,7 @@
             },
             "DiscoveryResponseDependent": {
                 "type": "object",
+                "description": "Common fields shared between subscriber and dependent structures in the eligibility response.",
                 "properties": {
                     "healthCareDiagnosisCodes": {
                         "type": "array",
@@ -17177,19 +17199,19 @@
                     },
                     "memberId": {
                         "type": "string",
-                        "description": "The member ID for the subscriber's insurance policy."
+                        "description": "The member ID for the insurance policy."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The dependent's first name."
+                        "description": "The member's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The dependent's last name."
+                        "description": "The member's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The dependent's middle name or initial."
+                        "description": "The member's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -17198,32 +17220,29 @@
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender"
                     },
-                    "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
-                    },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The entity type for the member. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
-                        "description": "The dependent's unique health identifier."
+                        "description": "The member's unique health identifier."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The dependent's date of birth, formatted as YYYYMMDD."
+                        "description": "The member's date of birth, formatted as YYYYMMDD."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the dependent's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The dependent's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The dependent's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -17231,7 +17250,7 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The dependent's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
@@ -17251,19 +17270,19 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The dependent's Social Security Number (SSN)."
+                        "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The group number associated with the subscriber's insurance policy."
+                        "description": "The group number associated with the insurance policy."
                     },
                     "planNumber": {
                         "type": "string",
-                        "description": "The plan number associated with the subscriber's insurance policy."
+                        "description": "The plan number associated with the insurance policy."
                     },
                     "planNetworkIdNumber": {
                         "type": "string",
-                        "description": "The network identification number associated with the subscriber's insurance policy."
+                        "description": "The network identification number associated with the insurance policy."
                     },
                     "groupDescription": {
                         "type": "string",
@@ -17276,15 +17295,6 @@
                     "planNetworkDescription": {
                         "type": "string",
                         "description": "Plan network name"
-                    },
-                    "relationToSubscriber": {
-                        "$ref": "#/components/schemas/DependentRelationship"
-                    },
-                    "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/DependentRelationshipCode"
-                    },
-                    "insuredIndicator": {
-                        "$ref": "#/components/schemas/DependentInsuredIndicator"
                     },
                     "maintenanceTypeCode": {
                         "$ref": "#/components/schemas/MaintenanceTypeCode"
@@ -17301,6 +17311,18 @@
                     },
                     "responseProvider": {
                         "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/DependentRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/DependentRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/DependentInsuredIndicator"
                     }
                 }
             },
@@ -17377,6 +17399,7 @@
             },
             "DiscoveryResponseSubscriber": {
                 "type": "object",
+                "description": "Common fields shared between subscriber and dependent structures in the eligibility response.",
                 "properties": {
                     "healthCareDiagnosisCodes": {
                         "type": "array",
@@ -17386,19 +17409,19 @@
                     },
                     "memberId": {
                         "type": "string",
-                        "description": "The member ID for the subscriber's insurance policy."
+                        "description": "The member ID for the insurance policy."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The subscriber's first name."
+                        "description": "The member's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The subscriber's last name."
+                        "description": "The member's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The subscriber's middle name or initial."
+                        "description": "The member's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -17407,32 +17430,29 @@
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender"
                     },
-                    "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
-                    },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The entity type for the member. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
-                        "description": "The subscriber's unique health identifier."
+                        "description": "The member's unique health identifier."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The subscriber's date of birth, formatted as YYYYMMDD."
+                        "description": "The member's date of birth, formatted as YYYYMMDD."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the subscriber's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The subscriber's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The subscriber's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -17440,7 +17460,7 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The subscriber's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
@@ -17460,19 +17480,19 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The subscriber's Social Security Number (SSN)."
+                        "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The group number associated with the subscriber's insurance policy."
+                        "description": "The group number associated with the insurance policy."
                     },
                     "planNumber": {
                         "type": "string",
-                        "description": "The plan number associated with the subscriber's insurance policy."
+                        "description": "The plan number associated with the insurance policy."
                     },
                     "planNetworkIdNumber": {
                         "type": "string",
-                        "description": "The network identification number associated with the subscriber's insurance policy."
+                        "description": "The network identification number associated with the insurance policy."
                     },
                     "groupDescription": {
                         "type": "string",
@@ -17485,15 +17505,6 @@
                     "planNetworkDescription": {
                         "type": "string",
                         "description": "Plan network name"
-                    },
-                    "relationToSubscriber": {
-                        "$ref": "#/components/schemas/SubscriberRelationship"
-                    },
-                    "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
-                    },
-                    "insuredIndicator": {
-                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
                     },
                     "maintenanceTypeCode": {
                         "$ref": "#/components/schemas/MaintenanceTypeCode"
@@ -17510,6 +17521,18 @@
                     },
                     "responseProvider": {
                         "$ref": "#/components/schemas/ResponseProvider"
+                    },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/SubscriberRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
                     }
                 }
             },
@@ -17699,8 +17722,8 @@
                 "type": "object",
                 "properties": {
                     "codeListQualifierCode": {
-                        "type": "string",
-                        "description": "Identifies a specific industry code list. Can be `GR` - National Council on Compensation Insurance (NCCI) Nature of Injury Code, `NI` - Nature of Injury Code, or `ZZ` - Mutually Defined.\n\n When this is set to `ZZ`, the `industryCode` property will be set to a place of service code."
+                        "$ref": "#/components/schemas/CodeListQualifierCode",
+                        "description": "Identifies a specific industry code list. Can be `GR` - National Council on Compensation Insurance (NCCI) Nature of Injury Code, `NI` - Nature of Injury Code, or `ZZ` - Mutually Defined.\n\n When this is set to `ZZ`, the `industryCode` property will be set to a place of service code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "codeListQualifier": {
                         "type": "string",
@@ -17715,8 +17738,8 @@
                         "description": "The name of the `industryCode`. For example `Pharmacy` when the code is `01`."
                     },
                     "codeCategory": {
-                        "type": "string",
-                        "description": "The code category. Always set to `44` - Nature of Injury."
+                        "$ref": "#/components/schemas/InjuryCodeCategory",
+                        "description": "The code category. Always set to `44` - Nature of Injury.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "injuredBodyPartName": {
                         "type": "string",
@@ -18093,42 +18116,15 @@
             "EligibilityCheckRequestContent": {
                 "type": "object",
                 "properties": {
-                    "submitterTransactionIdentifier": {
-                        "type": "string",
-                        "description": "This property is only relevant for asynchronous batch eligibility checks."
-                    },
                     "controlNumber": {
                         "type": "string",
                         "maxLength": 9,
-                        "minLength": 1,
+                        "minLength": 9,
                         "description": "An integer to identify the transaction. It doesn't need to be globally unique."
                     },
-                    "tradingPartnerServiceId": {
+                    "eligibilitySearchId": {
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 1,
-                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record."
-                    },
-                    "tradingPartnerName": {
-                        "type": "string",
-                        "maxLength": 80,
-                        "minLength": 1,
-                        "description": "The payer's name, such as Cigna or Aetna."
-                    },
-                    "portalUsername": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The username that the provider uses to log in to the payer's portal. This is not commonly used."
-                    },
-                    "portalPassword": {
-                        "type": "string",
-                        "maxLength": 50,
-                        "minLength": 1,
-                        "description": "The password that the provider uses to log in to the payer's portal. This is not commonly used."
-                    },
-                    "subscriber": {
-                        "$ref": "#/components/schemas/RequestSubscriber"
+                        "description": "The unique identifier for the eligibility search being edited and 'retried'."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
@@ -18138,12 +18134,40 @@
                         "maxLength": 36,
                         "description": "A unique identifier for the patient that Stedi uses to identify and correlate historical eligibility checks for the same individual. We recommend including this value in all requests."
                     },
-                    "eligibilitySearchId": {
+                    "portalPassword": {
                         "type": "string",
-                        "description": "The unique identifier for the eligibility search being edited and 'retried'."
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The password that the provider uses to log in to the payer's portal. This is not commonly used."
+                    },
+                    "portalUsername": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The username that the provider uses to log in to the payer's portal. This is not commonly used."
+                    },
+                    "subscriber": {
+                        "$ref": "#/components/schemas/RequestSubscriber"
+                    },
+                    "submitterTransactionIdentifier": {
+                        "type": "string",
+                        "description": "This property is only relevant for asynchronous batch eligibility checks."
+                    },
+                    "tradingPartnerName": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "The payer's name, such as Cigna or Aetna."
+                    },
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 1,
+                        "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record."
                     },
                     "provider": {
-                        "$ref": "#/components/schemas/Provider"
+                        "$ref": "#/components/schemas/Provider",
+                        "description": "An object containing information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.  You must provide the `organizationName` (if the entity is an organization) or `firstName` and `lastName` (if the provider is an individual). You must also provide an identifier - this is typically the provider's National Provider ID (`npi`)."
                     },
                     "informationReceiverName": {
                         "$ref": "#/components/schemas/InformationReceiverName",
@@ -20091,6 +20115,13 @@
                     "P",
                     "S",
                     "T"
+                ]
+            },
+            "InjuryCodeCategory": {
+                "type": "string",
+                "description": "Payers may sometimes return other non-compliant values.",
+                "enum": [
+                    "44"
                 ]
             },
             "InstitutionalAddress": {
@@ -28197,19 +28228,19 @@
                     },
                     "memberId": {
                         "type": "string",
-                        "description": "The member ID for the subscriber's insurance policy."
+                        "description": "The member ID for the insurance policy."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The dependent's first name."
+                        "description": "The member's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The dependent's last name."
+                        "description": "The member's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The dependent's middle name or initial."
+                        "description": "The member's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -28218,32 +28249,29 @@
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender"
                     },
-                    "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
-                    },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the dependent. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The entity type for the member. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
-                        "description": "The dependent's unique health identifier."
+                        "description": "The member's unique health identifier."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The dependent's date of birth, formatted as YYYYMMDD."
+                        "description": "The member's date of birth, formatted as YYYYMMDD."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the dependent's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The dependent's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The dependent's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -28251,7 +28279,7 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The dependent's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
@@ -28271,19 +28299,19 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The dependent's Social Security Number (SSN)."
+                        "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The group number associated with the subscriber's insurance policy."
+                        "description": "The group number associated with the insurance policy."
                     },
                     "planNumber": {
                         "type": "string",
-                        "description": "The plan number associated with the subscriber's insurance policy."
+                        "description": "The plan number associated with the insurance policy."
                     },
                     "planNetworkIdNumber": {
                         "type": "string",
-                        "description": "The network identification number associated with the subscriber's insurance policy."
+                        "description": "The network identification number associated with the insurance policy."
                     },
                     "groupDescription": {
                         "type": "string",
@@ -28296,15 +28324,6 @@
                     "planNetworkDescription": {
                         "type": "string",
                         "description": "Plan network name"
-                    },
-                    "relationToSubscriber": {
-                        "$ref": "#/components/schemas/DependentRelationship"
-                    },
-                    "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/DependentRelationshipCode"
-                    },
-                    "insuredIndicator": {
-                        "$ref": "#/components/schemas/DependentInsuredIndicator"
                     },
                     "maintenanceTypeCode": {
                         "$ref": "#/components/schemas/MaintenanceTypeCode"
@@ -28322,6 +28341,18 @@
                     "responseProvider": {
                         "$ref": "#/components/schemas/ResponseProvider"
                     },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseDependentEntityIdentifier"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/DependentRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/DependentRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/DependentInsuredIndicator"
+                    },
                     "aaaErrors": {
                         "type": "array",
                         "items": {
@@ -28332,7 +28363,7 @@
             },
             "ResponseDependentEntityIdentifier": {
                 "type": "string",
-                "description": "The entity identifier for the dependent.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "The entity identifier for the dependent.",
                 "enum": [
                     "Dependent"
                 ]
@@ -28967,19 +28998,19 @@
                     },
                     "memberId": {
                         "type": "string",
-                        "description": "The member ID for the subscriber's insurance policy."
+                        "description": "The member ID for the insurance policy."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The subscriber's first name."
+                        "description": "The member's first name."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The subscriber's last name."
+                        "description": "The member's last name."
                     },
                     "middleName": {
                         "type": "string",
-                        "description": "The subscriber's middle name or initial."
+                        "description": "The member's middle name or initial."
                     },
                     "suffix": {
                         "type": "string",
@@ -28988,32 +29019,29 @@
                     "gender": {
                         "$ref": "#/components/schemas/ResponseMemberGender"
                     },
-                    "entityIdentifier": {
-                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
-                    },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
-                        "description": "The entity type for the subscriber. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The entity type for the member. It can technically be set to `Person` or `Non-Person Entity`. In practice, our customers only receive `Person`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "uniqueHealthIdentifier": {
                         "type": "string",
-                        "description": "The subscriber's unique health identifier."
+                        "description": "The member's unique health identifier."
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The subscriber's date of birth, formatted as YYYYMMDD."
+                        "description": "The member's date of birth, formatted as YYYYMMDD."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the subscriber's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The subscriber's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The subscriber's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -29021,7 +29049,7 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The subscriber's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
@@ -29041,19 +29069,19 @@
                     },
                     "ssn": {
                         "type": "string",
-                        "description": "The subscriber's Social Security Number (SSN)."
+                        "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
                         "type": "string",
-                        "description": "The group number associated with the subscriber's insurance policy."
+                        "description": "The group number associated with the insurance policy."
                     },
                     "planNumber": {
                         "type": "string",
-                        "description": "The plan number associated with the subscriber's insurance policy."
+                        "description": "The plan number associated with the insurance policy."
                     },
                     "planNetworkIdNumber": {
                         "type": "string",
-                        "description": "The network identification number associated with the subscriber's insurance policy."
+                        "description": "The network identification number associated with the insurance policy."
                     },
                     "groupDescription": {
                         "type": "string",
@@ -29066,15 +29094,6 @@
                     "planNetworkDescription": {
                         "type": "string",
                         "description": "Plan network name"
-                    },
-                    "relationToSubscriber": {
-                        "$ref": "#/components/schemas/SubscriberRelationship"
-                    },
-                    "relationToSubscriberCode": {
-                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
-                    },
-                    "insuredIndicator": {
-                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
                     },
                     "maintenanceTypeCode": {
                         "$ref": "#/components/schemas/MaintenanceTypeCode"
@@ -29092,6 +29111,18 @@
                     "responseProvider": {
                         "$ref": "#/components/schemas/ResponseProvider"
                     },
+                    "entityIdentifier": {
+                        "$ref": "#/components/schemas/ResponseSubscriberEntityIdentifier"
+                    },
+                    "relationToSubscriber": {
+                        "$ref": "#/components/schemas/SubscriberRelationship"
+                    },
+                    "relationToSubscriberCode": {
+                        "$ref": "#/components/schemas/SubscriberRelationshipCode"
+                    },
+                    "insuredIndicator": {
+                        "$ref": "#/components/schemas/SubscriberInsuredIndicator"
+                    },
                     "aaaErrors": {
                         "type": "array",
                         "items": {
@@ -29102,7 +29133,7 @@
             },
             "ResponseSubscriberEntityIdentifier": {
                 "type": "string",
-                "description": "The entity identifier for the subscriber.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "The entity identifier for the subscriber.",
                 "enum": [
                     "Insured or Subscriber"
                 ]
@@ -30446,7 +30477,7 @@
             },
             "SubscriberInsuredIndicator": {
                 "type": "string",
-                "description": "Indicates the status of the insured. For the subscriber, this is always `Y`.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "Indicates the status of the insured. For the subscriber, this is always `Y`.",
                 "enum": [
                     "Y"
                 ]
@@ -30471,14 +30502,14 @@
             },
             "SubscriberRelationship": {
                 "type": "string",
-                "description": "The name of the `relationToSubscriberCode`. For the subscriber, this is always `Self`.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "The name of the `relationToSubscriberCode`. For the subscriber, this is always `Self`.",
                 "enum": [
                     "Self"
                 ]
             },
             "SubscriberRelationshipCode": {
                 "type": "string",
-                "description": "For the subscriber, this is always `18` for Self.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "For the subscriber, this is always `18` for Self.",
                 "enum": [
                     "18"
                 ]
