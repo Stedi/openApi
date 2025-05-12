@@ -1639,7 +1639,7 @@
                     },
                     "eligibilitySearchId": {
                         "type": "string",
-                        "description": "The unique identifier for the eligibility search being edited and 'retried'."
+                        "description": "The unique identifier for the eligibility search being edited and resubmitted. This is relevant when using [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager)."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/Encounter"
@@ -1968,7 +1968,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/DtpDate"
-                        }
+                        },
+                        "description": "The date(s) when the patient was discharged."
                     },
                     "issue": {
                         "type": "string",
@@ -2074,7 +2075,8 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/DtpDate"
-                        }
+                        },
+                        "description": "The date(s) for admission."
                     },
                     "dateOfDeath": {
                         "type": "string",
@@ -2146,7 +2148,8 @@
                         }
                     },
                     "insuranceTypeCode": {
-                        "$ref": "#/components/schemas/InsuranceTypeCode"
+                        "$ref": "#/components/schemas/InsuranceTypeCode",
+                        "description": "Code identifying the type of insurance policy. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#insurance-type-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "insuranceType": {
                         "$ref": "#/components/schemas/InsuranceTypeName"
@@ -2156,10 +2159,12 @@
                         "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`.\n\nPayers are normally required to send the plan name when `benefitsInformation.code` is set to values `1` - `8` and the `benefitsInformation.serviceTypeCodes` contains `30` (Health Benefit Plan Coverage). However, behavior may vary by payer, so don't rely on this information being present in the response. Note that the plan name returned in this property may not exactly match the name the payer uses in official plan documents or marketing literature.\n\nVisit [What's the plan name?](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#what’s-the-plan-name%3F) in the benefits response documentation for more details."
                     },
                     "timeQualifierCode": {
-                        "$ref": "#/components/schemas/TimeQualifierCode"
+                        "$ref": "#/components/schemas/TimeQualifierCode",
+                        "description": "Code indicating the time period for the benefit information. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#time-qualifier-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "timeQualifier": {
-                        "$ref": "#/components/schemas/TimeQualifierName"
+                        "$ref": "#/components/schemas/TimeQualifierName",
+                        "description": "The name of the `timeQualifierCode`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "benefitAmount": {
                         "type": "string",
@@ -2170,17 +2175,20 @@
                         "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits)."
                     },
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/QuantityQualifierCode"
+                        "$ref": "#/components/schemas/QuantityQualifierCode",
+                        "description": "Code indicating the type of quantity for the benefit. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#quantity-qualifier-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/QuantityQualifierName"
+                        "$ref": "#/components/schemas/QuantityQualifierName",
+                        "description": "The name of the `quantityQualifierCode`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "benefitQuantity": {
                         "type": "string",
                         "description": "The quantity of the benefit, qualified by the type specified in `quantityQualifier`. For example, `10` when the `quantityQualifier` is `Visits`."
                     },
                     "authOrCertIndicator": {
-                        "$ref": "#/components/schemas/AuthOrCertIndicator"
+                        "$ref": "#/components/schemas/AuthOrCertIndicator",
+                        "description": "Code indicating whether the benefit is subject to prior authorization or certification. Can be `Y` - Yes, `N` - No, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "inPlanNetworkIndicatorCode": {
                         "$ref": "#/components/schemas/InPlanNetworkIndicatorCode"
@@ -2384,14 +2392,16 @@
                         "description": "The name suffix, such as Sr. Jr. or III."
                     },
                     "entityIdentification": {
-                        "$ref": "#/components/schemas/BenefitRelatedEntityIdentification"
+                        "$ref": "#/components/schemas/BenefitRelatedEntityIdentification",
+                        "description": "Code identifying the type of identifier in the `entityIdentificationValue` property. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#identification-code-qualifiers) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "entityIdentificationValue": {
                         "type": "string",
                         "description": "The identification number for the entity, qualified by the code in `entityIdentification`."
                     },
                     "entityRelationship": {
-                        "$ref": "#/components/schemas/BenefitsRelatedEntityRelationshipCode"
+                        "$ref": "#/components/schemas/BenefitsRelatedEntityRelationshipCode",
+                        "description": "Code specifying the relationship between the entity and the patient. Can be `01` - Parent, `02` - Child, `27` - Domestic Partner, `41` - Spouse, `48` - Employee, `65` - Other, or `72` - Unknown.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "address": {
                         "$ref": "#/components/schemas/Address"
@@ -2422,10 +2432,12 @@
                 "description": "The delivery or usage pattern for the benefits.",
                 "properties": {
                     "quantityQualifierCode": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifierCode"
+                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifierCode",
+                        "description": "Code specifying the type of quantity for the benefit. Can be `DY` - Days, `FL` - Units, `HS` - Hours, `MN` - Month, and `VS` - Visits.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "quantityQualifier": {
-                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifier"
+                        "$ref": "#/components/schemas/BenefitsServiceDeliveryQuantityQualifier",
+                        "description": "The name of the `quantityQualifierCode`. For example, `Days`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "quantity": {
                         "type": "string",
@@ -2437,20 +2449,24 @@
                         "description": "This shape is deprecated."
                     },
                     "unitForMeasurementQualifierCode": {
-                        "$ref": "#/components/schemas/UnitForMeasurementCode"
+                        "$ref": "#/components/schemas/UnitForMeasurementCode",
+                        "description": "Code specifying the unit of measurement. For example, `DA` - Days, `MO` - Months, `VS` - Visits, `WK` - Week, and `YR` - Years.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "unitForMeasurementQualifier": {
-                        "$ref": "#/components/schemas/UnitForMeasurement"
+                        "$ref": "#/components/schemas/UnitForMeasurement",
+                        "description": "The name of the `unitForMeasurementQualifierCode`. For example, `Days`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "sampleSelectionModulus": {
                         "type": "string",
                         "description": "Specifies the sampling frequency, based on the unit of measure. For example `every 2 months` or `once per calendar year`."
                     },
                     "timePeriodQualifierCode": {
-                        "$ref": "#/components/schemas/TimePeriodQualifierCode"
+                        "$ref": "#/components/schemas/TimePeriodQualifierCode",
+                        "description": "Code specifying the time period for the benefit information. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#time-qualifier-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "timePeriodQualifier": {
-                        "$ref": "#/components/schemas/TimePeriodQualifier"
+                        "$ref": "#/components/schemas/TimePeriodQualifier",
+                        "description": "The name of the `timePeriodQualifierCode`. For example, `Calendar Year`.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "numOfPeriods": {
                         "type": "string",
@@ -2469,7 +2485,8 @@
                         "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
                     },
                     "deliveryPatternTimeQualifierCode": {
-                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifierCode"
+                        "$ref": "#/components/schemas/DeliveryPatternTimeQualifierCode",
+                        "description": "Code specifying the time for routine shipments or deliveries. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-pattern-time-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "deliveryPatternTimeQualifier": {
                         "$ref": "#/components/schemas/DeliveryPatternTimeQualifier"
@@ -2639,7 +2656,7 @@
             },
             "DeliveryOrCalendarPatternQualifierCode": {
                 "type": "string",
-                "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-or-calendar-pattern-qualifier-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values.",
+                "description": "Code that specifies the routine shipments, deliveries, or calendar pattern. For example `9` - Last Working Day of Period. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#delivery-frequency-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1",
                     "2",
@@ -2900,7 +2917,7 @@
                     },
                     "code": {
                         "$ref": "#/components/schemas/EligibilityCheckErrorCode",
-                        "description": "The error code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The error code. Visit [Eligibility troubleshooting](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) for a complete list of all possible error codes and descriptions.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "followupAction": {
                         "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
@@ -3358,7 +3375,6 @@
             },
             "HealthCareInformation": {
                 "type": "object",
-                "description": "Loop: 2100C and 2100D, Segment: HI, Element: HI01-1 HI01-2, Notes: Health Care Diagnosis",
                 "properties": {
                     "diagnosisTypeCode": {
                         "$ref": "#/components/schemas/DiagnosisTypeCode"
@@ -4351,7 +4367,7 @@
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/RequestProviderCode",
-                        "description": "Communicate the provider's role in the type of benefits specified in the request."
+                        "description": "Communicate the provider's role in the type of benefits specified in the request. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -4444,7 +4460,7 @@
                 "properties": {
                     "providerCode": {
                         "$ref": "#/components/schemas/ResponseProviderCode",
-                        "description": "The provider code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "A code that communicates the provider's role in the type of benefits information in the response. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -5342,15 +5358,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#information-status-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#employment-status-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#government-service-affiliation-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -5358,11 +5374,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#military-service-rank-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The format of the military service date and time period. Can be `D8` - Date Expressed in Format YYYYMMDD or `RD8` - Range of Dates Expressed in Format YYYYMMDD-YYYYMMDD.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
@@ -5878,7 +5894,7 @@
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/ResponseProviderCode",
-                        "description": "A code that communicates the provider's role in the type of benefits information in the response.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "A code that communicates the provider's role in the type of benefits information in the response. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -5927,7 +5943,7 @@
             },
             "ResponseProviderCode": {
                 "type": "string",
-                "description": "Payers may sometimes return other non-compliant values.",
+                "description": "A code indicating the type of provider. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "AD",
                     "AT",
@@ -6086,15 +6102,15 @@
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
-                        "description": "The status of the member's information, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The status of the member's information, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#information-status-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "employmentStatusCode": {
                         "$ref": "#/components/schemas/EmploymentStatusCode",
-                        "description": "The member's employment status code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's employment status code, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#employment-status-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "governmentServiceAffiliationCode": {
                         "$ref": "#/components/schemas/GovernmentServiceAffiliationCode",
-                        "description": "The member's government service affiliation code, used to report military service data.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's government service affiliation code, used to report military service data. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#government-service-affiliation-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "description": {
                         "type": "string",
@@ -6102,11 +6118,11 @@
                     },
                     "militaryServiceRankCode": {
                         "$ref": "#/components/schemas/MilitaryServiceRankCode",
-                        "description": "The member's military service rank code.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The member's military service rank code. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#military-service-rank-codes) for a complete list.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The format of the military service date and time period. Can be `D8` - Date Expressed in Format YYYYMMDD or `RD8` - Range of Dates Expressed in Format YYYYMMDD-YYYYMMDD.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
