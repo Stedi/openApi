@@ -13686,10 +13686,20 @@
             },
             "ClaimSupplementalInformation": {
                 "type": "object",
-                "description": "Additional information or documentation required for the claim.",
+                "description": "Additional information or documentation required for the claim. This is where you can include information about [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments), if applicable.",
                 "properties": {
                     "reportInformation": {
-                        "$ref": "#/components/schemas/ReportInformation"
+                        "$ref": "#/components/schemas/ReportInformation",
+                        "description": "Required when you plan to submit an [attachment](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nUse this object when there is a single attachment for the claim. If there are multiple attachments, use the `reportInformations` array instead."
+                    },
+                    "reportInformations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReportInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "description": "An array of report information for the claim. Use this when you need to submit multiple report information records. You can submit up to 10 objects in this array.\n\nRequired when you plan to submit [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify that they have additional information at their office that is available upon request."
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
@@ -15508,10 +15518,20 @@
             },
             "DentalClaimSupplementalInformation": {
                 "type": "object",
-                "description": "Additional information or documentation required for the claim.",
+                "description": "Additional information or documentation required for the claim. This is where you can include information about [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments), if applicable.",
                 "properties": {
                     "reportInformation": {
-                        "$ref": "#/components/schemas/DentalReportInformation"
+                        "$ref": "#/components/schemas/DentalReportInformation",
+                        "description": "Required when you plan to submit an [attachment](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nUse this object when there is a single attachment for the claim. If there are multiple attachments, use the `reportInformations` array instead."
+                    },
+                    "reportInformations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/DentalReportInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "description": "An array of report information for the claim. Use this when you need to submit multiple report information records. You can submit up to 10 objects in this array.\n\nRequired when you plan to submit [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify that they have additional information at their office that is available upon request."
                     },
                     "predeterminationOfBenefitsIdentifier": {
                         "type": "string",
@@ -16214,7 +16234,6 @@
             },
             "DentalReportInformation": {
                 "type": "object",
-                "description": "Required when there is a paper attachment following this claim, when attachments are sent electronically with the claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/DentalAttachmentReportTypeCode"
@@ -20718,11 +20737,20 @@
             },
             "InstitutionalClaimSupplementalInformation": {
                 "type": "object",
-                "description": "Additional information or documentation required for the claim.",
+                "description": "Additional information or documentation required for the claim. This is where you can include information about [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments), if applicable.",
                 "properties": {
                     "reportInformation": {
                         "$ref": "#/components/schemas/InstitutionalReportInformation",
-                        "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request."
+                        "description": "Required when you plan to submit an [attachment](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nUse this object when there is a single attachment for the claim. If there are multiple attachments, use the `reportInformations` array instead."
+                    },
+                    "reportInformations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalReportInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "description": "An array of report information for the claim. Use this when you need to submit multiple report information records. You can submit up to 10 objects in this array.\n\nRequired when you plan to submit [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify that they have additional information at their office that is available upon request."
                     },
                     "priorAuthorizationNumber": {
                         "type": "string",
@@ -21907,7 +21935,6 @@
             },
             "InstitutionalReportInformation": {
                 "type": "object",
-                "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/ReportInformationAttachmentReportTypeCode"
@@ -22150,7 +22177,16 @@
                     },
                     "serviceLineSupplementalInformation": {
                         "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation",
-                        "description": "Additional information or documentation required for the service line. This is where you should include information for any attachments related to this service line."
+                        "description": "Supporting documentation for the service line. Required when you plan to submit an [attachment](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the service line electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nUse this object when there is a single attachment. If there are multiple attachments, use the `serviceLineSupplementalInformations` array instead."
+                    },
+                    "serviceLineSupplementalInformations": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InstitutionalServiceLineSupplementalInformation"
+                        },
+                        "maxItems": 10,
+                        "minItems": 0,
+                        "description": "An array of supplemental information for the service line. This is the array version of the `serviceLineSupplementalInformation` property.\n\n This array is required when you plan to submit multiple [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the service line electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nYou can submit up to 10 objects in this array."
                     },
                     "serviceLineDateInformation": {
                         "$ref": "#/components/schemas/InstitutionalServiceLineDateInformation",
@@ -27270,7 +27306,6 @@
             },
             "ReportInformation": {
                 "type": "object",
-                "description": "Required when there is a paper attachment following this claim, when you're sending attachments for the claim electronically through Stedi APIs, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.",
                 "properties": {
                     "attachmentReportTypeCode": {
                         "$ref": "#/components/schemas/AttachmentReportTypeCode"
@@ -29400,7 +29435,7 @@
                         },
                         "maxItems": 10,
                         "minItems": 1,
-                        "description": "Supporting documentation for the service line. Required when there is a paper attachment following this claim, when attachments are sent electronically, or when the provider needs to identify additional information that is being held at their office and is available upon request."
+                        "description": "Supporting documentation for the service line. Required when you plan to submit [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the service line electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nYou can submit up to 10 objects in this array."
                     },
                     "durableMedicalEquipmentCertificateOfMedicalNecessity": {
                         "$ref": "#/components/schemas/DurableMedicalEquipmentCertificateOfMedicalNecessity"
