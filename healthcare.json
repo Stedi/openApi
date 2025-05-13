@@ -13110,7 +13110,7 @@
             },
             "ClaimServiceFacilityLocation": {
                 "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. \n\nDon't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is different from the billing provider's address.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -15436,7 +15436,7 @@
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ClaimServiceFacilityLocation",
-                        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home."
+                        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n    - Only include this object when the service facility location is different from the billing provider's address.\n    - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
                     },
                     "orthodonticTotalMonthsOfTreatment": {
                         "$ref": "#/components/schemas/OrthodonticTotalMonthsOfTreatment",
@@ -16358,7 +16358,7 @@
                     },
                     "renderingProvider": {
                         "$ref": "#/components/schemas/DentalServiceLineRenderingProvider",
-                        "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
+                        "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable.\n\nYou should only include this object when the rendering provider information for this service line is different than the information listed in the `rendering` object for the entire claim."
                     },
                     "assistantSurgeon": {
                         "$ref": "#/components/schemas/DentalServiceLineAssistantSurgeon",
@@ -16366,7 +16366,7 @@
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/DentalServiceLineServiceFacilityLocation",
-                        "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home."
+                        "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n    - Only include this object when the service facility location is different from the billing provider's address.\n    - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
                     },
                     "supervisingProvider": {
                         "$ref": "#/components/schemas/DentalServiceLineSupervisingProvider",
@@ -21841,7 +21841,7 @@
             },
             "InstitutionalRendering": {
                 "type": "object",
-                "description": "Information about the provider who delivered the medical services or non-surgical procedures listed in the claim. Use this object for providers that apply to the entire claim.\n- Include this object when the rendering provider is different than the provider listed in the `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures listed in the claim. This must be an individual, not an organization, and you must supply at least the provider's `lastName` and an identifier, which is typically the `npi`. The provider's `firstName` is also required, if applicable.\n\nInclude this object when all of the following are true:\n- The rendering provider is different than the provider listed in the `attending` object.\n- The provider applies to the entire claim or to at least one service line. For example, if a claim had two service lines with two different rendering providers, you would include the provider for the first service line here and leave the `claimInformation.serviceLines.renderingProvider` object for that service line blank. Then, you would specify the second provider in the appropriate service line's `claimInformation.serviceLines.renderingProvider` object.\n- State or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -22063,7 +22063,7 @@
             },
             "InstitutionalServiceFacilityLocation": {
                 "type": "object",
-                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address.\n- When an organization's healthcare provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier) is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab).\n- The service location can't be a component or subpart of the billing provider entity.",
+                "description": "The service facility location. Required when the location of healthcare services is different from the billing provider's address.\n- When an organization's healthcare provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier) is provided to identify the service location, the organization healthcare provider must be external to the entity identified as the billing provider (for example, a reference lab).\n- The service location can't be a component or subpart of the billing provider entity. Only include this object when the service location is different from the billing provider's address.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -22398,7 +22398,7 @@
             },
             "InstitutionalServiceLineRenderingProvider": {
                 "type": "object",
-                "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line.\n- Include this object when the rendering provider is different than the provider listed in the claim's `attending` object AND when state or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.\n- This should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+                "description": "Information about the provider who delivered the medical services or non-surgical procedures in this service line. This must be an individual, not an organization, and you must include the provider's `lastName` and an identifier, which is typically the `npi`. The provider's `firstName` is also required, if applicable.\n\nInclude this object when the following are both true:\n    - The rendering provider for this service line is different than the provider listed in the `attending` and `rendering` objects for the entire claim.\n    - State or federal regulatory requirements call for a combined claim. A combined claim includes both facility and professional components, such as a Medicaid clinic bill or a critical access hospital claim.",
                 "properties": {
                     "npi": {
                         "type": "string",
@@ -27217,7 +27217,7 @@
             },
             "Rendering": {
                 "type": "object",
-                "description": "Information about the person or company (laboratory or other facility) who rendered the care. Use this object for all types of rendering providers including laboratories. When a substitute provider (locum tenens) was used, enter that provider's information here. Use when the provider applies to the entire claim, not just a specific service line.",
+                "description": "Information about the person or company (laboratory or other facility) who rendered the care. Use this object for all types of rendering providers including laboratories. When a substitute provider (locum tenens) was used, enter that provider's information here.\n- Use when the provider applies to the entire claim or to at least one service line. For example, if a claim had two service lines with two different rendering providers, you would include the provider for the first service line here and leave the `claimInformation.serviceLines.renderingProvider` object for that service line blank. Then, you would specify the second provider in the appropriate service line's `claimInformation.serviceLines.renderingProvider` object.\n- You can omit this object when the rendering provider is the same as the billing provider. In that case, you would include the provider's information in the `billing` object and leave this object blank.",
                 "properties": {
                     "providerType": {
                         "type": "string",
@@ -29528,7 +29528,7 @@
                     },
                     "renderingProvider": {
                         "$ref": "#/components/schemas/ClaimsServiceLineRenderingProvider",
-                        "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable."
+                        "description": "Information about the provider who rendered the services. This can be a individual or a company (a laboratory or other facility). This is where you should enter the substitute provider's (locum tenens physician) information, if applicable.\n\nYou should only include this object when the rendering provider information for this service line is different than the information listed in the `rendering` object for the entire claim."
                     },
                     "purchasedServiceProvider": {
                         "$ref": "#/components/schemas/ServiceLineProviderPurchasedService",
@@ -29536,7 +29536,7 @@
                     },
                     "serviceFacilityLocation": {
                         "$ref": "#/components/schemas/ServiceLineServiceFacilityLocation",
-                        "description": "Information about where the services were rendered. When reporting ambulance services, you should use the `ambulancePickUpLocation` and `ambulanceDropOffLocation` properties instead."
+                        "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n      - Only include this object when the service facility location is different from the billing provider's address.\n      - Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n      - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
                     },
                     "supervisingProvider": {
                         "$ref": "#/components/schemas/ClaimsServiceLineSupervisingProvider",
@@ -30000,7 +30000,7 @@
             },
             "ServiceLineServiceFacilityLocation": {
                 "type": "object",
-                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home. \n\nDon't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.",
+                "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is different from the billing provider's address.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
