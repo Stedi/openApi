@@ -9604,6 +9604,383 @@
                     }
                 }
             }
+        },
+        "/payers/search": {
+            "get": {
+                "description": "Search for payers by name, ID, or alias.",
+                "operationId": "SearchPayers",
+                "parameters": [
+                    {
+                        "name": "pageSize",
+                        "in": "query",
+                        "description": "The maximum number of elements to return in a page. If not specified, the default is 20.",
+                        "schema": {
+                            "type": "number",
+                            "maximum": 100,
+                            "minimum": 10,
+                            "description": "The maximum number of elements to return in a page. If not specified, the default is 20."
+                        }
+                    },
+                    {
+                        "name": "pageToken",
+                        "in": "query",
+                        "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results.",
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 1024,
+                            "minLength": 1,
+                            "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results."
+                        }
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "The query Stedi will use to search the Payer Network database. You can supply a payer's name, ID, or alias. The query is case-insensitive, and fuzzy matching is supported. For example, `cig`, `62308`, and `SX071` all return Cigna in the results.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The query Stedi will use to search the Payer Network database. You can supply a payer's name, ID, or alias. The query is case-insensitive, and fuzzy matching is supported. For example, `cig`, `62308`, and `SX071` all return Cigna in the results."
+                        },
+                        "required": true,
+                        "examples": {
+                            "SearchPayers_example1": {
+                                "summary": "Basic Search",
+                                "description": "",
+                                "value": "Blue Cross"
+                            },
+                            "SearchPayers_example2": {
+                                "summary": "Search with multiple transaction filters (AND logic)",
+                                "description": "",
+                                "value": "Blue Cross"
+                            }
+                        }
+                    },
+                    {
+                        "name": "eligibilityCheck",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 270 eligibility checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        },
+                        "examples": {
+                            "SearchPayers_example2": {
+                                "summary": "Search with multiple transaction filters (AND logic)",
+                                "description": "",
+                                "value": "SUPPORTED"
+                            }
+                        }
+                    },
+                    {
+                        "name": "claimStatus",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 276/277 real-time claim status checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        },
+                        "examples": {
+                            "SearchPayers_example2": {
+                                "summary": "Search with multiple transaction filters (AND logic)",
+                                "description": "",
+                                "value": "SUPPORTED"
+                            }
+                        }
+                    },
+                    {
+                        "name": "professionalClaimSubmission",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 837 professional claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        }
+                    },
+                    {
+                        "name": "dentalClaimSubmission",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 837 dental claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        }
+                    },
+                    {
+                        "name": "institutionalClaimSubmission",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 837 institutional claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        }
+                    },
+                    {
+                        "name": "claimPayment",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified 835 Electronic Remittance Advice (ERA) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        }
+                    },
+                    {
+                        "name": "coordinationOfBenefits",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified coordination of benefits (COB) checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionFilterValue"
+                        }
+                    },
+                    {
+                        "name": "unsolicitedClaimAttachment",
+                        "in": "query",
+                        "description": "Filter for matching payers with the specified unsolicited 275 claim attachments support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+                        "schema": {
+                            "$ref": "#/components/schemas/TransactionSupportValue"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "SearchPayers 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SearchPayersResponseContent"
+                                },
+                                "examples": {
+                                    "SearchPayers_example1": {
+                                        "summary": "Basic Search",
+                                        "description": "",
+                                        "value": {
+                                            "items": [
+                                                {
+                                                    "payer": {
+                                                        "stediId": "UPICO",
+                                                        "displayName": "Blue Cross Blue Shield of North Carolina",
+                                                        "primaryPayerId": "BCSNC",
+                                                        "aliases": [
+                                                            "1411",
+                                                            "560894904",
+                                                            "61473",
+                                                            "7472",
+                                                            "7814",
+                                                            "BCBS-NC",
+                                                            "BCSNC",
+                                                            "NCBCBS",
+                                                            "NCPNHP"
+                                                        ],
+                                                        "names": [
+                                                            "Blue Cross Blue Shield North Carolina"
+                                                        ],
+                                                        "transactionSupport": {
+                                                            "eligibilityCheck": "SUPPORTED",
+                                                            "claimStatus": "SUPPORTED",
+                                                            "professionalClaimSubmission": "SUPPORTED",
+                                                            "institutionalClaimSubmission": "SUPPORTED",
+                                                            "claimPayment": "ENROLLMENT_REQUIRED",
+                                                            "coordinationOfBenefits": "SUPPORTED",
+                                                            "dentalClaimSubmission": "SUPPORTED",
+                                                            "unsolicitedClaimAttachment": "SUPPORTED"
+                                                        }
+                                                    },
+                                                    "score": 5.42
+                                                }
+                                            ],
+                                            "stats": {
+                                                "total": 100,
+                                                "transactionSupport": {
+                                                    "eligibilityCheck": {
+                                                        "supported": 87,
+                                                        "notSupported": 8,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "claimStatus": {
+                                                        "supported": 92,
+                                                        "notSupported": 3,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "professionalClaimSubmission": {
+                                                        "supported": 85,
+                                                        "notSupported": 10,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "institutionalClaimSubmission": {
+                                                        "supported": 75,
+                                                        "notSupported": 15,
+                                                        "enrollmentRequired": 10
+                                                    },
+                                                    "claimPayment": {
+                                                        "supported": 45,
+                                                        "notSupported": 20,
+                                                        "enrollmentRequired": 35
+                                                    },
+                                                    "coordinationOfBenefits": {
+                                                        "supported": 65,
+                                                        "notSupported": 25,
+                                                        "enrollmentRequired": 10
+                                                    },
+                                                    "dentalClaimSubmission": {
+                                                        "supported": 70,
+                                                        "notSupported": 20,
+                                                        "enrollmentRequired": 10
+                                                    },
+                                                    "unsolicitedClaimAttachment": {
+                                                        "supported": 55,
+                                                        "notSupported": 35,
+                                                        "enrollmentRequired": 10
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "SearchPayers_example2": {
+                                        "summary": "Search with multiple transaction filters (AND logic)",
+                                        "description": "",
+                                        "value": {
+                                            "items": [
+                                                {
+                                                    "payer": {
+                                                        "stediId": "UPICO",
+                                                        "displayName": "Blue Cross Blue Shield of North Carolina",
+                                                        "primaryPayerId": "BCSNC",
+                                                        "aliases": [
+                                                            "1411",
+                                                            "560894904",
+                                                            "61473",
+                                                            "7472",
+                                                            "7814",
+                                                            "BCBS-NC",
+                                                            "BCSNC",
+                                                            "NCBCBS",
+                                                            "NCPNHP"
+                                                        ],
+                                                        "names": [
+                                                            "Blue Cross Blue Shield North Carolina"
+                                                        ],
+                                                        "transactionSupport": {
+                                                            "eligibilityCheck": "SUPPORTED",
+                                                            "claimStatus": "SUPPORTED",
+                                                            "professionalClaimSubmission": "SUPPORTED",
+                                                            "institutionalClaimSubmission": "SUPPORTED",
+                                                            "claimPayment": "ENROLLMENT_REQUIRED",
+                                                            "coordinationOfBenefits": "SUPPORTED",
+                                                            "dentalClaimSubmission": "SUPPORTED",
+                                                            "unsolicitedClaimAttachment": "SUPPORTED"
+                                                        }
+                                                    },
+                                                    "score": 5.42
+                                                }
+                                            ],
+                                            "stats": {
+                                                "total": 80,
+                                                "transactionSupport": {
+                                                    "eligibilityCheck": {
+                                                        "supported": 80,
+                                                        "notSupported": 0,
+                                                        "enrollmentRequired": 0
+                                                    },
+                                                    "claimStatus": {
+                                                        "supported": 80,
+                                                        "notSupported": 0,
+                                                        "enrollmentRequired": 0
+                                                    },
+                                                    "professionalClaimSubmission": {
+                                                        "supported": 70,
+                                                        "notSupported": 5,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "institutionalClaimSubmission": {
+                                                        "supported": 60,
+                                                        "notSupported": 15,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "claimPayment": {
+                                                        "supported": 40,
+                                                        "notSupported": 15,
+                                                        "enrollmentRequired": 25
+                                                    },
+                                                    "coordinationOfBenefits": {
+                                                        "supported": 55,
+                                                        "notSupported": 20,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "dentalClaimSubmission": {
+                                                        "supported": 60,
+                                                        "notSupported": 15,
+                                                        "enrollmentRequired": 5
+                                                    },
+                                                    "unsolicitedClaimAttachment": {
+                                                        "supported": 45,
+                                                        "notSupported": 30,
+                                                        "enrollmentRequired": 5
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "504": {
+                        "description": "GatewayTimeoutException 504 response"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -23240,7 +23617,7 @@
                         "items": {
                             "$ref": "#/components/schemas/PayerRecord"
                         },
-                        "description": "Payers that Stedi supports for eligibility checks, claim submission, claim status, and claim payment (ERAs). Results are returned in alphabetical order of the Stedi ID."
+                        "description": "Payers that Stedi supports for each transaction type. Results are returned in alphabetical order of the Stedi ID."
                     }
                 },
                 "required": [
@@ -29195,6 +29572,163 @@
                     "Insured or Subscriber"
                 ]
             },
+            "SearchPayerRecord": {
+                "type": "object",
+                "properties": {
+                    "stediId": {
+                        "type": "string",
+                        "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated."
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "The payer's business name, such as Cigna or Aetna. This is the name most commonly used to identify the payer."
+                    },
+                    "primaryPayerId": {
+                        "type": "string",
+                        "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards."
+                    },
+                    "aliases": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Alternative IDs associated with a payer. If a payer changes their `primaryPayerId`, aliases allow you to continue sending transactions to the payer using the old ID uninterrupted."
+                    },
+                    "names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "Alternative names associated with a payer. These additional names help you search for and identify payers using the name most familiar to your organization."
+                    },
+                    "transactionSupport": {
+                        "$ref": "#/components/schemas/SearchPayerTransactionSupport"
+                    },
+                    "employerIdentificationNumbers": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "pattern": "^[0-9]{2}-[0-9]{7}$",
+                            "description": "A valid Employer Identification Number (EIN) in the format XX-XXXXXXX"
+                        },
+                        "description": "Employer Identification Numbers (EINs) associated with this payer."
+                    },
+                    "enrollment": {
+                        "$ref": "#/components/schemas/EnrollmentInfo",
+                        "description": "Enrollment-related information for this payer."
+                    }
+                }
+            },
+            "SearchPayerTransactionSupport": {
+                "type": "object",
+                "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, and coordination of benefits checks.\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
+                "properties": {
+                    "eligibilityCheck": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 270 eligibility checks to this payer."
+                    },
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 276 claim status requests to this payer."
+                    },
+                    "professionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837P professional claims to this payer."
+                    },
+                    "institutionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837I institutional claims to this payer."
+                    },
+                    "claimPayment": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+                    },
+                    "coordinationOfBenefits": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Coordination of Benefits (COB) support."
+                    },
+                    "dentalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send 837D dental claims to this payer."
+                    },
+                    "unsolicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/TransactionSupportValue",
+                        "description": "Whether you can send unsolicited claim attachments to this payer."
+                    }
+                },
+                "required": [
+                    "claimPayment",
+                    "claimStatus",
+                    "coordinationOfBenefits",
+                    "dentalClaimSubmission",
+                    "eligibilityCheck",
+                    "institutionalClaimSubmission",
+                    "professionalClaimSubmission",
+                    "unsolicitedClaimAttachment"
+                ]
+            },
+            "SearchPayersResponseContent": {
+                "type": "object",
+                "properties": {
+                    "nextPageToken": {
+                        "type": "string",
+                        "maxLength": 1024,
+                        "minLength": 1,
+                        "description": "The token used for pagination"
+                    },
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/SearchResult"
+                        },
+                        "description": "Matching payers sorted by relevance. Each payer record includes a score starting at 0 that indicates how relevant it is to the search query. Higher scores indicate a more relevant match."
+                    },
+                    "stats": {
+                        "$ref": "#/components/schemas/SearchResultsStats",
+                        "description": "Statistics about the search results, including the total number of payers matching the search query and the number of payers supported per transaction type."
+                    }
+                },
+                "required": [
+                    "items",
+                    "stats"
+                ]
+            },
+            "SearchResult": {
+                "type": "object",
+                "properties": {
+                    "payer": {
+                        "$ref": "#/components/schemas/SearchPayerRecord",
+                        "description": "A payer record matching the search query."
+                    },
+                    "score": {
+                        "type": "number",
+                        "description": "A relevance score indicating how well this payer matched the search query. Higher scores are better matches. The minimum score is 0.",
+                        "format": "double"
+                    }
+                },
+                "required": [
+                    "payer",
+                    "score"
+                ]
+            },
+            "SearchResultsStats": {
+                "type": "object",
+                "properties": {
+                    "total": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Total number of payers matching the search query."
+                    },
+                    "transactionSupport": {
+                        "$ref": "#/components/schemas/TransactionSupportStats",
+                        "description": "Number of matching payers supported per transaction type."
+                    }
+                },
+                "required": [
+                    "total",
+                    "transactionSupport"
+                ]
+            },
             "SecondaryIdentifierTypeCode": {
                 "type": "string",
                 "description": "Code identifying the type of secondary identifier. Can be set to `2U` - Payer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners. You should only set this to `2U` when you set the `primaryIdentifierTypeCode` to `XV`.",
@@ -30916,6 +31450,16 @@
                     "O"
                 ]
             },
+            "TransactionFilterValue": {
+                "type": "string",
+                "description": "Transaction support filter values. When multiple transaction filters are specified, they are combined with AND logic (payers must satisfy **all** criteria).",
+                "enum": [
+                    "SUPPORTED",
+                    "NOT_SUPPORTED",
+                    "ENROLLMENT_REQUIRED",
+                    "EITHER"
+                ]
+            },
             "TransactionIdentifier": {
                 "type": "object",
                 "properties": {
@@ -30981,12 +31525,101 @@
                     "unsolicitedClaimAttachment"
                 ]
             },
+            "TransactionSupportStats": {
+                "type": "object",
+                "properties": {
+                    "eligibilityCheck": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 270 eligibility checks."
+                    },
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 276/277 real-time claim status."
+                    },
+                    "professionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 837 professional claims."
+                    },
+                    "dentalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 837 dental claims."
+                    },
+                    "institutionalClaimSubmission": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 837 institutional claims."
+                    },
+                    "claimPayment": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 835 Electronic Remittance Advice (ERAs)."
+                    },
+                    "coordinationOfBenefits": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support coordination of benefits checks."
+                    },
+                    "unsolicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/TransactionSupportStatsItem",
+                        "description": "Number of matching payers that support 275 unsolicited claim attachments."
+                    }
+                },
+                "required": [
+                    "claimPayment",
+                    "claimStatus",
+                    "coordinationOfBenefits",
+                    "dentalClaimSubmission",
+                    "eligibilityCheck",
+                    "institutionalClaimSubmission",
+                    "professionalClaimSubmission",
+                    "unsolicitedClaimAttachment"
+                ]
+            },
+            "TransactionSupportStatsItem": {
+                "type": "object",
+                "properties": {
+                    "supported": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Number of matching payers that support this transaction type."
+                    },
+                    "notSupported": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Number of matching payers that don't support this transaction type."
+                    },
+                    "enrollmentRequired": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "Number of matching payers that require [transaction enrollment](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this transaction type."
+                    }
+                },
+                "required": [
+                    "enrollmentRequired",
+                    "notSupported",
+                    "supported"
+                ]
+            },
             "TransactionSupportValue": {
                 "type": "string",
                 "enum": [
                     "SUPPORTED",
                     "NOT_SUPPORTED",
                     "ENROLLMENT_REQUIRED"
+                ]
+            },
+            "UnauthorizedExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response when the authorizer failed to authenticate the caller.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
                 ]
             },
             "UnitForMeasurement": {
