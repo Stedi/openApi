@@ -1844,7 +1844,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseDependent"
                         },
-                        "description": "Information about dependents listed in the original eligibility check request. Note that a dependent submitted in the request may be returned in the `subscriber` object. \n \n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
+                        "description": "Information about the patient when they are a dependent. When the patient is a dependent, this array will contain a single object with the patient's information. When the patient is a subscriber, or considered to be a subscriber because they have a unique member ID, their information is returned in the `subscriber` object, and this array will be empty.\n\n When present, this object will always include the dependent's name for identification, but many payers will also return the date of birth and other identifying information."
                     },
                     "benefitsInformation": {
                         "type": "array",
