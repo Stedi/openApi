@@ -3257,15 +3257,6 @@
                                 "value": "005010X222A1-837"
                             }
                         }
-                    },
-                    {
-                        "name": "Stedi-Validation",
-                        "in": "header",
-                        "description": "Set to `snip` for [enhanced validation](https://www.stedi.com/docs/healthcare/enhanced-claim-validation) on this claim. Enhanced validation uses hundreds of additional 'edits' (the industry term for validation rules) to increase claims acceptance rates. Stedi also monitors your 277 rejections to proactively build rules based on previous failures. When possible, Stedi automatically fixes common errors (such as invalid date/time formats and character encoding issues) before sending the claim, reducing payer rejections. There is an **additional cost per claim submission** when you use enhanced validation. Please reach out to support for access and pricing information.",
-                        "schema": {
-                            "type": "string",
-                            "description": "Set to `snip` for [enhanced validation](https://www.stedi.com/docs/healthcare/enhanced-claim-validation) on this claim. Enhanced validation uses hundreds of additional 'edits' (the industry term for validation rules) to increase claims acceptance rates. Stedi also monitors your 277 rejections to proactively build rules based on previous failures. When possible, Stedi automatically fixes common errors (such as invalid date/time formats and character encoding issues) before sending the claim, reducing payer rejections. There is an **additional cost per claim submission** when you use enhanced validation. Please reach out to support for access and pricing information."
-                        }
                     }
                 ],
                 "responses": {
@@ -3506,15 +3497,6 @@
                                 "description": "",
                                 "value": "004010-855"
                             }
-                        }
-                    },
-                    {
-                        "name": "Stedi-Validation",
-                        "in": "header",
-                        "description": "Set to `snip` for [enhanced validation](https://www.stedi.com/docs/healthcare/enhanced-claim-validation) on this claim. Enhanced validation uses hundreds of additional 'edits' (the industry term for validation rules) to increase claims acceptance rates. Stedi also monitors your 277 rejections to proactively build rules based on previous failures. When possible, Stedi automatically fixes common errors (such as invalid date/time formats and character encoding issues) before sending the claim, reducing payer rejections. There is an **additional cost per claim submission** when you use enhanced validation. Please reach out to support for access and pricing information.",
-                        "schema": {
-                            "type": "string",
-                            "description": "Set to `snip` for [enhanced validation](https://www.stedi.com/docs/healthcare/enhanced-claim-validation) on this claim. Enhanced validation uses hundreds of additional 'edits' (the industry term for validation rules) to increase claims acceptance rates. Stedi also monitors your 277 rejections to proactively build rules based on previous failures. When possible, Stedi automatically fixes common errors (such as invalid date/time formats and character encoding issues) before sending the claim, reducing payer rejections. There is an **additional cost per claim submission** when you use enhanced validation. Please reach out to support for access and pricing information."
                         }
                     }
                 ],
@@ -18424,7 +18406,7 @@
                     },
                     "x12": {
                         "type": "string",
-                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                        "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf the 999 is returned in this property, many of the other response properties will be empty, as they are mapped to information in the 271."
                     }
                 }
             },
@@ -18677,7 +18659,7 @@
                     },
                     "x12": {
                         "type": "string",
-                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                        "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf the 999 is returned in this property, many of the other response properties will be empty, as they are mapped to information in the 271."
                     },
                     "planStatus": {
                         "type": "array",
@@ -18901,7 +18883,7 @@
                     },
                     "x12": {
                         "type": "string",
-                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                        "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf the 999 is returned in this property, many of the other response properties will be empty, as they are mapped to information in the 271."
                     },
                     "planStatus": {
                         "type": "array",
@@ -19048,6 +19030,36 @@
                     "G1"
                 ]
             },
+            "EnrollmentExperience": {
+                "type": "object",
+                "description": "Indicates the experience required for enrollment for a transaction type",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/EnrollmentExperienceType",
+                        "description": "Indicates the type of enrollment experience"
+                    },
+                    "timeframe": {
+                        "$ref": "#/components/schemas/EnrollmentExperienceTimeframe",
+                        "description": "Indicates the timeframe for enrollment"
+                    }
+                }
+            },
+            "EnrollmentExperienceTimeframe": {
+                "type": "string",
+                "enum": [
+                    "INSTANT",
+                    "HOURS",
+                    "DAYS",
+                    "WEEKS"
+                ]
+            },
+            "EnrollmentExperienceType": {
+                "type": "string",
+                "enum": [
+                    "ONE_CLICK",
+                    "MULTI_STEP"
+                ]
+            },
             "EnrollmentInfo": {
                 "type": "object",
                 "description": "Information about enrollment requirements for the payer",
@@ -19055,6 +19067,10 @@
                     "ptanRequired": {
                         "type": "boolean",
                         "description": "Indicates whether a PTAN (Provider Transaction Access Number) is required for enrollment"
+                    },
+                    "transactionEnrollmentExperience": {
+                        "$ref": "#/components/schemas/TransactionEnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment"
                     }
                 }
             },
@@ -25413,6 +25429,10 @@
                     "enrollment": {
                         "$ref": "#/components/schemas/EnrollmentInfo",
                         "description": "Enrollment-related information for this payer."
+                    },
+                    "parentPayerGroupId": {
+                        "type": "string",
+                        "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities."
                     }
                 }
             },
@@ -27325,7 +27345,7 @@
                     },
                     "x12": {
                         "type": "string",
-                        "description": "The raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer."
+                        "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf the 999 is returned in this property, many of the other response properties will be empty, as they are mapped to information in the 271."
                     },
                     "planStatus": {
                         "type": "array",
@@ -31449,6 +31469,48 @@
                     "M",
                     "O"
                 ]
+            },
+            "TransactionEnrollmentExperience": {
+                "type": "object",
+                "description": "Indicates the experience required for enrollment for each transaction type",
+                "properties": {
+                    "eligibilityInquiry": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for eligibility inquiries"
+                    },
+                    "claimStatusInquiry": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for claim status inquiries"
+                    },
+                    "professionalClaim": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for professional claims"
+                    },
+                    "institutionalClaim": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for institutional claims"
+                    },
+                    "dentalClaim": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for dental claims"
+                    },
+                    "claimPayment": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for claim payments"
+                    },
+                    "coordinationOfBenefits": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for coordination of benefits"
+                    },
+                    "solicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for solicited claim attachments"
+                    },
+                    "unsolicitedClaimAttachment": {
+                        "$ref": "#/components/schemas/EnrollmentExperience",
+                        "description": "Indicates the experience required for enrollment for unsolicited claim attachments"
+                    }
+                }
             },
             "TransactionFilterValue": {
                 "type": "string",

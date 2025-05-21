@@ -164,6 +164,26 @@
                             "description": "The end date to filter enrollments created up to this date.",
                             "format": "date-time"
                         }
+                    },
+                    {
+                        "name": "statusUpdatedFrom",
+                        "in": "query",
+                        "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                            "format": "date-time"
+                        }
+                    },
+                    {
+                        "name": "statusUpdatedTo",
+                        "in": "query",
+                        "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                            "format": "date-time"
+                        }
                     }
                 ],
                 "responses": {
@@ -197,7 +217,8 @@
                                                         }
                                                     },
                                                     "status": "LIVE",
-                                                    "source": "API"
+                                                    "source": "API",
+                                                    "statusLastUpdatedAt": "2025-05-01T12:00:00Z"
                                                 }
                                             ]
                                         }
@@ -333,7 +354,8 @@
                                                 "name": "UnitedHealthcare",
                                                 "stediPayerId": "87726"
                                             },
-                                            "source": "API"
+                                            "source": "API",
+                                            "statusLastUpdatedAt": "2023-11-07T05:31:56Z"
                                         }
                                     }
                                 }
@@ -534,7 +556,8 @@
                                                 "name": "UnitedHealthcare",
                                                 "stediPayerId": "87726"
                                             },
-                                            "source": "API"
+                                            "source": "API",
+                                            "statusLastUpdatedAt": "2023-11-07T06:15:22Z"
                                         }
                                     }
                                 }
@@ -695,7 +718,8 @@
                                                 "name": "UnitedHealthcare",
                                                 "stediPayerId": "87726"
                                             },
-                                            "source": "API"
+                                            "source": "API",
+                                            "statusLastUpdatedAt": "2024-11-07T05:31:56Z"
                                         }
                                     }
                                 }
@@ -1479,6 +1503,11 @@
                         "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
                         "format": "date-time"
                     },
+                    "statusLastUpdatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
+                        "format": "date-time"
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -1526,6 +1555,7 @@
                     "payer",
                     "primaryContact",
                     "provider",
+                    "statusLastUpdatedAt",
                     "transactions",
                     "userEmail"
                 ]
@@ -1842,6 +1872,11 @@
                         "type": "string",
                         "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
                         "format": "date-time"
+                    },
+                    "statusLastUpdatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
+                        "format": "date-time"
                     }
                 },
                 "required": [
@@ -1850,6 +1885,7 @@
                     "provider",
                     "source",
                     "status",
+                    "statusLastUpdatedAt",
                     "transactions"
                 ]
             },
@@ -1876,6 +1912,11 @@
                     "submittedAt": {
                         "type": "string",
                         "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
+                        "format": "date-time"
+                    },
+                    "statusLastUpdatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
                         "format": "date-time"
                     },
                     "transactions": {
@@ -1925,6 +1966,7 @@
                     "payer",
                     "primaryContact",
                     "provider",
+                    "statusLastUpdatedAt",
                     "transactions",
                     "userEmail"
                 ]
@@ -2262,6 +2304,11 @@
                         "description": "The date and time when the enrollment was submitted. If the enrollment is in draft status, `submittedAt` is not present. When the enrollment transitions from draft to submitted, `submittedAt` will be updated to the submission time. If the enrollment was created and submitted immediately, `submittedAt` will be equal or close to `createdAt`.",
                         "format": "date-time"
                     },
+                    "statusLastUpdatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
+                        "format": "date-time"
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2309,6 +2356,7 @@
                     "payer",
                     "primaryContact",
                     "provider",
+                    "statusLastUpdatedAt",
                     "transactions",
                     "userEmail"
                 ]
