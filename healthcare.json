@@ -18343,7 +18343,7 @@
                 "type": "object",
                 "properties": {
                     "meta": {
-                        "$ref": "#/components/schemas/EligibilityMetaData"
+                        "$ref": "#/components/schemas/EligibilityMetaDataJSON"
                     },
                     "controlNumber": {
                         "type": "string",
@@ -18596,7 +18596,7 @@
                 "type": "object",
                 "properties": {
                     "meta": {
-                        "$ref": "#/components/schemas/EligibilityMetaData"
+                        "$ref": "#/components/schemas/EligibilityMetaDataJSON"
                     },
                     "controlNumber": {
                         "type": "string",
@@ -18760,7 +18760,7 @@
                     "MA"
                 ]
             },
-            "EligibilityMetaData": {
+            "EligibilityMetaDataJSON": {
                 "type": "object",
                 "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
                 "properties": {
@@ -18782,11 +18782,41 @@
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "The unique ID Stedi assigns to this request."
+                        "description": "The transaction identifier the payer sends in the response. This should be the same as the `outboundTraceId`."
                     },
                     "outboundTraceId": {
                         "type": "string",
                         "description": "The unique ID Stedi assigns to this request."
+                    }
+                }
+            },
+            "EligibilityMetaDataRawX12": {
+                "type": "object",
+                "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
+                "properties": {
+                    "senderId": {
+                        "type": "string",
+                        "description": "The sender ID Stedi assigns to this request."
+                    },
+                    "submitterId": {
+                        "type": "string",
+                        "description": "The submitter ID Stedi assigns to this request."
+                    },
+                    "billerId": {
+                        "type": "string",
+                        "description": "The biller ID Stedi assigns to this request."
+                    },
+                    "applicationMode": {
+                        "$ref": "#/components/schemas/ApplicationModes",
+                        "description": "The type of data in the request. This is either `production` when you send a request with a standard API key or `test` when you send a request in test mode with a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types). The `information` value is not currently used.\n\nPayers may sometimes return other non-compliant values."
+                    },
+                    "traceId": {
+                        "type": "string",
+                        "description": "The transaction identifier in the response's `BHT03` element. This should be the same as the `outboundTraceId`."
+                    },
+                    "outboundTraceId": {
+                        "type": "string",
+                        "description": "The transaction identifier in the request's `BHT03` element."
                     }
                 }
             },
@@ -18820,7 +18850,7 @@
                 "type": "object",
                 "properties": {
                     "meta": {
-                        "$ref": "#/components/schemas/EligibilityMetaData"
+                        "$ref": "#/components/schemas/EligibilityMetaDataRawX12"
                     },
                     "controlNumber": {
                         "type": "string",
@@ -27282,7 +27312,7 @@
                 "type": "object",
                 "properties": {
                     "meta": {
-                        "$ref": "#/components/schemas/EligibilityMetaData"
+                        "$ref": "#/components/schemas/EligibilityMetaDataRawX12"
                     },
                     "controlNumber": {
                         "type": "string",
