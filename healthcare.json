@@ -19060,36 +19060,6 @@
                     "G1"
                 ]
             },
-            "EnrollmentExperience": {
-                "type": "object",
-                "description": "Details about the enrollment experience for a specific transaction type.",
-                "properties": {
-                    "type": {
-                        "$ref": "#/components/schemas/EnrollmentExperienceType"
-                    },
-                    "timeframe": {
-                        "$ref": "#/components/schemas/EnrollmentExperienceTimeframe"
-                    }
-                }
-            },
-            "EnrollmentExperienceTimeframe": {
-                "type": "string",
-                "description": "Stedi's expected timeframe for completing the transaction enrollment process. `INSTANT` indicates that the enrollment will be in `LIVE` status within minutes of submitting the request.",
-                "enum": [
-                    "INSTANT",
-                    "HOURS",
-                    "DAYS",
-                    "WEEKS"
-                ]
-            },
-            "EnrollmentExperienceType": {
-                "type": "string",
-                "description": "Whether transaction enrollment is single or multi-step.\n  - `ONE_CLICK` indicates that once you submit the transaction enrollment request, Stedi can complete the rest of the enrollment process without any further action from you.\n  - `MULTI_STEP` indicates that you must complete additional steps to finish the enrollment process. Customer support will reach out with clear instructions explaining how to complete any remaining steps.",
-                "enum": [
-                    "ONE_CLICK",
-                    "MULTI_STEP"
-                ]
-            },
             "EnrollmentInfo": {
                 "type": "object",
                 "description": "Information about enrollment requirements for the payer",
@@ -19098,11 +19068,19 @@
                         "type": "boolean",
                         "description": "Whether a PTAN (Provider Transaction Access Number) is required for transaction enrollment.\n\nThe Provider Transaction Access Number (PTAN) is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
                     },
-                    "transactionEnrollmentExperience": {
-                        "$ref": "#/components/schemas/TransactionEnrollmentExperience",
-                        "description": "Information about the transaction enrollment requirements and expected timeframes for each transaction type."
+                    "transactionEnrollmentProcesses": {
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcesses",
+                        "description": "The enrollment support for each transaction and their [enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment)."
                     }
                 }
+            },
+            "EnrollmentProcessType": {
+                "type": "string",
+                "description": "Whether transaction enrollment is single or multi-step.\n  - `ONE_CLICK` indicates that once you submit the transaction enrollment request, Stedi can complete the rest of the enrollment process without any further action from you.\n  - `MULTI_STEP` indicates that you must complete additional steps to finish the enrollment process. Customer support will reach out with clear instructions explaining how to complete any remaining steps.",
+                "enum": [
+                    "ONE_CLICK",
+                    "MULTI_STEP"
+                ]
             },
             "EntityIdentificationCode": {
                 "type": "string",
@@ -31500,41 +31478,50 @@
                     "O"
                 ]
             },
-            "TransactionEnrollmentExperience": {
+            "TransactionEnrollmentProcess": {
+                "type": "object",
+                "description": "Details about the enrollment process for a specific transaction type.",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/EnrollmentProcessType"
+                    }
+                }
+            },
+            "TransactionEnrollmentProcesses": {
                 "type": "object",
                 "description": "Information about the transaction enrollment requirements and expected timeframes for each transaction type.",
                 "properties": {
                     "eligibilityInquiry": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for eligibility checks with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for eligibility checks with this payer."
                     },
                     "claimStatusInquiry": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for real-time claim status requests with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for real-time claim status requests with this payer."
                     },
                     "professionalClaim": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for professional claim submission with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for professional claim submission with this payer."
                     },
                     "institutionalClaim": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for institutional claim submission with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for institutional claim submission with this payer."
                     },
                     "dentalClaim": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for dental claim submission with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for dental claim submission with this payer."
                     },
                     "claimPayment": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for Electronic Remittance Advice (ERAs) with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs) with this payer."
                     },
                     "coordinationOfBenefits": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for coordination of benefits (COB) checks with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for coordination of benefits (COB) checks with this payer."
                     },
                     "unsolicitedClaimAttachment": {
-                        "$ref": "#/components/schemas/EnrollmentExperience",
-                        "description": "Details about the enrollment experience for unsolicited claim attachments with this payer."
+                        "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+                        "description": "Details about the enrollment process for unsolicited claim attachments with this payer."
                     }
                 }
             },
