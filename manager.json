@@ -1767,7 +1767,7 @@
                 "type": "object",
                 "properties": {
                     "meta": {
-                        "$ref": "#/components/schemas/EligibilityMetaData"
+                        "$ref": "#/components/schemas/EligibilityMetaDataJSON"
                     },
                     "controlNumber": {
                         "type": "string",
@@ -3180,7 +3180,7 @@
                     "MA"
                 ]
             },
-            "EligibilityMetaData": {
+            "EligibilityMetaDataJSON": {
                 "type": "object",
                 "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
                 "properties": {
@@ -3202,7 +3202,7 @@
                     },
                     "traceId": {
                         "type": "string",
-                        "description": "The unique ID Stedi assigns to this request."
+                        "description": "The transaction identifier the payer sends in the response. This should be the same as the `outboundTraceId`."
                     },
                     "outboundTraceId": {
                         "type": "string",
