@@ -1,0 +1,652 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Stedi Healthcare Claims",
+        "version": "2025-03-07",
+        "contact": {
+            "email": "healthcare@stedi.com"
+        },
+        "license": {
+            "name": "Proprietary",
+            "url": "https://stedi.com"
+        }
+    },
+    "paths": {
+        "/claim-attachments/file": {
+            "post": {
+                "operationId": "CreateClaimAttachmentFile",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateClaimAttachmentFileRequestContent"
+                            },
+                            "examples": {
+                                "CreateClaimAttachmentFile_example1": {
+                                    "summary": "Create claim attachment file",
+                                    "description": "",
+                                    "value": {
+                                        "contentType": "application/pdf"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "CreateClaimAttachmentFile 201 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateClaimAttachmentFileResponseContent"
+                                },
+                                "examples": {
+                                    "CreateClaimAttachmentFile_example1": {
+                                        "summary": "Create claim attachment file",
+                                        "description": "",
+                                        "value": {
+                                            "attachmentId": "d3b3e3e3-3e3e-3e3e-3e3e-3e3e3e3e3e3e",
+                                            "uploadUrl": "https://s3.amazonaws.com/bucket/key"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/claim-attachments/raw-x12-submission": {
+            "post": {
+                "operationId": "SubmitClaimAttachmentRawX12",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubmitClaimAttachmentRawX12RequestContent"
+                            },
+                            "examples": {
+                                "SubmitClaimAttachmentRawX12_example1": {
+                                    "summary": "Submit raw X12 claim attachment",
+                                    "description": "",
+                                    "value": {
+                                        "x12": "ISA*00*          *00*          *ZZ*STEDI          *ZZ*CIGNA          *250227*2140*^*00501*000000001*0*T*>~GS*PI*STEDI*CIGNA*20250227*214016*1*X*005010X210~ST*275*1001*005010X210~BGN*11*0001*20060915~NM1*PR*2*CIGNA*****XV*62308~NM1*41*2*XYZ SERVICES*****46*1999999976~NM1*1P*2*THE HOSPITAL*****XX*3999000B01~NX1*1P~N3*123 Main~N4*Miami*FL*11111~NM1*QC*1*DOE*JOHN*J***MI*987654320~REF*EJ*DOE123~REF*EA*AAAAA12345~DTP*472*D8*20060812~LX*1~TRN*2*1822634840~STC*R4>18626-2>>LOI~DTP*368*D8*20060915~CAT*AE*TX~EFI*05~BIN*8*U3RlZGk=~SE*20*1001~GE*1*1~IEA*1*000000001~"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "SubmitClaimAttachmentRawX12 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubmitClaimAttachmentRawX12ResponseContent"
+                                },
+                                "examples": {
+                                    "SubmitClaimAttachmentRawX12_example1": {
+                                        "summary": "Submit raw X12 claim attachment",
+                                        "description": "",
+                                        "value": {
+                                            "tradingPartnerServiceId": "PAYER123",
+                                            "claimAttachmentReference": {
+                                                "correlationId": "att-123456",
+                                                "patientControlNumber": "PCN123456",
+                                                "timeOfResponse": "2025-03-07T12:34:56Z"
+                                            },
+                                            "meta": {
+                                                "traceId": "4d2b3c4e-1111-4222-b333-5a6f7e8d9a00"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/claim-attachments/submission": {
+            "post": {
+                "operationId": "SubmitClaimAttachment",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/SubmitClaimAttachmentRequestContent"
+                            },
+                            "examples": {
+                                "SubmitClaimAttachment_example1": {
+                                    "summary": "Submit claim attachment",
+                                    "description": "",
+                                    "value": {
+                                        "usageIndicator": "T",
+                                        "relatedExecutionId": "9b491769-052e-4738-93d6-e0b5f6d83f53",
+                                        "claimInformation": {
+                                            "serviceLines": [
+                                                {
+                                                    "providerAttachmentControlNumber": "ATTACH123",
+                                                    "attachmentDetails": {
+                                                        "attachmentId": "4a1b2c3d-4567-89ab-cdef-1234567890ab"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "SubmitClaimAttachment 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/SubmitClaimAttachmentResponseContent"
+                                },
+                                "examples": {
+                                    "SubmitClaimAttachment_example1": {
+                                        "summary": "Submit claim attachment",
+                                        "description": "",
+                                        "value": {
+                                            "tradingPartnerServiceId": "PAYER123",
+                                            "claimAttachmentReference": {
+                                                "correlationId": "att-123456",
+                                                "patientControlNumber": "PCN123456",
+                                                "timeOfResponse": "2025-03-07T12:34:56Z"
+                                            },
+                                            "meta": {
+                                                "traceId": "4a1b2c3d-4567-89ab-cdef-1234567890ab"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AttachmentDetails": {
+                "type": "object",
+                "description": "Details about the claim attachment.",
+                "properties": {
+                    "attachmentId": {
+                        "type": "string",
+                        "maxLength": 36,
+                        "minLength": 36,
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-submit-claim-attachment) response."
+                    }
+                },
+                "required": [
+                    "attachmentId"
+                ]
+            },
+            "ClaimAttachmentReference": {
+                "type": "object",
+                "description": "Information about the claim attachment.",
+                "properties": {
+                    "correlationId": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "An opaque string identifier Stedi assigns to the claim attachment. You can use it for tracking purposes and when contacting Stedi support."
+                    },
+                    "patientControlNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The `patientControlNumber` from the claim associated with this attachment, if supplied. This is a unique identifier that you assigned to the related claim so you can track the claim and correlate it with responses from the payer."
+                    },
+                    "timeOfResponse": {
+                        "type": "string",
+                        "description": "A timestamp in [RFC 3339 format](https://datatracker.ietf.org/doc/html/rfc3339) for Stedi's response to the submission. For example: `2025-03-07T12:34:56Z`.",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ClaimInformation": {
+                "type": "object",
+                "description": "Information about the associated 837 claim. This information is used to link the attachment to the claim and any specific service lines.",
+                "properties": {
+                    "serviceLines": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceLine"
+                        },
+                        "description": "A list of service lines in the claim."
+                    }
+                },
+                "required": [
+                    "serviceLines"
+                ]
+            },
+            "ContentType": {
+                "type": "string",
+                "description": "Allowed content types for claim attachments.",
+                "enum": [
+                    "application/pdf",
+                    "image/tiff",
+                    "image/jpeg",
+                    "image/jpg",
+                    "image/png"
+                ]
+            },
+            "CreateClaimAttachmentFileRequestContent": {
+                "type": "object",
+                "description": "Request a pre-signed URL to upload a claim attachment file.",
+                "properties": {
+                    "contentType": {
+                        "$ref": "#/components/schemas/ContentType",
+                        "description": "The MIME type of the attachment file. For example: `image/png` or `application/pdf`."
+                    }
+                },
+                "required": [
+                    "contentType"
+                ]
+            },
+            "CreateClaimAttachmentFileResponseContent": {
+                "type": "object",
+                "description": "Receive the attachment ID and upload URL.",
+                "properties": {
+                    "attachmentId": {
+                        "type": "string",
+                        "maxLength": 36,
+                        "minLength": 36,
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "description": "Unique identifier for this attachment. You will use this ID to associate the attachment file with the claim when you submit it to the payer."
+                    },
+                    "uploadUrl": {
+                        "type": "string",
+                        "maxLength": 2000,
+                        "minLength": 1,
+                        "description": "A pre-signed URL you can use to upload the file with a `PUT` request. The `PUT` request must include a `Content-Type` header that matches the MIME type you specified for the attachment file."
+                    }
+                },
+                "required": [
+                    "attachmentId",
+                    "uploadUrl"
+                ]
+            },
+            "InternalFailureExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response when an unexpected error occurred while processing request.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "ResourceNotFoundExceptionResponseContent": {
+                "type": "object",
+                "description": "Exception returned when the specified resource cannot be found.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable error message explaining why the resource could not be found."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Unique error code identifying the specific type of resource not found error."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "ResponseMeta": {
+                "type": "object",
+                "description": "Metadata from Stedi about the request.",
+                "properties": {
+                    "traceId": {
+                        "type": "string",
+                        "maxLength": 36,
+                        "minLength": 36,
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "description": "A unique identifier assigned to the processed file within the Stedi platform. This is also known as the file execution ID."
+                    }
+                }
+            },
+            "ServiceLine": {
+                "type": "object",
+                "description": "If the attachment applies to the entire claim, submit one object with the `providerControlNumber` property empty. If the attachment applies to a specific service line or multiple service lines within the claim, submit one object for each service line with the `providerControlNumber` property populated.",
+                "properties": {
+                    "attachmentDetails": {
+                        "$ref": "#/components/schemas/AttachmentDetails",
+                        "description": "Identify the attachment file you want to include in the generated 275 transaction."
+                    },
+                    "providerAttachmentControlNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The value you submitted in the claim's `attachmentControlNumber` property. It will allow the payer to associate this attachment with the claim that's already in their system."
+                    },
+                    "providerControlNumber": {
+                        "type": "string",
+                        "maxLength": 50,
+                        "minLength": 1,
+                        "description": "The value you submitted in a specific service line's `providerControlNumber` property. Set this property to indicate that the attachment should be associated with a specific service line and not the entire claim.\n\nThis doesn't apply to dental claims, which can only identify attachments at the claim level."
+                    }
+                },
+                "required": [
+                    "attachmentDetails",
+                    "providerAttachmentControlNumber"
+                ]
+            },
+            "SubmitClaimAttachmentRawX12RequestContent": {
+                "type": "object",
+                "description": "Request to submit a raw X12 claim attachment",
+                "properties": {
+                    "x12": {
+                        "type": "string",
+                        "maxLength": 6000000,
+                        "minLength": 1,
+                        "description": "The X12 EDI data for the claim attachment. This data must conform to the [275 X12 EDI specification](https://portal.stedi.com/app/guides/view/hipaa/patient-information-x210/01HQ4HZ8ZBY2CZGPCVVM8JTK22)."
+                    }
+                },
+                "required": [
+                    "x12"
+                ]
+            },
+            "SubmitClaimAttachmentRawX12ResponseContent": {
+                "type": "object",
+                "description": "Response from submitting a raw X12 claim attachment",
+                "properties": {
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "An ID for the payer you identified in the related transaction. This value may differ from the `tradingPartnerServiceId` you submitted in the original claim request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "claimAttachmentReference": {
+                        "$ref": "#/components/schemas/ClaimAttachmentReference",
+                        "description": "Information about the claim attachment."
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResponseMeta",
+                        "description": "Metadata from Stedi about the request."
+                    }
+                }
+            },
+            "SubmitClaimAttachmentRequestContent": {
+                "type": "object",
+                "description": "Submit a claim attachment.",
+                "properties": {
+                    "usageIndicator": {
+                        "$ref": "#/components/schemas/UsageIndicator",
+                        "description": "Whether you want to send a test or production claim. This property also allows you to filter claims in the Stedi portal by production or test data. By default, this property is set to `P` for production data. Use `T` to designate a claim as test data."
+                    },
+                    "relatedTransactionId": {
+                        "type": "string",
+                        "maxLength": 36,
+                        "minLength": 36,
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "description": "The transaction ID of the claim related to this attachment. You can find this value in the [transaction processed event](https://www.stedi.com/docs/healthcare/configure-webhooks#choosing-event-types) for the claim or on the claim's transaction details page in the Stedi portal.\n\nYou must provide either the `relatedTransactionId` or `relatedExecutionId` property in the request."
+                    },
+                    "relatedExecutionId": {
+                        "type": "string",
+                        "maxLength": 36,
+                        "minLength": 36,
+                        "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+                        "description": "The file execution ID of the claim related to this attachment. The referenced file must contain exactly one transaction, an 837 claim. You can find this value in the `meta.traceId` property of the claim submission API response or in the [file delivered](https://www.stedi.com/docs/healthcare/configure-webhooks#choosing-event-types) event Stedi generates when it delivers your claim to the payer.\n\nYou must provide either the `relatedTransactionId` or `relatedExecutionId` property in the request."
+                    },
+                    "claimInformation": {
+                        "$ref": "#/components/schemas/ClaimInformation",
+                        "description": "Information about the associated 837 claim."
+                    }
+                },
+                "required": [
+                    "claimInformation"
+                ]
+            },
+            "SubmitClaimAttachmentResponseContent": {
+                "type": "object",
+                "description": "Response from submitting a claim attachment",
+                "properties": {
+                    "tradingPartnerServiceId": {
+                        "type": "string",
+                        "maxLength": 80,
+                        "minLength": 2,
+                        "description": "An ID for the payer you identified in the related transaction. This value may differ from the `tradingPartnerServiceId` you submitted in the original claim request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer."
+                    },
+                    "claimAttachmentReference": {
+                        "$ref": "#/components/schemas/ClaimAttachmentReference",
+                        "description": "Information about the claim attachment."
+                    },
+                    "meta": {
+                        "$ref": "#/components/schemas/ResponseMeta",
+                        "description": "Metadata from Stedi about the request."
+                    }
+                }
+            },
+            "ThrottlingExceptionResponseContent": {
+                "type": "object",
+                "description": "The server response when usage plan or account-level throttling limits exceeded.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "Human readable exception message."
+                    },
+                    "code": {
+                        "type": "string",
+                        "description": "Classification of the exception type."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            },
+            "UsageIndicator": {
+                "type": "string",
+                "description": "Indicates whether the claim is intended for production or testing.",
+                "enum": [
+                    "P",
+                    "T"
+                ]
+            },
+            "ValidationExceptionField": {
+                "type": "object",
+                "description": "Describes one specific validation failure for an input member.",
+                "properties": {
+                    "path": {
+                        "type": "string",
+                        "description": "A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints."
+                    },
+                    "message": {
+                        "type": "string",
+                        "description": "A detailed description of the validation failure."
+                    }
+                },
+                "required": [
+                    "message",
+                    "path"
+                ]
+            },
+            "ValidationExceptionResponseContent": {
+                "type": "object",
+                "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "description": "A summary of the validation failure."
+                    },
+                    "fieldList": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationExceptionField"
+                        },
+                        "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints."
+                    }
+                },
+                "required": [
+                    "message"
+                ]
+            }
+        },
+        "securitySchemes": {
+            "httpApiKeyAuth": {
+                "type": "apiKey",
+                "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "httpApiKeyAuth": []
+        }
+    ],
+    "x-stedi": {
+        "lifecycle": "general_availability",
+        "product": "claims",
+        "public": true
+    },
+    "tags": [],
+    "servers": [
+        {
+            "url": "https://claims.us.stedi.com/2025-03-07",
+            "description": "Production"
+        }
+    ]
+}
