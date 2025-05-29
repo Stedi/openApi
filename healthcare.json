@@ -10779,13 +10779,14 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
-                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
+                        "description": "An array of [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) related to the benefit type."
                     },
                     "serviceTypes": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ResponseEligibilityServiceType"
-                        }
+                        },
+                        "description": "The names of the service type codes listed in the `serviceTypeCodes` array."
                     },
                     "insuranceTypeCode": {
                         "$ref": "#/components/schemas/InsuranceTypeCode",
@@ -17330,13 +17331,14 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
-                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
+                        "description": "An array of [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) related to the benefit type."
                     },
                     "serviceTypes": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ResponseEligibilityServiceType"
-                        }
+                        },
+                        "description": "The names of the service type codes listed in the `serviceTypeCodes` array."
                     },
                     "insuranceTypeCode": {
                         "$ref": "#/components/schemas/InsuranceTypeCode",
@@ -26542,7 +26544,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ResponseEligibilityServiceTypeCode"
                         },
-                        "description": "Codes identifying the type of services. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n \n Note that the word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals."
+                        "description": "An array of [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) related to the benefit type."
                     }
                 }
             },
@@ -28840,7 +28842,7 @@
             },
             "ResponseEligibilityServiceType": {
                 "type": "string",
-                "description": "Payers may sometimes return other non-compliant values.",
+                "description": "The name of a service type code listed in the `serviceTypeCodes` array. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list of codes and their names. \n\nThe word physician in service type codes refers to any healthcare provider, including physician assistants, nurse practitioners, and other types of healthcare professionals.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "Medical Care",
                     "Surgical",
@@ -29033,7 +29035,7 @@
             },
             "ResponseEligibilityServiceTypeCode": {
                 "type": "string",
-                "description": "Payers may sometimes return other non-compliant values.",
+                "description": "A code identifying a type of service. For example, `7` - Anesthesia. Visit [Service Type Codes](https://www.stedi.com/docs/healthcare/send-eligibility-checks#service-type-codes) for a complete list. \n\n This list is specific to X12 version 005010, which is the mandated version for eligibility checks. It differs from the current [X12 Service Type Codes](https://x12.org/codes/service-type-codes) list, which applies to X12 versions later than 005010.\n\nPayers may sometimes return other non-compliant values.",
                 "enum": [
                     "1",
                     "2",
