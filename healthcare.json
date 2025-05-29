@@ -9757,7 +9757,8 @@
                                                             "coordinationOfBenefits": "SUPPORTED",
                                                             "dentalClaimSubmission": "SUPPORTED",
                                                             "unsolicitedClaimAttachment": "SUPPORTED"
-                                                        }
+                                                        },
+                                                        "parentPayerGroupId": "GROUP1"
                                                     },
                                                     "score": 5.42
                                                 }
@@ -9842,7 +9843,8 @@
                                                             "coordinationOfBenefits": "SUPPORTED",
                                                             "dentalClaimSubmission": "SUPPORTED",
                                                             "unsolicitedClaimAttachment": "SUPPORTED"
-                                                        }
+                                                        },
+                                                        "parentPayerGroupId": "GROUP1"
                                                     },
                                                     "score": 5.42
                                                 }
@@ -29642,6 +29644,10 @@
                     "enrollment": {
                         "$ref": "#/components/schemas/EnrollmentInfo",
                         "description": "Information about the [transaction enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this payer."
+                    },
+                    "parentPayerGroupId": {
+                        "type": "string",
+                        "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities."
                     }
                 },
                 "required": [
