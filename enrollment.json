@@ -3,6 +3,7 @@
     "info": {
         "title": "Stedi Enrollment",
         "version": "2024-09-01",
+        "description": "The Stedi Enrollment Service manages provider enrollments with healthcare payers.\nIt tracks enrollment status, provider details, and supports batch enrollment processing\nto ensure providers have the necessary credentials before processing healthcare transactions.\n",
         "contact": {
             "email": "healthcare@stedi.com"
         },
@@ -14,6 +15,7 @@
     "paths": {
         "/enrollments": {
             "get": {
+                "description": "Lists enrollment requests with optional filtering and pagination. This operation supports filtering by status, provider details, payer details, dates, and other criteria.",
                 "operationId": "ListEnrollments",
                 "parameters": [
                     {
@@ -270,6 +272,7 @@
                 }
             },
             "post": {
+                "description": "Creates a new enrollment request for a provider with a payer. This operation registers a provider to exchange specific transaction types with a payer through Stedi.",
                 "operationId": "CreateEnrollment",
                 "requestBody": {
                     "content": {
@@ -417,6 +420,7 @@
         },
         "/enrollments/{enrollmentId}": {
             "delete": {
+                "description": "Deletes an enrollment request. Only enrollments in DRAFT status can be deleted. This operation is idempotent.",
                 "operationId": "DeleteEnrollment",
                 "parameters": [
                     {
@@ -494,6 +498,7 @@
                 }
             },
             "get": {
+                "description": "Retrieves an enrollment request by its ID. This operation returns the complete enrollment details including provider and payer information.",
                 "operationId": "GetEnrollment",
                 "parameters": [
                     {
@@ -617,6 +622,7 @@
                 }
             },
             "post": {
+                "description": "Updates an existing enrollment request. Only enrollments in DRAFT status can be updated. Once an enrollment is submitted, it cannot be modified.",
                 "operationId": "UpdateEnrollment",
                 "requestBody": {
                     "content": {
@@ -781,6 +787,7 @@
         },
         "/providers": {
             "get": {
+                "description": "Lists providers with optional filtering and pagination. This operation supports filtering by name, NPI, or tax ID.",
                 "operationId": "ListProviders",
                 "parameters": [
                     {
@@ -893,6 +900,7 @@
                 }
             },
             "post": {
+                "description": "Creates a new provider record. Providers must be created before they can be enrolled with payers.",
                 "operationId": "CreateProvider",
                 "requestBody": {
                     "content": {
@@ -1043,6 +1051,7 @@
         },
         "/providers/{providerId}": {
             "delete": {
+                "description": "Deletes a provider record. Providers can only be deleted if they have no associated enrollments. This operation is idempotent.",
                 "operationId": "DeleteProvider",
                 "parameters": [
                     {
@@ -1120,6 +1129,7 @@
                 }
             },
             "get": {
+                "description": "Retrieves a provider record by its ID. This operation returns the complete provider details including contact information.",
                 "operationId": "GetProvider",
                 "parameters": [
                     {
@@ -1243,6 +1253,7 @@
                 }
             },
             "post": {
+                "description": "Updates an existing provider's information. Note that NPI and tax ID cannot be changed after creation.",
                 "operationId": "UpdateProvider",
                 "requestBody": {
                     "content": {
@@ -1408,6 +1419,7 @@
             },
             "AllEnrolledProviderFields": {
                 "type": "object",
+                "description": "Complete provider information including both read-only and mutable fields.",
                 "properties": {
                     "name": {
                         "type": "string",
@@ -1424,6 +1436,7 @@
             },
             "CreateEnrollmentRequestContent": {
                 "type": "object",
+                "description": "Input for CreateEnrollment.",
                 "properties": {
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
@@ -1480,6 +1493,7 @@
             },
             "CreateEnrollmentResponseContent": {
                 "type": "object",
+                "description": "Output containing the created enrollment details.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1600,6 +1614,7 @@
             },
             "CreateProviderResponseContent": {
                 "type": "object",
+                "description": "Output containing the created provider details.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1652,6 +1667,7 @@
             },
             "EnrolledPayerInput": {
                 "type": "object",
+                "description": "Input structure for specifying a payer in enrollment operations.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1665,6 +1681,7 @@
             },
             "EnrolledPayerOutput": {
                 "type": "object",
+                "description": "Output structure containing payer information in enrollment responses.",
                 "properties": {
                     "name": {
                         "type": "string",
@@ -1681,6 +1698,7 @@
             },
             "EnrolledProviderInput": {
                 "type": "object",
+                "description": "Input structure for specifying a provider in enrollment operations.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1693,6 +1711,7 @@
             },
             "EnrolledTransaction": {
                 "type": "object",
+                "description": "Represents the enrollment status for a specific transaction type.",
                 "properties": {
                     "enroll": {
                         "type": "boolean"
@@ -1703,6 +1722,7 @@
                 ]
             },
             "EnrolledTransactionsList": {
+                "description": "Specifies which transaction types are included in the enrollment.",
                 "oneOf": [
                     {
                         "type": "object",
@@ -1833,6 +1853,7 @@
             },
             "EnrollmentSummary": {
                 "type": "object",
+                "description": "Summary of an enrollment with essential fields for list operations.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1891,6 +1912,7 @@
             },
             "GetEnrollmentResponseContent": {
                 "type": "object",
+                "description": "Output containing the enrollment details.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -1973,6 +1995,7 @@
             },
             "GetProviderResponseContent": {
                 "type": "object",
+                "description": "Output containing the provider details.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -2042,6 +2065,7 @@
             },
             "ListEnrollmentsResponseContent": {
                 "type": "object",
+                "description": "Output containing a paginated list of enrollments.",
                 "properties": {
                     "nextPageToken": {
                         "type": "string",
@@ -2060,6 +2084,7 @@
             },
             "ListProvidersResponseContent": {
                 "type": "object",
+                "description": "Output containing a paginated list of providers.",
                 "properties": {
                     "nextPageToken": {
                         "type": "string",
@@ -2140,6 +2165,7 @@
             },
             "ProviderSummary": {
                 "type": "object",
+                "description": "Summary information for a provider, typically used in list operations.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -2172,6 +2198,7 @@
             },
             "ResourceNotFoundExceptionResponseContent": {
                 "type": "object",
+                "description": "The requested resource could not be found.",
                 "properties": {
                     "message": {
                         "type": "string",
@@ -2188,6 +2215,7 @@
             },
             "TaxIdType": {
                 "type": "string",
+                "description": "The type of tax identification number.",
                 "enum": [
                     "EIN",
                     "SSN"
@@ -2195,6 +2223,7 @@
             },
             "TransactionType": {
                 "type": "string",
+                "description": "Types of healthcare transactions supported for enrollment.",
                 "enum": [
                     "claimStatus",
                     "eligibilityCheck",
@@ -2225,6 +2254,7 @@
             },
             "UpdateEnrollmentRequestContent": {
                 "type": "object",
+                "description": "Input for UpdateEnrollment.",
                 "properties": {
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
@@ -2281,6 +2311,7 @@
             },
             "UpdateEnrollmentResponseContent": {
                 "type": "object",
+                "description": "Output containing the updated enrollment details.",
                 "properties": {
                     "id": {
                         "type": "string",
@@ -2363,6 +2394,7 @@
             },
             "UpdateProviderRequestContent": {
                 "type": "object",
+                "description": "Input for UpdateProvider.",
                 "properties": {
                     "name": {
                         "type": "string",
@@ -2383,6 +2415,7 @@
             },
             "UpdateProviderResponseContent": {
                 "type": "object",
+                "description": "Output containing the updated provider details.",
                 "properties": {
                     "id": {
                         "type": "string",
