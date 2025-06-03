@@ -13987,7 +13987,7 @@
             },
             "ClaimStatusSubscriberGender": {
                 "type": "string",
-                "description": "A code indicating the subscriber's gender.",
+                "description": "A code indicating the subscriber's gender. The `U` value is deprecated. Most payers will reject claims with `U` as the subscriber's gender.",
                 "enum": [
                     "M",
                     "F",
@@ -18972,7 +18972,7 @@
             },
             "Encounter": {
                 "type": "object",
-                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Dates outside of these ranges are likely to be rejected by many payers, since they may have archived older data and they cannot guarantee eligibility for future months.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
+                "description": "Details about the eligibility or benefit information you are requesting for the patient.\n- If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone.\n- If you don't specify either `serviceTypeCodes` or a `procedureCode` and `productOrServiceIDQualifier`, Stedi defaults to using `30` (Plan coverage and general benefits) as the only `serviceTypeCodes` value.\n- We recommend submitting dates up to 12 months in the past or up to the end of the current month. Payers aren't required to support dates outside these ranges. However, some payers such as the Centers for Medicare and Medicaid Services (CMS) do support requests for dates further in the future - especially the next calendar month. Check the payer's documentation to determine their specific behavior.\n- Payers can have different rules for future dates of service - for example, some payers may only return benefits information for dates up to the end of the current calendar month, but others may support dates further into the future.",
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
@@ -23944,7 +23944,7 @@
             },
             "MemberGender": {
                 "type": "string",
-                "description": "A code indicating the dependent's gender.",
+                "description": "A code indicating the dependent's gender. The `U` value is deprecated. Most payers will reject claims with `U` as the dependent's gender.",
                 "enum": [
                     "M",
                     "F",
