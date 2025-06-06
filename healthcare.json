@@ -21698,11 +21698,6 @@
             "InstitutionalContactInformation": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "maxLength": 60,
-                        "description": "The full name of the person or office."
-                    },
                     "phoneNumber": {
                         "type": "string",
                         "maxLength": 256,
@@ -21720,6 +21715,11 @@
                         "type": "boolean",
                         "deprecated": true,
                         "description": "This shape is deprecated."
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "The full name of the person or office."
                     }
                 },
                 "required": [
@@ -23250,7 +23250,7 @@
                         "description": "The submitter's Electronic Transmitter Identification Number (ETIN), **as assigned by the payer**. For some payers, this may be the same as the submitter's NPI, EIN/TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/InstitutionalContactInformation"
+                        "$ref": "#/components/schemas/InstitutionalSubmitterContactInformation"
                     }
                 },
                 "required": [
@@ -23258,6 +23258,34 @@
                     "organizationName",
                     "taxId"
                 ]
+            },
+            "InstitutionalSubmitterContactInformation": {
+                "type": "object",
+                "properties": {
+                    "phoneNumber": {
+                        "type": "string",
+                        "maxLength": 256,
+                        "description": "The phone number, formatted as AAABBBCCCC, where AAA represents the area code, BBB is the telephone number prefix, and CCCC is the telephone number. The phone number should only include the digits 0 to 9. Don't include separators, such as dashes, and don't include long distance access numbers, such as 1. For example, you would format the phone number 123-456-7890 as 1234567890."
+                    },
+                    "faxNumber": {
+                        "type": "string",
+                        "description": "The fax number."
+                    },
+                    "email": {
+                        "type": "string",
+                        "description": "The email address."
+                    },
+                    "validContact": {
+                        "type": "boolean",
+                        "deprecated": true,
+                        "description": "This shape is deprecated."
+                    },
+                    "name": {
+                        "type": "string",
+                        "maxLength": 60,
+                        "description": "The full name of the person or office."
+                    }
+                }
             },
             "InstitutionalSubscriber": {
                 "type": "object",
