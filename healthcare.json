@@ -13794,7 +13794,12 @@
                         "description": "The telephone extension, if applicable. Only submit the numeric extension. For example, don't include data that indicates an extension, such as 'ext.' or 'x-'."
                     },
                     "secondaryIdentifier": {
-                        "$ref": "#/components/schemas/ReferenceIdentification",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ReferenceIdentification"
+                        },
+                        "maxItems": 3,
+                        "minItems": 1,
                         "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array."
                     }
                 },
