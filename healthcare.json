@@ -11865,8 +11865,8 @@
                         "description": "The dependent's middle name or initial."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender",
-                        "description": "Code indicating the dependent's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values."
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the dependent's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -11989,8 +11989,8 @@
                         "description": "The subscriber's middle name or initial."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender",
-                        "description": "Code indicating the subscriber's gender. Can be `F`- Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values."
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the subscriber's gender. Can be `F`- Female, `M` - Male, or `U` - Unknown."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -17922,7 +17922,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
@@ -18132,7 +18133,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
@@ -19663,10 +19665,16 @@
             },
             "Gender": {
                 "type": "string",
-                "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records.",
                 "enum": [
-                    "F",
                     "M",
+                    "F"
+                ]
+            },
+            "GenderWithUnknown": {
+                "type": "string",
+                "enum": [
+                    "M",
+                    "F",
                     "U"
                 ]
             },
@@ -21769,7 +21777,7 @@
                         "description": "The patient's name suffix, such as Jr. or III. Only include the patient's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/Gender",
+                        "$ref": "#/components/schemas/GenderWithUnknown",
                         "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
@@ -23334,7 +23342,7 @@
                         "description": "The subscriber's name suffix, such as Jr. or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/Gender",
+                        "$ref": "#/components/schemas/GenderWithUnknown",
                         "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
                     },
                     "dateOfBirth": {
@@ -23472,7 +23480,7 @@
                         }
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestSubscriberGender",
+                        "$ref": "#/components/schemas/Gender",
                         "description": "The dependent's gender. This can be set to either `M` - Male or `F` - Female."
                     },
                     "address": {
@@ -23615,7 +23623,7 @@
                         }
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestSubscriberGender",
+                        "$ref": "#/components/schemas/Gender",
                         "description": "The subscriber's gender. This can be set to either `M` - Male or `F` - Female."
                     },
                     "address": {
@@ -28328,7 +28336,8 @@
                         "description": "The dependent's name suffix, such as Sr. or III. Only include the dependent's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestDependentGender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code indicating the dependent's gender."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -28415,14 +28424,6 @@
                         "$ref": "#/components/schemas/AdditionalIdentification"
                     }
                 }
-            },
-            "RequestDependentGender": {
-                "type": "string",
-                "description": "Code indicating the dependent's gender.",
-                "enum": [
-                    "M",
-                    "F"
-                ]
             },
             "RequestDependentProviderCode": {
                 "type": "string",
@@ -28824,7 +28825,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestSubscriberGender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code indicating the subscriber's gender."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -28950,14 +28952,6 @@
                     "city"
                 ]
             },
-            "RequestSubscriberGender": {
-                "type": "string",
-                "description": "Code indicating the subscriber's gender.",
-                "enum": [
-                    "M",
-                    "F"
-                ]
-            },
             "RequestSubscriberProviderCode": {
                 "type": "string",
                 "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n\n This property is **required** when the `providerIdentifier` and `referenceIdentificationQualifier` properties are populated. \n\n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
@@ -29059,7 +29053,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
@@ -29566,15 +29561,6 @@
                     "UC"
                 ]
             },
-            "ResponseMemberGender": {
-                "type": "string",
-                "description": "Code indicating the patient's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values.",
-                "enum": [
-                    "M",
-                    "F",
-                    "U"
-                ]
-            },
             "ResponseMeta": {
                 "type": "object",
                 "description": "Metadata from Stedi about the request.",
@@ -29829,7 +29815,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",

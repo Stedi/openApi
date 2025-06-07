@@ -3394,6 +3394,21 @@
                     "Non-Person Entity"
                 ]
             },
+            "Gender": {
+                "type": "string",
+                "enum": [
+                    "M",
+                    "F"
+                ]
+            },
+            "GenderWithUnknown": {
+                "type": "string",
+                "enum": [
+                    "M",
+                    "F",
+                    "U"
+                ]
+            },
             "GovernmentServiceAffiliationCode": {
                 "type": "string",
                 "description": "Payers may sometimes return other non-compliant values.",
@@ -4727,7 +4742,8 @@
                         "description": "The dependent's name suffix, such as Sr. or III. Only include the dependent's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestDependentGender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code indicating the dependent's gender."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -4814,14 +4830,6 @@
                         "$ref": "#/components/schemas/AdditionalIdentification"
                     }
                 }
-            },
-            "RequestDependentGender": {
-                "type": "string",
-                "description": "Code indicating the dependent's gender.",
-                "enum": [
-                    "M",
-                    "F"
-                ]
             },
             "RequestDependentProviderCode": {
                 "type": "string",
@@ -5223,7 +5231,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/RequestSubscriberGender"
+                        "$ref": "#/components/schemas/Gender",
+                        "description": "Code indicating the subscriber's gender."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -5311,14 +5320,6 @@
                     }
                 }
             },
-            "RequestSubscriberGender": {
-                "type": "string",
-                "description": "Code indicating the subscriber's gender.",
-                "enum": [
-                    "M",
-                    "F"
-                ]
-            },
             "RequestSubscriberProviderCode": {
                 "type": "string",
                 "description": "Use this for providers that are not requesting the eligibility check - the requestor is specified in the `provider` object. For example, if you are a hospital making an eligibility request, this is where you would specify information about a referring provider's role. \n\n This property is **required** when the `providerIdentifier` and `referenceIdentificationQualifier` properties are populated. \n\n You can use one of the following: `AD` - Admitting, `AT` - Attending, `BI` - Billing, `CO` - Consulting, `CV` - Covering, `H` - Hospital, `HH` - Home Health Care, `LA` - Laboratory, `OT` - Other Physician, `P1` - Pharmacist, `P2` - Pharmacy, `PC` - Primary Care Physician, `PE` - Performing, `R` - Rural Health Clinic, `RF` - Referring, `SB` - Submitting, `SK` - Skilled Nursing Facility, `SU` - Supervising",
@@ -5403,7 +5404,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
@@ -5910,15 +5912,6 @@
                     "UC"
                 ]
             },
-            "ResponseMemberGender": {
-                "type": "string",
-                "description": "Code indicating the patient's gender. Can be `F` - Female, `M` - Male, or `U` - Unknown.\n\nPayers may sometimes return other non-compliant values.",
-                "enum": [
-                    "M",
-                    "F",
-                    "U"
-                ]
-            },
             "ResponseProvider": {
                 "type": "object",
                 "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN.",
@@ -6147,7 +6140,8 @@
                         "description": "The name suffix, such as Jr., Sr., or III."
                     },
                     "gender": {
-                        "$ref": "#/components/schemas/ResponseMemberGender"
+                        "$ref": "#/components/schemas/GenderWithUnknown",
+                        "description": "Code indicating the patient's gender."
                     },
                     "entityType": {
                         "$ref": "#/components/schemas/EntityTypeQualifier",
