@@ -12070,374 +12070,105 @@
                     "lastName"
                 ]
             },
-            "CdpediX12V5010NewmodelsClaimPaymentAdvicePayer": {
+            "CertificationConditionCodeAppliesIndicator": {
+                "type": "string",
+                "description": "Code indicating whether an EPSDT referral was given to the patient. Can be set to `N` - No or `Y` - Yes.",
+                "enum": [
+                    "N",
+                    "Y"
+                ]
+            },
+            "CertificationTypeCode": {
+                "type": "string",
+                "description": "Code indicating the type of certification. Can be set to `I` - Initial, `R` - Renewal, or `S` - Revised.",
+                "enum": [
+                    "I",
+                    "R",
+                    "S"
+                ]
+            },
+            "Claim": {
                 "type": "object",
-                "description": "Information about the payer.",
+                "description": "Information about the claim and its status.",
                 "properties": {
-                    "name": {
-                        "type": "string",
-                        "description": "The payer's business name, such as Cigna or Aetna."
+                    "claimStatus": {
+                        "$ref": "#/components/schemas/ComponentsSchemasClaimStatus",
+                        "description": "The status, required action, and paid information of a claim or service line."
                     },
-                    "centersForMedicareAndMedicaidServicesPlanId": {
-                        "type": "string",
-                        "description": "Used to report the payer's Health Plan ID (HPID) or Other Entity Identifier (OEID)."
-                    },
-                    "payerIdentificationNumber": {
-                        "type": "string",
-                        "description": "An identifier for the payer. For Medicare carriers or intermediaries, this is the Medicare carrier or intermediary ID number. For Blue Cross and Blue Shield Plans, this is the Blue Cross Blue Shield association plan code."
-                    },
-                    "submitterIdentificationNumber": {
-                        "type": "string",
-                        "description": "An identifier for the payer. This is used when the original transaction sender is not the payer or has an identifier other than those already provided."
-                    },
-                    "healthIndustryNumber": {
-                        "type": "string",
-                        "description": "The payer's health industry number."
-                    },
-                    "nationalAssociationOfInsuranceCommissioners": {
-                        "type": "string",
-                        "description": "The payer's National Association of Insurance Commissioners (NAIC) code."
-                    },
-                    "payerWebSiteUrl": {
-                        "type": "string",
-                        "description": "The payer's web address. The URL is typically provided without the scheme and separator. For example, `stedi.com`."
-                    },
-                    "address": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdvicePayerAddress"
-                    },
-                    "businessContactInformation": {
-                        "$ref": "#/components/schemas/BusinessContactInformation",
-                        "description": "A person or office."
-                    },
-                    "technicalContactInformation": {
+                    "serviceDetails": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/TechnicalContactInformation"
+                            "$ref": "#/components/schemas/ServiceDetail"
                         },
-                        "description": "A person or office."
+                        "description": "Information about specific service lines and their status."
                     }
                 }
             },
-            "CdpediX12V5010NewmodelsClaimPaymentAdvicePayerAddress": {
+            "ClaimAcknowledgmentDetails": {
                 "type": "object",
                 "properties": {
-                    "address1": {
-                        "type": "string",
-                        "description": "The first line of the address."
+                    "serviceProvider": {
+                        "$ref": "#/components/schemas/ClaimAcknowledgmentDetailsServiceProvider"
                     },
-                    "address2": {
+                    "providerOFServiceInformationTraceIdentifier": {
                         "type": "string",
-                        "description": "The second line of the address."
+                        "description": "An identifier for claims related to this provider."
                     },
-                    "city": {
-                        "type": "string",
-                        "description": "The city where the address is located."
+                    "serviceProviderClaimStatuses": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ServiceProviderClaimStatus"
+                        },
+                        "description": "Status information for claims related to the provider."
                     },
-                    "state": {
-                        "type": "string",
-                        "description": "The standard code for the state or province. For example `PA` for Pennsylvania."
-                    },
-                    "postalCode": {
-                        "type": "string",
-                        "description": "The postal code for the address, excluding punctuation and blanks."
-                    },
-                    "countryCode": {
-                        "type": "string",
-                        "description": "The standard code for the country from Part 1 of ISO 3166."
-                    },
-                    "countrySubCode": {
-                        "type": "string",
-                        "description": "The standard code for the country subdivision from Part 2 of ISO 3166."
+                    "patientClaimStatusDetails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PatientClaimStatusDetails"
+                        },
+                        "description": "Patient information and the status of claims related to the patient."
                     }
                 }
             },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLines": {
+            "ClaimAcknowledgmentDetailsServiceProvider": {
                 "type": "object",
+                "description": "Information about the service provider.",
                 "properties": {
-                    "serviceDate": {
+                    "organizationName": {
                         "type": "string",
-                        "description": "The date the service was rendered, expressed as YYYYMMDD. Used for single-day services."
+                        "description": "The provider's business name. Can be up to 60 characters."
                     },
-                    "serviceStartDate": {
+                    "lastName": {
                         "type": "string",
-                        "description": "The date the service began, expressed as YYYYMMDD. Used for multi-day services."
+                        "description": "The provider's last name, when the provider is an individual. Can be up to 60 characters."
                     },
-                    "serviceEndDate": {
+                    "firstName": {
                         "type": "string",
-                        "description": "The date the service ended, expressed as YYYYMMDD. Used for multi-day services."
+                        "description": "The provider's first name, when the provider is an individual. Can be up to 35 characters."
                     },
-                    "lineItemControlNumber": {
+                    "middleName": {
                         "type": "string",
-                        "description": "The `providerControlNumber` submitted in the original claim to identify the service line."
+                        "description": "The provider's middle name or initial, when the provider is an individual. Can be up to 25 characters."
                     },
-                    "servicePaymentInformation": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServicePaymentInformation"
-                    },
-                    "serviceAdjustments": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClaimAdjustments"
-                        }
-                    },
-                    "serviceIdentification": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceIdentification"
-                    },
-                    "renderingProviderInformation": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesRenderingProviderInformation"
-                    },
-                    "serviceSupplementalAmounts": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalAmounts"
-                    },
-                    "serviceSupplementalQuantities": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalQuantities"
-                    },
-                    "healthCareCheckRemarkCodes": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/HealthCareCheckRemarkCodes"
-                        }
-                    },
-                    "healthCarePolicyIdentification": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/HealthCarePolicyIdentification"
-                        }
-                    }
-                }
-            },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesRenderingProviderInformation": {
-                "type": "object",
-                "description": "Identifiers for the provider who rendered this service.",
-                "properties": {
-                    "stateLicenseNumber": {
+                    "suffix": {
                         "type": "string",
-                        "description": "The rendering provider's State License Number."
+                        "description": "The provider's name suffix, when the provider is an individual. Can be up to 10 characters."
                     },
-                    "blueCrossProviderNumber": {
+                    "tin": {
                         "type": "string",
-                        "description": "The rendering provider's Blue Cross Provider Number."
+                        "description": "The provider's tax identification number."
                     },
-                    "blueShieldProviderNumber": {
+                    "spn": {
                         "type": "string",
-                        "description": "The rendering provider's Blue Shield Provider Number."
-                    },
-                    "medicareProviderNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's Medicare Provider Number."
-                    },
-                    "medicaidProviderNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's Medicaid Provider Number."
-                    },
-                    "providerUPINNumber": {
-                        "type": "string",
-                        "description": "Deprecated; replaced by NPI in 2007."
-                    },
-                    "champusIdentificationNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's CHAMPUS Identification Number."
-                    },
-                    "facilityIdNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's Facility ID Number."
-                    },
-                    "nationalCouncilForPrescriptionDrugProgramPharmacyNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's National Council for Prescription Drug Programs Pharmacy Number."
-                    },
-                    "providerCommercialNumber": {
-                        "type": "string",
-                        "description": "The Provider Commercial Number."
+                        "description": "The provider's service provider number."
                     },
                     "npi": {
                         "type": "string",
-                        "description": "The rendering provider's National Provider Identifier (NPI)."
-                    },
-                    "ssn": {
-                        "type": "string",
-                        "description": "The rendering provider's Social Security Number (SSN)."
-                    },
-                    "federalTaxpayerIdentificationNumber": {
-                        "type": "string",
-                        "description": "The rendering provider's Federal Taxpayer Identification Number."
+                        "description": "The provider's National Provider Identifier."
                     }
                 }
             },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceIdentification": {
-                "type": "object",
-                "description": "Additional identifiers related to the service line.",
-                "properties": {
-                    "ambulatoryPatientGroupNumber": {
-                        "type": "string",
-                        "description": "The service line's Ambulatory Patient Group (APG) Number."
-                    },
-                    "ambulatoryPaymentClassification": {
-                        "type": "string",
-                        "description": "The service line's Ambulatory Payment Classification Number."
-                    },
-                    "authorizationNumber": {
-                        "type": "string",
-                        "description": "The service line's Authorization Number."
-                    },
-                    "attachmentCode": {
-                        "type": "string",
-                        "description": "The service line's Attachment Code."
-                    },
-                    "priorAuthorizationNumber": {
-                        "type": "string",
-                        "description": "The service line's Prior Authorization Number."
-                    },
-                    "preDeterminationOfBenefitsIdentificationNumber": {
-                        "type": "string",
-                        "description": "The service line's Predetermination of Benefits Identification Number."
-                    },
-                    "locationNumber": {
-                        "type": "string",
-                        "description": "The payer's identification for the provider location."
-                    },
-                    "rateCodeNumber": {
-                        "type": "string",
-                        "description": "The service line's Rate code number, a percentage that reflects the Ambulatory Surgical Center (ASC) rate for Medicare. This is either 0, 50, 100, or 150."
-                    }
-                }
-            },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServicePaymentInformation": {
-                "type": "object",
-                "description": "Payment and control information about a provider for a particular service.",
-                "properties": {
-                    "productOrServiceIDQualifier": {
-                        "type": "string",
-                        "description": "The code identifying the source of the `adjudicatedProcedureCode`."
-                    },
-                    "productOrServiceIDQualifierValue": {
-                        "type": "string",
-                        "description": "The description of the `productOrServiceIDQualifier`."
-                    },
-                    "adjudicatedProcedureCode": {
-                        "type": "string",
-                        "description": "The adjudicated procedure code - an identifying number for a product or service."
-                    },
-                    "adjudicatedProcedureModifierCodes": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "A list of up to four modifiers that identify special circumstances related to the product or service."
-                    },
-                    "lineItemChargeAmount": {
-                        "type": "string",
-                        "description": "The submitted service charge, expressed as a decimal."
-                    },
-                    "lineItemProviderPaymentAmount": {
-                        "type": "string",
-                        "description": "The amount paid for the service, expressed as a decimal. \n\n This amount is calculated as follows: \n\n`servicePaymentInformation.lineItemProviderPaymentAmount =\n  servicePaymentInformation.lineItemChargeAmount - (sum(serviceAdjustments[].adjustmentAmount1) + sum(serviceAdjustments[].adjustmentAmount2) + sum(serviceAdjustments[].adjustmentAmount3) + sum(serviceAdjustments[].adjustmentAmount4) + sum(serviceAdjustments[].adjustmentAmount5) + sum(serviceAdjustments[].adjustmentAmount6))`\n\nAll properties in the formula are within a single `transactions.detailInfo.paymentInfo.serviceLines` array entry. Note that `serviceAdjustments` is an object array that could contain up to 99 entries, each with up to 6 adjustment amounts in separate properties. This allows for up to 594 total adjustments.\n\nAdjustments can be either positive or negative. When the adjustment amounts are positive, the payment decreases. When the adjustment amounts are negative, the payment amount increases, and will be larger than the `lineItemChargeAmount`."
-                    },
-                    "nationalUniformBillingCommitteeRevenueCode": {
-                        "type": "string",
-                        "description": "The National Uniform Billing Committee Revenue Code."
-                    },
-                    "unitsOfServicePaidCount": {
-                        "type": "string",
-                        "description": "The number of units of service that were paid, expressed as a decimal. If not present, the value is assumed to be one."
-                    },
-                    "submittedProductOrServiceIDQualifier": {
-                        "type": "string",
-                        "description": "The code identifying the source of the `submittedAdjudicatedProcedureCode`."
-                    },
-                    "submittedProductOrServiceIDQualifierValue": {
-                        "type": "string",
-                        "description": "The description of the `submittedProductOrServiceIDQualifier`."
-                    },
-                    "submittedAdjudicatedProcedureCode": {
-                        "type": "string",
-                        "description": "The submitted adjudicated procedure code - an identifying number for a product or service."
-                    },
-                    "submittedAdjudicatedProcedureModifierCodes": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        },
-                        "description": "A list of up to four modifiers that identify special circumstances related to the product or service."
-                    },
-                    "submittedProcedureCodeDescription": {
-                        "type": "string",
-                        "description": "A free-form description to further clarify the procedure code and any modifiers."
-                    },
-                    "originalUnitsOfServiceCount": {
-                        "type": "string",
-                        "description": "The original number of units of service submitted, expressed as a decimal."
-                    }
-                }
-            },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalAmounts": {
-                "type": "object",
-                "description": "Information about the service supplemental amount. All values are expressed as decimals.",
-                "properties": {
-                    "allowedActual": {
-                        "type": "string",
-                        "description": "The payer payment plus any assigned patient responsibility."
-                    },
-                    "deductionAmount": {
-                        "type": "string",
-                        "description": "This is the late filing reduction amount."
-                    },
-                    "tax": {
-                        "type": "string",
-                        "description": "The tax amount."
-                    },
-                    "totalClaimBeforeTaxes": {
-                        "type": "string",
-                        "description": "The total amount for the service charge before taxes."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 1."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 2."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 3."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 4."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 5."
-                    }
-                }
-            },
-            "CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLinesServiceSupplementalQuantities": {
-                "type": "object",
-                "description": "Additional quantity information about the service. All values are expressed as decimals.",
-                "properties": {
-                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 1."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 2."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 3."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 4."
-                    },
-                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
-                        "type": "string",
-                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 5."
-                    }
-                }
-            },
-            "CdpediX12V5010NewmodelsClaimStatusCdpediPayer": {
+            "ClaimAcknowledgmentPayer": {
                 "type": "object",
                 "properties": {
                     "organizationName": {
@@ -12471,20 +12202,46 @@
                     "payerContactInformation": {
                         "$ref": "#/components/schemas/PayerContactInformation"
                     },
-                    "claimStatusTransactions": {
+                    "ClaimAcknowledgmentTransactions": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ClaimStatusTransactions"
+                            "$ref": "#/components/schemas/ClaimAcknowledgmentTransactions"
                         },
                         "description": "Claim status details."
                     }
                 }
             },
-            "CdpediX12V5010NewmodelsClaimStatusCdpediServiceLines": {
+            "ClaimAcknowledgmentServiceIdQualifierCode": {
+                "type": "string",
+                "description": "Code identifying the source of the procedure code in claim status reports.",
+                "enum": [
+                    "AD",
+                    "ER",
+                    "HC",
+                    "HP",
+                    "IV",
+                    "NU",
+                    "WK"
+                ]
+            },
+            "ClaimAcknowledgmentServiceIdQualifierCodeValue": {
+                "type": "string",
+                "description": "Human-readable descriptions for service ID qualifier codes.",
+                "enum": [
+                    "American Dental Association Codes",
+                    "Jurisdiction Specific Procedure and Supply Codes",
+                    "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                    "Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code",
+                    "Home Infusion EDI Coalition (HIEC) Product/Service Code",
+                    "National Uniform Billing Committee (NUBC) UB92 Codes",
+                    "Advanced Billing Concepts (ABC) Codes"
+                ]
+            },
+            "ClaimAcknowledgmentServiceLines": {
                 "type": "object",
                 "properties": {
                     "service": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediServiceLinesService"
+                        "$ref": "#/components/schemas/ClaimAcknowledgmentServiceLinesService"
                     },
                     "serviceClaimStatuses": {
                         "type": "array",
@@ -12511,16 +12268,16 @@
                     }
                 }
             },
-            "CdpediX12V5010NewmodelsClaimStatusCdpediServiceLinesService": {
+            "ClaimAcknowledgmentServiceLinesService": {
                 "type": "object",
                 "description": "Information about the service provided.",
                 "properties": {
                     "serviceIdQualifierCode": {
-                        "$ref": "#/components/schemas/ClaimStatusServiceIdQualifierCode",
+                        "$ref": "#/components/schemas/ClaimAcknowledgmentServiceIdQualifierCode",
                         "description": "The code identifying the source of the `procedureCode`."
                     },
                     "serviceIdQualifierCodeValue": {
-                        "$ref": "#/components/schemas/ClaimStatusServiceIdQualifierCodeValue",
+                        "$ref": "#/components/schemas/ClaimAcknowledgmentServiceIdQualifierCodeValue",
                         "description": "The description of the `serviceIdQualifierCode`."
                     },
                     "procedureCode": {
@@ -12552,37 +12309,55 @@
                     }
                 }
             },
-            "CertificationConditionCodeAppliesIndicator": {
-                "type": "string",
-                "description": "Code indicating whether an EPSDT referral was given to the patient. Can be set to `N` - No or `Y` - Yes.",
-                "enum": [
-                    "N",
-                    "Y"
-                ]
-            },
-            "CertificationTypeCode": {
-                "type": "string",
-                "description": "Code indicating the type of certification. Can be set to `I` - Initial, `R` - Renewal, or `S` - Revised.",
-                "enum": [
-                    "I",
-                    "R",
-                    "S"
-                ]
-            },
-            "Claim": {
+            "ClaimAcknowledgmentTransactions": {
                 "type": "object",
-                "description": "Information about the claim and its status.",
                 "properties": {
-                    "claimStatus": {
-                        "$ref": "#/components/schemas/ComponentsSchemasClaimStatus",
-                        "description": "The status, required action, and paid information of a claim or service line."
+                    "provider": {
+                        "$ref": "#/components/schemas/ClaimAcknowledgmentTransactionsProvider"
                     },
-                    "serviceDetails": {
+                    "claimTransactionBatchNumber": {
+                        "type": "string",
+                        "description": "The payer's unique identifier for the claim."
+                    },
+                    "providerClaimStatuses": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ServiceDetail"
+                            "$ref": "#/components/schemas/ProviderClaimStatus"
                         },
-                        "description": "Information about specific service lines and their status."
+                        "description": "Overall status information for the claim."
+                    },
+                    "ClaimAcknowledgmentDetails": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAcknowledgmentDetails"
+                        },
+                        "description": "More detailed status information. This includes information about the patient, provider, and services rendered."
+                    }
+                }
+            },
+            "ClaimAcknowledgmentTransactionsProvider": {
+                "type": "object",
+                "description": "Information about the provider receiving the claim status details.",
+                "properties": {
+                    "organizationName": {
+                        "type": "string",
+                        "description": "The provider's business name. Can be up to 60 characters."
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "description": "The provider's last name. Can be up to 60 characters."
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "description": "The provider's first name. Can be up to 35 characters."
+                    },
+                    "middleName": {
+                        "type": "string",
+                        "description": "The provider's middle name or initial. Can be up to 25 characters."
+                    },
+                    "etin": {
+                        "type": "string",
+                        "description": "The provider's Electronic Transmitter Identification Number."
                     }
                 }
             },
@@ -13471,6 +13246,87 @@
                     }
                 }
             },
+            "ClaimPaymentAdvicePayer": {
+                "type": "object",
+                "description": "Information about the payer.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The payer's business name, such as Cigna or Aetna."
+                    },
+                    "centersForMedicareAndMedicaidServicesPlanId": {
+                        "type": "string",
+                        "description": "Used to report the payer's Health Plan ID (HPID) or Other Entity Identifier (OEID)."
+                    },
+                    "payerIdentificationNumber": {
+                        "type": "string",
+                        "description": "An identifier for the payer. For Medicare carriers or intermediaries, this is the Medicare carrier or intermediary ID number. For Blue Cross and Blue Shield Plans, this is the Blue Cross Blue Shield association plan code."
+                    },
+                    "submitterIdentificationNumber": {
+                        "type": "string",
+                        "description": "An identifier for the payer. This is used when the original transaction sender is not the payer or has an identifier other than those already provided."
+                    },
+                    "healthIndustryNumber": {
+                        "type": "string",
+                        "description": "The payer's health industry number."
+                    },
+                    "nationalAssociationOfInsuranceCommissioners": {
+                        "type": "string",
+                        "description": "The payer's National Association of Insurance Commissioners (NAIC) code."
+                    },
+                    "payerWebSiteUrl": {
+                        "type": "string",
+                        "description": "The payer's web address. The URL is typically provided without the scheme and separator. For example, `stedi.com`."
+                    },
+                    "address": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayerAddress"
+                    },
+                    "businessContactInformation": {
+                        "$ref": "#/components/schemas/BusinessContactInformation",
+                        "description": "A person or office."
+                    },
+                    "technicalContactInformation": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TechnicalContactInformation"
+                        },
+                        "description": "A person or office."
+                    }
+                }
+            },
+            "ClaimPaymentAdvicePayerAddress": {
+                "type": "object",
+                "properties": {
+                    "address1": {
+                        "type": "string",
+                        "description": "The first line of the address."
+                    },
+                    "address2": {
+                        "type": "string",
+                        "description": "The second line of the address."
+                    },
+                    "city": {
+                        "type": "string",
+                        "description": "The city where the address is located."
+                    },
+                    "state": {
+                        "type": "string",
+                        "description": "The standard code for the state or province. For example `PA` for Pennsylvania."
+                    },
+                    "postalCode": {
+                        "type": "string",
+                        "description": "The postal code for the address, excluding punctuation and blanks."
+                    },
+                    "countryCode": {
+                        "type": "string",
+                        "description": "The standard code for the country from Part 1 of ISO 3166."
+                    },
+                    "countrySubCode": {
+                        "type": "string",
+                        "description": "The standard code for the country subdivision from Part 2 of ISO 3166."
+                    }
+                }
+            },
             "ClaimPaymentAdviceResponse": {
                 "type": "object",
                 "properties": {
@@ -13501,7 +13357,7 @@
                         "$ref": "#/components/schemas/ClaimPaymentAdviceResponseFinancialInformation"
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdvicePayer"
+                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayer"
                     },
                     "payee": {
                         "$ref": "#/components/schemas/Payee"
@@ -13584,6 +13440,292 @@
                     "originatingCompanySupplementalCode": {
                         "type": "string",
                         "description": "A value that identifies a further subdivision within the payer's organization."
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLines": {
+                "type": "object",
+                "properties": {
+                    "serviceDate": {
+                        "type": "string",
+                        "description": "The date the service was rendered, expressed as YYYYMMDD. Used for single-day services."
+                    },
+                    "serviceStartDate": {
+                        "type": "string",
+                        "description": "The date the service began, expressed as YYYYMMDD. Used for multi-day services."
+                    },
+                    "serviceEndDate": {
+                        "type": "string",
+                        "description": "The date the service ended, expressed as YYYYMMDD. Used for multi-day services."
+                    },
+                    "lineItemControlNumber": {
+                        "type": "string",
+                        "description": "The `providerControlNumber` submitted in the original claim to identify the service line."
+                    },
+                    "servicePaymentInformation": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServicePaymentInformation"
+                    },
+                    "serviceAdjustments": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/ClaimAdjustments"
+                        }
+                    },
+                    "serviceIdentification": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceIdentification"
+                    },
+                    "renderingProviderInformation": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesRenderingProviderInformation"
+                    },
+                    "serviceSupplementalAmounts": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalAmounts"
+                    },
+                    "serviceSupplementalQuantities": {
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalQuantities"
+                    },
+                    "healthCareCheckRemarkCodes": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCareCheckRemarkCodes"
+                        }
+                    },
+                    "healthCarePolicyIdentification": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HealthCarePolicyIdentification"
+                        }
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLinesRenderingProviderInformation": {
+                "type": "object",
+                "description": "Identifiers for the provider who rendered this service.",
+                "properties": {
+                    "stateLicenseNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's State License Number."
+                    },
+                    "blueCrossProviderNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Blue Cross Provider Number."
+                    },
+                    "blueShieldProviderNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Blue Shield Provider Number."
+                    },
+                    "medicareProviderNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Medicare Provider Number."
+                    },
+                    "medicaidProviderNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Medicaid Provider Number."
+                    },
+                    "providerUPINNumber": {
+                        "type": "string",
+                        "description": "Deprecated; replaced by NPI in 2007."
+                    },
+                    "champusIdentificationNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's CHAMPUS Identification Number."
+                    },
+                    "facilityIdNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Facility ID Number."
+                    },
+                    "nationalCouncilForPrescriptionDrugProgramPharmacyNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's National Council for Prescription Drug Programs Pharmacy Number."
+                    },
+                    "providerCommercialNumber": {
+                        "type": "string",
+                        "description": "The Provider Commercial Number."
+                    },
+                    "npi": {
+                        "type": "string",
+                        "description": "The rendering provider's National Provider Identifier (NPI)."
+                    },
+                    "ssn": {
+                        "type": "string",
+                        "description": "The rendering provider's Social Security Number (SSN)."
+                    },
+                    "federalTaxpayerIdentificationNumber": {
+                        "type": "string",
+                        "description": "The rendering provider's Federal Taxpayer Identification Number."
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLinesServiceIdentification": {
+                "type": "object",
+                "description": "Additional identifiers related to the service line.",
+                "properties": {
+                    "ambulatoryPatientGroupNumber": {
+                        "type": "string",
+                        "description": "The service line's Ambulatory Patient Group (APG) Number."
+                    },
+                    "ambulatoryPaymentClassification": {
+                        "type": "string",
+                        "description": "The service line's Ambulatory Payment Classification Number."
+                    },
+                    "authorizationNumber": {
+                        "type": "string",
+                        "description": "The service line's Authorization Number."
+                    },
+                    "attachmentCode": {
+                        "type": "string",
+                        "description": "The service line's Attachment Code."
+                    },
+                    "priorAuthorizationNumber": {
+                        "type": "string",
+                        "description": "The service line's Prior Authorization Number."
+                    },
+                    "preDeterminationOfBenefitsIdentificationNumber": {
+                        "type": "string",
+                        "description": "The service line's Predetermination of Benefits Identification Number."
+                    },
+                    "locationNumber": {
+                        "type": "string",
+                        "description": "The payer's identification for the provider location."
+                    },
+                    "rateCodeNumber": {
+                        "type": "string",
+                        "description": "The service line's Rate code number, a percentage that reflects the Ambulatory Surgical Center (ASC) rate for Medicare. This is either 0, 50, 100, or 150."
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLinesServicePaymentInformation": {
+                "type": "object",
+                "description": "Payment and control information about a provider for a particular service.",
+                "properties": {
+                    "productOrServiceIDQualifier": {
+                        "type": "string",
+                        "description": "The code identifying the source of the `adjudicatedProcedureCode`."
+                    },
+                    "productOrServiceIDQualifierValue": {
+                        "type": "string",
+                        "description": "The description of the `productOrServiceIDQualifier`."
+                    },
+                    "adjudicatedProcedureCode": {
+                        "type": "string",
+                        "description": "The adjudicated procedure code - an identifying number for a product or service."
+                    },
+                    "adjudicatedProcedureModifierCodes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of up to four modifiers that identify special circumstances related to the product or service."
+                    },
+                    "lineItemChargeAmount": {
+                        "type": "string",
+                        "description": "The submitted service charge, expressed as a decimal."
+                    },
+                    "lineItemProviderPaymentAmount": {
+                        "type": "string",
+                        "description": "The amount paid for the service, expressed as a decimal. \n\n This amount is calculated as follows: \n\n`servicePaymentInformation.lineItemProviderPaymentAmount =\n  servicePaymentInformation.lineItemChargeAmount - (sum(serviceAdjustments[].adjustmentAmount1) + sum(serviceAdjustments[].adjustmentAmount2) + sum(serviceAdjustments[].adjustmentAmount3) + sum(serviceAdjustments[].adjustmentAmount4) + sum(serviceAdjustments[].adjustmentAmount5) + sum(serviceAdjustments[].adjustmentAmount6))`\n\nAll properties in the formula are within a single `transactions.detailInfo.paymentInfo.serviceLines` array entry. Note that `serviceAdjustments` is an object array that could contain up to 99 entries, each with up to 6 adjustment amounts in separate properties. This allows for up to 594 total adjustments.\n\nAdjustments can be either positive or negative. When the adjustment amounts are positive, the payment decreases. When the adjustment amounts are negative, the payment amount increases, and will be larger than the `lineItemChargeAmount`."
+                    },
+                    "nationalUniformBillingCommitteeRevenueCode": {
+                        "type": "string",
+                        "description": "The National Uniform Billing Committee Revenue Code."
+                    },
+                    "unitsOfServicePaidCount": {
+                        "type": "string",
+                        "description": "The number of units of service that were paid, expressed as a decimal. If not present, the value is assumed to be one."
+                    },
+                    "submittedProductOrServiceIDQualifier": {
+                        "type": "string",
+                        "description": "The code identifying the source of the `submittedAdjudicatedProcedureCode`."
+                    },
+                    "submittedProductOrServiceIDQualifierValue": {
+                        "type": "string",
+                        "description": "The description of the `submittedProductOrServiceIDQualifier`."
+                    },
+                    "submittedAdjudicatedProcedureCode": {
+                        "type": "string",
+                        "description": "The submitted adjudicated procedure code - an identifying number for a product or service."
+                    },
+                    "submittedAdjudicatedProcedureModifierCodes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "A list of up to four modifiers that identify special circumstances related to the product or service."
+                    },
+                    "submittedProcedureCodeDescription": {
+                        "type": "string",
+                        "description": "A free-form description to further clarify the procedure code and any modifiers."
+                    },
+                    "originalUnitsOfServiceCount": {
+                        "type": "string",
+                        "description": "The original number of units of service submitted, expressed as a decimal."
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLinesServiceSupplementalAmounts": {
+                "type": "object",
+                "description": "Information about the service supplemental amount. All values are expressed as decimals.",
+                "properties": {
+                    "allowedActual": {
+                        "type": "string",
+                        "description": "The payer payment plus any assigned patient responsibility."
+                    },
+                    "deductionAmount": {
+                        "type": "string",
+                        "description": "This is the late filing reduction amount."
+                    },
+                    "tax": {
+                        "type": "string",
+                        "description": "The tax amount."
+                    },
+                    "totalClaimBeforeTaxes": {
+                        "type": "string",
+                        "description": "The total amount for the service charge before taxes."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 1."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 2."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 3."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 4."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 5."
+                    }
+                }
+            },
+            "ClaimPaymentAdviceServiceLinesServiceSupplementalQuantities": {
+                "type": "object",
+                "description": "Additional quantity information about the service. All values are expressed as decimals.",
+                "properties": {
+                    "federalMedicareOrMedicaidPaymentMandateCategory1": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 1."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory2": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 2."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory3": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 3."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory4": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 4."
+                    },
+                    "federalMedicareOrMedicaidPaymentMandateCategory5": {
+                        "type": "string",
+                        "description": "Federal Medicare or Medicaid Payment Mandate - Category 5."
                     }
                 }
             },
@@ -13834,70 +13976,6 @@
                     "phoneExtension": {
                         "type": "string",
                         "description": "The payer's telephone extension."
-                    }
-                }
-            },
-            "ClaimStatusDetails": {
-                "type": "object",
-                "properties": {
-                    "serviceProvider": {
-                        "$ref": "#/components/schemas/ClaimStatusDetailsServiceProvider"
-                    },
-                    "providerOFServiceInformationTraceIdentifier": {
-                        "type": "string",
-                        "description": "An identifier for claims related to this provider."
-                    },
-                    "serviceProviderClaimStatuses": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ServiceProviderClaimStatus"
-                        },
-                        "description": "Status information for claims related to the provider."
-                    },
-                    "patientClaimStatusDetails": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/PatientClaimStatusDetails"
-                        },
-                        "description": "Patient information and the status of claims related to the patient."
-                    }
-                }
-            },
-            "ClaimStatusDetailsServiceProvider": {
-                "type": "object",
-                "description": "Information about the service provider.",
-                "properties": {
-                    "organizationName": {
-                        "type": "string",
-                        "description": "The provider's business name. Can be up to 60 characters."
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The provider's last name, when the provider is an individual. Can be up to 60 characters."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The provider's first name, when the provider is an individual. Can be up to 35 characters."
-                    },
-                    "middleName": {
-                        "type": "string",
-                        "description": "The provider's middle name or initial, when the provider is an individual. Can be up to 25 characters."
-                    },
-                    "suffix": {
-                        "type": "string",
-                        "description": "The provider's name suffix, when the provider is an individual. Can be up to 10 characters."
-                    },
-                    "tin": {
-                        "type": "string",
-                        "description": "The provider's tax identification number."
-                    },
-                    "spn": {
-                        "type": "string",
-                        "description": "The provider's service provider number."
-                    },
-                    "npi": {
-                        "type": "string",
-                        "description": "The provider's National Provider Identifier."
                     }
                 }
             },
@@ -14216,32 +14294,6 @@
                     }
                 }
             },
-            "ClaimStatusServiceIdQualifierCode": {
-                "type": "string",
-                "description": "Code identifying the source of the procedure code in claim status reports.",
-                "enum": [
-                    "AD",
-                    "ER",
-                    "HC",
-                    "HP",
-                    "IV",
-                    "NU",
-                    "WK"
-                ]
-            },
-            "ClaimStatusServiceIdQualifierCodeValue": {
-                "type": "string",
-                "description": "Human-readable descriptions for service ID qualifier codes.",
-                "enum": [
-                    "American Dental Association Codes",
-                    "Jurisdiction Specific Procedure and Supply Codes",
-                    "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
-                    "Health Insurance Prospective Payment System (HIPPS) Skilled Nursing Facility Rate Code",
-                    "Home Infusion EDI Coalition (HIEC) Product/Service Code",
-                    "National Uniform Billing Committee (NUBC) UB92 Codes",
-                    "Advanced Billing Concepts (ABC) Codes"
-                ]
-            },
             "ClaimStatusSubscriber": {
                 "type": "object",
                 "description": "Information about the subscriber listed in the referenced claim.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
@@ -14292,58 +14344,6 @@
                     "F",
                     "U"
                 ]
-            },
-            "ClaimStatusTransactions": {
-                "type": "object",
-                "properties": {
-                    "provider": {
-                        "$ref": "#/components/schemas/ClaimStatusTransactionsProvider"
-                    },
-                    "claimTransactionBatchNumber": {
-                        "type": "string",
-                        "description": "The payer's unique identifier for the claim."
-                    },
-                    "providerClaimStatuses": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ProviderClaimStatus"
-                        },
-                        "description": "Overall status information for the claim."
-                    },
-                    "claimStatusDetails": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/ClaimStatusDetails"
-                        },
-                        "description": "More detailed status information. This includes information about the patient, provider, and services rendered."
-                    }
-                }
-            },
-            "ClaimStatusTransactionsProvider": {
-                "type": "object",
-                "description": "Information about the provider receiving the claim status details.",
-                "properties": {
-                    "organizationName": {
-                        "type": "string",
-                        "description": "The provider's business name. Can be up to 60 characters."
-                    },
-                    "lastName": {
-                        "type": "string",
-                        "description": "The provider's last name. Can be up to 60 characters."
-                    },
-                    "firstName": {
-                        "type": "string",
-                        "description": "The provider's first name. Can be up to 35 characters."
-                    },
-                    "middleName": {
-                        "type": "string",
-                        "description": "The provider's middle name or initial. Can be up to 25 characters."
-                    },
-                    "etin": {
-                        "type": "string",
-                        "description": "The provider's Electronic Transmitter Identification Number."
-                    }
-                }
             },
             "ClaimSupplementalInformation": {
                 "type": "object",
@@ -15612,7 +15612,7 @@
                     "transactions": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/ReportsClaimStatusResponse"
+                            "$ref": "#/components/schemas/ReportsClaimAcknowledgmentResponse"
                         },
                         "description": "The payer's 277 response."
                     },
@@ -25872,7 +25872,7 @@
                     "serviceLines": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimPaymentAdviceServiceLines"
+                            "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLines"
                         },
                         "description": "Information about specific service lines in the claim."
                     }
@@ -28157,7 +28157,7 @@
                     "FX"
                 ]
             },
-            "ReportsClaimStatusResponse": {
+            "ReportsClaimAcknowledgmentResponse": {
                 "type": "object",
                 "properties": {
                     "controlNumber": {
@@ -28179,7 +28179,7 @@
                     "payers": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediPayer"
+                            "$ref": "#/components/schemas/ClaimAcknowledgmentPayer"
                         },
                         "description": "Information about the payer (or intermediary clearinghouse) and the claim status transactions included in the response."
                     }
@@ -28188,13 +28188,13 @@
             "ReportsClaims": {
                 "type": "object",
                 "properties": {
-                    "claimStatus": {
+                    "ClaimAcknowledgment": {
                         "$ref": "#/components/schemas/ClaimsClaimStatus"
                     },
                     "serviceLines": {
                         "type": "array",
                         "items": {
-                            "$ref": "#/components/schemas/CdpediX12V5010NewmodelsClaimStatusCdpediServiceLines"
+                            "$ref": "#/components/schemas/ClaimAcknowledgmentServiceLines"
                         },
                         "description": "Information about specific services within a claim. This object is only included in the 277CA when the claim is rejected because of errors with the service line information provided."
                     }
