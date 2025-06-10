@@ -10151,6 +10151,21 @@
                         "schema": {
                             "$ref": "#/components/schemas/TransactionSupportValue"
                         }
+                    },
+                    {
+                        "name": "coverageTypes",
+                        "in": "query",
+                        "description": "Filter for matching payers that provide **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                            },
+                            "description": "Filter for matching payers that provide **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage."
+                        },
+                        "explode": true
                     }
                 ],
                 "responses": {
@@ -25980,6 +25995,14 @@
                     "parentPayerGroupId": {
                         "type": "string",
                         "description": "The payer's parent payer group entity. This is metadata Stedi uses internally. It doesn't necessarily relate to the payer's enrollment process or other capabilities."
+                    },
+                    "coverageTypes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                        },
+                        "description": "A list of coverage types this payer provides, such as `[\"medical\", \"dental\"]`."
                     }
                 },
                 "required": [
@@ -30174,6 +30197,14 @@
                     "parentPayerGroupId": {
                         "type": "string",
                         "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities."
+                    },
+                    "coverageTypes": {
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                        },
+                        "description": "List of coverage types this payer provides, such as `[\"medical\"]`, `[\"dental\"]`, or `[\"medical\", \"dental\"]`."
                     }
                 },
                 "required": [
