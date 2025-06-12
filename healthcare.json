@@ -10921,7 +10921,7 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "The identifier referenced by `secondaryIdentificationQualifierCode`. For example, if `secondaryIdentificationQualifierCode` is set to `0B`, this property should be the provider's state license number."
+                        "description": "The identifier referenced by `secondaryIdentificationQualifierCode`. For example, if `secondaryIdentificationQualifierCode` is set to `0B`, this property should be the provider's state license number.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -21295,7 +21295,7 @@
                     "secondaryIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -22380,7 +22380,7 @@
                         },
                         "maxItems": 2,
                         "minItems": 1,
-                        "description": "Additional identification number for the other payer. The `qualifier` property can be set to `2U` - Payer Identification Number, `EI` - Employer's Identification Number, `FY` - Claim Office Number, or `NF` - National Addociation of Insurance Commissioners (NAIC) Code."
+                        "description": "Additional identification number for the other payer. The `qualifier` property can be set to `2U` - Payer Identification Number, `EI` - Employer's Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code."
                     },
                     "otherPayerPriorAuthorizationNumber": {
                         "type": "string",
@@ -22693,7 +22693,7 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "The identifier referenced by `secondaryIdentificationQualifierCode`. For example, if `secondaryIdentificationQualifierCode` is set to `0B`, this property should be the provider's state license number."
+                        "description": "The identifier referenced by `secondaryIdentificationQualifierCode`. For example, if `secondaryIdentificationQualifierCode` is set to `0B`, this property should be the provider's state license number.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -22799,7 +22799,7 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -22907,7 +22907,7 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "The identifier specified in the `secondaryIdentificationQualifierCode`."
+                        "description": "The identifier specified in the `secondaryIdentificationQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -23129,7 +23129,7 @@
                     "secondaryIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`.\n\nYou can only include one secondary identifier for the service facility."
                     },
                     "identificationCode": {
                         "type": "string",
@@ -23355,7 +23355,7 @@
                     "secondaryIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -23458,7 +23458,7 @@
                     "secondaryIdentifier": {
                         "type": "string",
                         "maxLength": 50,
-                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`."
+                        "description": "The identifier specified in `secondaryIdentifierQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "employerId": {
                         "type": "string",
@@ -23584,7 +23584,8 @@
                         "description": "The submitter's Electronic Transmitter Identification Number (ETIN), **as assigned by the payer**. For some payers, this may be the same as the submitter's NPI, EIN/TIN, but it can also be another unique identifier. Payers can refer to this identifier as the Provider Number, Submitter ID, Submitter Identifier, Submitter Primary Number, Sender Code, Certified Contracted Provider ID, and other names."
                     },
                     "contactInformation": {
-                        "$ref": "#/components/schemas/InstitutionalSubmitterContactInformation"
+                        "$ref": "#/components/schemas/InstitutionalSubmitterContactInformation",
+                        "description": "Contact information for the institution submitting the claim. This should be the person or department that deals with data submission and claim processing issues. You must include at least one communication method (phone, fax, or email) in this object."
                     }
                 },
                 "required": [
@@ -24787,7 +24788,7 @@
                     },
                     "secondaryIdentifier": {
                         "type": "string",
-                        "description": "The identifier specified in `identificationQualififerCode`."
+                        "description": "The identifier specified in `identificationQualifierCode`.\n\nYou can only include one secondary identifier for the provider."
                     },
                     "firstName": {
                         "type": "string",
