@@ -3376,6 +3376,124 @@
         }
       }
     },
+    "/pg-transactions/{transactionId}/fragments/{fragmentIndex}": {
+      "get": {
+        "description": "Retrieve metadata for a fragment.",
+        "operationId": "PgGetTransactionFragment",
+        "parameters": [
+          {
+            "name": "transactionId",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "fragmentIndex",
+            "in": "path",
+            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "schema": {
+              "type": "number",
+              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "PgGetTransactionFragment 200 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PgGetTransactionFragmentResponseContent"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "ResourceUnderChangeException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/polling/executions": {
       "get": {
         "description": "Poll for new file executions that Stedi has recently processed.",
@@ -8902,6 +9020,66 @@
           "executionId",
           "status",
           "updatedAt"
+        ]
+      },
+      "PgGetTransactionFragmentResponseContent": {
+        "type": "object",
+        "properties": {
+          "transactionId": {
+            "type": "string",
+            "description": "A unique identifier for the processed transaction containing this fragment. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
+          },
+          "fileExecutionId": {
+            "type": "string",
+            "description": "A unique identifier for the processed file containing this fragment. This ID is included in the file processed event. You can also retrieve it manually from the file's details page in the Stedi portal."
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/Mode"
+          },
+          "processedAt": {
+            "type": "string",
+            "description": "The date and time when Stedi processed the transaction containing the fragment, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
+            "format": "date-time"
+          },
+          "fragmentIndex": {
+            "type": "number",
+            "description": "The identifier for the fragment within a processed transaction."
+          },
+          "fragments": {
+            "$ref": "#/components/schemas/TransactionFragmentsSummary"
+          },
+          "transactionUrl": {
+            "type": "string",
+            "description": "The URL to review the transaction within the Stedi portal."
+          },
+          "artifacts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Artifact"
+            },
+            "description": "A list of artifacts related to the transaction containing the fragment."
+          },
+          "partnership": {
+            "$ref": "#/components/schemas/Partnership"
+          },
+          "x12": {
+            "$ref": "#/components/schemas/X12TransactionSummary"
+          }
+        },
+        "required": [
+          "artifacts",
+          "direction",
+          "fileExecutionId",
+          "fragmentIndex",
+          "fragments",
+          "mode",
+          "partnership",
+          "processedAt",
+          "transactionId",
+          "transactionUrl"
         ]
       },
       "PgListExecutionFaultsResponseContent": {
