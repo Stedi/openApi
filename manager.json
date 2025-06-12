@@ -2022,7 +2022,7 @@
             },
             "BenefitsDateInformation": {
                 "type": "object",
-                "description": "Dates associated with the benefits.\n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n  - Most properties contain a single date, but some can contain either a single date or a date range. Each property's documentation specifies its format.\n  - These dates only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
+                "description": "Dates associated with the benefits.\n  - These dates only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
                 "properties": {
                     "discharges": {
                         "type": "array",
@@ -2033,103 +2033,126 @@
                     },
                     "issue": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The issue date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The issue date.\nThis shape is deprecated."
                     },
                     "effectiveDateOfChange": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The effective date of change. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The effective date of change.\nThis shape is deprecated."
                     },
                     "periodStart": {
                         "type": "string",
-                        "description": "The start of a period. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The start of a period."
                     },
                     "periodEnd": {
                         "type": "string",
-                        "description": "The end of a period. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end of a period."
                     },
                     "completion": {
                         "type": "string",
-                        "description": "The completion date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The completion date."
                     },
                     "coordinationOfBenefits": {
                         "type": "string",
-                        "description": "The coordination of benefits date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The coordination of benefits date."
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
                     },
                     "benefit": {
                         "type": "string",
-                        "description": "The benefit date. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The benefit date."
                     },
                     "primaryCareProvider": {
                         "type": "string",
-                        "description": "The primary care provider date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The primary care provider date."
                     },
                     "latestVisitOrConsultation": {
                         "type": "string",
-                        "description": "The latest visit or consultation date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The latest visit or consultation date."
                     },
                     "eligibility": {
                         "type": "string",
-                        "description": "Plan eligibility dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "Plan eligibility dates."
                     },
                     "added": {
                         "type": "string",
-                        "description": "Added date. Payers may return this information in the case of retroactive eligibility. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "Added date. Payers may return this information in the case of retroactive eligibility."
                     },
                     "cobraBegin": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The date when COBRA coverage begins. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date when COBRA coverage begins.\nThis shape is deprecated."
                     },
                     "cobraEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The date when COBRA coverage ends. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date when COBRA coverage ends.\nThis shape is deprecated."
                     },
                     "premiumPaidtoDateBegin": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The start of the period when the plan premium was paid in full. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The start of the period when the plan premium was paid in full.\nThis shape is deprecated."
                     },
                     "premiumPaidToDateEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The end of period when the plan premium payments are up-to-date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The end of period when the plan premium payments are up-to-date.\nThis shape is deprecated."
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "Only included when multiple plans apply to the patient or multiple plan periods apply."
                     },
                     "planEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The date coverage from the plan ends. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date coverage from the plan ends.\nThis shape is deprecated."
                     },
                     "benefitBegin": {
                         "type": "string",
-                        "description": "The date when the benefit begins. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the benefit begins."
                     },
                     "benefitEnd": {
                         "type": "string",
-                        "description": "The date when the benefit ends. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the benefit ends."
                     },
                     "eligibilityBegin": {
                         "type": "string",
-                        "description": "The date when the patient is first eligible for benefits under the plan. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the patient is first eligible for benefits under the plan."
                     },
                     "eligibilityEnd": {
                         "type": "string",
-                        "description": "The date when the patient is no longer eligible for benefits under the plan. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the patient is no longer eligible for benefits under the plan."
                     },
                     "enrollment": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
                         "deprecated": true,
-                        "description": "The date when the patient is enrolled in the plan. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date when the patient is enrolled in the plan.\nThis shape is deprecated."
                     },
                     "admissions": {
                         "type": "array",
@@ -2140,42 +2163,51 @@
                     },
                     "dateOfDeath": {
                         "type": "string",
-                        "description": "The date of death. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date of death."
                     },
                     "certification": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
                         "deprecated": true,
-                        "description": "The certification date. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The certification date.\nThis shape is deprecated."
                     },
                     "service": {
                         "type": "string",
-                        "description": "The service date or dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The service date or dates."
                     },
                     "policyEffective": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
                         "deprecated": true,
-                        "description": "The date when the policy becomes effective. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date when the policy becomes effective.\nThis shape is deprecated."
                     },
                     "policyExpiration": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The date when the policy expires. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The date when the policy expires.\nThis shape is deprecated."
                     },
                     "dateOfLastUpdate": {
                         "type": "string",
-                        "description": "The date when the plan information was last updated. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the plan information was last updated."
                     },
                     "status": {
                         "type": "string",
-                        "description": "The status date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The status date."
                     },
                     "discharge": {
                         "type": "string",
-                        "description": "The discharge date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The discharge date."
                     },
                     "admission": {
                         "type": "string",
-                        "description": "The admission date or dates. Can be either a single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The admission date or dates."
                     }
                 }
             },
@@ -2839,15 +2871,18 @@
                 "properties": {
                     "date": {
                         "type": "string",
-                        "description": "A single date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "A single date."
                     },
                     "startDate": {
                         "type": "string",
-                        "description": "The beginning date of a range, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The beginning date of a range."
                     },
                     "endDate": {
                         "type": "string",
-                        "description": "The end date of a range, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end date of a range."
                     }
                 }
             },
@@ -3298,15 +3333,18 @@
                 "properties": {
                     "beginningDateOfService": {
                         "type": "string",
-                        "description": "The beginning date of service, formatted as YYYYMMDD. If you include this value, you must also include the `endDateOfService`."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The beginning date of service. If you include this value, you must also include the `endDateOfService`."
                     },
                     "endDateOfService": {
                         "type": "string",
-                        "description": "The end date of service, formatted as YYYYMMDD. If you include this value, you must also include the `beginningDateOfService`."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end date of service. If you include this value, you must also include the `beginningDateOfService`."
                     },
                     "dateOfService": {
                         "type": "string",
-                        "description": "The date of service, formatted as YYYYMMDD. You can use this value to specify a single occasion, such as a doctor's visit. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date of service. You can use this value to specify a single occasion, such as a doctor's visit. If you don't specify a service date (either a single day or a range of dates), the payer defaults to using the current date in their timezone."
                     },
                     "serviceTypeCodes": {
                         "type": "array",
@@ -3971,6 +4009,7 @@
                     },
                     "federalTaxpayersIdNumber": {
                         "type": "string",
+                        "pattern": "^\\d{9}$",
                         "description": "The payer's federal taxpayer's identification number."
                     },
                     "naic": {
@@ -3979,6 +4018,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$",
                         "description": "The payer's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
@@ -4026,144 +4066,176 @@
             },
             "PlanDateInformation": {
                 "type": "object",
-                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Date formats:\n  - Single dates are formatted as YYYYMMDD\n  - Date ranges are formatted as YYYYMMDD-YYYYMMDD\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+                "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
                 "properties": {
                     "discharge": {
                         "type": "string",
-                        "description": "The discharge date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The discharge date."
                     },
                     "issue": {
                         "type": "string",
-                        "description": "The issue date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The issue date."
                     },
                     "effectiveDateOfChange": {
                         "type": "string",
-                        "description": "The effective date of change. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The effective date of change."
                     },
                     "plan": {
                         "type": "string",
-                        "description": "Plan effective dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "Plan effective dates."
                     },
                     "eligibility": {
                         "type": "string",
-                        "description": "Plan eligibility dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "Plan eligibility dates."
                     },
                     "added": {
                         "type": "string",
-                        "description": "Added date. Payers may return this information in the case of retroactive eligibility. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "Added date. Payers may return this information in the case of retroactive eligibility."
                     },
                     "cobraBegin": {
                         "type": "string",
-                        "description": "The date when COBRA coverage begins. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when COBRA coverage begins."
                     },
                     "cobraEnd": {
                         "type": "string",
-                        "description": "The date when COBRA coverage ends. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when COBRA coverage ends."
                     },
                     "premiumPaidToDateBegin": {
                         "type": "string",
-                        "description": "The start of the period when the plan premium was paid in full. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The start of the period when the plan premium was paid in full."
                     },
                     "premiumPaidToDateEnd": {
                         "type": "string",
-                        "description": "The end of period when the plan premium payments are up-to-date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The end of period when the plan premium payments are up-to-date."
                     },
                     "planBegin": {
                         "type": "string",
-                        "description": "The date coverage from the plan begins. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date coverage from the plan begins."
                     },
                     "planEnd": {
                         "type": "string",
-                        "description": "The date coverage from the plan ends. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date coverage from the plan ends."
                     },
                     "eligibilityBegin": {
                         "type": "string",
-                        "description": "The date when the patient is first eligible for benefits under the plan. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the patient is first eligible for benefits under the plan."
                     },
                     "eligibilityEnd": {
                         "type": "string",
-                        "description": "The date when the patient is no longer eligible for benefits under the plan. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the patient is no longer eligible for benefits under the plan."
                     },
                     "enrollment": {
                         "type": "string",
-                        "description": "The date when the patient is enrolled in the plan. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The date when the patient is enrolled in the plan."
                     },
                     "admission": {
                         "type": "string",
-                        "description": "The admission date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The admission date or dates."
                     },
                     "dateOfDeath": {
                         "type": "string",
-                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date of death. Payers may return this information in the case of a deceased subscriber or dependent."
                     },
                     "certification": {
                         "type": "string",
-                        "description": "The certification date. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The certification date."
                     },
                     "service": {
                         "type": "string",
-                        "description": "The service date or dates. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The service date or dates."
                     },
                     "policyEffective": {
                         "type": "string",
-                        "description": "The date when the policy becomes effective. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
+                        "description": "The date when the policy becomes effective."
                     },
                     "policyExpiration": {
                         "type": "string",
-                        "description": "The date when the policy expires. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the policy expires."
                     },
                     "dateOfLastUpdate": {
                         "type": "string",
-                        "description": "The date when the plan information was last updated. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The date when the plan information was last updated."
                     },
                     "status": {
                         "type": "string",
-                        "description": "The status date. Single date (YYYYMMDD)."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The status date."
                     },
                     "periodStart": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The start of a period. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The start of a period.\nThis shape is deprecated."
                     },
                     "periodEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The end of a period. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The end of a period.\nThis shape is deprecated."
                     },
                     "completion": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The completion date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The completion date.\nThis shape is deprecated."
                     },
                     "coordinationOfBenefits": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The coordination of benefits date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The coordination of benefits date.\nThis shape is deprecated."
                     },
                     "benefit": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
                         "deprecated": true,
-                        "description": "The benefit date. Single date (YYYYMMDD) or a date range (YYYYMMDD-YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The benefit date.\nThis shape is deprecated."
                     },
                     "primaryCareProvider": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The primary care provider date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The primary care provider date.\nThis shape is deprecated."
                     },
                     "latestVisitOrConsultation": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The latest visit or consultation date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The latest visit or consultation date.\nThis shape is deprecated."
                     },
                     "benefitBegin": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The benefit begin date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The benefit begin date.\nThis shape is deprecated."
                     },
                     "benefitEnd": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "The benefit end date. Single date (YYYYMMDD).\nThis shape is deprecated."
+                        "description": "The benefit end date.\nThis shape is deprecated."
                     }
                 }
             },
@@ -4281,6 +4353,7 @@
                     },
                     "centersForMedicareAndMedicaidServicesNPI": {
                         "type": "string",
+                        "pattern": "^\\d{10}$",
                         "description": "The [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned by the Centers for Medicare and Medicaid Services"
                     },
                     "issueNumber": {
@@ -4387,8 +4460,7 @@
                     },
                     "npi": {
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
+                        "pattern": "^\\d{10}$",
                         "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). This identifier is required for all healthcare providers who are eligible to receive an NPI. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners are not eligible to receive an NPI. If the provider doesn't have an NPI, you can supply either their `taxId` or `ssn`.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
@@ -4408,14 +4480,12 @@
                     },
                     "taxId": {
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
+                        "pattern": "^\\d{9}$",
                         "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
                     },
                     "ssn": {
                         "type": "string",
-                        "maxLength": 80,
-                        "minLength": 2,
+                        "pattern": "^\\d{9}$",
                         "description": "The provider's Social Security Number (SSN).\n    - Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service.\n    - Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -4747,12 +4817,12 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The dependent's date of birth (DOB) in YYYYMMDD format. We **strongly recommend** including the DOB in your request. Many payers need this information to identify the patient in their system and will immediately return an error when it's not provided."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The dependent's date of birth (DOB). We **strongly recommend** including the DOB in your request. Many payers need this information to identify the patient in their system and will immediately return an error when it's not provided."
                     },
                     "ssn": {
                         "type": "string",
-                        "maxLength": 11,
-                        "minLength": 1,
+                        "pattern": "^\\d{9}$",
                         "description": "The dependent's social security number. Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -4785,33 +4855,39 @@
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the insurance card was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the insurance card was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "endCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the insurance card expires, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the insurance card expires.\nThis shape is deprecated: This property is no longer used."
                     },
                     "idCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the identification card was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the identification card was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "planIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the insurance plan was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the insurance plan was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "beginningPlanIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the insurance plan begins, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the insurance plan begins.\nThis shape is deprecated: This property is no longer used."
                     },
                     "endPlanIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the insurance plan ends, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the insurance plan ends.\nThis shape is deprecated: This property is no longer used."
                     },
                     "healthCareCodeInformation": {
                         "type": "array",
@@ -5236,12 +5312,12 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The subscriber's date of birth in YYYYMMDD format."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The subscriber's date of birth."
                     },
                     "ssn": {
                         "type": "string",
-                        "maxLength": 11,
-                        "minLength": 1,
+                        "pattern": "^\\d{9}$",
                         "description": "The subscriber's Social Security Number (SSN). Many commercial and government payers ignore this property due to concerns about member privacy. However, some Medicaid programs support alternative searches using the patient's Social Security Number, instead of the member ID.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
@@ -5274,33 +5350,39 @@
                     },
                     "beginningCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's identification card was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's identification card was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "endCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's identification card expires, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's identification card expires.\nThis shape is deprecated: This property is no longer used."
                     },
                     "idCardIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's identification card was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's identification card was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "planIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's insurance plan was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's insurance plan was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "beginningPlanIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's insurance plan was issued, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's insurance plan was issued.\nThis shape is deprecated: This property is no longer used."
                     },
                     "endPlanIssueDate": {
                         "type": "string",
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
                         "deprecated": true,
-                        "description": "Deprecated; The date the subscriber's insurance plan ended, expressed in YYYYMMDD format.\nThis shape is deprecated: This property is no longer used."
+                        "description": "Deprecated; The date the subscriber's insurance plan ended.\nThis shape is deprecated: This property is no longer used."
                     },
                     "healthCareCodeInformation": {
                         "type": "array",
@@ -5417,7 +5499,8 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The member's date of birth, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The member's date of birth."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
@@ -5441,22 +5524,26 @@
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period. Can be `D8` - Date Expressed in Format YYYYMMDD or `RD8` - Range of Dates Expressed in Format YYYYMMDD-YYYYMMDD.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The format of the military service date and time period. Can be `D8` - Date or `RD8` - Range of Dates.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
-                        "description": "The military service date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service date."
                     },
                     "startDateTimePeriod": {
                         "type": "string",
-                        "description": "The military service start date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service start date."
                     },
                     "endDateTimePeriod": {
                         "type": "string",
-                        "description": "The military service end date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service end date."
                     },
                     "ssn": {
                         "type": "string",
+                        "pattern": "^\\d{9}$",
                         "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
@@ -5944,6 +6031,7 @@
                     },
                     "npi": {
                         "type": "string",
+                        "pattern": "^\\d{10}$",
                         "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier)."
                     },
                     "providerCode": {
@@ -5956,10 +6044,12 @@
                     },
                     "ssn": {
                         "type": "string",
+                        "pattern": "^\\d{9}$",
                         "description": "The Social Security Number (SSN)."
                     },
                     "federalTaxpayersIdNumber": {
                         "type": "string",
+                        "pattern": "^\\d{9}$",
                         "description": "The Federal Taxpayer Identification Number (also known as an EIN)."
                     },
                     "payorIdentification": {
@@ -6153,7 +6243,8 @@
                     },
                     "dateOfBirth": {
                         "type": "string",
-                        "description": "The member's date of birth, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The member's date of birth."
                     },
                     "informationStatusCode": {
                         "$ref": "#/components/schemas/InformationStatusCode",
@@ -6177,22 +6268,26 @@
                     },
                     "dateTimePeriodFormatQualifier": {
                         "$ref": "#/components/schemas/DateTimePeriodFormatQualifier",
-                        "description": "The format of the military service date and time period. Can be `D8` - Date Expressed in Format YYYYMMDD or `RD8` - Range of Dates Expressed in Format YYYYMMDD-YYYYMMDD.\n\nPayers may sometimes return other non-compliant values."
+                        "description": "The format of the military service date and time period. Can be `D8` - Date or `RD8` - Range of Dates.\n\nPayers may sometimes return other non-compliant values."
                     },
                     "dateTimePeriod": {
                         "type": "string",
-                        "description": "The military service date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service date."
                     },
                     "startDateTimePeriod": {
                         "type": "string",
-                        "description": "The military service start date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service start date."
                     },
                     "endDateTimePeriod": {
                         "type": "string",
-                        "description": "The military service end date, formatted as YYYYMMDD."
+                        "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+                        "description": "The military service end date."
                     },
                     "ssn": {
                         "type": "string",
+                        "pattern": "^\\d{9}$",
                         "description": "The member's Social Security Number (SSN)."
                     },
                     "groupNumber": {
