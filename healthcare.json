@@ -10160,8 +10160,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "type": "string",
-                                "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                                "$ref": "#/components/schemas/CoverageType"
                             },
                             "description": "Filter for matching payers that provide **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage."
                         },
@@ -16037,6 +16036,14 @@
                         "description": "Used to report the provider's Health Plan ID (HPID) or Other Entity Identifier (OEID)."
                     }
                 }
+            },
+            "CoverageType": {
+                "type": "string",
+                "description": "The types of insurance coverage that a payer can provide.",
+                "enum": [
+                    "medical",
+                    "dental"
+                ]
             },
             "CrossoverCarrier": {
                 "type": "object",
@@ -26128,10 +26135,9 @@
                     "coverageTypes": {
                         "type": "array",
                         "items": {
-                            "type": "string",
-                            "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                            "$ref": "#/components/schemas/CoverageType"
                         },
-                        "description": "A list of coverage types this payer provides, such as `[\"medical\", \"dental\"]`."
+                        "description": "The list of coverage types this payer provides, such as `[\"medical\"]`, `[\"dental\"]`, or `[\"medical\", \"dental\"]`."
                     }
                 },
                 "required": [
@@ -30399,10 +30405,9 @@
                     "coverageTypes": {
                         "type": "array",
                         "items": {
-                            "type": "string",
-                            "description": "The types of insurance coverage this payer provides, such as 'medical' and 'dental'."
+                            "$ref": "#/components/schemas/CoverageType"
                         },
-                        "description": "List of coverage types this payer provides, such as `[\"medical\"]`, `[\"dental\"]`, or `[\"medical\", \"dental\"]`."
+                        "description": "The list of coverage types this payer provides, such as `[\"medical\"]`, `[\"dental\"]`, or `[\"medical\", \"dental\"]`."
                     }
                 },
                 "required": [
