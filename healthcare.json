@@ -14,6 +14,7 @@
     "paths": {
         "/change/medicalnetwork/claimstatus/v2": {
             "post": {
+                "description": "Submit a 276/277 real-time claim status check in JSON format",
                 "operationId": "ClaimStatus",
                 "requestBody": {
                     "content": {
@@ -306,6 +307,7 @@
         },
         "/change/medicalnetwork/claimstatus/v2/raw-x12": {
             "post": {
+                "description": "Submit a 276/277 real-time claim status check in raw X12 EDI format",
                 "operationId": "ClaimStatusRawX12",
                 "requestBody": {
                     "content": {
@@ -488,6 +490,7 @@
         },
         "/change/medicalnetwork/eligibility/v3": {
             "post": {
+                "description": "Submit a real-time 270/271 eligibility check in JSON format",
                 "operationId": "EligibilityCheck",
                 "requestBody": {
                     "content": {
@@ -1860,6 +1863,7 @@
         },
         "/change/medicalnetwork/eligibility/v3/raw-x12": {
             "post": {
+                "description": "Submit a real-time 270/271 eligibility check in raw X12 EDI format",
                 "operationId": "EligibilityRawX12Check",
                 "requestBody": {
                     "content": {
@@ -3203,6 +3207,7 @@
         },
         "/change/medicalnetwork/institutionalclaims/v1/submission": {
             "post": {
+                "description": "Submit an 837I institutional claim in JSON format",
                 "operationId": "InstitutionalClaimsSubmission",
                 "requestBody": {
                     "content": {
@@ -3434,6 +3439,7 @@
         },
         "/change/medicalnetwork/professionalclaims/v3/raw-x12-submission": {
             "post": {
+                "description": "Submit an 837P professional claim in raw X12 EDI format",
                 "operationId": "ClaimsRawX12Submission",
                 "requestBody": {
                     "content": {
@@ -3590,6 +3596,7 @@
         },
         "/change/medicalnetwork/professionalclaims/v3/submission": {
             "post": {
+                "description": "Submit an 837P professional claim in raw X12 EDI format",
                 "operationId": "ClaimsSubmission",
                 "requestBody": {
                     "content": {
@@ -3848,6 +3855,7 @@
         },
         "/change/medicalnetwork/reports/v2/{transactionId}/277": {
             "get": {
+                "description": "Retrieve a 277CA claim acknowledgment in JSON format",
                 "operationId": "ConvertReport277",
                 "parameters": [
                     {
@@ -4421,6 +4429,7 @@
         },
         "/change/medicalnetwork/reports/v2/{transactionId}/835": {
             "get": {
+                "description": "Retrieve an 835 Electronic Remittance Advice (ERA) in JSON format",
                 "operationId": "ConvertReport835",
                 "parameters": [
                     {
@@ -4694,6 +4703,7 @@
         },
         "/coordination-of-benefits": {
             "post": {
+                "description": "Submit a coordination of benefits (COB) check in JSON format",
                 "operationId": "CoordinationOfBenefits",
                 "requestBody": {
                     "content": {
@@ -4956,6 +4966,7 @@
         },
         "/dental-claims/raw-x12-submission": {
             "post": {
+                "description": "Submit an 837D dental claim in raw X12 EDI format",
                 "operationId": "DentalClaimsRawX12Submission",
                 "requestBody": {
                     "content": {
@@ -5112,6 +5123,7 @@
         },
         "/dental-claims/submission": {
             "post": {
+                "description": "Submit an 837D dental claim in JSON format",
                 "operationId": "DentalClaimsSubmission",
                 "requestBody": {
                     "content": {
@@ -5393,6 +5405,7 @@
         },
         "/export/pdf": {
             "get": {
+                "description": "Retrieve a Stedi generatedCMS-1500 Claim Form PDF for a submitted 837P (professional) claim by business identifier",
                 "operationId": "ExportPDF",
                 "parameters": [
                     {
@@ -5528,6 +5541,7 @@
         },
         "/export/{transactionId}/1500/pdf": {
             "get": {
+                "description": "Retrieve the generated CMS-1500 Claim Form PDF for a submitted 837P professional claim",
                 "operationId": "GetPDF1500",
                 "parameters": [
                     {
@@ -5650,6 +5664,7 @@
         },
         "/insurance-discovery/check/v1": {
             "post": {
+                "description": "Submit an insurance discovery check in JSON format",
                 "operationId": "InsuranceDiscoveryCheck",
                 "requestBody": {
                     "content": {
@@ -7730,6 +7745,7 @@
         },
         "/insurance-discovery/check/v1/{discoveryId}": {
             "get": {
+                "description": "Retrieve insurance discovery check results by `discoveryId`",
                 "operationId": "GetInsuranceDiscoveryCheck",
                 "parameters": [
                     {
@@ -9790,6 +9806,7 @@
         },
         "/payers": {
             "get": {
+                "description": "List all of Stedi's supported payers",
                 "operationId": "ListPayerRecords",
                 "responses": {
                     "200": {
@@ -9840,111 +9857,6 @@
                                                         "56-0894904"
                                                     ],
                                                     "parentPayerGroupId": "OVWIG"
-                                                }
-                                            ]
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "ValidationException 400 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "AccessDeniedException 403 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "ResourceNotFoundException 404 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "429": {
-                        "description": "ThrottlingException 429 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "InternalFailureException 500 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "503": {
-                        "description": "ServiceUnavailableException 503 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                                }
-                            }
-                        }
-                    },
-                    "504": {
-                        "description": "GatewayTimeoutException 504 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/payers/groups": {
-            "get": {
-                "operationId": "ListPayerGroups",
-                "responses": {
-                    "200": {
-                        "description": "ListPayerGroups 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/ListPayerGroupsResponseContent"
-                                },
-                                "examples": {
-                                    "ListPayerGroups_example1": {
-                                        "summary": "List Payer Groups",
-                                        "description": "",
-                                        "value": {
-                                            "items": [
-                                                {
-                                                    "id": "GROUP1",
-                                                    "displayName": "Blue Cross Blue Shield"
-                                                },
-                                                {
-                                                    "id": "GROUP2",
-                                                    "displayName": "UnitedHealthcare"
                                                 }
                                             ]
                                         }
@@ -24300,21 +24212,6 @@
                     "repricedAllowedAmount"
                 ]
             },
-            "ListPayerGroupsResponseContent": {
-                "type": "object",
-                "properties": {
-                    "items": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/PayerGroup"
-                        },
-                        "description": "Payer groups listing"
-                    }
-                },
-                "required": [
-                    "items"
-                ]
-            },
             "ListPayerRecordsResponseContent": {
                 "type": "object",
                 "properties": {
@@ -26064,23 +25961,6 @@
                 "enum": [
                     "Clearinghouse",
                     "Payer"
-                ]
-            },
-            "PayerGroup": {
-                "type": "object",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique ID of the payer group"
-                    },
-                    "displayName": {
-                        "type": "string",
-                        "description": "The display name of the payer group"
-                    }
-                },
-                "required": [
-                    "displayName",
-                    "id"
                 ]
             },
             "PayerRecord": {
