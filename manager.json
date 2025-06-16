@@ -4446,7 +4446,7 @@
                         "type": "string",
                         "maxLength": 60,
                         "minLength": 1,
-                        "description": "The provider's business name. This property is required if the provider is not a person."
+                        "description": "The provider's business name. This property is required if the provider is not an individual."
                     },
                     "firstName": {
                         "type": "string",
@@ -4463,7 +4463,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^\\d{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). This identifier is required for all healthcare providers who are eligible to receive an NPI. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners are not eligible to receive an NPI. If the provider doesn't have an NPI, you can supply either their `taxId` or `ssn`.",
+                        "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). This identifier is required for all healthcare providers who are eligible to receive an NPI. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners are not eligible to receive an NPI. If the provider doesn't have an NPI, requests with alternate IDs are virtually never supported. In the rare circumstance that a payer has instructed you to use an alternate ID, the payer will typically require you to supply either their `taxId` or `ssn` instead.",
                         "x-meta": {
                             "title": "National Provider Identifier (NPI)"
                         }
@@ -4472,7 +4472,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's service provider number. Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
+                        "description": "The provider's service provider number. Only include when specifically instructed by a payer - for example, when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This use case is very rarely supported, and is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "payorId": {
                         "type": "string",
@@ -4483,12 +4483,12 @@
                     "taxId": {
                         "type": "string",
                         "pattern": "^\\d{9}$",
-                        "description": "The provider's Federal Taxpayer Identification Number (also known as an EIN)."
+                        "description": "The provider's Federal Taxpayer Identification Number. This is typically the provider's EIN (Employer Identification Number), but the provider's SSN may be used if the provider does not have an EIN. Only include if required by the payer."
                     },
                     "ssn": {
                         "type": "string",
                         "pattern": "^\\d{9}$",
-                        "description": "The provider's Social Security Number (SSN).\n    - Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service.\n    - Don't use this for Federally-administered programs, such as Medicare.",
+                        "description": "The provider's Social Security Number (SSN).\n    - Only include when specifically instructed by a payer - for example, if the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This use case is very rarely supported, and is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service.\n    - If the payer has instructed you to send an EIN but the provider operates using their SSN, use provider.taxId instead of this field.\n    - Don't use this for Federally-administered programs, such as Medicare.",
                         "x-meta": {
                             "title": "Social Security Number (SSN)"
                         }
@@ -4497,7 +4497,7 @@
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 2,
-                        "description": "The provider's pharmacy processor number. Only include when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
+                        "description": "The provider's pharmacy processor number. Only include when specifically instructed by a payer - for example, when the provider doesn't have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). This use case is very rarely supported, and is typically when the provider is a non-medical provider, such as a social worker, home health aide, or transportation service."
                     },
                     "servicesPlanID": {
                         "type": "string",
@@ -4515,7 +4515,7 @@
                     },
                     "providerCode": {
                         "$ref": "#/components/schemas/RequestProviderCode",
-                        "description": "Communicate the provider's role in the type of benefits specified in the request. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list."
+                        "description": "Communicate the provider's role in the type of benefits specified in the request. Visit [Eligibility code lists](https://www.stedi.com/docs/healthcare/eligibility-code-lists#provider-codes) for a complete list. Only include when required by a payer."
                     },
                     "referenceIdentification": {
                         "type": "string",
@@ -4528,78 +4528,78 @@
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`."
+                        "description": "The provider's state license number. If you include this information, you must also include the `informationReceiverAdditionalIdentifierState`. Only include when required by a payer."
                     },
                     "medicareProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's Medicare provider number."
+                        "description": "The provider's Medicare provider number. Only include when required by a payer."
                     },
                     "medicaidProviderNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's Medicaid provider number."
+                        "description": "The provider's Medicaid provider number. Only include when required by a payer."
                     },
                     "facilityIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The ID number for the provider's facility."
+                        "description": "The ID number for the provider's facility. Only include when required by a payer."
                     },
                     "contractNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's contract number."
+                        "description": "The provider's contract number. Only include when required by a payer."
                     },
                     "contactNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
                         "deprecated": true,
-                        "description": "The provider's contract number.\nThis shape is deprecated: Use `contractNumber` instead."
+                        "description": "The provider's contract number. Only include when required by a payer.\nThis shape is deprecated: Use `contractNumber` instead."
                     },
                     "devicePinNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's electronic device pin number."
+                        "description": "The provider's electronic device pin number. Only include when required by a payer."
                     },
                     "submitterIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's submitter identification number."
+                        "description": "The provider's submitter identification number. Only include when required by a payer."
                     },
                     "providerPlanNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's plan network identification number."
+                        "description": "The provider's plan network identification number. Only include when required by a payer."
                     },
                     "facilityNetworkIdNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's facility network identification number."
+                        "description": "The provider's facility network identification number. Only include when required by a payer."
                     },
                     "priorIdentifierNumber": {
                         "type": "string",
                         "maxLength": 50,
                         "minLength": 1,
-                        "description": "The provider's prior identifier number."
+                        "description": "The provider's prior identifier number. Only include when required by a payer."
                     },
                     "informationReceiverAdditionalIdentifierState": {
                         "type": "string",
                         "maxLength": 80,
                         "minLength": 1,
-                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`."
+                        "description": "The two-character state ID of the state that assigned the `stateLicenseNumber`. Only include when required by a payer."
                     },
                     "address": {
                         "$ref": "#/components/schemas/RequestAddress",
-                        "description": "The address of the provider requesting the information. This is required when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
+                        "description": "The address of the provider requesting the information. Only include when specifically instructed by a payer, such as when the provider has multiple locations and you need to identify the specific location making the request. You must include at least the `address1` and `city` properties in this object."
                     }
                 }
             },
