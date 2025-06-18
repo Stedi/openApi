@@ -10138,7 +10138,19 @@
                                                         },
                                                         "parentPayerGroupId": "AWOCR"
                                                     },
-                                                    "score": 11.279371
+                                                    "score": 11.279371,
+                                                    "matches": {
+                                                        "stediId": "<b>KRP</b>CH",
+                                                        "displayName": "<b>Blue Cross Blue</b> Shield of Michigan",
+                                                        "aliases": [
+                                                            "<b>00710</b>"
+                                                        ],
+                                                        "names": [
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Dental",
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Institutional",
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Professional"
+                                                        ]
+                                                    }
                                                 }
                                             ],
                                             "stats": {
@@ -10238,7 +10250,19 @@
                                                         },
                                                         "parentPayerGroupId": "AWOCR"
                                                     },
-                                                    "score": 11.279371
+                                                    "score": 11.279371,
+                                                    "matches": {
+                                                        "stediId": "<b>KRP</b>CH",
+                                                        "displayName": "<b>Blue Cross Blue</b> Shield of Michigan",
+                                                        "aliases": [
+                                                            "<b>00710</b>"
+                                                        ],
+                                                        "names": [
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Dental",
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Institutional",
+                                                            "<b>Blue Cross Blue</b> Shield Michigan Professional"
+                                                        ]
+                                                    }
                                                 }
                                             ],
                                             "stats": {
@@ -10384,11 +10408,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
@@ -10401,11 +10425,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
@@ -10901,11 +10925,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
@@ -23993,11 +24017,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
@@ -24246,6 +24270,38 @@
                 "enum": [
                     "001"
                 ]
+            },
+            "Matches": {
+                "type": "object",
+                "description": "Shows which properties in the payer record match the search query. This information helps you understand why Stedi returned this payer and which parts of the payer record matched the search terms. It's also especially useful for debugging search queries and building user interfaces that display matching text.\n- Matching text is wrapped in `<b>` HTML tags for highlighting.\n- This object only contains properties with matching text. For example, if none of the payer's aliases matched the search query, this object will not include the `aliases` property.",
+                "properties": {
+                    "stediId": {
+                        "type": "string",
+                        "description": "The part of the payer's Stedi payer ID that matched the search query. Stedi payer IDs only support exact substring matching (no prefix or fuzzy matching). For example, if you search for `KRP`, the results for a payer with Stedi payer ID 'KRPCH' would be: `<b>KRP</b>CH`."
+                    },
+                    "displayName": {
+                        "type": "string",
+                        "description": "The part of the payer's display name that matched the search query. For example, searching for `Blue` might return: `Blue Cross <b>Blue</b> Shield`."
+                    },
+                    "primaryPayerId": {
+                        "type": "string",
+                        "description": "The part of the primary payer ID that matched the search query. For example, if you search for '12345', the results for a payer with primary payer ID `12345ABC` would return: `<b>12345</b>ABC`."
+                    },
+                    "aliases": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The parts of the payer's aliases that match the search query. Each alias that contains matching text is included as a separate entry, with matching portions wrapped in `<b>` tags. For example, searching for `XYZ` might return: [`<b>XYZ</b>123`, `ABC<b>XYZ</b>`]."
+                    },
+                    "names": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "The parts of the payer's other names that match the search query. Each name that contains matching text is included as a separate entry, with matching portions wrapped in `<b>` tags. For example, searching for `Health` might return: [`Community <b>Health</b> Plan`, `<b>Health</b> Partners`]."
+                    }
+                }
             },
             "MaximumResponseSizeExceeded": {
                 "type": "object",
@@ -30357,6 +30413,7 @@
             },
             "SearchPayersResponseContent": {
                 "type": "object",
+                "description": "Common output structure for list operations with pagination support.",
                 "properties": {
                     "nextPageToken": {
                         "type": "string",
@@ -30392,6 +30449,10 @@
                         "type": "number",
                         "description": "A relevance score indicating how well this payer matched the search query. Higher scores are better matches. The minimum score is 0.",
                         "format": "double"
+                    },
+                    "matches": {
+                        "$ref": "#/components/schemas/Matches",
+                        "description": "Shows which properties in the payer record match the search query. This information helps you understand why Stedi returned this payer and which parts of the payer record matched the search terms. It's also especially useful for debugging search queries and building user interfaces that display matching text.\n- Matching text is wrapped in `<b>` HTML tags for highlighting.\n- This object only contains properties with matching text. For example, if none of the payer's aliases matched the search query, this object will not include the `aliases` property."
                     }
                 },
                 "required": [
@@ -31995,11 +32056,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
@@ -32367,11 +32428,11 @@
                 "properties": {
                     "message": {
                         "type": "string",
-                        "description": "Human readable exception message."
+                        "description": "Human-readable error message"
                     },
                     "code": {
                         "type": "string",
-                        "description": "Classification of the exception type."
+                        "description": "Error classification code"
                     }
                 },
                 "required": [
