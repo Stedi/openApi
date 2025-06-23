@@ -9938,6 +9938,110 @@
                 }
             }
         },
+        "/payers/csv": {
+            "get": {
+                "description": "List Stedi's supported payers in CSV format",
+                "operationId": "ListPayerRecordsCsv",
+                "responses": {
+                    "200": {
+                        "description": "ListPayerRecordsCsv 200 response",
+                        "headers": {
+                            "Content-Type": {
+                                "description": "Content type for CSV data",
+                                "schema": {
+                                    "type": "string",
+                                    "description": "Content type for CSV data"
+                                }
+                            }
+                        },
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ListPayerRecordsCsvOutputPayload"
+                                },
+                                "examples": {
+                                    "ListPayerRecordsCsv_example1": {
+                                        "summary": "Download Payers CSV",
+                                        "description": "",
+                                        "value": "StediId,PrimaryPayerId,DisplayName,Names,Aliases,EligibilityInquiry,EligibilityInquiryEnrollmentRequired,EligibilityInquiryEnrollmentType,EligibilityInquiryEnrollmentTimeframe,ClaimStatusInquiry,ClaimStatusInquiryEnrollmentRequired,ClaimStatusInquiryEnrollmentType,ClaimStatusInquiryEnrollmentTimeframe,ProfessionalClaim,ProfessionalClaimEnrollmentRequired,ProfessionalClaimEnrollmentType,ProfessionalClaimEnrollmentTimeframe,InstitutionalClaim,InstitutionalClaimEnrollmentRequired,InstitutionalClaimEnrollmentType,InstitutionalClaimEnrollmentTimeframe,DentalClaim,DentalClaimEnrollmentRequired,DentalClaimEnrollmentType,DentalClaimEnrollmentTimeframe,ClaimPaymentAdvice,ClaimPaymentAdviceEnrollmentRequired,ClaimPaymentEnrollmentType,ClaimPaymentEnrollmentTimeframe,CoordinationOfBenefits,CoordinationOfBenefitsEnrollmentRequired,CoordinationOfBenefitsEnrollmentType,CoordinationOfBenefitsEnrollmentTimeframe,ClaimAttachmentsSupport,ClaimAttachmentsSupportEnrollmentRequired,ClaimAttachmentEnrollmentType,ClaimAttachmentEnrollmentTimeframe,EmployerIdentificationNumbers,CoverageTypes,PtanRequired,ParentPayerGroupId\nUPICO,BCSNC,Blue Cross Blue Shield of North Carolina,Blue Cross Blue Shield North Carolina BlueCross BlueShield,BCSNC 1411 560894904 61473 7472 7814 NCBCBS NCPNHP SB810 SB810MA,true,false,ONE_CLICK,INSTANT,true,false,,,true,false,,,true,false,,,true,false,,,true,true,,,true,false,,,false,false,,,12-3456789 98-7654321,medical,false,GROUP123"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "ServiceUnavailableException 503 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "504": {
+                        "description": "GatewayTimeoutException 504 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payers/search": {
             "get": {
                 "description": "Search for payers by name, ID, or alias.",
@@ -24360,6 +24464,10 @@
                     "pricingMethodologyCode",
                     "repricedAllowedAmount"
                 ]
+            },
+            "ListPayerRecordsCsvOutputPayload": {
+                "type": "string",
+                "description": "All supported payer records in CSV format. The first row contains the header with field names, and subsequent rows contain the payer data.\n\nTo render this data as a CSV file, you must save it to a file with a `.csv` extension."
             },
             "ListPayerRecordsResponseContent": {
                 "type": "object",
