@@ -400,6 +400,53 @@
               "minLength": 1,
               "description": "An opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results."
             }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "The direction of the transaction. Inbound transactions are those you receive from a payer, provider, or other trading partner. Outbound transactions are those you send to a payer, provider, or other trading partner.",
+            "schema": {
+              "$ref": "#/components/schemas/Direction"
+            }
+          },
+          {
+            "name": "faultCode",
+            "in": "query",
+            "description": "A code specifying the reason for the fault.",
+            "schema": {
+              "$ref": "#/components/schemas/ExecutionFaultCode"
+            }
+          },
+          {
+            "name": "partnershipId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status of the execution. An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
+            "schema": {
+              "$ref": "#/components/schemas/ExecutionStatus"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
           }
         ],
         "responses": {
@@ -4368,6 +4415,92 @@
               "maxLength": 1024,
               "minLength": 1,
               "description": "A token returned by a previous call to this operation in the `nextPageToken`. If not specified, Stedi returns the first page of results."
+            }
+          },
+          {
+            "name": "businessIdentifier",
+            "in": "query",
+            "description": "`businessIdentifier` may be passed to list only transactions matching the businessIdentifier.",
+            "schema": {
+              "type": "string",
+              "description": "`businessIdentifier` may be passed to list only transactions matching the businessIdentifier."
+            }
+          },
+          {
+            "name": "transactionSetId",
+            "in": "query",
+            "description": "`transactionSetId` may be passed to list only a given type of transaction.",
+            "schema": {
+              "type": "string",
+              "description": "`transactionSetId` may be passed to list only a given type of transaction."
+            }
+          },
+          {
+            "name": "sender",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "receiver",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "direction",
+            "in": "query",
+            "description": "The direction of the transaction. Inbound transactions are those you receive from a payer, provider, or other trading partner. Outbound transactions are those you send to a payer, provider, or other trading partner.",
+            "schema": {
+              "$ref": "#/components/schemas/Direction"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "description": "Indicates whether the transaction contains test or production data. Stedi determines this from the value in [`ISA15` Usage Indicator Code](https://www.stedi.com/edi/x12/segment/ISA#ISA-15). ",
+            "schema": {
+              "$ref": "#/components/schemas/Mode"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "A status indicating whether Stedi was able to successfully process the transaction.",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionStatus"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "elementId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "partnershipId",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
         ],
@@ -8604,6 +8737,7 @@
       },
       "ListExecutionTransactionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8624,6 +8758,7 @@
       },
       "ListExecutionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8644,6 +8779,7 @@
       },
       "ListPgPollingExecutionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8664,6 +8800,7 @@
       },
       "ListPgPollingTransactionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8684,6 +8821,7 @@
       },
       "ListPollingExecutionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8704,6 +8842,7 @@
       },
       "ListPollingTransactionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -8724,6 +8863,7 @@
       },
       "ListTransactionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -9084,6 +9224,7 @@
       },
       "PgListExecutionFaultsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
@@ -9104,6 +9245,7 @@
       },
       "PgListExecutionTransactionsResponseContent": {
         "type": "object",
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "nextPageToken": {
             "type": "string",
