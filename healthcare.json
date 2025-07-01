@@ -12570,7 +12570,7 @@
                         "items": {
                             "$ref": "#/components/schemas/PatientClaimStatusDetails"
                         },
-                        "description": "Patient information and the status of claims related to the patient."
+                        "description": "Patient information and the status of claims related to the patient. You can use the `claims.claimStatus.referencedTransactionTraceNumber` in this object to correlate the 277CA with the original claim.\n\nSome payers batch acknowledgments for multiple claims into a single 277CA. In these cases, the 277CA will contain multiple `patientClaimStatusDetails` objects, each with its own `referencedTransactionTraceNumber` for the corresponding claim."
                     }
                 }
             },
@@ -25924,6 +25924,7 @@
             },
             "PatientClaimStatusDetails": {
                 "type": "object",
+                "description": "Patient information and the status of claims related to the patient. You can use the `claims.claimStatus.referencedTransactionTraceNumber` in this object to correlate the 277CA with the original claim.",
                 "properties": {
                     "subscriber": {
                         "$ref": "#/components/schemas/PatientClaimStatusDetailsSubscriber"
@@ -28935,7 +28936,8 @@
                 "type": "object",
                 "properties": {
                     "claimStatus": {
-                        "$ref": "#/components/schemas/ClaimsClaimStatus"
+                        "$ref": "#/components/schemas/ClaimsClaimStatus",
+                        "description": "Status information for the claim. This object includes the `referencedTransactionTraceNumber` you can use to correlate the 277CA with the original claim."
                     },
                     "serviceLines": {
                         "type": "array",
