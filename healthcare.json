@@ -14639,7 +14639,7 @@
                     },
                     "dependent": {
                         "$ref": "#/components/schemas/Member",
-                        "description": "Information about the dependent listed in the referenced claim. You must submit the dependent's `firstName`, `lastName`, `dateOfBirth`, and `gender` in the request."
+                        "description": "Information about the dependent listed in the referenced claim. You must submit the dependent's `firstName`, `lastName`, `dateOfBirth`, and `gender` (if known). If the claim set the dependent's gender to `U` for unknown, you should omit the `gender` property."
                     },
                     "encounter": {
                         "$ref": "#/components/schemas/ClaimStatusEncounter"
@@ -14756,7 +14756,7 @@
             },
             "ClaimStatusSubscriber": {
                 "type": "object",
-                "description": "Information about the subscriber listed in the referenced claim.\n- You must set the `dateOfBirth` and `gender` properties when the subscriber is the patient. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties. You can either include both properties or neither within a single request.",
+                "description": "Information about the subscriber listed in the referenced claim.\n- You must set both the `dateOfBirth` and `gender` properties when the subscriber is the patient unless the gender is unknown. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties unless the gender is unknown.",
                 "properties": {
                     "memberId": {
                         "type": "string",
@@ -14799,11 +14799,10 @@
             },
             "ClaimStatusSubscriberGender": {
                 "type": "string",
-                "description": "A code indicating the subscriber's gender. The `U` value is deprecated. Most payers will reject claims with `U` as the subscriber's gender.",
+                "description": "A code indicating the subscriber's gender. If the claim set the subscriber's gender to `U` for unknown, you should omit this property from the claim status request.",
                 "enum": [
                     "M",
-                    "F",
-                    "U"
+                    "F"
                 ]
             },
             "ClaimSupplementalInformation": {
@@ -16983,7 +16982,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/DependentGender",
-                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -17932,7 +17931,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/SubscriberGender",
-                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -17975,7 +17974,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/DependentGender",
-                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Code indiciating the patient's gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -22395,7 +22394,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/GenderWithUnknown",
-                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -23958,7 +23957,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/GenderWithUnknown",
-                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Code identifying the gender. Can be set to `F` - Female, `M` - Male, or `U` - Unknown.\n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
@@ -24974,11 +24973,10 @@
             },
             "MemberGender": {
                 "type": "string",
-                "description": "A code indicating the dependent's gender. The `U` value is deprecated. Most payers will reject claims with `U` as the dependent's gender.",
+                "description": "A code indicating the dependent's gender. If the claim set the dependent's gender to `U` for unknown, you should omit this property from the claim status request.",
                 "enum": [
                     "M",
-                    "F",
-                    "U"
+                    "F"
                 ]
             },
             "Meta": {
@@ -32122,7 +32120,7 @@
                     },
                     "gender": {
                         "$ref": "#/components/schemas/SubscriberGender",
-                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nYou should set this property to `U` when the patient declines to answer or does not identify as male or female. Note that some payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records."
+                        "description": "Identifies the subscriber's gender. This property is **required** when the subscriber is the patient. Can be set to `F` - Female, `M` - Male, or `U` - Unknown. \n\nSome payers may reject the claim if the patient's gender doesn't match the gender they have recorded in their member records. If the gender isn't known or the patient declines to answer, use `U` or perform an eligibility check to determine the gender according to the payer's records."
                     },
                     "dateOfBirth": {
                         "type": "string",
