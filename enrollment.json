@@ -418,6 +418,128 @@
                 }
             }
         },
+        "/enrollments/export": {
+            "post": {
+                "description": "Exports enrollment records as a CSV file with optional filtering. Supports the same filtering parameters as ListEnrollments operation. Returns a presigned URL to download the generated CSV file from S3.",
+                "operationId": "ExportEnrollmentsCsv",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/ExportEnrollmentsCsvRequestContent"
+                            },
+                            "examples": {
+                                "ExportEnrollmentsCsv_example1": {
+                                    "summary": "Export All Enrollments as CSV",
+                                    "description": "",
+                                    "value": {}
+                                },
+                                "ExportEnrollmentsCsv_example2": {
+                                    "summary": "Export Filtered Enrollments as CSV",
+                                    "description": "",
+                                    "value": {
+                                        "status": [
+                                            "LIVE",
+                                            "SUBMITTED"
+                                        ],
+                                        "createdFrom": "2025-01-01T00:00:00Z",
+                                        "createdTo": "2025-12-31T23:59:59Z"
+                                    }
+                                },
+                                "ExportEnrollmentsCsv_example3": {
+                                    "summary": "No Enrollments Found",
+                                    "description": "",
+                                    "value": {
+                                        "status": [
+                                            "NONEXISTENT_STATUS"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "ExportEnrollmentsCsv 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ExportEnrollmentsCsvResponseContent"
+                                },
+                                "examples": {
+                                    "ExportEnrollmentsCsv_example1": {
+                                        "summary": "Export All Enrollments as CSV",
+                                        "description": "",
+                                        "value": {
+                                            "downloadUrl": "https://s3.amazonaws.com/stedi-enrollment-exports/stedi_enrollment_records_export_20250625.csv?presigned-params",
+                                            "filename": "stedi_enrollment_records_export_20250625.csv",
+                                            "recordCount": 150
+                                        }
+                                    },
+                                    "ExportEnrollmentsCsv_example2": {
+                                        "summary": "Export Filtered Enrollments as CSV",
+                                        "description": "",
+                                        "value": {
+                                            "downloadUrl": "https://s3.amazonaws.com/stedi-enrollment-exports/stedi_enrollment_records_export_20250625.csv?presigned-params",
+                                            "filename": "stedi_enrollment_records_export_20250625.csv",
+                                            "recordCount": 75
+                                        }
+                                    },
+                                    "ExportEnrollmentsCsv_example3": {
+                                        "summary": "No Enrollments Found",
+                                        "description": "",
+                                        "value": {
+                                            "recordCount": 0
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/enrollments/{enrollmentId}": {
             "delete": {
                 "description": "Deletes an enrollment request. Only enrollments in DRAFT status can be deleted. This operation is idempotent.",
@@ -1908,6 +2030,106 @@
                     "status",
                     "statusLastUpdatedAt",
                     "transactions"
+                ]
+            },
+            "ExportEnrollmentsCsvRequestContent": {
+                "type": "object",
+                "description": "Input for ExportEnrollmentsCsv operation with filtering options.",
+                "properties": {
+                    "filter": {
+                        "type": "string",
+                        "description": "A partial search term matched against multiple columns."
+                    },
+                    "status": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple statuses to filter by."
+                    },
+                    "providerNpis": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple provider NPIs to filter by."
+                    },
+                    "providerTaxIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple provider tax IDs to filter by."
+                    },
+                    "providerNames": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple provider names to filter by."
+                    },
+                    "payerIds": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple payer IDs to filter by."
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "description": "One or multiple sources to filter by."
+                    },
+                    "transactions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/TransactionType"
+                        },
+                        "description": "A list of enrollment transaction types to filter by."
+                    },
+                    "createdFrom": {
+                        "type": "string",
+                        "description": "The start date to filter enrollments created from this date.",
+                        "format": "date-time"
+                    },
+                    "createdTo": {
+                        "type": "string",
+                        "description": "The end date to filter enrollments created up to this date.",
+                        "format": "date-time"
+                    },
+                    "statusUpdatedFrom": {
+                        "type": "string",
+                        "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                        "format": "date-time"
+                    },
+                    "statusUpdatedTo": {
+                        "type": "string",
+                        "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                        "format": "date-time"
+                    }
+                }
+            },
+            "ExportEnrollmentsCsvResponseContent": {
+                "type": "object",
+                "description": "Output containing export results. If no enrollments found, downloadUrl and filename will be undefined and recordCount will be 0.",
+                "properties": {
+                    "downloadUrl": {
+                        "type": "string",
+                        "description": "A presigned URL for downloading the generated CSV file from S3. Undefined if no enrollments found."
+                    },
+                    "filename": {
+                        "type": "string",
+                        "description": "The filename of the generated CSV file. Undefined if no enrollments found."
+                    },
+                    "recordCount": {
+                        "type": "number",
+                        "description": "The number of enrollment records exported to the CSV file. 0 if no enrollments found."
+                    }
+                },
+                "required": [
+                    "recordCount"
                 ]
             },
             "GetEnrollmentResponseContent": {
