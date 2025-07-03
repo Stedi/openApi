@@ -24002,49 +24002,6 @@
                     "U"
                 ]
             },
-            "InsuranceDiscoveryAddress": {
-                "type": "object",
-                "properties": {
-                    "address1": {
-                        "type": "string",
-                        "maxLength": 55,
-                        "minLength": 1,
-                        "description": "The first line of the address."
-                    },
-                    "address2": {
-                        "type": "string",
-                        "maxLength": 55,
-                        "minLength": 1,
-                        "description": "The second line of the address."
-                    },
-                    "city": {
-                        "type": "string",
-                        "maxLength": 28,
-                        "minLength": 2,
-                        "description": "The city."
-                    },
-                    "state": {
-                        "$ref": "#/components/schemas/StateOrProvinceCode"
-                    },
-                    "postalCode": {
-                        "type": "string",
-                        "pattern": "^(\\d{5}?|\\d{9})$",
-                        "description": "The United States postal code, excluding punctuation and blanks."
-                    },
-                    "countryCode": {
-                        "type": "string",
-                        "maxLength": 2,
-                        "minLength": 2,
-                        "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)."
-                    },
-                    "countrySubDivisionCode": {
-                        "type": "string",
-                        "maxLength": 3,
-                        "minLength": 1,
-                        "description": "The country subdivision code from [Part 2 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-2)."
-                    }
-                }
-            },
             "InsuranceDiscoveryCheckRequestContent": {
                 "type": "object",
                 "properties": {
@@ -24140,7 +24097,7 @@
                         "description": "The dependent's gender. This can be set to either `M` - Male or `F` - Female."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InsuranceDiscoveryAddress",
+                        "$ref": "#/components/schemas/Address",
                         "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
                     }
                 },
@@ -24283,7 +24240,7 @@
                         "description": "The subscriber's gender. This can be set to either `M` - Male or `F` - Female."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/InsuranceDiscoveryAddress",
+                        "$ref": "#/components/schemas/Address",
                         "description": "The subscriber's current or previous address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
                     }
                 },
