@@ -10701,6 +10701,14 @@
                     "message"
                 ]
             },
+            "AccountNumberQualifier": {
+                "type": "string",
+                "description": "Identifies the type of bank account being used for electronic payment transactions. This specifies whether the account is a checking (demand deposit) or savings account.",
+                "enum": [
+                    "DA",
+                    "SA"
+                ]
+            },
             "AdditionalIdentification": {
                 "type": "object",
                 "description": "Use this object when you need to provide an identification number other than or in addition to the member ID. For example, you may provide the patient account number. Don't include the health insurance claim number or the medicaid recipient ID number here unless they are different from the member ID.",
@@ -10839,6 +10847,7 @@
             },
             "Adjustments": {
                 "type": "object",
+                "description": "Provider adjustment details including reason codes and amounts.",
                 "properties": {
                     "adjustmentReasonCode": {
                         "type": "string",
@@ -12847,11 +12856,22 @@
                     "adjustmentReasonCode"
                 ]
             },
+            "ClaimAdjustmentGroupCode": {
+                "type": "string",
+                "description": "Defines the category of adjustment reason codes that explain why a claim payment was adjusted. These codes categorize adjustments into contractual obligations, payer-initiated reductions, patient responsibilities, and other adjustments.",
+                "enum": [
+                    "CO",
+                    "OA",
+                    "PI",
+                    "PR"
+                ]
+            },
             "ClaimAdjustments": {
                 "type": "object",
+                "description": "Claim-level adjustments with reason codes and amounts.",
                 "properties": {
                     "claimAdjustmentGroupCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/ClaimAdjustmentGroupCode",
                         "description": "The code identifying the category of adjustment reason codes. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#claim-adjustment-group-code) for a complete list and usage notes."
                     },
                     "claimAdjustmentGroupCodeValue": {
@@ -13690,6 +13710,32 @@
                     }
                 }
             },
+            "ClaimPaymentAdviceFilingIndicatorCode": {
+                "type": "string",
+                "description": "Identifies the type of health plan or insurance coverage under which the claim was filed. These codes indicate the specific type of insurance arrangement, government program, or coverage type that applies to the claim.",
+                "enum": [
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "AM",
+                    "CH",
+                    "DS",
+                    "HM",
+                    "LI",
+                    "LM",
+                    "MA",
+                    "MB",
+                    "MC",
+                    "OF",
+                    "TV",
+                    "VA",
+                    "WC",
+                    "ZZ"
+                ]
+            },
             "ClaimPaymentAdvicePayer": {
                 "type": "object",
                 "description": "Information about the payer.",
@@ -13724,7 +13770,8 @@
                         "description": "The payer's web address. The URL is typically provided without the scheme and separator. For example, `stedi.com`."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayerAddress"
+                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayerAddress",
+                        "description": "The payer's address information."
                     },
                     "businessContactInformation": {
                         "$ref": "#/components/schemas/BusinessContactInformation",
@@ -13741,6 +13788,7 @@
             },
             "ClaimPaymentAdvicePayerAddress": {
                 "type": "object",
+                "description": "Address information for the payer.",
                 "properties": {
                     "address1": {
                         "type": "string",
@@ -13774,13 +13822,15 @@
             },
             "ClaimPaymentAdviceResponse": {
                 "type": "object",
+                "description": "The complete claim payment advice response from the payer.",
                 "properties": {
                     "controlNumber": {
                         "type": "string",
                         "description": "The control number the payer provided in the claim payment response. This is used to identify the transaction."
                     },
                     "paymentAndRemitReassociationDetails": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponsePaymentAndRemitReassociationDetails"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponsePaymentAndRemitReassociationDetails",
+                        "description": "Payment and remittance reassociation details for transaction tracking."
                     },
                     "foreignCurrency": {
                         "type": "string",
@@ -13800,19 +13850,23 @@
                         "description": "The version number of the adjudication system that generated the claim payments."
                     },
                     "financialInformation": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponseFinancialInformation"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceResponseFinancialInformation",
+                        "description": "Financial information about the payment including amounts and account details."
                     },
                     "payer": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayer"
+                        "$ref": "#/components/schemas/ClaimPaymentAdvicePayer",
+                        "description": "Information about the payer making the payment."
                     },
                     "payee": {
-                        "$ref": "#/components/schemas/Payee"
+                        "$ref": "#/components/schemas/Payee",
+                        "description": "Information about the payee receiving the payment."
                     },
                     "detailInfo": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/DetailInfo"
-                        }
+                        },
+                        "description": "Detailed information about claims in this payment advice."
                     },
                     "providerAdjustments": {
                         "type": "array",
@@ -13828,7 +13882,7 @@
                 "description": "Information about a payment, including the payment method, payment amount, and account details for both the sender and receiver.",
                 "properties": {
                     "transactionHandlingCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/TransactionHandlingCode",
                         "description": "A code indicating the actions taken by both the sender and the receiver. For example, `D` - Make Payment Only. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#transaction-handling-code) for a complete list and usage notes."
                     },
                     "totalActualProviderPaymentAmount": {
@@ -13836,16 +13890,16 @@
                         "description": "The total amount of the payment to the provider, expressed as a decimal."
                     },
                     "creditOrDebitFlagCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/CreditDebitFlagCode",
                         "description": "A code indicating whether the payment is a credit or debit. Can be set to `C` - Credit or `D` - Debit. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#credit-or-debit-flag-code) for usage notes."
                     },
                     "paymentMethodCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/PaymentMethodCode",
                         "description": "A code indicating the payment method. For example, `ACH` - Automated Clearing House or `CHK` - Check. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#payment-method-code) for a complete list and usage notes."
                     },
                     "paymentFormatCode": {
-                        "type": "string",
-                        "description": "A code identifying the payment format. Can be set to `CCP` - Cash Concentration/Disbursement plus Addenda (CCD+) (ACH) or `CTX` - Coroporate Trade Exchange (CTX) (ACH)."
+                        "$ref": "#/components/schemas/PaymentFormatCode",
+                        "description": "A code identifying the payment format. Can be set to `CCP` - Cash Concentration/Disbursement plus Addenda (CCD+) (ACH) or `CTX` - Corporate Trade Exchange (CTX) (ACH)."
                     },
                     "payerIdentifier": {
                         "type": "string",
@@ -13861,10 +13915,12 @@
                         "description": "The date the payer considers the transaction to be settled. If the payment is made by automated clearinghouse (ACH), this is the date the funds are available to the provider. If the payment is made by check, this is the date the check is issued. If the payment is made by Federal Reserve Funds/wire transfer, this is the date that the payer anticipates the money to move."
                     },
                     "senderAccountDetails": {
-                        "$ref": "#/components/schemas/SenderAccountDetails"
+                        "$ref": "#/components/schemas/SenderAccountDetails",
+                        "description": "Account details for the payment sender."
                     },
                     "receiverAccountDetails": {
-                        "$ref": "#/components/schemas/ReceiverAccountDetails"
+                        "$ref": "#/components/schemas/ReceiverAccountDetails",
+                        "description": "Account details for the payment receiver."
                     }
                 }
             },
@@ -13873,7 +13929,7 @@
                 "description": "Information to uniquely identify the transaction and help with reassociating payments and remittances that have been separated.",
                 "properties": {
                     "traceTypeCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/TraceTypeCode",
                         "description": "Code that identifies which transaction is being referenced. This can be set to `1` - Current Transaction Trace Numbers."
                     },
                     "checkOrEFTTraceNumber": {
@@ -13892,6 +13948,7 @@
             },
             "ClaimPaymentAdviceServiceLines": {
                 "type": "object",
+                "description": "Information about specific service lines in the claim payment advice.",
                 "properties": {
                     "serviceDate": {
                         "type": "string",
@@ -13913,37 +13970,45 @@
                         "description": "The `providerControlNumber` submitted in the original claim to identify the service line."
                     },
                     "servicePaymentInformation": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServicePaymentInformation"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServicePaymentInformation",
+                        "description": "Payment information for this service line."
                     },
                     "serviceAdjustments": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ClaimAdjustments"
-                        }
+                        },
+                        "description": "Adjustments applied to this service line."
                     },
                     "serviceIdentification": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceIdentification"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceIdentification",
+                        "description": "Service identification details."
                     },
                     "renderingProviderInformation": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesRenderingProviderInformation"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesRenderingProviderInformation",
+                        "description": "Information about the provider who rendered this service."
                     },
                     "serviceSupplementalAmounts": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalAmounts"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalAmounts",
+                        "description": "Supplemental amount information for this service."
                     },
                     "serviceSupplementalQuantities": {
-                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalQuantities"
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLinesServiceSupplementalQuantities",
+                        "description": "Supplemental quantity information for this service."
                     },
                     "healthCareCheckRemarkCodes": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/HealthCareCheckRemarkCodes"
-                        }
+                        },
+                        "description": "Healthcare check remark codes for this service."
                     },
                     "healthCarePolicyIdentification": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/HealthCarePolicyIdentification"
-                        }
+                        },
+                        "description": "Healthcare policy identification for this service."
                     }
                 }
             },
@@ -14050,7 +14115,7 @@
                 "description": "Payment and control information about a provider for a particular service.",
                 "properties": {
                     "productOrServiceIDQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/ProductServiceIdQualifier",
                         "description": "The code identifying the source of the `adjudicatedProcedureCode`."
                     },
                     "productOrServiceIDQualifierValue": {
@@ -14085,7 +14150,7 @@
                         "description": "The number of units of service that were paid, expressed as a decimal. If not present, the value is assumed to be one."
                     },
                     "submittedProductOrServiceIDQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/ProductServiceIdQualifier",
                         "description": "The code identifying the source of the `submittedAdjudicatedProcedureCode`."
                     },
                     "submittedProductOrServiceIDQualifierValue": {
@@ -14400,6 +14465,22 @@
                 "required": [
                     "address",
                     "organizationName"
+                ]
+            },
+            "ClaimStatusCode": {
+                "type": "string",
+                "description": "Indicates the status of the claim after adjudication by the payer. These codes determine whether the claim was processed as primary, secondary, tertiary, denied, forwarded to other payers, or represents special processing situations like reversals or predeterminations.",
+                "enum": [
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+                    "25"
                 ]
             },
             "ClaimStatusContactInformation": {
@@ -16094,6 +16175,7 @@
             },
             "ConvertReport835ResponseContent": {
                 "type": "object",
+                "description": "Transaction response structure for claim payment advice.",
                 "properties": {
                     "transactions": {
                         "type": "array",
@@ -16245,6 +16327,14 @@
                 "enum": [
                     "medical",
                     "dental"
+                ]
+            },
+            "CreditDebitFlagCode": {
+                "type": "string",
+                "description": "Indicates whether a financial transaction represents a credit or debit to the provider's account. Used to specify the direction of money flow in payment transactions.",
+                "enum": [
+                    "C",
+                    "D"
                 ]
             },
             "CrossoverCarrier": {
@@ -18062,10 +18152,12 @@
                         "description": "A unique ID assigned to identify this set of claim information within the response."
                     },
                     "providerSummaryInformation": {
-                        "$ref": "#/components/schemas/ProviderSummaryInformation"
+                        "$ref": "#/components/schemas/ProviderSummaryInformation",
+                        "description": "Summary information about the provider."
                     },
                     "providerSupplementalSummaryInformation": {
-                        "$ref": "#/components/schemas/ProviderSupplementalSummaryInformation"
+                        "$ref": "#/components/schemas/ProviderSupplementalSummaryInformation",
+                        "description": "Supplemental summary information about the provider."
                     },
                     "paymentInfo": {
                         "type": "array",
@@ -18075,6 +18167,14 @@
                         "description": "Information relevant to the claim and claim payment, including the subscriber, providers, and service lines. Note that the amount paid may not match the claim amount, even when the claim was not denied. This can happen for several reasons, including adjustments and corrected balances due from other claims."
                     }
                 }
+            },
+            "DfiIdNumberQualifier": {
+                "type": "string",
+                "description": "Identifies the type of Depository Financial Institution (DFI) identification number being used. This specifies the format and country of the bank routing information.",
+                "enum": [
+                    "01",
+                    "04"
+                ]
             },
             "DiagnosisRelatedGroupInformation": {
                 "type": "object",
@@ -26193,7 +26293,8 @@
                         "description": "The payee's National Provider Identifier (NPI)."
                     },
                     "address": {
-                        "$ref": "#/components/schemas/PayeeAddress"
+                        "$ref": "#/components/schemas/PayeeAddress",
+                        "description": "The payee's address information."
                     },
                     "stateLicenseNumber": {
                         "type": "string",
@@ -26212,12 +26313,14 @@
                         "description": "The payee's Federal Taxpayer's Identification Number (when the payee is a business) or the payee's social security number (when the payee is an individual provider)."
                     },
                     "remittanceDeliveryMethod": {
-                        "$ref": "#/components/schemas/PayeeRemittanceDeliveryMethod"
+                        "$ref": "#/components/schemas/PayeeRemittanceDeliveryMethod",
+                        "description": "Method for delivering remittance advice to the payee."
                     }
                 }
             },
             "PayeeAddress": {
                 "type": "object",
+                "description": "Address information for the payee.",
                 "properties": {
                     "address1": {
                         "type": "string",
@@ -26458,8 +26561,17 @@
                     "transactionSupport"
                 ]
             },
+            "PaymentFormatCode": {
+                "type": "string",
+                "description": "Identifies the specific electronic payment format used for ACH transactions. These formats determine the structure and content of the electronic payment message.",
+                "enum": [
+                    "CCP",
+                    "CTX"
+                ]
+            },
             "PaymentInfo": {
                 "type": "object",
+                "description": "Detailed payment information for a specific claim.",
                 "properties": {
                     "claimStatementPeriodStart": {
                         "type": "string",
@@ -26482,79 +26594,94 @@
                         "description": "The date the claim was received by the payer."
                     },
                     "claimPaymentInfo": {
-                        "$ref": "#/components/schemas/PaymentInfoClaimPaymentInfo"
+                        "$ref": "#/components/schemas/PaymentInfoClaimPaymentInfo",
+                        "description": "Basic claim payment information including amounts and status."
                     },
                     "claimAdjustments": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ClaimAdjustments"
                         },
-                        "description": "Any adjustments made to the claim payment and the reasons for those adjustments."
+                        "description": "Adjustments applied to this claim."
                     },
                     "patientName": {
-                        "$ref": "#/components/schemas/PaymentInfoPatientName"
+                        "$ref": "#/components/schemas/PaymentInfoPatientName",
+                        "description": "Patient name information."
                     },
                     "subscriber": {
-                        "$ref": "#/components/schemas/PaymentInfoSubscriber"
+                        "$ref": "#/components/schemas/PaymentInfoSubscriber",
+                        "description": "Subscriber information for the insurance policy."
                     },
                     "correctedPatientOrInsuredName": {
-                        "$ref": "#/components/schemas/PaymentInfoCorrectedPatientOrInsuredName"
+                        "$ref": "#/components/schemas/PaymentInfoCorrectedPatientOrInsuredName",
+                        "description": "Corrected patient or insured name information."
                     },
                     "renderingProvider": {
-                        "$ref": "#/components/schemas/PaymentInfoRenderingProvider"
+                        "$ref": "#/components/schemas/PaymentInfoRenderingProvider",
+                        "description": "Information about the provider who rendered services."
                     },
                     "crossoverCarrier": {
-                        "$ref": "#/components/schemas/CrossoverCarrier"
+                        "$ref": "#/components/schemas/CrossoverCarrier",
+                        "description": "Crossover carrier information."
                     },
                     "correctedPriorityPayer": {
-                        "$ref": "#/components/schemas/CorrectedPriorityPayer"
+                        "$ref": "#/components/schemas/CorrectedPriorityPayer",
+                        "description": "Corrected priority payer information."
                     },
                     "otherSubscriber": {
-                        "$ref": "#/components/schemas/OtherSubscriber"
+                        "$ref": "#/components/schemas/OtherSubscriber",
+                        "description": "Other subscriber information."
                     },
                     "inpatientAdjudication": {
-                        "$ref": "#/components/schemas/PaymentInfoInpatientAdjudication"
+                        "$ref": "#/components/schemas/PaymentInfoInpatientAdjudication",
+                        "description": "Inpatient adjudication information."
                     },
                     "outpatientAdjudication": {
-                        "$ref": "#/components/schemas/PaymentInfoOutpatientAdjudication"
+                        "$ref": "#/components/schemas/PaymentInfoOutpatientAdjudication",
+                        "description": "Outpatient adjudication information."
                     },
                     "claimContactInformation": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ReportsContactInformation"
                         },
-                        "description": "The person or office that handles communications about the claim."
+                        "description": "Contact information for claim-related communications."
                     },
                     "otherClaimRelatedIdentification": {
-                        "$ref": "#/components/schemas/PaymentInfoOtherClaimRelatedIdentification"
+                        "$ref": "#/components/schemas/PaymentInfoOtherClaimRelatedIdentification",
+                        "description": "Other claim-related identification numbers."
                     },
                     "renderingProviderIdentification": {
-                        "$ref": "#/components/schemas/PaymentInfoRenderingProviderIdentification"
+                        "$ref": "#/components/schemas/PaymentInfoRenderingProviderIdentification",
+                        "description": "Rendering provider identification information."
                     },
                     "claimSupplementalInformation": {
-                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformation"
+                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformation",
+                        "description": "Supplemental information about the claim."
                     },
                     "claimSupplementalInformationQuantities": {
-                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformationQuantities"
+                        "$ref": "#/components/schemas/PaymentInfoClaimSupplementalInformationQuantities",
+                        "description": "Supplemental quantity information about the claim."
                     },
                     "serviceLines": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/ClaimPaymentAdviceServiceLines"
                         },
-                        "description": "Information about specific service lines in the claim."
+                        "description": "Service lines included in this claim."
                     }
                 }
             },
             "PaymentInfoClaimPaymentInfo": {
                 "type": "object",
+                "description": "Claim payment information for the payment info structure.",
                 "properties": {
                     "patientControlNumber": {
                         "type": "string",
                         "description": "The patient control number provided in the original claim. You can use this value to correlate the payer's response with the original claim."
                     },
                     "claimStatusCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/ClaimStatusCode",
                         "description": "The status of the claim. For example, `1` - Processed as Primary. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#claim-status-code) for a complete list and usage notes."
                     },
                     "totalClaimChargeAmount": {
@@ -26570,7 +26697,7 @@
                         "description": "The amount the patient is responsible for paying. This can include the deductible, non-covered services, co-pay, and co-insurance. This is not used for reversals."
                     },
                     "claimFilingIndicatorCode": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/ClaimPaymentAdviceFilingIndicatorCode",
                         "description": "A code identifying the type of claim. For example `DS` - Disability. Visit [ERA code lists](https://www.stedi.com/docs/healthcare/receive-claim-responses#claim-filing-indicator-code) for a complete list and usage notes."
                     },
                     "payerClaimControlNumber": {
@@ -27154,6 +27281,17 @@
                         "description": "The subscriber's member ID for their health plan."
                     }
                 }
+            },
+            "PaymentMethodCode": {
+                "type": "string",
+                "description": "Specifies the method used to deliver payment to the provider. This determines how the payment will be transmitted, such as electronically through ACH, by physical check, or wire transfer.",
+                "enum": [
+                    "ACH",
+                    "BOP",
+                    "CHK",
+                    "FWT",
+                    "NON"
+                ]
             },
             "PlaceOfServiceCode": {
                 "type": "string",
@@ -27772,6 +27910,19 @@
                     "WK"
                 ]
             },
+            "ProductServiceIdQualifier": {
+                "type": "string",
+                "description": "Identifies the coding system or classification used to describe medical products, services, or procedures. These qualifiers specify which standardized code set is being used to identify the healthcare service or product.",
+                "enum": [
+                    "HC",
+                    "AD",
+                    "ER",
+                    "IV",
+                    "N4",
+                    "NU",
+                    "WK"
+                ]
+            },
             "ProfessionalService": {
                 "type": "object",
                 "description": "Information about the service rendered.",
@@ -28015,6 +28166,7 @@
             },
             "ProviderAdjustments": {
                 "type": "object",
+                "description": "Provider-level adjustments unrelated to specific claims.",
                 "properties": {
                     "providerIdentifier": {
                         "type": "string",
@@ -28030,7 +28182,7 @@
                         "items": {
                             "$ref": "#/components/schemas/Adjustments"
                         },
-                        "description": "Information about the adjustments, if applicable. These include any late or interest charges for the claim. \n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#adjustment-reason-codes) for a complete list of adjustment reason codes and their descriptions."
+                        "description": "List of adjustments applied to the provider."
                     }
                 }
             },
@@ -28461,10 +28613,10 @@
             },
             "ReceiverAccountDetails": {
                 "type": "object",
-                "description": "The provider's financial institution account details.",
+                "description": "Financial institution account details for the payment receiver.",
                 "properties": {
                     "receiverDfiIdNumberQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/DfiIdNumberQualifier",
                         "description": "The code identifying the type of identification number of the Depository Financial Institution (DFI). Can be either `01` - ABA Transit Routing Number Including Check Digits (9 digits) or `04` - Canadian Bank Branch Institution Number."
                     },
                     "receiverDfiIdentificationNumber": {
@@ -28472,7 +28624,7 @@
                         "description": "The identification number specified in `receiverDfiIdNumberQualifier`."
                     },
                     "receiverAccountNumberQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/AccountNumberQualifier",
                         "description": "The code identifying the type of account. Can be either `DA` - Demand Deposit or `SA` - Savings."
                     },
                     "receiverAccountNumber": {
@@ -30716,10 +30868,10 @@
             },
             "SenderAccountDetails": {
                 "type": "object",
-                "description": "The payer's financial institution account details.",
+                "description": "Financial institution account details for the payment sender.",
                 "properties": {
                     "senderDfiIdNumberQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/DfiIdNumberQualifier",
                         "description": "The code identifying the type of identification number of the Depository Financial Institution (DFI). Can be either `01` - ABA Transit Routing Number Including Check Digits (9 digits) or `04` - Canadian Bank Branch Institution Number."
                     },
                     "senderDFIIdentifier": {
@@ -30727,7 +30879,7 @@
                         "description": "The identifier specified by the `senderDfiIdNumberQualifier`."
                     },
                     "senderAccountNumberQualifier": {
-                        "type": "string",
+                        "$ref": "#/components/schemas/AccountNumberQualifier",
                         "description": "The code identifying the type of account the payment is being made from. Can be `DA` - Demand Deposit."
                     },
                     "senderAccountNumber": {
@@ -32334,6 +32486,7 @@
             },
             "TechnicalContactInformation": {
                 "type": "object",
+                "description": "Technical contact information for the payer.",
                 "properties": {
                     "contactName": {
                         "type": "string",
@@ -32343,12 +32496,14 @@
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/TechnicalContactMethod"
-                        }
+                        },
+                        "description": "Available contact methods for technical support."
                     }
                 }
             },
             "TechnicalContactMethod": {
                 "type": "object",
+                "description": "Contact method details for technical support.",
                 "properties": {
                     "url": {
                         "type": "string",
@@ -32542,6 +32697,13 @@
                     "O"
                 ]
             },
+            "TraceTypeCode": {
+                "type": "string",
+                "description": "Identifies the type of trace number used to uniquely identify and track payment transactions. This helps reassociate payments with their corresponding remittance advice.",
+                "enum": [
+                    "1"
+                ]
+            },
             "TransactionEnrollmentProcess": {
                 "type": "object",
                 "description": "Details about the enrollment process for a specific transaction type.",
@@ -32597,6 +32759,19 @@
                     "NOT_SUPPORTED",
                     "ENROLLMENT_REQUIRED",
                     "EITHER"
+                ]
+            },
+            "TransactionHandlingCode": {
+                "type": "string",
+                "description": "Indicates the actions that should be taken by both the sender and receiver of the payment transaction. This determines whether payment should be made, remittance sent, or both.",
+                "enum": [
+                    "C",
+                    "D",
+                    "H",
+                    "I",
+                    "P",
+                    "U",
+                    "X"
                 ]
             },
             "TransactionIdentifier": {
