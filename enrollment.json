@@ -220,7 +220,36 @@
                                                     },
                                                     "status": "LIVE",
                                                     "source": "API",
-                                                    "statusLastUpdatedAt": "2025-05-01T12:00:00Z"
+                                                    "statusLastUpdatedAt": "2025-05-01T12:00:00Z",
+                                                    "history": [
+                                                        {
+                                                            "newStatus": "DRAFT",
+                                                            "changedBy": "user@example.com",
+                                                            "changedAt": "2025-04-15T09:00:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        },
+                                                        {
+                                                            "previousStatus": "DRAFT",
+                                                            "newStatus": "SUBMITTED",
+                                                            "changedBy": "user@example.com",
+                                                            "changedAt": "2025-04-15T09:05:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        },
+                                                        {
+                                                            "previousStatus": "SUBMITTED",
+                                                            "newStatus": "PROVISIONING",
+                                                            "changedBy": "system",
+                                                            "changedAt": "2025-04-20T14:30:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        },
+                                                        {
+                                                            "previousStatus": "PROVISIONING",
+                                                            "newStatus": "LIVE",
+                                                            "changedBy": "system",
+                                                            "changedAt": "2025-05-01T12:00:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -358,7 +387,22 @@
                                                 "stediPayerId": "87726"
                                             },
                                             "source": "API",
-                                            "statusLastUpdatedAt": "2023-11-07T05:31:56Z"
+                                            "statusLastUpdatedAt": "2023-11-07T05:31:56Z",
+                                            "history": [
+                                                {
+                                                    "newStatus": "DRAFT",
+                                                    "changedBy": "test@example.com",
+                                                    "changedAt": "2023-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                },
+                                                {
+                                                    "previousStatus": "DRAFT",
+                                                    "newStatus": "SUBMITTED",
+                                                    "changedBy": "test@example.com",
+                                                    "changedAt": "2023-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                }
+                                            ]
                                         }
                                     }
                                 }
@@ -684,7 +728,29 @@
                                                 "stediPayerId": "87726"
                                             },
                                             "source": "API",
-                                            "statusLastUpdatedAt": "2023-11-07T06:15:22Z"
+                                            "statusLastUpdatedAt": "2023-11-07T06:15:22Z",
+                                            "history": [
+                                                {
+                                                    "newStatus": "DRAFT",
+                                                    "changedBy": "user@example.com",
+                                                    "changedAt": "2023-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                },
+                                                {
+                                                    "previousStatus": "DRAFT",
+                                                    "newStatus": "SUBMITTED",
+                                                    "changedBy": "user@example.com",
+                                                    "changedAt": "2023-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                },
+                                                {
+                                                    "previousStatus": "SUBMITTED",
+                                                    "newStatus": "PROVISIONING",
+                                                    "changedBy": "system",
+                                                    "changedAt": "2023-11-07T06:15:22Z",
+                                                    "type": "STATUS_CHANGE"
+                                                }
+                                            ]
                                         }
                                     }
                                 }
@@ -847,7 +913,15 @@
                                                 "stediPayerId": "87726"
                                             },
                                             "source": "API",
-                                            "statusLastUpdatedAt": "2024-11-07T05:31:56Z"
+                                            "statusLastUpdatedAt": "2024-11-07T05:31:56Z",
+                                            "history": [
+                                                {
+                                                    "newStatus": "DRAFT",
+                                                    "changedBy": "test@example.com",
+                                                    "changedAt": "2024-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                }
+                                            ]
                                         }
                                     }
                                 }
@@ -1644,6 +1718,13 @@
                         "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
                         "format": "date-time"
                     },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentHistoryEntry"
+                        },
+                        "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -1952,6 +2033,46 @@
                     }
                 ]
             },
+            "EnrollmentHistoryChangeType": {
+                "type": "string",
+                "description": "The type of change recorded in the enrollment history.",
+                "enum": [
+                    "STATUS_CHANGE"
+                ]
+            },
+            "EnrollmentHistoryEntry": {
+                "type": "object",
+                "description": "An update to an enrollment, such as a change in the enrollment's status. This object is experimental and may change in the future.",
+                "properties": {
+                    "previousStatus": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status before this change occurred. This will be `UNDEFINED` for the enrollment's initial status after creation."
+                    },
+                    "newStatus": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status after this change occurred."
+                    },
+                    "changedBy": {
+                        "type": "string",
+                        "description": "The source or system that triggered this change."
+                    },
+                    "changedAt": {
+                        "type": "string",
+                        "description": "The date and time when this change occurred.",
+                        "format": "date-time"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/EnrollmentHistoryChangeType",
+                        "description": "The type of change that occurred."
+                    }
+                },
+                "required": [
+                    "changedAt",
+                    "changedBy",
+                    "newStatus",
+                    "type"
+                ]
+            },
             "EnrollmentSource": {
                 "type": "string",
                 "description": "The source of the enrollment.",
@@ -2020,6 +2141,13 @@
                         "type": "string",
                         "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
                         "format": "date-time"
+                    },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentHistoryEntry"
+                        },
+                        "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     }
                 },
                 "required": [
@@ -2162,6 +2290,13 @@
                         "type": "string",
                         "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
                         "format": "date-time"
+                    },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentHistoryEntry"
+                        },
+                        "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
@@ -2561,6 +2696,13 @@
                         "type": "string",
                         "description": "The date and time when the enrollment status was last updated. This timestamp is used to track enrollment processing durations and enables filtering to identify recently changed enrollments. It automatically updates whenever an enrollment's status changes but remains unchanged during other updates.",
                         "format": "date-time"
+                    },
+                    "history": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentHistoryEntry"
+                        },
+                        "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
