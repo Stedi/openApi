@@ -13384,7 +13384,7 @@
                         },
                         "maxItems": 50,
                         "minItems": 1,
-                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day. You can include up to 50 service lines within a single claim."
+                        "description": "Information about one or more services rendered to the patient.\n  - Each service line must be a unique service event as defined by the payer's billing policies. This means that you can use the same procedure code on multiple service lines as long as they are distinct events.\n  - Some procedure codes are date-specific. In these cases, you may need to create a separate service line with that code for each applicable date of service, even if the episode of care extended over multiple days.\n  - Service lines can share the same dates of service if the patient received multiple services on the same day."
                     },
                     "otherSubscriberInformation": {
                         "type": "array",
@@ -15627,7 +15627,8 @@
                         "$ref": "#/components/schemas/PayToPlan"
                     },
                     "payerAddress": {
-                        "$ref": "#/components/schemas/ClaimsAddress"
+                        "$ref": "#/components/schemas/ClaimsAddress",
+                        "description": "The payer's address. Some payers use this for internal routing. Only provide this address if the payer explicitly requires it."
                     },
                     "usageIndicator": {
                         "type": "string",
@@ -16694,7 +16695,7 @@
                         "items": {
                             "$ref": "#/components/schemas/DentalServiceLine"
                         },
-                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day. You can include up to 50 service lines within a single claim."
+                        "description": "Information about one or more services rendered to the patient.\n    - Each service line must be a unique service event as defined by the payer's billing policies. This means that you can use the same procedure code on multiple service lines as long as they are distinct events.\n    - Some procedure codes are date-specific. In these cases, you may need to create a separate service line with that code for each applicable date of service, even if the episode of care extended over multiple days.\n    - Service lines can share the same dates of service if the patient received multiple services on the same day."
                     },
                     "claimNotes": {
                         "type": "array",
@@ -16901,7 +16902,7 @@
                     },
                     "payerAddress": {
                         "$ref": "#/components/schemas/ClaimsAddress",
-                        "description": "The payer's address. Required when the payer address is available and the submitter intends for the claim to be printed on paper at the next EDI location (for example, a clearinghouse)."
+                        "description": "The payer's address. Some payers use this for internal routing. Only provide this address if the payer explicitly requires it."
                     },
                     "subscriber": {
                         "$ref": "#/components/schemas/DentalSubscriber"
@@ -21872,6 +21873,15 @@
                     "ZZ"
                 ]
             },
+            "InstitutionalClaimIdentifier": {
+                "type": "string",
+                "description": "A code specifying the type of transaction. Defaults to `CH` if not provided.\n  - `31`: Only for use by state Medicaid agencies performing post payment recovery.\n  - `CH`: Use when the transaction contains only fee for service claims or claims with at least one chargeable line item. Also use when it's not clear whether a transaction contains claims or capitated encounters, or if the transaction contains a mix of claims and capitated encounters.\n  - `RP` - Use for capitated encounters. Also use when the transaction is being sent to an entity for purposes other than adjudication of a claim. For example, when you're sending the claim to a state health agency that is using the claim for health data reporting purposes.",
+                "enum": [
+                    "31",
+                    "CH",
+                    "RP"
+                ]
+            },
             "InstitutionalClaimInformation": {
                 "type": "object",
                 "description": "Information about the healthcare claim. Note that the objects and properties marked as required are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the `claimChargeAmount`, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
@@ -22112,7 +22122,7 @@
                             "$ref": "#/components/schemas/InstitutionalServiceLine"
                         },
                         "minItems": 1,
-                        "description": "Information about one or more services rendered to the patient. Each service line must be a unique procedure. Service lines can share the same dates of service if the patient received multiple services on the same day. You can include up to 999 service lines within a single claim."
+                        "description": "Information about one or more services rendered to the patient.\n      - Each service line must be a unique service event as defined by the payer's billing policies. This means that you can use the same procedure code on multiple service lines as long as they are distinct events.\n      - Some procedure codes are date-specific. In these cases, you may need to create a separate service line with that code for each applicable date of service, even if the episode of care extended over multiple days.\n      - Service lines can share the same dates of service if the patient received multiple services on the same day."
                     },
                     "claimCodeInformation": {
                         "$ref": "#/components/schemas/ClaimCodeInformation"
@@ -22347,6 +22357,9 @@
                     "tradingPartnerName": {
                         "type": "string",
                         "description": "This is the payer's business name, like Cigna or Aetna."
+                    },
+                    "claimIdentifier": {
+                        "$ref": "#/components/schemas/InstitutionalClaimIdentifier"
                     }
                 },
                 "required": [
@@ -29550,7 +29563,7 @@
                         "type": "string",
                         "maxLength": 9,
                         "minLength": 1,
-                        "pattern": "^[0-9]+$",
+                        "pattern": "^[0-9]$",
                         "description": "The number assigned to each family member born with the same birth date, such as twins or triplets. Use to indicate the birth order when there are multiple births associated with the provided birth date."
                     },
                     "caseNumber": {
@@ -30137,7 +30150,7 @@
                     "Private Duty Nursing - Home",
                     "Surgical Benefits - Professional (Physician)",
                     "Surgical Benefits - Facility",
-                    "Mental Health Provider- Inpatient",
+                    "Mental Health Provider - Inpatient",
                     "Mental Health Provider - Outpatient",
                     "Mental Health Facility - Inpatient",
                     "Mental Health Facility - Outpatient",
