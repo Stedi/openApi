@@ -13193,6 +13193,15 @@
                     "8"
                 ]
             },
+            "ClaimIdentifier": {
+                "type": "string",
+                "description": "A code specifying the type of transaction. Defaults to `CH` if not provided.\n  - `31`: Only for use by state Medicaid agencies performing post payment recovery.\n  - `CH`: Use when the transaction contains only fee for service claims or claims with at least one chargeable line item. Also use when it's not clear whether a transaction contains claims or capitated encounters, or if the transaction contains a mix of claims and capitated encounters.\n  - `RP`: Use for capitated encounters. Also use when the transaction is being sent to an entity for purposes other than adjudication of a claim. For example, when you're sending the claim to a state health agency that is using the claim for health data reporting purposes.",
+                "enum": [
+                    "31",
+                    "CH",
+                    "RP"
+                ]
+            },
             "ClaimInformation": {
                 "type": "object",
                 "description": "Information about the healthcare claim. \n\nNote that the objects and properties marked as **required** are required for all claims, while others are conditionally required, depending on type of claim and claim circumstances. For example, you must always provide the patient's diagnosis codes in the `healthCareCodeInformation` object, but you only need to provide the `otherSubscriberInformation` object in coordination of benefits scenarios. When you include a conditionally required object, you must provide all of its required properties.",
@@ -15654,6 +15663,9 @@
                     "tradingPartnerName": {
                         "type": "string",
                         "description": "This is the payer's business name, like Cigna or Aetna."
+                    },
+                    "claimIdentifier": {
+                        "$ref": "#/components/schemas/ClaimIdentifier"
                     }
                 },
                 "required": [
@@ -16925,6 +16937,9 @@
                     },
                     "assistantSurgeon": {
                         "$ref": "#/components/schemas/AssistantSurgeon"
+                    },
+                    "claimIdentifier": {
+                        "$ref": "#/components/schemas/ClaimIdentifier"
                     }
                 },
                 "required": [
@@ -21875,7 +21890,7 @@
             },
             "InstitutionalClaimIdentifier": {
                 "type": "string",
-                "description": "A code specifying the type of transaction. Defaults to `CH` if not provided.\n  - `31`: Only for use by state Medicaid agencies performing post payment recovery.\n  - `CH`: Use when the transaction contains only fee for service claims or claims with at least one chargeable line item. Also use when it's not clear whether a transaction contains claims or capitated encounters, or if the transaction contains a mix of claims and capitated encounters.\n  - `RP` - Use for capitated encounters. Also use when the transaction is being sent to an entity for purposes other than adjudication of a claim. For example, when you're sending the claim to a state health agency that is using the claim for health data reporting purposes.",
+                "description": "A code specifying the type of transaction. Defaults to `CH` if not provided.\n  - `31`: Only for use by state Medicaid agencies performing post payment recovery.\n  - `CH`: Use when the transaction contains only fee for service claims or claims with at least one chargeable line item. Also use when it's not clear whether a transaction contains claims or capitated encounters, or if the transaction contains a mix of claims and capitated encounters.\n  - `RP`: Use for capitated encounters. Also use when the transaction is being sent to an entity for purposes other than adjudication of a claim. For example, when you're sending the claim to a state health agency that is using the claim for health data reporting purposes.",
                 "enum": [
                     "31",
                     "CH",
