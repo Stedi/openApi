@@ -9801,6 +9801,180 @@
                 }
             }
         },
+        "/payer/{stediId}": {
+            "get": {
+                "description": "Retrieve a single payer record by its Stedi payer ID.",
+                "operationId": "GetPayerRecord",
+                "parameters": [
+                    {
+                        "name": "stediId",
+                        "in": "path",
+                        "description": "The Stedi payer ID, a unique identifier Stedi assigns to each payer that will never change. You can find the Stedi payer ID for any supported payer in the [Payer Network](https://www.stedi.com/healthcare/network).\n\nThis must be the Stedi payer ID - querying with the primary payer ID or payer ID aliases isn't supported.",
+                        "schema": {
+                            "type": "string",
+                            "pattern": "^[A-Z]{5}$",
+                            "description": "The Stedi payer ID, a unique identifier Stedi assigns to each payer that will never change. You can find the Stedi payer ID for any supported payer in the [Payer Network](https://www.stedi.com/healthcare/network).\n\nThis must be the Stedi payer ID - querying with the primary payer ID or payer ID aliases isn't supported."
+                        },
+                        "required": true,
+                        "examples": {
+                            "GetPayerRecord_example1": {
+                                "summary": "Successful payer retrieval",
+                                "description": "",
+                                "value": "KRPCH"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "GetPayerRecord 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GetPayerRecordResponseContent"
+                                },
+                                "examples": {
+                                    "GetPayerRecord_example1": {
+                                        "summary": "Successful payer retrieval",
+                                        "description": "",
+                                        "value": {
+                                            "payer": {
+                                                "stediId": "KRPCH",
+                                                "displayName": "Blue Cross Blue Shield of Michigan",
+                                                "primaryPayerId": "00710",
+                                                "aliases": [
+                                                    "00210I",
+                                                    "00710",
+                                                    "00710D",
+                                                    "00710P",
+                                                    "1421",
+                                                    "2287",
+                                                    "2426",
+                                                    "710",
+                                                    "CBMI1",
+                                                    "MIBCSI",
+                                                    "MIBCSP",
+                                                    "SB710",
+                                                    "Z1380"
+                                                ],
+                                                "names": [
+                                                    "Blue Cross Blue Shield Michigan Dental",
+                                                    "Blue Cross Blue Shield Michigan Institutional",
+                                                    "Blue Cross Blue Shield Michigan Professional"
+                                                ],
+                                                "transactionSupport": {
+                                                    "eligibilityCheck": "SUPPORTED",
+                                                    "claimStatus": "SUPPORTED",
+                                                    "claimSubmission": "SUPPORTED",
+                                                    "professionalClaimSubmission": "SUPPORTED",
+                                                    "institutionalClaimSubmission": "SUPPORTED",
+                                                    "claimPayment": "ENROLLMENT_REQUIRED",
+                                                    "coordinationOfBenefits": "SUPPORTED",
+                                                    "dentalClaimSubmission": "NOT_SUPPORTED",
+                                                    "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                                                },
+                                                "enrollment": {
+                                                    "ptanRequired": false,
+                                                    "transactionEnrollmentProcesses": {
+                                                        "claimPayment": {
+                                                            "type": "ONE_CLICK"
+                                                        }
+                                                    }
+                                                },
+                                                "parentPayerGroupId": "AWOCR",
+                                                "coverageTypes": [
+                                                    "medical"
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "429": {
+                        "description": "ThrottlingException 429 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "503": {
+                        "description": "ServiceUnavailableException 503 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "504": {
+                        "description": "GatewayTimeoutException 504 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/payers": {
             "get": {
                 "description": "List Stedi's supported payers in JSON format",
@@ -20374,6 +20548,18 @@
                 "type": "string",
                 "description": "A base64 encoded string of the CMS-1500 Claim Form PDF. To render the PDF, you must decode the base64 string and save it to a file with a `.pdf` extension.",
                 "contentEncoding": "byte"
+            },
+            "GetPayerRecordResponseContent": {
+                "type": "object",
+                "properties": {
+                    "payer": {
+                        "$ref": "#/components/schemas/PayerRecord",
+                        "description": "The payer record matching the provided Stedi payer ID. The record includes the payer's display name and aliases as well as supported transaction types and details about the payer's [transaction enrollment](https://www.stedi.com/docs/healthcare/transaction-enrollment) process."
+                    }
+                },
+                "required": [
+                    "payer"
+                ]
             },
             "GovernmentServiceAffiliationCode": {
                 "type": "string",
