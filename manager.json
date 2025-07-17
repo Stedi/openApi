@@ -169,12 +169,12 @@
                     {
                         "name": "pageSize",
                         "in": "query",
-                        "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. If not specified, the default is 10.",
+                        "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. If not specified, the default is 10.\n  - If you set the page size to a value > 20, Stedi returns the requested batch check results in `gzip` format to reduce the size. Many common HTTP clients accept `gzip` by default, but if not, you must add the `Accept-Encoding: gzip` header to your request and resubmit.\n  - When check results are especially large, Stedi may return fewer than the requested number per page. In these cases, you can use the `nextPageToken` property to retrieve the rest of the requested results.",
                         "schema": {
                             "type": "number",
                             "maximum": 200,
                             "minimum": 1,
-                            "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. If not specified, the default is 10."
+                            "description": "The maximum number of check results to return in a page - each check is represented as one item in the `items` array. If not specified, the default is 10.\n  - If you set the page size to a value > 20, Stedi returns the requested batch check results in `gzip` format to reduce the size. Many common HTTP clients accept `gzip` by default, but if not, you must add the `Accept-Encoding: gzip` header to your request and resubmit.\n  - When check results are especially large, Stedi may return fewer than the requested number per page. In these cases, you can use the `nextPageToken` property to retrieve the rest of the requested results."
                         }
                     },
                     {
