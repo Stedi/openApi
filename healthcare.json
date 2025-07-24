@@ -9883,6 +9883,7 @@
                                                 },
                                                 "parentPayerGroupId": "AWOCR",
                                                 "coverageTypes": [
+                                                    "dental",
                                                     "medical"
                                                 ]
                                             }
@@ -10027,7 +10028,11 @@
                                                     "employerIdentificationNumbers": [
                                                         "56-0894904"
                                                     ],
-                                                    "parentPayerGroupId": "OVWIG"
+                                                    "parentPayerGroupId": "OVWIG",
+                                                    "coverageTypes": [
+                                                        "dental",
+                                                        "medical"
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -10134,7 +10139,7 @@
                                     "ListPayerRecordsCsv_example1": {
                                         "summary": "List payers - CSV",
                                         "description": "",
-                                        "value": "StediId,PrimaryPayerId,DisplayName,Names,Aliases,EligibilityInquiry,EligibilityInquiryEnrollmentRequired,EligibilityInquiryEnrollmentType,EligibilityInquiryEnrollmentTimeframe,ClaimStatusInquiry,ClaimStatusInquiryEnrollmentRequired,ClaimStatusInquiryEnrollmentType,ClaimStatusInquiryEnrollmentTimeframe,ProfessionalClaim,ProfessionalClaimEnrollmentRequired,ProfessionalClaimEnrollmentType,ProfessionalClaimEnrollmentTimeframe,InstitutionalClaim,InstitutionalClaimEnrollmentRequired,InstitutionalClaimEnrollmentType,InstitutionalClaimEnrollmentTimeframe,DentalClaim,DentalClaimEnrollmentRequired,DentalClaimEnrollmentType,DentalClaimEnrollmentTimeframe,ClaimPaymentAdvice,ClaimPaymentAdviceEnrollmentRequired,ClaimPaymentEnrollmentType,ClaimPaymentEnrollmentTimeframe,CoordinationOfBenefits,CoordinationOfBenefitsEnrollmentRequired,CoordinationOfBenefitsEnrollmentType,CoordinationOfBenefitsEnrollmentTimeframe,ClaimAttachmentsSupport,ClaimAttachmentsSupportEnrollmentRequired,ClaimAttachmentEnrollmentType,ClaimAttachmentEnrollmentTimeframe,EmployerIdentificationNumbers,CoverageTypes,PtanRequired,ParentPayerGroupId\nUPICO,BCSNC,Blue Cross Blue Shield of North Carolina,Blue Cross Blue Shield North Carolina BlueCross BlueShield,BCSNC 1411 560894904 61473 7472 7814 NCBCBS NCPNHP SB810 SB810MA,true,false,ONE_CLICK,INSTANT,true,false,,,true,false,,,true,false,,,true,false,,,true,true,,,true,false,,,false,false,,,12-3456789 98-7654321,medical,false,GROUP123"
+                                        "value": "StediId,PrimaryPayerId,DisplayName,Names,Aliases,EligibilityInquiry,EligibilityInquiryEnrollmentRequired,EligibilityInquiryEnrollmentType,EligibilityInquiryEnrollmentTimeframe,ClaimStatusInquiry,ClaimStatusInquiryEnrollmentRequired,ClaimStatusInquiryEnrollmentType,ClaimStatusInquiryEnrollmentTimeframe,ProfessionalClaim,ProfessionalClaimEnrollmentRequired,ProfessionalClaimEnrollmentType,ProfessionalClaimEnrollmentTimeframe,InstitutionalClaim,InstitutionalClaimEnrollmentRequired,InstitutionalClaimEnrollmentType,InstitutionalClaimEnrollmentTimeframe,DentalClaim,DentalClaimEnrollmentRequired,DentalClaimEnrollmentType,DentalClaimEnrollmentTimeframe,ClaimPaymentAdvice,ClaimPaymentAdviceEnrollmentRequired,ClaimPaymentEnrollmentType,ClaimPaymentEnrollmentTimeframe,CoordinationOfBenefits,CoordinationOfBenefitsEnrollmentRequired,CoordinationOfBenefitsEnrollmentType,CoordinationOfBenefitsEnrollmentTimeframe,ClaimAttachmentsSupport,ClaimAttachmentsSupportEnrollmentRequired,ClaimAttachmentEnrollmentType,ClaimAttachmentEnrollmentTimeframe,EmployerIdentificationNumbers,CoverageTypes,PtanRequired,ParentPayerGroupId\nUPICO,BCSNC,Blue Cross Blue Shield of North Carolina,Blue Cross Blue Shield North Carolina Partners National Health Plans of North Carolina Inc,1411 560894904 61472 61473 7472 7514 7814 BCSNC NCBCBS NCPNHP SB810 SB810MA,true,false,,,true,false,,,true,false,,,true,false,,,true,false,,,true,true,,,true,false,,,false,false,,,56-0894904,dental medical,false,OVWIG"
                                     }
                                 }
                             }
@@ -10342,14 +10347,14 @@
                     {
                         "name": "coverageTypes",
                         "in": "query",
-                        "description": "Filter for matching payers that provide **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.",
+                        "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/components/schemas/CoverageType"
                             },
-                            "description": "Filter for matching payers that provide **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage."
+                            "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database."
                         },
                         "explode": true
                     }
@@ -10411,7 +10416,11 @@
                                                                 }
                                                             }
                                                         },
-                                                        "parentPayerGroupId": "AWOCR"
+                                                        "parentPayerGroupId": "AWOCR",
+                                                        "coverageTypes": [
+                                                            "dental",
+                                                            "medical"
+                                                        ]
                                                     },
                                                     "score": 11.279371,
                                                     "matches": {
@@ -10605,7 +10614,11 @@
                                                                 }
                                                             }
                                                         },
-                                                        "parentPayerGroupId": "AWOCR"
+                                                        "parentPayerGroupId": "AWOCR",
+                                                        "coverageTypes": [
+                                                            "dental",
+                                                            "medical"
+                                                        ]
                                                     },
                                                     "score": 11.279371,
                                                     "matches": {
@@ -26763,7 +26776,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CoverageType"
                         },
-                        "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, or both. For example: `[\"medical\"]` or `[\"medical\", \"dental\"]`."
+                        "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, or both. For example: `[\"medical\"]` or `[\"medical\", \"dental\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types."
                     }
                 },
                 "required": [
@@ -30938,7 +30951,7 @@
                         "items": {
                             "$ref": "#/components/schemas/CoverageType"
                         },
-                        "description": "The list of coverage types this payer provides, such as `[\"medical\"]`, `[\"dental\"]`, or `[\"medical\", \"dental\"]`."
+                        "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, or both. For example: `[\"medical\"]` or `[\"medical\", \"dental\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types."
                     }
                 },
                 "required": [
