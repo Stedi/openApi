@@ -12,236 +12,6 @@
     }
   },
   "paths": {
-    "/events/{eventId}/destinations/attempts": {
-      "get": {
-        "description": "Fetch webhook delivery attempts for a specific event id.",
-        "operationId": "GetWebhookDeliveryAttempts",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "The ID of the event you want to get webhook delivery logs for",
-            "schema": {
-              "type": "string",
-              "description": "The ID of the event you want to get webhook delivery logs for"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "GetWebhookDeliveryAttempts 200 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetWebhookDeliveryAttemptsResponseContent"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/events/{eventId}/destinations/attempts/{attemptId}": {
-      "get": {
-        "description": "Fetch webhook delivery attempt details for a specific event id and attempt id.",
-        "operationId": "GetWebhookDeliveryAttemptDetails",
-        "parameters": [
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "The ID of the event you want to get logs for",
-            "schema": {
-              "type": "string",
-              "description": "The ID of the event you want to get logs for"
-            },
-            "required": true
-          },
-          {
-            "name": "attemptId",
-            "in": "path",
-            "description": "The ID of the attempt you want to get detailed logs for",
-            "schema": {
-              "type": "string",
-              "description": "The ID of the attempt you want to get detailed logs for"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "GetWebhookDeliveryAttemptDetails 200 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetWebhookDeliveryAttemptDetailsResponseContent"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/events/{eventId}/retry": {
       "post": {
         "description": "This endpoint retriggers the specified processing event.",
@@ -3325,33 +3095,36 @@
           {
             "name": "businessIdentifier",
             "in": "query",
-            "description": "`businessIdentifier` may be passed to list only transactions matching the businessIdentifier.",
+            "description": "List only transactions containing a business identifier with the given value.",
             "schema": {
               "type": "string",
-              "description": "`businessIdentifier` may be passed to list only transactions matching the businessIdentifier."
+              "description": "List only transactions containing a business identifier with the given value."
             }
           },
           {
             "name": "transactionSetId",
             "in": "query",
-            "description": "`transactionSetId` may be passed to list only a given type of transaction.",
+            "description": "List only a given type of transaction. Accepts any valid 3-digit X12 Transaction Set Identifier Code, as defined in the X12 standard. See: <https://www.stedi.com/edi/x12/element/143>.",
             "schema": {
-              "type": "string",
-              "description": "`transactionSetId` may be passed to list only a given type of transaction."
+              "$ref": "#/components/schemas/X12TransactionSetIdentifierCode"
             }
           },
           {
             "name": "sender",
             "in": "query",
+            "description": "List only transactions sent by the given profile. This is the profile ID of the sender.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "List only transactions sent by the given profile. This is the profile ID of the sender."
             }
           },
           {
             "name": "receiver",
             "in": "query",
+            "description": "List only transactions sent to the given profile. This is the profile ID of the receiver.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "List only transactions sent to the given profile. This is the profile ID of the receiver."
             }
           },
           {
@@ -3397,15 +3170,19 @@
           {
             "name": "elementId",
             "in": "query",
+            "description": "List only transactions containing a business identifier with the given element ID. This is the X12 element ID, such as \"127\" for Reference Identification. May only be supplied if `businessIdentifier` is also supplied. See Stedi's EDI references pages to find element IDs.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "List only transactions containing a business identifier with the given element ID. This is the X12 element ID, such as \"127\" for Reference Identification. May only be supplied if `businessIdentifier` is also supplied. See Stedi's EDI references pages to find element IDs."
             }
           },
           {
             "name": "partnershipId",
             "in": "query",
+            "description": "List only transactions that were sent or received on the given partnership. This is the partnership ID, such as \"local_clearinghouse-test\".",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "List only transactions that were sent or received on the given partnership. This is the partnership ID, such as \"local_clearinghouse-test\"."
             }
           }
         ],
@@ -5077,453 +4854,6 @@
         }
       }
     },
-    "/x12/connections/{connectionId}": {
-      "get": {
-        "operationId": "GetConnectionById",
-        "parameters": [
-          {
-            "name": "connectionId",
-            "in": "path",
-            "description": "An autogenerated identifier for the connection within the Stedi platform.",
-            "schema": {
-              "type": "string",
-              "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-              "description": "An autogenerated identifier for the connection within the Stedi platform."
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "GetConnectionById 200 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetConnectionByIdResponseContent"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/x12/partnerships/{partnershipId}/configuration": {
-      "delete": {
-        "operationId": "DeleteX12PartnershipConfiguration",
-        "parameters": [
-          {
-            "name": "partnershipId",
-            "in": "path",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
-            "schema": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "DeleteX12PartnershipConfiguration 200 response"
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "operationId": "GetX12PartnershipConfiguration",
-        "parameters": [
-          {
-            "name": "partnershipId",
-            "in": "path",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
-            "schema": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "GetX12PartnershipConfiguration 200 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GetX12PartnershipConfigurationResponseContent"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "operationId": "PutX12PartnershipConfiguration",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/PutX12PartnershipConfigurationRequestContent"
-              }
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "partnershipId",
-            "in": "path",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
-            "schema": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "PutX12PartnershipConfiguration 200 response"
-          },
-          "400": {
-            "description": "ResourceUnderChangeException 400 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "UnauthorizedException 401 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "AccessDeniedException 403 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "ResourceNotFoundException 404 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "ResourceConflictException 409 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceConflictExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "ThrottlingException 429 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "ServiceException 500 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "ServiceUnavailableException 503 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
-                }
-              }
-            }
-          },
-          "504": {
-            "description": "GatewayTimeoutException 504 response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/x12/partnerships/{partnershipId}/generate-edi": {
       "post": {
         "description": "This endpoint generates and delivers fully-formed EDI files to your trading partners.",
@@ -5815,105 +5145,6 @@
           "output"
         ]
       },
-      "As2CertificateVersion": {
-        "type": "object",
-        "properties": {
-          "localSigning": {
-            "type": "number",
-            "maximum": 256,
-            "minimum": 0
-          },
-          "localEncryption": {
-            "type": "number",
-            "maximum": 256,
-            "minimum": 0
-          },
-          "partnerSigning": {
-            "type": "number",
-            "maximum": 256,
-            "minimum": 0
-          },
-          "partnerEncryption": {
-            "type": "number",
-            "maximum": 256,
-            "minimum": 0
-          }
-        }
-      },
-      "As2Compression": {
-        "type": "string",
-        "enum": [
-          "DISABLED",
-          "ZLIB"
-        ]
-      },
-      "As2InboundFields": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "encryptionAlgorithm": {
-            "$ref": "#/components/schemas/InboundEncryptionAlgorithm"
-          }
-        },
-        "required": [
-          "enabled",
-          "encryptionAlgorithm"
-        ]
-      },
-      "As2OutboundBasicAuth": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string"
-          },
-          "password": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "username"
-        ]
-      },
-      "As2OutboundFields": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean"
-          },
-          "partnerServerUrl": {
-            "type": "string"
-          },
-          "encryptionAlgorithm": {
-            "$ref": "#/components/schemas/OutboundEncryptionAlgorithm"
-          },
-          "signingAlgorithm": {
-            "$ref": "#/components/schemas/SigningAlgorithm"
-          },
-          "mdnResponse": {
-            "$ref": "#/components/schemas/MdnResponse"
-          },
-          "mdnSigningAlgorithm": {
-            "$ref": "#/components/schemas/SigningAlgorithm"
-          },
-          "compression": {
-            "$ref": "#/components/schemas/As2Compression"
-          },
-          "basicAuth": {
-            "$ref": "#/components/schemas/As2OutboundBasicAuth"
-          }
-        },
-        "required": [
-          "compression",
-          "enabled",
-          "encryptionAlgorithm",
-          "mdnResponse",
-          "mdnSigningAlgorithm",
-          "partnerServerUrl",
-          "signingAlgorithm"
-        ]
-      },
       "BusinessIdentifier": {
         "type": "object",
         "properties": {
@@ -5941,36 +5172,6 @@
           "value"
         ]
       },
-      "Cipher": {
-        "type": "string",
-        "enum": [
-          "chacha20-poly1305@openssh.com",
-          "aes128-gcm",
-          "aes128-gcm@openssh.com",
-          "aes256-gcm",
-          "aes256-gcm@openssh.com",
-          "aes128-ctr",
-          "aes192-ctr",
-          "aes256-ctr",
-          "aes256-cbc",
-          "aes192-cbc",
-          "aes128-cbc",
-          "blowfish-cbc",
-          "3des-cbc",
-          "arcfour256",
-          "arcfour128",
-          "cast128-cbc",
-          "arcfour"
-        ]
-      },
-      "Compression": {
-        "type": "string",
-        "enum": [
-          "none",
-          "zlib",
-          "zlib@openssh.com"
-        ]
-      },
       "ConnectionType": {
         "type": "string",
         "description": "The type of connection used for exchanging files.",
@@ -5988,15 +5189,6 @@
           "Basic",
           "Extended",
           "ExtendedHipaa"
-        ]
-      },
-      "CoreX12UsageIndicator": {
-        "type": "string",
-        "description": "Set [ISA-15](https://www.stedi.com/edi/x12/segment/ISA#ISA-15) to a different value. If not set, the default value is `P (Production Data)`.",
-        "enum": [
-          "I",
-          "T",
-          "P"
         ]
       },
       "CreateOutboundFragmentRequestContent": {
@@ -6220,55 +5412,6 @@
           "FAILED",
           "DELIVERED"
         ]
-      },
-      "DestinationAttempt": {
-        "type": "object",
-        "properties": {
-          "attemptId": {
-            "type": "string"
-          },
-          "destinationId": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/DestinationAttemptStatus"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "DestinationAttemptStatus": {
-        "type": "string",
-        "enum": [
-          "SUCCESS",
-          "FAILURE",
-          "PROCESSING"
-        ]
-      },
-      "DetailedDestinationAttemptLog": {
-        "type": "object",
-        "properties": {
-          "messageType": {
-            "type": "string"
-          },
-          "timestamp": {
-            "type": "string"
-          },
-          "payload": {
-            "type": "string"
-          },
-          "request": {
-            "type": "string"
-          },
-          "response": {
-            "type": "string"
-          }
-        }
       },
       "Direction": {
         "type": "string",
@@ -6540,20 +5683,6 @@
           "updatedAt"
         ]
       },
-      "FTPIntervalUnit": {
-        "type": "string",
-        "enum": [
-          "minutes",
-          "hours"
-        ]
-      },
-      "FileEncoding": {
-        "type": "string",
-        "enum": [
-          "UTF-8",
-          "WINDOWS-1252"
-        ]
-      },
       "FileType": {
         "type": "string",
         "description": "The file format. For example, `EDI/EDIFACT` for an EDIFACT file or `EDI/X12` for an X12 EDI file.",
@@ -6616,7 +5745,7 @@
             "$ref": "#/components/schemas/InterchangeOverrides"
           },
           "interchangeUsageIndicatorOverride": {
-            "$ref": "#/components/schemas/CoreX12UsageIndicator"
+            "$ref": "#/components/schemas/X12UsageIndicator"
           },
           "interchangeAuthorization": {
             "$ref": "#/components/schemas/X12InterchangeAuthorization"
@@ -6687,241 +5816,6 @@
           "artifactId",
           "fileExecutionId"
         ]
-      },
-      "GetAs2ConnectionByIdOutput": {
-        "type": "object",
-        "properties": {
-          "inboundFileEncoding": {
-            "$ref": "#/components/schemas/FileEncoding"
-          },
-          "partnershipMatchingMode": {
-            "$ref": "#/components/schemas/PartnershipMatchingMode"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "The name of the connection"
-          },
-          "localAs2Id": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "pattern": "^([a-zA-Z0-9_-]+)$"
-          },
-          "partnerAs2Id": {
-            "type": "string",
-            "maxLength": 128,
-            "minLength": 1,
-            "pattern": "^([a-zA-Z0-9_-]+)$"
-          },
-          "inboundSettings": {
-            "$ref": "#/components/schemas/As2InboundFields"
-          },
-          "outboundSettings": {
-            "$ref": "#/components/schemas/As2OutboundFields"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "certificateVersion": {
-            "$ref": "#/components/schemas/As2CertificateVersion"
-          },
-          "partnershipIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "description": "The IDs of the partnerships associated with the connection."
-          },
-          "status": {
-            "$ref": "#/components/schemas/StackStatus"
-          },
-          "enabled": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "certificateVersion",
-          "connectionId",
-          "createdAt",
-          "enabled",
-          "localAs2Id",
-          "name",
-          "outboundSettings",
-          "partnerAs2Id",
-          "status",
-          "updatedAt"
-        ]
-      },
-      "GetBucketConnectionByIdOutput": {
-        "type": "object",
-        "properties": {
-          "inboundFileEncoding": {
-            "$ref": "#/components/schemas/FileEncoding"
-          },
-          "partnershipMatchingMode": {
-            "$ref": "#/components/schemas/PartnershipMatchingMode"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "The name of the connection"
-          },
-          "inboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "outboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "deleteInboundFilesOnReceipt": {
-            "type": "boolean"
-          },
-          "bucketName": {
-            "type": "string",
-            "maxLength": 80,
-            "minLength": 1,
-            "description": "The name of the stedi bucket"
-          },
-          "parentDirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "partnershipIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "description": "The IDs of the partnerships associated with the connection."
-          },
-          "status": {
-            "$ref": "#/components/schemas/StackStatus"
-          },
-          "enabled": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "bucketName",
-          "connectionId",
-          "createdAt",
-          "deleteInboundFilesOnReceipt",
-          "enabled",
-          "inboundSubdirectory",
-          "name",
-          "outboundSubdirectory",
-          "parentDirectory",
-          "status",
-          "updatedAt"
-        ]
-      },
-      "GetConnectionByIdOutputs": {
-        "oneOf": [
-          {
-            "type": "object",
-            "title": "bucket",
-            "properties": {
-              "bucket": {
-                "$ref": "#/components/schemas/GetBucketConnectionByIdOutput"
-              }
-            },
-            "required": [
-              "bucket"
-            ]
-          },
-          {
-            "type": "object",
-            "title": "as2",
-            "properties": {
-              "as2": {
-                "$ref": "#/components/schemas/GetAs2ConnectionByIdOutput"
-              }
-            },
-            "required": [
-              "as2"
-            ]
-          },
-          {
-            "type": "object",
-            "title": "remoteFtp",
-            "properties": {
-              "remoteFtp": {
-                "$ref": "#/components/schemas/GetRemoteFtpConnectionByIdOutput"
-              }
-            },
-            "required": [
-              "remoteFtp"
-            ]
-          },
-          {
-            "type": "object",
-            "title": "stediFtp",
-            "properties": {
-              "stediFtp": {
-                "$ref": "#/components/schemas/GetStediFtpConnectionByIdOutput"
-              }
-            },
-            "required": [
-              "stediFtp"
-            ]
-          },
-          {
-            "type": "object",
-            "title": "stediAccountFtp",
-            "properties": {
-              "stediAccountFtp": {
-                "$ref": "#/components/schemas/GetStediAccountFtpConnectionByIdOutput"
-              }
-            },
-            "required": [
-              "stediAccountFtp"
-            ]
-          }
-        ]
-      },
-      "GetConnectionByIdResponseContent": {
-        "type": "object",
-        "properties": {
-          "connection": {
-            "$ref": "#/components/schemas/GetConnectionByIdOutputs"
-          }
-        }
       },
       "GetExecutionInputDocumentResponseContent": {
         "type": "object",
@@ -7067,335 +5961,6 @@
           "createdAt",
           "direction",
           "executionId",
-          "status",
-          "updatedAt"
-        ]
-      },
-      "GetRemoteFtpConnectionByIdOutput": {
-        "type": "object",
-        "properties": {
-          "inboundFileEncoding": {
-            "$ref": "#/components/schemas/FileEncoding"
-          },
-          "lastPollAt": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "partnershipMatchingMode": {
-            "$ref": "#/components/schemas/PartnershipMatchingMode"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "The name of the connection"
-          },
-          "inboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "outboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "rootDirectory": {
-            "type": "string",
-            "maxLength": 105,
-            "description": "The root directory for this FTP connection"
-          },
-          "host": {
-            "type": "string",
-            "maxLength": 81,
-            "minLength": 5,
-            "pattern": "^[A-Za-z0-9-]{1,63}(\\.[A-Za-z0-9-]{1,63})*$",
-            "description": "The endpoint associated with the FTP connection"
-          },
-          "username": {
-            "type": "string",
-            "maxLength": 64,
-            "pattern": "^([a-zA-Z0-9_ -]+)(\\@[a-zA-Z0-9_-]+)*(\\.[a-zA-Z0-9_-]+)*$"
-          },
-          "port": {
-            "type": "number"
-          },
-          "deleteAfterRetrieval": {
-            "type": "boolean"
-          },
-          "ignoreFileTimestamps": {
-            "type": "boolean"
-          },
-          "enablePolling": {
-            "type": "boolean"
-          },
-          "pollingInterval": {
-            "type": "number",
-            "maximum": 60,
-            "minimum": 1
-          },
-          "pollingIntervalUnit": {
-            "$ref": "#/components/schemas/FTPIntervalUnit"
-          },
-          "protocol": {
-            "$ref": "#/components/schemas/RemoteFtpProtocol"
-          },
-          "disableFastDownload": {
-            "type": "boolean",
-            "description": "An advanced option to disable the fast download operation when polling a remote server. Some servers do not support\nconcurrent read operation and this can cause unpredictable behavior when polling for files."
-          },
-          "ftpsAdvancedFields": {
-            "$ref": "#/components/schemas/RemoteFtpsAdvancedFields"
-          },
-          "filterPattern": {
-            "type": "string",
-            "maxLength": 50,
-            "minLength": 2,
-            "description": "A regex pattern used to filter the files to be processed by the remote poller. files\nthat match the pattern will be processed."
-          },
-          "retries": {
-            "type": "number",
-            "maximum": 3,
-            "description": "Number of times to retry connecting"
-          },
-          "readyTimeout": {
-            "type": "number",
-            "maximum": 30000,
-            "description": "How long (in ms) to wait for the SSH handshake"
-          },
-          "timeout": {
-            "type": "number",
-            "maximum": 30000,
-            "description": "The underlying socket timeout in ms. Default: none"
-          },
-          "algorithms": {
-            "$ref": "#/components/schemas/RemoteFtpAlgorithms"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "partnershipIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "description": "The IDs of the partnerships associated with the connection."
-          },
-          "status": {
-            "$ref": "#/components/schemas/StackStatus"
-          },
-          "enabled": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "connectionId",
-          "createdAt",
-          "deleteAfterRetrieval",
-          "disableFastDownload",
-          "enablePolling",
-          "enabled",
-          "host",
-          "ignoreFileTimestamps",
-          "inboundSubdirectory",
-          "lastPollAt",
-          "name",
-          "outboundSubdirectory",
-          "pollingInterval",
-          "pollingIntervalUnit",
-          "port",
-          "protocol",
-          "rootDirectory",
-          "status",
-          "updatedAt",
-          "username"
-        ]
-      },
-      "GetStediAccountFtpConnectionByIdOutput": {
-        "type": "object",
-        "properties": {
-          "inboundFileEncoding": {
-            "$ref": "#/components/schemas/FileEncoding"
-          },
-          "partnershipMatchingMode": {
-            "$ref": "#/components/schemas/PartnershipMatchingMode"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "The name of the connection"
-          },
-          "inboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "outboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "deleteInboundFilesOnReceipt": {
-            "type": "boolean"
-          },
-          "username": {
-            "type": "string",
-            "maxLength": 64,
-            "pattern": "^([a-zA-Z0-9_-]+)(\\.[a-zA-Z0-9_-]+)*$"
-          },
-          "bucketName": {
-            "type": "string",
-            "maxLength": 80,
-            "minLength": 1,
-            "description": "The stedi SFTP bucket name"
-          },
-          "homeDirectory": {
-            "type": "string",
-            "maxLength": 105,
-            "description": "The home directory for this SFTP connection"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "partnershipIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "description": "The IDs of the partnerships associated with the connection."
-          },
-          "status": {
-            "$ref": "#/components/schemas/StackStatus"
-          },
-          "enabled": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "bucketName",
-          "connectionId",
-          "createdAt",
-          "deleteInboundFilesOnReceipt",
-          "enabled",
-          "homeDirectory",
-          "inboundSubdirectory",
-          "name",
-          "outboundSubdirectory",
-          "status",
-          "updatedAt"
-        ]
-      },
-      "GetStediFtpConnectionByIdOutput": {
-        "type": "object",
-        "properties": {
-          "inboundFileEncoding": {
-            "$ref": "#/components/schemas/FileEncoding"
-          },
-          "partnershipMatchingMode": {
-            "$ref": "#/components/schemas/PartnershipMatchingMode"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 32,
-            "description": "The name of the connection"
-          },
-          "inboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "outboundSubdirectory": {
-            "type": "string",
-            "maxLength": 105
-          },
-          "deleteInboundFilesOnReceipt": {
-            "type": "boolean"
-          },
-          "username": {
-            "type": "string",
-            "maxLength": 64,
-            "pattern": "^([a-zA-Z0-9_-]+)(\\.[a-zA-Z0-9_-]+)*$"
-          },
-          "bucketName": {
-            "type": "string",
-            "maxLength": 80,
-            "minLength": 1,
-            "description": "The stedi SFTP bucket name"
-          },
-          "homeDirectory": {
-            "type": "string",
-            "maxLength": 105,
-            "description": "The home directory for this SFTP connection"
-          },
-          "createdAt": {
-            "type": "string",
-            "description": "The date and time when the resource was created, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "updatedAt": {
-            "type": "string",
-            "description": "The date and time when the resource was last updated, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
-            "format": "date-time"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "partnershipIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "maxLength": 81,
-              "minLength": 1,
-              "pattern": "^([a-zA-Z0-9._-]+)$",
-              "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
-            },
-            "description": "The IDs of the partnerships associated with the connection."
-          },
-          "status": {
-            "$ref": "#/components/schemas/StackStatus"
-          },
-          "enabled": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "bucketName",
-          "connectionId",
-          "createdAt",
-          "deleteInboundFilesOnReceipt",
-          "enabled",
-          "homeDirectory",
-          "inboundSubdirectory",
-          "name",
-          "outboundSubdirectory",
           "status",
           "updatedAt"
         ]
@@ -7599,83 +6164,6 @@
           "transactionId"
         ]
       },
-      "GetWebhookDeliveryAttemptDetailsResponseContent": {
-        "type": "object",
-        "properties": {
-          "attemptId": {
-            "type": "string"
-          },
-          "destinationId": {
-            "type": "string"
-          },
-          "eventId": {
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/DestinationAttemptStatus"
-          },
-          "timestamp": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "logs": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DetailedDestinationAttemptLog"
-            }
-          }
-        }
-      },
-      "GetWebhookDeliveryAttemptsResponseContent": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/DestinationAttempt"
-            },
-            "description": "The related webhook delivery attempts for the event."
-          }
-        }
-      },
-      "GetX12PartnershipConfigurationResponseContent": {
-        "type": "object",
-        "properties": {
-          "ackConfiguration": {
-            "$ref": "#/components/schemas/X12PartnershipAckConfiguration"
-          },
-          "processingConfiguration": {
-            "$ref": "#/components/schemas/ProcessingConfiguration"
-          }
-        }
-      },
-      "Hmac": {
-        "type": "string",
-        "enum": [
-          "hmac-sha2-256-etm@openssh.com",
-          "hmac-sha2-512-etm@openssh.com",
-          "hmac-sha1-etm@openssh.com",
-          "hmac-sha2-256",
-          "hmac-sha2-512",
-          "hmac-sha1",
-          "hmac-md5",
-          "hmac-sha2-256-96",
-          "hmac-sha2-512-96",
-          "hmac-ripemd160",
-          "hmac-sha1-96",
-          "hmac-md5-96"
-        ]
-      },
-      "InboundEncryptionAlgorithm": {
-        "type": "string",
-        "enum": [
-          "none",
-          "aes128_cbc",
-          "aes192_cbc",
-          "aes256_cbc",
-          "3des"
-        ]
-      },
       "Index": {
         "type": "object",
         "properties": {
@@ -7693,20 +6181,11 @@
           "line"
         ]
       },
-      "InterchangeAcknowledgments": {
-        "type": "string",
-        "description": "Control when to send interchange acknowledgments.\n\nInterchange acknowledgments confirm to your trading partner that an interchange group in the EDI file was processed without syntax errors.\nAsk your trading partner if they expect to receive interchange acknowledgments before configuring acknowledgments.\n\ncode          | description\n--------------|--------------------------\nNever         | (Default). Do not send interchange acknowledgments\nAlways        | Always send interchange acknowledgments\nWhenRequested | Send interchange acknowledgments when requested by the trading partner in the ISA 14 field",
-        "enum": [
-          "Never",
-          "Always",
-          "WhenRequested"
-        ]
-      },
       "InterchangeOverrides": {
         "type": "object",
         "properties": {
           "interchangeUsageIndicator": {
-            "$ref": "#/components/schemas/CoreX12UsageIndicator"
+            "$ref": "#/components/schemas/X12UsageIndicator"
           },
           "acknowledgmentRequestedCode": {
             "$ref": "#/components/schemas/X12AcknowledgmentRequestedCode"
@@ -7721,25 +6200,6 @@
             "$ref": "#/components/schemas/X12Delimiters"
           }
         }
-      },
-      "Kex": {
-        "type": "string",
-        "enum": [
-          "curve25519-sha256",
-          "curve25519-sha256@libssh.org",
-          "ecdh-sha2-nistp256",
-          "ecdh-sha2-nistp384",
-          "ecdh-sha2-nistp521",
-          "diffie-hellman-group-exchange-sha256",
-          "diffie-hellman-group14-sha256",
-          "diffie-hellman-group15-sha512",
-          "diffie-hellman-group16-sha512",
-          "diffie-hellman-group17-sha512",
-          "diffie-hellman-group18-sha512",
-          "diffie-hellman-group-exchange-sha1",
-          "diffie-hellman-group14-sha1",
-          "diffie-hellman-group1-sha1"
-        ]
       },
       "ListExecutionFaultsResponseContent": {
         "type": "object",
@@ -7897,13 +6357,6 @@
           "repository"
         ]
       },
-      "MdnResponse": {
-        "type": "string",
-        "enum": [
-          "sync",
-          "none"
-        ]
-      },
       "Mode": {
         "type": "string",
         "description": "Indicates whether the transaction contains test or production data. Stedi determines this from the value in [`ISA15` Usage Indicator Code](https://www.stedi.com/edi/x12/segment/ISA#ISA-15).",
@@ -7911,42 +6364,6 @@
           "test",
           "production",
           "other"
-        ]
-      },
-      "OutboundConnection": {
-        "type": "object",
-        "properties": {
-          "connectionType": {
-            "$ref": "#/components/schemas/ConnectionType"
-          },
-          "connectionId": {
-            "type": "string",
-            "pattern": "^[0123456789ABCDEFGHJKMNPQRSTVWXYZ]{26}$",
-            "description": "An autogenerated identifier for the connection within the Stedi platform."
-          },
-          "subdirectory": {
-            "type": "string",
-            "maxLength": 105,
-            "description": "Optional subdirectory used to store generated EDI files"
-          },
-          "filename": {
-            "type": "string",
-            "maxLength": 300,
-            "description": "Optional filename expression only used for acknowledgments. Allows `$millis()` and `$acknowledgmentType()` functions and string concatenation."
-          }
-        },
-        "required": [
-          "connectionId",
-          "connectionType"
-        ]
-      },
-      "OutboundEncryptionAlgorithm": {
-        "type": "string",
-        "enum": [
-          "none",
-          "aes128_cbc",
-          "aes192_cbc",
-          "aes256_cbc"
         ]
       },
       "Partnership": {
@@ -7975,15 +6392,6 @@
           "partnershipType",
           "receiver",
           "sender"
-        ]
-      },
-      "PartnershipMatchingMode": {
-        "type": "string",
-        "description": "Defines how an incoming EDI interchange should be matched to a configured partnership. If no value is provided, the default behavior is `Default`.",
-        "enum": [
-          "DEFAULT",
-          "CONNECTION_FALLBACK",
-          "CONNECTION_ONLY"
         ]
       },
       "PartnershipReceiver": {
@@ -8026,98 +6434,12 @@
           "edifact"
         ]
       },
-      "ProcessingConfiguration": {
-        "type": "object",
-        "properties": {
-          "strategy": {
-            "$ref": "#/components/schemas/ProcessingStrategy"
-          }
-        },
-        "required": [
-          "strategy"
-        ]
-      },
-      "ProcessingStrategy": {
-        "type": "string",
-        "description": "The configuration of stedi core when processing an inbound transaction.\n\ncode | description\n-----|--------------------------\nAllTransactions  | all transactions in the interchange must succeed processing for any to a succeed\nAnyTransaction  | any good transaction can succeed regardless of their neighbours",
-        "enum": [
-          "AllTransactions",
-          "AnyTransaction"
-        ]
-      },
       "ProfileType": {
         "type": "string",
         "enum": [
           "local",
           "partner"
         ]
-      },
-      "PutX12PartnershipConfigurationRequestContent": {
-        "type": "object",
-        "properties": {
-          "ackConfiguration": {
-            "$ref": "#/components/schemas/X12PartnershipAckConfiguration"
-          },
-          "processingConfiguration": {
-            "$ref": "#/components/schemas/ProcessingConfiguration"
-          }
-        }
-      },
-      "RemoteFtpAlgorithms": {
-        "type": "object",
-        "properties": {
-          "kex": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Kex"
-            }
-          },
-          "cipher": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Cipher"
-            }
-          },
-          "serverHostKey": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ServerHostKey"
-            }
-          },
-          "hmac": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Hmac"
-            }
-          },
-          "compress": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Compression"
-            }
-          }
-        }
-      },
-      "RemoteFtpProtocol": {
-        "type": "string",
-        "enum": [
-          "SFTP",
-          "FTPS"
-        ]
-      },
-      "RemoteFtpsAdvancedFields": {
-        "type": "object",
-        "properties": {
-          "secure": {
-            "type": "boolean"
-          },
-          "rejectUnauthorized": {
-            "type": "boolean"
-          },
-          "isImplicit": {
-            "type": "boolean"
-          }
-        }
       },
       "RepairOptions": {
         "type": "object",
@@ -8200,19 +6522,6 @@
           }
         }
       },
-      "ServerHostKey": {
-        "type": "string",
-        "enum": [
-          "ssh-ed25519",
-          "ecdsa-sha2-nistp256",
-          "ecdsa-sha2-nistp384",
-          "ecdsa-sha2-nistp521",
-          "rsa-sha2-512",
-          "rsa-sha2-256",
-          "ssh-rsa",
-          "ssh-dss"
-        ]
-      },
       "ServiceExceptionResponseContent": {
         "type": "object",
         "properties": {
@@ -8243,29 +6552,6 @@
         },
         "required": [
           "message"
-        ]
-      },
-      "SigningAlgorithm": {
-        "type": "string",
-        "enum": [
-          "NONE",
-          "SHA1",
-          "SHA256",
-          "SHA384",
-          "SHA512"
-        ]
-      },
-      "StackStatus": {
-        "type": "string",
-        "description": "Connection Status",
-        "enum": [
-          "Available",
-          "Creating",
-          "Deleted",
-          "Deleting",
-          "Updating",
-          "Failed",
-          "Unknown"
         ]
       },
       "ThrottlingExceptionResponseContent": {
@@ -8531,14 +6817,6 @@
           "segment"
         ]
       },
-      "X12FunctionalAcknowledgmentType": {
-        "type": "string",
-        "description": "The transaction set to use when acknowledging a functional group.\n\ncode | description\n-----|--------------------------\n997  | Used in all transaction sets. Not used to respond to a 997\n999  | Used in some healthcare transaction sets. Not used to respond to a 999.",
-        "enum": [
-          "997",
-          "999"
-        ]
-      },
       "X12InterchangeAuthorization": {
         "type": "object",
         "description": "Set values for [ISA header](https://www.stedi.com/edi/x12/segment/ISA) elements (ISA-01 to ISA-04).",
@@ -8607,36 +6885,6 @@
           "SA",
           "SN",
           "ZZ"
-        ]
-      },
-      "X12PartnershipAckConfiguration": {
-        "type": "object",
-        "properties": {
-          "enabled": {
-            "type": "boolean",
-            "description": "If not enabled the acknowledgment configuration will be deleted."
-          },
-          "negativeAcknowledgmentEnabled": {
-            "type": "boolean"
-          },
-          "positiveTransactionLevelAcknowledgments": {
-            "type": "boolean"
-          },
-          "interchangeAcknowledgments": {
-            "$ref": "#/components/schemas/InterchangeAcknowledgments"
-          },
-          "functionalAcknowledgmentType": {
-            "$ref": "#/components/schemas/X12FunctionalAcknowledgmentType"
-          },
-          "functionalAcknowledgmentConnection": {
-            "$ref": "#/components/schemas/OutboundConnection"
-          },
-          "interchangeAcknowledgmentConnection": {
-            "$ref": "#/components/schemas/OutboundConnection"
-          }
-        },
-        "required": [
-          "enabled"
         ]
       },
       "X12SecurityInformationQualifier": {
@@ -8783,6 +7031,334 @@
           "transactionSetIdentifier"
         ]
       },
+      "X12TransactionSetIdentifierCode": {
+        "type": "string",
+        "description": "Any valid 3-digit X12 Transaction Set Identifier Code, as defined in the X12 standard. See: <https://www.stedi.com/edi/x12/element/143>.",
+        "enum": [
+          "100",
+          "101",
+          "102",
+          "103",
+          "104",
+          "105",
+          "106",
+          "107",
+          "108",
+          "109",
+          "110",
+          "111",
+          "112",
+          "113",
+          "120",
+          "121",
+          "124",
+          "125",
+          "126",
+          "127",
+          "128",
+          "129",
+          "130",
+          "131",
+          "132",
+          "133",
+          "135",
+          "138",
+          "139",
+          "140",
+          "141",
+          "142",
+          "143",
+          "144",
+          "146",
+          "147",
+          "148",
+          "149",
+          "150",
+          "151",
+          "152",
+          "153",
+          "154",
+          "155",
+          "157",
+          "158",
+          "159",
+          "160",
+          "161",
+          "163",
+          "170",
+          "175",
+          "176",
+          "179",
+          "180",
+          "185",
+          "186",
+          "187",
+          "188",
+          "189",
+          "190",
+          "191",
+          "194",
+          "195",
+          "196",
+          "197",
+          "198",
+          "199",
+          "200",
+          "201",
+          "202",
+          "203",
+          "204",
+          "205",
+          "206",
+          "210",
+          "211",
+          "212",
+          "213",
+          "214",
+          "215",
+          "216",
+          "217",
+          "219",
+          "220",
+          "222",
+          "223",
+          "224",
+          "225",
+          "227",
+          "228",
+          "240",
+          "242",
+          "244",
+          "245",
+          "248",
+          "249",
+          "250",
+          "251",
+          "252",
+          "255",
+          "256",
+          "259",
+          "260",
+          "261",
+          "262",
+          "263",
+          "264",
+          "265",
+          "266",
+          "267",
+          "268",
+          "269",
+          "270",
+          "271",
+          "272",
+          "273",
+          "274",
+          "275",
+          "276",
+          "277",
+          "278",
+          "280",
+          "283",
+          "284",
+          "285",
+          "286",
+          "288",
+          "290",
+          "300",
+          "301",
+          "303",
+          "304",
+          "309",
+          "310",
+          "311",
+          "312",
+          "313",
+          "315",
+          "317",
+          "319",
+          "322",
+          "323",
+          "324",
+          "325",
+          "326",
+          "350",
+          "352",
+          "353",
+          "354",
+          "355",
+          "356",
+          "357",
+          "358",
+          "359",
+          "361",
+          "362",
+          "404",
+          "410",
+          "412",
+          "414",
+          "417",
+          "418",
+          "419",
+          "420",
+          "421",
+          "422",
+          "423",
+          "424",
+          "425",
+          "426",
+          "429",
+          "431",
+          "432",
+          "433",
+          "434",
+          "435",
+          "436",
+          "437",
+          "440",
+          "451",
+          "452",
+          "453",
+          "455",
+          "456",
+          "460",
+          "463",
+          "466",
+          "468",
+          "470",
+          "475",
+          "485",
+          "486",
+          "490",
+          "492",
+          "494",
+          "500",
+          "501",
+          "503",
+          "504",
+          "511",
+          "517",
+          "521",
+          "527",
+          "536",
+          "540",
+          "561",
+          "567",
+          "568",
+          "601",
+          "603",
+          "620",
+          "625",
+          "650",
+          "715",
+          "753",
+          "754",
+          "805",
+          "806",
+          "810",
+          "811",
+          "812",
+          "813",
+          "814",
+          "815",
+          "816",
+          "818",
+          "819",
+          "820",
+          "821",
+          "822",
+          "823",
+          "824",
+          "826",
+          "827",
+          "828",
+          "829",
+          "830",
+          "831",
+          "832",
+          "833",
+          "834",
+          "835",
+          "836",
+          "837",
+          "838",
+          "839",
+          "840",
+          "841",
+          "842",
+          "843",
+          "844",
+          "845",
+          "846",
+          "847",
+          "848",
+          "849",
+          "850",
+          "851",
+          "852",
+          "853",
+          "854",
+          "855",
+          "856",
+          "857",
+          "858",
+          "859",
+          "860",
+          "861",
+          "862",
+          "863",
+          "864",
+          "865",
+          "866",
+          "867",
+          "868",
+          "869",
+          "870",
+          "871",
+          "872",
+          "873",
+          "874",
+          "875",
+          "876",
+          "877",
+          "878",
+          "879",
+          "880",
+          "881",
+          "882",
+          "883",
+          "884",
+          "885",
+          "886",
+          "887",
+          "888",
+          "889",
+          "890",
+          "891",
+          "892",
+          "893",
+          "894",
+          "895",
+          "896",
+          "897",
+          "920",
+          "924",
+          "925",
+          "926",
+          "928",
+          "940",
+          "943",
+          "944",
+          "945",
+          "947",
+          "980",
+          "990",
+          "993",
+          "996",
+          "997",
+          "998",
+          "999"
+        ]
+      },
       "X12TransactionSetting": {
         "type": "object",
         "description": "The IDs for the guide and transaction setting Stedi used to process the transaction.",
@@ -8810,6 +7386,15 @@
         },
         "required": [
           "metadata"
+        ]
+      },
+      "X12UsageIndicator": {
+        "type": "string",
+        "description": "Set [ISA-15](https://www.stedi.com/edi/x12/segment/ISA#ISA-15) to a different value. If not set, the default value is `P (Production Data)`.",
+        "enum": [
+          "I",
+          "T",
+          "P"
         ]
       }
     },
