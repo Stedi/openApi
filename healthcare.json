@@ -15891,13 +15891,13 @@
             "type": "string"
           },
           "claimStatementPeriodEnd": {
-            "description": "The claim period end date.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "The claim period end date in ISO 8601 format (YYYY-MM-DD). This format is intentionally inconsistent with other date properties to maintain backwards compatibility.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "claimStatementPeriodStart": {
-            "description": "The claim period start date. If the claim statement period start date is conveyed without a subsequent claim statement period end date, the end date is assumed to be the same as the start date.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "The claim period start date in ISO 8601 format (YYYY-MM-DD). This format is intentionally inconsistent with other date properties to maintain backwards compatibility.\n\nIf the response doesn’t include a `claimStatementPeriodEnd`, you should assume the end date is the same as the start date.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "claimSupplementalInformation": {
@@ -25582,17 +25582,6 @@
       "post": {
         "description": "Submit an 837I institutional claim in JSON format",
         "operationId": "InstitutionalClaimsSubmission",
-        "parameters": [
-          {
-            "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Institutional Claims guide.",
-            "in": "header",
-            "name": "Stedi-Transaction-Setting-Id",
-            "schema": {
-              "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Institutional Claims guide.",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -25814,24 +25803,6 @@
       "post": {
         "description": "Submit an 837P professional claim in raw X12 EDI format",
         "operationId": "ClaimsRawX12Submission",
-        "parameters": [
-          {
-            "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Professional Claims guide needs to be used.",
-            "examples": {
-              "ClaimsRawX12Submission_example1": {
-                "description": "",
-                "summary": "Submit professional claim - X12 EDI",
-                "value": "005010X222A1-837"
-              }
-            },
-            "in": "header",
-            "name": "Stedi-Transaction-Setting-Id",
-            "schema": {
-              "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Professional Claims guide needs to be used.",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -25971,24 +25942,6 @@
       "post": {
         "description": "Submit an 837P professional claim in JSON format",
         "operationId": "ClaimsSubmission",
-        "parameters": [
-          {
-            "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Professional Claims guide needs to be used.",
-            "examples": {
-              "ClaimsSubmission_example1": {
-                "description": "",
-                "summary": "Submit professional claim - JSON",
-                "value": "004010-855"
-              }
-            },
-            "in": "header",
-            "name": "Stedi-Transaction-Setting-Id",
-            "schema": {
-              "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Professional Claims guide needs to be used.",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -27340,24 +27293,6 @@
       "post": {
         "description": "Submit an 837D dental claim in raw X12 EDI format",
         "operationId": "DentalClaimsRawX12Submission",
-        "parameters": [
-          {
-            "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Dental Claims guide needs to be used.",
-            "examples": {
-              "DentalClaimsRawX12Submission_example1": {
-                "description": "",
-                "summary": "Submit dental claim - X12 EDI",
-                "value": "005010X224A2-837"
-              }
-            },
-            "in": "header",
-            "name": "Stedi-Transaction-Setting-Id",
-            "schema": {
-              "description": "The outbound transaction setting ID. This option only needs to be specified if a non-default release of the Dental Claims guide needs to be used.",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -27497,17 +27432,6 @@
       "post": {
         "description": "Submit an 837D dental claim in JSON format",
         "operationId": "DentalClaimsSubmission",
-        "parameters": [
-          {
-            "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Dental Claims guide.",
-            "in": "header",
-            "name": "Stedi-Transaction-Setting-Id",
-            "schema": {
-              "description": "The outbound transaction setting ID. This option only needs to be specified if you're using a non-default release of the Dental Claims guide.",
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
