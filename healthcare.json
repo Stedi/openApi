@@ -859,7 +859,7 @@
             "$ref": "#/components/schemas/BenefitsDateInformation"
           },
           "benefitsRelatedEntities": {
-            "description": "All other entities associated with the eligibility or benefits.",
+            "description": "Other entities associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer. When present, this array typically contains information about the patient's primary care provider (PCP), another organization that handles a specific benefit type (such as telehealth mental health services), or another health plan for the patient (coordination of benefits scenarios).\n- This is where information for a crossover carrier such as Medicaid or Medicare is provided, if it's applicable to the patient and the payer supports it.\n- For Blue Cross Blue Shield (BCBS) payers, Stedi returns an entry containing information about the patient's home plan - the plan that actually verified the coverage. In this object, the `entityIdentifier` property is set to `Party Performing Verification`. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#bcbs-home-plan)",
             "items": {
               "$ref": "#/components/schemas/BenefitsRelatedEntity"
             },
@@ -1077,10 +1077,12 @@
         "description": "Identify another entity associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer.\n\nThis is where information for a crossover carrier such as Medicaid or Medicare is provided, if it's applicable to the patient and the payer supports it.",
         "properties": {
           "address": {
-            "$ref": "#/components/schemas/Address"
+            "$ref": "#/components/schemas/Address",
+            "description": "The address of the entity, such as a provider or organization."
           },
           "contactInformation": {
-            "$ref": "#/components/schemas/ContactInformation"
+            "$ref": "#/components/schemas/ContactInformation",
+            "description": "The contact information for the entity, such as a phone number or email address."
           },
           "entityFirstname": {
             "description": "The first name of the entity, if the entity is a person.",
@@ -1096,7 +1098,7 @@
           },
           "entityIdentifier": {
             "$ref": "#/components/schemas/RelatedEntityIdentifierName",
-            "description": "Code identifying an organizational entity, a physical location, property or an individual.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Code identifying an organizational entity, a physical location, property, or individual. When set to `Party Performing Verification` for a BCBS payer, this is the patient's home plan.\n\nPayers may sometimes return other non-compliant values."
           },
           "entityMiddlename": {
             "description": "The middle name or initial of the entity, if the entity is a person.",
@@ -7564,7 +7566,7 @@
             "$ref": "#/components/schemas/BenefitsAdditionalInformation"
           },
           "benefitsRelatedEntities": {
-            "description": "All other entities associated with the eligibility or benefits.",
+            "description": "Other entities associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer. When present, this array typically contains information about the patient's primary care provider (PCP), another organization that handles a specific benefit type (such as telehealth mental health services), or another health plan for the patient (coordination of benefits scenarios).\n- This is where information for a crossover carrier such as Medicaid or Medicare is provided, if it's applicable to the patient and the payer supports it.\n- For Blue Cross Blue Shield (BCBS) payers, Stedi returns an entry containing information about the patient's home plan - the plan that actually verified the coverage. In this object, the `entityIdentifier` property is set to `Party Performing Verification`. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#bcbs-home-plan)",
             "items": {
               "$ref": "#/components/schemas/BenefitsRelatedEntity"
             },
