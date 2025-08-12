@@ -8619,6 +8619,10 @@
             "description": "An identifier for the payer's response.",
             "type": "string"
           },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
           "errors": {
             "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
             "items": {
@@ -8806,6 +8810,10 @@
             "minItems": 1,
             "type": "array"
           },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
           "encounter": {
             "$ref": "#/components/schemas/Encounter"
           },
@@ -8882,6 +8890,10 @@
               "$ref": "#/components/schemas/ResponseDependent"
             },
             "type": "array"
+          },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
           },
           "errors": {
             "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
@@ -9106,6 +9118,10 @@
       },
       "EligibilityRawX12CheckRequestContent": {
         "properties": {
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
           "externalPatientId": {
             "description": "A unique identifier for the patient that Stedi uses to identify and correlate historical eligibility checks for the same individual. We recommend including this value in all requests.",
             "maxLength": 36,
@@ -9139,6 +9155,10 @@
               "$ref": "#/components/schemas/ResponseDependent"
             },
             "type": "array"
+          },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
           },
           "errors": {
             "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
@@ -17813,6 +17833,10 @@
             },
             "type": "array"
           },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
           "errors": {
             "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
             "items": {
@@ -24059,6 +24083,7 @@
                         }
                       ],
                       "controlNumber": "214976898",
+                      "eligibilitySearchId": "01922a35-a177-7171-b868-cd4974dd54df",
                       "errors": [],
                       "meta": {
                         "applicationMode": "production",
@@ -25402,6 +25427,7 @@
                         }
                       ],
                       "controlNumber": "1001",
+                      "eligibilitySearchId": "01922a35-a177-7171-b868-cd4974dd54df",
                       "errors": [],
                       "meta": {
                         "applicationMode": "production",
