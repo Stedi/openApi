@@ -18,8 +18,80 @@
         ],
         "type": "object"
       },
-      "AdditionalIdentification": {
-        "description": "Use this object when you need to provide an identification number other than or in addition to the member ID. For example, you may provide the patient account number. Don't include the health insurance claim number or the medicaid recipient ID number here unless they are different from the member ID.",
+      "AdditionalIdentificationDependent": {
+        "description": "Use this object when you need to provide an additional identification number for the dependent. This is rarely required for standard eligibility checks.",
+        "properties": {
+          "agencyClaimNumber": {
+            "description": "The Property and Casualty Claim Number associated with the patient. You should only submit this value when when you are submitting an eligibility request to a property and casualty payer.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "contractNumber": {
+            "description": "The contract number for an existing contract between the payer and the provider requesting the eligibility check.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "healthInsuranceClaimNumber": {
+            "description": "This property is never used in practice.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "identificationCardSerialNumber": {
+            "description": "The identification card serial number. You can include this when the ID card has a number in addition to the member ID number. The Identification Card Serial Number uniquely identifies the card when multiple cards have been or will be issued to a member, such as a replacement card.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "insurancePolicyNumber": {
+            "description": "The insurance policy number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "medicalRecordIdentificationNumber": {
+            "description": "The medical record identification number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "memberIdentificationNumber": {
+            "description": "Not intended for most use cases. Only set this when the property and casualty patient identifier is a member ID that would be used in an 837 claim submission.\n\nIf the patient has their own member ID for the health plan, you should identify them in the `subscriber` object. If the patient doesn't have their own member ID, don't set this property.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "patientAccountNumber": {
+            "description": "The patient account number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "planNetworkIdentificationNumber": {
+            "description": "The plan network identification number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "planNumber": {
+            "description": "The insurance plan number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "policyNumber": {
+            "description": "The insurance group or policy number.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "AdditionalIdentificationSubscriber": {
+        "description": "Use this object when you need to provide an identification number other than or in addition to the subscriber's member ID. For example, you may provide the patient account number.\n\nDon't include the health insurance claim number or the medicaid recipient ID number here unless they are different from the member ID.",
         "properties": {
           "agencyClaimNumber": {
             "description": "The Property and Casualty Claim Number associated with the patient. You should only submit this value when when you are submitting an eligibility request to a property and casualty payer.",
@@ -58,7 +130,7 @@
             "type": "string"
           },
           "memberIdentificationNumber": {
-            "description": "The member identification number. Use only when checking eligibility with a Workers' Compensation or Property and Casualty insurer.",
+            "description": "This property is never used in practice. Supply the subscriber's member ID in `subscriber.memberId`.",
             "maxLength": 50,
             "minLength": 1,
             "type": "string"
@@ -3315,7 +3387,7 @@
       "RequestDependent": {
         "properties": {
           "additionalIdentification": {
-            "$ref": "#/components/schemas/AdditionalIdentification"
+            "$ref": "#/components/schemas/AdditionalIdentificationDependent"
           },
           "address": {
             "$ref": "#/components/schemas/RequestAddress",
@@ -3416,7 +3488,8 @@
             "type": "string"
           },
           "memberId": {
-            "description": "Only use for property and casualty use cases when the property and casualty patient identifier is a member ID and would be used in an 837 healthcare claim submission.",
+            "deprecated": true,
+            "description": "This shape is deprecated: This property is no longer used.",
             "maxLength": 80,
             "minLength": 2,
             "pattern": "^[A-Za-z0-9- ]+$",
@@ -3430,7 +3503,7 @@
           },
           "planIssueDate": {
             "deprecated": true,
-            "description": "Deprecated; The date the insurance plan was issued.\nThis shape is deprecated: This property is no longer used.",
+            "description": "This shape is deprecated: This property is no longer used.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -3719,7 +3792,7 @@
         "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependents` empty.\n- At a minimum, our API requires that you supply at least one of these fields in the request: `memberId`, `dateOfBirth`, or `lastName`. However, each payer has different requirements, so you should supply the fields necessary for each payer to identify the subscriber in their system.\n- When you provide all four of `memberId`, `dateOfBirth`, `firstName`, and `lastName`, payers are required to return a response if the member is in their database. Some payers may be able to search with less information, but this varies by payer.\n- We recommend always including the patient's member ID when possible.\n- Enter the patient's name exactly as written on their insurance card, if available, including any special or punctuation characters such as apostrophes, hyphens (dashes), or spaces. Visit [patient names](https://www.stedi.com/docs/healthcare/send-eligibility-checks#patient-names) for all best practices to avoid unnecessary failures.",
         "properties": {
           "additionalIdentification": {
-            "$ref": "#/components/schemas/AdditionalIdentification"
+            "$ref": "#/components/schemas/AdditionalIdentificationSubscriber"
           },
           "address": {
             "$ref": "#/components/schemas/RequestAddress",
