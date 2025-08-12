@@ -57,7 +57,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "type": "string"
+                                "$ref": "#/components/schemas/EnrollmentStatus"
                             },
                             "description": "One or multiple statuses to filter by."
                         },
@@ -127,7 +127,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "type": "string"
+                                "$ref": "#/components/schemas/EnrollmentSource"
                             },
                             "description": "One or multiple sources to filter by."
                         },
@@ -221,6 +221,8 @@
                                                     "status": "LIVE",
                                                     "source": "API",
                                                     "statusLastUpdatedAt": "2025-05-01T12:00:00Z",
+                                                    "createdAt": "2025-04-01T12:00:00Z",
+                                                    "updatedAt": "2025-05-01T12:00:00Z",
                                                     "history": [
                                                         {
                                                             "newStatus": "DRAFT",
@@ -495,7 +497,7 @@
                                     "description": "",
                                     "value": {
                                         "status": [
-                                            "NONEXISTENT_STATUS"
+                                            "CANCELED"
                                         ]
                                     }
                                 }
@@ -1725,6 +1727,13 @@
                         },
                         "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     },
+                    "documents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentDocument"
+                        },
+                        "description": "Documents associated with this enrollment, excluding deleted documents."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -1768,12 +1777,14 @@
                     }
                 },
                 "required": [
+                    "createdAt",
                     "id",
                     "payer",
                     "primaryContact",
                     "provider",
                     "statusLastUpdatedAt",
                     "transactions",
+                    "updatedAt",
                     "userEmail"
                 ]
             },
@@ -1866,6 +1877,16 @@
                     "npi",
                     "taxId",
                     "taxIdType"
+                ]
+            },
+            "DocumentStatus": {
+                "type": "string",
+                "description": "Indicates whether the document file has been successfully uploaded to Stedi.",
+                "enum": [
+                    "PENDING",
+                    "UPLOADED",
+                    "FAILED",
+                    "DELETED"
                 ]
             },
             "EnrolledPayerInput": {
@@ -2033,6 +2054,58 @@
                     }
                 ]
             },
+            "EnrollmentDocument": {
+                "type": "object",
+                "description": "A collection of metadata about an enrollment document, including its name, status, last updated date, and the associated enrollment Id.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the document."
+                    },
+                    "enrollmentId": {
+                        "type": "string",
+                        "description": "The enrollment ID this document is associated with."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the document."
+                    },
+                    "contentType": {
+                        "type": "string",
+                        "description": "The content type of the document."
+                    },
+                    "size": {
+                        "type": "number",
+                        "description": "The size of the document in bytes."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/DocumentStatus",
+                        "description": "Indicates whether the document file has been successfully uploaded to Stedi."
+                    },
+                    "downloadUrl": {
+                        "type": "string",
+                        "description": "A presigned URL for download url. Only present when the document status is UPLOADED and has a 1-hour expiration."
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "description": "The date and time when the document was created.",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "description": "The date and time when the document was last updated.",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "createdAt",
+                    "enrollmentId",
+                    "id",
+                    "name",
+                    "status",
+                    "updatedAt"
+                ]
+            },
             "EnrollmentHistoryChangeType": {
                 "type": "string",
                 "description": "The type of change recorded in the enrollment history.",
@@ -2148,16 +2221,25 @@
                             "$ref": "#/components/schemas/EnrollmentHistoryEntry"
                         },
                         "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
+                    },
+                    "documents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentDocument"
+                        },
+                        "description": "Documents associated with this enrollment, excluding deleted documents."
                     }
                 },
                 "required": [
+                    "createdAt",
                     "id",
                     "payer",
                     "provider",
                     "source",
                     "status",
                     "statusLastUpdatedAt",
-                    "transactions"
+                    "transactions",
+                    "updatedAt"
                 ]
             },
             "ExportEnrollmentsCsvRequestContent": {
@@ -2171,7 +2253,7 @@
                     "status": {
                         "type": "array",
                         "items": {
-                            "type": "string"
+                            "$ref": "#/components/schemas/EnrollmentStatus"
                         },
                         "description": "One or multiple statuses to filter by."
                     },
@@ -2206,7 +2288,7 @@
                     "sources": {
                         "type": "array",
                         "items": {
-                            "type": "string"
+                            "$ref": "#/components/schemas/EnrollmentSource"
                         },
                         "description": "One or multiple sources to filter by."
                     },
@@ -2298,6 +2380,13 @@
                         },
                         "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     },
+                    "documents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentDocument"
+                        },
+                        "description": "Documents associated with this enrollment, excluding deleted documents."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2341,12 +2430,14 @@
                     }
                 },
                 "required": [
+                    "createdAt",
                     "id",
                     "payer",
                     "primaryContact",
                     "provider",
                     "statusLastUpdatedAt",
                     "transactions",
+                    "updatedAt",
                     "userEmail"
                 ]
             },
@@ -2703,6 +2794,13 @@
                         },
                         "description": "The history of updates to this enrollment, such as status changes. This property is experimental and may change in the future."
                     },
+                    "documents": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/EnrollmentDocument"
+                        },
+                        "description": "Documents associated with this enrollment, excluding deleted documents."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2746,12 +2844,14 @@
                     }
                 },
                 "required": [
+                    "createdAt",
                     "id",
                     "payer",
                     "primaryContact",
                     "provider",
                     "statusLastUpdatedAt",
                     "transactions",
+                    "updatedAt",
                     "userEmail"
                 ]
             },
