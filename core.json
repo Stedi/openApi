@@ -4965,7 +4965,17 @@
                     "value": {
                       "edi": "ISA*00*          *00*          *14*ANOTHERMERCH   *ZZ*THISISME       *230828*0900*^*00801*000000002*1*P*>~GS*PO*ANOTHERMERCH*THISISME*20230828*090020*000000002*X*008010~ST*850*0001~BEG*XX*XX*XXXXX**20230811~PO1~SE*4*0001~GE*1*000000002~IEA*1*000000002~",
                       "artifactId": "f75168e4-e682-4410-bfec-b5b1541c7f21.x12",
-                      "fileExecutionId": "f75168e4-e682-4410-bfec-b5b1541c7f21"
+                      "fileExecutionId": "f75168e4-e682-4410-bfec-b5b1541c7f21",
+                      "metadata": {
+                        "interchangeMetadata": [
+                          {
+                            "interchangeControlNumber": 2,
+                            "functionalGroupControlNumbers": [
+                              2
+                            ]
+                          }
+                        ]
+                      }
                     }
                   }
                 }
@@ -5769,11 +5779,15 @@
           "fileExecutionId": {
             "type": "string",
             "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi app. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/Metadata"
           }
         },
         "required": [
           "artifactId",
-          "fileExecutionId"
+          "fileExecutionId",
+          "metadata"
         ]
       },
       "GenerateTransactionGroupEdiRequestContent": {
@@ -6181,6 +6195,31 @@
           "line"
         ]
       },
+      "InterchangeMetadata": {
+        "type": "object",
+        "description": "Metadata for a single interchange within the EDI file.",
+        "properties": {
+          "interchangeControlNumber": {
+            "type": "number",
+            "maximum": 999999999,
+            "minimum": 0
+          },
+          "functionalGroupControlNumbers": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "maximum": 999999999,
+              "minimum": 0
+            },
+            "minItems": 1,
+            "description": "A list of functional group control numbers within an interchange."
+          }
+        },
+        "required": [
+          "functionalGroupControlNumbers",
+          "interchangeControlNumber"
+        ]
+      },
       "InterchangeOverrides": {
         "type": "object",
         "properties": {
@@ -6355,6 +6394,23 @@
         "required": [
           "pointer",
           "repository"
+        ]
+      },
+      "Metadata": {
+        "type": "object",
+        "description": "Metadata about the generated EDI file.",
+        "properties": {
+          "interchangeMetadata": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InterchangeMetadata"
+            },
+            "minItems": 1,
+            "description": "A list of interchange metadata for all interchanges in the EDI file."
+          }
+        },
+        "required": [
+          "interchangeMetadata"
         ]
       },
       "Mode": {
