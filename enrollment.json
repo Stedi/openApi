@@ -15,7 +15,7 @@
     "paths": {
         "/enrollments": {
             "get": {
-                "description": "Lists enrollment requests with optional filtering and pagination. This operation supports filtering by status, provider details, payer details, dates, and other criteria.",
+                "description": "Lists transaction enrollment records with optional filtering and pagination.",
                 "operationId": "ListEnrollments",
                 "parameters": [
                     {
@@ -32,158 +32,158 @@
                     {
                         "name": "pageToken",
                         "in": "query",
-                        "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned.",
+                        "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results.",
                         "schema": {
                             "type": "string",
                             "maxLength": 1024,
                             "minLength": 1,
-                            "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned."
+                            "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results."
                         }
                     },
                     {
                         "name": "filter",
                         "in": "query",
-                        "description": "A partial search term matched against multiple columns.",
+                        "description": "Filter for enrollments with properties matching a query string. You can provide all or part of a provider name, NPI, or tax ID. You can also provide all or part of a payer's [Stedi payer ID](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id) - primary payer IDs and aliases aren't supported. The search is case-insensitive and supports fuzzy matching.\n\nFor example, providing `?filter=OS` returns enrollments with `provider.name` containing `os` or `OS` (such as `Joseph`) and Stedi payer IDs containing `OS`, such as `OSBLI` for OptumHealth Salt Lake County.",
                         "schema": {
                             "type": "string",
-                            "description": "A partial search term matched against multiple columns."
+                            "description": "Filter for enrollments with properties matching a query string. You can provide all or part of a provider name, NPI, or tax ID. You can also provide all or part of a payer's [Stedi payer ID](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id) - primary payer IDs and aliases aren't supported. The search is case-insensitive and supports fuzzy matching.\n\nFor example, providing `?filter=OS` returns enrollments with `provider.name` containing `os` or `OS` (such as `Joseph`) and Stedi payer IDs containing `OS`, such as `OSBLI` for OptumHealth Salt Lake County."
                         }
                     },
                     {
                         "name": "status",
                         "in": "query",
-                        "description": "One or multiple statuses to filter by.",
+                        "description": "Filter for enrollments with specific statuses. You can include this parameter multiple times to filter for multiple statuses.\n\nFor example, `?status=LIVE&status=REJECTED` returns enrollments that are in either `LIVE` or `REJECTED` status.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/components/schemas/EnrollmentStatus"
                             },
-                            "description": "One or multiple statuses to filter by."
+                            "description": "Filter for enrollments with specific statuses. You can include this parameter multiple times to filter for multiple statuses.\n\nFor example, `?status=LIVE&status=REJECTED` returns enrollments that are in either `LIVE` or `REJECTED` status."
                         },
                         "explode": true
                     },
                     {
                         "name": "providerNpis",
                         "in": "query",
-                        "description": "One or multiple provider NPIs to filter by.",
+                        "description": "Filter for enrollments associated with specific provider NPIs. You can include this parameter multiple times to filter for multiple NPIs.\n\nFor example, `?providerNpis=1234567890&providerNpis=0987654321` returns enrollments associated with either of the specified NPIs.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             },
-                            "description": "One or multiple provider NPIs to filter by."
+                            "description": "Filter for enrollments associated with specific provider NPIs. You can include this parameter multiple times to filter for multiple NPIs.\n\nFor example, `?providerNpis=1234567890&providerNpis=0987654321` returns enrollments associated with either of the specified NPIs."
                         },
                         "explode": true
                     },
                     {
                         "name": "providerTaxIds",
                         "in": "query",
-                        "description": "One or multiple provider tax IDs to filter by.",
+                        "description": "Filter for enrollments associated with specific provider tax IDs. You can include this parameter multiple times to filter for multiple tax IDs.\n\nFor example, `?providerTaxIds=123456789&providerTaxIds=987654321` returns enrollments associated with either of the specified tax IDs.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             },
-                            "description": "One or multiple provider tax IDs to filter by."
+                            "description": "Filter for enrollments associated with specific provider tax IDs. You can include this parameter multiple times to filter for multiple tax IDs.\n\nFor example, `?providerTaxIds=123456789&providerTaxIds=987654321` returns enrollments associated with either of the specified tax IDs."
                         },
                         "explode": true
                     },
                     {
                         "name": "providerNames",
                         "in": "query",
-                        "description": "One or multiple provider names to filter by.",
+                        "description": "Filter for enrollments associated with specific provider names. You can include this parameter multiple times to filter for multiple names.\n\nFor example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             },
-                            "description": "One or multiple provider names to filter by."
+                            "description": "Filter for enrollments associated with specific provider names. You can include this parameter multiple times to filter for multiple names.\n\nFor example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization."
                         },
                         "explode": true
                     },
                     {
                         "name": "payerIds",
                         "in": "query",
-                        "description": "One or multiple payer IDs to filter by.",
+                        "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id). You can include this parameter multiple times to filter for multiple payer IDs.\n\nFor example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "type": "string"
                             },
-                            "description": "One or multiple payer IDs to filter by."
+                            "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id). You can include this parameter multiple times to filter for multiple payer IDs.\n\nFor example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization."
                         },
                         "explode": true
                     },
                     {
                         "name": "sources",
                         "in": "query",
-                        "description": "One or multiple sources to filter by.",
+                        "description": "Filter for enrollments submitted through specific sources, such as the API or UI. You can include this parameter multiple times to filter for multiple sources.\n\nFor example, `?sources=API&sources=UI` returns enrollments submitted through either of the specified sources.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/components/schemas/EnrollmentSource"
                             },
-                            "description": "One or multiple sources to filter by."
+                            "description": "Filter for enrollments submitted through specific sources, such as the API or UI. You can include this parameter multiple times to filter for multiple sources.\n\nFor example, `?sources=API&sources=UI` returns enrollments submitted through either of the specified sources."
                         },
                         "explode": true
                     },
                     {
                         "name": "transactions",
                         "in": "query",
-                        "description": "A list of enrollment transaction types to filter by.",
+                        "description": "Filter for enrollments for specific transaction types. You can include this parameter multiple times to filter for multiple types.\n\nFor example, `?transactions=eligibilityCheck&transactions=claimStatus` returns enrollments for both 270/271 eligibility checks and 276/277 real-time claim status.",
                         "style": "form",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/components/schemas/TransactionType"
                             },
-                            "description": "A list of enrollment transaction types to filter by."
+                            "description": "Filter for enrollments for specific transaction types. You can include this parameter multiple times to filter for multiple types.\n\nFor example, `?transactions=eligibilityCheck&transactions=claimStatus` returns enrollments for both 270/271 eligibility checks and 276/277 real-time claim status."
                         },
                         "explode": true
                     },
                     {
                         "name": "createdFrom",
                         "in": "query",
-                        "description": "The start date to filter enrollments created from this date.",
+                        "description": "Filter for enrollments created from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `createdAt` timestamp on or after this date.",
                         "schema": {
                             "type": "string",
-                            "description": "The start date to filter enrollments created from this date.",
+                            "description": "Filter for enrollments created from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `createdAt` timestamp on or after this date.",
                             "format": "date-time"
                         }
                     },
                     {
                         "name": "createdTo",
                         "in": "query",
-                        "description": "The end date to filter enrollments created up to this date.",
+                        "description": "Filter for enrollments created before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `createdAt` timestamp before this date.\n\nThe time must be later than `createdFrom`, if present.",
                         "schema": {
                             "type": "string",
-                            "description": "The end date to filter enrollments created up to this date.",
+                            "description": "Filter for enrollments created before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `createdAt` timestamp before this date.\n\nThe time must be later than `createdFrom`, if present.",
                             "format": "date-time"
                         }
                     },
                     {
                         "name": "statusUpdatedFrom",
                         "in": "query",
-                        "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                        "description": "Filter for enrollments whose status was last updated from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `statusLastUpdatedAt` timestamp on or after this date.",
                         "schema": {
                             "type": "string",
-                            "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                            "description": "Filter for enrollments whose status was last updated from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `statusLastUpdatedAt` timestamp on or after this date.",
                             "format": "date-time"
                         }
                     },
                     {
                         "name": "statusUpdatedTo",
                         "in": "query",
-                        "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                        "description": "Filter for enrollments whose status was last updated before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `statusLastUpdatedAt` before this date.\n\nThe time must be later than `statusUpdatedFrom`, if present.",
                         "schema": {
                             "type": "string",
-                            "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                            "description": "Filter for enrollments whose status was last updated before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `statusLastUpdatedAt` before this date.\n\nThe time must be later than `statusUpdatedFrom`, if present.",
                             "format": "date-time"
                         }
                     },
@@ -312,7 +312,7 @@
                 }
             },
             "post": {
-                "description": "Creates a new enrollment request for a provider with a payer. This operation registers a provider to exchange specific transaction types with a payer through Stedi.",
+                "description": "Creates a new transaction enrollment request. Transaction enrollment registers a provider to exchange specific transaction types with a payer.",
                 "operationId": "CreateEnrollment",
                 "requestBody": {
                     "content": {
@@ -994,7 +994,7 @@
         },
         "/providers": {
             "get": {
-                "description": "Lists providers with optional filtering and pagination. This operation supports filtering by name, NPI, or tax ID.",
+                "description": "Lists providers with optional filtering and pagination.",
                 "operationId": "ListProviders",
                 "parameters": [
                     {
@@ -1011,21 +1011,21 @@
                     {
                         "name": "pageToken",
                         "in": "query",
-                        "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned.",
+                        "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results.",
                         "schema": {
                             "type": "string",
                             "maxLength": 1024,
                             "minLength": 1,
-                            "description": "`pageToken` is an opaque token returned by a previous call to this operation in the `nextPageToken`. If not specified, the first page of results is returned."
+                            "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results."
                         }
                     },
                     {
                         "name": "filter",
                         "in": "query",
-                        "description": "A filter to apply to the list of providers. Currently, name, npi, and taxId are supported. For example, `name=BDQ` will return all providers with a name that contains `BDQ`. The filter is case-insensitive.",
+                        "description": "Filter for providers with properties matching a query string. You can provide all or part of a provider name, NPI, or tax ID. The search is case-insensitive and supports fuzzy matching.\n\nFor example, providing `?filter=OS` returns providers with names containing `os` (such as `Joseph`).",
                         "schema": {
                             "type": "string",
-                            "description": "A filter to apply to the list of providers. Currently, name, npi, and taxId are supported. For example, `name=BDQ` will return all providers with a name that contains `BDQ`. The filter is case-insensitive."
+                            "description": "Filter for providers with properties matching a query string. You can provide all or part of a provider name, NPI, or tax ID. The search is case-insensitive and supports fuzzy matching.\n\nFor example, providing `?filter=OS` returns providers with names containing `os` (such as `Joseph`)."
                         }
                     }
                 ],
@@ -1963,7 +1963,7 @@
                         "properties": {
                             "eligibilityCheck": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether 270 Eligibility Checks are included in the enrollment."
+                                "description": "Whether 270 eligibility checks are included in the enrollment."
                             }
                         },
                         "required": [
@@ -1976,7 +1976,7 @@
                         "properties": {
                             "claimStatus": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether 276 Claim Status Requests are included in the enrollment."
+                                "description": "Whether 276 claim status requests are included in the enrollment."
                             }
                         },
                         "required": [
@@ -1989,7 +1989,7 @@
                         "properties": {
                             "professionalClaimSubmission": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether 837P Professional Claims are included in the enrollment."
+                                "description": "Whether 837P professional claims are included in the enrollment."
                             }
                         },
                         "required": [
@@ -2002,7 +2002,7 @@
                         "properties": {
                             "institutionalClaimSubmission": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether 837I Institutional Claims are included in the enrollment."
+                                "description": "Whether 837I institutional claims are included in the enrollment."
                             }
                         },
                         "required": [
@@ -2015,7 +2015,7 @@
                         "properties": {
                             "dentalClaimSubmission": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether 837D Dental Claims are included in the enrollment."
+                                "description": "Whether 837D dental claims are included in the enrollment."
                             }
                         },
                         "required": [
@@ -2041,7 +2041,7 @@
                         "properties": {
                             "solicitedClaimAttachment": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether Solicited Claim Attachments are included in the enrollment."
+                                "description": "Whether solicited claim attachments are included in the enrollment."
                             }
                         },
                         "required": [
@@ -2054,7 +2054,7 @@
                         "properties": {
                             "unsolicitedClaimAttachment": {
                                 "$ref": "#/components/schemas/EnrolledTransaction",
-                                "description": "Whether Unsolicited Claim Attachments are included in the enrollment."
+                                "description": "Whether unsolicited claim attachments are included in the enrollment."
                             }
                         },
                         "required": [
