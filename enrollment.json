@@ -216,7 +216,10 @@
                                                     "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
                                                     "provider": {
                                                         "name": "Test Medical Provider",
-                                                        "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                                        "id": "db6665c5-7b97-4af9-8c68-a00a336c2998",
+                                                        "npi": "1234567890",
+                                                        "taxId": "123456789",
+                                                        "taxIdType": "EIN"
                                                     },
                                                     "payer": {
                                                         "name": "UnitedHealthcare",
@@ -391,7 +394,10 @@
                                             "status": "SUBMITTED",
                                             "provider": {
                                                 "name": "Test Medical Provider",
-                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998",
+                                                "npi": "1234567890",
+                                                "taxId": "123456789",
+                                                "taxIdType": "EIN"
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
@@ -732,7 +738,10 @@
                                             "status": "PROVISIONING",
                                             "provider": {
                                                 "name": "Test Medical Provider",
-                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998",
+                                                "npi": "1234567890",
+                                                "taxId": "123456789",
+                                                "taxIdType": "EIN"
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
@@ -916,8 +925,11 @@
                                             },
                                             "status": "DRAFT",
                                             "provider": {
+                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998",
                                                 "name": "Test Medical Provider",
-                                                "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
+                                                "npi": "1234567890",
+                                                "taxId": "123456789",
+                                                "taxIdType": "EIN"
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
@@ -1632,13 +1644,29 @@
                         "type": "string",
                         "description": "The provider's name, such as `Example Dental Associates, LLC`."
                     },
+                    "npi": {
+                        "type": "string",
+                        "description": "The provider's National Provider Identifier (NPI). This is a 10-digit number assigned by the Centers for Medicare & Medicaid Services (CMS) to healthcare providers in the United States. It is used to identify providers in healthcare transactions."
+                    },
+                    "taxId": {
+                        "type": "string",
+                        "description": "The provider's tax identification number (SSN or EIN). This is used to identify the provider for tax and administrative purposes."
+                    },
+                    "taxIdType": {
+                        "type": "string",
+                        "description": "The type of tax identification number. This indicates whether the tax ID is a Social Security Number (SSN) or Employer Identification Number (EIN)."
+                    },
                     "id": {
                         "type": "string",
                         "description": "The Stedi-assigned identifier for the provider."
                     }
                 },
                 "required": [
-                    "id"
+                    "id",
+                    "name",
+                    "npi",
+                    "taxId",
+                    "taxIdType"
                 ]
             },
             "CreateEnrollmentRequestContent": {
