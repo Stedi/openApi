@@ -8686,80 +8686,9 @@
         "type": "string"
       },
       "EligibilityCheckOutputValidationErrors": {
-        "properties": {
-          "controlNumber": {
-            "description": "An identifier for the payer's response.",
-            "type": "string"
-          },
-          "eligibilitySearchId": {
-            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
-            "type": "string"
-          },
-          "errors": {
-            "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
-            "items": {
-              "$ref": "#/components/schemas/EligibilityCheckError"
-            },
-            "type": "array"
-          },
-          "implementationTransactionSetSyntaxError": {
-            "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction.",
-            "type": "string"
-          },
-          "meta": {
-            "$ref": "#/components/schemas/EligibilityMetaDataJSON"
-          },
-          "payer": {
-            "$ref": "#/components/schemas/Payer"
-          },
-          "planDateInformation": {
-            "$ref": "#/components/schemas/PlanDateInformation"
-          },
-          "planInformation": {
-            "$ref": "#/components/schemas/PlanInformation"
-          },
-          "provider": {
-            "$ref": "#/components/schemas/ResponseProvider"
-          },
-          "reassociationKey": {
-            "description": "Deprecated; do not use.",
-            "type": "string"
-          },
-          "status": {
-            "description": "Errors Stedi encountered when generating or sending the final X12 EDI transaction to the payer. These can include validation errors and payer unavailable errors that prevent delivery.",
-            "type": "string"
-          },
-          "subscriber": {
-            "$ref": "#/components/schemas/ResponseSubscriber"
-          },
-          "subscriberTraceNumbers": {
-            "description": "A unique identifier the payer may assign to the transaction. Note that Stedi doesn't support setting a subscriber trace number in the eligibility check request because there is no need to include a trace number for real-time queries.",
-            "items": {
-              "$ref": "#/components/schemas/SubscriberTraceNumber"
-            },
-            "type": "array"
-          },
-          "tradingPartnerServiceId": {
-            "description": "An ID for the payer you identified in the original eligibility check request. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer.",
-            "type": "string"
-          },
-          "transactionSetAcknowledgement": {
-            "description": "The transaction set acknowledgment code provided in in the [X12 EDI 999 response](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5).",
-            "type": "string"
-          },
-          "warnings": {
-            "description": "Warnings indicate non-fatal issues with your eligibility check or a non-standard response from the payer.",
-            "items": {
-              "$ref": "#/components/schemas/Warning"
-            },
-            "type": "array"
-          },
-          "x12": {
-            "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf the 999 is returned in this property, many of the other response properties will be empty, as they are mapped to information in the 271.",
-            "type": "string"
-          }
-        },
-        "type": "object"
+        "example": {
+          "$ref": "#/x-eligibility-error-400-example"
+        }
       },
       "EligibilityCheckPayerError": {
         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `payer` level include issues with payer enrollment and that the payer's system is down or experiencing issues. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
@@ -9179,14 +9108,9 @@
         "type": "object"
       },
       "EligibilityRawX12Check400ErrorResponseContent": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/RawEligibilityResponseValidationErrors"
-          },
-          {
-            "$ref": "#/components/schemas/ValidationException"
-          }
-        ]
+        "example": {
+          "$ref": "#/x-raw-x12-parse-error-example"
+        }
       },
       "EligibilityRawX12CheckRequestContent": {
         "properties": {
@@ -33264,6 +33188,81 @@
     }
   ],
   "tags": [],
+  "x-eligibility-error-400-example": {
+    "controlNumber": "000647813",
+    "eligibilitySearchId": "0198afa8-1610-7602-a436-911cb4bf2a9f",
+    "errors": [
+      {
+        "code": "44",
+        "description": "Invalid/Missing Provider Name",
+        "field": "AAA",
+        "followupAction": "Please Correct and Resubmit",
+        "location": "Loop 2100B",
+        "possibleResolutions": "Provider's NPI is registered with incorrect name at the payer. Contact the payer directly using the information in the `payer.contactInformation` object (if available) to resolve the issue."
+      }
+    ],
+    "meta": {
+      "applicationMode": "test",
+      "outboundTraceId": "01K2QTG5GGN7SSM34JMHS7QBDZ",
+      "senderId": "STEDI",
+      "submitterId": "117151744",
+      "traceId": "01K2QTG5GGN7SSM34JMHS7QBDZ"
+    },
+    "payer": {
+      "entityIdentifier": "Payer",
+      "entityType": "Non-Person Entity",
+      "name": "100935",
+      "payorIdentification": "100935"
+    },
+    "planDateInformation": {
+      "plan": "20240726"
+    },
+    "provider": {
+      "aaaErrors": [
+        {
+          "code": "44",
+          "description": "Invalid/Missing Provider Name",
+          "field": "AAA",
+          "followupAction": "Please Correct and Resubmit",
+          "location": "Loop 2100B",
+          "possibleResolutions": "Provider's NPI is registered with incorrect name at the payer. Contact the payer directly using the information in the `payer.contactInformation` object (if available) to resolve the issue."
+        }
+      ],
+      "entityIdentifier": "Provider",
+      "entityType": "Person",
+      "npi": "1447848577",
+      "providerName": "SIMPSON"
+    },
+    "reassociationKey": "000647813",
+    "subscriber": {
+      "dateOfBirth": "20240606",
+      "entityIdentifier": "Insured or Subscriber",
+      "entityType": "Person",
+      "firstName": "ABE",
+      "lastName": "STEDI"
+    },
+    "subscriberTraceNumbers": [
+      {
+        "originatingCompanyIdentifier": "3117151744",
+        "referenceIdentification": "01K2QTG5GJ8K030SK9QDWF5HD9",
+        "traceType": "Current Transaction Trace Numbers",
+        "traceTypeCode": "1"
+      }
+    ],
+    "tradingPartnerServiceId": "BS001",
+    "warnings": [
+      {
+        "code": "response::271::invalid_subscriber_insured_id",
+        "description": "[Subscriber/dependent] ID must use one of these formats: a three character alpha-numeric prefix (no zeros or ones) followed by a maximum of 14 alpha-numeric characters, an `R` followed by exactly 8 numbers, or an `H` followed by exactly 8 or 10 numbers."
+      }
+    ],
+    "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250815*1734*^*00501*000647813*0*T*:~GS*HB*STEDI*117151744*20250815*173448*1*X*005010X279A1~ST*271*1001*005010X279A1~BHT*0022*11*01K2QTG5GGN7SSM34JMHS7QBDZ*20250815*1734~HL*1**20*1~NM1*PR*2*100935*****PI*100935~HL*2*1*21*1~NM1*1P*1*SIMPSON*****XX*1447848577~AAA*N**44*C~HL*3*2*22*0~TRN*1*01K2QTG5GJ8K030SK9QDWF5HD9*3117151744~NM1*IL*1*STEDI*ABE~DMG*D8*20240606~DTP*291*D8*20240726~SE*13*1001~GE*1*1~IEA*1*000647813~"
+  },
+  "x-raw-x12-parse-error-example": {
+    "code": "BAD_REQUEST",
+    "eligibilitySearchId": "0198afb0-0e35-7ed3-bc66-6c387c60f4bb",
+    "message": "Parse errors: [ParseError { message: \"Loop has fewer than the minimum of 1 items\", mark: Mark { start: Index { line: 1, column: 328 }, end: None }, context: Some(ParseErrorContext { schema_path: Pointer { path_segments: [Name(\"properties\"), Name(\"detail\"), Name(\"properties\"), Name(\"information_source_level_HL_loop\"), Name(\"items\"), Name(\"properties\"), Name(\"information_receiver_level_HL_loop\"), Name(\"items\"), Name(\"properties\"), Name(\"subscriber_level_HL_loop\")] }, actual: None, code: LoopRepeatLessThanRequired, lineage: None, segment_index: Some(7), element_refnum: None, trigger_element_position: None }) }]"
+  },
   "x-stedi": {
     "lifecycle": "general_availability",
     "product": "healthcare",
