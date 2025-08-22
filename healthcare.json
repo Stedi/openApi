@@ -3177,7 +3177,7 @@
             "type": "string"
           },
           "payerIdentificationNumber": {
-            "description": "An identifier for the payer. For Medicare carriers or intermediaries, this is the Medicare carrier or intermediary ID number. For Blue Cross and Blue Shield Plans, this is the Blue Cross Blue Shield association plan code.",
+            "description": "An identifier for the payer. For Medicare carriers or intermediaries, this is the Medicare carrier or intermediary ID number. For Blue Cross and Blue Shield Plans, this is the Blue Cross Blue Shield association plan code.\n\nProviders rarely use this identifier in practice.",
             "type": "string"
           },
           "payerWebSiteUrl": {
@@ -6881,7 +6881,7 @@
       "DentalReportInformation": {
         "properties": {
           "attachmentControlNumber": {
-            "description": "The control number assigned to the attachment.",
+            "description": "The control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters.",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -9834,41 +9834,41 @@
       "HealthCareClaimStatusCategoryCodeValue": {
         "description": "Healthcare Claim Status Category Code Value as a string",
         "enum": [
-          "Acknowledgement/Forwarded-The claim/encounter has been forwarded to another entity.",
-          "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
-          "Acknowledgement/Acceptance into adjudication system-The claim/encounter has been accepted into the adjudication system.",
-          "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
-          "Acknowledgement/Not Found-The claim/encounter can not be found in the adjudication system.",
-          "Acknowledgement/Split Claim-The claim/encounter has been split upon acceptance into the adjudication system.",
-          "Acknowledgement/Rejected for Missing Information-The claim/encounter is missing the information specified in the Status details and has been rejected.",
-          "Acknowledgement/Rejected for Invalid Information-The claim/encounter has invalid information as specified in the Status details and has been rejected.",
+          "Acknowledgement/Forwarded - The claim/encounter has been forwarded to another entity.",
+          "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+          "Acknowledgement/Acceptance into adjudication system - The claim/encounter has been accepted into the adjudication system.",
+          "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
+          "Acknowledgement/Not Found - The claim/encounter can not be found in the adjudication system.",
+          "Acknowledgement/Split Claim - The claim/encounter has been split upon acceptance into the adjudication system.",
+          "Acknowledgement/Rejected for Missing Information - The claim/encounter is missing the information specified in the Status details and has been rejected.",
+          "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
           "Acknowledgement/Rejected for relational field in error.",
-          "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean the claim has been accepted into the data reporting/processing system.",
-          "Acknowledgement/Acceptance into the data reporting/processing system-The claim/encounter has been accepted into the data reporting/processing system.",
-          "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the data reporting/processing system.",
-          "Acknowledgement/Not Found-The claim/encounter can not be found in the data reporting/processing system.",
-          "Acknowledgement/Rejected for Missing Information-The claim/encounter is missing the information specified in the Status details and has been rejected. (DR05)",
-          "Acknowledgment/Rejected for invalid information-The claim/encounter has invalid information as specified in the Status details and has been rejected.",
+          "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean the claim has been accepted into the data reporting/processing system.",
+          "Acknowledgement/Acceptance into the data reporting/processing system - The claim/encounter has been accepted into the data reporting/processing system.",
+          "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the data reporting/processing system.",
+          "Acknowledgement/Not Found - The claim/encounter can not be found in the data reporting/processing system.",
+          "Acknowledgement/Rejected for Missing Information - The claim/encounter is missing the information specified in the Status details and has been rejected. (DR05)",
+          "Acknowledgment/Rejected for invalid information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
           "Acknowledgement/Rejected for relational field in error. Can only be used in the Data Reporting Acknowledgment Transaction.",
-          "Acknowledgement/Warning-The claim/encounter has been accepted into the data reporting/processing system but has received a warning as specified in the Status details.",
-          "Pending: Adjudication/Details-This is a generic message about a pended claim. A pended claim is one for which no remittance advice has been issued,or only part of the claim has been paid.",
-          "Pending/In Process-The claim or encounter is in the adjudication system.",
-          "Pending/Payer Review-The claim/encounter is suspended and is pending review (e.g. medical review,repricing,Third Party Administrator processing).",
-          "Pending/Provider Requested Information-The claim or encounter is waiting for information that has already been requested from the provider. (Usage: A Claim Status Code identifying the type of information requested,must be reported)",
-          "Pending/Patient Requested Information-The claim or encounter is waiting for information that has already been requested from the patient. (Usage: A status code identifying the type of information requested must be sent)",
+          "Acknowledgement/Warning - The claim/encounter has been accepted into the data reporting/processing system but has received a warning as specified in the Status details.",
+          "Pending: Adjudication/Details - This is a generic message about a pended claim. A pended claim is one for which no remittance advice has been issued,or only part of the claim has been paid.",
+          "Pending/In Process - The claim or encounter is in the adjudication system.",
+          "Pending/Payer Review - The claim/encounter is suspended and is pending review (e.g. medical review,repricing,Third Party Administrator processing).",
+          "Pending/Provider Requested Information - The claim or encounter is waiting for information that has already been requested from the provider. (Usage: A Claim Status Code identifying the type of information requested,must be reported)",
+          "Pending/Patient Requested Information - The claim or encounter is waiting for information that has already been requested from the patient. (Usage: A status code identifying the type of information requested must be sent)",
           "Pending/Payer Administrative/System hold",
-          "Finalized-The claim/encounter has completed the adjudication cycle and no more action will be taken.",
-          "Finalized/Payment-The claim/line has been paid.",
-          "Finalized/Denial-The claim/line has been denied.",
-          "Finalized/Revised-Adjudication information has been changed",
-          "Finalized/Forwarded-The claim/encounter processing has been completed. Any applicable payment has been made and the claim/encounter has been forwarded to a subsequent entity as identified on the original claim or in this payer's records.",
-          "Finalized/Not Forwarded-The claim/encounter processing has been completed. Any applicable payment has been made. The claim/encounter has NOT been forwarded to any subsequent entity identified on the original claim.",
-          "Finalized/Adjudication Complete-No payment forthcoming-The claim/encounter has been adjudicated and no further payment is forthcoming.",
-          "Requests for additional Information/General Requests-Requests that don't fall into other R-type categories.",
-          "Requests for additional Information/Entity Requests-Requests for information about specific entities (subscribers,patients,various providers).",
-          "Requests for additional Information/Claim/Line-Requests for information that could normally be submitted on a claim.",
-          "Requests for additional Information/Documentation-Requests for additional supporting documentation. Examples: certification,x-ray,notes.",
-          "Request for additional information/more specific detail-Additional information as a follow up to a previous request is needed. The original information was received but is inadequate. More specific/detailed information is requested.",
+          "Finalized - The claim/encounter has completed the adjudication cycle and no more action will be taken.",
+          "Finalized/Payment - The claim/line has been paid.",
+          "Finalized/Denial - The claim/line has been denied.",
+          "Finalized/Revised - Adjudication information has been changed",
+          "Finalized/Forwarded - The claim/encounter processing has been completed. Any applicable payment has been made and the claim/encounter has been forwarded to a subsequent entity as identified on the original claim or in this payer's records.",
+          "Finalized/Not Forwarded - The claim/encounter processing has been completed. Any applicable payment has been made. The claim/encounter has NOT been forwarded to any subsequent entity identified on the original claim.",
+          "Finalized/Adjudication Complete - No payment forthcoming - The claim/encounter has been adjudicated and no further payment is forthcoming.",
+          "Requests for additional Information/General Requests - Requests that don't fall into other R-type categories.",
+          "Requests for additional Information/Entity Requests - Requests for information about specific entities (subscribers,patients,various providers).",
+          "Requests for additional Information/Claim/Line - Requests for information that could normally be submitted on a claim.",
+          "Requests for additional Information/Documentation - Requests for additional supporting documentation. Examples: certification,x - ray,notes.",
+          "Request for additional information/more specific detail - Additional information as a follow up to a previous request is needed. The original information was received but is inadequate. More specific/detailed information is requested.",
           "Requests for additional information – Regulatory requirements",
           "Requests for additional information – Confirm care is consistent with Health Plan policy coverage",
           "Requests for additional information – Confirm care is consistent with health plan coverage exceptions",
@@ -9886,7 +9886,7 @@
           "Information Holder is not responding; resubmit at a later time.",
           "Correction required-relational fields in error.",
           "Trading partner agreement specific requirement not met: Data correction required. (Usage: A status code identifying the type of information requested must be sent)",
-          "Data Search Unsuccessful-The payer is unable to return status on the requested claim(s) based on the submitted search criteria."
+          "Data Search Unsuccessful - The payer is unable to return status on the requested claim(s) based on the submitted search criteria."
         ],
         "type": "string"
       },
@@ -14366,7 +14366,7 @@
             "type": "string"
           },
           "senderId": {
-            "description": "Stedi's identifier for the ERA sender.",
+            "description": "An identifier for the most recent sender of the ERA. This is usually not the original sender, so this value is unlikely to be a payer ID. When Stedi processes and delivers ERAs through the clearinghouse, this value is always `STEDI`.",
             "type": "string"
           },
           "traceId": {
@@ -18331,7 +18331,7 @@
       "ReportsClaimAcknowledgmentResponse": {
         "properties": {
           "controlNumber": {
-            "description": "The control number the the payer provided in the claim status response. This is used to identify the transaction.",
+            "description": "The control number the payer provided in the claim status response. This is used to identify the transaction.",
             "type": "string"
           },
           "payers": {
@@ -22890,18 +22890,6 @@
       "post": {
         "description": "Submit a real-time 270/271 eligibility check in JSON format",
         "operationId": "EligibilityCheck",
-        "parameters": [
-          {
-            "description": "Please create a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types) to submit requests in test mode.",
-            "in": "header",
-            "name": "stedi-test",
-            "schema": {
-              "deprecated": true,
-              "description": "Please create a [test API key](https://www.stedi.com/docs/api-reference/index#api-key-types) to submit requests in test mode.",
-              "type": "boolean"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -26266,7 +26254,7 @@
                                                     "informationStatuses": [
                                                       {
                                                         "healthCareClaimStatusCategoryCode": "A1",
-                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
                                                         "statusCode": "20",
                                                         "statusCodeValue": "Accepted for processing."
                                                       }
@@ -26304,7 +26292,7 @@
                                       "providerStatuses": [
                                         {
                                           "healthCareClaimStatusCategoryCode": "A1",
-                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
                                           "statusCode": "20",
                                           "statusCodeValue": "Accepted for processing."
                                         }
@@ -26353,7 +26341,7 @@
                                                     "informationStatuses": [
                                                       {
                                                         "healthCareClaimStatusCategoryCode": "A3",
-                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                         "statusCode": "21",
                                                         "statusCodeValue": "Missing or invalid information."
                                                       }
@@ -26383,7 +26371,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26408,7 +26396,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26433,7 +26421,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26462,7 +26450,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26487,7 +26475,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26512,7 +26500,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26537,7 +26525,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26562,7 +26550,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26591,7 +26579,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26616,7 +26604,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26641,7 +26629,7 @@
                                                           "entityIdentifierCode": "IL",
                                                           "entityIdentifierCodeValue": "Insured or Subscriber",
                                                           "healthCareClaimStatusCategoryCode": "A3",
-                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim-The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                           "statusCode": "164",
                                                           "statusCodeValue": "Entity's contract/member number."
                                                         }
@@ -26676,7 +26664,7 @@
                                       "providerStatuses": [
                                         {
                                           "healthCareClaimStatusCategoryCode": "A1",
-                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt-The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+                                          "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
                                           "statusCode": "20",
                                           "statusCodeValue": "Accepted for processing."
                                         }
