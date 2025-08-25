@@ -430,7 +430,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -1298,7 +1298,7 @@
         "type": "string"
       },
       "Billing": {
-        "description": "Information about the billing provider.\n- For tax identification, you **must** include either the provider's Social Security Number (SSN) _or_ their Employer Identification Number (EIN), but not both.\n- If the billing provider has an NPI, you must include it in the `npi` property. If the billing provider does not have an NPI, you must include either the `commercialNumber` or the `locationNumber` for identification. Some payers may require the `npi` **and** either the `commercialNumber` or the `locationNumber` as a secondary identifier.",
+        "description": "Information about the billing provider.\n- For tax identification, you **must** include either the provider's Social Security Number (SSN) in the `ssn` property _or_ their Employer Identification Number (EIN) in the `employerId` property, but not both.\n- If the billing provider has an NPI, you must include it in the `npi` property. If the billing provider does not have an NPI, you must include either the `commercialNumber` or the `locationNumber` for identification. Some payers may require the `npi` **and** either the `commercialNumber` or the `locationNumber` as a secondary identifier.\n- Some solo providers may use their SSN as their EIN. In this case, submit the SSN in the `ssn` property and leave the `employerId` property blank.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
@@ -1313,7 +1313,7 @@
             "description": "Contact information for the billing provider. You can include a maximum of two objects in this array."
           },
           "employerId": {
-            "description": "The billing provider's Employer Identification Number. Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the `ssn`.",
+            "description": "The billing provider's Employer Identification Number (EIN). Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the `ssn`.",
             "type": "string"
           },
           "firstName": {
@@ -1357,7 +1357,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The billing provider's state license number.",
+            "description": "The billing provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -4739,7 +4739,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -4851,7 +4851,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -4963,7 +4963,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -7077,7 +7077,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -7266,7 +7266,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -7354,7 +7354,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -12696,7 +12696,7 @@
           },
           "stateLicenseNumber": {
             "deprecated": true,
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -18012,7 +18012,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -18196,7 +18196,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -20846,7 +20846,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The provider's state license number.",
+            "description": "The provider's state license number. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
@@ -21695,7 +21695,7 @@
             "type": "string"
           },
           "stateLicenseNumber": {
-            "description": "The state license number of the supervising provider.",
+            "description": "The state license number of the supervising provider. This is assigned directly by a payer in order to identify the provider in their system. This is not commonly used.",
             "type": "string"
           },
           "suffix": {
