@@ -4578,6 +4578,86 @@
         },
         "type": "object"
       },
+      "ClaimsProvider": {
+        "description": "The entity responsible for overseeing the rendering provider and the care reported in this claim. Applies when the rendering provider is supervised by a physician. Use when the provider applies to the entire claim, not just a specific service line.\n\nThis should be an individual, not an organization, and you should supply at least the provider's `lastName` and an identifier, which is typically the `npi`.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ClaimsAddress",
+            "deprecated": true
+          },
+          "commercialNumber": {
+            "description": "The commercial number of the supervising provider.",
+            "type": "string"
+          },
+          "contactInformation": {
+            "$ref": "#/components/schemas/ClaimsContactInformation",
+            "deprecated": true
+          },
+          "employerId": {
+            "deprecated": true,
+            "type": "string"
+          },
+          "firstName": {
+            "description": "The first name of the supervising provider.",
+            "type": "string"
+          },
+          "lastName": {
+            "description": "The last name of the supervising provider.",
+            "type": "string"
+          },
+          "locationNumber": {
+            "description": "The location number of the supervising provider.",
+            "type": "string"
+          },
+          "middleName": {
+            "description": "The middle name or initial of the supervising provider.",
+            "type": "string"
+          },
+          "npi": {
+            "description": "The individual [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the supervising provider.",
+            "pattern": "^\\d{10}$",
+            "type": "string"
+          },
+          "organizationName": {
+            "description": "The supervising provider's business name, when the provider is not an individual.",
+            "type": "string"
+          },
+          "providerType": {
+            "description": "This field is now automatically populated and it only remains for backwards compatibility.",
+            "type": "string"
+          },
+          "providerUpinNumber": {
+            "deprecated": true,
+            "description": "Deprecated; do not use.",
+            "type": "string"
+          },
+          "ssn": {
+            "deprecated": true,
+            "description": "Social Security Number without spaces or punctuation (9 digits)",
+            "pattern": "^\\d{9}$",
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "The state license number of the supervising provider.",
+            "type": "string"
+          },
+          "suffix": {
+            "description": "The suffix of the supervising provider's name, such as Jr. or III.",
+            "type": "string"
+          },
+          "taxonomyCode": {
+            "deprecated": true,
+            "maxLength": 10,
+            "minLength": 10,
+            "pattern": "^[A-Za-z0-9]{10}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "providerType"
+        ],
+        "type": "object"
+      },
       "ClaimsRawX12SubmissionRequestContent": {
         "properties": {
           "x12": {
@@ -4754,9 +4834,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "providerType"
-        ],
         "type": "object"
       },
       "ClaimsServiceLineRenderingProvider": {
@@ -4865,9 +4942,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "providerType"
-        ],
         "type": "object"
       },
       "ClaimsServiceLineSupervisingProvider": {
@@ -4978,9 +5052,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "providerType"
-        ],
         "type": "object"
       },
       "ClaimsSubmissionRequestContent": {
@@ -5020,7 +5091,7 @@
             "deprecated": true,
             "description": "Please set all providers individually by type. For example, `Referring`.",
             "items": {
-              "$ref": "#/components/schemas/Supervising"
+              "$ref": "#/components/schemas/ClaimsProvider"
             },
             "maxItems": 2147483647,
             "minItems": 1,
