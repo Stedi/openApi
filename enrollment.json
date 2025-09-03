@@ -790,6 +790,17 @@
                                                     "changedAt": "2023-11-07T06:15:22Z",
                                                     "type": "STATUS_CHANGE"
                                                 }
+                                            ],
+                                            "tasks": [
+                                                {
+                                                    "id": "ac6665a5-7b97-4agh-8c74-a00a336c2989",
+                                                    "responsibleParty": "STEDI",
+                                                    "definition": {
+                                                        "followInstructions": {
+                                                            "instructions": "Manually enroll with the payer through their provider portal."
+                                                        }
+                                                    }
+                                                }
                                             ]
                                         }
                                     }
@@ -1730,6 +1741,13 @@
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
                     },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                    },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
                         "description": "Information about the provider enrolling with the payer. You **must** use the [Create Provider](https://www.stedi.com/docs/api-reference/healthcare/post-enrollment-create-provider) endpoint to add the provider to Stedi before you can enroll them with one or more payers."
@@ -1825,6 +1843,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2284,6 +2309,13 @@
                         },
                         "description": "Documents associated with this enrollment, such as signed enrollment forms. This list doesn't include deleted documents.\n\nEach document object contains metadata such as the document's name, status, and timestamps for creation and last update."
                     },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                    },
                     "importId": {
                         "type": "string",
                         "description": "The import ID associated with the enrollment if it was created through a CSV bulk import (`source` is set to `IMPORT`). This property is only present for enrollments created through the CSV import process."
@@ -2401,6 +2433,19 @@
                     "recordCount"
                 ]
             },
+            "FollowInstructionsTask": {
+                "type": "object",
+                "description": "Follow-instructions task data containing text instructions for a user to follow.",
+                "properties": {
+                    "instructions": {
+                        "type": "string",
+                        "description": "Human-readable instructions for the responsible party to follow."
+                    }
+                },
+                "required": [
+                    "instructions"
+                ]
+            },
             "GetEnrollmentResponseContent": {
                 "type": "object",
                 "description": "Output containing the enrollment details.",
@@ -2479,6 +2524,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2720,6 +2772,55 @@
                     "message"
                 ]
             },
+            "ResponsibleParty": {
+                "type": "string",
+                "description": "The party responsible for completing a task.",
+                "enum": [
+                    "PROVIDER",
+                    "STEDI"
+                ]
+            },
+            "Task": {
+                "type": "object",
+                "description": "A task associated with an enrollment representing work that needs to be completed.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the task."
+                    },
+                    "responsibleParty": {
+                        "$ref": "#/components/schemas/ResponsibleParty",
+                        "description": "The party responsible for completing this task."
+                    },
+                    "definition": {
+                        "$ref": "#/components/schemas/TaskDefinition",
+                        "description": "The specific definition and data for this task."
+                    }
+                },
+                "required": [
+                    "definition",
+                    "id",
+                    "responsibleParty"
+                ]
+            },
+            "TaskDefinition": {
+                "description": "A discriminated union of task definitions. Initially supports FollowInstructions tasks with future extensibility for additional task types.",
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "title": "followInstructions",
+                        "properties": {
+                            "followInstructions": {
+                                "$ref": "#/components/schemas/FollowInstructionsTask",
+                                "description": "A task that requires the responsible party to follow specific instructions."
+                            }
+                        },
+                        "required": [
+                            "followInstructions"
+                        ]
+                    }
+                ]
+            },
             "TaxIdType": {
                 "type": "string",
                 "description": "The type of tax identification number.",
@@ -2799,6 +2900,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
@@ -2895,6 +3003,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
