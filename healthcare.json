@@ -11640,6 +11640,74 @@
         ],
         "type": "string"
       },
+      "InstitutionalClaimsRawX12SubmissionRequestContent": {
+        "properties": {
+          "x12": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "x12"
+        ],
+        "type": "object"
+      },
+      "InstitutionalClaimsRawX12SubmissionResponseContent": {
+        "properties": {
+          "claimReference": {
+            "$ref": "#/components/schemas/ClaimReference"
+          },
+          "controlNumber": {
+            "description": "An identifier for the transaction.",
+            "type": "string"
+          },
+          "editResponses": {
+            "description": "Currently not used.",
+            "items": {
+              "$ref": "#/components/schemas/EditResponse"
+            },
+            "type": "array"
+          },
+          "editStatus": {
+            "description": "Currently not used.",
+            "type": "string"
+          },
+          "errors": {
+            "description": "A list of errors. Currently not used.",
+            "items": {
+              "$ref": "#/components/schemas/ClaimsError"
+            },
+            "type": "array"
+          },
+          "failure": {
+            "$ref": "#/components/schemas/Failure"
+          },
+          "httpStatusCode": {
+            "$ref": "#/components/schemas/HttpStatusCode"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/ResponseMeta"
+          },
+          "payer": {
+            "$ref": "#/components/schemas/ClaimsPayer"
+          },
+          "status": {
+            "description": "The status of the claim submission.",
+            "type": "string"
+          },
+          "tradingPartnerServiceId": {
+            "description": "An ID for the payer you identified in the original claim. This value may differ from the `tradingPartnerServiceId` you submitted in the original request because it reflects the payer's internal concept of their ID, not necessarily the ID Stedi uses to route requests to this payer.",
+            "type": "string"
+          },
+          "warnings": {
+            "description": "A list of warnings.",
+            "items": {
+              "$ref": "#/components/schemas/ClaimsWarning"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
       "InstitutionalClaimsSubmissionRequestContent": {
         "properties": {
           "attending": {
@@ -25551,6 +25619,145 @@
               }
             },
             "description": "EligibilityRawX12Check400Error 400 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ThrottlingException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ServiceUnavailableException 503 response"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            },
+            "description": "GatewayTimeoutException 504 response"
+          }
+        }
+      }
+    },
+    "/change/medicalnetwork/institutionalclaims/v1/raw-x12-submission": {
+      "post": {
+        "description": "Submit an 837I institutional claim in raw X12 EDI format",
+        "operationId": "InstitutionalClaimsRawX12Submission",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "InstitutionalClaimsRawX12Submission_example1": {
+                  "description": "",
+                  "summary": "Submit institutional claim - X12 EDI",
+                  "value": {
+                    "x12": "ISA*00*          *00*          *ZZ*001690149382   *ZZ*STEDITEST      *240630*0847*^*00501*000000001*0*T*>~GS*HC*001690149382*STEDITEST*20240630*084744*000000001*X*005010X223A2~ST*837*3456*005010X223A2~BHT*0019*00*0123*20061123*1023*CH~NM1*41*2*PREMIER BILLING SERVICE*****46*TGJ23~PER*IC*JERRY*TE*7176149999~NM1*40*2*AETNA*****46*AETNA~HL*1**20*1~NM1*85*2*TEST HOSPITAL*****XX*1234567890~N3*123 HOSPITAL ST~N4*NEW YORK*NY*10001~REF*EI*123456789~HL*2*1*22*1~SBR*P********CI~NM1*IL*1*DOE*JOHN****MI*123456789~NM1*PR*2*AETNA*****PI*AETNA~HL*3*2*23*0~PAT*19~NM1*QC*1*DOE*JOHN~N3*123 MAIN ST~N4*NEW YORK*NY*10001~DMG*D8*19800101*M~CLM*26403774*150***11>B>1*Y*A*Y*I~DTP*472*D8*20240101~REF*D9*17312345600006351~NM1*82*1*SMITH*JANE****XX*1234567890~PRV*AT*PXC*207Q00000X~LX*1~SV2*0450*HC>99213*150****1~DTP*472*D8*20240101~SE*29*3456~GE*1*000000001~IEA*1*000000001~"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/InstitutionalClaimsRawX12SubmissionRequestContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "InstitutionalClaimsRawX12Submission_example1": {
+                    "description": "",
+                    "summary": "Submit institutional claim - X12 EDI",
+                    "value": {
+                      "claimReference": {
+                        "correlationId": "01J1M588QT2TAV2N093GNJ998T",
+                        "formatVersion": "5010",
+                        "patientControlNumber": "26403774",
+                        "payerID": "AETNA",
+                        "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
+                        "serviceLines": [
+                          {
+                            "lineItemControlNumber": "1"
+                          }
+                        ],
+                        "timeOfResponse": "2024-07-10T22:05:32.203Z"
+                      },
+                      "controlNumber": "000000001",
+                      "httpStatusCode": "200 OK",
+                      "meta": {
+                        "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
+                      },
+                      "payer": {
+                        "payerID": "AETNA",
+                        "payerName": "Aetna"
+                      },
+                      "status": "SUCCESS",
+                      "tradingPartnerServiceId": "AETNA"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/InstitutionalClaimsRawX12SubmissionResponseContent"
+                }
+              }
+            },
+            "description": "InstitutionalClaimsRawX12Submission 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
           },
           "403": {
             "content": {
