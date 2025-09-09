@@ -2439,6 +2439,7 @@
                 "properties": {
                     "instructions": {
                         "type": "string",
+                        "minLength": 1,
                         "description": "Human-readable instructions for the responsible party to follow."
                     }
                 },
@@ -2782,12 +2783,8 @@
             },
             "Task": {
                 "type": "object",
-                "description": "A task associated with an enrollment representing work that needs to be completed.",
+                "description": "A task representing work that needs to be completed.",
                 "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique identifier for the task."
-                    },
                     "responsibleParty": {
                         "$ref": "#/components/schemas/ResponsibleParty",
                         "description": "The party responsible for completing this task."
@@ -2795,6 +2792,10 @@
                     "definition": {
                         "$ref": "#/components/schemas/TaskDefinition",
                         "description": "The specific definition and data for this task."
+                    },
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the task."
                     }
                 },
                 "required": [
