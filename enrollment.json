@@ -360,7 +360,8 @@
                                         "provider": {
                                             "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
                                         },
-                                        "source": "API"
+                                        "source": "API",
+                                        "status": "SUBMITTED"
                                     }
                                 }
                             }
@@ -874,6 +875,7 @@
                                     "summary": "Update Enrollment",
                                     "description": "",
                                     "value": {
+                                        "status": "SUBMITTED",
                                         "transactions": {
                                             "claimPayment": {
                                                 "enroll": true
@@ -954,7 +956,7 @@
                                                     "enroll": true
                                                 }
                                             },
-                                            "status": "DRAFT",
+                                            "status": "SUBMITTED",
                                             "provider": {
                                                 "id": "db6665c5-7b97-4af9-8c68-a00a336c2998",
                                                 "name": "Test Medical Provider",
@@ -969,6 +971,12 @@
                                             "source": "API",
                                             "statusLastUpdatedAt": "2024-11-07T05:31:56Z",
                                             "history": [
+                                                {
+                                                    "newStatus": "SUBMITTED",
+                                                    "changedBy": "test@example.com",
+                                                    "changedAt": "2025-11-07T05:31:56Z",
+                                                    "type": "STATUS_CHANGE"
+                                                },
                                                 {
                                                     "newStatus": "DRAFT",
                                                     "changedBy": "test@example.com",
@@ -1689,7 +1697,7 @@
                     },
                     "id": {
                         "type": "string",
-                        "description": "The Stedi-assigned identifier for the provider."
+                        "description": "The Stedi-assigned identifier for the provider. The [Create Provider](https://www.stedi.com/docs/api-reference/healthcare/post-enrollment-create-provider) endpoint returns this as the `id` property."
                     }
                 },
                 "required": [
@@ -1710,17 +1718,17 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "Contact information for the primary provider contact."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     },
                     "userEmail": {
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                        "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included.\n\nSet this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review. Stedi won't process enrollments until they are submitted.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -1775,7 +1783,7 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "Contact information for the primary provider contact."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     },
                     "createdAt": {
                         "type": "string",
@@ -1819,11 +1827,11 @@
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                        "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included.\n\nSet this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review. Stedi won't process enrollments until they are submitted.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -1900,7 +1908,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ProviderContact"
                         },
-                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     }
                 },
                 "required": [
@@ -1952,7 +1960,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ProviderContact"
                         },
-                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     }
                 },
                 "required": [
@@ -1975,11 +1983,12 @@
             },
             "EnrolledPayerInput": {
                 "type": "object",
-                "description": "Input structure for specifying a payer in enrollment operations.",
+                "description": "The payer you want to enroll with.",
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "Deprecated. Use `idOrAlias` instead. This field will be removed in the future."
+                        "deprecated": true,
+                        "description": "Use `idOrAlias` instead. This property will be removed in the future."
                     },
                     "idOrAlias": {
                         "type": "string",
@@ -2006,11 +2015,11 @@
             },
             "EnrolledProviderInput": {
                 "type": "object",
-                "description": "Input structure for specifying a provider in enrollment operations.",
+                "description": "The provider you want to enroll with the payer. This must be an existing provider record within Stedi.",
                 "properties": {
                     "id": {
                         "type": "string",
-                        "description": "The Stedi-assigned identifier for the provider."
+                        "description": "The Stedi-assigned identifier for the provider. The [Create Provider](https://www.stedi.com/docs/api-reference/healthcare/post-enrollment-create-provider) endpoint returns this as the `id` property."
                     }
                 },
                 "required": [
@@ -2237,7 +2246,7 @@
             },
             "EnrollmentStatus": {
                 "type": "string",
-                "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status. The default is `DRAFT` if you don't include a status in the request. Once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.",
+                "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included. Set this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.",
                 "enum": [
                     "DRAFT",
                     "SUBMITTED",
@@ -2457,7 +2466,7 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "Contact information for the primary provider contact."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     },
                     "createdAt": {
                         "type": "string",
@@ -2501,11 +2510,11 @@
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                        "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included.\n\nSet this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review. Stedi won't process enrollments until they are submitted.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -2596,7 +2605,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ProviderContact"
                         },
-                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     }
                 },
                 "required": [
@@ -2664,54 +2673,54 @@
             },
             "ProviderContact": {
                 "type": "object",
-                "description": "The contact information for the provider or the entity completing the enrollment on the provider's behalf. Either `organizationName` _or_ `firstName` and `lastName` are required. Payers may use this information to contact the provider or their representative directly regarding the status of the enrollment.",
+                "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
-                        "description": "The contact's business name."
+                        "description": "The contact's business name. This should match exactly what the payer has on file for the provider."
                     },
                     "firstName": {
                         "type": "string",
-                        "description": "The contact's first name."
+                        "description": "The contact's first name. This should match exactly what the payer has on file for the provider."
                     },
                     "lastName": {
                         "type": "string",
-                        "description": "The contact's last name."
+                        "description": "The contact's last name. This should match exactly what the payer has on file for the provider."
                     },
                     "email": {
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The contact's email address."
+                        "description": "The contact's email address. Set this to where you want the payer to send communications regarding the enrollment. This can be different from the provider's email if needed."
                     },
                     "phone": {
                         "type": "string",
                         "minLength": 8,
-                        "description": "The contact's phone number, starting with the area code and formatted with dashes as separators. For example, `555-555-5555`."
+                        "description": "The contact's phone number, starting with the area code and formatted with dashes as separators. For example, `555-555-5555`. Set this to where you want the payer to direct communications regarding the enrollment. This can be different from the provider's phone number if needed."
                     },
                     "streetAddress1": {
                         "type": "string",
                         "minLength": 5,
-                        "description": "The contact's street address, including the street number, name, and any suite or apartment number."
+                        "description": "The contact's street address, including the street number, name, and any suite or apartment number. This should match exactly what the payer has on file for the provider."
                     },
                     "streetAddress2": {
                         "type": "string",
-                        "description": "The contact's street address continued."
+                        "description": "The contact's street address continued. This should match exactly what the payer has on file for the provider."
                     },
                     "city": {
                         "type": "string",
                         "minLength": 2,
-                        "description": "The contact's city."
+                        "description": "The contact's city. This should match exactly what the payer has on file for the provider."
                     },
                     "zipCode": {
                         "type": "string",
                         "minLength": 5,
-                        "description": "The contact's five-digit ZIP code."
+                        "description": "The contact's five-digit ZIP code. This should match exactly what the payer has on file for the provider."
                     },
                     "state": {
                         "type": "string",
                         "minLength": 2,
-                        "description": "The contact's two-letter state abbreviation. For example, `PA`, or `MD`."
+                        "description": "The contact's two-letter state abbreviation. For example, `PA`, or `MD`. This should match exactly what the payer has on file for the provider."
                     }
                 },
                 "required": [
@@ -2871,17 +2880,17 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "Contact information for the primary provider contact."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     },
                     "userEmail": {
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                        "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included.\n\nSet this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review. Stedi won't process enrollments until they are submitted.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -2936,7 +2945,7 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "Contact information for the primary provider contact."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     },
                     "createdAt": {
                         "type": "string",
@@ -2980,11 +2989,11 @@
                         "type": "string",
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
-                        "description": "The email address of the user submitting the enrollment. This email will be used by Stedi staff to provide updates and communicate about the enrollment's progress. It is distinct from the primary contact's email, which is used by the payer to contact the provider directly."
+                        "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
                     "status": {
                         "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with  either `DRAFT` or `SUBMITTED` status. However, once an enrollment is set to `SUBMITTED` status, only Stedi can set or update this property.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `SUBMITTED` status - the default is `DRAFT` if not included.\n\nSet this to `SUBMITTED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `SUBMITTED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `SUBMITTED` - You have successfully submitted the request and it is in Stedi's queue for review. Stedi won't process enrollments until they are submitted.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -3047,7 +3056,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ProviderContact"
                         },
-                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     }
                 },
                 "required": [
@@ -3096,7 +3105,7 @@
                         "items": {
                             "$ref": "#/components/schemas/ProviderContact"
                         },
-                        "description": "Either `organizationName` _or_ `firstName` and `lastName` are required."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
                     }
                 },
                 "required": [
