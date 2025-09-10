@@ -255,7 +255,7 @@
         "description": "Provider adjustment details including reason codes and amounts.",
         "properties": {
           "adjustmentReasonCode": {
-            "description": "A code identifying the reason for the adjustment.",
+            "description": "A code identifying the reason for the adjustment. Visit [Provider Adjustment Reason Codes](https://www.stedi.com/docs/healthcare/receive-claim-responses#provider-adjustment-reason-code) for a complete list and descriptions.",
             "type": "string"
           },
           "adjustmentReasonCodeValue": {
@@ -2346,27 +2346,27 @@
             "type": "string"
           },
           "adjustmentReasonCode1": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "adjustmentReasonCode2": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "adjustmentReasonCode3": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "adjustmentReasonCode4": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "adjustmentReasonCode5": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "adjustmentReasonCode6": {
-            "description": "A code identifying the detailed reason the adjustment was made.",
+            "description": "A code identifying the detailed reason the adjustment was made. Visit [Claim Adjustment Reason Codes](https://x12.org/codes/claim-adjustment-reason-codes) in the X12 documentation for a complete list.",
             "type": "string"
           },
           "claimAdjustmentGroupCode": {
@@ -3863,7 +3863,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -4803,7 +4803,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
             "items": {
               "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
             },
@@ -4912,7 +4912,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
             "items": {
               "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
             },
@@ -5021,7 +5021,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
             "items": {
               "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
             },
@@ -14818,7 +14818,7 @@
             "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity. In practice, you should always set this to `1` - Person."
           },
           "otherPayerAssistantSurgeonIdentifier": {
-            "description": "An identifier for the assistant surgeon. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `G2` - Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used in new claims. You can include up to three objects in this array.",
+            "description": "An identifier for the assistant surgeon. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used in new claims. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -14991,7 +14991,7 @@
         "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist.",
         "properties": {
           "otherPayerReferringProviderIdentifier": {
-            "description": "An identifier for the referring provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "An identifier for the referring provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -15012,7 +15012,7 @@
             "$ref": "#/components/schemas/OtherPayerRenderingProviderEntityTypeQualifier"
           },
           "otherPayerRenderingProviderSecondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -15058,7 +15058,7 @@
       "OtherPayerServiceFacilityLocation": {
         "properties": {
           "otherPayerServiceFacilityLocationSecondaryIdentifier": {
-            "description": "A secondary identifier for the service facility location. The qualifier can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "A secondary identifier for the service facility location. The qualifier can be set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -15076,7 +15076,7 @@
         "description": "Information about the supervising provider.",
         "properties": {
           "otherPayerSupervisingProviderIdentifier": {
-            "description": "An identifier for the supervising provider. The qualifier can be set to `OB` - State License Number, `1G` - Provider UPIN Number, `LU - Location Number or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "An identifier for the supervising provider. The qualifier can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU - Location Number or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ReferenceIdentification"
             },
@@ -20821,7 +20821,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `OB` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
             "items": {
               "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
             },
@@ -21069,7 +21069,7 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `OB` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
             "items": {
               "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
             },
