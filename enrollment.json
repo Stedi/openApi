@@ -1043,6 +1043,132 @@
                 }
             }
         },
+        "/enrollments/{enrollmentId}/tasks/{taskId}": {
+            "put": {
+                "description": "Completes a task associated with an enrollment. Only tasks with responsible party 'PROVIDER' can be completed by customers.",
+                "operationId": "CompleteTask",
+                "parameters": [
+                    {
+                        "name": "enrollmentId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the enrollment.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the enrollment."
+                        },
+                        "required": true,
+                        "examples": {
+                            "CompleteTask_example1": {
+                                "summary": "Complete Provider Task",
+                                "description": "",
+                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
+                            }
+                        }
+                    },
+                    {
+                        "name": "taskId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the task to complete.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the task to complete."
+                        },
+                        "required": true,
+                        "examples": {
+                            "CompleteTask_example1": {
+                                "summary": "Complete Provider Task",
+                                "description": "",
+                                "value": "01ARZ3NDEKTSV4RRFFQ69G5FAV"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CompleteTask 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CompleteTaskResponseContent"
+                                },
+                                "examples": {
+                                    "CompleteTask_example1": {
+                                        "summary": "Complete Provider Task",
+                                        "description": "",
+                                        "value": {
+                                            "task": {
+                                                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
+                                                "responsibleParty": "PROVIDER",
+                                                "definition": {
+                                                    "followInstructions": {
+                                                        "instructions": "Download the PDF from the Documents tab, complete, and reupload to the Documents tab."
+                                                    }
+                                                },
+                                                "isComplete": true,
+                                                "completedAt": "2023-11-07T06:15:22Z",
+                                                "completedBy": "customer-account-id",
+                                                "createdAt": "2023-11-07T05:31:56Z",
+                                                "updatedAt": "2023-11-07T06:15:22Z"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/providers": {
             "get": {
                 "description": "Lists providers with optional filtering and pagination.",
@@ -1706,6 +1832,69 @@
                     "npi",
                     "taxId",
                     "taxIdType"
+                ]
+            },
+            "CompleteTaskResponseContent": {
+                "type": "object",
+                "description": "Output containing the completed task details.",
+                "properties": {
+                    "task": {
+                        "$ref": "#/components/schemas/CompletedTask",
+                        "description": "The completed task."
+                    }
+                },
+                "required": [
+                    "task"
+                ]
+            },
+            "CompletedTask": {
+                "type": "object",
+                "description": "A completed task with all details including completion metadata.",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "The unique identifier for the task."
+                    },
+                    "responsibleParty": {
+                        "$ref": "#/components/schemas/ResponsibleParty",
+                        "description": "The party responsible for completing this task."
+                    },
+                    "definition": {
+                        "$ref": "#/components/schemas/TaskDefinition",
+                        "description": "The specific definition and data for this task."
+                    },
+                    "isComplete": {
+                        "type": "boolean",
+                        "description": "Whether the task has been completed."
+                    },
+                    "completedAt": {
+                        "type": "number",
+                        "description": "The timestamp when the task was completed.",
+                        "format": "double"
+                    },
+                    "completedBy": {
+                        "type": "string",
+                        "description": "Identifier of who completed the task."
+                    },
+                    "createdAt": {
+                        "type": "number",
+                        "description": "The timestamp when the task was created.",
+                        "format": "double"
+                    },
+                    "updatedAt": {
+                        "type": "number",
+                        "description": "The timestamp when the task was last updated.",
+                        "format": "double"
+                    }
+                },
+                "required": [
+                    "completedBy",
+                    "createdAt",
+                    "definition",
+                    "id",
+                    "isComplete",
+                    "responsibleParty",
+                    "updatedAt"
                 ]
             },
             "CreateEnrollmentRequestContent": {
