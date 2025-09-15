@@ -236,7 +236,8 @@
       "BatchEligibilityChecksItem": {
         "properties": {
           "controlNumber": {
-            "description": "An integer used to identify the transaction. This is a requirement for the X12 EDI 270 transaction that Stedi will generate and send to the payer. It doesn't need to be globally unique - you can use the same number for every request.",
+            "deprecated": true,
+            "description": "Stedi generates a control number for each eligibility check, so you don’t need to include this property in your request.",
             "maxLength": 9,
             "minLength": 9,
             "type": "string"
@@ -304,7 +305,6 @@
           }
         },
         "required": [
-          "controlNumber",
           "provider",
           "submitterTransactionIdentifier",
           "subscriber",
@@ -5197,7 +5197,6 @@
                   "value": {
                     "items": [
                       {
-                        "controlNumber": "000022222",
                         "encounter": {
                           "serviceTypeCodes": [
                             "MH"
@@ -5217,7 +5216,6 @@
                         "tradingPartnerServiceId": "AHS"
                       },
                       {
-                        "controlNumber": "333344444",
                         "encounter": {
                           "serviceTypeCodes": [
                             "78"

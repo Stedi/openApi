@@ -4094,7 +4094,8 @@
       "ClaimStatusRequestContent": {
         "properties": {
           "controlNumber": {
-            "description": "An integer used to identify the transaction. It does not need to be globally unique. It is returned in the response as `controlNumber`.",
+            "deprecated": true,
+            "description": "Stedi generates a control number for each claim status check, so you don’t need to include this property in your request.",
             "maxLength": 9,
             "minLength": 9,
             "type": "string"
@@ -4142,7 +4143,6 @@
           }
         },
         "required": [
-          "controlNumber",
           "providers",
           "subscriber",
           "tradingPartnerServiceId"
@@ -8874,7 +8874,8 @@
       "EligibilityCheckRequestContent": {
         "properties": {
           "controlNumber": {
-            "description": "An integer used to identify the transaction. This is a requirement for the X12 EDI 270 transaction that Stedi will generate and send to the payer. It doesn't need to be globally unique - you can use the same number for every request.",
+            "deprecated": true,
+            "description": "Stedi generates a control number for each eligibility check, so you don’t need to include this property in your request.",
             "maxLength": 9,
             "minLength": 9,
             "type": "string"
@@ -8942,7 +8943,6 @@
           }
         },
         "required": [
-          "controlNumber",
           "provider",
           "subscriber",
           "tradingPartnerServiceId"
@@ -22514,7 +22514,6 @@
                   "description": "",
                   "summary": "Claim status - accepted claim",
                   "value": {
-                    "controlNumber": "222222222",
                     "encounter": {
                       "beginningDateOfService": "20240318",
                       "endDateOfService": "20240402"
@@ -22539,7 +22538,6 @@
                   "description": "",
                   "summary": "Claim status - denied claim",
                   "value": {
-                    "controlNumber": "000000001",
                     "encounter": {
                       "beginningDateOfService": "20241101",
                       "endDateOfService": "20241112"
@@ -22990,7 +22988,6 @@
                   "description": "",
                   "summary": "Eligibility check - JSON",
                   "value": {
-                    "controlNumber": "123456789",
                     "encounter": {
                       "serviceTypeCodes": [
                         "MH"
