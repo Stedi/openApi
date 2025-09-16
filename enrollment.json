@@ -2008,6 +2008,13 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2040,13 +2047,6 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
-                    },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2512,7 +2512,7 @@
                         "items": {
                             "$ref": "#/components/schemas/Task"
                         },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                        "description": "Tasks associated with this enrollment, such as reminders or follow-ups."
                     },
                     "importId": {
                         "type": "string",
@@ -2691,6 +2691,13 @@
                         },
                         "description": "Documents associated with this enrollment, such as signed enrollment forms. This list doesn't include deleted documents.\n\nEach document object contains metadata such as the document's name, status, and timestamps for creation and last update."
                     },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2723,13 +2730,6 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
-                    },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -3170,6 +3170,13 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -3202,13 +3209,6 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
-                    },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
