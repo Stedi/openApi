@@ -22512,35 +22512,40 @@
               "examples": {
                 "ClaimStatus_example1": {
                   "description": "",
-                  "summary": "Claim status - accepted claim",
+                  "summary": "Accepted claim",
                   "value": {
                     "encounter": {
-                      "beginningDateOfService": "20240318",
-                      "endDateOfService": "20240402"
+                      "beginningDateOfService": "20250630",
+                      "endDateOfService": "20250702"
                     },
                     "providers": [
                       {
                         "npi": "1999999984",
-                        "organizationName": "Behavioral Services P.C.",
+                        "organizationName": "Provider Name",
                         "providerType": "BillingProvider"
                       }
                     ],
                     "subscriber": {
-                      "dateOfBirth": "19000806",
+                      "dateOfBirth": "19710101",
                       "firstName": "Jane",
                       "lastName": "Doe",
-                      "memberId": "111222333"
+                      "memberId": "UHC123456"
                     },
-                    "tradingPartnerServiceId": "3429"
+                    "tradingPartnerServiceId": "87726"
                   }
                 },
                 "ClaimStatus_example2": {
                   "description": "",
-                  "summary": "Claim status - denied claim",
+                  "summary": "Denied claim",
                   "value": {
+                    "dependent": {
+                      "dateOfBirth": "20010714",
+                      "firstName": "JORDAN",
+                      "lastName": "DOE"
+                    },
                     "encounter": {
-                      "beginningDateOfService": "20241101",
-                      "endDateOfService": "20241112"
+                      "beginningDateOfService": "20250804",
+                      "endDateOfService": "20250806"
                     },
                     "providers": [
                       {
@@ -22550,12 +22555,37 @@
                       }
                     ],
                     "subscriber": {
-                      "dateOfBirth": "19800101",
+                      "dateOfBirth": "19710101",
                       "firstName": "JANE",
                       "lastName": "DOE",
-                      "memberId": "XYZO9NUSPD6R"
+                      "memberId": "AETNA12345"
                     },
-                    "tradingPartnerServiceId": "423"
+                    "tradingPartnerName": "AETNA",
+                    "tradingPartnerServiceId": "60054"
+                  }
+                },
+                "ClaimStatus_example3": {
+                  "description": "",
+                  "summary": "No matching claims found",
+                  "value": {
+                    "encounter": {
+                      "beginningDateOfService": "20250526",
+                      "endDateOfService": "20250601"
+                    },
+                    "providers": [
+                      {
+                        "npi": "1999999984",
+                        "organizationName": "Provider Name",
+                        "providerType": "BillingProvider"
+                      }
+                    ],
+                    "subscriber": {
+                      "dateOfBirth": "19910202",
+                      "firstName": "JAMES",
+                      "lastName": "JONES",
+                      "memberId": "CIGNA12345"
+                    },
+                    "tradingPartnerServiceId": "Cigna"
                   }
                 }
               },
@@ -22573,111 +22603,257 @@
                 "examples": {
                   "ClaimStatus_example1": {
                     "description": "",
-                    "summary": "Claim status - accepted claim",
+                    "summary": "Accepted claim",
                     "value": {
                       "claims": [
                         {
                           "claimStatus": {
-                            "amountPaid": "95.55",
-                            "claimServiceDate": "20240325",
-                            "effectiveDate": "20240329",
-                            "paidDate": "20240329",
-                            "patientAccountNumber": "3333333",
-                            "statusCategoryCode": "P5",
-                            "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
-                            "statusCode": "3",
-                            "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle.",
-                            "submittedAmount": "238.44",
-                            "trackingNumber": "222222222",
-                            "tradingPartnerClaimNumber": "5332034153-KK"
+                            "amountPaid": "108.77",
+                            "checkIssueDate": "20250717",
+                            "checkNumber": "123456789",
+                            "claimServiceDate": "20250701",
+                            "effectiveDate": "20250717",
+                            "paidDate": "20250715",
+                            "patientAccountNumber": "12345678",
+                            "statusCategoryCode": "F1",
+                            "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
+                            "statusCode": "65",
+                            "statusCodeValue": "Claim/line has been paid.",
+                            "submittedAmount": "267.54",
+                            "trackingNumber": "0123456789",
+                            "tradingPartnerClaimNumber": "0123456789"
                           },
                           "serviceDetails": [
                             {
                               "service": {
-                                "amountPaid": "95.55",
+                                "amountPaid": "108.77",
                                 "procedureId": "90837",
                                 "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
                                 "serviceIdQualifierCode": "HC",
-                                "submittedAmount": "238.44",
+                                "submittedAmount": "267.54",
                                 "submittedUnits": "1"
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20240329",
-                                  "statusCategoryCode": "P5",
-                                  "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
-                                  "statusCode": "3",
-                                  "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle."
+                                  "effectiveDate": "20250717",
+                                  "statusCategoryCode": "F1",
+                                  "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
+                                  "statusCode": "107",
+                                  "statusCodeValue": "Processed according to contract provisions (Contract refers to provisions that exist between the Health Plan and a Provider of Health Care Services)."
                                 }
                               ]
                             }
                           ]
                         }
                       ],
-                      "controlNumber": "222222222",
-                      "meta": {
-                        "applicationMode": "production",
-                        "traceId": "bf27223e-46c3-451e-b2b4-46f3f0b6fe3b"
-                      },
+                      "controlNumber": "123456789",
                       "payer": {
                         "organizationName": "UNITEDHEALTHCARE",
-                        "payerIdentification": "3429"
+                        "payerIdentification": "87726"
                       },
                       "providers": [
                         {
-                          "organizationName": "Behavioral Services P.C.",
-                          "providerType": "BillingProvider",
-                          "taxId": "123456789"
-                        },
-                        {
                           "npi": "1999999984",
-                          "organizationName": "Behavioral Services P.C.",
-                          "providerType": "ServiceProvider"
+                          "organizationName": "Provider Name",
+                          "providerType": "BillingProvider"
                         }
                       ],
-                      "reassociationKey": "000000001",
-                      "status": "success",
                       "subscriber": {
-                        "firstName": "JANE",
-                        "lastName": "DOE",
-                        "memberId": "111222333"
+                        "firstName": "Jane",
+                        "lastName": "Doe",
+                        "memberId": "UHC123456"
                       },
-                      "tradingPartnerServiceId": "3429"
+                      "tradingPartnerServiceId": "87726",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250912*1718*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250912*171842*1*X*005010X212~ST*277*1001*005010X212~BHT*0010*08*0123456789*20250912*171841*DG~HL*1**20*1~NM1*PR*2*UNITEDHEALTHCARE*****PI*87726~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*1234567890~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~NM1*IL*1*DOE*JANE****MI*UHC123456~TRN*2*0123456789~STC*F1:65*20250717**267.54*108.77*20250715**20250717*123456789~REF*1K*0123456789~REF*EJ*12345678~DTP*472*D8*20250701~SVC*HC:90837:GT*267.54*108.77****1~STC*F1:107*20250717~DTP*472*D8*20250701~SE*19*1001~GE*1*1~IEA*1*123456789~"
                     }
                   },
                   "ClaimStatus_example2": {
                     "description": "",
-                    "summary": "Claim status - denied claim",
+                    "summary": "Denied claim",
                     "value": {
                       "claims": [
                         {
                           "claimStatus": {
                             "amountPaid": "0",
-                            "claimServiceDate": "20241107-20241107",
-                            "effectiveDate": "20241110",
-                            "paidDate": "20241110",
-                            "patientAccountNumber": "12345678",
-                            "statusCategoryCode": "F0",
-                            "statusCategoryCodeValue": "Finalized - The claim/encounter has completed the adjudication cycle and no more action will be taken.",
-                            "statusCode": "1",
-                            "statusCodeValue": "For more detailed information,see remittance advice.",
-                            "submittedAmount": "200.02",
-                            "trackingNumber": "VZYTLPWDTPMIG66PX0GRNPFGR8",
-                            "tradingPartnerClaimNumber": "XP5BPO2GRUVIR"
+                            "checkIssueDate": "20250814",
+                            "checkNumber": "123456789",
+                            "claimServiceDate": "20250805",
+                            "effectiveDate": "20250912",
+                            "paidDate": "20250809",
+                            "patientAccountNumber": "123456789",
+                            "statusCategoryCode": "F2",
+                            "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                            "statusCode": "585",
+                            "statusCodeValue": "Denied Charge or Non-covered Charge.",
+                            "submittedAmount": "1101",
+                            "trackingNumber": "123456789",
+                            "tradingPartnerClaimNumber": "123456789"
                           },
                           "serviceDetails": [
                             {
                               "service": {
                                 "amountPaid": "0",
-                                "procedureId": "90800",
-                                "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
-                                "serviceIdQualifierCode": "HC",
-                                "submittedAmount": "200.02",
+                                "procedureId": "D1120",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "141",
                                 "submittedUnits": "1"
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20241110",
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0801",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "274",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0350",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "145",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0350",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "145",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0330",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "235",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -22688,28 +22864,71 @@
                           ]
                         }
                       ],
-                      "controlNumber": "987654321",
+                      "controlNumber": "123456789",
                       "dependent": {
-                        "firstName": "JANE",
+                        "firstName": "JORDAN",
                         "lastName": "DOE"
                       },
                       "payer": {
-                        "organizationName": "ANTHEM BLUE CROSS BLUE SHIELD",
-                        "payerIdentification": "423"
+                        "organizationName": "AETNA",
+                        "payerIdentification": "60054"
                       },
                       "providers": [
                         {
                           "npi": "1999999984",
-                          "organizationName": "PROVIDER NAME",
+                          "organizationName": "Provider Name",
                           "providerType": "BillingProvider"
                         }
                       ],
                       "subscriber": {
-                        "firstName": "JOHN",
+                        "firstName": "JANE",
                         "lastName": "DOE",
-                        "memberId": "XYZO9NUSPD6R"
+                        "memberId": "AETNA12345"
                       },
-                      "tradingPartnerServiceId": "423"
+                      "tradingPartnerServiceId": "60054",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250911*1726*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250911*1226*123456789*X*005010X212~ST*277*123456789*005010X212~BHT*0010*08*1234567890*20250911*13263006*DG~HL*1**20*1~NM1*PR*2*AETNA*****PI*60054~PER*IC*Aetna*TE*1234567890~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*1234567890~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*1~NM1*IL*1*DOE*JANE****MI*AETNA12345~HL*5*4*23~NM1*QC*1*DOE*JORDAN~TRN*2*123456789~STC*F2:585*20250911**1101*0*20250809**20250814*123456789*F2:107~REF*1K*123456789~REF*EJ*123456789~DTP*472*D8*20250805~SVC*AD:D1120*141*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0801*274*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0603*161*0****1~STC*F2:107*20250911********F2:735~DTP*472*D8*20250805~SVC*AD:D0350*145*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0350*145*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SE*34*123456789~GE*1*123456789~IEA*1*123456789~"
+                    }
+                  },
+                  "ClaimStatus_example3": {
+                    "description": "",
+                    "summary": "No matching claims found",
+                    "value": {
+                      "claims": [
+                        {
+                          "claimStatus": {
+                            "amountPaid": "0",
+                            "claimServiceDate": "20250526-20250601",
+                            "effectiveDate": "20250912",
+                            "entity": "Insurer",
+                            "entityCode": "IN",
+                            "statusCategoryCode": "D0",
+                            "statusCategoryCodeValue": "Data Search Unsuccessful - The payer is unable to return status on the requested claim(s) based on the submitted search criteria.",
+                            "statusCode": "97",
+                            "statusCodeValue": "Patient eligibility not found with entity.",
+                            "submittedAmount": "0",
+                            "trackingNumber": "123456789"
+                          }
+                        }
+                      ],
+                      "controlNumber": "123456789",
+                      "payer": {
+                        "organizationName": "CHLIC",
+                        "payerIdentification": "CIGNA"
+                      },
+                      "providers": [
+                        {
+                          "npi": "1999999984",
+                          "organizationName": "Provider Name",
+                          "providerType": "BillingProvider"
+                        }
+                      ],
+                      "subscriber": {
+                        "firstName": "JAMES",
+                        "lastName": "JONES",
+                        "memberId": "CIGNA12345"
+                      },
+                      "tradingPartnerServiceId": "CIGNA",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250825*2004*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250825*1504*123456789*X*005010X212~ST*277*123456789*005010X212~BHT*0010*08*123456789*20250825*160450*DG~HL*1**20*1~NM1*PR*2*CHLIC*****PI*CIGNA~PER*IC*CHC Medical*TE*8002725713~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~NM1*IL*1*JONES*JAMES****MI*CIGNA12345~TRN*2*123456789~STC*D0:97:IN*20250825**0*0~DTP*472*RD8*20250526-20250601~SE*15*123456789~GE*1*123456789~IEA*1*123456789~"
                     }
                   }
                 },
@@ -22803,9 +23022,23 @@
               "examples": {
                 "ClaimStatusRawX12_example1": {
                   "description": "",
-                  "summary": "Claim status - accepted claim",
+                  "summary": "Accepted claim",
                   "value": {
-                    "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *240710*2300*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20240710*230011*000000001*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20050915*1425~HL*1**20*1~NM1*PR*2*UNITEDHEALTHCARE*****PI*3429~HL*2*1*21*1~NM1*41*2*XYZ SERVICE*****46*X67E~HL*3*2*19*1~NM1*1P*2*BEHAVIORAL SERVICES P.C.*****XX*123456789~HL*4*3*22*0~DMG*D8*19301210*M~NM1*IL*1*JANE*DOE****MI*111222333~TRN*1*222222222~REF*BLT*111~REF*EJ*SM123456~AMT*T3*238.44~DTP*472*RD8*20050831-20050906~HL*5*2*19*1~NM1*1P*2*BEHAVIORAL SERVICES P.C.*****XX*1999999984~HL*6*5*22*1~NM1*IL*1*DOE*JANE****MI*345678901~HL*7*6*23~DMG*D8*19951101*M~NM1*QC*1*DOE*JOHN~TRN*1*222222222~REF*EJ*MA345678~SVC*HC>99203*238.44*****1~DTP*472*D8*20050501~SE*28*0001~GE*1*000000001~IEA*1*000000001~"
+                    "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250916*2048*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20250916*204811*1*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20250915*1425~HL*1**20*1~NM1*PR*2*UNITEDHEALTHCARE*****PI*87726~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~DMG*D8*19710101~NM1*IL*1*DOE*JANE****MI*UHC123456~TRN*1*123456789~DTP*472*RD8*20250630-20250702~SE*14*0001~GE*1*1~IEA*1*000000001~"
+                  }
+                },
+                "ClaimStatusRawX12_example2": {
+                  "description": "",
+                  "summary": "Denied claim",
+                  "value": {
+                    "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250916*2048*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20250916*204811*1*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20250915*1425~HL*1**20*1~NM1*PR*2*AETNA*****PI*60054~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~DMG*D8*19710101~NM1*IL*1*DOE*JANE****MI*AETNA12345~HL*5*4*23*0~DMG*D8*20010714~NM1*QC*1*DOE*JORDAN*~TRN*1*123456789~DTP*472*RD8*20250804-20250806~SE*17*0001~GE*1*1~IEA*1*000000001~"
+                  }
+                },
+                "ClaimStatusRawX12_example3": {
+                  "description": "",
+                  "summary": "No matching claims found",
+                  "value": {
+                    "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250916*2048*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20250916*204811*1*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20250915*1425~HL*1**20*1~NM1*PR*2*CIGNA*****PI*62308~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~DMG*D8*19910202~NM1*IL*1*JONES*JAMES****MI*CIGNA12345~TRN*1*123456789~DTP*472*RD8*20250526-20250601~SE*14*0001~GE*1*1~IEA*1*000000001~"
                   }
                 }
               },
@@ -22823,76 +23056,332 @@
                 "examples": {
                   "ClaimStatusRawX12_example1": {
                     "description": "",
-                    "summary": "Claim status - accepted claim",
+                    "summary": "Accepted claim",
                     "value": {
                       "claims": [
                         {
                           "claimStatus": {
-                            "amountPaid": "95.55",
-                            "claimServiceDate": "20240325",
-                            "effectiveDate": "20240329",
-                            "paidDate": "20240329",
-                            "patientAccountNumber": "3333333",
-                            "statusCategoryCode": "P5",
-                            "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
-                            "statusCode": "3",
-                            "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle.",
-                            "submittedAmount": "238.44",
-                            "trackingNumber": "222222222",
-                            "tradingPartnerClaimNumber": "5332034153-KK"
+                            "amountPaid": "108.77",
+                            "checkIssueDate": "20250717",
+                            "checkNumber": "123456789",
+                            "claimServiceDate": "20250701",
+                            "effectiveDate": "20250717",
+                            "paidDate": "20250715",
+                            "patientAccountNumber": "12345678",
+                            "statusCategoryCode": "F1",
+                            "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
+                            "statusCode": "65",
+                            "statusCodeValue": "Claim/line has been paid.",
+                            "submittedAmount": "267.54",
+                            "trackingNumber": "0123456789",
+                            "tradingPartnerClaimNumber": "0123456789"
                           },
                           "serviceDetails": [
                             {
                               "service": {
-                                "amountPaid": "95.55",
+                                "amountPaid": "108.77",
                                 "procedureId": "90837",
                                 "serviceIdQualifier": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
                                 "serviceIdQualifierCode": "HC",
-                                "submittedAmount": "238.44",
+                                "submittedAmount": "267.54",
                                 "submittedUnits": "1"
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20240329",
-                                  "statusCategoryCode": "P5",
-                                  "statusCategoryCodeValue": "Pending/Payer Administrative/System hold",
-                                  "statusCode": "3",
-                                  "statusCodeValue": "Claim has been adjudicated and is awaiting payment cycle."
+                                  "effectiveDate": "20250717",
+                                  "statusCategoryCode": "F1",
+                                  "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
+                                  "statusCode": "107",
+                                  "statusCodeValue": "Processed according to contract provisions (Contract refers to provisions that exist between the Health Plan and a Provider of Health Care Services)."
                                 }
                               ]
                             }
                           ]
                         }
                       ],
-                      "controlNumber": "222222222",
-                      "meta": {
-                        "applicationMode": "production",
-                        "traceId": "bf27223e-46c3-451e-b2b4-46f3f0b6fe3b"
-                      },
+                      "controlNumber": "123456789",
                       "payer": {
                         "organizationName": "UNITEDHEALTHCARE",
-                        "payerIdentification": "3429"
+                        "payerIdentification": "87726"
                       },
                       "providers": [
                         {
-                          "organizationName": "Behavioral Services P.C.",
-                          "providerType": "BillingProvider",
-                          "taxId": "123456789"
-                        },
-                        {
                           "npi": "1999999984",
-                          "organizationName": "Behavioral Services P.C.",
-                          "providerType": "ServiceProvider"
+                          "organizationName": "Provider Name",
+                          "providerType": "BillingProvider"
                         }
                       ],
-                      "reassociationKey": "000000001",
-                      "status": "success",
+                      "subscriber": {
+                        "firstName": "Jane",
+                        "lastName": "Doe",
+                        "memberId": "UHC123456"
+                      },
+                      "tradingPartnerServiceId": "87726",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250912*1718*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250912*171842*1*X*005010X212~ST*277*1001*005010X212~BHT*0010*08*0123456789*20250912*171841*DG~HL*1**20*1~NM1*PR*2*UNITEDHEALTHCARE*****PI*87726~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*1234567890~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~NM1*IL*1*DOE*JANE****MI*UHC123456~TRN*2*0123456789~STC*F1:65*20250717**267.54*108.77*20250715**20250717*123456789~REF*1K*0123456789~REF*EJ*12345678~DTP*472*D8*20250701~SVC*HC:90837:GT*267.54*108.77****1~STC*F1:107*20250717~DTP*472*D8*20250701~SE*19*1001~GE*1*1~IEA*1*123456789~"
+                    }
+                  },
+                  "ClaimStatusRawX12_example2": {
+                    "description": "",
+                    "summary": "Denied claim",
+                    "value": {
+                      "claims": [
+                        {
+                          "claimStatus": {
+                            "amountPaid": "0",
+                            "checkIssueDate": "20250814",
+                            "checkNumber": "123456789",
+                            "claimServiceDate": "20250805",
+                            "effectiveDate": "20250912",
+                            "paidDate": "20250809",
+                            "patientAccountNumber": "123456789",
+                            "statusCategoryCode": "F2",
+                            "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                            "statusCode": "585",
+                            "statusCodeValue": "Denied Charge or Non-covered Charge.",
+                            "submittedAmount": "1101",
+                            "trackingNumber": "123456789",
+                            "tradingPartnerClaimNumber": "123456789"
+                          },
+                          "serviceDetails": [
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D1120",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "141",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0801",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "274",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0603",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "161",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0350",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "145",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0350",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "145",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            },
+                            {
+                              "service": {
+                                "amountPaid": "0",
+                                "procedureId": "D0330",
+                                "serviceIdQualifier": "American Dental Association Codes",
+                                "serviceIdQualifierCode": "AD",
+                                "submittedAmount": "235",
+                                "submittedUnits": "1"
+                              },
+                              "status": [
+                                {
+                                  "effectiveDate": "20250912",
+                                  "statusCategoryCode": "F2",
+                                  "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
+                                  "statusCode": "585",
+                                  "statusCodeValue": "Denied Charge or Non-covered Charge."
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "controlNumber": "123456789",
+                      "dependent": {
+                        "firstName": "JORDAN",
+                        "lastName": "DOE"
+                      },
+                      "payer": {
+                        "organizationName": "AETNA",
+                        "payerIdentification": "60054"
+                      },
+                      "providers": [
+                        {
+                          "npi": "1999999984",
+                          "organizationName": "Provider Name",
+                          "providerType": "BillingProvider"
+                        }
+                      ],
                       "subscriber": {
                         "firstName": "JANE",
                         "lastName": "DOE",
-                        "memberId": "111222333"
+                        "memberId": "AETNA12345"
                       },
-                      "tradingPartnerServiceId": "3429"
+                      "tradingPartnerServiceId": "60054",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250911*1726*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250911*1226*123456789*X*005010X212~ST*277*123456789*005010X212~BHT*0010*08*1234567890*20250911*13263006*DG~HL*1**20*1~NM1*PR*2*AETNA*****PI*60054~PER*IC*Aetna*TE*1234567890~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*1234567890~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*1~NM1*IL*1*DOE*JANE****MI*AETNA12345~HL*5*4*23~NM1*QC*1*DOE*JORDAN~TRN*2*123456789~STC*F2:585*20250911**1101*0*20250809**20250814*123456789*F2:107~REF*1K*123456789~REF*EJ*123456789~DTP*472*D8*20250805~SVC*AD:D1120*141*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0801*274*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0603*161*0****1~STC*F2:107*20250911********F2:735~DTP*472*D8*20250805~SVC*AD:D0350*145*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SVC*AD:D0350*145*0****1~STC*F2:585*20250911~DTP*472*D8*20250805~SE*34*123456789~GE*1*123456789~IEA*1*123456789~"
+                    }
+                  },
+                  "ClaimStatusRawX12_example3": {
+                    "description": "",
+                    "summary": "No matching claims found",
+                    "value": {
+                      "claims": [
+                        {
+                          "claimStatus": {
+                            "amountPaid": "0",
+                            "claimServiceDate": "20250526-20250601",
+                            "effectiveDate": "20250912",
+                            "entity": "Insurer",
+                            "entityCode": "IN",
+                            "statusCategoryCode": "D0",
+                            "statusCategoryCodeValue": "Data Search Unsuccessful - The payer is unable to return status on the requested claim(s) based on the submitted search criteria.",
+                            "statusCode": "97",
+                            "statusCodeValue": "Patient eligibility not found with entity.",
+                            "submittedAmount": "0",
+                            "trackingNumber": "123456789"
+                          }
+                        }
+                      ],
+                      "controlNumber": "123456789",
+                      "payer": {
+                        "organizationName": "CHLIC",
+                        "payerIdentification": "CIGNA"
+                      },
+                      "providers": [
+                        {
+                          "npi": "1999999984",
+                          "organizationName": "Provider Name",
+                          "providerType": "BillingProvider"
+                        }
+                      ],
+                      "subscriber": {
+                        "firstName": "JAMES",
+                        "lastName": "JONES",
+                        "memberId": "CIGNA12345"
+                      },
+                      "tradingPartnerServiceId": "CIGNA",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250825*2004*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250825*1504*123456789*X*005010X212~ST*277*123456789*005010X212~BHT*0010*08*123456789*20250825*160450*DG~HL*1**20*1~NM1*PR*2*CHLIC*****PI*CIGNA~PER*IC*CHC Medical*TE*8002725713~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~NM1*IL*1*JONES*JAMES****MI*CIGNA12345~TRN*2*123456789~STC*D0:97:IN*20250825**0*0~DTP*472*RD8*20250526-20250601~SE*15*123456789~GE*1*123456789~IEA*1*123456789~"
                     }
                   }
                 },
