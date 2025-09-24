@@ -796,6 +796,7 @@
                                                 {
                                                     "id": "ac6665a5-7b97-4agh-8c74-a00a336c2989",
                                                     "responsibleParty": "STEDI",
+                                                    "rank": 0,
                                                     "definition": {
                                                         "followInstructions": {
                                                             "instructions": "Manually enroll with the payer through their provider portal."
@@ -1056,14 +1057,7 @@
                             "type": "string",
                             "description": "The Stedi-assigned identifier for the enrollment."
                         },
-                        "required": true,
-                        "examples": {
-                            "CompleteTask_example1": {
-                                "summary": "Complete Provider Task",
-                                "description": "",
-                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
-                            }
-                        }
+                        "required": true
                     },
                     {
                         "name": "taskId",
@@ -1073,48 +1067,12 @@
                             "type": "string",
                             "description": "The Stedi-assigned identifier for the task to complete."
                         },
-                        "required": true,
-                        "examples": {
-                            "CompleteTask_example1": {
-                                "summary": "Complete Provider Task",
-                                "description": "",
-                                "value": "01ARZ3NDEKTSV4RRFFQ69G5FAV"
-                            }
-                        }
+                        "required": true
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "CompleteTask 200 response",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "$ref": "#/components/schemas/CompleteTaskResponseContent"
-                                },
-                                "examples": {
-                                    "CompleteTask_example1": {
-                                        "summary": "Complete Provider Task",
-                                        "description": "",
-                                        "value": {
-                                            "task": {
-                                                "id": "01ARZ3NDEKTSV4RRFFQ69G5FAV",
-                                                "responsibleParty": "PROVIDER",
-                                                "definition": {
-                                                    "followInstructions": {
-                                                        "instructions": "Download the PDF from the Documents tab, complete, and reupload to the Documents tab."
-                                                    }
-                                                },
-                                                "isComplete": true,
-                                                "completedAt": "2023-11-07T06:15:22Z",
-                                                "completedBy": "customer-account-id",
-                                                "createdAt": "2023-11-07T05:31:56Z",
-                                                "updatedAt": "2023-11-07T06:15:22Z"
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    "204": {
+                        "description": "CompleteTask 204 response"
                     },
                     "400": {
                         "description": "ValidationException 400 response",
@@ -1834,69 +1792,6 @@
                     "taxIdType"
                 ]
             },
-            "CompleteTaskResponseContent": {
-                "type": "object",
-                "description": "Output containing the completed task details.",
-                "properties": {
-                    "task": {
-                        "$ref": "#/components/schemas/CompletedTask",
-                        "description": "The completed task."
-                    }
-                },
-                "required": [
-                    "task"
-                ]
-            },
-            "CompletedTask": {
-                "type": "object",
-                "description": "A completed task with all details including completion metadata.",
-                "properties": {
-                    "id": {
-                        "type": "string",
-                        "description": "The unique identifier for the task."
-                    },
-                    "responsibleParty": {
-                        "$ref": "#/components/schemas/ResponsibleParty",
-                        "description": "The party responsible for completing this task."
-                    },
-                    "definition": {
-                        "$ref": "#/components/schemas/TaskDefinition",
-                        "description": "The specific definition and data for this task."
-                    },
-                    "isComplete": {
-                        "type": "boolean",
-                        "description": "Whether the task has been completed."
-                    },
-                    "completedAt": {
-                        "type": "number",
-                        "description": "The timestamp when the task was completed.",
-                        "format": "double"
-                    },
-                    "completedBy": {
-                        "type": "string",
-                        "description": "Identifier of who completed the task."
-                    },
-                    "createdAt": {
-                        "type": "number",
-                        "description": "The timestamp when the task was created.",
-                        "format": "double"
-                    },
-                    "updatedAt": {
-                        "type": "number",
-                        "description": "The timestamp when the task was last updated.",
-                        "format": "double"
-                    }
-                },
-                "required": [
-                    "completedBy",
-                    "createdAt",
-                    "definition",
-                    "id",
-                    "isComplete",
-                    "responsibleParty",
-                    "updatedAt"
-                ]
-            },
             "CreateEnrollmentRequestContent": {
                 "type": "object",
                 "description": "Input for CreateEnrollment.",
@@ -2008,13 +1903,6 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
-                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2047,6 +1935,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2693,13 +2588,6 @@
                         },
                         "description": "Documents associated with this enrollment, such as signed enrollment forms. This list doesn't include deleted documents.\n\nEach document object contains metadata such as the document's name, status, and timestamps for creation and last update."
                     },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
-                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2732,6 +2620,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2985,6 +2880,19 @@
                 "type": "object",
                 "description": "A task representing work that needs to be completed.",
                 "properties": {
+                    "isComplete": {
+                        "type": "boolean",
+                        "description": "Whether the task has been completed."
+                    },
+                    "completedAt": {
+                        "type": "number",
+                        "description": "The timestamp when the task was completed.",
+                        "format": "double"
+                    },
+                    "completedBy": {
+                        "type": "string",
+                        "description": "Identifier of who completed the task."
+                    },
                     "responsibleParty": {
                         "$ref": "#/components/schemas/ResponsibleParty",
                         "description": "The party responsible for completing this task."
@@ -2992,6 +2900,11 @@
                     "definition": {
                         "$ref": "#/components/schemas/TaskDefinition",
                         "description": "The specific definition and data for this task."
+                    },
+                    "rank": {
+                        "type": "number",
+                        "minimum": 0,
+                        "description": "The rank order of this task. Lower numbers are completed first."
                     },
                     "id": {
                         "type": "string",
@@ -3001,6 +2914,7 @@
                 "required": [
                     "definition",
                     "id",
+                    "rank",
                     "responsibleParty"
                 ]
             },
@@ -3172,13 +3086,6 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
-                    "tasks": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/components/schemas/Task"
-                        },
-                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
-                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -3211,6 +3118,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "tasks": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        },
+                        "description": "Tasks associated with this enrollment representing work that needs to be completed. Each task has a responsible party and specific definition."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
