@@ -20298,6 +20298,15 @@
             "description": "Identifying number for product or service.",
             "type": "string"
           },
+          "procedureModifiers": {
+            "description": "Procedure modifier codes that provide additional information about the service performed.",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "type": "array"
+          },
           "revenueCode": {
             "description": "The National Uniform Billing Committee revenue code.",
             "type": "string"
@@ -33291,6 +33300,7 @@
             "name": "query",
             "schema": {
               "description": "The query Stedi will use to search the Payer Network database. You can supply a payer's name, ID, or alias. The query is case-insensitive, and fuzzy matching is supported. For example, `cig`, `62308`, and `SX071` all return Cigna in the results. If not provided, the other search options are used to conduct the search.",
+              "maxLength": 200,
               "type": "string"
             }
           },
