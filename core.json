@@ -56,11 +56,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -91,6 +91,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -190,8 +200,10 @@
           {
             "name": "partnershipId",
             "in": "query",
+            "description": "The unique identifier for the partnership within the Stedi platform. If you're sending or receiving transactions through the Stedi clearinghouse, Stedi configures the necessary partnership for you automatically when you set up your account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "The unique identifier for the partnership within the Stedi platform. If you're sending or receiving transactions through the Stedi clearinghouse, Stedi configures the necessary partnership for you automatically when you set up your account."
             }
           },
           {
@@ -205,16 +217,20 @@
           {
             "name": "from",
             "in": "query",
+            "description": "The start of the time range to filter file executions. The results will include executions created at or after this timestamp.",
             "schema": {
               "type": "string",
+              "description": "The start of the time range to filter file executions. The results will include executions created at or after this timestamp.",
               "format": "date-time"
             }
           },
           {
             "name": "to",
             "in": "query",
+            "description": "The end of the time range to filter file executions. The results will include executions up to and including this timestamp.",
             "schema": {
               "type": "string",
+              "description": "The end of the time range to filter file executions. The results will include executions up to and including this timestamp.",
               "format": "date-time"
             }
           }
@@ -287,11 +303,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -322,6 +338,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -377,10 +403,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -443,11 +469,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -478,6 +504,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -533,10 +569,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -655,11 +691,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -690,6 +726,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -745,10 +791,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -781,11 +827,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -816,6 +862,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -905,11 +961,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -940,6 +996,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -995,10 +1061,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -1031,11 +1097,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1066,6 +1132,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -1155,11 +1231,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1190,6 +1266,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -1245,10 +1331,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file delivered event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-delivered), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file delivered event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file delivered event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-delivered), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file delivered event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -1281,11 +1367,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1316,6 +1402,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -1405,11 +1501,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1440,6 +1536,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -1495,10 +1601,10 @@
           {
             "name": "executionId",
             "in": "path",
-            "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app.",
+            "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the file execution within Stedi. This ID is included in the [file processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#file-processed), or you can retrieve it manually from the file's details page within the Stedi app."
+              "description": "A unique identifier for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -1651,11 +1757,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1686,6 +1792,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -1859,11 +1975,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -1899,11 +2015,11 @@
             }
           },
           "409": {
-            "description": "ResourceConflictException 409 response",
+            "description": "ResourceUnderChangeException 409 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceConflictExceptionResponseContent"
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -2047,11 +2163,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -2082,6 +2198,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -2297,11 +2423,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -2337,11 +2463,11 @@
             }
           },
           "409": {
-            "description": "ResourceConflictException 409 response",
+            "description": "ResourceUnderChangeException 409 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceConflictExceptionResponseContent"
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -2555,11 +2681,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -2590,6 +2716,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -2749,11 +2885,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -2784,6 +2920,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -2976,11 +3122,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -3011,6 +3157,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -3154,16 +3310,20 @@
           {
             "name": "from",
             "in": "query",
+            "description": "The start of the time range to filter transactions. The results will include transactions created at or after this timestamp.",
             "schema": {
               "type": "string",
+              "description": "The start of the time range to filter transactions. The results will include transactions created at or after this timestamp.",
               "format": "date-time"
             }
           },
           {
             "name": "to",
             "in": "query",
+            "description": "The end of the time range to filter transactions. The results will include transactions up to and including this timestamp.",
             "schema": {
               "type": "string",
+              "description": "The end of the time range to filter transactions. The results will include transactions up to and including this timestamp.",
               "format": "date-time"
             }
           },
@@ -3288,11 +3448,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -3323,6 +3483,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -3378,10 +3548,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3490,11 +3660,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -3525,6 +3695,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -3580,10 +3760,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3597,10 +3777,10 @@
           {
             "name": "artifactId",
             "in": "path",
-            "description": "A unique identifier for the artifact within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the artifact within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the artifact within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the artifact within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3633,11 +3813,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -3668,6 +3848,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -3723,10 +3913,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3774,11 +3964,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -3809,6 +3999,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -3864,10 +4064,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3881,10 +4081,10 @@
           {
             "name": "fragmentIndex",
             "in": "path",
-            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the fragment processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "number",
-              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the fragment processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -3984,11 +4184,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4019,6 +4219,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4074,10 +4284,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4091,10 +4301,10 @@
           {
             "name": "fragmentIndex",
             "in": "path",
-            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the fragment processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "number",
-              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the [fragment processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#fragment-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "The identifier for a specific fragment within a processed transaction. This ID is included in the fragment processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4127,11 +4337,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4162,6 +4372,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4217,10 +4437,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4268,11 +4488,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4303,6 +4523,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4358,10 +4588,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4394,11 +4624,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4429,6 +4659,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4484,10 +4724,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4520,11 +4760,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4555,6 +4795,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4610,10 +4860,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the [transaction processed event](https://www.stedi.com/docs/edi-platform/operate/event-types#transaction-processed), or you can retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event, or you can retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4646,11 +4896,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4681,6 +4931,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4736,10 +4996,10 @@
           {
             "name": "transactionId",
             "in": "path",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app.",
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal.",
             "schema": {
               "type": "string",
-              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+              "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
             },
             "required": true,
             "examples": {
@@ -4772,11 +5032,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -4807,6 +5067,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -4983,11 +5253,11 @@
             }
           },
           "400": {
-            "description": "ResourceUnderChangeException 400 response",
+            "description": "BadRequestException 400 response",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
                 }
               }
             }
@@ -5018,6 +5288,16 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
                 }
               }
             }
@@ -5155,6 +5435,23 @@
           "output"
         ]
       },
+      "BadRequestExceptionResponseContent": {
+        "type": "object",
+        "description": "The server cannot process the request due to an apparent client error.",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Human readable exception message."
+          },
+          "code": {
+            "type": "string",
+            "description": "Classification of the exception type."
+          }
+        },
+        "required": [
+          "message"
+        ]
+      },
       "BusinessIdentifier": {
         "type": "object",
         "properties": {
@@ -5164,11 +5461,11 @@
           },
           "element": {
             "type": "string",
-            "description": "The element where the business identifier was found. For example, `BEG-03`."
+            "description": "The element where the business identifier was found. For example, `BHT03` for 837 claims."
           },
           "name": {
             "type": "string",
-            "description": "The friendly name of the business identifier. For example, `Purchase Order Number`."
+            "description": "The friendly name of the business identifier. For example, `Originator Application Transaction Identifier`."
           },
           "value": {
             "type": "string",
@@ -5206,10 +5503,10 @@
         "properties": {
           "guideId": {
             "type": "string",
-            "description": "The ID of the Stedi guide for the outbound transaction setting. The guide must be configured to use fragments. You can find this ID on the [Guides](https://www.stedi.com/app/guides) page in the Stedi app."
+            "description": "The ID of the Stedi guide for the outbound transaction setting. The guide must be configured to use fragments. You can find this ID on the **Guides** page in the Stedi portal."
           },
           "fragment": {
-            "description": "The fragment to stage for outbound delivery. Without a mapping, the fragment must be < 5MB and the shape must match the [Guide JSON](https://www.stedi.com/docs/edi-platform/operate/transform-json/guide-json) format for the specified guide. With a mapping, the fragment must be < 4MB and the shape must match the source schema of the specified mapping."
+            "description": "The fragment to stage for outbound delivery. Without a mapping, the fragment must be < 5MB and the shape must match the Guide JSON format for the specified guide. With a mapping, the fragment must be < 4MB and the shape must match the source schema of the specified mapping."
           },
           "mappingId": {
             "type": "string",
@@ -5274,7 +5571,7 @@
           },
           "mappingId": {
             "type": "string",
-            "description": "Specify a mapping ID to transform the transaction data to Guide JSON format. You can find the mapping ID on the [Mappings](https://www.stedi.com/app/mappings) page in the Stedi app."
+            "description": "Specify a mapping ID to transform the transaction data to Guide JSON format. You can find the mapping ID on the [Mappings](https://www.stedi.com/app/mappings) page in the Stedi portal."
           },
           "interchangeOverrides": {
             "$ref": "#/components/schemas/InterchangeOverrides"
@@ -5293,7 +5590,7 @@
           },
           "fileExecutionId": {
             "type": "string",
-            "description": "An ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for the generated file in the Stedi app, and you can use it to trace the file's status and delivery."
+            "description": "An ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for the generated file in the Stedi portal, and you can use it to trace the file's status and delivery."
           }
         }
       },
@@ -5470,7 +5767,7 @@
           },
           "guideId": {
             "type": "string",
-            "description": "The unique identifier for the Stedi guide used to process the transactions in the file.\n\n[Stedi guides](https://www.stedi.com/docs/edi-platform/guides) are machine-readable specifications that describe how to structure and validate EDI files for each transaction type."
+            "description": "The unique identifier for the Stedi guide used to process the transactions in the file.\n\nStedi guides are machine-readable specifications that describe how to structure and validate EDI files for each transaction type."
           },
           "receiverProfile": {
             "$ref": "#/components/schemas/ExecutionPartnershipProfile"
@@ -5656,7 +5953,7 @@
           },
           "retryable": {
             "type": "boolean",
-            "description": "If `true`, you can [retry the file](https://www.stedi.com/docs/edi-platform/operate/transaction-data#manage-failed-files) in the Stedi portal."
+            "description": "If `true`, you can retry the file in the Stedi portal."
           },
           "parentExecutionId": {
             "type": "string",
@@ -5671,7 +5968,7 @@
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -5778,7 +6075,7 @@
           },
           "fileExecutionId": {
             "type": "string",
-            "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi app. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
+            "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi portal. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
           },
           "metadata": {
             "$ref": "#/components/schemas/Metadata"
@@ -5811,6 +6108,9 @@
           },
           "interchangeAuthorization": {
             "$ref": "#/components/schemas/X12InterchangeAuthorization"
+          },
+          "transactionOrdering": {
+            "$ref": "#/components/schemas/TransactionOrdering"
           }
         }
       },
@@ -5823,7 +6123,7 @@
           },
           "fileExecutionId": {
             "type": "string",
-            "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi app. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
+            "description": "A ID for the process Stedi uses to generate the EDI file. This ID appears on the details page for this file execution in the Stedi portal. Internally, Stedi uses this ID to place the file in Stedi's outbound queue."
           }
         },
         "required": [
@@ -5928,7 +6228,7 @@
           },
           "retryable": {
             "type": "boolean",
-            "description": "If `true`, you can [retry the file](https://www.stedi.com/docs/edi-platform/operate/transaction-data#manage-failed-files) in the Stedi portal."
+            "description": "If `true`, you can retry the file in the Stedi portal."
           },
           "parentExecutionId": {
             "type": "string",
@@ -5943,7 +6243,7 @@
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
             "$ref": "#/components/schemas/ConnectionType"
@@ -6116,7 +6416,7 @@
         "properties": {
           "transactionId": {
             "type": "string",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
           },
           "fileExecutionId": {
             "type": "string",
@@ -6383,12 +6683,15 @@
       },
       "MdnFile": {
         "type": "object",
+        "description": "The location of the Message Disposition Notification (MDN). This is only relevant for AS2 connections.",
         "properties": {
           "repository": {
-            "type": "string"
+            "type": "string",
+            "description": "The repository location of the MDN file."
           },
           "pointer": {
-            "type": "string"
+            "type": "string",
+            "description": "The pointer to the specific MDN file."
           }
         },
         "required": [
@@ -6424,14 +6727,14 @@
       },
       "Partnership": {
         "type": "object",
-        "description": "Information about the associated partnership.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files.",
+        "description": "Information about the associated partnership.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files. If you're sending or receiving transactions through the Stedi clearinghouse, Stedi configures the necessary partnership for you automatically when you set up your account.",
         "properties": {
           "partnershipId": {
             "type": "string",
             "maxLength": 81,
             "minLength": 1,
             "pattern": "^([a-zA-Z0-9._-]+)$",
-            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA [partnership](https://www.stedi.com/docs/edi-platform/configure/trading-partners/profiles-and-partnerships) describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
+            "description": "The unique identifier for the partnership within the Stedi platform.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files. If you're sending or receiving transactions through the Stedi clearinghouse, Stedi configures the necessary partnerships for you automatically when you set up your account."
           },
           "partnershipType": {
             "$ref": "#/components/schemas/PartnershipType"
@@ -6523,23 +6826,6 @@
           }
         }
       },
-      "ResourceConflictExceptionResponseContent": {
-        "type": "object",
-        "description": "The server could not process the request because of conflict in the current state of the resource.",
-        "properties": {
-          "message": {
-            "type": "string",
-            "description": "Human readable exception message."
-          },
-          "code": {
-            "type": "string",
-            "description": "Classification of the exception type."
-          }
-        },
-        "required": [
-          "message"
-        ]
-      },
       "ResourceNotFoundExceptionResponseContent": {
         "type": "object",
         "description": "The server response when the specified resource cannot be found after an API request passes authentication and authorization.",
@@ -6629,7 +6915,7 @@
       },
       "TransactionFragmentsSummary": {
         "type": "object",
-        "description": "Details about fragments included in the transaction, if applicable. [Fragments](https://www.stedi.com/docs/edi-platform/fragments) break large transactions into smaller parts for easier processing and management.",
+        "description": "Details about fragments included in the transaction, if applicable. Fragments break large transactions into smaller parts for easier processing and management.",
         "properties": {
           "keyName": {
             "type": "string",
@@ -6693,6 +6979,13 @@
           }
         }
       },
+      "TransactionOrdering": {
+        "type": "string",
+        "description": "Specify the order of the transactions in the generated X12 EDI file. By default, Stedi doesn't guarantee any particular order.\n\nSet to `CONTROL_NUMBER` to order transactions within a functional group by their control number, from lowest to highest. In X12 EDI, this is `ST02` (Transaction Set Control Number).",
+        "enum": [
+          "CONTROL_NUMBER"
+        ]
+      },
       "TransactionStatus": {
         "type": "string",
         "description": "A status indicating whether Stedi was able to successfully process the transaction.",
@@ -6707,7 +7000,7 @@
         "properties": {
           "transactionId": {
             "type": "string",
-            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi app."
+            "description": "A unique identifier for the processed transaction within Stedi. This ID is included in the transaction processed event. You can also retrieve it manually from the transaction's details page within the Stedi portal."
           },
           "fileExecutionId": {
             "type": "string",
@@ -7020,7 +7313,7 @@
         "properties": {
           "acknowledgmentRequestedCode": {
             "type": "string",
-            "description": "The value of [`ISA14`](https://www.stedi.com/edi/x12/segment/ISA#ISA-14) in the Interchange Control Header, which indicates whether the sender is requesting an [interchange acknowledgment](https://www.stedi.com/docs/edi-platform/configure/trading-partners/functional-acknowledgments#ta1s)."
+            "description": "The value of [`ISA14`](https://www.stedi.com/edi/x12/segment/ISA#ISA-14) in the Interchange Control Header, which indicates whether the sender is requesting a [`TA1` Interchange Acknowledgment](https://www.stedi.com/edi/x12/segment/TA1)."
           },
           "controlNumber": {
             "type": "number",
@@ -7421,11 +7714,11 @@
         "properties": {
           "guideId": {
             "type": "string",
-            "description": "The unique identifier for the Stedi guide used to process the transaction.\n\n[Stedi guides](https://www.stedi.com/docs/edi-platform/guides) are machine-readable specifications for X12 EDI transactions. They describe how to structure and validate EDI files for each transaction type."
+            "description": "The unique identifier for the Stedi guide used to process the transaction.\n\nStedi guides are machine-readable specifications for X12 EDI transactions. They describe how to structure and validate EDI files for each transaction type."
           },
           "transactionSettingId": {
             "type": "string",
-            "description": "The unique identifier for the transaction setting Stedi used to process the transaction.\n\n[Transaction settings](https://www.stedi.com/docs/edi-platform/configure/trading-partners/transaction-settings) configure how Stedi processes specific transaction types, such as which Stedi guide to use and other processing options."
+            "description": "The unique identifier for the transaction setting Stedi used to process the transaction.\n\nTransaction settings configure how Stedi processes specific transaction types, such as which Stedi guide to use and other processing options. If you're using the Stedi clearinghouse, Stedi automatically configures the required transaction settings for you when you set up your account."
           }
         }
       },
