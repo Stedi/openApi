@@ -3864,9 +3864,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "Secondary identifiers for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/ClaimServiceFacilityLocationSecondaryIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -3876,6 +3876,28 @@
         "required": [
           "address",
           "organizationName"
+        ],
+        "type": "object"
+      },
+      "ClaimServiceFacilityLocationSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
         ],
         "type": "object"
       },
@@ -4805,9 +4827,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "Secondary identifiers for the referring provider.",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceLineReferringProviderSecondaryIdentifierItem"
             },
             "maxItems": 20,
             "minItems": 1,
@@ -4914,9 +4936,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "An identifier for the provider.",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceLineRenderingProviderSecondaryIdentifierItem"
             },
             "maxItems": 20,
             "minItems": 1,
@@ -5023,9 +5045,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "Secondary identifiers for the supervising provider.",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceLineSupervisingProviderSecondaryIdentifierItem"
             },
             "maxItems": 20,
             "minItems": 1,
@@ -6768,7 +6790,7 @@
             "type": "string"
           },
           "otherPayerSecondaryIdentifier": {
-            "description": "An additional identification number to identify the other payer. The `qualifier` can be set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.",
+            "description": "An additional identification number to identify the other payer.",
             "items": {
               "$ref": "#/components/schemas/OtherPayerSecondaryIdentifierItem"
             },
@@ -14825,9 +14847,9 @@
             "description": "Code identifying the type of entity. Can be set to `1` - Person or `2` - Non-Person Entity. In practice, you should always set this to `1` - Person."
           },
           "otherPayerAssistantSurgeonIdentifier": {
-            "description": "An identifier for the assistant surgeon. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used in new claims. You can include up to three objects in this array.",
+            "description": "An identifier for the assistant surgeon.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerAssistantSurgeonIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -14837,6 +14859,28 @@
         "required": [
           "entityTypeQualifier",
           "otherPayerAssistantSurgeonIdentifier"
+        ],
+        "type": "object"
+      },
+      "OtherPayerAssistantSurgeonIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used in new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
         ],
         "type": "object"
       },
@@ -14865,9 +14909,9 @@
             "$ref": "#/components/schemas/OtherPayerBillingProviderEntityTypeQualifier"
           },
           "otherPayerBillingProviderIdentifier": {
-            "description": "An identifier for the billing provider. The qualifier can be set to `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to two objects in this array.",
+            "description": "Identifiers for the billing provider.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerBillingProviderIdentifierItem"
             },
             "maxItems": 2,
             "minItems": 1,
@@ -14887,6 +14931,28 @@
           "2"
         ],
         "type": "string"
+      },
+      "OtherPayerBillingProviderIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `LU` - Location Number, or `G2` - Provider Commercial Number.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
       },
       "OtherPayerEntityTypeQualifier": {
         "enum": [
@@ -14942,7 +15008,7 @@
             "type": "string"
           },
           "otherPayerSecondaryIdentifier": {
-            "description": "An additional identification number to identify the other payer. The `qualifier` can be set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.",
+            "description": "An additional identification number to identify the other payer.",
             "items": {
               "$ref": "#/components/schemas/OtherPayerSecondaryIdentifierItem"
             },
@@ -14998,9 +15064,9 @@
         "description": "Information about the provider who directed the patient to the rendering provider for care. For example, a primary care physician may refer patients to a specialist.",
         "properties": {
           "otherPayerReferringProviderIdentifier": {
-            "description": "An identifier for the referring provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "Identifiers for the referring provider.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerReferringProviderIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -15012,6 +15078,28 @@
         ],
         "type": "object"
       },
+      "OtherPayerReferringProviderIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
       "OtherPayerRenderingProvider": {
         "description": "Information about the rendering provider.",
         "properties": {
@@ -15019,9 +15107,9 @@
             "$ref": "#/components/schemas/OtherPayerRenderingProviderEntityTypeQualifier"
           },
           "otherPayerRenderingProviderSecondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "Identifiers for the rendering provider.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerRenderingProviderIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -15041,18 +15129,41 @@
         ],
         "type": "string"
       },
-      "OtherPayerSecondaryIdentifierItem": {
+      "OtherPayerRenderingProviderIdentifierItem": {
         "properties": {
           "identifier": {
-            "description": "The reference number.",
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
             "type": "string"
           },
           "otherIdentifier": {
             "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
             "type": "string"
           },
           "qualifier": {
-            "description": "The code identifying the type of reference number.",
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
+      "OtherPayerSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.",
             "type": "string"
           }
         },
@@ -15065,9 +15176,9 @@
       "OtherPayerServiceFacilityLocation": {
         "properties": {
           "otherPayerServiceFacilityLocationSecondaryIdentifier": {
-            "description": "A secondary identifier for the service facility location. The qualifier can be set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "A secondary identifier for the service facility location.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerServiceFacilityLocationSecondaryIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -15079,13 +15190,35 @@
         ],
         "type": "object"
       },
+      "OtherPayerServiceFacilityLocationSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `LU` - Location Number, or `G2` - Provider Commercial Number.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
       "OtherPayerSupervisingProvider": {
         "description": "Information about the supervising provider.",
         "properties": {
           "otherPayerSupervisingProviderIdentifier": {
-            "description": "An identifier for the supervising provider. The qualifier can be set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU - Location Number or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims. You can include up to three objects in this array.",
+            "description": "Identifiers for the supervising provider.",
             "items": {
-              "$ref": "#/components/schemas/ReferenceIdentification"
+              "$ref": "#/components/schemas/OtherPayerSupervisingProviderIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -15094,6 +15227,28 @@
         },
         "required": [
           "otherPayerSupervisingProviderIdentifier"
+        ],
+        "type": "object"
+      },
+      "OtherPayerSupervisingProviderIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, `LU` - Location Number or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
         ],
         "type": "object"
       },
@@ -17299,7 +17454,7 @@
         "type": "string"
       },
       "ProductOrServiceIDQualifier": {
-        "description": "A code identifying the type/source of the descriptive number used in Product/Service ID. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list.",
+        "description": "A code identifying the type/source of the descriptive number used in Product/Service ID. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier) for a complete list.",
         "enum": [
           "AD",
           "ER",
@@ -18035,27 +18190,6 @@
             "type": "string"
           }
         },
-        "type": "object"
-      },
-      "ReferenceIdentification": {
-        "properties": {
-          "identifier": {
-            "description": "The reference number.",
-            "type": "string"
-          },
-          "otherIdentifier": {
-            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `otherPayerName.otherPayerIdentifier` property.",
-            "type": "string"
-          },
-          "qualifier": {
-            "description": "The code identifying the type of reference number.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "identifier",
-          "qualifier"
-        ],
         "type": "object"
       },
       "Referring": {
@@ -20454,8 +20588,29 @@
         ],
         "type": "string"
       },
+      "ServiceFacilityLocationSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `G2` - Provider Commercial Number, or `LU` - Location Number.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
       "ServiceIdQualifierCode": {
-        "description": "A code identifying the type/source of the `procedureId`. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list.",
+        "description": "A code identifying the type/source of the `procedureId`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier) for a complete list.",
         "enum": [
           "AD",
           "ER",
@@ -20607,7 +20762,7 @@
           },
           "serviceFacilityLocation": {
             "$ref": "#/components/schemas/ServiceLineServiceFacilityLocation",
-            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n      - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n      - Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n      - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
+            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n  - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n  - Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n  - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
           },
           "serviceLineDateInformation": {
             "$ref": "#/components/schemas/ServiceLineDateInformation"
@@ -20729,7 +20884,7 @@
           },
           "productOrServiceIDQualifier": {
             "$ref": "#/components/schemas/ProductOrServiceIDQualifier",
-            "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Check claim status](https://www.stedi.com/docs/healthcare/check-claim-status#product-or-service-id-qualifier) for a complete list."
+            "description": "Code identifying the specific industry code list used for the `procedureCode`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#product-or-service-id-qualifier) for a complete list."
           },
           "revenueCode": {
             "description": "The revenue code for the service line. This is the National Uniform Billing Committee revenue code.",
@@ -20827,9 +20982,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "An identifier for the provider. The `qualifier` can be set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "description": "Secondary identifiers for the ordering provider.",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceLineOrderingProviderSecondaryIdentifierItem"
             },
             "maxItems": 20,
             "minItems": 1,
@@ -20856,6 +21011,27 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "ServiceLineOrderingProviderSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
         "type": "object"
       },
       "ServiceLineProviderPurchasedService": {
@@ -20931,8 +21107,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
+            "description": "Secondary identifiers for the purchased service provider.",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceLinePurchasedServiceProviderSecondaryIdentifierItem"
             },
             "maxItems": 20,
             "minItems": 1,
@@ -20962,18 +21139,18 @@
         },
         "type": "object"
       },
-      "ServiceLineReferenceIdentification": {
+      "ServiceLinePurchasedServiceProviderSecondaryIdentifierItem": {
         "properties": {
           "identifier": {
-            "description": "The reference number.",
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
             "type": "string"
           },
           "otherIdentifier": {
-            "deprecated": true,
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
             "type": "string"
           },
           "qualifier": {
-            "description": "The code identifying the type of reference number.",
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
             "type": "string"
           }
         },
@@ -21034,6 +21211,48 @@
         ],
         "type": "string"
       },
+      "ServiceLineReferringProviderSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, or `G2` - Provider Commercial Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
+      "ServiceLineRenderingProviderSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
+        "type": "object"
+      },
       "ServiceLineResponseIdentifier": {
         "properties": {
           "lineItemControlNumber": {
@@ -21075,9 +21294,9 @@
             "type": "string"
           },
           "secondaryIdentifier": {
-            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier). The `qualifier` can be set to `LU` - Location Number, or `G2` - Provider Commercial Number. You can include up to three objects in this array.",
+            "description": "Secondary identifier for the service facility location. Used when another identifier is needed for the claims processor to identify the facility or when the entity is not a healthcare provider and does not have an [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
             "items": {
-              "$ref": "#/components/schemas/ServiceLineReferenceIdentification"
+              "$ref": "#/components/schemas/ServiceFacilityLocationSecondaryIdentifierItem"
             },
             "maxItems": 3,
             "minItems": 1,
@@ -21120,6 +21339,27 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "ServiceLineSupervisingProviderSecondaryIdentifierItem": {
+        "properties": {
+          "identifier": {
+            "description": "The identifier. The format and length of this value depends on the `qualifier` you set.",
+            "type": "string"
+          },
+          "otherIdentifier": {
+            "description": "The identifier for the other payer who provided this reference number. This is only required when the reference number is provided by the non-destination payer. The value must match the `claimInformation.otherSubscriberInformation[].otherPayerName.otherPayerIdentifier` property.",
+            "type": "string"
+          },
+          "qualifier": {
+            "description": "Set to `0B` - State License Number, `1G` - Provider UPIN Number, `G2` - Provider Commercial Number, or `LU` - Location Number. Note that UPIN is deprecated and shouldn't be used for new claims.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "identifier",
+          "qualifier"
+        ],
         "type": "object"
       },
       "ServiceLineSupplementalInformationAttachmentReportTypeCode": {
