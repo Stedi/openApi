@@ -1810,10 +1810,6 @@
                         "pattern": "^\\S+@\\S+\\.\\S+$",
                         "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
-                    "status": {
-                        "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status - the default is `DRAFT` if not included. Set this to `STEDI_ACTION_REQUIRED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
-                    },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
                         "description": "The source of this enrollment."
@@ -1843,6 +1839,10 @@
                     "payer": {
                         "$ref": "#/components/schemas/EnrolledPayerInput",
                         "description": "Information about the payer the provider is enrolling with."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/InitialEnrollmentStatus",
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You're still editing the enrollment and haven't submitted it to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`."
                     }
                 },
                 "required": [
@@ -1899,6 +1899,10 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You're still editing the enrollment and haven't submitted it to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -1908,10 +1912,6 @@
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
                         "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
-                    },
-                    "status": {
-                        "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status - the default is `DRAFT` if not included. Set this to `STEDI_ACTION_REQUIRED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -2580,6 +2580,10 @@
                         },
                         "description": "Documents associated with this enrollment, such as signed enrollment forms. This list doesn't include deleted documents.\n\nEach document object contains metadata such as the document's name, status, and timestamps for creation and last update."
                     },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You're still editing the enrollment and haven't submitted it to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2589,10 +2593,6 @@
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
                         "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
-                    },
-                    "status": {
-                        "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status - the default is `DRAFT` if not included. Set this to `STEDI_ACTION_REQUIRED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
@@ -2688,6 +2688,15 @@
                     "npi",
                     "taxId",
                     "taxIdType"
+                ]
+            },
+            "InitialEnrollmentStatus": {
+                "type": "string",
+                "description": "The enrollment's status when it is first created. You can create enrollments in either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is set to `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.",
+                "enum": [
+                    "DRAFT",
+                    "SUBMITTED",
+                    "STEDI_ACTION_REQUIRED"
                 ]
             },
             "InternalFailureExceptionResponseContent": {
@@ -2981,10 +2990,6 @@
                         "pattern": "^\\S+@\\S+\\.\\S+$",
                         "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
                     },
-                    "status": {
-                        "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status - the default is `DRAFT` if not included. Set this to `STEDI_ACTION_REQUIRED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
-                    },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
                         "description": "The source of this enrollment."
@@ -3014,6 +3019,10 @@
                     "payer": {
                         "$ref": "#/components/schemas/EnrolledPayerInput",
                         "description": "Information about the payer the provider is enrolling with."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/InitialEnrollmentStatus",
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You're still editing the enrollment and haven't submitted it to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`."
                     }
                 },
                 "required": [
@@ -3070,6 +3079,10 @@
                         },
                         "description": "Documents associated with this enrollment, excluding deleted documents."
                     },
+                    "status": {
+                        "$ref": "#/components/schemas/EnrollmentStatus",
+                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status. The default status is `DRAFT` if not specified. When you're ready for Stedi to begin processing the enrollment, set the status to `STEDI_ACTION_REQUIRED`. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You're still editing the enrollment and haven't submitted it to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
+                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -3079,10 +3092,6 @@
                         "minLength": 5,
                         "pattern": "^\\S+@\\S+\\.\\S+$",
                         "description": "The email address where Stedi should send updates about the enrollment. We'll use it to notify you when there are next steps and send updates on the enrollment's status.\n\nThis email address can be different from the `primaryContact.email` where the payer sends communications about the enrollment."
-                    },
-                    "status": {
-                        "$ref": "#/components/schemas/EnrollmentStatus",
-                        "description": "The status of the enrollment. You can submit enrollments with either `DRAFT` or `STEDI_ACTION_REQUIRED` status - the default is `DRAFT` if not included. Set this to `STEDI_ACTION_REQUIRED` when you're ready for Stedi to begin processing the enrollment. Once an enrollment is `STEDI_ACTION_REQUIRED`, only Stedi can set or update its status.\n  - `DRAFT` - You are still editing the record and it has not been submitted to Stedi.\n  - `STEDI_ACTION_REQUIRED` - You have submitted the enrollment and it is ready for Stedi to begin processing.\n  - `PROVIDER_ACTION_REQUIRED` - The enrollment requires action from the healthcare provider to proceed, such as providing additional documentation. Stedi will add a note to your enrollment request with clear instructions.\n  - `SUBMITTED` - (Deprecated) Legacy status being phased out in favor of the more specific action-required statuses. If you set an enrollment request to `SUBMITTED`, Stedi treats it as `STEDI_ACTION_REQUIRED`.\n  - `PROVISIONING` - Stedi has begun the process of completing the enrollment with the payer.\n  - `LIVE` - The enrollment process is complete, and the specified provider can begin exchanging the listed transaction types with the payer.\n  - `REJECTED` - The payer rejected the enrollment. Common reasons for rejection include incorrect details in the request and that the provider is not credentialed with the payer. Customer support will contact you with reasons for rejection and next steps.\n  - `CANCELED` - The enrollment has been terminated per customer or provider request."
                     },
                     "source": {
                         "$ref": "#/components/schemas/EnrollmentSource",
