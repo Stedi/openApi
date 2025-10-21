@@ -11657,6 +11657,83 @@
         },
         "type": "object"
       },
+      "InstitutionalClaimSupplementalInformationServiceLine": {
+        "description": "Additional information or documentation required for the claim. This is where you can include information about [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments), if applicable.",
+        "properties": {
+          "adjustedRepricedClaimRefNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "autoAccidentState": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "claimControlNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "claimNumber": {
+            "deprecated": true,
+            "type": "string"
+          },
+          "demoProjectIdentifier": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "investigationalDeviceExemptionNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "medicalRecordNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "peerReviewAuthorizationNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "priorAuthorizationNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "referralNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "reportInformation": {
+            "$ref": "#/components/schemas/InstitutionalReportInformation",
+            "description": "Required when you plan to submit an [attachment](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify additional information that is being held at the provider's office and is available upon request.\n\nUse this object when there is a single attachment for the claim. If there are multiple attachments, use the `reportInformations` array instead."
+          },
+          "reportInformations": {
+            "description": "An array of report information for the claim. Use this when you need to submit multiple report information records. You can submit up to 10 objects in this array.\n\nRequired when you plan to submit [attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for the claim electronically through Stedi APIs or SFTP, when there is a paper attachment following this claim, or when the provider deems it necessary to identify that they have additional information at their office that is available upon request.",
+            "items": {
+              "$ref": "#/components/schemas/InstitutionalReportInformation"
+            },
+            "maxItems": 10,
+            "minItems": 0,
+            "type": "array"
+          },
+          "repricedClaimNumber": {
+            "deprecated": true,
+            "maxLength": 50,
+            "type": "string"
+          },
+          "serviceAuthorizationExceptionCode": {
+            "$ref": "#/components/schemas/InstitutionalServiceAuthorizationExceptionCode",
+            "deprecated": true
+          }
+        },
+        "type": "object"
+      },
       "InstitutionalClaimsExceptionCode": {
         "description": "Code specifying the exception reason for consideration of out-of-network health care services. Can be set to `1` - Non-Network Professional Provider in Network Hospital, `2` - Emergency Care, `3` - Services or Specialist not in Network, `4` - Out-of-Service Area, `5` - State Mandates, or `6` - Other.",
         "enum": [
@@ -13054,8 +13131,7 @@
             "description": "Information about the pricing or repricing of the service line. This information should only be completed by repricers."
           },
           "lineSupplementInformation": {
-            "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation",
-            "deprecated": true
+            "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformationServiceLine"
           },
           "operatingPhysician": {
             "$ref": "#/components/schemas/OperatingPhysician",
