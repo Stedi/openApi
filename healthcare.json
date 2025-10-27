@@ -23800,6 +23800,16 @@
       "post": {
         "description": "Submit a real-time 270/271 eligibility check in JSON format",
         "operationId": "EligibilityCheck",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Forwarded-For",
+            "schema": {
+              "description": "**(CMS requests only):** Starting November 8, 2025, the Centers for Medicare & Medicaid Services (CMS) requires submitters to include network IP addresses from an eligibility request's point of origin through receipt by the HETS system. To comply with this requirement, you may need to include this header in requests to CMS.\n\nWhen present, this header should contain a comma-separated list of upstream IP addresses, starting with the originating system and continuing through every intermediary. You can exclude your IP address from the list. Visit [CMS traceability requirements](https://www.stedi.com/docs/healthcare/send-eligibility-checks#cms-traceability-requirements) for details and examples.",
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -25160,6 +25170,16 @@
       "post": {
         "description": "Submit a real-time 270/271 eligibility check in raw X12 EDI format",
         "operationId": "EligibilityRawX12Check",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Forwarded-For",
+            "schema": {
+              "description": "**(CMS requests only):** Starting November 8, 2025, the Centers for Medicare & Medicaid Services (CMS) requires submitters to include network IP addresses from an eligibility request's point of origin through receipt by the HETS system. To comply with this requirement, you may need to include this header in requests to CMS.\n\nWhen present, this header should contain a comma-separated list of upstream IP addresses, starting with the originating system and continuing through every intermediary. You can exclude your IP address from the list. Visit [CMS traceability requirements](https://www.stedi.com/docs/healthcare/send-eligibility-checks#cms-traceability-requirements) for details and examples.",
+              "type": "string"
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
