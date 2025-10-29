@@ -2043,9 +2043,7 @@
                 "required": [
                     "id",
                     "name",
-                    "npi",
-                    "taxId",
-                    "taxIdType"
+                    "npi"
                 ]
             },
             "DocumentStatus": {
@@ -2659,7 +2657,7 @@
                     "npi": {
                         "type": "string",
                         "pattern": "^[0-9]{10}$",
-                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider.\n\nEach provider record must have a unique `npi` and `taxId` combination. For example, you can create two provider records with the same `npi` as long as they have different values for `taxId`."
+                        "description": "The provider's [National Provider Identifier (NPI)](https://npiregistry.cms.hhs.gov/search). This is a 10-digit number that is unique to the provider."
                     },
                     "taxIdType": {
                         "$ref": "#/components/schemas/TaxIdType",
@@ -2668,7 +2666,7 @@
                     "taxId": {
                         "type": "string",
                         "pattern": "^\\d{9}$",
-                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier has to be provided without any separators, such as dashes or spaces. For example 111-22-3333 is invalid but `111223333` is valid.\n\nEach provider record must have a unique `npi` and `taxId` combination. For example, you can create two provider records with the same `taxId` as long as they have different values for `npi`."
+                        "description": "The provider's tax ID, as specified by `taxIdType`. This identifier is formatted without any separators, such as dashes or spaces. For example 111-22-3333 is represented as `111223333`."
                     },
                     "name": {
                         "type": "string",
@@ -2686,9 +2684,7 @@
                 "required": [
                     "id",
                     "name",
-                    "npi",
-                    "taxId",
-                    "taxIdType"
+                    "npi"
                 ]
             },
             "InitialEnrollmentStatus": {
@@ -2848,9 +2844,7 @@
                 "required": [
                     "id",
                     "name",
-                    "npi",
-                    "taxId",
-                    "taxIdType"
+                    "npi"
                 ]
             },
             "ResourceNotFoundExceptionResponseContent": {
@@ -3210,9 +3204,7 @@
                 "required": [
                     "id",
                     "name",
-                    "npi",
-                    "taxId",
-                    "taxIdType"
+                    "npi"
                 ]
             },
             "ValidationExceptionField": {
