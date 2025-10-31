@@ -315,11 +315,11 @@
       "BatchEligibilityChecksRequestContent": {
         "properties": {
           "items": {
-            "description": "Each entry in this array represents a single eligibility check. You can submit up to 10,000 eligibility checks in a single request. **Warning:** If _any_ of the individual checks contain invalid JSON data, such as missing required properties or invalid values, Stedi rejects the entire batch with a `400` status code and returns errors to help you correct the issues.",
+            "description": "Each entry in this array represents a single eligibility check. You can submit up to 5,000 eligibility checks in a single request. **Warning:** If _any_ of the individual checks contain invalid JSON data, such as missing required properties or invalid values, Stedi rejects the entire batch with a `400` status code and returns errors to help you correct the issues.",
             "items": {
               "$ref": "#/components/schemas/BatchEligibilityChecksItem"
             },
-            "maxItems": 10000,
+            "maxItems": 5000,
             "minItems": 1,
             "type": "array"
           },
