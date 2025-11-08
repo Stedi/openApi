@@ -276,7 +276,7 @@
       "AdmittingDiagnosis": {
         "properties": {
           "admittingDiagnosisCode": {
-            "description": "The admitting diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "The admitting diagnosis code for the patient.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "maxLength": 30,
             "type": "string"
           },
@@ -2531,7 +2531,7 @@
         "type": "object"
       },
       "ClaimFilingCode": {
-        "description": "A code identifying the type of claim. For example `DS` - Disability.\n- Use `OF` when submitting Medicare Part D claims.\n- Use `ZZ` when you don't know the type of insurance.\n- Some payers reject claims with invalid codes. If you're not sure which code to use, we recommend running a [real-time eligibility check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) and using the value returned in the most relevant `benefitsInformation.insuranceTypeCode` property. Note that the eligibility response uses a different code list than claims, so you may need to map that code value to the appropriate claim filing code.\n\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
+        "description": "A code identifying the type of claim. For example `DS` - Disability.\n- Use `OF` when submitting Medicare Part D claims.\n- Use `ZZ` when you don't know the type of insurance.\n- Some payers reject claims with invalid codes. If you're not sure which code to use, we recommend running a [real-time eligibility check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) and using the value returned in the most relevant `benefitsInformation.insuranceTypeCode` property. Note that the eligibility response uses a different code list than claims, so you may need to map that code value to the appropriate claim filing code.\n\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#claim-filing-indicator-codes) for a complete list.",
         "enum": [
           "11",
           "12",
@@ -2712,7 +2712,7 @@
             "type": "array"
           },
           "healthCareCodeInformation": {
-            "description": "Details about the patient's healthcare diagnosis.\n- **Don't** submit the decimal for ICD codes; the decimal is implied.\n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n- One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims.",
+            "description": "Details about the patient's healthcare diagnosis.\n  - Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n  - One `ABK` code is required as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims.",
             "items": {
               "$ref": "#/components/schemas/ClaimsHealthCareInformation"
             },
@@ -4560,7 +4560,7 @@
       "ClaimsHealthCareInformation": {
         "properties": {
           "diagnosisCode": {
-            "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "The diagnosis code.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "type": "string"
           },
           "diagnosisTypeCode": {
@@ -6154,7 +6154,7 @@
             "type": "array"
           },
           "healthCareCodeInformation": {
-            "description": "Details about the patient's healthcare diagnosis. Only required when the diagnosis may have an impact on the adjudication of the claim in cases where specific dental procedures may minimize the risks associated with the connection between the patient's oral and systemic health conditions.\n- **Don't** submit the decimal for ICD codes; the decimal is implied.\n- Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n- Use one `ABK` code as the first object, and then you can submit up to 11 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims.",
+            "description": "Details about the patient's healthcare diagnosis. Only required when the diagnosis may have an impact on the adjudication of the claim in cases where specific dental procedures may minimize the risks associated with the connection between the patient's oral and systemic health conditions.\n  - Use `ABK` as the type for the principal diagnosis code and `ABF` for any other diagnosis codes you include.\n  - Use one `ABK` code as the first object, and then you can submit up to 3 `ABF` codes as needed. If you need to submit more codes than this, you must create additional, separate claims.",
             "items": {
               "$ref": "#/components/schemas/DentalHealthCareInformation"
             },
@@ -6556,11 +6556,11 @@
         "type": "string"
       },
       "DentalDependent": {
-        "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
+        "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The patient's date of birth",
@@ -6621,7 +6621,7 @@
       "DentalHealthCareInformation": {
         "properties": {
           "diagnosisCode": {
-            "description": "The diagnosis code. **Do not** submit the decimal point for ICD codes. The decimal point is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "The diagnosis code.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "type": "string"
           },
           "diagnosisTypeCode": {
@@ -6981,7 +6981,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
@@ -7490,7 +7490,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The subscriber's date of birth. This property is **required** if the subscriber is an individual.",
@@ -7555,11 +7555,11 @@
         "type": "object"
       },
       "Dependent": {
-        "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
+        "description": "Dependent who received the medical care associated with the claim. Note that if the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "contactInformation": {
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
@@ -9650,7 +9650,7 @@
       "ExternalCauseOfInjury": {
         "properties": {
           "externalCauseOfInjury": {
-            "description": "The external cause of injury code(s) for the patient. These must be valid codes from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied.",
+            "description": "The external cause of injury code(s) for the patient.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "maxLength": 30,
             "type": "string"
           },
@@ -11322,7 +11322,7 @@
             "$ref": "#/components/schemas/InstitutionalClaimSupplementalInformation"
           },
           "conditionCodes": {
-            "description": "Indicates the condition of the patient for EPSDT referral situations. Can be set to `AV` - Available-Not Used, `NU` - Not Used, `S2` - Under Treatment, `ST` - New Services Requested. Uset `AV` when the patient refused a referral. Use `S2` when the patient is currently under treatment for the referred diagnostic or corrective health problem. Use `ST` when the patient is referred to another provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals) OR the patient is scheduled for another appointment with the screening provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals).",
+            "description": "Indicates the condition of the patient for EPSDT referral situations. Can be set to `AV` - Available-Not Used, `NU` - Not Used, `S2` - Under Treatment, `ST` - New Services Requested.\n  - Use `AV` when the patient refused a referral.\n  - Use `S2` when the patient is currently under treatment for the referred diagnostic or corrective health problem.\n  - Use `ST` when the patient is referred to another provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals) OR the patient is scheduled for another appointment with the screening provider for diagnostic or corrective treatment for at least one health problem identified during an initial or periodic screening service (not including dental referrals).",
             "items": {
               "$ref": "#/components/schemas/ClaimInformationConditionCodesItem"
             },
@@ -11331,7 +11331,7 @@
             "type": "array"
           },
           "conditionCodesList": {
-            "description": "Required when there is a Condition Code that applies to this claim. \n\n This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects. Each object must have the following required property:\n    - `conditionCode`: The condition code.",
+            "description": "Required when there is a Condition Code that applies to this claim. \n\n This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/InstitutionalConditionInformation"
@@ -11372,7 +11372,7 @@
             "type": "array"
           },
           "occurrenceInformationList": {
-            "description": "Required when there is a Occurrence Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following properties:\n    - `occurrenceSpanCode`: The occurrence span code.\n    - `occurrenceSpanCodeDate`: A date or date range for the occurrence.",
+            "description": "Required when there is a Occurrence Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/OccurrenceInformation"
@@ -11385,7 +11385,7 @@
             "type": "array"
           },
           "occurrenceSpanInformations": {
-            "description": "Required when there is an Occurrence Span Code that applies to this claim. This is an array or arrays of objects. You can provide up to two object arrays and each array can contain up to 12 objects.\n\n Each object must contain the following properties:\n    - `occurrenceSpanCode`: The occurrence span code.\n    - `occurrenceSpanCodeStartDate`: The start date for the occurrence span.\n    - `occurrenceSpanCodeEndDate`: The end date for the occurrence span.",
+            "description": "Required when there is an Occurrence Span Code that applies to this claim. This is an array or arrays of objects. You can provide up to two object arrays and each array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/OccurrenceSpanInformation"
@@ -11398,7 +11398,7 @@
             "type": "array"
           },
           "otherDiagnosisInformationList": {
-            "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. You can provide up to two codes in this array. \n\n**Do not** submit the decimal for ICD codes; the decimal is implied. \n\nAlso, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.\n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each object array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `ABF`: International Classification of Diseases Clinical Modification (ICD-10-CM) Diagnosis or `BF`: International Classification of Diseases Clinical Modification (ICD-9-CM) Diagnosis. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions.\n    - `otherDiagnosisCode`: The code from the code set specified in `qualifierCode`.\n\nEach object can contain the following additional property:\n    - `presentOnAdmissionIndicator`: A code indicating whether the condition was present on admission. You can set this to `N`: No, `Y`: Yes, `U`: Unknown, or `W`: Not Applicable.",
+            "description": "Additional diagnosis codes relevant to the claim. Required when other condition(s) coexist or develop(s) subsequently during the patient's treatment. This is an array of arrays of objects. You can provide up to two object arrays, and each object array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/OtherDiagnosisInformation"
@@ -11411,7 +11411,7 @@
             "type": "array"
           },
           "otherProcedureInformationList": {
-            "description": "Required on inpatient claims when additional procedures must be reported. \n\nThis is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `qualifierCode`: Identifies an industry code list. This can be set to `BBQ`: International Classification of Diseases Clinical Modification (ICD-10-PCS) Other Procedure Codes or `BQ`: International Classification of Diseases Clinical Modification (ICD-9-CM) Other Procedure Codes. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions.\n    - `otherProcedureCode`: The code from the code set specified in `qualifierCode`.\n    - `otherProcedureDate`: A date expressed in YYYYMMDD format.",
+            "description": "Required on inpatient claims when additional procedures must be reported. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/OtherProcedureInformation"
@@ -11505,7 +11505,7 @@
             "type": "array"
           },
           "valueInformationList": {
-            "description": "Required when there is a Value Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.\n\n Each object must contain the following required properties:\n    - `valueCode`: The value code.\n    - `valueCodeAmount`: The monetary amount associated with the value code, expressed as a decimal.",
+            "description": "Required when there is a Value Code that applies to this claim. This is an array of arrays of objects. You can provide up to two object arrays, and each array can contain up to 12 objects.",
             "items": {
               "items": {
                 "$ref": "#/components/schemas/ValueInformation"
@@ -11843,7 +11843,7 @@
           },
           "dependent": {
             "$ref": "#/components/schemas/InstitutionalDependent",
-            "description": "Dependent who received the medical care associated with the claim. When the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present."
+            "description": "Dependent who received the medical care associated with the claim. When the dependent has their own member ID for the health plan, you should include the dependent's information in the `subscriber` object instead. To check whether a dependent has a member ID, submit an [Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) to the payer. The payer returns the dependent's member ID in the `dependents.memberId` property in the response, if present."
           },
           "operatingPhysician": {
             "$ref": "#/components/schemas/OperatingPhysician",
@@ -11963,6 +11963,7 @@
       "InstitutionalConditionInformation": {
         "properties": {
           "conditionCode": {
+            "description": "The condition code.",
             "maxLength": 30,
             "type": "string"
           }
@@ -12024,7 +12025,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The patient's date of birth.",
@@ -13532,7 +13533,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependents` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n      - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n      - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependents` object in the response.\n      - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The subscriber's date of birth, formatted as `YYYYMMDD`.",
@@ -14676,10 +14677,12 @@
       "OccurrenceInformation": {
         "properties": {
           "occurrenceSpanCode": {
+            "description": "The occurrence span code.",
             "maxLength": 30,
             "type": "string"
           },
           "occurrenceSpanCodeDate": {
+            "description": "The date or date range for the occurrence span.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
             "type": "string"
           }
@@ -14693,14 +14696,17 @@
       "OccurrenceSpanInformation": {
         "properties": {
           "occurrenceSpanCode": {
+            "description": "The occurrence span code.",
             "maxLength": 30,
             "type": "string"
           },
           "occurrenceSpanCodeEndDate": {
+            "description": "The end date for the occurrence span.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "occurrenceSpanCodeStartDate": {
+            "description": "The start date for the occurrence span.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -14864,7 +14870,7 @@
       "OtherDiagnosisInformation": {
         "properties": {
           "otherDiagnosisCode": {
-            "description": "A diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "A diagnosis code for the patient.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "maxLength": 30,
             "type": "string"
           },
@@ -15331,15 +15337,18 @@
       "OtherProcedureInformation": {
         "properties": {
           "otherProcedureCode": {
+            "description": "The code from the code set specified in `qualifierCode`. Don't submit the decimal for ICD codes; the decimal is implied.",
             "maxLength": 30,
             "type": "string"
           },
           "otherProcedureDate": {
+            "description": "The date when the procedure was performed.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "qualifierCode": {
-            "$ref": "#/components/schemas/OtherProcedureInformationQualifierCode"
+            "$ref": "#/components/schemas/OtherProcedureInformationQualifierCode",
+            "description": "Identifies an industry code list. This can be set to `BBQ`: International Classification of Diseases Clinical Modification (ICD-10-PCS) Other Procedure Codes or `BQ`: International Classification of Diseases Clinical Modification (ICD-9-CM) Other Procedure Codes. Note that ICD-9-CM codes are deprecated and shouldn't be used in new claim submissions."
           }
         },
         "required": [
@@ -15602,7 +15611,7 @@
             "type": "string"
           },
           "transactionId": {
-            "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi.",
+            "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
             "type": "string"
           }
         },
@@ -15761,7 +15770,7 @@
       "PatientReasonForVisit": {
         "properties": {
           "patientReasonForVisitCode": {
-            "description": "The patient's reason for visit code. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "The patient's reason for visit code.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "maxLength": 30,
             "type": "string"
           },
@@ -17444,7 +17453,7 @@
             "$ref": "#/components/schemas/PrincipalDiagnosisPresentOnAdmissionIndicator"
           },
           "principalDiagnosisCode": {
-            "description": "The principal diagnosis code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied. Also, **do not** submit IDC-10 header codes. Header codes exist to group related codes and are not valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "description": "The principal diagnosis code for the patient.\n  - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n  - **Don't** submit the decimal point for ICD codes. The decimal point is implied.\n  - **Don't** submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the [Value Set Authority Center](https://vsac.nlm.nih.gov/context/cs). If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
             "maxLength": 30,
             "type": "string"
           },
@@ -17479,7 +17488,7 @@
       "PrincipalProcedureInformation": {
         "properties": {
           "principalProcedureCode": {
-            "description": "The principal procedure code for the patient. It must be a valid code from the appropriate coding system. **Do not** submit the decimal for ICD codes; the decimal is implied.",
+            "description": "The principal procedure code for the patient. It must be a valid code from the appropriate coding system. **Don't** submit the decimal for ICD codes; the decimal is implied.",
             "maxLength": 30,
             "type": "string"
           },
@@ -18544,7 +18553,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
@@ -19320,7 +19329,7 @@
         "type": "object"
       },
       "RequestSubscriberDependentAddress": {
-        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n- The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n- If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n- If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach.",
+        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n- The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n- If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n- If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach.",
         "properties": {
           "address1": {
             "description": "The first line of the street address. This typically contains the building number and street name.",
@@ -21902,7 +21911,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
           },
           "contactInformation": {
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
@@ -22783,10 +22792,12 @@
       "ValueInformation": {
         "properties": {
           "valueCode": {
+            "description": "The value code.",
             "maxLength": 30,
             "type": "string"
           },
           "valueCodeAmount": {
+            "description": "The monetary amount associated with the value code, expressed as a decimal.",
             "pattern": "^\\d+(\\.\\d{1,2})?$",
             "type": "string"
           }
@@ -27266,7 +27277,7 @@
         "operationId": "ConvertReport277",
         "parameters": [
           {
-            "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi portal.",
+            "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
             "examples": {
               "ConvertReport277_example1": {
                 "description": "",
@@ -27283,7 +27294,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi portal.",
+              "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
               "type": "string"
             }
           }
@@ -27840,7 +27851,7 @@
         "operationId": "ConvertReport835",
         "parameters": [
           {
-            "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi portal.",
+            "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
             "examples": {
               "ConvertReport835_example1": {
                 "description": "",
@@ -27852,7 +27863,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within the Stedi portal.",
+              "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
               "type": "string"
             }
           }
@@ -28922,7 +28933,7 @@
         "operationId": "GetPDF1500",
         "parameters": [
           {
-            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi.",
+            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
             "examples": {
               "GetPDF1500_example1": {
                 "description": "",
@@ -28934,7 +28945,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/api-reference/edi-platform/core/get-pollingtransactions) or from the transaction's details page within Stedi.",
+              "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
               "type": "string"
             }
           },
