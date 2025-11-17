@@ -487,6 +487,109 @@
         },
         "type": "object"
       },
+      "BatchItem": {
+        "description": "A batch item representing an individual record in a batch.",
+        "properties": {
+          "additionalInfo": {
+            "$ref": "#/components/schemas/BatchItemAdditionalInfo",
+            "description": "Additional information about the eligibility check."
+          },
+          "batchId": {
+            "description": "The ID for the batch containing this eligibility check.",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time when the eligibility check was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "index": {
+            "description": "Only relevant for batches submitted through the JSON API. This is the index of the item in the batch. It starts at 0.",
+            "type": "number"
+          },
+          "requestId": {
+            "description": "A globally unique identifier for this eligibility check within Stedi. Stedi uses this identifier to construct the URL for the eligibility check's detail pages within the Stedi portal.\n\nDon't use this ID to correlate eligibility check requests and responses. Use the `submitterTransactionIdentifier` property for correlation and tracking instead.",
+            "type": "string"
+          },
+          "rowNumber": {
+            "description": "Only relevant for batches submitted through CSV upload. This is the row number for this eligibility check in the CSV file. It starts at 2 because the first row of the CSV file is the header.",
+            "type": "number"
+          },
+          "state": {
+            "$ref": "#/components/schemas/BatchItemState",
+            "description": "The current state of the eligibility check. Can be:\n  - `PENDING`: Stedi hasn't begun processing the eligibility check.\n  - `VALIDATED`: Stedi finished validating the eligibility check and is ready to execute it.\n  - `VALIDATION_FAILED`: Stedi found errors in the eligibility check that you need to fix before processing can continue. This is typically due to malformed CSV data, missing required fields, or invalid values.\n  - `STARTED`: Stedi has begun processing the eligibility check.\n  - `RETRYING`: Stedi is retrying the eligibility check. Stedi retries eligibility checks that fail due to payer connectivity issues for up to 8 hours.\n  - `COMPLETED`: Stedi successfully processed the eligibility check and received a response from the payer. This doesn't indicate that the payer has active coverage, only that Stedi was able to get a response.\n  - `COMPLETED_WITH_ERRORS`: Stedi finished processing the eligibility check, but couldn't get a response from the payer. A common reason for failure is payer connectivity issues."
+          },
+          "updatedAt": {
+            "description": "The date and time when the eligibility check was last updated.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "batchId",
+          "createdAt",
+          "state",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "BatchItemAdditionalInfo": {
+        "description": "Additional information about the batch item, based on the batch type.",
+        "oneOf": [
+          {
+            "properties": {
+              "eligibility": {
+                "$ref": "#/components/schemas/EligibilityBatchItemInfo",
+                "description": "Additional information specific to eligibility batch items."
+              }
+            },
+            "required": [
+              "eligibility"
+            ],
+            "title": "eligibility",
+            "type": "object"
+          }
+        ]
+      },
+      "BatchItemState": {
+        "description": "The current state of a batch item, which represents an eligibility check within a batch.",
+        "enum": [
+          "PENDING",
+          "VALIDATED",
+          "VALIDATION_FAILED",
+          "STARTED",
+          "RETRYING",
+          "COMPLETED",
+          "COMPLETED_WITH_ERRORS"
+        ],
+        "type": "string"
+      },
+      "BatchSource": {
+        "enum": [
+          "CSV_IMPORT",
+          "API"
+        ],
+        "type": "string"
+      },
+      "BatchStatus": {
+        "description": "The status of the batch.",
+        "enum": [
+          "PENDING",
+          "VALIDATED",
+          "VALIDATION_FAILED",
+          "IN_PROGRESS",
+          "COMPLETED",
+          "COMPLETED_WITH_ERRORS"
+        ],
+        "type": "string"
+      },
+      "BatchType": {
+        "description": "The type of batch.",
+        "enum": [
+          "ELIGIBILITY"
+        ],
+        "type": "string"
+      },
       "BenefitRelatedEntityIdentification": {
         "description": "Code identifying the type of value provided in `entityIdentificationValue`. For example, `FI` - Federal Taxpayer's Identification Number.\n\nPayers may sometimes return other non-compliant values.",
         "enum": [
@@ -1482,6 +1585,60 @@
         },
         "type": "object"
       },
+      "EligibilityBatchItemInfo": {
+        "description": "Additional information specific to eligibility batch items.",
+        "properties": {
+          "aaaErrors": {
+            "description": "When a payer rejects your eligibility check, the response contains one or more [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) that specify the reasons for the rejection and any recommended follow-up actions.\n\nAny errors that occur at the `payer`, `provider`, `subscriber`, or `dependents` levels are also included in this array, allowing you to review all errors in a central location. If there are no `AAA` errors, this array will be empty.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckError"
+            },
+            "type": "array"
+          },
+          "eligibilitySearchId": {
+            "description": "The eligibility search ID for this eligibility check. This is an identifier that allows Stedi to group eligibility checks for the same patient into a unified record within [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager) called an eligibility search.\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
+          "eligibilitySearchStatus": {
+            "$ref": "#/components/schemas/EligibilitySearchStatus",
+            "description": "The status of the eligibility check. Can be:\n  - `queued`: Stedi placed the eligibility check in its internal queue and will send it to the payer when resources are available. This status is common when you schedule batch eligibility check refreshes through the API or perform large bulk retries that exceed your account's concurrency budget. You can typically expect the status to change to `Started` within a few seconds.\n  - `started`: Stedi has sent the eligibility check to the payer and is waiting for a response.\n  - `failed`: The payer returned an error code in the response. Review the error code and retry the eligibility check.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services."
+          },
+          "outboundTraceId": {
+            "description": "A unique Stedi-generated identifier for the eligibility check. It's required for the generated X12 EDI transaction Stedi sends to payers. This identifier is different from the `requestId` and the `submitterTransactionIdentifier`.\n  - You can use this identifier to find an eligibility check in the Stedi portal. Click **Find by ID** in the navigation bar and enter the `outboundTraceId` to go directly to the eligibility check's details page.\n  - Don't use this ID to correlate eligibility check requests and responses. Use the `submitterTransactionIdentifier` property for correlation and tracking instead.",
+            "type": "string"
+          },
+          "payerId": {
+            "description": "The payer ID for this eligibility check.",
+            "type": "string"
+          },
+          "providerName": {
+            "description": "The provider's name as provided in the eligibility check.",
+            "type": "string"
+          },
+          "providerNpi": {
+            "description": "The provider's NPI as provided in the eligibility check.",
+            "pattern": "^\\d{10}$",
+            "type": "string"
+          },
+          "submitterTransactionIdentifier": {
+            "description": "The unique identifier you assigned to the eligibility check when you submitted the batch. Stedi also returns this identifier in the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-polling-eligibility) endpoint response, allowing you to correlate eligibility check requests and responses.",
+            "type": "string"
+          },
+          "subscriberFirstName": {
+            "description": "The subscriber's first name as provided in the eligibility check.",
+            "type": "string"
+          },
+          "subscriberLastName": {
+            "description": "The subscriber's last name as provided in the eligibility check.",
+            "type": "string"
+          },
+          "subscriberMemberId": {
+            "description": "The subscriber's member ID as provided in the eligibility check.",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "EligibilityCheckDependentError": {
         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
         "properties": {
@@ -1873,6 +2030,16 @@
         },
         "type": "object"
       },
+      "EligibilitySearchStatus": {
+        "enum": [
+          "active",
+          "failed",
+          "inactive",
+          "started",
+          "queued"
+        ],
+        "type": "string"
+      },
       "EmploymentStatusCode": {
         "description": "Payers may sometimes return other non-compliant values.",
         "enum": [
@@ -2013,6 +2180,97 @@
           "U"
         ],
         "type": "string"
+      },
+      "GetBatchItemsResponseContent": {
+        "description": "Common output structure for list operations with pagination support.",
+        "properties": {
+          "items": {
+            "description": "A list of batch items. Each `item` represents a single eligibility check in the batch. Unlike the polling endpoint, which only returns results for completed eligibility checks, this endpoint returns results for all eligibility checks in the batch, regardless of their processing status.\n\nAll batch items may not be returned in a single response; use the `nextPageToken` to retrieve subsequent pages of results.",
+            "items": {
+              "$ref": "#/components/schemas/BatchItem"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token for pagination to retrieve the next page of results; null if there are no more results",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "GetBatchResponseContent": {
+        "properties": {
+          "batchType": {
+            "$ref": "#/components/schemas/BatchType",
+            "description": "The type of batch. Currently only supports eligibility."
+          },
+          "createdAt": {
+            "description": "The date and time when the batch was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "errorCount": {
+            "description": "The number of eligibility checks that failed during processing. A failure means that Stedi successfully processed the check but didn't receive a response from the payer, even after retrying. A common reason for failure is payer connectivity issues.",
+            "type": "number"
+          },
+          "id": {
+            "description": "The unique identifier for the batch. This is the `batchId` returned in the Batch Eligibility Check endpoint response. It's also listed as the **Batch ID** in the Stedi portal.",
+            "type": "string"
+          },
+          "importUrl": {
+            "description": "The URL to download the original CSV file. Only relevant for batches submitted through CSV upload in the Stedi portal.",
+            "type": "string"
+          },
+          "inProgressCount": {
+            "description": "The number of eligibility checks that are currently in progress (started or retrying).",
+            "type": "number"
+          },
+          "name": {
+            "description": "The name assigned to the batch upon creation. For CSV uploads, this is the name you provided when uploading the file. For API submissions, this is the same as the `batchId`.",
+            "pattern": "^[a-zA-Z0-9-_]{1,100}$",
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/BatchSource",
+            "description": "How the batch was submitted. Can be:\n  - `API`: The batch was submitted through the Batch Eligibility Check endpoint.\n  - `CSV_IMPORT`: The batch was submitted through CSV upload in the Stedi portal."
+          },
+          "status": {
+            "$ref": "#/components/schemas/BatchStatus",
+            "description": "The status of the batch. Can be:\n  - `PENDING`: Stedi created the batch and is waiting for the CSV file to finish uploading.\n  - `VALIDATED`: Stedi finished validating the batch and is ready to start executing it.\n  - `VALIDATION_FAILED`: Stedi found errors in the batch submission that you need to fix before processing can continue. This is usually due to malformed CSV data.\n  - `IN_PROGRESS`: Stedi is processing the batch. Some eligibility checks in the batch may be complete while others are still in progress.\n  - `COMPLETED`: Stedi finished processing all items in the batch successfully. This doesn't mean that all eligibility checks successfully returned benefits information, only that Stedi successfully sent them to the payers and received responses.\n  - `COMPLETED_WITH_ERRORS`: Stedi finished processing all eligibility checks in the batch, but some failed. A common reason for failure is payer connectivity issues."
+          },
+          "successCount": {
+            "description": "The number of eligibility checks that were successfully completed. This means that Stedi successfully sent the check to the payer and received a response, but doesn't indicate whether the payer returned benefits information.",
+            "type": "number"
+          },
+          "totalCount": {
+            "description": "The total number of eligibility checks in the batch. In the case of CSV uploads, one row in the CSV file corresponds to one eligibility check.",
+            "type": "number"
+          },
+          "updatedAt": {
+            "description": "The date and time when the batch was last updated.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "validatedCount": {
+            "description": "The number of eligibility checks that Stedi has validated.",
+            "type": "number"
+          },
+          "validationFailedCount": {
+            "description": "The number of eligibility checks that failed validation. This is relevant to CSV uploads, where Stedi validates each row in the CSV file before processing it.",
+            "type": "number"
+          }
+        },
+        "required": [
+          "batchType",
+          "createdAt",
+          "id",
+          "name",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
       },
       "GovernmentServiceAffiliationCode": {
         "description": "Payers may sometimes return other non-compliant values.",
@@ -5316,6 +5574,293 @@
               }
             },
             "description": "ResourceConflictException 409 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        }
+      }
+    },
+    "/eligibility-manager/batch/{batchId}": {
+      "get": {
+        "description": "Retrieve the status of an eligibility check batch submitted through the API or CSV upload",
+        "operationId": "GetBatch",
+        "parameters": [
+          {
+            "description": "The unique identifier for the batch. This is the `batchId` returned in the Batch Eligibility Check endpoint response. It's also listed as the **Batch ID** in the Stedi portal.",
+            "examples": {
+              "GetBatch_example1": {
+                "description": "",
+                "summary": "CSV Batch",
+                "value": "01976b18-6d90-71d1-b27b-2556a9fbf837"
+              },
+              "GetBatch_example2": {
+                "description": "",
+                "summary": "API Batch",
+                "value": "01976a49-05f4-7421-bc33-aed86f1fccc6"
+              }
+            },
+            "in": "path",
+            "name": "batchId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the batch. This is the `batchId` returned in the Batch Eligibility Check endpoint response. It's also listed as the **Batch ID** in the Stedi portal.",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetBatch_example1": {
+                    "description": "",
+                    "summary": "CSV Batch",
+                    "value": {
+                      "batchType": "ELIGIBILITY",
+                      "createdAt": "2025-06-13T21:00:52.496Z",
+                      "errorCount": 5,
+                      "id": "01976b18-6d90-71d1-b27b-2556a9fbf837",
+                      "importUrl": "https://s3.amazonaws.com/bucket/key",
+                      "inProgressCount": 0,
+                      "name": "test_CSV_upload",
+                      "source": "CSV_IMPORT",
+                      "status": "COMPLETED_WITH_ERRORS",
+                      "successCount": 245,
+                      "totalCount": 250,
+                      "updatedAt": "2025-06-16T15:59:20.312Z"
+                    }
+                  },
+                  "GetBatch_example2": {
+                    "description": "",
+                    "summary": "API Batch",
+                    "value": {
+                      "batchType": "ELIGIBILITY",
+                      "createdAt": "2025-06-13T17:14:20.02Z",
+                      "errorCount": 0,
+                      "id": "01976a49-05f4-7421-bc33-aed86f1fccc6",
+                      "inProgressCount": 0,
+                      "name": "01976a49-05f4-7421-bc33-aed86f1fccc6",
+                      "source": "API",
+                      "status": "COMPLETED",
+                      "successCount": 9000,
+                      "totalCount": 9000,
+                      "updatedAt": "2025-06-13T17:14:24.872Z",
+                      "validatedCount": 0,
+                      "validationFailedCount": 0
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetBatchResponseContent"
+                }
+              }
+            },
+            "description": "GetBatch 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "UnauthorizedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        }
+      }
+    },
+    "/eligibility-manager/batch/{batchId}/items": {
+      "get": {
+        "description": "Retrieve status information for all eligibility checks within a batch, regardless of processing status",
+        "operationId": "GetBatchItems",
+        "parameters": [
+          {
+            "description": "The unique identifier for the batch. This is the `batchId` returned in the Batch Eligibility Check endpoint response. It's also listed as the **Batch ID** in the Stedi portal.",
+            "examples": {
+              "GetBatchItems_example1": {
+                "description": "",
+                "summary": "Get Batch Items",
+                "value": "01932c61-2d4f-7d22-85fa-c7db2e13e771"
+              }
+            },
+            "in": "path",
+            "name": "batchId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the batch. This is the `batchId` returned in the Batch Eligibility Check endpoint response. It's also listed as the **Batch ID** in the Stedi portal.",
+              "type": "string"
+            }
+          },
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "A token returned by a previous call to this operation in the `nextPageToken` property. You can use it to retrieve the next page of results. If no `pageToken` is included in the request, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "A token returned by a previous call to this operation in the `nextPageToken` property. You can use it to retrieve the next page of results. If no `pageToken` is included in the request, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetBatchItems_example1": {
+                    "description": "",
+                    "summary": "Get Batch Items",
+                    "value": {
+                      "items": [
+                        {
+                          "additionalInfo": {
+                            "eligibility": {
+                              "eligibilitySearchId": "01932c61-2d4f-7d22-85fa-c7db2e13e771",
+                              "eligibilitySearchStatus": "active",
+                              "payerId": "BCBS",
+                              "subscriberFirstName": "John",
+                              "subscriberLastName": "Doe",
+                              "subscriberMemberId": "123456789"
+                            }
+                          },
+                          "batchId": "01932c61-2d4f-7d22-85fa-c7db2e13e771",
+                          "createdAt": "2025-03-31T14:25:30Z",
+                          "requestId": "req-01a2b3c4-d5e6-7f89-0123-456789abcdef",
+                          "rowNumber": 1,
+                          "state": "COMPLETED",
+                          "updatedAt": "2025-03-31T14:26:45Z"
+                        },
+                        {
+                          "additionalInfo": {
+                            "eligibility": {
+                              "eligibilitySearchId": "01932c61-2d4f-7d22-85fa-c7db2e13e772",
+                              "eligibilitySearchStatus": "failed",
+                              "payerId": "AETNA",
+                              "subscriberFirstName": "Jane",
+                              "subscriberLastName": "Smith",
+                              "subscriberMemberId": "987654321"
+                            }
+                          },
+                          "batchId": "01932c61-2d4f-7d22-85fa-c7db2e13e771",
+                          "createdAt": "2025-03-31T14:25:30Z",
+                          "requestId": "req-02a2b3c4-d5e6-7f89-0123-456789abcdef",
+                          "rowNumber": 2,
+                          "state": "COMPLETED_WITH_ERRORS",
+                          "updatedAt": "2025-03-31T14:27:15Z"
+                        }
+                      ],
+                      "nextPageToken": "945ff6de213d3ef481d028065d4c12fb996a166a3a90ef98564318decfae50ce4b36d74b7e9d9bafa6e1d169"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetBatchItemsResponseContent"
+                }
+              }
+            },
+            "description": "GetBatchItems 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "UnauthorizedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
           },
           "500": {
             "content": {
