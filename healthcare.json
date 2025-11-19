@@ -9477,6 +9477,16 @@
         },
         "type": "object"
       },
+      "EnrollmentProcessTimeframe": {
+        "description": "Stedi's expected timeframe for completing the transaction enrollment process. `INSTANT` indicates that the enrollment will be in `LIVE` status within minutes of submitting the request.",
+        "enum": [
+          "INSTANT",
+          "HOURS",
+          "DAYS",
+          "WEEKS"
+        ],
+        "type": "string"
+      },
       "EnrollmentProcessType": {
         "description": "Whether transaction enrollment is single or multi-step.\n  - `ONE_CLICK` indicates that once you submit the transaction enrollment request, Stedi can complete the rest of the enrollment process without any further action from you.\n  - `MULTI_STEP` indicates that you must complete additional steps to finish the enrollment process. Customer support will reach out with clear instructions explaining how to complete any remaining steps.",
         "enum": [
@@ -22420,6 +22430,9 @@
       "TransactionEnrollmentProcess": {
         "description": "Details about the enrollment process for a specific transaction type.",
         "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
           "type": {
             "$ref": "#/components/schemas/EnrollmentProcessType"
           }
@@ -33262,6 +33275,7 @@
                           "ptanRequired": false,
                           "transactionEnrollmentProcesses": {
                             "claimPayment": {
+                              "timeframe": "INSTANT",
                               "type": "ONE_CLICK"
                             }
                           }
@@ -33827,6 +33841,7 @@
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
+                                  "timeframe": "INSTANT",
                                   "type": "ONE_CLICK"
                                 }
                               }
@@ -34024,6 +34039,7 @@
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
+                                  "timeframe": "WEEKS",
                                   "type": "ONE_CLICK"
                                 }
                               }
