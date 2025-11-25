@@ -2665,7 +2665,7 @@
           },
           "claimFrequencyCode": {
             "$ref": "#/components/schemas/ClaimFrequencyCode",
-            "description": "Code specifying the frequency of the claim. Can be set to `1` - Admit thru Discharge Claim, `7` - Replacement of Prior Claim, or `8` - Void/Cancel of Prior Claim. Visit the National Uniform Billing Committee for a [complete code list](https://www.nubc.org/system/files/media/file/2019/06/billTypeFrequencyCodes837.pdf) and usage notes."
+            "description": "[Bill Type Frequency Code](https://www.nubc.org/system/files/media/file/2019/06/billTypeFrequencyCodes837.pdf) specifying the frequency of the claim. Can be set to `1` - Admit thru Discharge Claim, `7` - Replacement of Prior Claim, or `8` - Void/Cancel of Prior Claim.\n  - Set this to `1` when you're submitting a new claim and when you're resubmitting a claim that was rejected before it entered the payer's processing system. You must also set this property to `1` for every resubmission to Original Medicare because Original Medicare doesn't accept code `7`.\n  - Set this to `7` when you need to resubmit a corrected claim that the payer has already processed. These are claims that the payer has already adjudicated or claims that the payer has rejected with a 277CA containing the Payer Claim Control Number (PCCN), indicating it has entered the payer's system.\n  - When resubmitting with code `7` or voiding with code `8`, you must also include the Payer Claim Control Number (sometimes called the ICN) in the `claimInformation.claimSupplementalInformation.claimControlNumber` property. An exception is Original Medicare, which requires that you omit the Payer Claim Control Number from resubmissions.\n  - For resubmissions and cancellations, we strongly recommend including a unique Patient Control Number in the `claimInformation.patientControlNumber` for tracking purposes.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details."
           },
           "claimNote": {
             "$ref": "#/components/schemas/ClaimNote"
@@ -4325,7 +4325,7 @@
             "type": "string"
           },
           "claimControlNumber": {
-            "description": "Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim.",
+            "description": "This is the Payer Claim Control Number (PCCN) for an existing claim that this claim is meant to replace or cancel. This property is generally **required** when the `claimInformation.claimFrequencyCode` is set to `7` or `8`. One exception to this guidance is Original Medicare, which specifies that you omit the PCCN from resubmissions.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details and information about where to find the PCCN for an existing claim.",
             "type": "string"
           },
           "claimNumber": {
@@ -4714,7 +4714,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/ClaimsError"
             },
@@ -4741,7 +4741,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -5184,7 +5184,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/ClaimsError"
             },
@@ -5211,7 +5211,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -6120,7 +6120,7 @@
           },
           "claimFrequencyCode": {
             "$ref": "#/components/schemas/ClaimFrequencyCode",
-            "description": "Code specifying the frequency of the claim. Can be set to `1` - Admit thru Discharge Claim, `7` - Replacement of Prior Claim, or `8` - Void/Cancel of Prior Claim. Visit the National Uniform Billing Committee for a [complete code list](https://www.nubc.org/system/files/media/file/2019/06/billTypeFrequencyCodes837.pdf) and usage notes."
+            "description": "[Bill Type Frequency Code](https://www.nubc.org/system/files/media/file/2019/06/billTypeFrequencyCodes837.pdf) specifying the frequency of the claim. Can be set to `1` - Admit thru Discharge Claim, `7` - Replacement of Prior Claim, or `8` - Void/Cancel of Prior Claim.\n  - Set this to `1` when you're submitting a new claim and when you're resubmitting a claim that was rejected before it entered the payer's processing system. You must also set this property to `1` for every resubmission to Original Medicare because Original Medicare doesn't accept code `7`.\n  - Set this to `7` when you need to resubmit a corrected claim that the payer has already processed. These are claims that the payer has already adjudicated or claims that the payer has rejected with a 277CA containing the Payer Claim Control Number (PCCN), indicating it has entered the payer's system.\n  - When resubmitting with code `7` or voiding with code `8`, you must also include the Payer Claim Control Number (sometimes called the ICN) in the `claimInformation.claimSupplementalInformation.claimControlNumber` property. An exception is Original Medicare, which requires that you omit the Payer Claim Control Number from resubmissions.\n  - For resubmissions and cancellations, we strongly recommend including a unique Patient Control Number in the `claimInformation.patientControlNumber` for tracking purposes.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details."
           },
           "claimNotes": {
             "description": "Include comments or special instructions related to the claim. Required when the provider needs to include additional information to substantiate the medical treatment that can't be provided elsewhere in the claim submission. You can include up to five objects in this array.",
@@ -6260,7 +6260,7 @@
             "type": "string"
           },
           "claimControlNumber": {
-            "description": "Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim.",
+            "description": "This is the Payer Claim Control Number (PCCN) for an existing claim that this claim is meant to replace or cancel. This property is generally **required** when the `claimInformation.claimFrequencyCode` is set to `7` or `8`. One exception to this guidance is Original Medicare, which specifies that you omit the PCCN from resubmissions.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details and information about where to find the PCCN for an existing claim.",
             "type": "string"
           },
           "claimNumber": {
@@ -6335,7 +6335,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/ClaimsError"
             },
@@ -6362,7 +6362,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -6463,7 +6463,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/ClaimsError"
             },
@@ -6490,7 +6490,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -11318,7 +11318,7 @@
             "$ref": "#/components/schemas/ClaimFilingCode"
           },
           "claimFrequencyCode": {
-            "description": "Code specifying the frequency of the claim. Not all payers allow all codes. Can be set to `1` - Original claim submission, `2` - Interim – First Claim, `3` - Interim – Continuing Claim, `4` - Interim – Last Claim, `7` - Replacement, `8` - Void, and `9` - Final Claim for a Home Health PPS Episode.",
+            "description": "Code specifying the frequency of the claim. Not all payers allow all codes. Can be set to `1` - Original claim submission, `2` - Interim – First Claim, `3` - Interim – Continuing Claim, `4` - Interim – Last Claim, `7` - Replacement, `8` - Void, and `9` - Final Claim for a Home Health PPS Episode.\n  - Set this to `1` when you're submitting a new claim and when you're resubmitting a claim that was rejected before it entered the payer's processing system. You must also set this property to `1` for every resubmission to Original Medicare because Original Medicare doesn't accept code `7`.\n  - Set this to `7` when you need to resubmit a corrected claim that the payer has already processed. These are claims that the payer has already adjudicated or claims that the payer has rejected with a 277CA containing the Payer Claim Control Number (PCCN), indicating it has entered the payer's system.\n  - When resubmitting with code `7` or voiding with code `8`, you must also include the Payer Claim Control Number (sometimes called the ICN) in the `claimInformation.claimSupplementalInformation.claimControlNumber` property. An exception is Original Medicare, which requires that you omit the Payer Claim Control Number from resubmissions.\n  - For resubmissions and cancellations, we strongly recommend including a unique Patient Control Number in the `claimInformation.patientControlNumber` for tracking purposes.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details.",
             "maxLength": 1,
             "type": "string"
           },
@@ -11605,7 +11605,7 @@
             "type": "string"
           },
           "claimControlNumber": {
-            "description": "An identifier the payer previously assigned to the claim. Required when the `claimFrequencyCode` indicates this claim is a replacement or void to a previously adjudicated claim.",
+            "description": "This is the Payer Claim Control Number (PCCN) for an existing claim that this claim is meant to replace or cancel. This property is generally **required** when the `claimInformation.claimFrequencyCode` is set to `7` or `8`. One exception to this guidance is Original Medicare, which specifies that you omit the PCCN from resubmissions.\n\nVisit [Resubmit or cancel claims](https://www.stedi.com/docs/healthcare/resubmit-cancel-claims) for complete details and information about where to find the PCCN for an existing claim.",
             "maxLength": 50,
             "type": "string"
           },
@@ -11789,7 +11789,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/ClaimsError"
             },
@@ -11816,7 +11816,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -11935,7 +11935,7 @@
             "type": "string"
           },
           "errors": {
-            "description": "A list of errors. Currently not used.",
+            "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
               "$ref": "#/components/schemas/InstitutionalError"
             },
@@ -11962,7 +11962,7 @@
             "type": "string"
           },
           "warnings": {
-            "description": "A list of warnings.",
+            "description": "A list of warnings. Currently not used.",
             "items": {
               "$ref": "#/components/schemas/ClaimsWarning"
             },
@@ -14784,6 +14784,69 @@
         ],
         "type": "string"
       },
+      "OperatingStateCode": {
+        "description": "US state codes, territories, or `NATIONAL` indicating the geographic regions where a payer operates. When set to `NATIONAL`, the payer operates throughout all 50 states.",
+        "enum": [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY",
+          "DC",
+          "PR",
+          "VI",
+          "GU",
+          "AS",
+          "MP",
+          "NATIONAL"
+        ],
+        "type": "string"
+      },
       "Ordering": {
         "deprecated": true,
         "description": "Deprecated; please use `claimInformation.serviceLines.orderingProvider` instead.",
@@ -16193,6 +16256,13 @@
             "description": "Alternative names associated with a payer. These additional names help you search for and identify payers using the name most familiar to your organization.",
             "items": {
               "type": "string"
+            },
+            "type": "array"
+          },
+          "operatingStates": {
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 states.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "items": {
+              "$ref": "#/components/schemas/OperatingStateCode"
             },
             "type": "array"
           },
@@ -20344,6 +20414,13 @@
             },
             "type": "array"
           },
+          "operatingStates": {
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 states.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "items": {
+              "$ref": "#/components/schemas/OperatingStateCode"
+            },
+            "type": "array"
+          },
           "parentPayerGroupId": {
             "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities.",
             "type": "string"
@@ -21579,7 +21656,7 @@
         "type": "object"
       },
       "SignatureIndicator": {
-        "description": "Indicates whether the provider's signature is on file. Can be set to `N` - No or `Y` - Yes.",
+        "description": "Indicates whether the provider has the patient's signature is on file. If so, the patient has given the provider permission to make claims on the patient's behalf. Can be set to `N` - No or `Y` - Yes.",
         "enum": [
           "N",
           "Y"
@@ -33289,6 +33366,56 @@
                           "Blue Cross Blue Shield of Michigan - Medicare Advantage",
                           "Blue Cross Blue Shield of Michigan and Blue Care Network"
                         ],
+                        "operatingStates": [
+                          "AK",
+                          "AL",
+                          "AR",
+                          "AZ",
+                          "CA",
+                          "CO",
+                          "CT",
+                          "DC",
+                          "DE",
+                          "FL",
+                          "GA",
+                          "HI",
+                          "IA",
+                          "ID",
+                          "IL",
+                          "IN",
+                          "KS",
+                          "KY",
+                          "LA",
+                          "MA",
+                          "MD",
+                          "ME",
+                          "MI",
+                          "MN",
+                          "MO",
+                          "MS",
+                          "MT",
+                          "NC",
+                          "ND",
+                          "NE",
+                          "NH",
+                          "NJ",
+                          "NM",
+                          "NV",
+                          "NY",
+                          "OH",
+                          "OK",
+                          "OR",
+                          "PA",
+                          "SC",
+                          "SD",
+                          "TN",
+                          "TX",
+                          "UT",
+                          "VA",
+                          "VT",
+                          "WA",
+                          "WI"
+                        ],
                         "parentPayerGroupId": "AWOCR",
                         "primaryPayerId": "00710",
                         "stediId": "KRPCH",
@@ -33552,7 +33679,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers - CSV",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"PtanRequired\",\"ParentPayerGroupId\"\n\"UPICO\",\"BCSNC\",\"Blue Cross Blue Shield of North Carolina\",\"Blue Cross Blue Shield North Carolina|Partners National Health Plans of North Carolina Inc\",\"1411|560894904|61472|61473|7472|7514|7814|BCSNC|NCBCBS|NCBLS|NCPNHP|SB810|SB810MA\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"WEEKS\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"56-0894904\",\"dental|medical|vision\",\"false\",\"OVWIG\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\"\n\"UPICO\",\"BCSNC\",\"Blue Cross Blue Shield of North Carolina\",\"Blue Cross Blue Shield North Carolina|Partners National Health Plans of North Carolina Inc\",\"1411|560894904|61472|61473|7472|7514|7814|BCSNC|NCBCBS|NCBLS|NCPNHP|SB810|SB810MA\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"WEEKS\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"56-0894904\",\"dental|medical|vision\",\"\",\"false\",\"OVWIG\""
                   }
                 },
                 "schema": {
@@ -33784,6 +33911,20 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+            "explode": true,
+            "in": "query",
+            "name": "operatingStates",
+            "schema": {
+              "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+              "items": {
+                "$ref": "#/components/schemas/OperatingStateCode"
+              },
+              "type": "array"
+            },
+            "style": "form"
           }
         ],
         "responses": {
@@ -33854,6 +33995,56 @@
                               "Blue Cross Blue Shield Michigan Professional",
                               "Blue Cross Blue Shield of Michigan - Medicare Advantage",
                               "Blue Cross Blue Shield of Michigan and Blue Care Network"
+                            ],
+                            "operatingStates": [
+                              "AK",
+                              "AL",
+                              "AR",
+                              "AZ",
+                              "CA",
+                              "CO",
+                              "CT",
+                              "DC",
+                              "DE",
+                              "FL",
+                              "GA",
+                              "HI",
+                              "IA",
+                              "ID",
+                              "IL",
+                              "IN",
+                              "KS",
+                              "KY",
+                              "LA",
+                              "MA",
+                              "MD",
+                              "ME",
+                              "MI",
+                              "MN",
+                              "MO",
+                              "MS",
+                              "MT",
+                              "NC",
+                              "ND",
+                              "NE",
+                              "NH",
+                              "NJ",
+                              "NM",
+                              "NV",
+                              "NY",
+                              "OH",
+                              "OK",
+                              "OR",
+                              "PA",
+                              "SC",
+                              "SD",
+                              "TN",
+                              "TX",
+                              "UT",
+                              "VA",
+                              "VT",
+                              "WA",
+                              "WI"
                             ],
                             "parentPayerGroupId": "AWOCR",
                             "primaryPayerId": "00710",
@@ -34055,6 +34246,13 @@
                               "Healthcare Benefits",
                               "Rio Grande",
                               "Walmart (BlueCard Carriers)"
+                            ],
+                            "operatingStates": [
+                              "CT",
+                              "IL",
+                              "NM",
+                              "TX",
+                              "UT"
                             ],
                             "parentPayerGroupId": "DKCAG",
                             "primaryPayerId": "84980",
