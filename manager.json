@@ -285,7 +285,7 @@
             "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `taxId` or `ssn`.\n - Don't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer."
           },
           "submitterTransactionIdentifier": {
-            "description": "A unique identifier for the eligibility check within this batch request. Stedi returns this identifier in the response for the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/api-reference/healthcare/get-healthcare-polling-eligibility) endpoint.",
+            "description": "A unique identifier for the eligibility check within this batch request. Stedi returns this identifier in the response for the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-polling-eligibility) endpoint.",
             "type": "string"
           },
           "subscriber": {
@@ -343,7 +343,7 @@
       "BatchEligibilityChecksResponseContent": {
         "properties": {
           "batchId": {
-            "description": "An identifier for this batch of eligibility checks. You can use this identifier to retrieve the results of this batch using the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/api-reference/healthcare/get-healthcare-polling-eligibility) endpoint.",
+            "description": "An identifier for this batch of eligibility checks. You can use this identifier to retrieve the results of this batch using the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-polling-eligibility) endpoint.",
             "type": "string"
           },
           "submittedAt": {
@@ -362,7 +362,7 @@
         "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "items": {
-            "description": "Each eligibility check response is included as a separate item in this array. The response shape is identical to the shape of the response for the [Real-Time Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) endpoint, with the addition of two new properties that help you correlate the results with individual eligibility checks.\n    - `batchId` contains the `batchId` Stedi returned from the [Batch Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-batch-eligibility) endpoint when making the request.\n    - `submitterTransactionIdentifier` contains the unique identifier for the eligibility check that you submitted in the request.",
+            "description": "Each eligibility check response is included as a separate item in this array. The response shape is identical to the shape of the response for the [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) endpoint, with the addition of two new properties that help you correlate the results with individual eligibility checks.\n    - `batchId` contains the `batchId` Stedi returned from the [Batch Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-batch-eligibility) endpoint when making the request.\n    - `submitterTransactionIdentifier` contains the unique identifier for the eligibility check that you submitted in the request.",
             "items": {
               "$ref": "#/components/schemas/BatchEligibilityResultItem"
             },
@@ -383,7 +383,7 @@
       "BatchEligibilityResultItem": {
         "properties": {
           "batchId": {
-            "description": "The `batchId` Stedi returned from the [Batch Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-batch-eligibility) endpoint.",
+            "description": "The `batchId` Stedi returned from the [Batch Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-batch-eligibility) endpoint.",
             "type": "string"
           },
           "batchName": {
@@ -6013,7 +6013,7 @@
             }
           },
           {
-            "description": "An identifier for a batch of eligibility checks submitted through the [Batch Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-batch-eligibility) endpoint. Use this to retrieve results for eligibility checks in the batch.",
+            "description": "An identifier for a batch of eligibility checks submitted through the [Batch Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-batch-eligibility) endpoint. Use this to retrieve results for eligibility checks in the batch.",
             "examples": {
               "BatchEligibilityPolling_example1": {
                 "description": "",
@@ -6024,7 +6024,7 @@
             "in": "query",
             "name": "batchId",
             "schema": {
-              "description": "An identifier for a batch of eligibility checks submitted through the [Batch Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-batch-eligibility) endpoint. Use this to retrieve results for eligibility checks in the batch.",
+              "description": "An identifier for a batch of eligibility checks submitted through the [Batch Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-batch-eligibility) endpoint. Use this to retrieve results for eligibility checks in the batch.",
               "type": "string"
             }
           },

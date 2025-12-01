@@ -1882,7 +1882,7 @@
         "type": "string"
       },
       "COBSubscriber": {
-        "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependent` empty.\n\n\n\nThe demographic information you provide **must** match the payer's data exactly. For example, if the payer has the subscriber's name as `Jonathan Doe`, a COB request for `Jon Doe` will fail because the name doesn't match the payer's records. Also note that:\n  - Any prefix on the member's card is considered part of the `memberID` used for the search.\n  - Mismatches in the `memberId` are one of the most common causes of `Member Not Found` errors. We strongly recommend first performing an [Eligibility Check](https://www.stedi.com/docs/api-reference/healthcare/post-healthcare-eligibility) and using the `memberId` in the response to populate your COB check.\n  - We recommend including the `ssn` property in addition to the `memberId` if possible. This allows Stedi to do an additional search for the patient when the `memberId` doesn't return a match.\n  - Stedi can identify coverage overlap for the same payer if the member ID differs between the two coverages.",
+        "description": "The primary policyholder for the insurance plan _or_ a dependent with a unique member ID. If a dependent has a unique member ID, include their information here and leave `dependent` empty.\n\n\n\nThe demographic information you provide **must** match the payer's data exactly. For example, if the payer has the subscriber's name as `Jonathan Doe`, a COB request for `Jon Doe` will fail because the name doesn't match the payer's records. Also note that:\n  - Any prefix on the member's card is considered part of the `memberID` used for the search.\n  - Mismatches in the `memberId` are one of the most common causes of `Member Not Found` errors. We strongly recommend first performing an [Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) and using the `memberId` in the response to populate your COB check.\n  - We recommend including the `ssn` property in addition to the `memberId` if possible. This allows Stedi to do an additional search for the patient when the `memberId` doesn't return a match.\n  - Stedi can identify coverage overlap for the same payer if the member ID differs between the two coverages.",
         "properties": {
           "dateOfBirth": {
             "description": "The subscriber's date of birth.",
@@ -9797,7 +9797,7 @@
             "type": "number"
           },
           "discoveryId": {
-            "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint.",
+            "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint.",
             "type": "string"
           },
           "errors": {
@@ -9819,7 +9819,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/DiscoveryStatus",
-            "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+            "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
           }
         },
         "type": "object"
@@ -13659,7 +13659,7 @@
             "type": "number"
           },
           "discoveryId": {
-            "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint.",
+            "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint.",
             "type": "string"
           },
           "errors": {
@@ -13681,7 +13681,7 @@
           },
           "status": {
             "$ref": "#/components/schemas/DiscoveryStatus",
-            "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/api-reference/healthcare/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+            "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
           }
         },
         "type": "object"
@@ -31330,7 +31330,7 @@
         "operationId": "GetInsuranceDiscoveryCheck",
         "parameters": [
           {
-            "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/api-reference/healthcare/post-insurance-discovery) endpoint.",
+            "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/healthcare/api-reference/post-insurance-discovery) endpoint.",
             "examples": {
               "GetInsuranceDiscoveryCheck_example1": {
                 "description": "",
@@ -31342,7 +31342,7 @@
             "name": "discoveryId",
             "required": true,
             "schema": {
-              "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/api-reference/healthcare/post-insurance-discovery) endpoint.",
+              "description": "The unique ID for the insurance discovery check. Stedi returns this value in the response from the [Insurance Discovery Check](https://www.stedi.com/docs/healthcare/api-reference/post-insurance-discovery) endpoint.",
               "type": "string"
             }
           }
