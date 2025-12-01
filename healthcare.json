@@ -9794,7 +9794,7 @@
         "properties": {
           "coveragesFound": {
             "description": "The number of potential coverage matches for the patient. This will be `0` if Stedi didn't find any matching coverage.",
-            "type": "number"
+            "type": "integer"
           },
           "discoveryId": {
             "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint.",
@@ -13656,7 +13656,7 @@
         "properties": {
           "coveragesFound": {
             "description": "The number of potential coverage matches for the patient. This will be `0` if Stedi didn't find any matching coverage.",
-            "type": "number"
+            "type": "integer"
           },
           "discoveryId": {
             "description": "A unique ID for this insurance discovery check. You can use it to retrieve the results asynchronously through the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint.",
@@ -14677,7 +14677,7 @@
           "total": {
             "description": "Total number of matching payers that don't support this transaction type.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": [
@@ -20652,7 +20652,7 @@
           "total": {
             "description": "Total number of payers matching the search query.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           },
           "transactionSupport": {
             "$ref": "#/components/schemas/TransactionSupportStats",
@@ -20926,7 +20926,7 @@
           },
           "ambulancePatientCount": {
             "description": "The number of patients transported by the ambulance. Required when more than one patient is transported in the same vehicle for Ambulance or non-emergency transportation services.",
-            "type": "number"
+            "type": "integer"
           },
           "ambulancePickUpLocation": {
             "$ref": "#/components/schemas/ClaimsAddress",
@@ -20996,7 +20996,7 @@
           },
           "obstetricAnesthesiaAdditionalUnits": {
             "description": "The number of units reported by an anesthesia provider to reflect additional complexity of services.",
-            "type": "number"
+            "type": "integer"
           },
           "orderingProvider": {
             "$ref": "#/components/schemas/ServiceLineOrderingProvider",
@@ -22339,17 +22339,17 @@
           "enrollmentNotRequired": {
             "description": "Number of matching payers that support this transaction type and don't require transaction enrollment.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           },
           "enrollmentRequired": {
             "description": "Number of matching payers that support this transaction type and require [transaction enrollment](https://www.stedi.com/docs/healthcare/transaction-enrollment).",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           },
           "total": {
             "description": "Total number of matching payers that support this transaction type (`enrollmentRequired` + `enrollmentNotRequired`).",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": [
@@ -22860,17 +22860,17 @@
           "enrollmentRequired": {
             "description": "Number of matching payers that require [transaction enrollment](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this transaction type.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           },
           "notSupported": {
             "description": "Number of matching payers that don't support this transaction type.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           },
           "supported": {
             "description": "Number of matching payers that support this transaction type.",
             "minimum": 0,
-            "type": "number"
+            "type": "integer"
           }
         },
         "required": [
@@ -33886,7 +33886,7 @@
               "description": "The maximum number of elements to return in a page. If not specified, the default is 20.",
               "maximum": 100,
               "minimum": 10,
-              "type": "number"
+              "type": "integer"
             }
           },
           {
