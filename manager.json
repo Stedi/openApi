@@ -4262,10 +4262,10 @@
         "type": "object"
       },
       "RequestSubscriberAddress": {
-        "description": "Address information for the subscriber.\n- The `address1` and `city` properties are **required** for all standard eligibility checks. We also recommend including `state` for member identification.",
+        "description": "Address information for the subscriber.\n- **Most payers require both `address1` and `city`** to be provided along with `state` for member identification.\n- **Exception**: Payer ID `MBILUNOSSN` only requires `state` and does not require `address1` or `city`.\n- For all other payers, both `address1` and `city` are required. Omitting these fields will result in a validation error.",
         "properties": {
           "address1": {
-            "description": "The first line of the address.",
+            "description": "The first line of the address. Required for all payers except payer ID `MBILUNOSSN`.",
             "maxLength": 55,
             "minLength": 1,
             "type": "string"
@@ -4277,7 +4277,7 @@
             "type": "string"
           },
           "city": {
-            "description": "The city.",
+            "description": "The city. Required for all payers except payer ID `MBILUNOSSN`.",
             "maxLength": 30,
             "minLength": 2,
             "type": "string"
@@ -4305,10 +4305,6 @@
             "description": "The state or province code.\n\nPayers may sometimes return other non-compliant values."
           }
         },
-        "required": [
-          "address1",
-          "city"
-        ],
         "type": "object"
       },
       "RequestSubscriberProviderCode": {
