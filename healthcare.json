@@ -7109,7 +7109,7 @@
             "type": "string"
           },
           "providerControlNumber": {
-            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
+            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random ULID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
             "type": "string"
           },
           "renderingProvider": {
@@ -13138,7 +13138,7 @@
             "deprecated": true
           },
           "lineItemControlNumber": {
-            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value.",
+            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random ULID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
             "maxLength": 50,
             "type": "string"
           },
@@ -21017,7 +21017,7 @@
             "$ref": "#/components/schemas/ProfessionalService"
           },
           "providerControlNumber": {
-            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random UUID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
+            "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random ULID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
             "type": "string"
           },
           "purchasedServiceInformation": {
@@ -21545,7 +21545,7 @@
       "ServiceLineResponseIdentifier": {
         "properties": {
           "lineItemControlNumber": {
-            "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated a UUID for the service line.",
+            "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines.providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated a ULID for the service line.",
             "type": "string"
           }
         },
@@ -21764,7 +21764,7 @@
         "type": "object"
       },
       "SignatureIndicator": {
-        "description": "Indicates whether the provider has the patient's signature is on file. If so, the patient has given the provider permission to make claims on the patient's behalf. Can be set to `N` - No or `Y` - Yes.",
+        "description": "Indicates whether the provider's signature is on file. Can be set to `N` - No or `Y` - Yes.",
         "enum": [
           "N",
           "Y"
