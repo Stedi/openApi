@@ -1302,7 +1302,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "The billing provider's address. For United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The billing provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `payToAddress` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
           "commercialNumber": {
             "description": "The billing provider's commercial number, as assigned by this payer. The commercial number is a unique identifier that the payer assigns to the provider. For providers without an NPI, you must provide either the `commercialNumber` or the `locationNumber` for identification.",
@@ -3790,7 +3790,8 @@
         "description": "Information about the claim.",
         "properties": {
           "claimType": {
-            "description": "The type of claim, currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "correlationId": {
@@ -4712,7 +4713,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -5104,7 +5106,7 @@
           },
           "payToAddress": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "Use when the address for payment is different than that of the billing provider for this claim."
+            "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered."
           },
           "payToPlan": {
             "$ref": "#/components/schemas/PayToPlan"
@@ -5182,7 +5184,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -6333,7 +6336,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -6393,7 +6397,7 @@
           },
           "payToAddress": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "Use when the address for payment is different than that of the billing provider for this claim."
+            "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered."
           },
           "payToPlan": {
             "$ref": "#/components/schemas/PayToPlan"
@@ -6461,7 +6465,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -11090,7 +11095,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The provider's address. \n\n For United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `billingPayToAddressName` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
           "commercialNumber": {
             "deprecated": true,
@@ -11791,7 +11796,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -11937,7 +11943,8 @@
             "type": "array"
           },
           "editStatus": {
-            "description": "Currently not used.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Currently not used.",
             "type": "string"
           },
           "errors": {
@@ -15873,7 +15880,7 @@
         "type": "string"
       },
       "PayToAddressName": {
-        "description": "Use when the address for payment is different than that of the billing provider for this claim.",
+        "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
