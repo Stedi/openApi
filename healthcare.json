@@ -16293,6 +16293,10 @@
           },
           "transactionSupport": {
             "$ref": "#/components/schemas/TransactionSupport"
+          },
+          "urls": {
+            "$ref": "#/components/schemas/PayerUrls",
+            "description": "URLs associated with this payer, such as their website. This object is only returned when URL information is available for the payer."
           }
         },
         "required": [
@@ -16303,6 +16307,16 @@
           "stediId",
           "transactionSupport"
         ],
+        "type": "object"
+      },
+      "PayerUrls": {
+        "description": "URLs associated with a payer.",
+        "properties": {
+          "website": {
+            "description": "The payer's website URL.",
+            "type": "string"
+          }
+        },
         "type": "object"
       },
       "PaymentFormatCode": {
@@ -20543,6 +20557,10 @@
           },
           "transactionSupport": {
             "$ref": "#/components/schemas/SearchPayerTransactionSupport"
+          },
+          "urls": {
+            "$ref": "#/components/schemas/PayerUrls",
+            "description": "URLs associated with this payer, such as their website. This object is only returned when URL information is available for the payer."
           }
         },
         "required": [
@@ -33402,7 +33420,7 @@
               "GetPayerRecord_example1": {
                 "description": "",
                 "summary": "Retrieve a payer record",
-                "value": "KRPCH"
+                "value": "QDTRP"
               }
             },
             "in": "path",
@@ -33426,117 +33444,68 @@
                     "value": {
                       "payer": {
                         "aliases": [
-                          "00210",
-                          "00210I",
-                          "00710",
-                          "00710D",
-                          "00710P",
-                          "1421",
-                          "2287",
-                          "2426",
-                          "710",
-                          "BBMDQ",
-                          "BCBSM",
-                          "BCMIC",
-                          "BCMIV",
-                          "CBMI1",
-                          "GFXLJ",
-                          "MIBCN",
-                          "MIBCSI",
-                          "MIBCSP",
-                          "MIBLS",
-                          "SB710",
-                          "UQVGL",
-                          "Z1380"
+                          "10048",
+                          "1406",
+                          "5501",
+                          "84980",
+                          "CB900",
+                          "DX900",
+                          "G84980",
+                          "SB900",
+                          "TXBCBS",
+                          "TXBLS"
                         ],
-                        "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/KRPCH/avatar.png?v=1762425534646",
+                        "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/QDTRP/avatar.png?v=1762425540481",
                         "coverageTypes": [
                           "dental",
                           "medical",
                           "vision"
                         ],
-                        "displayName": "Blue Cross Blue Shield of Michigan",
+                        "displayName": "Blue Cross Blue Shield of Texas",
                         "enrollment": {
                           "ptanRequired": false,
                           "transactionEnrollmentProcesses": {
                             "claimPayment": {
-                              "timeframe": "INSTANT",
+                              "timeframe": "WEEKS",
                               "type": "ONE_CLICK"
                             }
                           }
                         },
                         "names": [
-                          "BCBSM Healthy Kids Dental (DentaQuest)",
-                          "Blue Care Network (BCBSM MA/BNCA - Medicare Advantage)",
-                          "Blue Cross Blue Shield Michigan Dental",
-                          "Blue Cross Blue Shield Michigan Institutional",
-                          "Blue Cross Blue Shield Michigan Professional",
-                          "Blue Cross Blue Shield of Michigan - Medicare Advantage",
-                          "Blue Cross Blue Shield of Michigan and Blue Care Network"
+                          "Blue Cross Blue Shield Texas Medicaid STAR CHIP",
+                          "Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program",
+                          "Blue Cross Blue Shield of Texas",
+                          "Bryan Independent School",
+                          "Federal Employee Program Texas (FEP)",
+                          "Health Maintenance Organization Blue",
+                          "Health Maintenance Organization Blue Texas",
+                          "Healthcare Benefits",
+                          "Rio Grande",
+                          "Walmart (BlueCard Carriers)"
                         ],
                         "operatingStates": [
-                          "AK",
-                          "AL",
-                          "AR",
-                          "AZ",
-                          "CA",
-                          "CO",
                           "CT",
-                          "DC",
-                          "DE",
-                          "FL",
-                          "GA",
-                          "HI",
-                          "IA",
-                          "ID",
                           "IL",
-                          "IN",
-                          "KS",
-                          "KY",
-                          "LA",
-                          "MA",
-                          "MD",
-                          "ME",
-                          "MI",
-                          "MN",
-                          "MO",
-                          "MS",
-                          "MT",
-                          "NC",
-                          "ND",
-                          "NE",
-                          "NH",
-                          "NJ",
                           "NM",
-                          "NV",
-                          "NY",
-                          "OH",
-                          "OK",
-                          "OR",
-                          "PA",
-                          "SC",
-                          "SD",
-                          "TN",
                           "TX",
-                          "UT",
-                          "VA",
-                          "VT",
-                          "WA",
-                          "WI"
+                          "UT"
                         ],
-                        "parentPayerGroupId": "AWOCR",
-                        "primaryPayerId": "00710",
-                        "stediId": "KRPCH",
+                        "parentPayerGroupId": "DKCAG",
+                        "primaryPayerId": "84980",
+                        "stediId": "QDTRP",
                         "transactionSupport": {
                           "claimPayment": "ENROLLMENT_REQUIRED",
                           "claimStatus": "SUPPORTED",
                           "claimSubmission": "SUPPORTED",
                           "coordinationOfBenefits": "SUPPORTED",
-                          "dentalClaimSubmission": "NOT_SUPPORTED",
+                          "dentalClaimSubmission": "SUPPORTED",
                           "eligibilityCheck": "SUPPORTED",
                           "institutionalClaimSubmission": "SUPPORTED",
                           "professionalClaimSubmission": "SUPPORTED",
                           "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                        },
+                        "urls": {
+                          "website": "https://www.bcbstx.com"
                         }
                       }
                     }
@@ -33648,37 +33617,55 @@
                       "items": [
                         {
                           "aliases": [
-                            "1411",
-                            "560894904",
-                            "61472",
-                            "61473",
-                            "7472",
-                            "7514",
-                            "7814",
-                            "BCSNC",
-                            "NCBCBS",
-                            "NCBLS",
-                            "NCPNHP",
-                            "SB810",
-                            "SB810MA"
+                            "10048",
+                            "1406",
+                            "5501",
+                            "84980",
+                            "CB900",
+                            "DX900",
+                            "G84980",
+                            "SB900",
+                            "TXBCBS",
+                            "TXBLS"
                           ],
-                          "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/UPICO/avatar.png?v=1762425538010",
+                          "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/QDTRP/avatar.png?v=1762425540481",
                           "coverageTypes": [
                             "dental",
                             "medical",
                             "vision"
                           ],
-                          "displayName": "Blue Cross Blue Shield of North Carolina",
-                          "employerIdentificationNumbers": [
-                            "56-0894904"
-                          ],
+                          "displayName": "Blue Cross Blue Shield of Texas",
+                          "enrollment": {
+                            "ptanRequired": false,
+                            "transactionEnrollmentProcesses": {
+                              "claimPayment": {
+                                "timeframe": "WEEKS",
+                                "type": "ONE_CLICK"
+                              }
+                            }
+                          },
                           "names": [
-                            "Blue Cross Blue Shield North Carolina",
-                            "Partners National Health Plans of North Carolina Inc"
+                            "Blue Cross Blue Shield Texas Medicaid STAR CHIP",
+                            "Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program",
+                            "Blue Cross Blue Shield of Texas",
+                            "Bryan Independent School",
+                            "Federal Employee Program Texas (FEP)",
+                            "Health Maintenance Organization Blue",
+                            "Health Maintenance Organization Blue Texas",
+                            "Healthcare Benefits",
+                            "Rio Grande",
+                            "Walmart (BlueCard Carriers)"
                           ],
-                          "parentPayerGroupId": "OVWIG",
-                          "primaryPayerId": "BCSNC",
-                          "stediId": "UPICO",
+                          "operatingStates": [
+                            "CT",
+                            "IL",
+                            "NM",
+                            "TX",
+                            "UT"
+                          ],
+                          "parentPayerGroupId": "DKCAG",
+                          "primaryPayerId": "84980",
+                          "stediId": "QDTRP",
                           "transactionSupport": {
                             "claimPayment": "ENROLLMENT_REQUIRED",
                             "claimStatus": "SUPPORTED",
@@ -33689,6 +33676,9 @@
                             "institutionalClaimSubmission": "SUPPORTED",
                             "professionalClaimSubmission": "SUPPORTED",
                             "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                          },
+                          "urls": {
+                            "website": "https://www.bcbstx.com"
                           }
                         }
                       ]
@@ -33787,7 +33777,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers - CSV",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\"\n\"UPICO\",\"BCSNC\",\"Blue Cross Blue Shield of North Carolina\",\"Blue Cross Blue Shield North Carolina|Partners National Health Plans of North Carolina Inc\",\"1411|560894904|61472|61473|7472|7514|7814|BCSNC|NCBCBS|NCBLS|NCPNHP|SB810|SB810MA\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"WEEKS\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"56-0894904\",\"dental|medical|vision\",\"\",\"false\",\"OVWIG\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"QDTRP\",\"84980\",\"Blue Cross Blue Shield of Texas\",\"Blue Cross Blue Shield Texas Medicaid STAR CHIP|Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program|Blue Cross Blue Shield of Texas|Bryan Independent School|Federal Employee Program Texas (FEP)|Health Maintenance Organization Blue|Health Maintenance Organization Blue Texas|Healthcare Benefits|Rio Grande|Walmart (BlueCard Carriers)\",\"10048|1406|5501|84980|CB900|DX900|G84980|SB900|TXBCBS|TXBLS\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"WEEKS\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"dental|medical|vision\",\"CT|IL|NM|TX|UT\",\"false\",\"DKCAG\",\"https://www.bcbstx.com\""
                   }
                 },
                 "schema": {
@@ -34047,11 +34037,21 @@
                       "items": [
                         {
                           "matches": {
-                            "displayName": "<b>Blue Cross Blue</b> Shield of Michigan",
+                            "aliases": [
+                              "<b>BCBSM</b>",
+                              "<b>BCMIC</b>",
+                              "<b>BCMIH</b>",
+                              "<b>BCMIV</b>"
+                            ],
+                            "displayName": "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan",
                             "names": [
-                              "<b>Blue Cross Blue</b> Shield Michigan Dental",
-                              "<b>Blue Cross Blue</b> Shield Michigan Institutional",
-                              "<b>Blue Cross Blue</b> Shield Michigan Professional"
+                              "<b>BCBSM</b> Healthy Kids Dental (DentaQuest)",
+                              "<b>Blue</b> Care Network (<b>BCBSM</b> MA/BNCA - Medicare Advantage)",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Dental",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Institutional",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Professional",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan - Medicare Advantage",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan and <b>Blue</b> Care Network"
                             ]
                           },
                           "payer": {
@@ -34061,6 +34061,8 @@
                               "00710",
                               "00710D",
                               "00710P",
+                              "10038",
+                              "10519",
                               "1421",
                               "2287",
                               "2426",
@@ -34068,6 +34070,7 @@
                               "BBMDQ",
                               "BCBSM",
                               "BCMIC",
+                              "BCMIH",
                               "BCMIV",
                               "CBMI1",
                               "GFXLJ",
@@ -34105,41 +34108,40 @@
                               "Blue Cross Blue Shield of Michigan and Blue Care Network"
                             ],
                             "operatingStates": [
-                              "AK",
                               "AL",
-                              "AR",
+                              "AK",
                               "AZ",
+                              "AR",
                               "CA",
                               "CO",
                               "CT",
-                              "DC",
                               "DE",
                               "FL",
                               "GA",
                               "HI",
-                              "IA",
                               "ID",
                               "IL",
                               "IN",
+                              "IA",
                               "KS",
                               "KY",
                               "LA",
-                              "MA",
-                              "MD",
                               "ME",
+                              "MD",
+                              "MA",
                               "MI",
                               "MN",
-                              "MO",
                               "MS",
+                              "MO",
                               "MT",
-                              "NC",
-                              "ND",
                               "NE",
+                              "NV",
                               "NH",
                               "NJ",
                               "NM",
-                              "NV",
                               "NY",
+                              "NC",
+                              "ND",
                               "OH",
                               "OK",
                               "OR",
@@ -34149,10 +34151,11 @@
                               "TN",
                               "TX",
                               "UT",
-                              "VA",
                               "VT",
+                              "VA",
                               "WA",
-                              "WI"
+                              "WI",
+                              "DC"
                             ],
                             "parentPayerGroupId": "AWOCR",
                             "primaryPayerId": "00710",
@@ -34168,7 +34171,7 @@
                               "unsolicitedClaimAttachment": "NOT_SUPPORTED"
                             }
                           },
-                          "score": 1157451437081362400
+                          "score": 2314894167592927000
                         }
                       ],
                       "stats": {
@@ -34318,10 +34321,12 @@
                           },
                           "payer": {
                             "aliases": [
+                              "10048",
                               "1406",
                               "5501",
                               "84980",
                               "CB900",
+                              "DX900",
                               "G84980",
                               "SB900",
                               "TXBCBS",
@@ -34374,9 +34379,12 @@
                               "institutionalClaimSubmission": "SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
                               "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                            },
+                            "urls": {
+                              "website": "https://www.bcbstx.com"
                             }
                           },
-                          "score": 1157451437081362400
+                          "score": 2314894167592927000
                         }
                       ],
                       "stats": {
