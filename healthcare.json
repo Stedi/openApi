@@ -12526,7 +12526,7 @@
           },
           "paymentResponsibilityLevelCode": {
             "$ref": "#/components/schemas/InstitutionalOtherSubscriberInformationPaymentResponsibilityLevelCode",
-            "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`."
+            "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list.\n  - This will almost always be `P` - Primary. However, you may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill Medicare first as `P` and then bill the commercial payer second as `S`.\n  - Either this property or `subscriber.paymentResponsibilityLevelCode` must be set to `P` to indicate the primary insurance payer. Stedi rejects claims - including secondary and tertiary claims - that don't include information for the primary payer."
           },
           "policyNumber": {
             "description": "The policy number for the subscriber's health plan.",
@@ -13619,7 +13619,8 @@
             "type": "string"
           },
           "paymentResponsibilityLevelCode": {
-            "$ref": "#/components/schemas/InstitutionalSubscriberPaymentResponsibilityLevelCode"
+            "$ref": "#/components/schemas/InstitutionalSubscriberPaymentResponsibilityLevelCode",
+            "description": "The payer's level of responsibility for paying this claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list of possible codes.\n  - Stedi sets this property to `P` - Primary by default. You only need to include it when you need to submit codes other than `P`. This can happen when the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial plan first as `P` and then bill the Medicare payer second as `S`.\n  - Either this property or `otherSubscriberInformation.paymentResponsibilityLevelCode` must be set to `P`. Stedi rejects claims - including secondary and tertiary claims - that don't include information for the primary payer."
           },
           "policyNumber": {
             "deprecated": true,
@@ -15651,7 +15652,7 @@
         "type": "string"
       },
       "OtherSubscriberInformationPaymentResponsibilityLevelCode": {
-        "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list. You may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial payer first as `P` and then bill the Medicare payer second as `S`.",
+        "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list.\n- Either this property or `subscriber.paymentResponsibilityLevelCode` must be set to `P` to indicate the primary insurance payer. Stedi rejects claims - including secondary and tertiary claims - that don't include information for the primary payer.\n- You may need to use other codes if the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial payer first as `P` and then bill the Medicare payer second as `S`.",
         "enum": [
           "A",
           "B",
@@ -22251,7 +22252,7 @@
         "type": "string"
       },
       "SubscriberPaymentResponsibilityLevelCode": {
-        "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Stedi sets this property to `P` - Primary by default. \n\n You only need to include this property when you need to submit codes other than `P`. This can happen when the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial plan first as `P` and then bill the Medicare payer second as `S`. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list of possible codes.",
+        "description": "Code identifying the insurance carrier's level of responsibility for a payment of a claim. Visit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#payment-responsibility-sequence-number-codes) for a complete list of possible codes.\n  - Stedi sets this property to `P` - Primary by default. You only need to include it when you need to submit codes other than `P`. This can happen when the patient has multiple insurance policies. For example, if a patient is covered by both Medicare and an employer-sponsored commercial plan, you could bill the commercial plan first as `P` and then bill the Medicare payer second as `S`.\n  - Either this property or `otherSubscriberInformation.paymentResponsibilityLevelCode` must be set to `P` to indicate the primary insurance payer. Stedi rejects claims - including secondary and tertiary claims - that don't include information for the primary payer.",
         "enum": [
           "A",
           "B",
