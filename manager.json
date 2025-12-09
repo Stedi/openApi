@@ -694,7 +694,7 @@
         "type": "object"
       },
       "BenefitsDateInformation": {
-        "description": "Dates associated with the benefits.\n  - These dates only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
+        "description": "Dates associated with the benefits.\n  - This is where you can find benefit-specific eligibility dates, if provided. These dates override dates provided in `planDateInformation` for this benefit type.\n  - This is where the payer may specify the last time the service was rendered (`latestVisitOrConsultation`), which you can use to determine whether the patient has already reached the allowed frequency, if applicable. For example, this object could contain the date when the patient received their last dental cleaning.\n  - These dates only apply to the `benefitsInformation` object in which this `benefitsDateInformation` is provided.",
         "properties": {
           "added": {
             "description": "Added date. Payers may return this information in the case of retroactive eligibility.",
@@ -812,7 +812,7 @@
             "type": "string"
           },
           "latestVisitOrConsultation": {
-            "description": "The latest visit or consultation date.",
+            "description": "The latest visit or consultation date. This date may be used to determine whether the patient has already reached the allowed frequency for a specific benefit.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
             "type": "string"
           },
@@ -1131,7 +1131,7 @@
         "type": "string"
       },
       "BenefitsRelatedEntity": {
-        "description": "Identify another entity associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer.\n\nThis is where information for a crossover carrier such as Medicaid or Medicare is provided, if it's applicable to the patient and the payer supports it.",
+        "description": "Identify another entity associated with the eligibility or benefits. This could be a provider, an individual, an organization, or another payer.\n\nThis array is commonly used to designate the patient's primary care provider (PCP), another organization that handles a specific carveout benefit type, or another health plan for the patient (coordination of benefits scenarios).\n\nThis is where information for a crossover carrier such as Medicaid or Medicare is provided, if it's applicable to the patient and the payer supports it.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/Address",
@@ -2445,6 +2445,9 @@
           "PR",
           "UM",
           "VI",
+          "AA",
+          "AE",
+          "AP",
           "AK",
           "AL",
           "AR",
@@ -5224,6 +5227,9 @@
           "PR",
           "UM",
           "VI",
+          "AA",
+          "AE",
+          "AP",
           "AK",
           "AL",
           "AR",
