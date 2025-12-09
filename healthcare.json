@@ -3811,7 +3811,12 @@
             "type": "string"
           },
           "payerID": {
-            "description": "The ID of the payer. This is the same as the `tradingPartnerServiceId`.",
+            "deprecated": true,
+            "description": "This shape is deprecated: Please use payerId.",
+            "type": "string"
+          },
+          "payerId": {
+            "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`.",
             "type": "string"
           },
           "rhclaimNumber": {
@@ -4595,6 +4600,11 @@
         "description": "Information about the payer for the submitted claim.",
         "properties": {
           "payerID": {
+            "deprecated": true,
+            "description": "This shape is deprecated: Please use payerId.",
+            "type": "string"
+          },
+          "payerId": {
             "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`.",
             "type": "string"
           },
@@ -11590,9 +11600,20 @@
             "description": "The `patientControlNumber` from the original request, if supplied. This is a unique identifier that you assign to the claim so you can track the claim and correlate it with responses from the payer.",
             "type": "string"
           },
+          "payerId": {
+            "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`.",
+            "type": "string"
+          },
           "rhClaimNumber": {
             "description": "A tracking number Stedi assigns to the claim. This is the same as the `correlationId`.",
             "type": "string"
+          },
+          "serviceLines": {
+            "description": "Contains a unique identifier for each service line, listed in the order the service lines were included in the claim. You can use these identifiers to correlate payer responses to specific service lines.",
+            "items": {
+              "$ref": "#/components/schemas/ServiceLineResponseIdentifier"
+            },
+            "type": "array"
           },
           "submitterId": {
             "description": "Stedi's ID for the entity that submitted the claim.",
@@ -12613,6 +12634,11 @@
         "description": "Information about the payer for the submitted claim.",
         "properties": {
           "payerID": {
+            "deprecated": true,
+            "description": "This shape is deprecated: Please use payerId.",
+            "type": "string"
+          },
+          "payerId": {
             "description": "The payer's ID. This is the same as the `tradingPartnerServiceId`.",
             "type": "string"
           },
@@ -26790,7 +26816,7 @@
                         "correlationId": "01J1M588QT2TAV2N093GNJ998T",
                         "formatVersion": "5010",
                         "patientControlNumber": "26403774",
-                        "payerID": "AETNA",
+                        "payerId": "AETNA",
                         "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
                         "serviceLines": [
                           {
@@ -26805,7 +26831,7 @@
                         "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
                       },
                       "payer": {
-                        "payerID": "AETNA",
+                        "payerId": "AETNA",
                         "payerName": "Aetna"
                       },
                       "status": "SUCCESS",
@@ -27026,7 +27052,7 @@
                         "traceId": "a742ab42-a6f3-4232-a88c-197d341afdbe"
                       },
                       "payer": {
-                        "payerID": "87726",
+                        "payerId": "87726",
                         "payerName": "UnitedHealthcare"
                       },
                       "status": "SUCCESS",
@@ -27150,7 +27176,7 @@
                         "correlationId": "01J1M588QT2TAV2N093GNJ998T",
                         "formatVersion": "5010",
                         "patientControlNumber": "22266555",
-                        "payerID": "60054",
+                        "payerId": "60054",
                         "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
                         "serviceLines": [
                           {
@@ -27165,7 +27191,7 @@
                         "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
                       },
                       "payer": {
-                        "payerID": "60054",
+                        "payerId": "60054",
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
@@ -27391,7 +27417,7 @@
                         "correlationId": "01HTCX97F6XS6F2K22D4KD59TK",
                         "formatVersion": "5010",
                         "patientControlNumber": "22266555",
-                        "payerID": "6400",
+                        "payerId": "6400",
                         "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK",
                         "serviceLines": [
                           {
@@ -27406,7 +27432,7 @@
                         "traceId": "a7f7c912-77f7-489d-96fc-c4ab3b5c33fc"
                       },
                       "payer": {
-                        "payerID": "6400",
+                        "payerId": "6400",
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
@@ -28640,7 +28666,7 @@
                         "correlationId": "01J1M588QT2TAV2N093GNJ998T",
                         "formatVersion": "5010",
                         "patientControlNumber": "22266555",
-                        "payerID": "60054",
+                        "payerId": "60054",
                         "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
                         "serviceLines": [
                           {
@@ -28655,7 +28681,7 @@
                         "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
                       },
                       "payer": {
-                        "payerID": "60054",
+                        "payerId": "60054",
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
@@ -28911,7 +28937,7 @@
                         "correlationId": "01JDQMX92Q1T561BH8NKX750TQ",
                         "formatVersion": "5010",
                         "patientControlNumber": "0U1LBRS4",
-                        "payerID": "52133",
+                        "payerId": "52133",
                         "rhclaimNumber": "01JDQMX92Q1T561BH8NKX750TQ",
                         "serviceLines": [
                           {
@@ -28926,7 +28952,7 @@
                         "traceId": "9b491769-052e-4738-93d6-e0b5f6d83f53"
                       },
                       "payer": {
-                        "payerID": "52133",
+                        "payerId": "52133",
                         "payerName": "United HealthCare Dental"
                       },
                       "status": "SUCCESS",
