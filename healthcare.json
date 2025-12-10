@@ -11806,7 +11806,7 @@
       "InstitutionalClaimsRawX12SubmissionResponseContent": {
         "properties": {
           "claimReference": {
-            "$ref": "#/components/schemas/ClaimReference"
+            "$ref": "#/components/schemas/InstitutionalClaimReference"
           },
           "controlNumber": {
             "description": "An identifier for the transaction.",
@@ -11827,7 +11827,7 @@
           "errors": {
             "description": "Errors resulting from claim edits. You must review and fix these errors before resubmitting.",
             "items": {
-              "$ref": "#/components/schemas/ClaimsError"
+              "$ref": "#/components/schemas/InstitutionalError"
             },
             "type": "array"
           },
@@ -11838,10 +11838,10 @@
             "$ref": "#/components/schemas/HttpStatusCode"
           },
           "meta": {
-            "$ref": "#/components/schemas/ResponseMeta"
+            "$ref": "#/components/schemas/InstitutionalResponseMeta"
           },
           "payer": {
-            "$ref": "#/components/schemas/ClaimsPayer"
+            "$ref": "#/components/schemas/InstitutionalPayer"
           },
           "status": {
             "description": "The status of the claim submission.",
@@ -26813,7 +26813,7 @@
                         "formatVersion": "5010",
                         "patientControlNumber": "26403774",
                         "payerId": "AETNA",
-                        "rhclaimNumber": "01J1M588QT2TAV2N093GNJ998T",
+                        "rhClaimNumber": "01J1M588QT2TAV2N093GNJ998T",
                         "serviceLines": [
                           {
                             "lineItemControlNumber": "1"
@@ -26827,7 +26827,7 @@
                         "traceId": "b727b8e7-1f00-4011-bc6e-e41444d406d8"
                       },
                       "payer": {
-                        "payerId": "AETNA",
+                        "payerID": "AETNA",
                         "payerName": "Aetna"
                       },
                       "status": "SUCCESS",
