@@ -2427,80 +2427,84 @@
             },
             "ExportEnrollmentsCsvRequestContent": {
                 "type": "object",
-                "description": "Input for ExportEnrollmentsCsv operation with filtering options.",
+                "description": "Input for ExportEnrollmentsCsv operation. Supports the same filtering options as ListEnrollments (excluding pagination).",
                 "properties": {
                     "filter": {
                         "type": "string",
-                        "description": "A partial search term matched against multiple columns."
+                        "description": "Filter for enrollments with properties matching a query string. You can provide all or part of a provider name, NPI, or tax ID. You can also provide all or part of a payer's [Stedi payer ID](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id) - primary payer IDs and aliases aren't supported. The search is case-insensitive and supports fuzzy matching.\n\nFor example, providing `?filter=OS` returns enrollments with `provider.name` containing `os` or `OS` (such as `Joseph`) and Stedi payer IDs containing `OS`, such as `OSBLI` for OptumHealth Salt Lake County."
                     },
                     "status": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EnrollmentStatus"
                         },
-                        "description": "One or multiple statuses to filter by."
+                        "description": "Filter for enrollments with specific statuses. You can include this parameter multiple times to filter for multiple statuses.\n\nFor example, `?status=LIVE&status=REJECTED` returns enrollments that are in either `LIVE` or `REJECTED` status."
                     },
                     "providerNpis": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "One or multiple provider NPIs to filter by."
+                        "description": "Filter for enrollments associated with specific provider NPIs. You can include this parameter multiple times to filter for multiple NPIs.\n\nFor example, `?providerNpis=1234567890&providerNpis=0987654321` returns enrollments associated with either of the specified NPIs."
                     },
                     "providerTaxIds": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "One or multiple provider tax IDs to filter by."
+                        "description": "Filter for enrollments associated with specific provider tax IDs. You can include this parameter multiple times to filter for multiple tax IDs.\n\nFor example, `?providerTaxIds=123456789&providerTaxIds=987654321` returns enrollments associated with either of the specified tax IDs."
                     },
                     "providerNames": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "One or multiple provider names to filter by."
+                        "description": "Filter for enrollments associated with specific provider names. You can include this parameter multiple times to filter for multiple names.\n\nFor example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization."
                     },
                     "payerIds": {
                         "type": "array",
                         "items": {
                             "type": "string"
                         },
-                        "description": "One or multiple payer IDs to filter by."
+                        "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id). You can include this parameter multiple times to filter for multiple payer IDs.\n\nFor example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization."
                     },
                     "sources": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/EnrollmentSource"
                         },
-                        "description": "One or multiple sources to filter by."
+                        "description": "Filter for enrollments submitted through specific sources, such as the API or UI. You can include this parameter multiple times to filter for multiple sources.\n\nFor example, `?sources=API&sources=UI` returns enrollments submitted through either of the specified sources."
                     },
                     "transactions": {
                         "type": "array",
                         "items": {
                             "$ref": "#/components/schemas/TransactionType"
                         },
-                        "description": "A list of enrollment transaction types to filter by."
+                        "description": "Filter for enrollments for specific transaction types. You can include this parameter multiple times to filter for multiple types.\n\nFor example, `?transactions=eligibilityCheck&transactions=claimStatus` returns enrollments for both 270/271 eligibility checks and 276/277 real-time claim status."
                     },
                     "createdFrom": {
                         "type": "string",
-                        "description": "The start date to filter enrollments created from this date.",
+                        "description": "Filter for enrollments created from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `createdAt` timestamp on or after this date.",
                         "format": "date-time"
                     },
                     "createdTo": {
                         "type": "string",
-                        "description": "The end date to filter enrollments created up to this date.",
+                        "description": "Filter for enrollments created before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `createdAt` timestamp before this date.\n\nThe time must be later than `createdFrom`, if present.",
                         "format": "date-time"
                     },
                     "statusUpdatedFrom": {
                         "type": "string",
-                        "description": "The start date to filter enrollments whose status was last updated from this date. When used with statusUpdatedTo, must be earlier than statusUpdatedTo.",
+                        "description": "Filter for enrollments whose status was last updated from a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi returns enrollments with a `statusLastUpdatedAt` timestamp on or after this date.",
                         "format": "date-time"
                     },
                     "statusUpdatedTo": {
                         "type": "string",
-                        "description": "The end date to filter enrollments whose status was last updated up to this date. When used with statusUpdatedFrom, must be later than statusUpdatedFrom.",
+                        "description": "Filter for enrollments whose status was last updated before a specific date.\n\nFor example, if you set this to `2025-01-01T00:00:00Z`, Stedi only returns enrollments with a `statusLastUpdatedAt` before this date.\n\nThe time must be later than `statusUpdatedFrom`, if present.",
                         "format": "date-time"
+                    },
+                    "importId": {
+                        "type": "string",
+                        "description": "The import ID associated with an enrollment through a CSV bulk import. This ID is only available for enrollments created through the CSV import process."
                     }
                 }
             },
@@ -2523,26 +2527,6 @@
                 },
                 "required": [
                     "recordCount"
-                ]
-            },
-            "FillPdfTask": {
-                "type": "object",
-                "description": "Task for downloading, filling, and re-uploading a PDF document.",
-                "properties": {
-                    "instructions": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Instructions explaining what needs to be filled in the PDF."
-                    },
-                    "pdfLink": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "URL or document ID to download the PDF. Can be an external URL (e.g., `https://example.com/form.pdf`) or a document ID from a previous task (e.g., `019375d0-1234-7890-abcd-567890abcdef`)."
-                    }
-                },
-                "required": [
-                    "instructions",
-                    "pdfLink"
                 ]
             },
             "FollowInstructionsTask": {
@@ -2843,6 +2827,26 @@
                     "fileName"
                 ]
             },
+            "ProvideFilledPdfTask": {
+                "type": "object",
+                "description": "Task for downloading, filling, and re-uploading a PDF document.",
+                "properties": {
+                    "instructions": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Instructions explaining what needs to be filled in the PDF."
+                    },
+                    "pdfLink": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "URL or document ID to download the PDF. Can be an external URL (e.g., `https://example.com/form.pdf`) or a document ID from a previous task (e.g., `019375d0-1234-7890-abcd-567890abcdef`)."
+                    }
+                },
+                "required": [
+                    "instructions",
+                    "pdfLink"
+                ]
+            },
             "ProvideLegalContactDetailsTask": {
                 "type": "object",
                 "description": "Task for collecting legal entity contact details from the provider.",
@@ -3032,7 +3036,7 @@
                     },
                     "responseData": {
                         "$ref": "#/components/schemas/TaskResponseData",
-                        "description": "Response data collected when the task was completed. Only present for completed tasks that require structured data (e.g., ProvideLegalContactDetails, FillPdf, SignWithAdobe)."
+                        "description": "Response data collected when the task was completed. Only present for completed tasks that require structured data (e.g., ProvideLegalContactDetails, ProvideFilledPdf, SignWithAdobe)."
                     },
                     "id": {
                         "type": "string",
@@ -3077,15 +3081,15 @@
                     },
                     {
                         "type": "object",
-                        "title": "fillPdf",
+                        "title": "provideFilledPdf",
                         "properties": {
-                            "fillPdf": {
-                                "$ref": "#/components/schemas/FillPdfTask",
+                            "provideFilledPdf": {
+                                "$ref": "#/components/schemas/ProvideFilledPdfTask",
                                 "description": "A task that requires downloading, filling, and re-uploading a PDF document."
                             }
                         },
                         "required": [
-                            "fillPdf"
+                            "provideFilledPdf"
                         ]
                     },
                     {
@@ -3125,7 +3129,7 @@
                         "properties": {
                             "pdfUpload": {
                                 "$ref": "#/components/schemas/PdfUploadResponse",
-                                "description": "Uploaded PDF data collected from a FillPdf task.\n\n        **When to use:** Required when completing a task where `task.definition.fillPdf` is present. First upload the PDF using CreateEnrollmentDocumentUpload, then provide the returned documentId here.\n\n        **Example:**\n        ```typescript\n        // Step 1: Upload document\n        const upload = await client.send(new CreateEnrollmentDocumentUploadCommand({\n          enrollmentId: 'xxx',\n          name: 'form.pdf',\n          taskId: 'yyy'\n        }));\n\n        // Step 2: Upload file to presigned URL\n        await fetch(upload.uploadUrl, { method: 'PUT', body: pdfBuffer });\n\n        // Step 3: Complete task with document reference\n        responseData: {\n          pdfUpload: {\n            documentId: upload.documentId,\n            fileName: 'completed-form.pdf'\n          }\n        }\n        ```"
+                                "description": "Uploaded PDF data collected from a ProvideFilledPdf task.\n\n        **When to use:** Required when completing a task where `task.definition.provideFilledPdf` is present. First upload the PDF using CreateEnrollmentDocumentUpload, then provide the returned documentId here.\n\n        **Example:**\n        ```typescript\n        // Step 1: Upload document\n        const upload = await client.send(new CreateEnrollmentDocumentUploadCommand({\n          enrollmentId: 'xxx',\n          name: 'form.pdf',\n          taskId: 'yyy'\n        }));\n\n        // Step 2: Upload file to presigned URL\n        await fetch(upload.uploadUrl, { method: 'PUT', body: pdfBuffer });\n\n        // Step 3: Complete task with document reference\n        responseData: {\n          pdfUpload: {\n            documentId: upload.documentId,\n            fileName: 'completed-form.pdf'\n          }\n        }\n        ```"
                             }
                         },
                         "required": [
