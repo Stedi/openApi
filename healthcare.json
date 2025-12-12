@@ -15674,10 +15674,13 @@
             "type": "array"
           },
           "dependent": {
-            "$ref": "#/components/schemas/PatientClaimStatusDetailsDependent"
+            "$ref": "#/components/schemas/PatientClaimStatusDetailsDependent",
+            "deprecated": true,
+            "description": "The patient's information will always be returned in the `subscriber` object, regardless of whether they are a subscriber or dependent."
           },
           "subscriber": {
-            "$ref": "#/components/schemas/PatientClaimStatusDetailsSubscriber"
+            "$ref": "#/components/schemas/PatientClaimStatusDetailsSubscriber",
+            "description": "Information about the patient who received services related to the claim."
           }
         },
         "type": "object"
@@ -15686,18 +15689,22 @@
         "description": "Information about a dependent who received services related to the claim.",
         "properties": {
           "firstName": {
+            "deprecated": true,
             "description": "The first name of the dependent. Can be up to 35 characters.",
             "type": "string"
           },
           "lastName": {
+            "deprecated": true,
             "description": "The last name of the dependent. Can be up to 60 characters.",
             "type": "string"
           },
           "middleName": {
+            "deprecated": true,
             "description": "The middle name or initial of the dependent. Can be up to 25 characters.",
             "type": "string"
           },
           "suffix": {
+            "deprecated": true,
             "description": "The suffix of the dependent, such as Jr or III. Can be up to 10 characters.",
             "type": "string"
           }
