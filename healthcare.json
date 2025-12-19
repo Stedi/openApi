@@ -9808,6 +9808,11 @@
         ],
         "type": "string"
       },
+      "GetElectronicRemittanceAdvicePdfOutputPayload": {
+        "contentEncoding": "byte",
+        "description": "A binary blob containing the Electronic Remittance Advice (ERA) PDF. To render the PDF, you must save it to a file with a `.pdf` extension.",
+        "type": "string"
+      },
       "GetInsuranceDiscoveryCheckResponseContent": {
         "properties": {
           "coveragesFound": {
@@ -14605,17 +14610,22 @@
         "type": "string"
       },
       "MissingParameter": {
+        "description": "Returned when a required parameter is missing from the request.",
         "properties": {
           "code": {
+            "description": "The error code `MISSING_PARAMETER`.",
             "type": "string"
           },
           "details": {
+            "description": "Additional details about the missing parameter error.",
             "type": "string"
           },
           "message": {
+            "description": "A message indicating which parameter is missing.",
             "type": "string"
           }
         },
+        "title": "MissingParameter",
         "type": "object"
       },
       "NoTransactionsFound": {
@@ -29053,6 +29063,129 @@
         }
       }
     },
+    "/electronic-remittance-advice/{transactionId}/pdf": {
+      "get": {
+        "description": "Retrieve the generated PDF of an 835 Electronic Remittance Advice (ERA).",
+        "operationId": "GetElectronicRemittanceAdvicePdf",
+        "parameters": [
+          {
+            "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+            "examples": {
+              "GetElectronicRemittanceAdvicePdf_example1": {
+                "description": "",
+                "summary": "Retrieve ERA PDF by transaction ID",
+                "value": "b12a1241-3312-a3dc-aed2-1a30cv50cd63"
+              }
+            },
+            "in": "path",
+            "name": "transactionId",
+            "required": true,
+            "schema": {
+              "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+              "type": "string"
+            }
+          },
+          {
+            "description": "If false, the generated PDF will not include the Stedi logo in the footer. The default is true.",
+            "in": "query",
+            "name": "logo",
+            "schema": {
+              "description": "If false, the generated PDF will not include the Stedi logo in the footer. The default is true.",
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/pdf": {
+                "examples": {
+                  "GetElectronicRemittanceAdvicePdf_example1": {
+                    "description": "",
+                    "summary": "Retrieve ERA PDF by transaction ID",
+                    "value": "%PDF-1.3\n1 0 obj<< ..."
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetElectronicRemittanceAdvicePdfOutputPayload"
+                }
+              }
+            },
+            "description": "GetElectronicRemittanceAdvicePdf 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ThrottlingException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ServiceUnavailableException 503 response"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            },
+            "description": "GatewayTimeoutException 504 response"
+          }
+        }
+      }
+    },
     "/export/pdf": {
       "get": {
         "description": "Retrieve a Stedi generatedCMS-1500 Claim Form PDF for a submitted 837P (professional) claim by business identifier",
@@ -34665,6 +34798,10 @@
     }
   ],
   "tags": [],
+  "x-amazon-apigateway-binary-media-types": [
+    "application/pdf",
+    "application/octet-stream"
+  ],
   "x-eligibility-error-400-example": {
     "controlNumber": "000647813",
     "eligibilitySearchId": "0198afa8-1610-7602-a436-911cb4bf2a9f",
