@@ -5869,6 +5869,20 @@
               "minLength": 1,
               "type": "string"
             }
+          },
+          {
+            "description": "Filter batch items by their current state. Multiple states can be specified to retrieve items in any of those states. If not specified, all batch items are returned regardless of state.",
+            "explode": true,
+            "in": "query",
+            "name": "state",
+            "schema": {
+              "description": "Filter batch items by their current state. Multiple states can be specified to retrieve items in any of those states. If not specified, all batch items are returned regardless of state.",
+              "items": {
+                "$ref": "#/components/schemas/BatchItemState"
+              },
+              "type": "array"
+            },
+            "style": "form"
           }
         ],
         "responses": {
