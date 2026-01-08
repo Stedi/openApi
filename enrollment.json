@@ -796,6 +796,7 @@
                                                 {
                                                     "id": "ac6665a5-7b97-4agh-8c74-a00a336c2989",
                                                     "responsibleParty": "PROVIDER",
+                                                    "isComplete": false,
                                                     "rank": 0,
                                                     "definition": {
                                                         "followInstructions": {
@@ -2529,6 +2530,20 @@
                     "recordCount"
                 ]
             },
+            "FollowInstructionsResponse": {
+                "type": "object",
+                "description": "Response data for FollowInstructions task completion.",
+                "properties": {
+                    "response": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Response provided when completing a FollowInstructions task. This can be any relevant notes or confirmation text from the responsible party."
+                    }
+                },
+                "required": [
+                    "response"
+                ]
+            },
             "FollowInstructionsTask": {
                 "type": "object",
                 "description": "Follow-instructions task data containing text instructions for a user to follow.",
@@ -3046,6 +3061,7 @@
                 "required": [
                     "definition",
                     "id",
+                    "isComplete",
                     "rank",
                     "responsibleParty"
                 ]
@@ -3147,6 +3163,19 @@
                         },
                         "required": [
                             "adobeSign"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "followInstructions",
+                        "properties": {
+                            "followInstructions": {
+                                "$ref": "#/components/schemas/FollowInstructionsResponse",
+                                "description": "Response data collected from a FollowInstructions task.\n\n        **When to use:** Optional when completing a task where `task.definition.followInstructions` is present. Can include any relevant notes or confirmation text from the responsible party.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          followInstructions: {\n            response: 'Instructions followed and task completed successfully.'\n          }\n        }\n        ```"
+                            }
+                        },
+                        "required": [
+                            "followInstructions"
                         ]
                     }
                 ]
