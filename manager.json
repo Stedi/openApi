@@ -2233,6 +2233,12 @@
             "description": "The number of eligibility checks that are currently in progress (started or retrying).",
             "type": "integer"
           },
+          "maxRetryHours": {
+            "description": "The maximum number of hours that Stedi will retry eligibility checks in this batch that fail due to payer connectivity issues. This is the value that was set when the batch was created. Only applicable to batches submitted through the API.",
+            "maximum": 24,
+            "minimum": 8,
+            "type": "integer"
+          },
           "name": {
             "description": "The name assigned to the batch upon creation. For CSV uploads, this is the name you provided when uploading the file. For API submissions, this is the same as the `batchId`.",
             "pattern": "^[a-zA-Z0-9-_]{1,100}$",
