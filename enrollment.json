@@ -2531,20 +2531,6 @@
                     "recordCount"
                 ]
             },
-            "FollowInstructionsResponse": {
-                "type": "object",
-                "description": "Response data for FollowInstructions task completion.",
-                "properties": {
-                    "response": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Response provided when completing a FollowInstructions task. This can be any relevant notes or confirmation text from the responsible party."
-                    }
-                },
-                "required": [
-                    "response"
-                ]
-            },
             "FollowInstructionsTask": {
                 "type": "object",
                 "description": "Follow-instructions task data containing text instructions for a user to follow.",
@@ -2863,6 +2849,34 @@
                     "pdfLink"
                 ]
             },
+            "ProvideInformationResponse": {
+                "type": "object",
+                "description": "Response data for ProvideInformation task completion.",
+                "properties": {
+                    "response": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Response provided when completing a ProvideInformation task. This can be any relevant notes or confirmation text from the responsible party."
+                    }
+                },
+                "required": [
+                    "response"
+                ]
+            },
+            "ProvideInformationTask": {
+                "type": "object",
+                "description": "Task for collecting specific information from the provider.",
+                "properties": {
+                    "instructions": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Instructions explaining what information needs to be provided."
+                    }
+                },
+                "required": [
+                    "instructions"
+                ]
+            },
             "ProvideLegalContactDetailsTask": {
                 "type": "object",
                 "description": "Task for collecting legal entity contact details from the provider.",
@@ -3121,6 +3135,19 @@
                         "required": [
                             "signWithAdobe"
                         ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "provideInformation",
+                        "properties": {
+                            "provideInformation": {
+                                "$ref": "#/components/schemas/ProvideInformationTask",
+                                "description": "A task that requires the provider to provide specific information."
+                            }
+                        },
+                        "required": [
+                            "provideInformation"
+                        ]
                     }
                 ]
             },
@@ -3168,15 +3195,15 @@
                     },
                     {
                         "type": "object",
-                        "title": "followInstructions",
+                        "title": "provideInformation",
                         "properties": {
-                            "followInstructions": {
-                                "$ref": "#/components/schemas/FollowInstructionsResponse",
-                                "description": "Response data collected from a FollowInstructions task.\n\n        **When to use:** Optional when completing a task where `task.definition.followInstructions` is present. Can include any relevant notes or confirmation text from the responsible party.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          followInstructions: {\n            response: 'Instructions followed and task completed successfully.'\n          }\n        }\n        ```"
+                            "provideInformation": {
+                                "$ref": "#/components/schemas/ProvideInformationResponse",
+                                "description": "Response data collected from a ProvideInformation task.\n\n        **When to use:** Optional when completing a task where `task.definition.provideInformation` is present. Can include any relevant notes or confirmation text from the responsible party.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          provideInformation: {\n            response: 'Instructions followed and task completed successfully.'\n          }\n        }\n        ```"
                             }
                         },
                         "required": [
-                            "followInstructions"
+                            "provideInformation"
                         ]
                     }
                 ]
