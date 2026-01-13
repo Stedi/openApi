@@ -1305,6 +1305,11 @@
             "$ref": "#/components/schemas/ClaimsAddress",
             "description": "The billing provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `payToAddress` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
+          "claimOfficeNumber": {
+            "description": "Claim Office Number.",
+            "maxLength": 50,
+            "type": "string"
+          },
           "commercialNumber": {
             "description": "The billing provider's commercial number, as assigned by this payer. The commercial number is a unique identifier that the payer assigns to the provider. For providers without an NPI, you must provide either the `commercialNumber` or the `locationNumber` for identification.",
             "type": "string"
@@ -1333,6 +1338,11 @@
             "description": "The provider's middle name or initial, if the provider is an individual.",
             "type": "string"
           },
+          "naic": {
+            "description": "National Association of Insurance Commissioners (NAIC) Code.",
+            "maxLength": 50,
+            "type": "string"
+          },
           "npi": {
             "description": "The billing provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
             "pattern": "^\\d{10}$",
@@ -1340,6 +1350,12 @@
           },
           "organizationName": {
             "description": "The provider's business name.",
+            "type": "string"
+          },
+          "payerIdentificationNumber": {
+            "deprecated": true,
+            "description": "Payer Identification Number.",
+            "maxLength": 50,
             "type": "string"
           },
           "providerType": {
@@ -2385,7 +2401,7 @@
         "description": "Supply information specific to hospital claims, such as the priority of the admission.",
         "properties": {
           "admissionSourceCode": {
-            "description": "Code indicating the source of the admission.",
+            "description": "Code indicating the source of the admission, such as the emergency room (ER), a doctor’s referral, or another facility.\n\nThis code is **required** for all institutional claims except when the `claimInformation.placeOfServiceCode` is set to `14` (Non-Patient Laboratory). Stedi rejects claims that don't meet this requirement.",
             "type": "string"
           },
           "admissionTypeCode": {
@@ -5158,6 +5174,10 @@
             "description": "This is the payer's business name, like Cigna or Aetna.",
             "type": "string"
           },
+          "tradingPartnerSecondaryIdentifiers": {
+            "$ref": "#/components/schemas/TradingPartnerSecondaryIdentifiers",
+            "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
+          },
           "tradingPartnerServiceId": {
             "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
             "minLength": 1,
@@ -6439,6 +6459,10 @@
           "tradingPartnerName": {
             "description": "This is the payer's business name, like Cigna or Aetna.",
             "type": "string"
+          },
+          "tradingPartnerSecondaryIdentifiers": {
+            "$ref": "#/components/schemas/TradingPartnerSecondaryIdentifiers",
+            "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
           },
           "tradingPartnerServiceId": {
             "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
@@ -12320,6 +12344,10 @@
           "tradingPartnerName": {
             "description": "This is the payer's business name, like Cigna or Aetna.",
             "type": "string"
+          },
+          "tradingPartnerSecondaryIdentifiers": {
+            "$ref": "#/components/schemas/TradingPartnerSecondaryIdentifiers",
+            "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
           },
           "tradingPartnerServiceId": {
             "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
@@ -23138,6 +23166,33 @@
         ],
         "type": "string"
       },
+      "TradingPartnerSecondaryIdentifiers": {
+        "description": "Secondary identifiers for the payer. You can include up to three properties in this object.",
+        "properties": {
+          "claimOfficeNumber": {
+            "description": "Claim Office Number.",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "employerIdentificationNumber": {
+            "description": "Employer Identification Number. This must be a string of exactly nine numbers with no separators.",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "naic": {
+            "description": "National Association of Insurance Commissioners (NAIC) Code.",
+            "maxLength": 50,
+            "type": "string"
+          },
+          "payerIdentificationNumber": {
+            "deprecated": true,
+            "description": "Payer Identification Number.\nThis shape is deprecated since 1/9/25.",
+            "maxLength": 50,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
       "TransactionEnrollmentProcess": {
         "description": "Details about the enrollment process for a specific transaction type.",
         "properties": {
@@ -29536,7 +29591,7 @@
               "GetElectronicRemittanceAdvicePdf_example1": {
                 "description": "",
                 "summary": "Retrieve ERA PDF by transaction ID",
-                "value": "b12a1241-3312-a3dc-aed2-1a30cv50cd63"
+                "value": "b12a1241-3312-a3dc-aed2-1a30ca50cd63"
               }
             },
             "in": "path",
@@ -29544,6 +29599,9 @@
             "required": true,
             "schema": {
               "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+              "maxLength": 36,
+              "minLength": 36,
+              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
               "type": "string"
             }
           },
