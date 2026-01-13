@@ -3038,10 +3038,6 @@
                 "type": "object",
                 "description": "A task representing work that needs to be completed.",
                 "properties": {
-                    "isComplete": {
-                        "type": "boolean",
-                        "description": "Whether the task has been completed."
-                    },
                     "completedAt": {
                         "type": "number",
                         "description": "The timestamp when the task was completed.",
@@ -3067,6 +3063,10 @@
                     "responseData": {
                         "$ref": "#/components/schemas/TaskResponseData",
                         "description": "Response data collected when the task was completed. Only present for completed tasks that require structured data (e.g., ProvideLegalContactDetails, ProvideFilledPdf, SignWithAdobe)."
+                    },
+                    "isComplete": {
+                        "type": "boolean",
+                        "description": "Whether the task has been completed."
                     },
                     "id": {
                         "type": "string",
