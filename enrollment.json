@@ -1794,7 +1794,7 @@
                     },
                     "street2": {
                         "type": "string",
-                        "description": "Street address line 2 (optional)."
+                        "description": "Street address line 2."
                     },
                     "city": {
                         "type": "string",
@@ -2761,7 +2761,7 @@
                     "legalEntityName": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Legal name of the entity (e.g., `XYZ Medical Group, Inc.`)."
+                        "description": "Legal name of the entity, such as `XYZ Medical Group, Inc.`."
                     },
                     "businessAddress": {
                         "$ref": "#/components/schemas/BusinessAddress",
@@ -2785,7 +2785,7 @@
                     },
                     "additionalInfo": {
                         "type": "string",
-                        "description": "Additional information or notes (optional)."
+                        "description": "Additional information or notes."
                     }
                 },
                 "required": [
@@ -2840,17 +2840,17 @@
             },
             "PdfUploadResponse": {
                 "type": "object",
-                "description": "Response data containing the uploaded PDF after filling.",
+                "description": "Response data containing the uploaded PDF after completion.",
                 "properties": {
                     "documentId": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Document ID of the uploaded PDF in the enrollment document system (e.g., `019375d0-1234-7890-abcd-567890abcdef`)."
+                        "description": "Document ID of the uploaded PDF in the enrollment document system (for example, `019375d0-1234-7890-abcd-567890abcdef`)."
                     },
                     "fileName": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Original filename of the uploaded PDF (e.g., `completed-enrollment-form.pdf`)."
+                        "description": "Original filename of the uploaded PDF (for example, `completed-enrollment-form.pdf`)."
                     }
                 },
                 "required": [
@@ -2860,17 +2860,17 @@
             },
             "ProvideFilledPdfTask": {
                 "type": "object",
-                "description": "Task for downloading, filling, and re-uploading a PDF document.",
+                "description": "Task for downloading, completing, and re-uploading a PDF document.",
                 "properties": {
                     "instructions": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Instructions explaining what needs to be filled in the PDF."
+                        "description": "Instructions explaining what needs to be completed within the PDF."
                     },
                     "pdfLink": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "URL or document ID to download the PDF. Can be an external URL (e.g., `https://example.com/form.pdf`) or a document ID from a previous task (e.g., `019375d0-1234-7890-abcd-567890abcdef`)."
+                        "description": "URL or document ID to download the PDF. Can be an external URL (for example,`https://example.com/form.pdf`) or a document ID from a previous task (for example, `019375d0-1234-7890-abcd-567890abcdef`)."
                     }
                 },
                 "required": [
@@ -2880,12 +2880,12 @@
             },
             "ProvideInformationResponse": {
                 "type": "object",
-                "description": "Response data for ProvideInformation task completion.",
+                "description": "Response data for `ProvideInformation` task completion.",
                 "properties": {
                     "response": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Response provided when completing a ProvideInformation task. This can be any relevant notes or confirmation text from the responsible party."
+                        "description": "Response provided when completing a `ProvideInformation` task. This can be any relevant notes or confirmation text from the responsible party."
                     }
                 },
                 "required": [
@@ -3072,10 +3072,6 @@
                         "description": "The timestamp when the task was completed.",
                         "format": "date-time"
                     },
-                    "completedBy": {
-                        "type": "string",
-                        "description": "Identifier of who completed the task."
-                    },
                     "responsibleParty": {
                         "$ref": "#/components/schemas/ResponsibleParty",
                         "description": "The party responsible for completing this task."
@@ -3145,7 +3141,7 @@
                         "properties": {
                             "provideFilledPdf": {
                                 "$ref": "#/components/schemas/ProvideFilledPdfTask",
-                                "description": "A task that requires downloading, filling, and re-uploading a PDF document."
+                                "description": "A task that requires downloading, completing, and re-uploading a PDF document."
                             }
                         },
                         "required": [
@@ -3189,7 +3185,7 @@
                         "properties": {
                             "legalContactDetails": {
                                 "$ref": "#/components/schemas/LegalContactDetailsResponse",
-                                "description": "Legal entity contact details collected from a ProvideLegalContactDetails task.\n\n        **When to use:** Required when completing a task where `task.definition.provideLegalContactDetails` is present.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          legalContactDetails: {\n            legalEntityName: 'XYZ Medical Group, Inc.',\n            businessAddress: {\n              street1: '123 Main St',\n              city: 'Boston',\n              state: 'MA',\n              zipCode: '02101'\n            },\n            contactName: 'Jane Smith',\n            contactEmail: 'jane@example.com',\n            contactPhone: '6175551234'\n          }\n        }\n        ```"
+                                "description": "Provide the details for a legal contact related to the enrollment. Required when completing a task where `task.definition.provideLegalContactDetails` is present."
                             }
                         },
                         "required": [
@@ -3202,7 +3198,7 @@
                         "properties": {
                             "pdfUpload": {
                                 "$ref": "#/components/schemas/PdfUploadResponse",
-                                "description": "Uploaded PDF data collected from a ProvideFilledPdf task.\n\n        **When to use:** Required when completing a task where `task.definition.provideFilledPdf` is present. First upload the PDF using CreateEnrollmentDocumentUpload, then provide the returned documentId here.\n\n        **Example:**\n        ```typescript\n        // Step 1: Upload document\n        const upload = await client.send(new CreateEnrollmentDocumentUploadCommand({\n          enrollmentId: 'xxx',\n          name: 'form.pdf',\n          taskId: 'yyy'\n        }));\n\n        // Step 2: Upload file to presigned URL\n        await fetch(upload.uploadUrl, { method: 'PUT', body: pdfBuffer });\n\n        // Step 3: Complete task with document reference\n        responseData: {\n          pdfUpload: {\n            documentId: upload.documentId,\n            fileName: 'completed-form.pdf'\n          }\n        }\n        ```"
+                                "description": "Add details from a previously uploaded PDF. Required when completing a task where `task.definition.provideFilledPdf` is present. Completing this task requires multiple steps:\n  1. Upload the PDF. You can do this with the Upload Enrollment PDF endpoint.\n  2. Supply the document ID and filename in this object to complete the task."
                             }
                         },
                         "required": [
@@ -3215,7 +3211,7 @@
                         "properties": {
                             "adobeSign": {
                                 "$ref": "#/components/schemas/AdobeSignResponse",
-                                "description": "Adobe Sign agreement data collected from a SignWithAdobe task.\n\n        **When to use:** Required when completing a task where `task.definition.signWithAdobe` is present.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          adobeSign: {\n            agreementId: 'CBJCHBCAABAA-abc123',\n            signedDocumentUrl: 'https://secure.echosign.com/signed/abc123',\n            signedAt: new Date('2024-01-15T10:30:00Z')\n          }\n        }\n        ```"
+                                "description": "Provide details from an Adobe Sign agreement. Required when completing a task where `task.definition.signWithAdobe` is present."
                             }
                         },
                         "required": [
@@ -3228,7 +3224,7 @@
                         "properties": {
                             "provideInformation": {
                                 "$ref": "#/components/schemas/ProvideInformationResponse",
-                                "description": "Response data collected from a ProvideInformation task.\n\n        **When to use:** Optional when completing a task where `task.definition.provideInformation` is present. Can include any relevant notes or confirmation text from the responsible party.\n\n        **Example:**\n        ```typescript\n        responseData: {\n          provideInformation: {\n            response: 'Instructions followed and task completed successfully.'\n          }\n        }\n        ```"
+                                "description": "Provide notes or confirmation text to Stedi. This object is optional when completing a task where `task.definition.provideInformation` is present."
                             }
                         },
                         "required": [
