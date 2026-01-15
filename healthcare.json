@@ -9051,6 +9051,10 @@
             },
             "type": "array"
           },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager).",
+            "type": "string"
+          },
           "implementationTransactionSetSyntaxError": {
             "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction.",
             "type": "string"
@@ -9207,7 +9211,7 @@
             "type": "string"
           },
           "outboundTraceId": {
-            "description": "The unique ID Stedi assigns to this request.",
+            "description": "A unique identifier Stedi assigns to this check.\n\nInstead of this property, we recommend using `id` to identify and track eligibility checks. An eligibility check's `id` is guaranteed to be globally unique, and you can use it to deep link to the eligibility check's results within the Stedi portal.",
             "type": "string"
           },
           "senderId": {
@@ -9237,7 +9241,7 @@
             "type": "string"
           },
           "outboundTraceId": {
-            "description": "The transaction identifier in the request's `BHT03` element.",
+            "description": "The transaction identifier in the request's `BHT03` element. This identifier isn't guaranteed to be globally unique. We recommend using the `id` property to identify and track eligibility checks instead.",
             "type": "string"
           },
           "senderId": {
@@ -9311,6 +9315,10 @@
               "$ref": "#/components/schemas/EligibilityCheckError"
             },
             "type": "array"
+          },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager).",
+            "type": "string"
           },
           "implementationTransactionSetSyntaxError": {
             "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction.",
@@ -18738,6 +18746,10 @@
             },
             "type": "array"
           },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager).",
+            "type": "string"
+          },
           "implementationTransactionSetSyntaxError": {
             "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction.",
             "type": "string"
@@ -25781,6 +25793,7 @@
                       "controlNumber": "214976898",
                       "eligibilitySearchId": "01922a35-a177-7171-b868-cd4974dd54df",
                       "errors": [],
+                      "id": "ec_550e8400-e29b-41d4-a716-446655440000",
                       "meta": {
                         "applicationMode": "production",
                         "outboundTraceId": "01J2VZA127GH93JT74HJU",
@@ -27135,6 +27148,7 @@
                       "controlNumber": "1001",
                       "eligibilitySearchId": "01922a35-a177-7171-b868-cd4974dd54df",
                       "errors": [],
+                      "id": "ec_650e8400-e29b-41d4-a716-446655440001",
                       "meta": {
                         "applicationMode": "production",
                         "outboundTraceId": "01J2VZA127GH93JT74HJU",
@@ -35335,6 +35349,7 @@
         "possibleResolutions": "Provider's NPI is registered with incorrect name at the payer. Contact the payer directly using the information in the `payer.contactInformation` object (if available) to resolve the issue."
       }
     ],
+    "id": "ec_650e8400-e29b-41d4-a716-446655440001",
     "meta": {
       "applicationMode": "test",
       "outboundTraceId": "01K2QTG5GGN7SSM34JMHS7QBDZ",
@@ -35395,6 +35410,7 @@
   "x-raw-x12-parse-error-example": {
     "code": "BAD_REQUEST",
     "eligibilitySearchId": "0198afb0-0e35-7ed3-bc66-6c387c60f4bb",
+    "id": "ec_650e8400-e29b-41d4-a716-446655440002",
     "message": "Parse errors: [ParseError { message: \"Loop has fewer than the minimum of 1 items\", mark: Mark { start: Index { line: 1, column: 328 }, end: None }, context: Some(ParseErrorContext { schema_path: Pointer { path_segments: [Name(\"properties\"), Name(\"detail\"), Name(\"properties\"), Name(\"information_source_level_HL_loop\"), Name(\"items\"), Name(\"properties\"), Name(\"information_receiver_level_HL_loop\"), Name(\"items\"), Name(\"properties\"), Name(\"subscriber_level_HL_loop\")] }, actual: None, code: LoopRepeatLessThanRequired, lineage: None, segment_index: Some(7), element_refnum: None, trigger_element_position: None }) }]"
   },
   "x-stedi": {

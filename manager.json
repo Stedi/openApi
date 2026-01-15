@@ -421,6 +421,10 @@
             },
             "type": "array"
           },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in [Eligibility Manager](https://www.stedi.com/docs/healthcare/eligibility-manager).",
+            "type": "string"
+          },
           "implementationTransactionSetSyntaxError": {
             "description": "The implementation transaction set error code provided in `IK502` of the 999 transaction.",
             "type": "string"
@@ -1609,6 +1613,10 @@
             "$ref": "#/components/schemas/EligibilitySearchStatus",
             "description": "The status of the eligibility check. Can be:\n  - `queued`: Stedi placed the eligibility check in its internal queue and will send it to the payer when resources are available. This status is common when you schedule batch eligibility check refreshes through the API or perform large bulk retries that exceed your account's concurrency budget. You can typically expect the status to change to `Started` within a few seconds.\n  - `started`: Stedi has sent the eligibility check to the payer and is waiting for a response.\n  - `failed`: The payer returned an error code in the response. Review the error code and retry the eligibility check.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services."
           },
+          "id": {
+            "description": "The unique identifier for this eligibility check. This is the ID of the specific eligibility check request within the batch.",
+            "type": "string"
+          },
           "outboundTraceId": {
             "description": "A unique Stedi-generated identifier for the eligibility check. It's required for the generated X12 EDI transaction Stedi sends to payers. This identifier is different from the `requestId` and the `submitterTransactionIdentifier`.\n  - You can use this identifier to find an eligibility check in the Stedi portal. Click **Find by ID** in the navigation bar and enter the `outboundTraceId` to go directly to the eligibility check's details page.\n  - Don't use this ID to correlate eligibility check requests and responses. Use the `submitterTransactionIdentifier` property for correlation and tracking instead.",
             "type": "string"
@@ -2018,7 +2026,7 @@
             "type": "string"
           },
           "outboundTraceId": {
-            "description": "The unique ID Stedi assigns to this request.",
+            "description": "A unique identifier Stedi assigns to this check.\n\nInstead of this property, we recommend using `id` to identify and track eligibility checks. An eligibility check's `id` is guaranteed to be globally unique, and you can use it to deep link to the eligibility check's results within the Stedi portal.",
             "type": "string"
           },
           "senderId": {
@@ -6081,6 +6089,7 @@
                               "possibleResolutions": "Payer TEST is not configured. Please check our published payer list or contact Stedi support to resolve."
                             }
                           ],
+                          "id": "ec_750e8400-e29b-41d4-a716-446655440002",
                           "meta": {
                             "outboundTraceId": "01JCP62EYY1N6PZABF9Q45EN5Y"
                           },
@@ -7225,6 +7234,7 @@
                           "controlNumber": "333344444",
                           "eligibilitySearchId": "01922a35-a177-7171-b868-cd4974dd54df",
                           "errors": [],
+                          "id": "ec_850e8400-e29b-41d4-a716-446655440003",
                           "meta": {
                             "applicationMode": "production",
                             "outboundTraceId": "01J2VZA127GH93JT74HJU",
