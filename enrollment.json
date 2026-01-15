@@ -224,9 +224,9 @@
                                                     },
                                                     "payer": {
                                                         "name": "UnitedHealthcare",
-                                                        "stediPayerId": "87726"
+                                                        "stediPayerId": "KMQTZ",
+                                                        "submittedPayerIdOrAlias": "87726"
                                                     },
-                                                    "submittedPayerIdOrAlias": "CHPWA",
                                                     "transactions": {
                                                         "claimPayment": {
                                                             "enroll": true
@@ -426,11 +426,11 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "stediPayerId": "87726"
+                                                "stediPayerId": "KMQTZ",
+                                                "submittedPayerIdOrAlias": "87726"
                                             },
                                             "source": "API",
                                             "statusLastUpdatedAt": "2023-11-07T05:31:56Z",
-                                            "submittedPayerIdOrAlias": "CHPWA",
                                             "history": [
                                                 {
                                                     "newStatus": "DRAFT",
@@ -771,9 +771,9 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "stediPayerId": "87726"
+                                                "stediPayerId": "KMQTZ",
+                                                "submittedPayerIdOrAlias": "87726"
                                             },
-                                            "submittedPayerIdOrAlias": "CHPWA",
                                             "source": "API",
                                             "statusLastUpdatedAt": "2023-11-07T06:15:22Z",
                                             "documents": [
@@ -984,9 +984,9 @@
                                             },
                                             "payer": {
                                                 "name": "UnitedHealthcare",
-                                                "stediPayerId": "87726"
+                                                "stediPayerId": "KMQTZ",
+                                                "submittedPayerIdOrAlias": "87726"
                                             },
-                                            "submittedPayerIdOrAlias": "CHPWA",
                                             "source": "API",
                                             "statusLastUpdatedAt": "2024-11-07T05:31:56Z",
                                             "history": [
@@ -1956,10 +1956,6 @@
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
                     },
-                    "submittedPayerIdOrAlias": {
-                        "type": "string",
-                        "description": "The payer id or alias used when creating the enrollment."
-                    },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
                         "description": "Information about the provider enrolling with the payer."
@@ -2106,6 +2102,10 @@
                     "stediPayerId": {
                         "type": "string",
                         "description": "The unique Stedi assigned identifier for the payer."
+                    },
+                    "submittedPayerIdOrAlias": {
+                        "type": "string",
+                        "description": "The payer ID or alias used when creating the enrollment request. For example, `62308` and `CIGNA` are both supported for Cigna. You can find a list of all supported payer IDs and aliases in the [Payer Network](https://www.stedi.com/healthcare/network)."
                     }
                 },
                 "required": [
@@ -2378,10 +2378,6 @@
                         "$ref": "#/components/schemas/EnrolledPayerOutput",
                         "description": "Information about the payer the provider is enrolling with."
                     },
-                    "submittedPayerIdOrAlias": {
-                        "type": "string",
-                        "description": "The payer ID or alias used to identify the payer when creating the enrollment request. For example, `62308` and `CIGNA` are both supported for Cigna. You can find a list of all supported payer IDs and aliases in the [Payer Network](https://www.stedi.com/healthcare/network)."
-                    },
                     "transactions": {
                         "$ref": "#/components/schemas/EnrolledTransactionsList",
                         "description": "The type of transactions included in the enrollment."
@@ -2651,10 +2647,6 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
-                    },
-                    "submittedPayerIdOrAlias": {
-                        "type": "string",
-                        "description": "The payer id or alias used when creating the enrollment."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -3409,10 +3401,6 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
-                    },
-                    "submittedPayerIdOrAlias": {
-                        "type": "string",
-                        "description": "The payer id or alias used when creating the enrollment."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
