@@ -1306,6 +1306,7 @@
             "description": "The billing provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `payToAddress` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
           "claimOfficeNumber": {
+            "deprecated": true,
             "description": "Claim Office Number.",
             "maxLength": 50,
             "type": "string"
@@ -1319,6 +1320,7 @@
             "description": "Contact information for the billing provider. You can include a maximum of two objects in this array."
           },
           "employerId": {
+            "deprecated": true,
             "description": "The billing provider's Employer Identification Number (EIN). Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the `ssn`.",
             "type": "string"
           },
@@ -1339,6 +1341,7 @@
             "type": "string"
           },
           "naic": {
+            "deprecated": true,
             "description": "National Association of Insurance Commissioners (NAIC) Code.",
             "maxLength": 50,
             "type": "string"
@@ -7145,6 +7148,7 @@
           },
           "providerControlNumber": {
             "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random ULID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
+            "maxLength": 30,
             "type": "string"
           },
           "renderingProvider": {
@@ -13426,9 +13430,14 @@
       "InstitutionalReportInformation": {
         "properties": {
           "attachmentControlNumber": {
-            "description": "The control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters.",
-            "maxLength": 80,
-            "minLength": 2,
+            "description": "A control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim.\n  - You must include either this property or `attachmentId` in the request, but not both. Including both properties will result in an error.\n  - We recommend using a ULID or UUID of up to 50 characters.\n  - Stedi autogenerates a control number if you don't provide one.",
+            "type": "string"
+          },
+          "attachmentId": {
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -13440,7 +13449,6 @@
           }
         },
         "required": [
-          "attachmentControlNumber",
           "attachmentReportTypeCode",
           "attachmentTransmissionCode"
         ],
@@ -13740,6 +13748,7 @@
             "properties": {
               "providerControlNumber": {
                 "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. We **strongly recommend** setting this property for every service line within the claim. We also recommend using a [ULID](https://github.com/ulid/spec) instead of a UUID because payers are only required to store up to 30 characters for this value.",
+                "maxLength": 30,
                 "type": "string"
               }
             },
@@ -13971,7 +13980,14 @@
       "InstitutionalServiceLineSupplementalInformation": {
         "properties": {
           "attachmentControlNumber": {
-            "description": "The control number assigned to the attachment. Required when the `attachmentTransmissionCode` = `BM`, `EL`, `EM`, `FX`, or `FT`. \n\nThe payer uses this identifier to match the attachment to the claim. We recommend using a ULID or UUID of up to 50 characters.",
+            "description": "A control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim.\n  - You must include either this property or `attachmentId` in the request, but not both. Including both properties will result in an error.\n  - We recommend using a ULID or UUID of up to 50 characters.\n  - Stedi autogenerates a control number if you don't provide one.",
+            "type": "string"
+          },
+          "attachmentId": {
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -21700,6 +21716,7 @@
           },
           "providerControlNumber": {
             "description": "A unique identifier for this service line within the claim. It appears in the 835 (ERA) response as `lineItemControlNumber`, allowing you to correlate ERAs to the specific service lines from the original claim. If you don't set this property, Stedi uses a random ULID. Stedi returns service line identifiers in the `claimReference.serviceLines.lineItemControlNumber` object of the synchronous API response.",
+            "maxLength": 30,
             "type": "string"
           },
           "purchasedServiceInformation": {
