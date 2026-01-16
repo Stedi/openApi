@@ -2850,26 +2850,6 @@
                     "fileName"
                 ]
             },
-            "ProvideFilledPdfTask": {
-                "type": "object",
-                "description": "Task for downloading, completing, and re-uploading a PDF document.",
-                "properties": {
-                    "instructions": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Instructions explaining what needs to be completed within the PDF."
-                    },
-                    "pdfLink": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "URL or document ID to download the PDF. Can be an external URL (for example,`https://example.com/form.pdf`) or a document ID from a previous task (for example, `019375d0-1234-7890-abcd-567890abcdef`)."
-                    }
-                },
-                "required": [
-                    "instructions",
-                    "pdfLink"
-                ]
-            },
             "ProvideInformationResponse": {
                 "type": "object",
                 "description": "Response data for `ProvideInformation` task completion.",
@@ -2892,20 +2872,6 @@
                         "type": "string",
                         "minLength": 1,
                         "description": "Instructions explaining what information needs to be provided."
-                    }
-                },
-                "required": [
-                    "instructions"
-                ]
-            },
-            "ProvideLegalContactDetailsTask": {
-                "type": "object",
-                "description": "Task for collecting legal entity contact details from the provider.",
-                "properties": {
-                    "instructions": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Instructions explaining what legal contact details are needed."
                     }
                 },
                 "required": [
@@ -3028,33 +2994,6 @@
                     "STEDI"
                 ]
             },
-            "SignWithAdobeTask": {
-                "type": "object",
-                "description": "Task for signing a document using Adobe Sign.",
-                "properties": {
-                    "instructions": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Instructions explaining what document needs to be signed."
-                    },
-                    "documentLink": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "URL or document ID to the document that needs to be signed. Can be an external URL or a document ID from a previous task."
-                    },
-                    "signerEmail": {
-                        "type": "string",
-                        "minLength": 5,
-                        "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
-                        "description": "Email address of the person who needs to sign."
-                    }
-                },
-                "required": [
-                    "documentLink",
-                    "instructions",
-                    "signerEmail"
-                ]
-            },
             "Task": {
                 "type": "object",
                 "description": "A task representing work that needs to be completed.",
@@ -3112,45 +3051,6 @@
                         },
                         "required": [
                             "followInstructions"
-                        ]
-                    },
-                    {
-                        "type": "object",
-                        "title": "provideLegalContactDetails",
-                        "properties": {
-                            "provideLegalContactDetails": {
-                                "$ref": "#/components/schemas/ProvideLegalContactDetailsTask",
-                                "description": "A task that requires the provider to provide legal entity contact details."
-                            }
-                        },
-                        "required": [
-                            "provideLegalContactDetails"
-                        ]
-                    },
-                    {
-                        "type": "object",
-                        "title": "provideFilledPdf",
-                        "properties": {
-                            "provideFilledPdf": {
-                                "$ref": "#/components/schemas/ProvideFilledPdfTask",
-                                "description": "A task that requires downloading, completing, and re-uploading a PDF document."
-                            }
-                        },
-                        "required": [
-                            "provideFilledPdf"
-                        ]
-                    },
-                    {
-                        "type": "object",
-                        "title": "signWithAdobe",
-                        "properties": {
-                            "signWithAdobe": {
-                                "$ref": "#/components/schemas/SignWithAdobeTask",
-                                "description": "A task that requires signing a document using Adobe Sign."
-                            }
-                        },
-                        "required": [
-                            "signWithAdobe"
                         ]
                     },
                     {
