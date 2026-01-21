@@ -13,6 +13,183 @@
         }
     },
     "paths": {
+        "/documents/{documentId}": {
+            "delete": {
+                "description": "Deletes the specified PDF document associated with a transaction enrollment.",
+                "operationId": "DeleteEnrollmentDocument",
+                "parameters": [
+                    {
+                        "name": "documentId",
+                        "in": "path",
+                        "description": "The document ID for the PDF document you want to delete. The document ID is returned in the responses for the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The document ID for the PDF document you want to delete. The document ID is returned in the responses for the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints."
+                        },
+                        "required": true,
+                        "examples": {
+                            "DeleteEnrollmentDocument_example1": {
+                                "summary": "Delete Enrollment Document",
+                                "description": "",
+                                "value": "doc-123e4567-e89b-12d3-a456-426614174000"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "DeleteEnrollmentDocument 200 response"
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/documents/{documentId}/download": {
+            "get": {
+                "description": "Returns a pre-signed URL to download the specified enrollment document.",
+                "operationId": "CreateEnrollmentDocumentDownload",
+                "parameters": [
+                    {
+                        "name": "documentId",
+                        "in": "path",
+                        "description": "The document ID for the PDF document you want to download. The document ID is returned in the responses for the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The document ID for the PDF document you want to download. The document ID is returned in the responses for the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints."
+                        },
+                        "required": true,
+                        "examples": {
+                            "CreateEnrollmentDocumentDownload_example1": {
+                                "summary": "Create Enrollment Document Download",
+                                "description": "",
+                                "value": "doc-123e4567-e89b-12d3-a456-426614174000"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CreateEnrollmentDocumentDownload 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateEnrollmentDocumentDownloadResponseContent"
+                                },
+                                "examples": {
+                                    "CreateEnrollmentDocumentDownload_example1": {
+                                        "summary": "Create Enrollment Document Download",
+                                        "description": "",
+                                        "value": {
+                                            "documentId": "doc-123e4567-e89b-12d3-a456-426614174000",
+                                            "downloadUrl": "https://s3.amazonaws.com/enrollment-documents/doc-123e4567-e89b-12d3-a456-426614174000/provider-license.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=..."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/enrollments": {
             "get": {
                 "description": "Lists transaction enrollment records with optional filtering and pagination.",
@@ -1062,6 +1239,123 @@
                 }
             }
         },
+        "/enrollments/{enrollmentId}/documents": {
+            "post": {
+                "description": "Returns a pre-signed URL to upload a PDF document for the specified transaction enrollment.",
+                "operationId": "CreateEnrollmentDocumentUpload",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateEnrollmentDocumentUploadRequestContent"
+                            },
+                            "examples": {
+                                "CreateEnrollmentDocumentUpload_example1": {
+                                    "summary": "Create Enrollment Document Upload",
+                                    "description": "",
+                                    "value": {
+                                        "name": "provider-license.pdf"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "name": "enrollmentId",
+                        "in": "path",
+                        "description": "The enrollment ID for the transaction enrollment where you want to upload the PDF document. The enrollment ID is returned in the responses for the [Create Enrollment](/healthcare/api-reference/post-enrollment-create-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints. It's also listed at the top of the [enrollment's details page](https://portal.stedi.com/app/healthcare/enrollments) in the Stedi portal.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The enrollment ID for the transaction enrollment where you want to upload the PDF document. The enrollment ID is returned in the responses for the [Create Enrollment](/healthcare/api-reference/post-enrollment-create-enrollment) and [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoints. It's also listed at the top of the [enrollment's details page](https://portal.stedi.com/app/healthcare/enrollments) in the Stedi portal."
+                        },
+                        "required": true,
+                        "examples": {
+                            "CreateEnrollmentDocumentUpload_example1": {
+                                "summary": "Create Enrollment Document Upload",
+                                "description": "",
+                                "value": "db6675c5-7bg7-4af9-8c68-a54a336d2911"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CreateEnrollmentDocumentUpload 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/CreateEnrollmentDocumentUploadResponseContent"
+                                },
+                                "examples": {
+                                    "CreateEnrollmentDocumentUpload_example1": {
+                                        "summary": "Create Enrollment Document Upload",
+                                        "description": "",
+                                        "value": {
+                                            "enrollmentId": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                                            "uploadUrl": "https://s3.amazonaws.com/enrollment-documents/db6675c5-7bg7-4af9-8c68-a54a336d2911/provider-license.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=...",
+                                            "documentId": "doc-123e4567-e89b-12d3-a456-426614174000"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/providers": {
             "get": {
                 "description": "Lists providers with optional filtering and pagination.",
@@ -1816,6 +2110,64 @@
                     "state",
                     "street1",
                     "zipCode"
+                ]
+            },
+            "CreateEnrollmentDocumentDownloadResponseContent": {
+                "type": "object",
+                "description": "Response containing the document ID and pre-signed URL for download.",
+                "properties": {
+                    "documentId": {
+                        "type": "string",
+                        "description": "The document ID for the PDF document associated with the `downloadUrl`."
+                    },
+                    "downloadUrl": {
+                        "type": "string",
+                        "description": "The pre-signed URL to download the document."
+                    }
+                },
+                "required": [
+                    "documentId",
+                    "downloadUrl"
+                ]
+            },
+            "CreateEnrollmentDocumentUploadRequestContent": {
+                "type": "object",
+                "description": "Input for CreateDocumentUpload.",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "The file name of the PDF document you want to upload. The name should include the file extension, such as `provider-license.pdf`. This name will be displayed in the Stedi portal."
+                    },
+                    "taskId": {
+                        "type": "string",
+                        "description": "The ID for the task associated with this PDF upload. Only include this property when the PDF upload is related to completing a specific task on the transaction enrollment."
+                    }
+                },
+                "required": [
+                    "name"
+                ]
+            },
+            "CreateEnrollmentDocumentUploadResponseContent": {
+                "type": "object",
+                "description": "Response containing the enrollment ID, document ID, and pre-signed URL.",
+                "properties": {
+                    "enrollmentId": {
+                        "type": "string",
+                        "description": "The enrollment ID for the transaction enrollment request associated with the PDF document."
+                    },
+                    "uploadUrl": {
+                        "type": "string",
+                        "description": "The pre-signed URL you can use to upload the PDF document. This URL expires after 24 hours."
+                    },
+                    "documentId": {
+                        "type": "string",
+                        "description": "A unique identifier for the document record within Stedi."
+                    }
+                },
+                "required": [
+                    "documentId",
+                    "enrollmentId",
+                    "uploadUrl"
                 ]
             },
             "CreateEnrollmentRequestContent": {
