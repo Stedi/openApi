@@ -1997,6 +1997,141 @@
                     }
                 }
             }
+        },
+        "/tasks/{taskId}": {
+            "patch": {
+                "description": "Updates a task associated with an enrollment.",
+                "operationId": "UpdateTask",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateTaskRequestContent"
+                            },
+                            "examples": {
+                                "UpdateTask_example1": {
+                                    "summary": "Update task",
+                                    "description": "",
+                                    "value": {
+                                        "completed": true,
+                                        "responseData": {
+                                            "provideInformation": {
+                                                "response": "I have completed the required steps as instructed."
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "taskId",
+                        "in": "path",
+                        "description": "The Stedi-assigned identifier for the task to complete. You can get the task ID from either the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) or [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoint.",
+                        "schema": {
+                            "type": "string",
+                            "description": "The Stedi-assigned identifier for the task to complete. You can get the task ID from either the [Retrieve Enrollment](/healthcare/api-reference/get-enrollment) or [List Enrollments](/healthcare/api-reference/get-enrollment-list-enrollments) endpoint."
+                        },
+                        "required": true,
+                        "examples": {
+                            "UpdateTask_example1": {
+                                "summary": "Update task",
+                                "description": "",
+                                "value": "01937d50-1234-7890-abcd-567890abcdef"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "UpdateTask 200 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UpdateTaskResponseContent"
+                                },
+                                "examples": {
+                                    "UpdateTask_example1": {
+                                        "summary": "Update task",
+                                        "description": "",
+                                        "value": {
+                                            "task": {
+                                                "id": "01937d50-1234-7890-abcd-567890abcdef",
+                                                "definition": {
+                                                    "provideInformation": {
+                                                        "instructions": "Please provide a brief summary of your experience."
+                                                    }
+                                                },
+                                                "isComplete": true,
+                                                "completedAt": "2024-06-01T12:00:00Z",
+                                                "responsibleParty": "PROVIDER",
+                                                "rank": 1,
+                                                "responseData": {
+                                                    "provideInformation": {
+                                                        "response": "I have completed the required steps as instructed."
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "ValidationException 400 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "UnauthorizedException 401 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "AccessDeniedException 403 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "ResourceNotFoundException 404 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "InternalFailureException 500 response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -2016,32 +2151,6 @@
                 },
                 "required": [
                     "message"
-                ]
-            },
-            "AdobeSignResponse": {
-                "type": "object",
-                "description": "Response data containing Adobe Sign agreement details after signing.",
-                "properties": {
-                    "agreementId": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Adobe Sign agreement ID."
-                    },
-                    "signedDocumentUrl": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "URL to download the signed document."
-                    },
-                    "signedAt": {
-                        "type": "string",
-                        "description": "Timestamp when the document was signed.",
-                        "format": "date-time"
-                    }
-                },
-                "required": [
-                    "agreementId",
-                    "signedAt",
-                    "signedDocumentUrl"
                 ]
             },
             "AllEnrolledProviderFields": {
@@ -2075,41 +2184,6 @@
                     "npi",
                     "taxId",
                     "taxIdType"
-                ]
-            },
-            "BusinessAddress": {
-                "type": "object",
-                "description": "Business address information.",
-                "properties": {
-                    "street1": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "Street address line 1."
-                    },
-                    "street2": {
-                        "type": "string",
-                        "description": "Street address line 2."
-                    },
-                    "city": {
-                        "type": "string",
-                        "minLength": 2,
-                        "description": "City name."
-                    },
-                    "state": {
-                        "$ref": "#/components/schemas/UsState",
-                        "description": "State or province code using standard two-letter abbreviation."
-                    },
-                    "zipCode": {
-                        "type": "string",
-                        "minLength": 5,
-                        "description": "ZIP or postal code."
-                    }
-                },
-                "required": [
-                    "city",
-                    "state",
-                    "street1",
-                    "zipCode"
                 ]
             },
             "CreateEnrollmentDocumentDownloadResponseContent": {
@@ -3098,48 +3172,6 @@
                     "message"
                 ]
             },
-            "LegalContactDetailsResponse": {
-                "type": "object",
-                "description": "Legal entity contact details response data collected when completing the task.",
-                "properties": {
-                    "legalEntityName": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Legal name of the entity, such as `XYZ Medical Group, Inc.`."
-                    },
-                    "businessAddress": {
-                        "$ref": "#/components/schemas/BusinessAddress",
-                        "description": "Business address of the legal entity."
-                    },
-                    "contactName": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Contact person's full name."
-                    },
-                    "contactEmail": {
-                        "type": "string",
-                        "minLength": 5,
-                        "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
-                        "description": "Contact email address in standard email format."
-                    },
-                    "contactPhone": {
-                        "type": "string",
-                        "pattern": "^(?:[\\s().-]*\\d){10}[\\s().-]*$",
-                        "description": "Contact phone number."
-                    },
-                    "additionalInfo": {
-                        "type": "string",
-                        "description": "Additional information or notes."
-                    }
-                },
-                "required": [
-                    "businessAddress",
-                    "contactEmail",
-                    "contactName",
-                    "contactPhone",
-                    "legalEntityName"
-                ]
-            },
             "ListEnrollmentsResponseContent": {
                 "type": "object",
                 "description": "Output containing a paginated list of enrollments.",
@@ -3182,26 +3214,6 @@
                     }
                 }
             },
-            "PdfUploadResponse": {
-                "type": "object",
-                "description": "Response data containing the uploaded PDF after completion.",
-                "properties": {
-                    "documentId": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Document ID of the uploaded PDF in the enrollment document system (for example, `019375d0-1234-7890-abcd-567890abcdef`)."
-                    },
-                    "fileName": {
-                        "type": "string",
-                        "minLength": 1,
-                        "description": "Original filename of the uploaded PDF (for example, `completed-enrollment-form.pdf`)."
-                    }
-                },
-                "required": [
-                    "documentId",
-                    "fileName"
-                ]
-            },
             "ProvideInformationResponse": {
                 "type": "object",
                 "description": "Response data for `ProvideInformation` task completion.",
@@ -3209,7 +3221,7 @@
                     "response": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Response provided when completing a `ProvideInformation` task. This can be any relevant notes or confirmation text from the responsible party."
+                        "description": "Notes or confirmation text from the responsible party in response to completing a `ProvideInformation` task."
                     }
                 },
                 "required": [
@@ -3223,7 +3235,7 @@
                     "instructions": {
                         "type": "string",
                         "minLength": 1,
-                        "description": "Instructions explaining what information needs to be provided."
+                        "description": "Instructions explaining how to provide the necessary information."
                     }
                 },
                 "required": [
@@ -3361,24 +3373,24 @@
                     },
                     "definition": {
                         "$ref": "#/components/schemas/TaskDefinition",
-                        "description": "The specific definition and data for this task."
+                        "description": "A definition that determines the task's behavior, requirements, and data."
                     },
                     "rank": {
                         "type": "number",
                         "minimum": 0,
-                        "description": "The rank order of this task. Lower numbers are completed first."
+                        "description": "The rank order of this task. Tasks with lower numbers must be completed first. For example, a task with rank `1` must be completed before a task with rank `2`."
                     },
                     "responseData": {
                         "$ref": "#/components/schemas/TaskResponseData",
-                        "description": "Response data collected when the task was completed. Only present for completed tasks that require structured data (e.g., ProvideLegalContactDetails, ProvideFilledPdf, SignWithAdobe)."
+                        "description": "Data collected when the task was completed. This object currently only applies to tasks with `definition.provideInformation`."
                     },
                     "isComplete": {
                         "type": "boolean",
-                        "description": "Whether the task has been completed."
+                        "description": "Whether the task has been marked as complete through either the API or the Stedi portal."
                     },
                     "id": {
                         "type": "string",
-                        "description": "The unique identifier for the task."
+                        "description": "The unique, Stedi-assigned identifier for the task."
                     }
                 },
                 "required": [
@@ -3411,7 +3423,7 @@
                         "properties": {
                             "provideInformation": {
                                 "$ref": "#/components/schemas/ProvideInformationTask",
-                                "description": "A task that requires the provider to provide specific information."
+                                "description": "A task that requires the provider to supply specific information."
                             }
                         },
                         "required": [
@@ -3425,50 +3437,11 @@
                 "oneOf": [
                     {
                         "type": "object",
-                        "title": "legalContactDetails",
-                        "properties": {
-                            "legalContactDetails": {
-                                "$ref": "#/components/schemas/LegalContactDetailsResponse",
-                                "description": "Provide the details for a legal contact related to the enrollment. Required when completing a task where `task.definition.provideLegalContactDetails` is present."
-                            }
-                        },
-                        "required": [
-                            "legalContactDetails"
-                        ]
-                    },
-                    {
-                        "type": "object",
-                        "title": "pdfUpload",
-                        "properties": {
-                            "pdfUpload": {
-                                "$ref": "#/components/schemas/PdfUploadResponse",
-                                "description": "Add details from a previously uploaded PDF. Required when completing a task where `task.definition.provideFilledPdf` is present. Completing this task requires multiple steps:\n  1. Upload the PDF. You can do this with the Upload Enrollment PDF endpoint.\n  2. Supply the document ID and filename in this object to complete the task."
-                            }
-                        },
-                        "required": [
-                            "pdfUpload"
-                        ]
-                    },
-                    {
-                        "type": "object",
-                        "title": "adobeSign",
-                        "properties": {
-                            "adobeSign": {
-                                "$ref": "#/components/schemas/AdobeSignResponse",
-                                "description": "Provide details from an Adobe Sign agreement. Required when completing a task where `task.definition.signWithAdobe` is present."
-                            }
-                        },
-                        "required": [
-                            "adobeSign"
-                        ]
-                    },
-                    {
-                        "type": "object",
                         "title": "provideInformation",
                         "properties": {
                             "provideInformation": {
                                 "$ref": "#/components/schemas/ProvideInformationResponse",
-                                "description": "Provide notes or confirmation text to Stedi. This object is optional when completing a task where `task.definition.provideInformation` is present."
+                                "description": "Provide notes or confirmation text to Stedi."
                             }
                         },
                         "required": [
@@ -3745,6 +3718,33 @@
                     "id",
                     "name",
                     "npi"
+                ]
+            },
+            "UpdateTaskRequestContent": {
+                "type": "object",
+                "description": "Input for UpdateTask operation.",
+                "properties": {
+                    "completed": {
+                        "type": "boolean",
+                        "description": "Indicates whether the task is completed. Set to `true` to mark the task as complete. If omitted, the default is `false`."
+                    },
+                    "responseData": {
+                        "$ref": "#/components/schemas/TaskResponseData",
+                        "description": "Additional data you can submit to Stedi when completing a task with `definition.provideInformation`.\n\nThis object will be ignored when completing a task with `definition.followInstructions`."
+                    }
+                }
+            },
+            "UpdateTaskResponseContent": {
+                "type": "object",
+                "description": "Output for UpdateTask operation.",
+                "properties": {
+                    "task": {
+                        "$ref": "#/components/schemas/Task",
+                        "description": "The updated task record."
+                    }
+                },
+                "required": [
+                    "task"
                 ]
             },
             "UsState": {
