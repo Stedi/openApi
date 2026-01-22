@@ -2254,7 +2254,7 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly.\n  - This contact information doesn't need to match existing contacts defined on the provider record. It also doesn't modify or replace contacts on the provider record."
                     },
                     "userEmail": {
                         "type": "string",
@@ -3244,7 +3244,7 @@
             },
             "ProviderContact": {
                 "type": "object",
-                "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly.",
+                "description": "The contact information for the provider. These contacts appear as prepopulated options for contact information when creating enrollment requests for this provider in the Stedi portal. They aren't automatically added to enrollment requests.\n\nThese contacts should specify where payers should send communications about the enrollment, if needed.\n  - Either `organizationName` _or_ `firstName` and `lastName` are required.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number and email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly.\n  - These contacts are for convenience only. You can specify different contacts on enrollment requests as needed.",
                 "properties": {
                     "organizationName": {
                         "type": "string",
@@ -3499,7 +3499,7 @@
                     },
                     "primaryContact": {
                         "$ref": "#/components/schemas/ProviderContact",
-                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly."
+                        "description": "The contact information for the provider. This is where the payer will send communications about the enrollment, if needed.\n  - The name and address should match exactly what the payer has on file for the provider. Some payers reject enrollment requests with addresses that don't match their records.\n  - If you're submitting enrollment requests on a provider's behalf, you may want to set the phone number or email to your own contact details. Do this when you want the payer to contact you about the enrollment status instead of the provider directly.\n  - This contact information doesn't need to match existing contacts defined on the provider record. It also doesn't modify or replace contacts on the provider record."
                     },
                     "userEmail": {
                         "type": "string",
