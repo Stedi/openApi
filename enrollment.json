@@ -372,6 +372,21 @@
                             "type": "string",
                             "description": "The import ID associated with an enrollment through a CSV bulk import. This ID is only available for enrollments created through the CSV import process."
                         }
+                    },
+                    {
+                        "name": "sortBy",
+                        "in": "query",
+                        "description": "Sort the results by one or more fields. Each value must use 'field:direction' format.\n\nSupported fields: updatedAt, id\nSupported directions: asc, desc\n\nExamples:\n- Sort by updatedAt descending: ?sortBy=updatedAt:desc\n- Multi-field sort with different directions: ?sortBy=updatedAt:desc&sortBy=id:asc\n\nIf not specified, results are sorted by created_at in descending order.",
+                        "style": "form",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "pattern": "^\\w+:(asc|desc)$"
+                            },
+                            "description": "Sort the results by one or more fields. Each value must use 'field:direction' format.\n\nSupported fields: updatedAt, id\nSupported directions: asc, desc\n\nExamples:\n- Sort by updatedAt descending: ?sortBy=updatedAt:desc\n- Multi-field sort with different directions: ?sortBy=updatedAt:desc&sortBy=id:asc\n\nIf not specified, results are sorted by created_at in descending order."
+                        },
+                        "explode": true
                     }
                 ],
                 "responses": {
