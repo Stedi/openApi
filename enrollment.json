@@ -376,7 +376,7 @@
                     {
                         "name": "sortBy",
                         "in": "query",
-                        "description": "Sort the results by one or more fields. Each value must use 'field:direction' format.\n\nSupported fields: updatedAt, id\nSupported directions: asc, desc\n\nExamples:\n- Sort by updatedAt descending: ?sortBy=updatedAt:desc\n- Multi-field sort with different directions: ?sortBy=updatedAt:desc&sortBy=id:asc\n\nIf not specified, results are sorted by created_at in descending order.",
+                        "description": "Sort the results by one or more properties. If you don't include this parameter, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n\nWhen multiple properties are provided, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `id`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`",
                         "style": "form",
                         "schema": {
                             "type": "array",
@@ -384,7 +384,7 @@
                                 "type": "string",
                                 "pattern": "^\\w+:(asc|desc)$"
                             },
-                            "description": "Sort the results by one or more fields. Each value must use 'field:direction' format.\n\nSupported fields: updatedAt, id\nSupported directions: asc, desc\n\nExamples:\n- Sort by updatedAt descending: ?sortBy=updatedAt:desc\n- Multi-field sort with different directions: ?sortBy=updatedAt:desc&sortBy=id:asc\n\nIf not specified, results are sorted by created_at in descending order."
+                            "description": "Sort the results by one or more properties. If you don't include this parameter, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n\nWhen multiple properties are provided, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `id`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`"
                         },
                         "explode": true
                     }
