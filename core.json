@@ -192,7 +192,7 @@
           {
             "name": "faultCode",
             "in": "query",
-            "description": "A code specifying the reason for the fault.",
+            "description": "A code specifying the reason for the fault. This code appears in the `code` property of the HTTP error response.",
             "schema": {
               "$ref": "#/components/schemas/ExecutionFaultCode"
             }
@@ -209,7 +209,7 @@
           {
             "name": "status",
             "in": "query",
-            "description": "The status of the execution. An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
+            "description": "The status of the execution.\n  - You can only retry executions with a `FAILED` or `IGNORED` status.\n  - An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
             "schema": {
               "$ref": "#/components/schemas/ExecutionStatus"
             }
@@ -301,6 +301,130 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "BadRequestException 400 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "UnauthorizedException 401 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "AccessDeniedException 403 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "ResourceNotFoundException 404 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "ResourceUnderChangeException 409 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceUnderChangeExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "ThrottlingException 429 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ThrottlingExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "ServiceException 500 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "ServiceUnavailableException 503 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServiceUnavailableExceptionResponseContent"
+                }
+              }
+            }
+          },
+          "504": {
+            "description": "GatewayTimeoutException 504 response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/executions/retry": {
+      "post": {
+        "description": "Queue file executions to be retried.",
+        "operationId": "RetryExecutions",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RetryExecutionsRequestContent"
+              },
+              "examples": {
+                "RetryExecutions_example1": {
+                  "summary": "Retry executions",
+                  "description": "",
+                  "value": {
+                    "condition": {
+                      "status": "FAILED",
+                      "from": "2025-02-10T00:00:00Z",
+                      "to": "2025-02-12T23:59:59Z"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "RetryExecutions 200 response"
           },
           "400": {
             "description": "BadRequestException 400 response",
@@ -5799,7 +5923,7 @@
       },
       "ExecutionFaultCode": {
         "type": "string",
-        "description": "A code specifying the reason for the fault.",
+        "description": "A code specifying the reason for the fault. This code appears in the `code` property of the HTTP error response.",
         "enum": [
           "DELIVERY_FAILURE",
           "FAILED_TO_EXTRACT_BUSINESS_IDENTIFIERS",
@@ -5897,7 +6021,7 @@
       },
       "ExecutionStatus": {
         "type": "string",
-        "description": "The status of the execution. An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
+        "description": "The status of the execution.\n  - You can only retry executions with a `FAILED` or `IGNORED` status.\n  - An execution is `COMPLETED` when Stedi has finished processing the file with no errors. If the file is an outbound file, a `COMPLETED` status also means that Stedi successfully delivered it to the configured connection.",
         "enum": [
           "COMPLETED",
           "PARTIALLY_COMPLETED",
@@ -6863,6 +6987,54 @@
             "description": "The ID of the newly retried event."
           }
         }
+      },
+      "RetryExecutionSelectionCondition": {
+        "type": "object",
+        "description": "Specify the file executions to retry. Stedi will retry all executions matching the given criteria. For example, you can retry all file executions with a `FAILED` status within a specific date range.\n\nNote that Stedi only retries each `executionId` once. Each retry attempt is stored as a new file execution within Stedi. If you need to retry a file multiple times, you'll need to pass the ID of the latest retry attempt to this endpoint.",
+        "properties": {
+          "executionIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1000,
+            "description": "A list of file execution IDs. These are unique identifiers for the file execution within Stedi. This ID is included in the file processed event, or you can retrieve it manually from the file's details page within the Stedi portal."
+          },
+          "direction": {
+            "$ref": "#/components/schemas/Direction"
+          },
+          "faultCode": {
+            "$ref": "#/components/schemas/ExecutionFaultCode"
+          },
+          "partnershipId": {
+            "type": "string",
+            "description": "Specify executions associated with a specific partnership. This is the `partnershipId` property in the file execution record. You can also find this ID on the [Trading partners](https://www.stedi.com/app/core/partnerships) page under **Partnership identifier**."
+          },
+          "status": {
+            "$ref": "#/components/schemas/ExecutionStatus"
+          },
+          "from": {
+            "type": "string",
+            "description": "Specify executions processed after this timestamp, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "description": "Specify executions processed before this timestamp, in ISO 8601 format. For example, `2023-08-28T00:00:00Z`.",
+            "format": "date-time"
+          }
+        }
+      },
+      "RetryExecutionsRequestContent": {
+        "type": "object",
+        "properties": {
+          "condition": {
+            "$ref": "#/components/schemas/RetryExecutionSelectionCondition"
+          }
+        },
+        "required": [
+          "condition"
+        ]
       },
       "ServiceExceptionResponseContent": {
         "type": "object",
