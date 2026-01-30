@@ -4157,10 +4157,10 @@
             "$ref": "#/components/schemas/ClaimStatusEncounter"
           },
           "providers": {
-            "description": "Information about the billing and/or service providers related to the referenced claim. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n    - When the `providerType` = `BillingProvider`, you must include the provider's `etin`.\n    - When `providerType` = `ServiceProvider`, you must include the `npi` if the provider has one. Otherwise, include the `taxId`.",
+            "description": "Information about the billing provider and (optionally) service providers related to the referenced claim.\n  - Exactly one billing provider is **required** in this array. Requests that include only a service provider are rejected with a `400` error.\n  - For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n  - When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier.",
             "items": {
               "$ref": "#/components/schemas/StatusRequestProvider",
-              "description": "Information about the billing and/or service providers related to the referenced claim. You must include at least the billing provider in this array. For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`. When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier."
+              "description": "Information about the billing provider and (optionally) service providers related to the referenced claim.\n  - Exactly one billing provider is **required** in this array. Requests that include only a service provider are rejected with a `400` error.\n  - For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n  - When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier."
             },
             "maxItems": 2147483647,
             "minItems": 1,
