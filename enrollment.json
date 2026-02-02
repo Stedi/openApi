@@ -3377,11 +3377,6 @@
                 "type": "object",
                 "description": "A task representing work that needs to be completed.",
                 "properties": {
-                    "completedAt": {
-                        "type": "string",
-                        "description": "The timestamp when the task was completed.",
-                        "format": "date-time"
-                    },
                     "responsibleParty": {
                         "$ref": "#/components/schemas/ResponsibleParty",
                         "description": "The party responsible for completing this task."
@@ -3394,6 +3389,11 @@
                         "type": "number",
                         "minimum": 0,
                         "description": "The rank order of this task. Tasks with lower numbers must be completed first. For example, a task with rank `1` must be completed before a task with rank `2`."
+                    },
+                    "completedAt": {
+                        "type": "string",
+                        "description": "The timestamp when the task was completed.",
+                        "format": "date-time"
                     },
                     "responseData": {
                         "$ref": "#/components/schemas/TaskResponseData",
