@@ -481,6 +481,69 @@
                                                             }
                                                         }
                                                     ]
+                                                },
+                                                {
+                                                    "id": "e9a8b7c6-d5f4-3e2d-1c0b-a9876543210f",
+                                                    "provider": {
+                                                        "name": "Test Medical Provider",
+                                                        "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                                                        "npi": "9876543210",
+                                                        "taxId": "987654321",
+                                                        "taxIdType": "EIN"
+                                                    },
+                                                    "payer": {
+                                                        "name": "Aetna",
+                                                        "stediPayerId": "AETNA",
+                                                        "submittedPayerIdOrAlias": "60054"
+                                                    },
+                                                    "transactions": {
+                                                        "eligibilityCheck": {
+                                                            "enroll": true
+                                                        }
+                                                    },
+                                                    "status": "PROVISIONING",
+                                                    "source": "API",
+                                                    "statusLastUpdatedAt": "2025-04-22T14:45:00Z",
+                                                    "createdAt": "2025-04-20T08:15:00Z",
+                                                    "updatedAt": "2025-04-25T10:30:00Z",
+                                                    "submittedAt": "2025-04-20T08:20:00Z",
+                                                    "reason": "Waiting for provider action",
+                                                    "documents": [],
+                                                    "history": [
+                                                        {
+                                                            "newStatus": "SUBMITTED",
+                                                            "changedBy": "admin@example.com",
+                                                            "changedAt": "2025-04-20T08:15:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        },
+                                                        {
+                                                            "previousStatus": "SUBMITTED",
+                                                            "newStatus": "STEDI_ACTION_REQUIRED",
+                                                            "changedBy": "admin@example.com",
+                                                            "changedAt": "2025-04-20T08:20:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        },
+                                                        {
+                                                            "previousStatus": "SUBMITTED",
+                                                            "newStatus": "PROVISIONING",
+                                                            "changedBy": "system",
+                                                            "changedAt": "2025-04-20T14:30:00Z",
+                                                            "type": "STATUS_CHANGE"
+                                                        }
+                                                    ],
+                                                    "tasks": [
+                                                        {
+                                                            "id": "f8e7d6c5-b4a3-9281-7654-321098765432",
+                                                            "responsibleParty": "PROVIDER",
+                                                            "isComplete": false,
+                                                            "rank": 0,
+                                                            "definition": {
+                                                                "followInstructions": {
+                                                                    "instructions": "Please provide additional documentation for payer credentialing."
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
                                                 }
                                             ]
                                         }
@@ -2875,6 +2938,10 @@
                     "importId": {
                         "type": "string",
                         "description": "The import ID associated with the enrollment if it was created through a CSV bulk import (`source` is set to `IMPORT`). This property is only present for enrollments created through the CSV import process."
+                    },
+                    "reason": {
+                        "type": "string",
+                        "description": "Reasons why the enrollment request is still in `PROVISIONING` status, may take additional time to process, or was rejected by the payer. Only Stedi can set or update this property."
                     }
                 },
                 "required": [
