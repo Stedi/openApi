@@ -4817,6 +4817,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -5322,6 +5326,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -6474,6 +6482,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -6607,6 +6619,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -7099,7 +7115,7 @@
             "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -12390,6 +12406,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -12541,6 +12561,10 @@
               "$ref": "#/components/schemas/ClaimsWarning"
             },
             "type": "array"
+          },
+          "x12": {
+            "description": "A [277CA claim acknowledgment](https://www.stedi.com/docs/healthcare/claim-responses-overview#277ca-claim-acknowledgment) acceptance or rejection from Stedi in X12 EDI format. It indicates whether the claim has passed Stedi's claim edits.\n\nWhen the claim fails one or more edits, the 277CA contains `STC` segments with information about each error. These are the same error codes that appear in the `errors` array.\n\nNote that this 277CA only indicates whether Stedi has accepted or rejected the claim submission. You may receive additional 277CA acceptances or rejections as the claim is routed to the payer.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -13530,7 +13554,7 @@
             "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -14092,7 +14116,7 @@
             "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -15208,6 +15232,9 @@
           },
           "transactionId": {
             "description": "The Stedi transaction identifier.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           }
         },
@@ -16328,6 +16355,9 @@
           },
           "transactionId": {
             "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           }
         },
@@ -16341,6 +16371,9 @@
           },
           "transactionId": {
             "description": "A unique identifier for the claim with one or more PDF errors.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           }
         },
@@ -19327,7 +19360,7 @@
             "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
-            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
             "type": "string"
           },
           "attachmentReportTypeCode": {
@@ -27604,7 +27637,8 @@
                         "payerName": "Aetna"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "AETNA"
+                      "tradingPartnerServiceId": "AETNA",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01J1M588QT2TAV2N093GNJ998T*20240710*220532*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01J1M588QT2TAV2N093GNJ998T~\nDTP*050*D8*20240710~\nDTP*009*D8*20240710~\nHL*2*1*21*1~\nNM1*41*2*TEST HOSPITAL*****46*1234567890~\nTRN*2*01J1M588QT2TAV2N093GNJ998T~\nSTC*A0>17>AY*20240710*WQ*150~\nQTY*90*1~\nAMT*YU*150~\nHL*3*2*19*1~\nNM1*85*2*TEST HOSPITAL*****XX*1234567890~\nTRN*1*0~\nREF*EI*123456789~\nQTY*QA*1~\nAMT*YU*150~\nHL*4*3*PT*0~\nNM1*QC*1*DOE*JOHN****MI*123456789~\nTRN*2*26403774~\nSTC*A1>20*20240710*WQ*150~\nDTP*472*RD8*20240101-20240101~\nSE*25*0001~"
                     }
                   }
                 },
@@ -27833,7 +27867,8 @@
                         "payerName": "UnitedHealthcare"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "87726"
+                      "tradingPartnerServiceId": "87726",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01JABEX6DPF4FCT2J0Y0SGFCY8*20241016*200432*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01JABEX6DPF4FCT2J0Y0SGFCY8~\nDTP*050*D8*20241016~\nDTP*009*D8*20241016~\nHL*2*1*21*1~\nNM1*41*2*Test Facility*****46*0123456789~\nTRN*2*01JABEX6DPF4FCT2J0Y0SGFCY8~\nSTC*A0>17>AY*20241016*WQ*500.00~\nQTY*90*1~\nAMT*YU*500.00~\nHL*3*2*19*1~\nNM1*85*2*Test Facility*****XX*0123456789~\nTRN*1*0~\nREF*EI*123456789~\nQTY*QA*1~\nAMT*YU*500.00~\nHL*4*3*PT*0~\nNM1*QC*1*DOE*JANE****MI*98765~\nTRN*2*00001111222233334444~\nSTC*A1>20*20241016*WQ*500.00~\nDTP*472*RD8*20241015-20241015~\nSE*25*0001~"
                     }
                   }
                 },
@@ -27972,7 +28007,8 @@
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "60054"
+                      "tradingPartnerServiceId": "60054",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01J1M588QT2TAV2N093GNJ998T*20240710*220532*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01J1M588QT2TAV2N093GNJ998T~\nDTP*050*D8*20240710~\nDTP*009*D8*20240710~\nHL*2*1*21*1~\nNM1*41*2*Therapy Associates*****46*1999999984~\nTRN*2*01J1M588QT2TAV2N093GNJ998T~\nSTC*A0>17>AY*20240710*WQ*109.0~\nQTY*90*1~\nAMT*YU*109.0~\nHL*3*2*19*1~\nNM1*85*2*Therapy Associates*****XX*1999999984~\nTRN*1*0~\nREF*EI*832675429~\nQTY*QA*1~\nAMT*YU*109.0~\nHL*4*3*PT*0~\nNM1*QC*1*Anon*John****MI*U7777788888~\nTRN*2*22266555~\nSTC*A1>20*20240710*WQ*109.0~\nDTP*472*RD8*20240101-20240101~\nSE*25*0001~"
                     }
                   }
                 },
@@ -28213,7 +28249,8 @@
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "6400"
+                      "tradingPartnerServiceId": "6400",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01HTCX97F6XS6F2K22D4KD59TK*20240401*132354*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01HTCX97F6XS6F2K22D4KD59TK~\nDTP*050*D8*20240401~\nDTP*009*D8*20240401~\nHL*2*1*21*1~\nNM1*41*2*Therapy Associates*****46*1999999984~\nTRN*2*01HTCX97F6XS6F2K22D4KD59TK~\nSTC*A0>17>AY*20240401*WQ*109.20~\nQTY*90*1~\nAMT*YU*109.20~\nHL*3*2*19*1~\nNM1*85*2*Therapy Associates*****XX*1999999984~\nTRN*1*0~\nREF*TJ*123456789~\nQTY*QA*1~\nAMT*YU*109.20~\nHL*4*3*PT*0~\nNM1*QC*1*Anon*John****MI*U7777788888~\nTRN*2*22266555~\nSTC*A1>20*20240401*WQ*109.20~\nDTP*472*RD8*20240101-20240101~\nSE*25*0001~"
                     }
                   }
                 },
@@ -28321,6 +28358,9 @@
             "required": true,
             "schema": {
               "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+              "maxLength": 36,
+              "minLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
               "type": "string"
             }
           }
@@ -28890,6 +28930,9 @@
             "required": true,
             "schema": {
               "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+              "maxLength": 36,
+              "minLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
               "type": "string"
             }
           }
@@ -29462,7 +29505,8 @@
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "60054"
+                      "tradingPartnerServiceId": "60054",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01J1M588QT2TAV2N093GNJ998T*20240710*220532*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01J1M588QT2TAV2N093GNJ998T~\nDTP*050*D8*20240710~\nDTP*009*D8*20240710~\nHL*2*1*21*1~\nNM1*41*2*DENTAL ASSOCIATES*****46*1999999992~\nTRN*2*01J1M588QT2TAV2N093GNJ998T~\nSTC*A0>17>AY*20240710*WQ*150~\nQTY*90*1~\nAMT*YU*150~\nHL*3*2*19*1~\nNM1*85*2*DENTAL ASSOCIATES*****XX*1999999992~\nTRN*1*0~\nREF*EI*587654321~\nQTY*QA*2~\nAMT*YU*150~\nHL*4*3*PT*0~\nNM1*QC*1*SMITH*TED****MI*111223333~\nTRN*2*22266555~\nSTC*A1>20*20240710*WQ*150~\nDTP*472*RD8*20061029-20061029~\nSE*25*0001~"
                     }
                   }
                 },
@@ -29733,7 +29777,8 @@
                         "payerName": "United HealthCare Dental"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "52133"
+                      "tradingPartnerServiceId": "52133",
+                      "x12": "ST*277*0001*005010X214~\nBHT*0085*08*01JDQMX92Q1T561BH8NKX750TQ*20241127*202727*TH~\nHL*1**20*1~\nNM1*AY*2*STEDI INC*****46*117151744~\nTRN*1*01JDQMX92Q1T561BH8NKX750TQ~\nDTP*050*D8*20241127~\nDTP*009*D8*20241127~\nHL*2*1*21*1~\nNM1*41*2*ABA Inc*****46*1999999992~\nTRN*2*01JDQMX92Q1T561BH8NKX750TQ~\nSTC*A0>17>AY*20241127*WQ*832.00~\nQTY*90*1~\nAMT*YU*832.00~\nHL*3*2*19*1~\nNM1*85*2*ABA Inc*****XX*1999999992~\nTRN*1*0~\nREF*TJ*123456789~\nQTY*QA*1~\nAMT*YU*832.00~\nHL*4*3*PT*0~\nNM1*QC*1*Doe*John****MI*123412345~\nTRN*2*0U1LBRS4~\nSTC*A1>20*20241127*WQ*832.00~\nDTP*472*RD8*20230428-20230428~\nSE*25*0001~"
                     }
                   }
                 },
@@ -29838,7 +29883,7 @@
               "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
               "maxLength": 36,
               "minLength": 36,
-              "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
               "type": "string"
             }
           },
@@ -29987,7 +30032,7 @@
                       "errors": [
                         {
                           "error": "No artifacts found for transaction",
-                          "transactionId": "a10b3344-7288-484j-8dbb-b240c123c767"
+                          "transactionId": "a10b3344-7288-484a-8dbb-b240c123c767"
                         }
                       ],
                       "pdfs": [
@@ -30098,6 +30143,9 @@
             "required": true,
             "schema": {
               "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+              "maxLength": 36,
+              "minLength": 36,
+              "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
               "type": "string"
             }
           },
