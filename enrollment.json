@@ -374,9 +374,33 @@
                         }
                     },
                     {
+                        "name": "requestedEffectiveDateFrom",
+                        "in": "query",
+                        "description": "Filter for enrollments with a requested effective date on or after this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateFrom=20260101` returns enrollments with a `requestedEffectiveDate` of `20260101` or later.",
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 8,
+                            "minLength": 8,
+                            "pattern": "^\\d{8}$",
+                            "description": "Filter for enrollments with a requested effective date on or after this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateFrom=20260101` returns enrollments with a `requestedEffectiveDate` of `20260101` or later."
+                        }
+                    },
+                    {
+                        "name": "requestedEffectiveDateTo",
+                        "in": "query",
+                        "description": "Filter for enrollments with a requested effective date on or before this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateTo=20261231` returns enrollments with a `requestedEffectiveDate` of `20261231` or earlier.\n\nThe date must be the same as or later than `requestedEffectiveDateFrom`, if present.",
+                        "schema": {
+                            "type": "string",
+                            "maxLength": 8,
+                            "minLength": 8,
+                            "pattern": "^\\d{8}$",
+                            "description": "Filter for enrollments with a requested effective date on or before this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateTo=20261231` returns enrollments with a `requestedEffectiveDate` of `20261231` or earlier.\n\nThe date must be the same as or later than `requestedEffectiveDateFrom`, if present."
+                        }
+                    },
+                    {
                         "name": "sortBy",
                         "in": "query",
-                        "description": "Sort the results by one or more properties. By default, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n  - When you don't include `id`, Stedi automatically adds it as the final sort criterion to ensure deterministic results.\n  - When you provide multiple properties, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `statusLastUpdatedAt`, `id`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `statusLastUpdatedAt` in ascending order: `?sortBy=statusLastUpdatedAt:asc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`",
+                        "description": "Sort the results by one or more properties. By default, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n  - When you don't include `id`, Stedi automatically adds it as the final sort criterion to ensure deterministic results.\n  - When you provide multiple properties, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `statusLastUpdatedAt`, `id`, `requestedEffectiveDate`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `statusLastUpdatedAt` in ascending order: `?sortBy=statusLastUpdatedAt:asc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`",
                         "style": "form",
                         "schema": {
                             "type": "array",
@@ -384,7 +408,7 @@
                                 "type": "string",
                                 "pattern": "^\\w+:(asc|desc)$"
                             },
-                            "description": "Sort the results by one or more properties. By default, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n  - When you don't include `id`, Stedi automatically adds it as the final sort criterion to ensure deterministic results.\n  - When you provide multiple properties, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `statusLastUpdatedAt`, `id`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `statusLastUpdatedAt` in ascending order: `?sortBy=statusLastUpdatedAt:asc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`"
+                            "description": "Sort the results by one or more properties. By default, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n  - When you don't include `id`, Stedi automatically adds it as the final sort criterion to ensure deterministic results.\n  - When you provide multiple properties, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `statusLastUpdatedAt`, `id`, `requestedEffectiveDate`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `statusLastUpdatedAt` in ascending order: `?sortBy=statusLastUpdatedAt:asc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`"
                         },
                         "explode": true
                     }
@@ -429,6 +453,7 @@
                                                     "statusLastUpdatedAt": "2025-05-01T12:00:00Z",
                                                     "createdAt": "2025-04-01T12:00:00Z",
                                                     "updatedAt": "2025-05-01T12:00:00Z",
+                                                    "requestedEffectiveDate": "20250401",
                                                     "documents": [
                                                         {
                                                             "id": "dc6665a5-7b97-4agh-8c74-a00a336c2989",
@@ -507,6 +532,7 @@
                                                     "createdAt": "2025-04-20T08:15:00Z",
                                                     "updatedAt": "2025-04-25T10:30:00Z",
                                                     "submittedAt": "2025-04-20T08:20:00Z",
+                                                    "requestedEffectiveDate": "20250501",
                                                     "reason": "Waiting for provider action",
                                                     "documents": [],
                                                     "history": [
@@ -630,7 +656,8 @@
                                         "provider": {
                                             "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
                                         },
-                                        "status": "SUBMITTED"
+                                        "status": "SUBMITTED",
+                                        "requestedEffectiveDate": "20270301"
                                     }
                                 }
                             }
@@ -686,6 +713,7 @@
                                             },
                                             "source": "API",
                                             "statusLastUpdatedAt": "2023-11-07T05:31:56Z",
+                                            "requestedEffectiveDate": "20270301",
                                             "history": [
                                                 {
                                                     "newStatus": "DRAFT",
@@ -1031,6 +1059,7 @@
                                             },
                                             "source": "API",
                                             "statusLastUpdatedAt": "2023-11-07T06:15:22Z",
+                                            "requestedEffectiveDate": "20231107",
                                             "documents": [
                                                 {
                                                     "id": "dc6665a5-7b97-4agh-8c74-a00a336c2989",
@@ -1170,7 +1199,8 @@
                                         },
                                         "provider": {
                                             "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
-                                        }
+                                        },
+                                        "requestedEffectiveDate": "20270301"
                                     }
                                 }
                             }
@@ -1244,6 +1274,7 @@
                                             },
                                             "source": "API",
                                             "statusLastUpdatedAt": "2024-11-07T05:31:56Z",
+                                            "requestedEffectiveDate": "20270301",
                                             "history": [
                                                 {
                                                     "newStatus": "SUBMITTED",
@@ -2357,6 +2388,13 @@
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
                     },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 2 years from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set."
+                    },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
                         "description": "Information about the provider enrolling with the payer. You **must** use the [Create Provider](https://www.stedi.com/docs/api-reference/healthcare/post-enrollment-create-provider) endpoint to add the provider to Stedi before you can enroll them with one or more payers."
@@ -2459,6 +2497,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date the enrollment is requested to take effect with the payer. If not provided during submission, Stedi uses the submission date.\n\nStedi can't guarantee that the enrollment will be effective with the payer on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -2942,6 +2987,13 @@
                     "reason": {
                         "type": "string",
                         "description": "Reasons why the enrollment request is still in `PROVISIONING` status, may take additional time to process, or was rejected by the payer. Only Stedi can set or update this property."
+                    },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date the enrollment is requested to take effect with the payer. If not provided during submission, Stedi uses the submission date.\n\nStedi can't guarantee that the enrollment will be effective with the payer on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly."
                     }
                 },
                 "required": [
@@ -3036,6 +3088,20 @@
                     "importId": {
                         "type": "string",
                         "description": "The import ID associated with an enrollment through a CSV bulk import. This ID is only available for enrollments created through the CSV import process."
+                    },
+                    "requestedEffectiveDateFrom": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "Filter for enrollments with a requested effective date on or after this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateFrom=20260101` returns enrollments with a `requestedEffectiveDate` of `20260101` or later."
+                    },
+                    "requestedEffectiveDateTo": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "Filter for enrollments with a requested effective date on or before this date, in YYYYMMDD format.\n\nFor example, `?requestedEffectiveDateTo=20261231` returns enrollments with a `requestedEffectiveDate` of `20261231` or earlier.\n\nThe date must be the same as or later than `requestedEffectiveDateFrom`, if present."
                     }
                 }
             },
@@ -3155,6 +3221,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date the enrollment is requested to take effect with the payer. If not provided during submission, Stedi uses the submission date.\n\nStedi can't guarantee that the enrollment will be effective with the payer on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
@@ -3606,6 +3679,13 @@
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
                     },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 2 years from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set."
+                    },
                     "provider": {
                         "$ref": "#/components/schemas/EnrolledProviderInput",
                         "description": "Information about the provider enrolling with the payer."
@@ -3708,6 +3788,13 @@
                         "minLength": 5,
                         "pattern": "^[a-zA-Z0-9]+$",
                         "description": "This property is required for payers that require a Provider Transaction Access Number (PTAN).\n\nThe PTAN is a Medicare-issued number given to providers upon enrollment with Medicare. This number is usually six digits and is assigned based on the type of service and the location of the provider. Upon enrollment, Medicare Administrating Contracting (MAC) providers should receive their assigned PTAN number in their approval letter."
+                    },
+                    "requestedEffectiveDate": {
+                        "type": "string",
+                        "maxLength": 8,
+                        "minLength": 8,
+                        "pattern": "^\\d{8}$",
+                        "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date the enrollment is requested to take effect with the payer. If not provided during submission, Stedi uses the submission date.\n\nStedi can't guarantee that the enrollment will be effective with the payer on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly."
                     },
                     "provider": {
                         "$ref": "#/components/schemas/AllEnrolledProviderFields",
