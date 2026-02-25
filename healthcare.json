@@ -5591,6 +5591,23 @@
         ],
         "type": "string"
       },
+      "ConflictExceptionResponseContent": {
+        "description": "Exception returned when a resource conflict is detected, such as a duplicate submission already in progress.",
+        "properties": {
+          "code": {
+            "description": "Unique error code identifying the specific type of error.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human readable error message explaining why the request was rejected.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "ContactInformation": {
         "properties": {
           "contacts": {
@@ -19524,6 +19541,23 @@
         ],
         "type": "string"
       },
+      "RequestChangedExceptionResponseContent": {
+        "description": "Exception returned when a request uses an idempotency key that was previously used with different request parameters.",
+        "properties": {
+          "code": {
+            "description": "Unique error code identifying the specific type of error.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human readable error message explaining why the request was rejected.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "RequestDependent": {
         "properties": {
           "additionalIdentification": {
@@ -27692,6 +27726,26 @@
             },
             "description": "ResourceNotFoundException 404 response"
           },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
+          },
           "429": {
             "content": {
               "application/json": {
@@ -27941,6 +27995,26 @@
             },
             "description": "ResourceNotFoundException 404 response"
           },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
+          },
           "429": {
             "content": {
               "application/json": {
@@ -28093,6 +28167,26 @@
               }
             },
             "description": "ResourceNotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
           },
           "429": {
             "content": {
@@ -28348,6 +28442,26 @@
               }
             },
             "description": "ResourceNotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
           },
           "429": {
             "content": {
@@ -29618,6 +29732,26 @@
             },
             "description": "ResourceNotFoundException 404 response"
           },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
+          },
           "429": {
             "content": {
               "application/json": {
@@ -29902,6 +30036,26 @@
               }
             },
             "description": "ResourceNotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestChangedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "RequestChangedException 422 response"
           },
           "429": {
             "content": {
