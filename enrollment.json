@@ -3843,6 +3843,25 @@
                     }
                 }
             },
+            "ProvideFilledPdfTask": {
+                "type": "object",
+                "description": "Task for downloading, completing, and re-uploading a PDF document.",
+                "properties": {
+                    "instructions": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "Instructions explaining what needs to be completed within the PDF."
+                    },
+                    "documentDownloadUrl": {
+                        "type": "string",
+                        "minLength": 1,
+                        "description": "The API URL for the [Download Enrollment Document](/healthcare/api-reference/get-enrollment-document-download) endpoint, with the document ID prepopulated. For example: `https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download`. When you make an authenticated `GET` request to this URL, Stedi returns a pre-signed URL that you can use to download the PDF."
+                    }
+                },
+                "required": [
+                    "instructions"
+                ]
+            },
             "ProvideInformationResponse": {
                 "type": "object",
                 "description": "Response data for `ProvideInformation` task completion.",
@@ -4078,6 +4097,19 @@
                         },
                         "required": [
                             "followInstructions"
+                        ]
+                    },
+                    {
+                        "type": "object",
+                        "title": "provideFilledPdf",
+                        "properties": {
+                            "provideFilledPdf": {
+                                "$ref": "#/components/schemas/ProvideFilledPdfTask",
+                                "description": "A task that requires downloading, completing, and re-uploading a PDF document."
+                            }
+                        },
+                        "required": [
+                            "provideFilledPdf"
                         ]
                     },
                     {
