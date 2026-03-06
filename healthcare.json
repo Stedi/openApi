@@ -1333,7 +1333,6 @@
             "description": "Contact information for the billing provider. You can include a maximum of two objects in this array."
           },
           "employerId": {
-            "deprecated": true,
             "description": "The billing provider's Employer Identification Number (EIN). Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you include this value, you cannot include the `ssn`.",
             "type": "string"
           },
@@ -2098,7 +2097,8 @@
             "type": "string"
           },
           "payerContactInformation": {
-            "$ref": "#/components/schemas/PayerContactInformation"
+            "$ref": "#/components/schemas/PayerContactInformation",
+            "deprecated": true
           },
           "payerIdentification": {
             "description": "The payer's unique identifier.",
@@ -2171,6 +2171,7 @@
         "description": "Information about the service provided.",
         "properties": {
           "amountPaid": {
+            "deprecated": true,
             "description": "The amount paid for the service, expressed as a decimal.",
             "type": "string"
           },
@@ -3885,7 +3886,7 @@
         "type": "object"
       },
       "ClaimServiceFacilityLocation": {
-        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
+        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n- For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
@@ -4509,6 +4510,7 @@
             "type": "array"
           },
           "patientAccountNumber": {
+            "deprecated": true,
             "description": "The patient control number provided in the original claim. You can use this value to correlate the payer's response with the original claim.",
             "type": "string"
           },
@@ -6348,7 +6350,7 @@
           },
           "serviceFacilityLocation": {
             "$ref": "#/components/schemas/ClaimServiceFacilityLocation",
-            "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n    - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n    - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
+            "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n  - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n  - For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n  - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
           },
           "serviceLines": {
             "description": "Information about one or more services rendered to the patient.\n    - Each service line must be a unique service event as defined by the payer's billing policies. This means that you can use the same procedure code on multiple service lines as long as they are distinct events.\n    - Some procedure codes are date-specific. In these cases, you may need to create a separate service line with that code for each applicable date of service, even if the episode of care extended over multiple days.\n    - Service lines can share the same dates of service if the patient received multiple services on the same day.",
@@ -7268,7 +7270,7 @@
           },
           "serviceFacilityLocation": {
             "$ref": "#/components/schemas/DentalServiceLineServiceFacilityLocation",
-            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n    - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n    - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
+            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n  - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n  - For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n  - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
           },
           "serviceLineDateInformation": {
             "$ref": "#/components/schemas/DentalServiceLineDateInformation"
@@ -16529,6 +16531,7 @@
         "description": "Information about the primary policy holder for the health plan.",
         "properties": {
           "employerIdentificationNumber": {
+            "deprecated": true,
             "description": "The subscriber's employer identification number. This may be used in conjunction with a worker's compensation claim.",
             "type": "string"
           },
@@ -21754,6 +21757,7 @@
       "ServiceClaimStatus": {
         "properties": {
           "effectiveDate": {
+            "deprecated": true,
             "description": "The date the status information is effective.",
             "type": "string"
           },
@@ -22040,7 +22044,7 @@
           },
           "serviceFacilityLocation": {
             "$ref": "#/components/schemas/ServiceLineServiceFacilityLocation",
-            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n  - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n  - Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n  - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
+            "description": "Information about where the services were rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n  - Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n  - For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n  - Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n  - Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately."
           },
           "serviceLineDateInformation": {
             "$ref": "#/components/schemas/ServiceLineDateInformation"
@@ -22551,7 +22555,7 @@
         "type": "object"
       },
       "ServiceLineServiceFacilityLocation": {
-        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
+        "description": "Required when the location for the service is different from the billing provider's address. The purpose of this object is to identify specifically where the service was rendered. This can be healthcare facilities, such as surgical centers or reference labs, OR the patient's address when services were rendered in their home.\n- Only include this object when the service facility location is **different** from the billing provider's address. If you include this object when the address is the same, Stedi omits all of the service facility location information from the claim submission, including the name and any identifiers.\n- For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n- Don't use this object when reporting ambulance services - use `ambulancePickupLocation` and `ambulanceDropoffLocation` instead.\n- Sometimes the billing provider is an actual physician group that is located at the same address as a hospital, but is in fact a separate entity. In this case, you can differentiate the service facility location by including the specific suite or building number of the physician group. This ensures that the service facility location is different from the billing provider's address and is reported accurately.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
@@ -22617,6 +22621,7 @@
             "type": "string"
           },
           "nationalCouncilForPrescriptionDrugProgramsRejectPaymentCodes": {
+            "deprecated": true,
             "description": "A National Council for Prescription Drug Programs (NCPDP) reject code.",
             "type": "string"
           },
@@ -22741,6 +22746,7 @@
             "type": "array"
           },
           "statusInformationEffectiveDate": {
+            "deprecated": true,
             "description": "The date the status information is effective.",
             "type": "string"
           }
