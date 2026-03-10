@@ -2292,6 +2292,11 @@
         ],
         "type": "object"
       },
+      "GetEligibilityCheckPdfOutputPayload": {
+        "contentEncoding": "byte",
+        "description": "A binary blob containing the Eligibility Check PDF.",
+        "type": "string"
+      },
       "GovernmentServiceAffiliationCode": {
         "description": "Payers may sometimes return other non-compliant values.",
         "enum": [
@@ -6012,6 +6017,100 @@
         }
       }
     },
+    "/eligibility-manager/eligibility-checks/{eligibilityCheckId}/pdf": {
+      "get": {
+        "description": "Retrieve a PDF version of the 271 benefits response for the specified eligibility check",
+        "operationId": "GetEligibilityCheckPdf",
+        "parameters": [
+          {
+            "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items.id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
+            "examples": {
+              "GetEligibilityCheckPdf_example1": {
+                "description": "",
+                "summary": "Retrieve PDF",
+                "value": "ec_019d24cf-89d6-75b3-81e8-8ba6a655572e"
+              }
+            },
+            "in": "path",
+            "name": "eligibilityCheckId",
+            "required": true,
+            "schema": {
+              "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items.id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/pdf": {
+                "examples": {
+                  "GetEligibilityCheckPdf_example1": {
+                    "description": "",
+                    "summary": "Retrieve PDF",
+                    "value": "JVBERi0xLjQKJcfsj6IKNSAwIG9iago......"
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetEligibilityCheckPdfOutputPayload"
+                }
+              }
+            },
+            "description": "GetEligibilityCheckPdf 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "UnauthorizedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        }
+      }
+    },
     "/eligibility-manager/polling/batch-eligibility": {
       "get": {
         "description": "Retrieve batch eligibility check results",
@@ -7409,6 +7508,10 @@
     }
   ],
   "tags": [],
+  "x-amazon-apigateway-binary-media-types": [
+    "application/pdf",
+    "application/octet-stream"
+  ],
   "x-stedi": {
     "lifecycle": "general_availability",
     "product": "manager",
