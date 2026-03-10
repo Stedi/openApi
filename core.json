@@ -233,6 +233,16 @@
               "description": "The end of the time range to filter file executions. The results will include executions up to and including this timestamp.",
               "format": "date-time"
             }
+          },
+          {
+            "name": "displayName",
+            "in": "query",
+            "description": "Filter executions by the source of the file, including the directory and file name. Supports partial matching against the full path.",
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "description": "Filter executions by the source of the file, including the directory and file name. Supports partial matching against the full path."
+            }
           }
         ],
         "responses": {
