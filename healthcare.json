@@ -14441,11 +14441,11 @@
         "type": "object"
       },
       "InsuranceDiscoveryDependent": {
-        "description": "Demographic information for the patient when they are a dependent on a health plan.\n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their zip code.\n- You should provide information for both the subscriber and the dependent in the request when possible.\n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
+        "description": "Demographic information for the patient when they are a dependent on a health plan.\n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their ZIP Code.\n- You should provide information for both the subscriber and the dependent in the request when possible.\n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/Address",
-            "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
+            "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP Code, as this helps narrow down the list of probable payers. ZIP Code search isn’t an exact match, so even the first 3-4 digits of the patient’s current ZIP Code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial ZIP Code from one of the patient’s previous addresses or even one in close proximity."
           },
           "dateOfBirth": {
             "description": "The dependent's date of birth (DOB), formatted as YYYYMMDD.",
@@ -14584,11 +14584,11 @@
         "type": "object"
       },
       "InsuranceDiscoverySubscriber": {
-        "description": "Demographic information for the patient when they are the health plan subscriber. We strongly recommend providing as much information as possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the subscriber's Social Security Number and their address - particularly their zip code.",
+        "description": "Demographic information for the patient when they are the health plan subscriber. We strongly recommend providing as much information as possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the subscriber's Social Security Number and their address - particularly their ZIP Code.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/Address",
-            "description": "The subscriber's current or previous address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP code, as this helps narrow down the list of probable payers. Zip code search isn’t an exact match, so even the first 3-4 digits of the patient’s current zip code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial zip code from one of the patient’s previous addresses or even one in close proximity."
+            "description": "The subscriber's current or previous address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP Code, as this helps narrow down the list of probable payers. ZIP Code search isn’t an exact match, so even the first 3-4 digits of the patient’s current ZIP Code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial ZIP Code from one of the patient’s previous addresses or even one in close proximity."
           },
           "dateOfBirth": {
             "description": "The subscriber's date of birth (DOB), formatted as YYYYMMDD.",
