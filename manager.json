@@ -899,14 +899,14 @@
           },
           "authOrCertIndicator": {
             "$ref": "#/components/schemas/AuthOrCertIndicator",
-            "description": "Code indicating whether the benefit is subject to prior authorization or certification. Can be `Y` - Yes, `N` - No, or `U` - Unknown.\n  - When this property is set to `U`, it means the payer can't determine in real time whether prior authorization is required for the service. They may require additional details, like diagnosis or place of service to make a determination. Check the `additionalInformation.description` property for any additional clarification. You can also contact the payer directly or use their provider portal to get more information.\n  - Some payers may send additional notes about prior authorization rules in the `additionalInformation.description` property. Payers may also send prior authorization notes in a separate `benefitsInformation` object with a code of `1` (Active coverage), `CB` (Coverage Benefit), or `D` (Benefit Description).\n\nVisit our [patient benefits docs](https://www.stedi.com/docs/healthcare/eligibility-network-status-authorization-referrals#is-prior-authorization-required) to learn more about prior authorization.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Code indicating whether the benefit is subject to prior authorization or certification. Can be `Y` - Yes, `N` - No, or `U` - Unknown.\n  - When this property is set to `U`, it means the payer can't determine in real time whether prior authorization is required for the service. They may require additional details, like diagnosis or place of service to make a determination. Check the `additionalInformation[].description` property for any additional clarification. You can also contact the payer directly or use their provider portal to get more information.\n  - Some payers may send additional notes about prior authorization rules in the `additionalInformation[].description` property. Payers may also send prior authorization notes in a separate `benefitsInformation` object with a code of `1` (Active coverage), `CB` (Coverage Benefit), or `D` (Benefit Description).\n\nVisit our [patient benefits docs](https://www.stedi.com/docs/healthcare/eligibility-network-status-authorization-referrals#is-prior-authorization-required) to learn more about prior authorization.\n\nPayers may sometimes return other non-compliant values."
           },
           "benefitAmount": {
-            "description": "The monetary benefit amount, such as a patient's co-pay or deductible. This value is expressed as a decimal, such as 100.00. \n \n The payer will always send a value in this property when the `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. For those codes, this value represents the patient's portion of responsibility. \n \n The payer will **never** send this value when `benefitsInformation.code` = `A` - Co-Insurance. This property can contain zero when the patient has no responsibility. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits).",
+            "description": "The monetary benefit amount, such as a patient's co-pay or deductible. This value is expressed as a decimal, such as 100.00. \n \n The payer will always send a value in this property when the `benefitsInformation[].code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. For those codes, this value represents the patient's portion of responsibility. \n \n The payer will **never** send this value when `benefitsInformation[].code` = `A` - Co-Insurance. This property can contain zero when the patient has no responsibility. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits).",
             "type": "string"
           },
           "benefitPercent": {
-            "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation.code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation.code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits).",
+            "description": "The percentage of the benefit, such as co-insurance. This property can contain zero when the patient has no responsibility. \n \n The payer will always send a value in this property when `benefitsInformation[].code` = `A` - Co-Insurance. For this code, this value represents the patient's portion of the responsibility. The percentage is expressed as a decimal, such as `0.80` represents 80%. \n \n The payer will **never** send a value in this property when `benefitsInformation[].code` = `B` - Co-Payment, `C` - Deductible, `G` - Out of Pocket (Stop Loss), `J` - Cost Containment, or `Y` - Spend Down. \n \n Learn more about [patient costs](https://www.stedi.com/docs/healthcare/eligibility-patient-responsibility-benefits).",
             "type": "string"
           },
           "benefitQuantity": {
@@ -929,7 +929,7 @@
           "benefitsRelatedEntity": {
             "$ref": "#/components/schemas/BenefitsRelatedEntity",
             "deprecated": true,
-            "description": "Please use `benefitsInformation.benefitsRelatedEntities` instead."
+            "description": "Please use `benefitsInformation[].benefitsRelatedEntities` instead."
           },
           "benefitsServiceDelivery": {
             "items": {
@@ -952,7 +952,7 @@
           "eligibilityAdditionalInformation": {
             "$ref": "#/components/schemas/EligibilityAdditionalInformation",
             "deprecated": true,
-            "description": "Please use `benefitsInformation.eligibilityAdditionalInformationList` instead."
+            "description": "Please use `benefitsInformation[].eligibilityAdditionalInformationList` instead."
           },
           "eligibilityAdditionalInformationList": {
             "description": "Used when there are multiple Nature of Injury Codes or a Facility Type Codes included in the response.",
@@ -982,7 +982,7 @@
             "$ref": "#/components/schemas/BenefitsInformationName"
           },
           "planCoverage": {
-            "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`.\n\nPayers are normally required to send the plan name when `benefitsInformation.code` is set to values `1` - `8` and the `benefitsInformation.serviceTypeCodes` contains `30` (Health Benefit Plan Coverage). However, behavior may vary by payer, so don't rely on this information being present in the response. Note that the plan name returned in this property may not exactly match the name the payer uses in official plan documents or marketing literature.\n\nVisit [What's the plan name?](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#what’s-the-plan-name%3F) in the benefits response documentation for more details.",
+            "description": "The specific product name or special program name for an insurance plan. For example `Gold 1-2-3`.\n\nPayers are normally required to send the plan name when `benefitsInformation[].code` is set to values `1` - `8` and the `benefitsInformation[].serviceTypeCodes` contains `30` (Health Benefit Plan Coverage). However, behavior may vary by payer, so don't rely on this information being present in the response. Note that the plan name returned in this property may not exactly match the name the payer uses in official plan documents or marketing literature.\n\nVisit [What's the plan name?](https://www.stedi.com/docs/healthcare/eligibility-active-coverage-benefits#what’s-the-plan-name%3F) in the benefits response documentation for more details.",
             "type": "string"
           },
           "quantityQualifier": {
@@ -2826,7 +2826,7 @@
           },
           "contactInformation": {
             "$ref": "#/components/schemas/ContactInformation",
-            "description": "The payer's contact information.\n\nNote that when `contacts.communicationMode` is set to `UR`, the `communicationNumber` property may not contain a valid URL. Most payers provide a partial web address for their provider portal, or something similar, such as `www.example.com/portal`. You must add the appropriate scheme and separators, such as `https://` or `http://`, to make it a valid URL."
+            "description": "The payer's contact information.\n\nNote that when `contacts[].communicationMode` is set to `UR`, the `communicationNumber` property may not contain a valid URL. Most payers provide a partial web address for their provider portal, or something similar, such as `www.example.com/portal`. You must add the appropriate scheme and separators, such as `https://` or `http://`, to make it a valid URL."
           },
           "employersId": {
             "deprecated": true,
@@ -2900,7 +2900,7 @@
         "type": "string"
       },
       "PlanDateInformation": {
-        "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation.benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
+        "description": "Contains the dates associated with the subscriber and dependents' (if applicable) insurance plan. This information is used to determine their eligibility for benefits.\n- Most fields contain a single date, but some can contain either a single date or a date range. Each field's documentation specifies its format.\n- Fields that can contain either a single date or date range include: `plan`, `eligibility`, `planBegin`, `admission`, and `service`.\n- The provided dates apply to every benefit within the patient's health plan unless specifically noted within a `benefitsInformation[].benefitsDateInformation` object.\n- If the payer sends back date(s) that are different for the subscriber and dependents, Stedi includes only the dates for the dependent in this object and omits the subscriber's date(s). Dependents can have different coverage dates than the subscriber due to qualifying life events, such as starting a new job or passing the age limit for coverage through their parent's plan.\n- Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the patient's insurance plan.\n- If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage.",
         "properties": {
           "added": {
             "description": "Added date. Payers may return this information in the case of retroactive eligibility.",
@@ -6023,7 +6023,7 @@
         "operationId": "GetEligibilityCheckPdf",
         "parameters": [
           {
-            "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items.id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
+            "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items[].id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
             "examples": {
               "GetEligibilityCheckPdf_example1": {
                 "description": "",
@@ -6035,7 +6035,7 @@
             "name": "eligibilityCheckId",
             "required": true,
             "schema": {
-              "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items.id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
+              "description": "The globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can find it:\n  - In the `id` property of the real-time JSON, Raw X12, and SOAP eligibility check endpoint responses.\n  - In the `items[].id` property of the Poll Batch Eligibility Checks endpoint response.\n  - On the eligibility check's details page within the Stedi portal.",
               "type": "string"
             }
           }
