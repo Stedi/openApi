@@ -199,6 +199,11 @@
             "description": "The Stedi-assigned identifier for the enrollment request.",
             "type": "string"
           },
+          "lastEraReceivedAt": {
+            "description": "The timestamp of the most recent 835 ERA (Electronic Remittance Advice) Stedi received for this enrollment, based on the enrollment's payer ID, provider NPI, and provider tax ID. Stedi automatically updates this property for each new ERA.\n  - This property is only returned for ERA enrollments in `LIVE` status with at least one matching ERA from the payer.\n  - If this timestamp doesn't match your expected timeline for ERA processing, there may be an upstream issue. Contact Stedi support for assistance.",
+            "format": "date-time",
+            "type": "string"
+          },
           "payer": {
             "$ref": "#/components/schemas/EnrolledPayerOutput",
             "description": "Information about the payer the provider is enrolling with."
@@ -698,6 +703,11 @@
             "description": "The import ID associated with the enrollment if it was created through a CSV bulk import (`source` is set to `IMPORT`). This property is only present for enrollments created through the CSV import process.",
             "type": "string"
           },
+          "lastEraReceivedAt": {
+            "description": "The timestamp of the most recent 835 ERA (Electronic Remittance Advice) Stedi received for this enrollment, based on the enrollment's payer ID, provider NPI, and provider tax ID. Stedi automatically updates this property for each new ERA.\n  - This property is only returned for ERA enrollments in `LIVE` status with at least one matching ERA from the payer.\n  - If this timestamp doesn't match your expected timeline for ERA processing, there may be an upstream issue. Contact Stedi support for assistance.",
+            "format": "date-time",
+            "type": "string"
+          },
           "payer": {
             "$ref": "#/components/schemas/EnrolledPayerOutput",
             "description": "Information about the payer the provider is enrolling with."
@@ -787,7 +797,7 @@
             "type": "string"
           },
           "lastEraReceivedFrom": {
-            "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nY\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
+            "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
             "format": "date-time",
             "type": "string"
           },
@@ -948,6 +958,11 @@
           },
           "id": {
             "description": "The Stedi-assigned identifier for the enrollment request.",
+            "type": "string"
+          },
+          "lastEraReceivedAt": {
+            "description": "The timestamp of the most recent 835 ERA (Electronic Remittance Advice) Stedi received for this enrollment, based on the enrollment's payer ID, provider NPI, and provider tax ID. Stedi automatically updates this property for each new ERA.\n  - This property is only returned for ERA enrollments in `LIVE` status with at least one matching ERA from the payer.\n  - If this timestamp doesn't match your expected timeline for ERA processing, there may be an upstream issue. Contact Stedi support for assistance.",
+            "format": "date-time",
             "type": "string"
           },
           "payer": {
@@ -1614,6 +1629,11 @@
           },
           "id": {
             "description": "The Stedi-assigned identifier for the enrollment request.",
+            "type": "string"
+          },
+          "lastEraReceivedAt": {
+            "description": "The timestamp of the most recent 835 ERA (Electronic Remittance Advice) Stedi received for this enrollment, based on the enrollment's payer ID, provider NPI, and provider tax ID. Stedi automatically updates this property for each new ERA.\n  - This property is only returned for ERA enrollments in `LIVE` status with at least one matching ERA from the payer.\n  - If this timestamp doesn't match your expected timeline for ERA processing, there may be an upstream issue. Contact Stedi support for assistance.",
+            "format": "date-time",
             "type": "string"
           },
           "payer": {
@@ -2374,11 +2394,11 @@
             }
           },
           {
-            "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nY\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
+            "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
             "in": "query",
             "name": "lastEraReceivedFrom",
             "schema": {
-              "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nY\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
+              "description": "Filter for enrollments with a `lastEraReceivedAt` timestamp on or after this value. Only enrollments with an ERA are included.\n\nYou can use this filter with `lastEraReceivedTo` to define a date range. For example, setting this to `2025-01-01T00:00:00Z` returns enrollments with a `lastEraReceivedAt` on or after that date.",
               "format": "date-time",
               "type": "string"
             }
@@ -2468,6 +2488,7 @@
                             }
                           ],
                           "id": "db6675c5-7bg7-4af9-8c68-a54a336d2911",
+                          "lastEraReceivedAt": "2025-05-02T12:00:00Z",
                           "payer": {
                             "name": "UnitedHealthcare",
                             "stediPayerId": "KMQTZ",
