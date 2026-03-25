@@ -5560,6 +5560,10 @@
     "/eligibility-manager/batch-eligibility": {
       "post": {
         "description": "Submit multiple eligibility checks for Stedi to process asynchronously",
+        "externalDocs": {
+          "description": "Developer guide",
+          "url": "https://www.stedi.com/docs/healthcare/batch-refresh-eligibility-checks"
+        },
         "operationId": "BatchEligibilityChecks",
         "parameters": [
           {
@@ -5711,12 +5715,19 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "tags": [
+          "Batch eligibility check"
+        ]
       }
     },
     "/eligibility-manager/batch/{batchId}": {
       "get": {
         "description": "Retrieve the status of an eligibility check batch submitted through the API or CSV upload",
+        "externalDocs": {
+          "description": "Developer guide",
+          "url": "https://www.stedi.com/docs/healthcare/batch-refresh-eligibility-checks#retrieve-batch-results"
+        },
         "operationId": "GetBatch",
         "parameters": [
           {
@@ -5842,12 +5853,19 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "tags": [
+          "Batch eligibility check"
+        ]
       }
     },
     "/eligibility-manager/batch/{batchId}/items": {
       "get": {
         "description": "Retrieve status information for all eligibility checks within a batch, regardless of processing status",
+        "externalDocs": {
+          "description": "Developer guide",
+          "url": "https://www.stedi.com/docs/healthcare/batch-refresh-eligibility-checks#retrieve-batch-results"
+        },
         "operationId": "GetBatchItems",
         "parameters": [
           {
@@ -6014,12 +6032,19 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "tags": [
+          "Batch eligibility check"
+        ]
       }
     },
     "/eligibility-manager/eligibility-checks/{eligibilityCheckId}/pdf": {
       "get": {
         "description": "Retrieve a PDF version of the 271 benefits response for the specified eligibility check",
+        "externalDocs": {
+          "description": "Developer guide",
+          "url": "https://www.stedi.com/docs/healthcare/eligibility-pdf"
+        },
         "operationId": "GetEligibilityCheckPdf",
         "parameters": [
           {
@@ -6108,12 +6133,19 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "tags": [
+          "Eligibility PDF"
+        ]
       }
     },
     "/eligibility-manager/polling/batch-eligibility": {
       "get": {
         "description": "Retrieve batch eligibility check results",
+        "externalDocs": {
+          "description": "Developer guide",
+          "url": "https://www.stedi.com/docs/healthcare/batch-refresh-eligibility-checks#retrieve-batch-results"
+        },
         "operationId": "BatchEligibilityPolling",
         "parameters": [
           {
@@ -7492,7 +7524,10 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "tags": [
+          "Batch eligibility check"
+        ]
       }
     }
   },
@@ -7507,7 +7542,6 @@
       "url": "https://manager.us.stedi.com/2024-04-01"
     }
   ],
-  "tags": [],
   "x-amazon-apigateway-binary-media-types": [
     "application/pdf",
     "application/octet-stream"
