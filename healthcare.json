@@ -5389,8 +5389,8 @@
             "type": "string"
           },
           "checkIssueDate": {
-            "description": "The date the payer issued the check for payment. This may also contain a non-payment remittance advice date, if available from the payer.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "The date the payer issued the check for payment. This may also contain a non-payment remittance advice date, if available from the payer.\n\nThis value is returned in ISO 8601 date format (YYYY-MM-DD). For example: 2026-03-04.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "checkNumber": {
@@ -5406,8 +5406,8 @@
             "type": "string"
           },
           "effectiveDate": {
-            "description": "The date the claim was placed in this status by the payer's adjudication process.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "The date the claim was placed in this status by the payer's adjudication process.\n\nThis value is returned in ISO 8601 date format (YYYY-MM-DD). For example: 2026-03-04.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "entity": {
@@ -5419,8 +5419,8 @@
             "description": "Code identifying the organizational entity, physical location, property, or individual associated with the `statusCode`. For example `1G` - Oncology Center.\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#entity-identifiers) for a complete list."
           },
           "paidDate": {
-            "description": "This is the date of denial or approval for the claim. This date may or may not be the same as the issue date of the check, EFT, or non-payment remittance. Some payers can provide this date before they issue the remittance.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "This is the date of denial or approval for the claim. This date may or may not be the same as the issue date of the check, EFT, or non-payment remittance. Some payers can provide this date before they issue the remittance.\n\nThis value is returned in ISO 8601 date format (YYYY-MM-DD). For example: 2026-03-04.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "patientAccountNumber": {
@@ -22813,8 +22813,8 @@
         "description": "Information about the status, required action, and paid information of a service line.",
         "properties": {
           "effectiveDate": {
-            "description": "The date the service line was placed in this status by the payer's adjudication process.",
-            "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "description": "The date the service line was placed in this status by the payer's adjudication process.\n\nThis value is returned in ISO 8601 date format (YYYY-MM-DD). For example: 2026-03-04.",
+            "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "entity": {
@@ -24125,11 +24125,11 @@
                         {
                           "claimStatus": {
                             "amountPaid": "108.77",
-                            "checkIssueDate": "20250717",
+                            "checkIssueDate": "2025-07-17",
                             "checkNumber": "123456789",
                             "claimServiceDate": "20250701",
-                            "effectiveDate": "20250717",
-                            "paidDate": "20250715",
+                            "effectiveDate": "2025-07-17",
+                            "paidDate": "2025-07-15",
                             "patientAccountNumber": "12345678",
                             "statusCategoryCode": "F1",
                             "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
@@ -24151,7 +24151,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250717",
+                                  "effectiveDate": "2025-07-17",
                                   "statusCategoryCode": "F1",
                                   "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
                                   "statusCode": "107",
@@ -24191,11 +24191,11 @@
                         {
                           "claimStatus": {
                             "amountPaid": "0",
-                            "checkIssueDate": "20250814",
+                            "checkIssueDate": "2025-08-14",
                             "checkNumber": "123456789",
                             "claimServiceDate": "20250805",
-                            "effectiveDate": "20250912",
-                            "paidDate": "20250809",
+                            "effectiveDate": "2025-09-12",
+                            "paidDate": "2025-08-09",
                             "patientAccountNumber": "123456789",
                             "statusCategoryCode": "F2",
                             "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
@@ -24217,7 +24217,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24236,7 +24236,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24255,7 +24255,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24274,7 +24274,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24293,7 +24293,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24312,7 +24312,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24331,7 +24331,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24350,7 +24350,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24369,7 +24369,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24414,7 +24414,7 @@
                           "claimStatus": {
                             "amountPaid": "0",
                             "claimServiceDate": "20250526-20250601",
-                            "effectiveDate": "20250912",
+                            "effectiveDate": "2025-09-12",
                             "entity": "Insurer",
                             "entityCode": "IN",
                             "statusCategoryCode": "D0",
@@ -24585,11 +24585,11 @@
                         {
                           "claimStatus": {
                             "amountPaid": "108.77",
-                            "checkIssueDate": "20250717",
+                            "checkIssueDate": "2025-07-17",
                             "checkNumber": "123456789",
                             "claimServiceDate": "20250701",
-                            "effectiveDate": "20250717",
-                            "paidDate": "20250715",
+                            "effectiveDate": "2025-07-17",
+                            "paidDate": "2025-07-15",
                             "patientAccountNumber": "12345678",
                             "statusCategoryCode": "F1",
                             "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
@@ -24611,7 +24611,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250717",
+                                  "effectiveDate": "2025-07-17",
                                   "statusCategoryCode": "F1",
                                   "statusCategoryCodeValue": "Finalized/Payment - The claim/line has been paid.",
                                   "statusCode": "107",
@@ -24651,11 +24651,11 @@
                         {
                           "claimStatus": {
                             "amountPaid": "0",
-                            "checkIssueDate": "20250814",
+                            "checkIssueDate": "2025-08-14",
                             "checkNumber": "123456789",
                             "claimServiceDate": "20250805",
-                            "effectiveDate": "20250912",
-                            "paidDate": "20250809",
+                            "effectiveDate": "2025-09-12",
+                            "paidDate": "2025-08-09",
                             "patientAccountNumber": "123456789",
                             "statusCategoryCode": "F2",
                             "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
@@ -24677,7 +24677,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24696,7 +24696,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24715,7 +24715,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24734,7 +24734,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24753,7 +24753,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24772,7 +24772,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24791,7 +24791,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24810,7 +24810,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24829,7 +24829,7 @@
                               },
                               "status": [
                                 {
-                                  "effectiveDate": "20250912",
+                                  "effectiveDate": "2025-09-12",
                                   "statusCategoryCode": "F2",
                                   "statusCategoryCodeValue": "Finalized/Denial - The claim/line has been denied.",
                                   "statusCode": "585",
@@ -24874,7 +24874,7 @@
                           "claimStatus": {
                             "amountPaid": "0",
                             "claimServiceDate": "20250526-20250601",
-                            "effectiveDate": "20250912",
+                            "effectiveDate": "2025-09-12",
                             "entity": "Insurer",
                             "entityCode": "IN",
                             "statusCategoryCode": "D0",
