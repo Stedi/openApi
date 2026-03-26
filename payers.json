@@ -1,6 +1,42 @@
 {
   "components": {
     "schemas": {
+      "ClaimPaymentEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs).",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
+      "ClaimStatusInquiryEnrollmentProcess": {
+        "description": "Details about the enrollment process for real-time claim status requests.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
+      "CoordinationOfBenefitsEnrollmentProcess": {
+        "description": "Details about the enrollment process for coordination of benefits (COB) checks.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "CoverageType": {
         "description": "The types of insurance coverage that a payer can provide. Used to indicate whether a payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these.",
         "enum": [
@@ -9,6 +45,30 @@
           "vision"
         ],
         "type": "string"
+      },
+      "DentalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for dental claim submission.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
+      "EligibilityInquiryEnrollmentProcess": {
+        "description": "Details about the enrollment process for eligibility checks.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
       },
       "EnrollmentInfo": {
         "description": "Information about enrollment requirements for the payer",
@@ -52,6 +112,18 @@
         "required": [
           "payer"
         ],
+        "type": "object"
+      },
+      "InstitutionalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for institutional claim submission.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
         "type": "object"
       },
       "InternalFailureExceptionResponseContent": {
@@ -287,6 +359,18 @@
           "website": {
             "description": "The payer's website URL.",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for professional claim submission.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
           }
         },
         "type": "object"
@@ -537,51 +621,39 @@
         ],
         "type": "object"
       },
-      "TransactionEnrollmentProcess": {
-        "description": "Details about the enrollment process for a specific transaction type.",
-        "properties": {
-          "timeframe": {
-            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
-          },
-          "type": {
-            "$ref": "#/components/schemas/EnrollmentProcessType"
-          }
-        },
-        "type": "object"
-      },
       "TransactionEnrollmentProcesses": {
         "description": "Information about the transaction enrollment requirements and expected timeframes for each transaction type.",
         "properties": {
           "claimPayment": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ClaimPaymentEnrollmentProcess",
             "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs) with this payer."
           },
           "claimStatusInquiry": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ClaimStatusInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for real-time claim status requests with this payer."
           },
           "coordinationOfBenefits": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/CoordinationOfBenefitsEnrollmentProcess",
             "description": "Details about the enrollment process for coordination of benefits (COB) checks with this payer."
           },
           "dentalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/DentalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for dental claim submission with this payer."
           },
           "eligibilityInquiry": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/EligibilityInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for eligibility checks with this payer."
           },
           "institutionalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/InstitutionalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for institutional claim submission with this payer."
           },
           "professionalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ProfessionalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for professional claim submission with this payer."
           },
           "unsolicitedClaimAttachment": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/UnsolicitedClaimAttachmentEnrollmentProcess",
             "description": "Details about the enrollment process for unsolicited claim attachments with this payer."
           }
         },
@@ -812,6 +884,18 @@
         "required": [
           "message"
         ],
+        "type": "object"
+      },
+      "UnsolicitedClaimAttachmentEnrollmentProcess": {
+        "description": "Details about the enrollment process for unsolicited claim attachments.",
+        "properties": {
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
         "type": "object"
       },
       "ValidationExceptionField": {
