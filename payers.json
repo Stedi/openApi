@@ -4,6 +4,10 @@
       "ClaimPaymentEnrollmentProcess": {
         "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs).",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "supportedAggregationPreferences": {
             "description": "Aggregation types this payer supports for 835 Electronic Remittance Advice (ERA) transactions. Payers can aggregate by the provider's NPI, tax ID (TIN), or both.\n  - You can use this information to specify an `aggregationPreference` when submitting ERA enrollment requests.\n  - This property is only returned when Stedi can determine the payer's supported aggregation types.",
             "items": {
@@ -23,6 +27,10 @@
       "ClaimStatusInquiryEnrollmentProcess": {
         "description": "Details about the enrollment process for real-time claim status requests.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -35,6 +43,10 @@
       "CoordinationOfBenefitsEnrollmentProcess": {
         "description": "Details about the enrollment process for coordination of benefits (COB) checks.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -56,6 +68,10 @@
       "DentalClaimEnrollmentProcess": {
         "description": "Details about the enrollment process for dental claim submission.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -68,6 +84,10 @@
       "EligibilityInquiryEnrollmentProcess": {
         "description": "Details about the enrollment process for eligibility checks.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -124,6 +144,10 @@
       "InstitutionalClaimEnrollmentProcess": {
         "description": "Details about the enrollment process for institutional claim submission.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -371,6 +395,10 @@
       "ProfessionalClaimEnrollmentProcess": {
         "description": "Details about the enrollment process for professional claim submission.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -379,6 +407,14 @@
           }
         },
         "type": "object"
+      },
+      "RequestedEffectiveDate": {
+        "description": "Whether a payer supports specifying a requested effective date for transaction enrollments.",
+        "enum": [
+          "SUPPORTED",
+          "NOT_SUPPORTED"
+        ],
+        "type": "string"
       },
       "ResourceNotFoundExceptionResponseContent": {
         "description": "The server response when the specified resource cannot be found after an API request passes authentication and authorization.",
@@ -899,6 +935,10 @@
       "UnsolicitedClaimAttachmentEnrollmentProcess": {
         "description": "Details about the enrollment process for unsolicited claim attachments.",
         "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
           "timeframe": {
             "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
           },
@@ -1023,6 +1063,7 @@
                           "ptanRequired": false,
                           "transactionEnrollmentProcesses": {
                             "claimPayment": {
+                              "requestedEffectiveDate": "NOT_SUPPORTED",
                               "supportedAggregationPreferences": [
                                 "NPI",
                                 "TIN"
@@ -1152,6 +1193,7 @@
                             "ptanRequired": false,
                             "transactionEnrollmentProcesses": {
                               "claimPayment": {
+                                "requestedEffectiveDate": "NOT_SUPPORTED",
                                 "supportedAggregationPreferences": [
                                   "NPI",
                                   "TIN"
@@ -1249,7 +1291,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"false\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
                   }
                 },
                 "schema": {
@@ -1503,6 +1545,7 @@
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
+                                  "requestedEffectiveDate": "NOT_SUPPORTED",
                                   "supportedAggregationPreferences": [
                                     "NPI",
                                     "TIN"
@@ -1725,6 +1768,7 @@
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
+                                  "requestedEffectiveDate": "SUPPORTED",
                                   "supportedAggregationPreferences": [
                                     "TIN"
                                   ],
