@@ -2044,6 +2044,15 @@
         },
         "type": "object"
       },
+      "EligibilitySearchOutcome": {
+        "description": "The outcome of an eligibility check. This maps to the terminal states of an eligibility search.",
+        "enum": [
+          "active",
+          "inactive",
+          "failed"
+        ],
+        "type": "string"
+      },
       "EligibilitySearchStatus": {
         "enum": [
           "active",
@@ -5916,6 +5925,20 @@
               "description": "Filter batch items by their current state. Multiple states can be specified to retrieve items in any of those states. If not specified, all batch items are returned regardless of state.",
               "items": {
                 "$ref": "#/components/schemas/BatchItemState"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter batch items by their eligibility search outcome. Multiple outcomes can be specified to retrieve items in any of those outcomes. Only applies to completed items — items still in progress don't have an eligibility search outcome. If not specified, all batch items are returned regardless of eligibility search outcome.",
+            "explode": true,
+            "in": "query",
+            "name": "eligibilitySearchOutcome",
+            "schema": {
+              "description": "Filter batch items by their eligibility search outcome. Multiple outcomes can be specified to retrieve items in any of those outcomes. Only applies to completed items — items still in progress don't have an eligibility search outcome. If not specified, all batch items are returned regardless of eligibility search outcome.",
+              "items": {
+                "$ref": "#/components/schemas/EligibilitySearchOutcome"
               },
               "type": "array"
             },
