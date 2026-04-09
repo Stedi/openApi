@@ -179,6 +179,7 @@
         "type": "string"
       },
       "ListPayerRecordsResponseContent": {
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "items": {
             "description": "Payers that Stedi supports for each transaction type. Results are returned in alphabetical order of the Stedi ID.",
@@ -186,6 +187,12 @@
               "$ref": "#/components/schemas/PayerRecord"
             },
             "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
           }
         },
         "required": [
@@ -1162,6 +1169,36 @@
       "get": {
         "description": "List Stedi's supported payers in JSON format",
         "operationId": "ListPayerRecords",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+            "examples": {
+              "ListPayerRecords_example1": {
+                "description": "",
+                "summary": "List payers with pagination",
+                "value": 100
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+              "minimum": 10,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -1169,7 +1206,7 @@
                 "examples": {
                   "ListPayerRecords_example1": {
                     "description": "",
-                    "summary": "List payers",
+                    "summary": "List payers with pagination",
                     "value": {
                       "items": [
                         {
@@ -1235,7 +1272,8 @@
                             "website": "https://www.thpmedicare.org"
                           }
                         }
-                      ]
+                      ],
+                      "nextPageToken": "yrZ3we9982etYlMgmw=="
                     }
                   }
                 },
