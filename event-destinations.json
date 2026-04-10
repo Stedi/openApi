@@ -1,0 +1,611 @@
+{
+  "components": {
+    "schemas": {
+      "AccessDeniedExceptionResponseContent": {
+        "description": "The server response for authorization failure.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "EventEnvironment": {
+        "description": "The environment in which an event was produced.",
+        "enum": [
+          "TEST",
+          "PRODUCTION"
+        ],
+        "type": "string"
+      },
+      "EventPayload": {
+        "description": "The event payload, discriminated by object type. Each variant corresponds to a versioned event schema.",
+        "oneOf": [
+          {
+            "properties": {
+              "v1Event": {
+                "$ref": "#/components/schemas/V1EventPayload",
+                "description": "A `v1` thin event payload."
+              }
+            },
+            "required": [
+              "v1Event"
+            ],
+            "title": "v1Event",
+            "type": "object"
+          }
+        ]
+      },
+      "EventPayloadObjectType": {
+        "description": "Object type discriminator for event payloads.",
+        "enum": [
+          "v1.event"
+        ],
+        "type": "string"
+      },
+      "EventPayloadResourceRef": {
+        "description": "A reference to a resource affected by an event.",
+        "properties": {
+          "id": {
+            "description": "The resource identifier.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The resource type. Uses dot notation to indicate nested resources. For example, `enrollment.document` indicates a document associated with a transaction enrollment request.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
+      "EventStatus": {
+        "description": "The current status of an event.",
+        "enum": [
+          "PENDING",
+          "DELIVERED",
+          "FAILED"
+        ],
+        "type": "string"
+      },
+      "EventSummary": {
+        "description": "A summary representation of an event, returned in list responses.",
+        "properties": {
+          "createdAt": {
+            "description": "An ISO 8601 timestamp of when the event was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "eventType": {
+            "description": "The type of event, such as `enrollment.activated`.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus",
+            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
+          }
+        },
+        "required": [
+          "createdAt",
+          "eventType",
+          "id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "GetEventResponseContent": {
+        "description": "Output containing the event details.",
+        "properties": {
+          "createdAt": {
+            "description": "An ISO 8601 timestamp of when the event was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "eventPayload": {
+            "$ref": "#/components/schemas/EventPayload",
+            "description": "The event payload Stedi delivers to event destinations."
+          },
+          "eventType": {
+            "description": "The type of event, such as `enrollment.activated`.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus",
+            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
+          }
+        },
+        "required": [
+          "createdAt",
+          "eventPayload",
+          "eventType",
+          "id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "InternalFailureExceptionResponseContent": {
+        "description": "The server response when an unexpected error occurred while processing request.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "ListEventsResponseContent": {
+        "description": "Output containing the list of events.",
+        "properties": {
+          "items": {
+            "description": "The list of event summaries.",
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "ResourceNotFoundExceptionResponseContent": {
+        "description": "The requested resource could not be found. Verify the resource identifier (e.g. destinationId, eventId, deliveryId) is correct and that the resource has not been deleted.",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "UnauthorizedExceptionResponseContent": {
+        "description": "The server response when the authorizer failed to authenticate the caller.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "V1EventPayload": {
+        "description": "A v1 thin event envelope that signals a state change. Consumers fetch current resource state via API using the resource reference. This is the exact payload delivered to webhook destinations.",
+        "properties": {
+          "account": {
+            "description": "Stedi account identifier (UUID).",
+            "type": "string"
+          },
+          "created": {
+            "description": "An ISO 8601 timestamp of when the event was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "environment": {
+            "$ref": "#/components/schemas/EventEnvironment",
+            "description": "The environment in which the event was produced."
+          },
+          "id": {
+            "description": "An identifier for the event, formatted as `evt_{UUID}`.",
+            "type": "string"
+          },
+          "object": {
+            "$ref": "#/components/schemas/EventPayloadObjectType",
+            "description": "Object type discriminator. Identifies the schema version of this payload."
+          },
+          "relatedResources": {
+            "description": "Other resources related to the event. Only present when there are related resources.",
+            "items": {
+              "$ref": "#/components/schemas/EventPayloadResourceRef"
+            },
+            "type": "array"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/EventPayloadResourceRef",
+            "description": "Information about the resource that triggered the event. You can use this information to retrieve additional information about the resource."
+          },
+          "type": {
+            "description": "The event type in dot notation, such as `enrollment.activated`.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "account",
+          "created",
+          "environment",
+          "object",
+          "resource"
+        ],
+        "type": "object"
+      },
+      "ValidationExceptionField": {
+        "description": "Describes one specific validation failure for an input member.",
+        "properties": {
+          "message": {
+            "description": "A detailed description of the validation failure.",
+            "type": "string"
+          },
+          "path": {
+            "description": "A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "path"
+        ],
+        "type": "object"
+      },
+      "ValidationExceptionResponseContent": {
+        "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+        "properties": {
+          "fieldList": {
+            "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationExceptionField"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "A summary of the validation failure.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "httpApiKeyAuth": {
+        "description": "A [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "healthcare@stedi.com"
+    },
+    "description": "The Stedi Events Service manages event destinations and event delivery.\nIt supports destination CRUD operations, secret management for signature verification,\nevent creation and management, and delivery tracking with resend capabilities.\n",
+    "license": {
+      "name": "Proprietary",
+      "url": "https://stedi.com"
+    },
+    "title": "Stedi Event Destinations",
+    "version": "2026-02-01"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/events": {
+      "get": {
+        "description": "Lists all events for your account. Results are paginated.",
+        "operationId": "ListEvents",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+              "maximum": 1000,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter results by event ID, such as `evt_019d554b-311b-7813-b491-0a8973762eae`.",
+            "in": "query",
+            "name": "eventId",
+            "schema": {
+              "description": "Filter results by event ID, such as `evt_019d554b-311b-7813-b491-0a8973762eae`.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter results by one or more event statuses. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.",
+            "explode": true,
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "description": "Filter results by one or more event statuses. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.",
+              "items": {
+                "$ref": "#/components/schemas/EventStatus"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter results by event type, such as `enrollment.activated`.",
+            "in": "query",
+            "name": "eventType",
+            "schema": {
+              "description": "Filter results by event type, such as `enrollment.activated`.",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter results by their `createdAt` timestamp. Each value is in the format `operator:ISO-8601-timestamp`.\n  - The supported operators are `gt` (after), `gte` (at or after), `lt` (before), and `lte` (at or before). For example: Setting this to `lt:2024-02-01T00:00:00Z` filters for events created before the specified timestamp.\n  - Combine multiple values with `&` to specify a date range. For example: `created=gt:2026-01-01T00:00:00Z&created=lt:2026-02-01T00:00:00Z`.",
+            "explode": true,
+            "in": "query",
+            "name": "created",
+            "schema": {
+              "description": "Filter results by their `createdAt` timestamp. Each value is in the format `operator:ISO-8601-timestamp`.\n  - The supported operators are `gt` (after), `gte` (at or after), `lt` (before), and `lte` (at or before). For example: Setting this to `lt:2024-02-01T00:00:00Z` filters for events created before the specified timestamp.\n  - Combine multiple values with `&` to specify a date range. For example: `created=gt:2026-01-01T00:00:00Z&created=lt:2026-02-01T00:00:00Z`.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListEvents_example1": {
+                    "description": "",
+                    "summary": "List events",
+                    "value": {
+                      "items": [
+                        {
+                          "createdAt": "2026-02-01T12:00:00Z",
+                          "eventType": "enrollment.activated",
+                          "id": "evt_550e8400-e29b-41d4-a716-446655440000",
+                          "status": "DELIVERED"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ListEventsResponseContent"
+                }
+              }
+            },
+            "description": "ListEvents 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "UnauthorizedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        }
+      }
+    },
+    "/events/{eventId}": {
+      "get": {
+        "description": "Retrieves the details of an existing event by its identifier.",
+        "operationId": "GetEvent",
+        "parameters": [
+          {
+            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+            "examples": {
+              "GetEvent_example1": {
+                "description": "",
+                "summary": "Get an event",
+                "value": "evt_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetEvent_example1": {
+                    "description": "",
+                    "summary": "Get an event",
+                    "value": {
+                      "createdAt": "2026-02-01T12:00:00Z",
+                      "eventPayload": {
+                        "v1Event": {
+                          "account": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                          "created": "2026-02-01T12:00:00.000Z",
+                          "environment": "PRODUCTION",
+                          "id": "evt_550e8400-e29b-41d4-a716-446655440000",
+                          "object": "v1.event",
+                          "resource": {
+                            "id": "enr_661f9511-f3ac-52e5-b827-557766551111",
+                            "type": "enrollment"
+                          },
+                          "type": "enrollment.activated"
+                        }
+                      },
+                      "eventType": "enrollment.activated",
+                      "id": "evt_550e8400-e29b-41d4-a716-446655440000",
+                      "status": "DELIVERED"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetEventResponseContent"
+                }
+              }
+            },
+            "description": "GetEvent 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "UnauthorizedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AccessDeniedException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "httpApiKeyAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://events.us.stedi.com/2026-02-01"
+    }
+  ],
+  "tags": [],
+  "x-stedi": {
+    "lifecycle": "general_availability",
+    "product": "event-destinations",
+    "public": true
+  }
+}
