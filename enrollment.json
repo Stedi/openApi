@@ -18,6 +18,39 @@
         ],
         "type": "object"
       },
+      "AggregationPreference": {
+        "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. Only set this property for 835 ERA enrollments.\n  - If you include this property for a non-ERA enrollment, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If the payer doesn't support the requested aggregation type, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi will attempt to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors.",
+        "oneOf": [
+          {
+            "properties": {
+              "taxId": {
+                "description": "The Taxpayer Identification Number (TIN) the payer should use for aggregation.",
+                "pattern": "^\\d{9}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "taxId"
+            ],
+            "title": "taxId",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "npi": {
+                "description": "The National Provider Identifier (NPI) the payer should use for aggregation.",
+                "pattern": "^[0-9]{10}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "npi"
+            ],
+            "title": "npi",
+            "type": "object"
+          }
+        ]
+      },
       "AllEnrolledProviderFields": {
         "description": "Complete provider information including both read-only and mutable fields.",
         "properties": {
@@ -113,6 +146,10 @@
       "CreateEnrollmentRequestContent": {
         "description": "Input for CreateEnrollment.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. Only set this property for 835 ERA enrollments.\n  - If you include this property for a non-ERA enrollment, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If the payer doesn't support the requested aggregation type, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi will attempt to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors."
+          },
           "payer": {
             "$ref": "#/components/schemas/EnrolledPayerInput",
             "description": "Information about the payer the provider is enrolling with."
@@ -176,6 +213,10 @@
       "CreateEnrollmentResponseContent": {
         "description": "Output containing the created enrollment details.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. This property is only returned for 835 ERA enrollments.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi attempts to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors.\n  - This property isn't returned for enrollment records created before Stedi added support for aggregation preferences."
+          },
           "createdAt": {
             "description": "The date and time when the enrollment was created within Stedi.",
             "format": "date-time",
@@ -677,6 +718,10 @@
       "EnrollmentSummary": {
         "description": "Summary of an enrollment with essential fields for list operations.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. This property is only returned for 835 ERA enrollments.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi attempts to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors\n  - This property isn't returned for enrollment records created before Stedi added support for aggregation preferences."
+          },
           "createdAt": {
             "description": "The date and time when the enrollment was created within Stedi.",
             "format": "date-time",
@@ -938,6 +983,10 @@
       "GetEnrollmentResponseContent": {
         "description": "Output containing the enrollment details.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. This property is only returned for 835 ERA enrollments.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi attempts to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors.\n  - This property isn't returned for enrollment records created before Stedi added support for aggregation preferences."
+          },
           "createdAt": {
             "description": "The date and time when the enrollment was created within Stedi.",
             "format": "date-time",
@@ -1546,6 +1595,10 @@
       "UpdateEnrollmentRequestContent": {
         "description": "Input for UpdateEnrollment.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. Only set this property for 835 ERA enrollments.\n  - If you include this property for a non-ERA enrollment, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If the payer doesn't support the requested aggregation type, Stedi rejects the enrollment request with an HTTP `400` error.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi will attempt to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors."
+          },
           "payer": {
             "$ref": "#/components/schemas/EnrolledPayerInput",
             "description": "Information about the payer the provider is enrolling with."
@@ -1609,6 +1662,10 @@
       "UpdateEnrollmentResponseContent": {
         "description": "Output containing the updated enrollment details.",
         "properties": {
+          "aggregationPreference": {
+            "$ref": "#/components/schemas/AggregationPreference",
+            "description": "Preference for how the payer should group 835 Electronic Remittance Advice (ERA) transactions. This property is only returned for 835 ERA enrollments.\n  - If not set, Stedi automatically selects a default based on the payer's supported aggregation types and the available identifiers for the provider.\n  - Stedi attempts to enroll with this preference, but it's not guaranteed. Each payer has its own restrictions and behaviors.\n  - This property isn't returned for enrollment records created before Stedi added support for aggregation preferences."
+          },
           "createdAt": {
             "description": "The date and time when the enrollment was created within Stedi.",
             "format": "date-time",
@@ -2441,6 +2498,9 @@
                     "value": {
                       "items": [
                         {
+                          "aggregationPreference": {
+                            "taxId": "123456789"
+                          },
                           "createdAt": "2025-04-01T12:00:00Z",
                           "documents": [
                             {
@@ -2727,6 +2787,9 @@
                   "description": "",
                   "summary": "Create Enrollment",
                   "value": {
+                    "aggregationPreference": {
+                      "taxId": "123456789"
+                    },
                     "payer": {
                       "idOrAlias": "87726"
                     },
@@ -2770,6 +2833,9 @@
                     "description": "",
                     "summary": "Create Enrollment",
                     "value": {
+                      "aggregationPreference": {
+                        "taxId": "123456789"
+                      },
                       "createdAt": "2023-11-07T05:31:56Z",
                       "history": [
                         {
@@ -3441,6 +3507,9 @@
                   "description": "",
                   "summary": "Update Enrollment",
                   "value": {
+                    "aggregationPreference": {
+                      "taxId": "123456789"
+                    },
                     "payer": {
                       "idOrAlias": "87726"
                     },
@@ -3484,6 +3553,9 @@
                     "description": "",
                     "summary": "Update Enrollment",
                     "value": {
+                      "aggregationPreference": {
+                        "taxId": "123456789"
+                      },
                       "createdAt": "2024-11-07T05:31:56Z",
                       "history": [
                         {
