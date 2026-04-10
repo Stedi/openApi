@@ -4160,7 +4160,7 @@
             "type": "string"
           },
           "x12": {
-            "description": "The raw X12 response from the payer.",
+            "description": "The raw X12 EDI response, which is either a 277 Status Request Response or a 999 Implementation Acknowledgment. A 999 indicates that the request data failed validation. Common failure reasons are missing required segments and invalid values.",
             "type": "string"
           }
         },
@@ -24575,6 +24575,13 @@
                   "value": {
                     "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*RECEIVER       *250916*2048*^*00501*000000001*0*T*>~GS*HR*SENDERGS*RECEIVERGS*20250916*204811*1*X*005010X212~ST*276*0001*005010X212~BHT*0010*13*ABC276XXX*20250915*1425~HL*1**20*1~NM1*PR*2*CIGNA*****PI*62308~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~DMG*D8*19910202~NM1*IL*1*JONES*JAMES****MI*CIGNA12345~TRN*1*123456789~DTP*472*RD8*20250526-20250601~SE*14*0001~GE*1*1~IEA*1*000000001~"
                   }
+                },
+                "ClaimStatusRawX12_example4": {
+                  "description": "",
+                  "summary": "Validation errors (999)",
+                  "value": {
+                    "x12": "ISA*00*          *00*          *ZZ*SENDER         *ZZ*STEDI          *210101*1200*^*00501*000000001*0*P*>~GS*HR*SENDER*STEDI*20210101*120000*1*X*005010X212~ST*276*0001*005010X212~SE*1*0001~GE*1*1~IEA*1*000000001~"
+                  }
                 }
               },
               "schema": {
@@ -24917,6 +24924,17 @@
                       },
                       "tradingPartnerServiceId": "CIGNA",
                       "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *250825*2004*^*00501*123456789*0*P*:~GS*HN*STEDI*117151744*20250825*1504*123456789*X*005010X212~ST*277*123456789*005010X212~BHT*0010*08*123456789*20250825*160450*DG~HL*1**20*1~NM1*PR*2*CHLIC*****PI*CIGNA~PER*IC*CHC Medical*TE*8002725713~HL*2*1*21*1~NM1*41*2*PROVIDER NAME*****46*123456789~HL*3*2*19*1~NM1*1P*2*PROVIDER NAME*****XX*1999999984~HL*4*3*22*0~NM1*IL*1*JONES*JAMES****MI*CIGNA12345~TRN*2*123456789~STC*D0:97:IN*20250825**0*0~DTP*472*RD8*20250526-20250601~SE*15*123456789~GE*1*123456789~IEA*1*123456789~"
+                    }
+                  },
+                  "ClaimStatusRawX12_example4": {
+                    "description": "",
+                    "summary": "Validation errors (999)",
+                    "value": {
+                      "controlNumber": "736013965",
+                      "implementationTransactionSetSyntaxError": "5",
+                      "status": "ERROR",
+                      "transactionSetAcknowledgement": "R",
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *ZZ*SENDER         *260403*0930*^*00501*736013965*0*P*`~GS*FA*STEDI*117151744*20260403*093042*736013965*X*005010X231A1~ST*999*0001*005010X231A1~AK1*HR*1*005010X212~AK2*276*0001*005010X212~IK3*SE*2**2~IK3*SE*2**3~IK5*R*5~AK9*R*1*1*0~SE*8*0001~GE*1*736013965~IEA*1*736013965~"
                     }
                   }
                 },
