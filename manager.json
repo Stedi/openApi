@@ -5906,23 +5906,23 @@
             }
           },
           {
-            "description": "A token returned by a previous call to this operation in the `nextPageToken` property. You can use it to retrieve the next page of results. If no `pageToken` is included in the request, Stedi returns the first page of results.",
+            "description": "A token returned by a previous call to this operation in the `nextPageToken` property. If not specified, Stedi returns the first page of results.",
             "in": "query",
             "name": "pageToken",
             "schema": {
-              "description": "A token returned by a previous call to this operation in the `nextPageToken` property. You can use it to retrieve the next page of results. If no `pageToken` is included in the request, Stedi returns the first page of results.",
+              "description": "A token returned by a previous call to this operation in the `nextPageToken` property. If not specified, Stedi returns the first page of results.",
               "maxLength": 1024,
               "minLength": 1,
               "type": "string"
             }
           },
           {
-            "description": "Filter batch items by their current state. Multiple states can be specified to retrieve items in any of those states. If not specified, all batch items are returned regardless of state.",
+            "description": "Filter for batch items in the specified states. Can be set to one or more of the following states:\n  - `PENDING`: Stedi hasn't begun processing the eligibility check.\n  - `VALIDATED`: Stedi finished validating the eligibility check and is ready to execute it.\n  - `VALIDATION_FAILED`: Stedi found errors in the eligibility check that you need to fix before processing can continue.\n  - `STARTED`: Stedi has begun processing the eligibility check.\n  - `RETRYING`: Stedi is retrying the eligibility check. Stedi retries eligibility checks that fail due to payer connectivity issues for up to 8 hours.\n  - `COMPLETED`: Stedi successfully processed the eligibility check and received a response from the payer. This doesn't indicate that the payer has active coverage, only that Stedi was able to get a response.\n  - `COMPLETED_WITH_ERRORS`: Stedi finished processing the eligibility check, but couldn't get a response from the payer.",
             "explode": true,
             "in": "query",
             "name": "state",
             "schema": {
-              "description": "Filter batch items by their current state. Multiple states can be specified to retrieve items in any of those states. If not specified, all batch items are returned regardless of state.",
+              "description": "Filter for batch items in the specified states. Can be set to one or more of the following states:\n  - `PENDING`: Stedi hasn't begun processing the eligibility check.\n  - `VALIDATED`: Stedi finished validating the eligibility check and is ready to execute it.\n  - `VALIDATION_FAILED`: Stedi found errors in the eligibility check that you need to fix before processing can continue.\n  - `STARTED`: Stedi has begun processing the eligibility check.\n  - `RETRYING`: Stedi is retrying the eligibility check. Stedi retries eligibility checks that fail due to payer connectivity issues for up to 8 hours.\n  - `COMPLETED`: Stedi successfully processed the eligibility check and received a response from the payer. This doesn't indicate that the payer has active coverage, only that Stedi was able to get a response.\n  - `COMPLETED_WITH_ERRORS`: Stedi finished processing the eligibility check, but couldn't get a response from the payer.",
               "items": {
                 "$ref": "#/components/schemas/BatchItemState"
               },
@@ -5931,12 +5931,12 @@
             "style": "form"
           },
           {
-            "description": "Filter batch items by their eligibility search outcome. Multiple outcomes can be specified to retrieve items in any of those outcomes. Only applies to completed items — items still in progress don't have an eligibility search outcome. If not specified, all batch items are returned regardless of eligibility search outcome.",
+            "description": "Filter for batch items with the specified eligibility search outcomes.\n\nStedi groups retries (if present) for each eligibility check into an eligibility search. The eligibility search outcome reflects the `eligibilitySearchStatus` after the last retry attempt.\n\n This filter is only relevant for batch items in `COMPLETED` state, which means Stedi has either received a response from the payer or has finished retrying. In-progress items, such as those in `PENDING` state, don't have an eligibility search outcome.\n\nCan be set to one more of the following outcomes:\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `failed`: The payer returned an error code in the response.",
             "explode": true,
             "in": "query",
             "name": "eligibilitySearchOutcome",
             "schema": {
-              "description": "Filter batch items by their eligibility search outcome. Multiple outcomes can be specified to retrieve items in any of those outcomes. Only applies to completed items — items still in progress don't have an eligibility search outcome. If not specified, all batch items are returned regardless of eligibility search outcome.",
+              "description": "Filter for batch items with the specified eligibility search outcomes.\n\nStedi groups retries (if present) for each eligibility check into an eligibility search. The eligibility search outcome reflects the `eligibilitySearchStatus` after the last retry attempt.\n\n This filter is only relevant for batch items in `COMPLETED` state, which means Stedi has either received a response from the payer or has finished retrying. In-progress items, such as those in `PENDING` state, don't have an eligibility search outcome.\n\nCan be set to one more of the following outcomes:\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `failed`: The payer returned an error code in the response.",
               "items": {
                 "$ref": "#/components/schemas/EligibilitySearchOutcome"
               },
