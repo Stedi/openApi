@@ -175,7 +175,7 @@
             "type": "string"
           },
           "requestedEffectiveDate": {
-            "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 2 years from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set.",
+            "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 6 months from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set.",
             "maxLength": 8,
             "minLength": 8,
             "pattern": "^\\d{8}$",
@@ -1624,7 +1624,7 @@
             "type": "string"
           },
           "requestedEffectiveDate": {
-            "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 2 years from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set.",
+            "description": "The requested effective date for the enrollment in YYYYMMDD format. This is the date you'd like the enrollment to take effect with the payer. For example, setting this to `20260601` for an 835 Electronic Remittance Advice (ERAs) enrollment means you want to start receiving ERAs through Stedi on that date.\n\nStedi can't guarantee that the enrollment will be effective on this exact date. Not all payers support future dates. If the payer supports a requested effective date, Stedi will process enrollments accordingly.\n  - You can submit today's date or a future date up to 6 months from today.\n  - If not set, Stedi defaults to the submission date for the enrollment.\n  - This property remains empty for `DRAFT` enrollments if not explicitly set.",
             "maxLength": 8,
             "minLength": 8,
             "pattern": "^\\d{8}$",
@@ -2562,7 +2562,7 @@
                             "taxId": "123456789",
                             "taxIdType": "EIN"
                           },
-                          "requestedEffectiveDate": "20250401",
+                          "requestedEffectiveDate": "20250415",
                           "source": "API",
                           "status": "LIVE",
                           "statusLastUpdatedAt": "2025-05-01T12:00:00Z",
@@ -2648,7 +2648,7 @@
                             "taxIdType": "EIN"
                           },
                           "reason": "Waiting for provider action",
-                          "requestedEffectiveDate": "20250501",
+                          "requestedEffectiveDate": "20250801",
                           "source": "API",
                           "status": "PROVIDER_ACTION_REQUIRED",
                           "statusLastUpdatedAt": "2025-04-22T14:45:00Z",
@@ -2806,7 +2806,7 @@
                     "provider": {
                       "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
                     },
-                    "requestedEffectiveDate": "20270301",
+                    "requestedEffectiveDate": "20240301",
                     "status": "STEDI_ACTION_REQUIRED",
                     "transactions": {
                       "claimPayment": {
@@ -2875,7 +2875,7 @@
                         "taxId": "123456789",
                         "taxIdType": "EIN"
                       },
-                      "requestedEffectiveDate": "20270301",
+                      "requestedEffectiveDate": "20240301",
                       "source": "API",
                       "status": "STEDI_ACTION_REQUIRED",
                       "statusLastUpdatedAt": "2023-11-07T05:31:56Z",
@@ -3526,7 +3526,7 @@
                     "provider": {
                       "id": "db6665c5-7b97-4af9-8c68-a00a336c2998"
                     },
-                    "requestedEffectiveDate": "20270301",
+                    "requestedEffectiveDate": "20250301",
                     "status": "STEDI_ACTION_REQUIRED",
                     "transactions": {
                       "claimPayment": {
@@ -3594,7 +3594,7 @@
                         "taxId": "123456789",
                         "taxIdType": "EIN"
                       },
-                      "requestedEffectiveDate": "20270301",
+                      "requestedEffectiveDate": "20250301",
                       "source": "API",
                       "status": "STEDI_ACTION_REQUIRED",
                       "statusLastUpdatedAt": "2024-11-07T05:31:56Z",
