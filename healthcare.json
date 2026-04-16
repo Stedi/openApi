@@ -3702,6 +3702,29 @@
         },
         "type": "object"
       },
+      "ClaimPaymentEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs).",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "supportedAggregationPreferences": {
+            "description": "Aggregation types this payer supports for 835 Electronic Remittance Advice (ERA) transactions. Payers can aggregate by the provider's NPI, tax ID (TIN), or both.\n  - You can use this information to specify an `aggregationPreference` when submitting ERA enrollment requests.\n  - This property is only returned when Stedi can determine the payer's supported aggregation types.",
+            "items": {
+              "$ref": "#/components/schemas/SupportedAggregationType"
+            },
+            "type": "array"
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "ClaimPricingInformation": {
         "properties": {
           "exceptionCode": {
@@ -4058,6 +4081,22 @@
             "maxLength": 50,
             "minLength": 1,
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ClaimStatusInquiryEnrollmentProcess": {
+        "description": "Details about the enrollment process for real-time claim status requests.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
           }
         },
         "type": "object"
@@ -5843,6 +5882,22 @@
           }
         ]
       },
+      "CoordinationOfBenefitsEnrollmentProcess": {
+        "description": "Details about the enrollment process for coordination of benefits (COB) checks.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "CoordinationOfBenefitsRequestContent": {
         "properties": {
           "dependent": {
@@ -6225,6 +6280,22 @@
             "description": "A single service date or a range of service dates.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])(-\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01]))?$",
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "DentalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for dental claim submission.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
           }
         },
         "type": "object"
@@ -9423,6 +9494,22 @@
         ],
         "type": "string"
       },
+      "EligibilityInquiryEnrollmentProcess": {
+        "description": "Details about the enrollment process for eligibility checks.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "EligibilityMetaDataJSON": {
         "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting.",
         "properties": {
@@ -11925,6 +12012,22 @@
           "statementBeginDate",
           "statementEndDate"
         ],
+        "type": "object"
+      },
+      "InstitutionalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for institutional claim submission.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
         "type": "object"
       },
       "InstitutionalClaimFilingIndicatorCode": {
@@ -14974,6 +15077,7 @@
         "type": "string"
       },
       "ListPayerRecordsResponseContent": {
+        "description": "Common output structure for list operations with pagination support.",
         "properties": {
           "items": {
             "description": "Payers that Stedi supports for each transaction type. Results are returned in alphabetical order of the Stedi ID.",
@@ -14981,6 +15085,12 @@
               "$ref": "#/components/schemas/PayerRecord"
             },
             "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
           }
         },
         "required": [
@@ -18462,6 +18572,22 @@
         ],
         "type": "string"
       },
+      "ProfessionalClaimEnrollmentProcess": {
+        "description": "Details about the enrollment process for professional claim submission.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "ProfessionalService": {
         "description": "Information about the service rendered.",
         "properties": {
@@ -20511,15 +20637,23 @@
         ],
         "type": "string"
       },
+      "RequestedEffectiveDate": {
+        "description": "Whether a payer supports specifying a requested effective date for transaction enrollments.",
+        "enum": [
+          "SUPPORTED",
+          "NOT_SUPPORTED"
+        ],
+        "type": "string"
+      },
       "ResourceNotFoundException": {
-        "description": "//// Errors\nThe server response when the specified resource cannot be found after an API request passes authentication and authorization.",
+        "description": "The server response when the specified resource cannot be found after an API request passes authentication and authorization.",
         "properties": {
           "code": {
-            "description": "Classification of the exception type.",
+            "description": "Error classification code",
             "type": "string"
           },
           "message": {
-            "description": "Human readable exception message.",
+            "description": "Human-readable error message",
             "type": "string"
           }
         },
@@ -20529,14 +20663,14 @@
         "type": "object"
       },
       "ResourceNotFoundExceptionResponseContent": {
-        "description": "//// Errors\nThe server response when the specified resource cannot be found after an API request passes authentication and authorization.",
+        "description": "The server response when the specified resource cannot be found after an API request passes authentication and authorization.",
         "properties": {
           "code": {
-            "description": "Classification of the exception type.",
+            "description": "Error classification code",
             "type": "string"
           },
           "message": {
-            "description": "Human readable exception message.",
+            "description": "Human-readable error message",
             "type": "string"
           }
         },
@@ -21617,7 +21751,7 @@
             "type": "array"
           },
           "nextPageToken": {
-            "description": "Token for pagination to retrieve the next page of results; null if there are no more results",
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
             "maxLength": 1024,
             "minLength": 1,
             "type": "string"
@@ -23295,6 +23429,14 @@
         },
         "type": "object"
       },
+      "SupportedAggregationType": {
+        "description": "Aggregation types a payer supports for 835 Electronic Remittance Advice (ERA) transactions. Payers can aggregate by the provider's NPI, tax ID (TIN), or both.\n\nYou can use this information to specify an `aggregationPreference` when submitting ERA enrollment requests.",
+        "enum": [
+          "NPI",
+          "TIN"
+        ],
+        "type": "string"
+      },
       "SupportedBreakdown": {
         "properties": {
           "enrollmentNotRequired": {
@@ -23594,51 +23736,39 @@
         },
         "type": "object"
       },
-      "TransactionEnrollmentProcess": {
-        "description": "Details about the enrollment process for a specific transaction type.",
-        "properties": {
-          "timeframe": {
-            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
-          },
-          "type": {
-            "$ref": "#/components/schemas/EnrollmentProcessType"
-          }
-        },
-        "type": "object"
-      },
       "TransactionEnrollmentProcesses": {
         "description": "Information about the transaction enrollment requirements and expected timeframes for each transaction type.",
         "properties": {
           "claimPayment": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ClaimPaymentEnrollmentProcess",
             "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs) with this payer."
           },
           "claimStatusInquiry": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ClaimStatusInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for real-time claim status requests with this payer."
           },
           "coordinationOfBenefits": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/CoordinationOfBenefitsEnrollmentProcess",
             "description": "Details about the enrollment process for coordination of benefits (COB) checks with this payer."
           },
           "dentalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/DentalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for dental claim submission with this payer."
           },
           "eligibilityInquiry": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/EligibilityInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for eligibility checks with this payer."
           },
           "institutionalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/InstitutionalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for institutional claim submission with this payer."
           },
           "professionalClaim": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/ProfessionalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for professional claim submission with this payer."
           },
           "unsolicitedClaimAttachment": {
-            "$ref": "#/components/schemas/TransactionEnrollmentProcess",
+            "$ref": "#/components/schemas/UnsolicitedClaimAttachmentEnrollmentProcess",
             "description": "Details about the enrollment process for unsolicited claim attachments with this payer."
           }
         },
@@ -23914,6 +24044,22 @@
           "YR"
         ],
         "type": "string"
+      },
+      "UnsolicitedClaimAttachmentEnrollmentProcess": {
+        "description": "Details about the enrollment process for unsolicited claim attachments.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
       },
       "ValidationException": {
         "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
@@ -34984,68 +35130,65 @@
                     "value": {
                       "payer": {
                         "aliases": [
-                          "10048",
-                          "1406",
-                          "5501",
-                          "84980",
-                          "CB900",
-                          "DX900",
-                          "G84980",
-                          "SB900",
-                          "TXBCBS",
-                          "TXBLS"
+                          "00420",
+                          "13123",
+                          "1584",
+                          "4714",
+                          "95655",
+                          "MEDGL",
+                          "MEDGLD",
+                          "MEDIGOLD"
                         ],
-                        "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/QDTRP/avatar.png?v=1762425540481",
+                        "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/YKHRB/avatar.png?v=1766600157693",
                         "coverageTypes": [
                           "dental",
-                          "medical",
-                          "vision"
+                          "medical"
                         ],
-                        "displayName": "Blue Cross Blue Shield of Texas",
+                        "displayName": "Trinity Health Plan",
                         "enrollment": {
                           "ptanRequired": false,
                           "transactionEnrollmentProcesses": {
                             "claimPayment": {
-                              "timeframe": "WEEKS",
+                              "requestedEffectiveDate": "NOT_SUPPORTED",
+                              "supportedAggregationPreferences": [
+                                "NPI",
+                                "TIN"
+                              ],
+                              "timeframe": "DAYS",
                               "type": "ONE_CLICK"
                             }
                           }
                         },
                         "names": [
-                          "Blue Cross Blue Shield Texas Medicaid STAR CHIP",
-                          "Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program",
-                          "Blue Cross Blue Shield of Texas",
-                          "Bryan Independent School",
-                          "Federal Employee Program Texas (FEP)",
-                          "Health Maintenance Organization Blue",
-                          "Health Maintenance Organization Blue Texas",
-                          "Healthcare Benefits",
-                          "Rio Grande",
-                          "Walmart (BlueCard Carriers)"
+                          "MediGold",
+                          "Medigold Health Plans",
+                          "Mount Carmel Health Plan",
+                          "Mount Carmel MediGold",
+                          "Trinity Health Plan of Michigan"
                         ],
                         "operatingStates": [
-                          "CT",
-                          "IL",
-                          "NM",
-                          "TX",
-                          "UT"
+                          "ID",
+                          "IA",
+                          "MI",
+                          "NY",
+                          "OH"
                         ],
-                        "parentPayerGroupId": "DKCAG",
-                        "primaryPayerId": "84980",
-                        "stediId": "QDTRP",
+                        "parentPayerGroupId": "GTRSH",
+                        "primaryPayerId": "95655",
+                        "stediId": "YKHRB",
                         "transactionSupport": {
                           "claimPayment": "ENROLLMENT_REQUIRED",
                           "claimStatus": "SUPPORTED",
                           "claimSubmission": "SUPPORTED",
-                          "coordinationOfBenefits": "SUPPORTED",
-                          "dentalClaimSubmission": "SUPPORTED",
+                          "coordinationOfBenefits": "NOT_SUPPORTED",
+                          "dentalClaimSubmission": "NOT_SUPPORTED",
                           "eligibilityCheck": "SUPPORTED",
                           "institutionalClaimSubmission": "SUPPORTED",
                           "professionalClaimSubmission": "SUPPORTED",
                           "unsolicitedClaimAttachment": "NOT_SUPPORTED"
                         },
                         "urls": {
-                          "website": "https://www.bcbstx.com"
+                          "website": "https://www.thpmedicare.org"
                         }
                       }
                     }
@@ -35148,6 +35291,36 @@
       "get": {
         "description": "List Stedi's supported payers in JSON format",
         "operationId": "ListPayerRecords",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+            "examples": {
+              "ListPayerRecords_example1": {
+                "description": "",
+                "summary": "List payers with pagination",
+                "value": 100
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+              "minimum": 10,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "content": {
@@ -35155,76 +35328,74 @@
                 "examples": {
                   "ListPayerRecords_example1": {
                     "description": "",
-                    "summary": "List payers",
+                    "summary": "List payers with pagination",
                     "value": {
                       "items": [
                         {
                           "aliases": [
-                            "10048",
-                            "1406",
-                            "5501",
-                            "84980",
-                            "CB900",
-                            "DX900",
-                            "G84980",
-                            "SB900",
-                            "TXBCBS",
-                            "TXBLS"
+                            "00420",
+                            "13123",
+                            "1584",
+                            "4714",
+                            "95655",
+                            "MEDGL",
+                            "MEDGLD",
+                            "MEDIGOLD"
                           ],
-                          "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/QDTRP/avatar.png?v=1762425540481",
+                          "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/YKHRB/avatar.png?v=1766600157693",
                           "coverageTypes": [
                             "dental",
-                            "medical",
-                            "vision"
+                            "medical"
                           ],
-                          "displayName": "Blue Cross Blue Shield of Texas",
+                          "displayName": "Trinity Health Plan",
                           "enrollment": {
                             "ptanRequired": false,
                             "transactionEnrollmentProcesses": {
                               "claimPayment": {
-                                "timeframe": "WEEKS",
+                                "requestedEffectiveDate": "NOT_SUPPORTED",
+                                "supportedAggregationPreferences": [
+                                  "NPI",
+                                  "TIN"
+                                ],
+                                "timeframe": "DAYS",
                                 "type": "ONE_CLICK"
                               }
                             }
                           },
                           "names": [
-                            "Blue Cross Blue Shield Texas Medicaid STAR CHIP",
-                            "Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program",
-                            "Blue Cross Blue Shield of Texas",
-                            "Bryan Independent School",
-                            "Federal Employee Program Texas (FEP)",
-                            "Health Maintenance Organization Blue",
-                            "Health Maintenance Organization Blue Texas",
-                            "Healthcare Benefits",
-                            "Rio Grande",
-                            "Walmart (BlueCard Carriers)"
+                            "MediGold",
+                            "Medigold Health Plans",
+                            "Mount Carmel Health Plan",
+                            "Mount Carmel MediGold",
+                            "Trinity Health Plan of Michigan"
                           ],
                           "operatingStates": [
-                            "CT",
-                            "IL",
-                            "NM",
-                            "TX",
-                            "UT"
+                            "ID",
+                            "IA",
+                            "MI",
+                            "NY",
+                            "OH"
                           ],
-                          "parentPayerGroupId": "DKCAG",
-                          "primaryPayerId": "84980",
-                          "stediId": "QDTRP",
+                          "parentPayerGroupId": "GTRSH",
+                          "primaryPayerId": "95655",
+                          "stediId": "YKHRB",
                           "transactionSupport": {
                             "claimPayment": "ENROLLMENT_REQUIRED",
                             "claimStatus": "SUPPORTED",
                             "claimSubmission": "SUPPORTED",
-                            "coordinationOfBenefits": "SUPPORTED",
-                            "dentalClaimSubmission": "SUPPORTED",
+                            "coordinationOfBenefits": "NOT_SUPPORTED",
+                            "dentalClaimSubmission": "NOT_SUPPORTED",
                             "eligibilityCheck": "SUPPORTED",
                             "institutionalClaimSubmission": "SUPPORTED",
                             "professionalClaimSubmission": "SUPPORTED",
                             "unsolicitedClaimAttachment": "NOT_SUPPORTED"
                           },
                           "urls": {
-                            "website": "https://www.bcbstx.com"
+                            "website": "https://www.thpmedicare.org"
                           }
                         }
-                      ]
+                      ],
+                      "nextPageToken": "yrZ3we9982etYlMgmw=="
                     }
                   }
                 },
@@ -35323,7 +35494,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"QDTRP\",\"84980\",\"Blue Cross Blue Shield of Texas\",\"Blue Cross Blue Shield Texas Medicaid STAR CHIP|Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program|Blue Cross Blue Shield of Texas|Bryan Independent School|Federal Employee Program Texas (FEP)|Health Maintenance Organization Blue|Health Maintenance Organization Blue Texas|Healthcare Benefits|Rio Grande|Walmart (BlueCard Carriers)\",\"10048|1406|5501|84980|CB900|DX900|G84980|SB900|TXBCBS|TXBLS\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"WEEKS\",\"true\",\"false\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"dental|medical|vision\",\"CT|IL|NM|TX|UT\",\"false\",\"DKCAG\",\"https://www.bcbstx.com\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
                   }
                 },
                 "schema": {
@@ -35586,211 +35757,151 @@
                       "items": [
                         {
                           "matches": {
-                            "aliases": [
-                              "<b>BCBSM</b>",
-                              "<b>BCMIC</b>",
-                              "<b>BCMIH</b>",
-                              "<b>BCMIV</b>"
-                            ],
-                            "displayName": "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan",
                             "names": [
-                              "<b>BCBSM</b> Healthy Kids Dental (DentaQuest)",
-                              "<b>Blue</b> Care Network (<b>BCBSM</b> MA/BNCA - Medicare Advantage)",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Dental",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Institutional",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Michigan Professional",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan - Medicare Advantage",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Michigan and <b>Blue</b> Care Network"
+                              "Highmark <b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b>",
+                              "Highmark <b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Pennsylvania",
+                              "Highmark <b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Pennsylvania Professional",
+                              "Highmark <b>Blue</b> <b>Shield</b>",
+                              "Keystone Health Plan West - Community <b>Blue</b> HMO"
                             ]
                           },
                           "payer": {
                             "aliases": [
-                              "00210",
-                              "00210I",
-                              "00710",
-                              "00710D",
-                              "00710P",
-                              "10038",
-                              "10519",
-                              "1421",
-                              "2287",
-                              "2426",
-                              "710",
-                              "BBMDQ",
-                              "BCBSM",
-                              "BCMIC",
-                              "BCMIH",
-                              "BCMIV",
-                              "CBMI1",
-                              "GFXLJ",
-                              "MIBCN",
-                              "MIBCSI",
-                              "MIBCSP",
-                              "MIBLS",
-                              "SB710",
-                              "UQVGL",
-                              "Z1380"
+                              "10046",
+                              "100900",
+                              "10264",
+                              "10524",
+                              "2413",
+                              "54771",
+                              "95462",
+                              "PABCBS",
+                              "PABLS",
+                              "SB865",
+                              "SB865MA",
+                              "SZXAY"
                             ],
-                            "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/KRPCH/avatar.png?v=1762425534646",
+                            "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/GUFCO/avatar.png?v=1763077235241",
                             "coverageTypes": [
                               "dental",
                               "medical",
                               "vision"
                             ],
-                            "displayName": "Blue Cross Blue Shield of Michigan",
+                            "displayName": "Highmark of Pennsylvania",
                             "enrollment": {
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
-                                  "timeframe": "INSTANT",
+                                  "requestedEffectiveDate": "NOT_SUPPORTED",
+                                  "supportedAggregationPreferences": [
+                                    "NPI",
+                                    "TIN"
+                                  ],
+                                  "timeframe": "DAYS",
+                                  "type": "ONE_CLICK"
+                                },
+                                "claimStatusInquiry": {
+                                  "timeframe": "DAYS",
                                   "type": "ONE_CLICK"
                                 }
                               }
                             },
                             "names": [
-                              "BCBSM Healthy Kids Dental (DentaQuest)",
-                              "Blue Care Network (BCBSM MA/BNCA - Medicare Advantage)",
-                              "Blue Cross Blue Shield Michigan Dental",
-                              "Blue Cross Blue Shield Michigan Institutional",
-                              "Blue Cross Blue Shield Michigan Professional",
-                              "Blue Cross Blue Shield of Michigan - Medicare Advantage",
-                              "Blue Cross Blue Shield of Michigan and Blue Care Network"
+                              "Highmark Blue Cross Blue Shield",
+                              "Highmark Blue Cross Blue Shield Pennsylvania",
+                              "Highmark Blue Cross Blue Shield Pennsylvania Professional",
+                              "Highmark Blue Shield",
+                              "Keystone Health Plan West - Community Blue HMO",
+                              "First Priority Life Insurance Company (FPLIC) Out-of-Area Claims",
+                              "Highmark of Pennsylvania - Medicare Advantage"
                             ],
                             "operatingStates": [
-                              "AL",
-                              "AK",
-                              "AZ",
-                              "AR",
-                              "CA",
-                              "CO",
-                              "CT",
-                              "DE",
-                              "FL",
-                              "GA",
-                              "HI",
-                              "ID",
-                              "IL",
-                              "IN",
-                              "IA",
-                              "KS",
-                              "KY",
-                              "LA",
-                              "ME",
-                              "MD",
-                              "MA",
-                              "MI",
-                              "MN",
-                              "MS",
-                              "MO",
-                              "MT",
-                              "NE",
-                              "NV",
-                              "NH",
-                              "NJ",
-                              "NM",
-                              "NY",
-                              "NC",
-                              "ND",
-                              "OH",
-                              "OK",
-                              "OR",
-                              "PA",
-                              "SC",
-                              "SD",
-                              "TN",
-                              "TX",
-                              "UT",
-                              "VT",
-                              "VA",
-                              "WA",
-                              "WI",
-                              "DC"
+                              "PA"
                             ],
-                            "parentPayerGroupId": "AWOCR",
-                            "primaryPayerId": "00710",
-                            "stediId": "KRPCH",
+                            "parentPayerGroupId": "QOSPQ",
+                            "primaryPayerId": "54771",
+                            "stediId": "GUFCO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
-                              "claimStatus": "SUPPORTED",
+                              "claimStatus": "ENROLLMENT_REQUIRED",
                               "coordinationOfBenefits": "SUPPORTED",
                               "dentalClaimSubmission": "NOT_SUPPORTED",
-                              "eligibilityCheck": "SUPPORTED",
-                              "institutionalClaimSubmission": "SUPPORTED",
+                              "eligibilityCheck": "ENROLLMENT_REQUIRED",
+                              "institutionalClaimSubmission": "NOT_SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
                               "unsolicitedClaimAttachment": "NOT_SUPPORTED"
                             }
                           },
-                          "score": 2314894167592927000
+                          "score": 2314894167593451500
                         }
                       ],
                       "stats": {
-                        "total": 134,
+                        "total": 142,
                         "transactionSupport": {
                           "claimPayment": {
-                            "enrollmentRequired": 101,
-                            "notSupported": 33,
+                            "enrollmentRequired": 113,
+                            "notSupported": 29,
                             "supported": 0
                           },
                           "claimStatus": {
-                            "enrollmentRequired": 2,
-                            "notSupported": 53,
-                            "supported": 79
+                            "enrollmentRequired": 3,
+                            "notSupported": 55,
+                            "supported": 84
                           },
                           "coordinationOfBenefits": {
                             "enrollmentRequired": 0,
-                            "notSupported": 106,
+                            "notSupported": 114,
                             "supported": 28
                           },
                           "dentalClaimSubmission": {
                             "enrollmentRequired": 2,
-                            "notSupported": 91,
-                            "supported": 41
+                            "notSupported": 95,
+                            "supported": 45
                           },
                           "eligibilityCheck": {
-                            "enrollmentRequired": 6,
-                            "notSupported": 20,
-                            "supported": 108
+                            "enrollmentRequired": 5,
+                            "notSupported": 33,
+                            "supported": 104
                           },
                           "institutionalClaimSubmission": {
-                            "enrollmentRequired": 12,
-                            "notSupported": 32,
-                            "supported": 90
+                            "enrollmentRequired": 10,
+                            "notSupported": 30,
+                            "supported": 102
                           },
                           "professionalClaimSubmission": {
-                            "enrollmentRequired": 11,
-                            "notSupported": 23,
-                            "supported": 100
+                            "enrollmentRequired": 9,
+                            "notSupported": 16,
+                            "supported": 117
                           },
                           "unsolicitedClaimAttachment": {
                             "enrollmentRequired": 0,
-                            "notSupported": 111,
-                            "supported": 23
+                            "notSupported": 109,
+                            "supported": 33
                           }
                         },
                         "transactionSupportCounts": {
                           "claimPayment": {
                             "notSupported": {
-                              "total": 33
+                              "total": 29
                             },
                             "supported": {
                               "enrollmentNotRequired": 0,
-                              "enrollmentRequired": 101,
-                              "total": 101
+                              "enrollmentRequired": 113,
+                              "total": 113
                             }
                           },
                           "claimStatus": {
                             "notSupported": {
-                              "total": 53
+                              "total": 55
                             },
                             "supported": {
-                              "enrollmentNotRequired": 79,
-                              "enrollmentRequired": 2,
-                              "total": 81
+                              "enrollmentNotRequired": 84,
+                              "enrollmentRequired": 3,
+                              "total": 87
                             }
                           },
                           "coordinationOfBenefits": {
                             "notSupported": {
-                              "total": 106
+                              "total": 114
                             },
                             "supported": {
                               "enrollmentNotRequired": 28,
@@ -35800,52 +35911,52 @@
                           },
                           "dentalClaimSubmission": {
                             "notSupported": {
-                              "total": 91
+                              "total": 95
                             },
                             "supported": {
-                              "enrollmentNotRequired": 41,
+                              "enrollmentNotRequired": 45,
                               "enrollmentRequired": 2,
-                              "total": 43
+                              "total": 47
                             }
                           },
                           "eligibilityCheck": {
                             "notSupported": {
-                              "total": 20
+                              "total": 33
                             },
                             "supported": {
-                              "enrollmentNotRequired": 108,
-                              "enrollmentRequired": 6,
-                              "total": 114
+                              "enrollmentNotRequired": 104,
+                              "enrollmentRequired": 5,
+                              "total": 109
                             }
                           },
                           "institutionalClaimSubmission": {
                             "notSupported": {
-                              "total": 32
+                              "total": 30
                             },
                             "supported": {
-                              "enrollmentNotRequired": 90,
-                              "enrollmentRequired": 12,
-                              "total": 102
+                              "enrollmentNotRequired": 102,
+                              "enrollmentRequired": 10,
+                              "total": 112
                             }
                           },
                           "professionalClaimSubmission": {
                             "notSupported": {
-                              "total": 23
+                              "total": 16
                             },
                             "supported": {
-                              "enrollmentNotRequired": 100,
-                              "enrollmentRequired": 11,
-                              "total": 111
+                              "enrollmentNotRequired": 117,
+                              "enrollmentRequired": 9,
+                              "total": 126
                             }
                           },
                           "unsolicitedClaimAttachment": {
                             "notSupported": {
-                              "total": 111
+                              "total": 109
                             },
                             "supported": {
-                              "enrollmentNotRequired": 23,
+                              "enrollmentNotRequired": 33,
                               "enrollmentRequired": 0,
-                              "total": 23
+                              "total": 33
                             }
                           }
                         }
@@ -35859,66 +35970,72 @@
                       "items": [
                         {
                           "matches": {
-                            "displayName": "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Texas",
+                            "aliases": [
+                              "<b>BCSNC</b>"
+                            ],
+                            "displayName": "<b>Blue</b> <b>Cross</b> NC",
                             "names": [
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Texas Medicaid STAR CHIP",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> Texas Medicaid STAR Children's Health Insurance Program",
-                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of Texas",
-                              "Health Maintenance Organization <b>Blue</b>",
-                              "Health Maintenance Organization <b>Blue</b> Texas"
-                            ]
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> North Carolina",
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> of North Carolina",
+                              "<b>Blue</b> <b>Cross</b> NC - Medicare Advantage",
+                              "<b>Blue</b> <b>Cross</b> NC – Dental <b>Blue</b>"
+                            ],
+                            "primaryPayerId": "<b>BCSNC</b>"
                           },
                           "payer": {
                             "aliases": [
-                              "10048",
-                              "1406",
-                              "5501",
-                              "84980",
-                              "CB900",
-                              "DX900",
-                              "G84980",
-                              "SB900",
-                              "TXBCBS",
-                              "TXBLS"
+                              "BCSNC",
+                              "10383",
+                              "12B23",
+                              "1411",
+                              "560894904",
+                              "61472",
+                              "61473",
+                              "7472",
+                              "7514",
+                              "7814",
+                              "NCBCBS",
+                              "NCBLS",
+                              "NCPNHP",
+                              "SB810",
+                              "SB810MA"
                             ],
-                            "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/QDTRP/avatar.png?v=1762425540481",
+                            "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/UPICO/avatar.png?v=1765912707668",
                             "coverageTypes": [
                               "dental",
                               "medical",
                               "vision"
                             ],
-                            "displayName": "Blue Cross Blue Shield of Texas",
+                            "displayName": "Blue Cross NC",
+                            "employerIdentificationNumbers": [
+                              "56-0894904"
+                            ],
                             "enrollment": {
                               "ptanRequired": false,
                               "transactionEnrollmentProcesses": {
                                 "claimPayment": {
-                                  "timeframe": "WEEKS",
-                                  "type": "ONE_CLICK"
+                                  "requestedEffectiveDate": "SUPPORTED",
+                                  "supportedAggregationPreferences": [
+                                    "TIN"
+                                  ],
+                                  "timeframe": "DAYS",
+                                  "type": "MULTI_STEP"
                                 }
                               }
                             },
                             "names": [
-                              "Blue Cross Blue Shield Texas Medicaid STAR CHIP",
-                              "Blue Cross Blue Shield Texas Medicaid STAR Children's Health Insurance Program",
-                              "Blue Cross Blue Shield of Texas",
-                              "Bryan Independent School",
-                              "Federal Employee Program Texas (FEP)",
-                              "Health Maintenance Organization Blue",
-                              "Health Maintenance Organization Blue Texas",
-                              "Healthcare Benefits",
-                              "Rio Grande",
-                              "Walmart (BlueCard Carriers)"
+                              "Blue Cross Blue Shield North Carolina",
+                              "Blue Cross Blue Shield of North Carolina",
+                              "Blue Cross NC - Medicare Advantage",
+                              "Blue Cross NC – Dental Blue",
+                              "Partners National Health Plans of North Carolina Inc"
                             ],
                             "operatingStates": [
-                              "CT",
-                              "IL",
-                              "NM",
-                              "TX",
-                              "UT"
+                              "NC"
                             ],
-                            "parentPayerGroupId": "DKCAG",
-                            "primaryPayerId": "84980",
-                            "stediId": "QDTRP",
+                            "parentPayerGroupId": "OVWIG",
+                            "primaryPayerId": "BCSNC",
+                            "stediId": "UPICO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
                               "claimStatus": "SUPPORTED",
@@ -35930,65 +36047,65 @@
                               "unsolicitedClaimAttachment": "NOT_SUPPORTED"
                             },
                             "urls": {
-                              "website": "https://www.bcbstx.com"
+                              "website": "https://www.bluecrossnc.com"
                             }
                           },
                           "score": 2314894167592927000
                         }
                       ],
                       "stats": {
-                        "total": 78,
+                        "total": 83,
                         "transactionSupport": {
                           "claimPayment": {
-                            "enrollmentRequired": 71,
-                            "notSupported": 7,
+                            "enrollmentRequired": 77,
+                            "notSupported": 6,
                             "supported": 0
                           },
                           "claimStatus": {
                             "enrollmentRequired": 0,
                             "notSupported": 0,
-                            "supported": 78
+                            "supported": 83
                           },
                           "coordinationOfBenefits": {
                             "enrollmentRequired": 0,
-                            "notSupported": 53,
-                            "supported": 25
+                            "notSupported": 57,
+                            "supported": 26
                           },
                           "dentalClaimSubmission": {
                             "enrollmentRequired": 2,
-                            "notSupported": 40,
-                            "supported": 36
+                            "notSupported": 41,
+                            "supported": 40
                           },
                           "eligibilityCheck": {
                             "enrollmentRequired": 0,
                             "notSupported": 0,
-                            "supported": 78
+                            "supported": 83
                           },
                           "institutionalClaimSubmission": {
                             "enrollmentRequired": 5,
-                            "notSupported": 5,
-                            "supported": 68
+                            "notSupported": 3,
+                            "supported": 75
                           },
                           "professionalClaimSubmission": {
-                            "enrollmentRequired": 4,
-                            "notSupported": 5,
-                            "supported": 69
+                            "enrollmentRequired": 5,
+                            "notSupported": 3,
+                            "supported": 75
                           },
                           "unsolicitedClaimAttachment": {
                             "enrollmentRequired": 0,
-                            "notSupported": 56,
-                            "supported": 22
+                            "notSupported": 57,
+                            "supported": 26
                           }
                         },
                         "transactionSupportCounts": {
                           "claimPayment": {
                             "notSupported": {
-                              "total": 7
+                              "total": 6
                             },
                             "supported": {
                               "enrollmentNotRequired": 0,
-                              "enrollmentRequired": 71,
-                              "total": 71
+                              "enrollmentRequired": 77,
+                              "total": 77
                             }
                           },
                           "claimStatus": {
@@ -35996,29 +36113,29 @@
                               "total": 0
                             },
                             "supported": {
-                              "enrollmentNotRequired": 78,
+                              "enrollmentNotRequired": 83,
                               "enrollmentRequired": 0,
-                              "total": 78
+                              "total": 83
                             }
                           },
                           "coordinationOfBenefits": {
                             "notSupported": {
-                              "total": 53
+                              "total": 57
                             },
                             "supported": {
-                              "enrollmentNotRequired": 25,
+                              "enrollmentNotRequired": 26,
                               "enrollmentRequired": 0,
-                              "total": 25
+                              "total": 26
                             }
                           },
                           "dentalClaimSubmission": {
                             "notSupported": {
-                              "total": 40
+                              "total": 41
                             },
                             "supported": {
-                              "enrollmentNotRequired": 36,
+                              "enrollmentNotRequired": 40,
                               "enrollmentRequired": 2,
-                              "total": 38
+                              "total": 42
                             }
                           },
                           "eligibilityCheck": {
@@ -36026,39 +36143,39 @@
                               "total": 0
                             },
                             "supported": {
-                              "enrollmentNotRequired": 78,
+                              "enrollmentNotRequired": 83,
                               "enrollmentRequired": 0,
-                              "total": 78
+                              "total": 83
                             }
                           },
                           "institutionalClaimSubmission": {
                             "notSupported": {
-                              "total": 5
+                              "total": 3
                             },
                             "supported": {
-                              "enrollmentNotRequired": 68,
+                              "enrollmentNotRequired": 75,
                               "enrollmentRequired": 5,
-                              "total": 73
+                              "total": 80
                             }
                           },
                           "professionalClaimSubmission": {
                             "notSupported": {
-                              "total": 5
+                              "total": 3
                             },
                             "supported": {
-                              "enrollmentNotRequired": 69,
-                              "enrollmentRequired": 4,
-                              "total": 73
+                              "enrollmentNotRequired": 75,
+                              "enrollmentRequired": 5,
+                              "total": 80
                             }
                           },
                           "unsolicitedClaimAttachment": {
                             "notSupported": {
-                              "total": 56
+                              "total": 57
                             },
                             "supported": {
-                              "enrollmentNotRequired": 22,
+                              "enrollmentNotRequired": 26,
                               "enrollmentRequired": 0,
-                              "total": 22
+                              "total": 26
                             }
                           }
                         }
