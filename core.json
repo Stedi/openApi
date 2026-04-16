@@ -582,7 +582,7 @@
                         }
                       ],
                       "connectionId": "01J8JH26KBJTARWD17Q0S0ZD19",
-                      "connectionType": "bucket",
+                      "connectionType": "BUCKET",
                       "createdAt": "2025-02-12T22:21:08.815Z",
                       "direction": "INBOUND",
                       "executionId": "b1356ef2-a10d-482a-b2db-408f1d5e7ff5",
@@ -5620,16 +5620,6 @@
           "value"
         ]
       },
-      "ConnectionType": {
-        "type": "string",
-        "description": "The type of connection used for exchanging files.",
-        "enum": [
-          "bucket",
-          "remote-ftp",
-          "stedi-ftp",
-          "as2"
-        ]
-      },
       "CoreCharacterSet": {
         "type": "string",
         "description": "When generating EDI, the character set determines the set of characters allowed in the EDI message. Characters outside of the specified set (after applying any repairs specified in RepairOptions) will result in an error.",
@@ -5637,6 +5627,17 @@
           "Basic",
           "Extended",
           "ExtendedHipaa"
+        ]
+      },
+      "CoreConnectionType": {
+        "type": "string",
+        "description": "The type of connection used for file delivery.",
+        "enum": [
+          "BUCKET",
+          "AS2",
+          "STEDI_FTP",
+          "REMOTE_FTP",
+          "STEDI_ACCOUNT_FTP"
         ]
       },
       "CreateOutboundFragmentRequestContent": {
@@ -5802,7 +5803,7 @@
             "description": "An identifier for the partnership within the Stedi platform."
           },
           "connectionType": {
-            "$ref": "#/components/schemas/ConnectionType"
+            "$ref": "#/components/schemas/CoreConnectionType"
           },
           "connectionId": {
             "type": "string",
@@ -6112,7 +6113,7 @@
             "description": "The unique identifier for the partnership within the Stedi platform.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
-            "$ref": "#/components/schemas/ConnectionType"
+            "$ref": "#/components/schemas/CoreConnectionType"
           },
           "connectionId": {
             "type": "string",
@@ -6387,7 +6388,7 @@
             "description": "The unique identifier for the partnership within the Stedi platform.\n\nA partnership describes all aspects of the EDI relationship between two profiles in your Stedi account, such as which transaction sets they will exchange and other important information for processing EDI files."
           },
           "connectionType": {
-            "$ref": "#/components/schemas/ConnectionType"
+            "$ref": "#/components/schemas/CoreConnectionType"
           },
           "connectionId": {
             "type": "string",
@@ -7060,7 +7061,7 @@
             "type": "string",
             "description": "Human readable exception message."
           },
-          "cause": {
+          "exceptionCause": {
             "$ref": "#/components/schemas/ExceptionCause"
           }
         },
