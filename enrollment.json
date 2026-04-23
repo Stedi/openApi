@@ -1239,15 +1239,15 @@
         "type": "object"
       },
       "ProvideFilledPdfTask": {
-        "description": "Task for downloading, completing, and re-uploading a PDF document.",
+        "description": "A task that requires uploading a PDF document. Stedi will either provide an enrollment template PDF to download and complete, or provide instructions for uploading supporting documentation, such as a W-9 form.",
         "properties": {
           "documentDownloadUrl": {
-            "description": "The API URL for the [Download Enrollment Document](/healthcare/api-reference/get-enrollment-document-download) endpoint, with the document ID prepopulated. For example: `https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download`. When you make an authenticated `GET` request to this URL, Stedi returns a pre-signed URL that you can use to download the PDF.",
+            "description": "The API URL for the [Download Enrollment Document](/healthcare/api-reference/get-enrollment-document-download) endpoint with the document ID prepopulated. For example: `https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download`. When you make an authenticated `GET` request to this URL, Stedi returns a pre-signed URL that you can use to download the PDF template.\n\nThis property is only present when Stedi provides a template to download.",
             "minLength": 1,
             "type": "string"
           },
           "instructions": {
-            "description": "Instructions explaining what needs to be completed within the PDF.",
+            "description": "Instructions for the task. They describe what needs to be completed in a downloadable PDF template or what type of supporting documentation to upload.",
             "minLength": 1,
             "type": "string"
           }
@@ -1498,7 +1498,7 @@
             "properties": {
               "provideFilledPdf": {
                 "$ref": "#/components/schemas/ProvideFilledPdfTask",
-                "description": "A task that requires downloading, completing, and re-uploading a PDF document."
+                "description": "A task that requires uploading a completed PDF document. Stedi may either provide a template to download and complete, or provide instructions for uploading supporting documentation, such as a W-9 form."
               }
             },
             "required": [
