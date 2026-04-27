@@ -859,6 +859,13 @@
             },
             "type": "array"
           },
+          "providerIds": {
+            "description": "Filter for enrollments associated with specific provider IDs. You can include this parameter multiple times to filter for multiple providers.\n\nFor example, `?providerIds=10334e76-f073-4b5d-8984-81d8e5107857&providerIds=10234e76-f067-4b5d-8984-81d8e5107123` returns enrollments associated with either of the specified providers.\n\nUnlike `providerNpis` and `providerTaxIds`, this parameter targets the unique provider record. Use it when two providers share an NPI but have different tax IDs.",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
           "providerNames": {
             "description": "Filter for enrollments associated with specific provider names. You can include this parameter multiple times to filter for multiple names.\n\nFor example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.",
             "items": {
@@ -2329,6 +2336,20 @@
             "name": "providerNames",
             "schema": {
               "description": "Filter for enrollments associated with specific provider names. You can include this parameter multiple times to filter for multiple names.\n\nFor example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.",
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter for enrollments associated with specific provider IDs. You can include this parameter multiple times to filter for multiple providers.\n\nFor example, `?providerIds=10334e76-f073-4b5d-8984-81d8e5107857&providerIds=10234e76-f067-4b5d-8984-81d8e5107123` returns enrollments associated with either of the specified providers.\n\nUnlike `providerNpis` and `providerTaxIds`, this parameter targets the unique provider record. Use it when two providers share an NPI but have different tax IDs.",
+            "explode": true,
+            "in": "query",
+            "name": "providerIds",
+            "schema": {
+              "description": "Filter for enrollments associated with specific provider IDs. You can include this parameter multiple times to filter for multiple providers.\n\nFor example, `?providerIds=10334e76-f073-4b5d-8984-81d8e5107857&providerIds=10234e76-f067-4b5d-8984-81d8e5107123` returns enrollments associated with either of the specified providers.\n\nUnlike `providerNpis` and `providerTaxIds`, this parameter targets the unique provider record. Use it when two providers share an NPI but have different tax IDs.",
               "items": {
                 "type": "string"
               },
