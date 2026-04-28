@@ -419,6 +419,55 @@
         },
         "type": "object"
       },
+      "PublicListPayerRecordsResponseContent": {
+        "description": "Common output structure for list operations with pagination support.",
+        "properties": {
+          "items": {
+            "description": "Payers that Stedi supports for each transaction type. Results are returned in alphabetical order of the Stedi ID.",
+            "items": {
+              "$ref": "#/components/schemas/PayerRecord"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "PublicSearchPayersResponseContent": {
+        "description": "Unauthenticated output — see `PublicSearchPayers`.\nSame shape as `SearchPayersOutput`; `@internal` fields are stripped from the public projection at runtime.",
+        "properties": {
+          "items": {
+            "description": "Matching payers sorted by relevance, with the most relevant matches listed first.",
+            "items": {
+              "$ref": "#/components/schemas/SearchResult"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          },
+          "stats": {
+            "$ref": "#/components/schemas/SearchResultsStats",
+            "description": "Statistics about the search results, including the total number of payers matching the search query and the number of payers supported per transaction type."
+          }
+        },
+        "required": [
+          "items",
+          "stats"
+        ],
+        "type": "object"
+      },
       "RequestedEffectiveDate": {
         "description": "Whether a payer supports specifying a requested effective date for transaction enrollments.",
         "enum": [
@@ -578,7 +627,7 @@
         "type": "object"
       },
       "SearchPayersResponseContent": {
-        "description": "Common output structure for list operations with pagination support.",
+        "description": "Authenticated output — see `SearchPayers`.",
         "properties": {
           "items": {
             "description": "Matching payers sorted by relevance, with the most relevant matches listed first.",
@@ -2031,6 +2080,528 @@
             "description": "InternalFailureException 500 response"
           }
         }
+      }
+    },
+    "/public/payers": {
+      "get": {
+        "description": "List Stedi's supported payers. This is the unauthenticated equivalent of `ListPayerRecords`: identical request and response shape, but free of the API-key/Authorization requirement and free of `@internal`-only fields. Subject to per-IP rate limiting suitable for a public endpoint.",
+        "operationId": "PublicListPayerRecords",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+            "examples": {
+              "PublicListPayerRecords_example1": {
+                "description": "",
+                "summary": "List payers with pagination",
+                "value": 100
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return per page. If not set, Stedi returns all payers in a single response (no pagination).",
+              "minimum": 10,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "PublicListPayerRecords_example1": {
+                    "description": "",
+                    "summary": "List payers with pagination",
+                    "value": {
+                      "items": [
+                        {
+                          "aliases": [
+                            "00420",
+                            "13123",
+                            "1584",
+                            "4714",
+                            "95655",
+                            "MEDGL",
+                            "MEDGLD",
+                            "MEDIGOLD"
+                          ],
+                          "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/YKHRB/avatar.png?v=1766600157693",
+                          "coverageTypes": [
+                            "dental",
+                            "medical"
+                          ],
+                          "displayName": "Trinity Health Plan",
+                          "enrollment": {
+                            "ptanRequired": false,
+                            "transactionEnrollmentProcesses": {
+                              "claimPayment": {
+                                "requestedEffectiveDate": "NOT_SUPPORTED",
+                                "supportedAggregationPreferences": [
+                                  "NPI",
+                                  "TIN"
+                                ],
+                                "timeframe": "DAYS",
+                                "type": "ONE_CLICK"
+                              }
+                            }
+                          },
+                          "names": [
+                            "MediGold",
+                            "Medigold Health Plans",
+                            "Mount Carmel Health Plan",
+                            "Mount Carmel MediGold",
+                            "Trinity Health Plan of Michigan"
+                          ],
+                          "operatingStates": [
+                            "ID",
+                            "IA",
+                            "MI",
+                            "NY",
+                            "OH"
+                          ],
+                          "parentPayerGroupId": "GTRSH",
+                          "primaryPayerId": "95655",
+                          "stediId": "YKHRB",
+                          "transactionSupport": {
+                            "claimPayment": "ENROLLMENT_REQUIRED",
+                            "claimStatus": "SUPPORTED",
+                            "claimSubmission": "SUPPORTED",
+                            "coordinationOfBenefits": "NOT_SUPPORTED",
+                            "dentalClaimSubmission": "NOT_SUPPORTED",
+                            "eligibilityCheck": "SUPPORTED",
+                            "institutionalClaimSubmission": "SUPPORTED",
+                            "professionalClaimSubmission": "SUPPORTED",
+                            "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                          },
+                          "urls": {
+                            "website": "https://www.thpmedicare.org"
+                          }
+                        }
+                      ],
+                      "nextPageToken": "yrZ3we9982etYlMgmw=="
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PublicListPayerRecordsResponseContent"
+                }
+              }
+            },
+            "description": "PublicListPayerRecords 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        },
+        "security": []
+      }
+    },
+    "/public/payers/search": {
+      "get": {
+        "description": "Search for payers by name, ID, or alias. This is the unauthenticated equivalent of `SearchPayers`: identical request and response shape, but free of the API-key/Authorization requirement and free of `@internal`-only fields. Subject to per-IP rate limiting suitable for a public endpoint.",
+        "operationId": "PublicSearchPayers",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 20.",
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 20.",
+              "maximum": 100,
+              "minimum": 10,
+              "type": "integer"
+            }
+          },
+          {
+            "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "An opaque token returned by a previous call to this endpoint in the `nextPageToken` property. You can use it to request the next page of results. If not specified, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "The query Stedi will use to search the Payer Network database. You can supply a payer's name, ID, or alias. The query is case-insensitive, and fuzzy matching is supported. For example, `cig`, `62308`, and `SX071` all return Cigna in the results. If not provided, the other search options are used to conduct the search.",
+            "examples": {
+              "PublicSearchPayers_example1": {
+                "description": "",
+                "summary": "Search for query string",
+                "value": "Blue Cross"
+              }
+            },
+            "in": "query",
+            "name": "query",
+            "schema": {
+              "description": "The query Stedi will use to search the Payer Network database. You can supply a payer's name, ID, or alias. The query is case-insensitive, and fuzzy matching is supported. For example, `cig`, `62308`, and `SX071` all return Cigna in the results. If not provided, the other search options are used to conduct the search.",
+              "maxLength": 200,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 270 eligibility checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "eligibilityCheck",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 276/277 real-time claim status checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "claimStatus",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 837 professional claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "professionalClaimSubmission",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 837 dental claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "dentalClaimSubmission",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 837 institutional claims support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "institutionalClaimSubmission",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 835 Electronic Remittance Advice (ERA) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "claimPayment",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified coordination of benefits (COB) checks support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "coordinationOfBenefits",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified unsolicited 275 claim attachments support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "unsolicitedClaimAttachment",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database.",
+            "explode": true,
+            "in": "query",
+            "name": "coverageTypes",
+            "schema": {
+              "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database.",
+              "items": {
+                "$ref": "#/components/schemas/CoverageType"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+            "explode": true,
+            "in": "query",
+            "name": "operatingStates",
+            "schema": {
+              "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+              "items": {
+                "$ref": "#/components/schemas/OperatingStateCode"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "PublicSearchPayers_example1": {
+                    "description": "",
+                    "summary": "Search for query string",
+                    "value": {
+                      "items": [
+                        {
+                          "matches": {
+                            "displayName": "<b>Blue</b> <b>Cross</b> NC",
+                            "names": [
+                              "<b>Blue</b> <b>Cross</b> <b>Blue</b> <b>Shield</b> North Carolina"
+                            ]
+                          },
+                          "payer": {
+                            "aliases": [
+                              "BCSNC",
+                              "10383",
+                              "1411",
+                              "61472",
+                              "7472",
+                              "NCBCBS",
+                              "NCBLS"
+                            ],
+                            "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/UPICO/avatar.png?v=1765912707668",
+                            "coverageTypes": [
+                              "dental",
+                              "medical",
+                              "vision"
+                            ],
+                            "displayName": "Blue Cross NC",
+                            "names": [
+                              "Blue Cross Blue Shield North Carolina",
+                              "Blue Cross NC - Medicare Advantage"
+                            ],
+                            "operatingStates": [
+                              "NC"
+                            ],
+                            "parentPayerGroupId": "OVWIG",
+                            "primaryPayerId": "BCSNC",
+                            "stediId": "UPICO",
+                            "transactionSupport": {
+                              "claimPayment": "ENROLLMENT_REQUIRED",
+                              "claimStatus": "SUPPORTED",
+                              "coordinationOfBenefits": "SUPPORTED",
+                              "dentalClaimSubmission": "SUPPORTED",
+                              "eligibilityCheck": "SUPPORTED",
+                              "institutionalClaimSubmission": "SUPPORTED",
+                              "professionalClaimSubmission": "SUPPORTED",
+                              "unsolicitedClaimAttachment": "NOT_SUPPORTED"
+                            },
+                            "urls": {
+                              "website": "https://www.bluecrossnc.com"
+                            }
+                          },
+                          "score": 2314894167592927000
+                        }
+                      ],
+                      "stats": {
+                        "total": 1,
+                        "transactionSupport": {
+                          "claimPayment": {
+                            "enrollmentRequired": 1,
+                            "notSupported": 0,
+                            "supported": 0
+                          },
+                          "claimStatus": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "coordinationOfBenefits": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "dentalClaimSubmission": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "eligibilityCheck": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "institutionalClaimSubmission": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "professionalClaimSubmission": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 0,
+                            "supported": 1
+                          },
+                          "unsolicitedClaimAttachment": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 1,
+                            "supported": 0
+                          }
+                        },
+                        "transactionSupportCounts": {
+                          "claimPayment": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 1,
+                              "total": 1
+                            }
+                          },
+                          "claimStatus": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "coordinationOfBenefits": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "dentalClaimSubmission": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "eligibilityCheck": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "institutionalClaimSubmission": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "professionalClaimSubmission": {
+                            "notSupported": {
+                              "total": 0
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 1,
+                              "enrollmentRequired": 0,
+                              "total": 1
+                            }
+                          },
+                          "unsolicitedClaimAttachment": {
+                            "notSupported": {
+                              "total": 1
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 0,
+                              "total": 0
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/PublicSearchPayersResponseContent"
+                }
+              }
+            },
+            "description": "PublicSearchPayers 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalFailureException 500 response"
+          }
+        },
+        "security": []
       }
     }
   },
