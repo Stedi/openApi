@@ -931,6 +931,16 @@
               "$ref": "#/components/schemas/TransactionType"
             },
             "type": "array"
+          },
+          "userEmails": {
+            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+            "items": {
+              "description": "A valid email address following standard email format.",
+              "minLength": 5,
+              "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+              "type": "string"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -2491,6 +2501,23 @@
               "format": "date-time",
               "type": "string"
             }
+          },
+          {
+            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+            "explode": true,
+            "in": "query",
+            "name": "userEmails",
+            "schema": {
+              "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+              "items": {
+                "description": "A valid email address following standard email format.",
+                "minLength": 5,
+                "pattern": "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "style": "form"
           },
           {
             "description": "Sort the results by one or more properties. By default, Stedi sorts results by the `createdAt` property in descending order.\n\nSupply a query string with each property appended using `&`. Each property must be provided in a `property:direction` format, where `property` is the name of the property to sort by and `direction` is the sort direction, either `asc` (ascending) or `desc` (descending).\n  - When you don't include `id`, Stedi automatically adds it as the final sort criterion to ensure deterministic results.\n  - When you provide multiple properties, Stedi sorts by their order in the query string. For example, if you provide `?sortBy=updatedAt:desc&sortBy=id:asc`, Stedi sorts first by `updatedAt` in descending order. If multiple records share the same `updatedAt` date, Stedi then sorts those records by `id` in ascending order.\n\n**Supported properties:** `updatedAt`, `statusLastUpdatedAt`, `id`, `requestedEffectiveDate`, `lastEraReceivedAt`\n\nExamples:\n  - Sort by `updatedAt` in descending order: `?sortBy=updatedAt:desc`\n  - Sort by `statusLastUpdatedAt` in ascending order: `?sortBy=statusLastUpdatedAt:asc`\n  - Sort by `updatedAt` and then by `id`: `?sortBy=updatedAt:desc&sortBy=id:asc`",
