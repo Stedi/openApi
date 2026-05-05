@@ -437,7 +437,7 @@
             "type": "string"
           },
           "idOrAlias": {
-            "description": "The Payer ID. This can be the primary Payer ID, the Stedi Payer ID, or any listed aliases for the payer. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.",
+            "description": "The payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can use the primary payer ID, the Stedi payer ID, or any listed aliases for the payer.\n - You must include leading `0` characters - payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
             "type": "string"
           }
         },
@@ -853,7 +853,7 @@
             "type": "string"
           },
           "payerIds": {
-            "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
+            "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization. You must include leading `0` characters - for example, use `00540` for SISCO, not `540`. \n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
             "items": {
               "type": "string"
             },
@@ -2368,12 +2368,12 @@
             "style": "form"
           },
           {
-            "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
+            "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization. You must include leading `0` characters - for example, use `00540` for SISCO, not `540`. \n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
             "explode": true,
             "in": "query",
             "name": "payerIds",
             "schema": {
-              "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
+              "description": "Filter for enrollments associated with specific [Stedi payer IDs](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).\n\nThis parameter only supports Stedi payer IDs, not primary payer IDs or aliases. It also doesn't support fuzzy matching. The payer ID you provide must match the Stedi payer ID exactly, including capitalization. You must include leading `0` characters - for example, use `00540` for SISCO, not `540`. \n\nYou can include this parameter multiple times to filter for multiple payer IDs. For example, `?payerIds=HGJLR&payerIds=EWDCI` returns enrollments associated with either of the specified payer IDs.",
               "items": {
                 "type": "string"
               },
