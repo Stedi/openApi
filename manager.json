@@ -298,7 +298,7 @@
             "type": "string"
           },
           "tradingPartnerServiceId": {
-            "description": "This is the payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.",
+            "description": "The payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.\n - You must include leading `0` characters - payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
             "maxLength": 80,
             "minLength": 1,
             "type": "string"
@@ -1670,7 +1670,7 @@
           },
           "followupAction": {
             "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-            "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Recommended follow-up action based on the rejection reason code.\n\n**Note**: `Resubmission Not Allowed` doesn't mean you should never resubmit the request. Intermediary clearinghouses may send this code when they've temporarily lost connection to the payer, so this code indicates that you should wait at least a few minutes before retrying instead of retrying immediately.\n\nPayers may sometimes return other non-compliant values."
           },
           "location": {
             "description": "The location of the error within the original X12 EDI response.",
@@ -1746,7 +1746,7 @@
           },
           "followupAction": {
             "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-            "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Recommended follow-up action based on the rejection reason code.\n\n**Note**: `Resubmission Not Allowed` doesn't mean you should never resubmit the request. Intermediary clearinghouses may send this code when they've temporarily lost connection to the payer, so this code indicates that you should wait at least a few minutes before retrying instead of retrying immediately.\n\nPayers may sometimes return other non-compliant values."
           },
           "location": {
             "description": "The location of the error within the original X12 EDI response.",
@@ -1851,7 +1851,7 @@
           },
           "followupAction": {
             "$ref": "#/components/schemas/EligibilityCheckFollowupAction",
-            "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Recommended follow-up action based on the rejection reason code.\n\n**Note**: `Resubmission Not Allowed` doesn't mean you should never resubmit the request. Intermediary clearinghouses may send this code when they've temporarily lost connection to the payer, so this code indicates that you should wait at least a few minutes before retrying instead of retrying immediately.\n\nPayers may sometimes return other non-compliant values."
           },
           "location": {
             "description": "The location of the error within the original X12 EDI response.",
@@ -1906,7 +1906,7 @@
           },
           "followupAction": {
             "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-            "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Recommended follow-up action based on the rejection reason code.\n\n**Note**: `Resubmission Not Allowed` doesn't mean you should never resubmit the request. Intermediary clearinghouses may send this code when they've temporarily lost connection to the payer, so this code indicates that you should wait at least a few minutes before retrying instead of retrying immediately.\n\nPayers may sometimes return other non-compliant values."
           },
           "location": {
             "description": "The location of the error within the original X12 EDI response.",
@@ -1955,7 +1955,7 @@
           },
           "followupAction": {
             "$ref": "#/components/schemas/EligibilityCheckProviderAndMemberFollowupAction",
-            "description": "Allowed actions you can take, based on the rejection reason code. For example `Please Correct and Resubmit`.\n\nPayers may sometimes return other non-compliant values."
+            "description": "Recommended follow-up action based on the rejection reason code.\n\n**Note**: `Resubmission Not Allowed` doesn't mean you should never resubmit the request. Intermediary clearinghouses may send this code when they've temporarily lost connection to the payer, so this code indicates that you should wait at least a few minutes before retrying instead of retrying immediately.\n\nPayers may sometimes return other non-compliant values."
           },
           "location": {
             "description": "The location of the error within the original X12 EDI response.",
