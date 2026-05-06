@@ -322,11 +322,11 @@
             "type": "string"
           },
           "conciseName": {
-            "description": "A shorter version of the payer's display name for use in dense UI views. Only returned when available for the payer.",
+            "description": "A shorter version of the payer's display name for use in dense UI views. This property is only returned when a concise name is available for the payer.",
             "type": "string"
           },
           "coverageTypes": {
-            "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these. For example: `[\"medical\"]` or `[\"medical\", \"dental\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types.",
+            "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these. For example: `[\"medical\"]` or `[\"medical\", \"dental\", \"vision\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types.",
             "items": {
               "$ref": "#/components/schemas/CoverageType"
             },
@@ -483,7 +483,7 @@
           },
           "enrollment": {
             "$ref": "#/components/schemas/EnrollmentInfo",
-            "description": "Information about the [transaction enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this payer."
+            "description": "Details about the [transaction enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this payer, if available. This object may not be returned for some payers."
           },
           "names": {
             "description": "Alternative names associated with a payer. These additional names help you search for and identify payers using the name most familiar to your organization.",
@@ -500,7 +500,7 @@
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities.",
+            "description": "The payer's parent payer group entity. This is metadata Stedi uses internally. It doesn't necessarily relate to the payer's enrollment process or other capabilities.",
             "type": "string"
           },
           "primaryPayerId": {
@@ -754,7 +754,7 @@
           },
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837p dental claims to this payer."
+            "description": "Whether you can send 837D dental claims to this payer."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -762,11 +762,11 @@
           },
           "institutionalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837i institutional claims to this payer."
+            "description": "Whether you can send 837I institutional claims to this payer."
           },
           "professionalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837p professional claims to this payer."
+            "description": "Whether you can send 837P professional claims to this payer."
           },
           "unsolicitedClaimAttachment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
