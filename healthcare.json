@@ -1312,11 +1312,11 @@
         "type": "string"
       },
       "Billing": {
-        "description": "Information about the billing provider.\n- For tax identification, you **must** include either the provider's Social Security Number (SSN) in the `ssn` property _or_ their Employer Identification Number (EIN) in the `employerId` property, but not both.\n- If the billing provider has an NPI, you must include it in the `npi` property. If the billing provider does not have an NPI, you must include either the `commercialNumber` or the `locationNumber` for identification. Some payers may require the `npi` **and** either the `commercialNumber` or the `locationNumber` as a secondary identifier.\n- Some solo providers may use their SSN as their EIN. In this case, submit the SSN in the `ssn` property and leave the `employerId` property blank.",
+        "description": "Information about the billing provider.\n- You must provide an `address` that is a physical location such as the office where care is delivered or an administrative facility.\n- For tax identification, you must include either the provider's Social Security Number (SSN) in the `ssn` property _or_ their Employer Identification Number (EIN) in the `employerId` property, but not both.\n- If the billing provider has an NPI, you must include it in the `npi` property. If the billing provider does not have an NPI, you must include either the `commercialNumber` or the `locationNumber` for identification. Some payers may require the `npi` **and** either the `commercialNumber` or the `locationNumber` as a secondary identifier.\n- Some solo providers may use their SSN as their EIN. In this case, submit the SSN in the `ssn` property and leave the `employerId` property blank.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "The billing provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `payToAddress` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The billing provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `payToAddress`.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
           "claimOfficeNumber": {
             "deprecated": true,
@@ -1365,7 +1365,7 @@
             "type": "string"
           },
           "npi": {
-            "description": "The billing provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
+            "description": "The billing provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). Optional. When the billing provider is not assigned an NPI, supply `commercialNumber` or `locationNumber` instead.",
             "pattern": "^\\d{10}$",
             "type": "string"
           },
@@ -4455,7 +4455,7 @@
             "type": "string"
           },
           "priorAuthorizationNumber": {
-            "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information.",
+            "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information.\n\nIf there are multiple prior authorization numbers associated with this claim, send one here and then override it as necessary for each service line in `claimInformation.serviceLines[].serviceLineReferenceInformation.priorAuthorization`.",
             "type": "string"
           },
           "referralNumber": {
@@ -5254,7 +5254,7 @@
           },
           "payToAddress": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered."
+            "description": "Use to specify an address for payment that is different from the billing provider's physical address. This is relevant when the provider expects to receive paper checks at a different location, such as a PO Box, lockbox, or other mailing address."
           },
           "payToPlan": {
             "$ref": "#/components/schemas/PayToPlan"
@@ -5300,7 +5300,7 @@
             "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
           },
           "tradingPartnerServiceId": {
-            "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
+            "description": "The payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.\n - You must include leading `0` characters - payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
             "minLength": 1,
             "type": "string"
           },
@@ -6483,7 +6483,7 @@
             "type": "string"
           },
           "priorAuthorizationNumber": {
-            "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. This authorization number applies to the payer you listed in the `receiver` object. If you need to include authorization numbers for other payers, you can include them in `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerPriorAuthorizationNumber`. \n\nGenerally, preauthorization numbers are assigned by the payer or UMO to authorize a service prior to its being performed. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information.",
+            "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. This authorization number applies to the payer you listed in the `receiver` object. If you need to include authorization numbers for other payers, you can include them in `claimInformation.otherSubscriberInformation.otherPayerName.otherPayerPriorAuthorizationNumber`. The UMO (Utilization Management Organization) is generally the entity empowered to make a decision regarding the outcome of a health services review or the owner of information.\n\nIf there are multiple prior authorization numbers associated with this claim, send one here and then override it as necessary for each service line in `claimInformation.serviceLines[].serviceLineReferenceInformation.priorAuthorization`.",
             "type": "string"
           },
           "referralNumber": {
@@ -6606,7 +6606,7 @@
           },
           "payToAddress": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered."
+            "description": "Use to specify an address for payment that is different from the billing provider's physical address. This is relevant when the provider expects to receive paper checks at a different location, such as a PO Box, lockbox, or other mailing address."
           },
           "payToPlan": {
             "$ref": "#/components/schemas/PayToPlan"
@@ -6643,7 +6643,7 @@
             "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
           },
           "tradingPartnerServiceId": {
-            "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
+            "description": "The payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.\n - You must include leading `0` characters - payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
             "type": "string"
           },
           "usageIndicator": {
@@ -7547,7 +7547,7 @@
             "type": "array"
           },
           "priorAuthorization": {
-            "description": "Prior authorization numbers relevant to this service line. Required when services have been previously authorized and are now being submitted for payment. You can include up to five objects in this array.",
+            "description": "Prior authorization (preauthorization) numbers that apply to this service line.\n - Put each unique number in a separate array element.\n - You can use the same number on multiple service lines.\n\n**Important**: Only include prior authorization numbers that differ from the claim-level authorization in `claimInformation.claimSupplementalInformation.priorAuthorizationNumber`.",
             "items": {
               "$ref": "#/components/schemas/PriorAuthorization"
             },
@@ -11844,11 +11844,11 @@
         "type": "string"
       },
       "InstitutionalBilling": {
-        "description": "Information about the billing provider.\n- You **must** include either the provider's Social Security Number (SSN) or their Employer Identification Number (EIN), but not both.\n- The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) is **required**, if one is assigned.\n- You must also supply the provider's `organizationName`.",
+        "description": "Information about the billing provider. The following information is required:\n- An `address` that is a physical location such as the office where care is delivered or an administrative facility.\n- The provider's Employer Identification Number (EIN) in `employerId`.\n- The provider's business name in `organizationName`.\n- The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) in `npi`, if one is assigned. When the billing provider is not assigned an NPI, supply `secondaryIdentifier` with `secondaryIdentificationQualifierCode` set to `G2` (commercial number).",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The provider's address. This must be a physical practice location where care is delivered. If the billing provider receives mail at a PO Box, lockbox, or other non-physical address, you can provide that address in the `billingPayToAddressName` object.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `billingPayToAddressName`.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
           },
           "commercialNumber": {
             "deprecated": true,
@@ -11888,7 +11888,7 @@
             "type": "string"
           },
           "npi": {
-            "description": "The organization [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier).",
+            "description": "The organization [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). Optional. When the billing provider is not assigned an NPI, supply `secondaryIdentifier` with `secondaryIdentificationQualifierCode` set to `G2` instead.",
             "pattern": "^\\d{10}$",
             "type": "string"
           },
@@ -11936,8 +11936,7 @@
         },
         "required": [
           "address",
-          "employerId",
-          "npi"
+          "employerId"
         ],
         "type": "object"
       },
@@ -12431,7 +12430,7 @@
             "type": "string"
           },
           "priorAuthorizationNumber": {
-            "description": "Required when an authorization number is assigned by the payer or UMO and the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to decide the outcome of a health services review or the owner of the information. This value applies to the entire claim unless overridden within a specific service line.",
+            "description": "Required when an authorization number is assigned by the payer or UMO _and_ the services on this claim were preauthorized. The UMO (Utilization Management Organization) is generally the entity empowered to decide the outcome of a health services review or the owner of the information.\n\nYou can only send one prior authorization (preauthorization) number per claim. If different numbers apply to specific service lines, you must split those service lines into separate claims.",
             "maxLength": 50,
             "type": "string"
           },
@@ -12702,7 +12701,7 @@
             "description": "Secondary identifiers for the payer. You can include up to three properties in this object."
           },
           "tradingPartnerServiceId": {
-            "description": "This is the Payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list. You can send requests using the Primary Payer ID, the Stedi Payer ID, or any alias listed in the payer record.",
+            "description": "The payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.\n - You must include leading `0` characters - payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
             "type": "string"
           },
           "usageIndicator": {
@@ -13457,7 +13456,7 @@
             "description": "The provider's contact information. Only applies to the billing provider. You must include at least one communication method (phone, fax, or email) in this object."
           },
           "employerId": {
-            "description": "The provider's employer ID, also known as an EIN or TIN. Must be a string of exactly nine numbers with no separators. Only applies to the billing provider.",
+            "description": "The provider's employer ID, also known as an EIN or TIN. Must be a string of exactly nine numbers with no separators. This is **required** for the billing provider, and doesn’t apply to other provider types.",
             "type": "string"
           },
           "firstName": {
@@ -13526,6 +13525,11 @@
             "description": "The business name of the payer receiving the claim, such as Aetna or Cigna.",
             "maxLength": 60,
             "minLength": 1,
+            "type": "string"
+          },
+          "receiverId": {
+            "description": "The ID of the receiver. The only accepted value is `BPUMR` for drop-to-paper claims; omit otherwise.",
+            "pattern": "^BPUMR$",
             "type": "string"
           },
           "taxId": {
@@ -16775,7 +16779,7 @@
         "type": "string"
       },
       "PayToAddressName": {
-        "description": "Use when the address for payment is different than that of the billing provider for this claim.\n\nThis is also where you can provide the billing provider's mailing address when it's a PO Box, lockbox, or other non-physical address. The `billing.address` object must always contain a physical practice location where care is delivered.",
+        "description": "Use to specify an address for payment that is different from the billing provider's physical address. This is relevant when the provider expects to receive paper checks at a different location, such as a PO Box, lockbox, or other mailing address.",
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
@@ -18529,7 +18533,7 @@
             "type": "string"
           },
           "priorAuthorizationOrReferralNumber": {
-            "description": "The prior authorization number.\n\n**Important**: Only use this field for service-level prior authorization numbers that differ from the claim-level authorization (`claimInformation.claimSupplementalInformation.priorAuthorizationNumber`). If this value matches the claim-level value, only the claim-level authorization will appear in the X12 EDI transaction. Set claim-level authorizations first.",
+            "description": "A prior authorization (preauthorization) number that applies to this service line.\n\n**Important**: Only use this property for service-level prior authorization numbers that differ from the claim-level authorization (`claimInformation.claimSupplementalInformation.priorAuthorizationNumber`).",
             "type": "string"
           }
         },
@@ -19277,6 +19281,11 @@
             "description": "The business name of the payer receiving the claim, such as Aetna or Cigna.",
             "maxLength": 60,
             "minLength": 1,
+            "type": "string"
+          },
+          "receiverId": {
+            "description": "The ID of the receiver. The only accepted value is `BPUMR` for drop-to-paper claims; omit otherwise.",
+            "pattern": "^BPUMR$",
             "type": "string"
           }
         },
@@ -22618,6 +22627,7 @@
             "type": "string"
           },
           "priorAuthorization": {
+            "description": "Prior authorization (preauthorization) numbers that apply to this service line.\n - Put each unique number in a separate array element.\n - You can use the same number on multiple service lines.\n\n**Important**: Only include prior authorization numbers that differ from the claim-level authorization in `claimInformation.claimSupplementalInformation.priorAuthorizationNumber`.",
             "items": {
               "$ref": "#/components/schemas/PriorAuthorization"
             },
@@ -30086,7 +30096,7 @@
                   "description": "",
                   "summary": "Submit claim",
                   "value": {
-                    "x12": "ISA*00*          *00*          *ZZ*574183004559   *ZZ*STEDITEST      *260213*2050*^*00501*000000042*0*T*>~GS*HC*574183004559*STEDITEST*20260213*205048*42*X*005010X224A2~ST*837*0001*005010X224A2~BHT*0019*00*01KHCCA4V6K00NFPX588G859SJ*20260213*2050*CH~NM1*41*2*ABA Inc*****46*1234567~PER*IC*BILLING DEPARTMENT*TE*3131234567~NM1*40*2*United HealthCare Dental*****46*52133~HL*1**20*1~PRV*BI*PXC*106S00000X~NM1*85*2*ABA Inc*****XX*1999999992~N3*ABA Inc 123 Some St~N4*Denver*CO*802383000~REF*EI*123456789~PER*IC*ABA Inc*TE*3134893157~HL*2*1*22*0~SBR*P*18*1234567890******FI~NM1*IL*1*Doe*John****MI*123412345~N3*1234 Some St~N4*Buckeye*AZ*85326~DMG*D8*20180615*F~NM1*PR*2*United HealthCare Dental*****PI*52133~N3*PO Box 7000~N4*Camden*SC*29000~CLM*12345*832***12>B>1*Y*A*Y*Y~DN2*3*E****JP~REF*G1*20231010012345678~HI*ABK>K081~NM1*82*1*Doe*Jane****XX*1999999992~PRV*PE*PXC*106S00000X~LX*1~SV3*AD>D7140*832**1>2*I*2*****1~TOO*JP*3*M>O~DTP*472*D8*20230428~REF*6R*a0UDo000000dd2dMAA~NM1*82*1*Doe*Jane****XX*1999999992~PRV*PE*PXC*122300000X~SE*35*0001~GE*1*42~IEA*1*000000042~"
+                    "x12": "ISA*00*          *00*          *ZZ*574183004559   *ZZ*STEDITEST      *260213*2050*^*00501*000000042*0*T*>~GS*HC*574183004559*STEDITEST*20260213*205048*42*X*005010X224A2~ST*837*0001*005010X224A2~BHT*0019*00*01KHCCA4V6K00NFPX588G859SJ*20260213*2050*CH~NM1*41*2*ABA Inc*****46*1234567~PER*IC*BILLING DEPARTMENT*TE*3134893157~NM1*40*2*United HealthCare Dental*****46*52133~HL*1**20*1~PRV*BI*PXC*106S00000X~NM1*85*2*ABA Inc*****XX*1999999992~N3*ABA Inc 123 Some St~N4*Denver*CO*802383000~REF*EI*123456789~PER*IC*ABA Inc*TE*3134893157~HL*2*1*22*0~SBR*P*18*1234567890******FI~NM1*IL*1*Doe*John****MI*123412345~N3*1234 Some St~N4*Buckeye*AZ*85326~DMG*D8*20180615*F~NM1*PR*2*United HealthCare Dental*****PI*52133~N3*PO Box 7000~N4*Camden*SC*29000~CLM*12345*832***12>B>1*Y*A*Y*Y~DN2*3*E****JP~REF*G1*20231010012345678~HI*ABK>K081~NM1*82*1*Doe*Jane****XX*1999999992~PRV*PE*PXC*106S00000X~LX*1~SV3*AD>D7140*832**1>2*I*2*****1~TOO*JP*3*M>O~DTP*472*D8*20230428~REF*6R*a0UDo000000dd2dMAA~NM1*82*1*Doe*Jane****XX*1999999992~PRV*PE*PXC*122300000X~SE*35*0001~GE*1*42~IEA*1*000000042~"
                   }
                 }
               },
@@ -30306,7 +30316,7 @@
                         },
                         "npi": "1999999992",
                         "organizationName": "ABA Inc",
-                        "phoneNumber": "3131234567"
+                        "phoneNumber": "3134893157"
                       },
                       "serviceLines": [
                         {
@@ -30372,7 +30382,7 @@
                     "submitter": {
                       "contactInformation": {
                         "name": "BILLING DEPARTMENT",
-                        "phoneNumber": "3131234567"
+                        "phoneNumber": "3134893157"
                       },
                       "organizationName": "ABA Inc",
                       "submitterIdentification": "<YOUR-SUBMITTER-ID"
