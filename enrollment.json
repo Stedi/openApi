@@ -867,7 +867,7 @@
             "type": "array"
           },
           "providerNames": {
-            "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
+            "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
             "items": {
               "type": "string"
             },
@@ -933,7 +933,7 @@
             "type": "array"
           },
           "userEmails": {
-            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
             "items": {
               "description": "A valid email address following standard email format.",
               "minLength": 5,
@@ -2340,12 +2340,12 @@
             "style": "form"
           },
           {
-            "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
+            "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
             "explode": true,
             "in": "query",
             "name": "providerNames",
             "schema": {
-              "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces and capitalization.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
+              "description": "Filter for enrollments associated with specific provider names.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The name you provide must match the provider's name exactly, including spaces, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple names. For example, `?providerNames=John%20Doe&providerNames=Jane%20Doe` returns enrollments associated with either John Doe or Jane Doe.",
               "items": {
                 "type": "string"
               },
@@ -2503,12 +2503,12 @@
             }
           },
           {
-            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+            "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
             "explode": true,
             "in": "query",
             "name": "userEmails",
             "schema": {
-              "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-sensitive and doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, including capitalization.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
+              "description": "Filter for enrollments associated with specific submitter emails. This is the `userEmail` property in [Create Enrollment](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) requests, or the **Stedi contact person** in the portal.\n\nThis search is case-insensitive but doesn't support fuzzy matching. The email you provide must match the submitter's email exactly, but capitalization is ignored.\n\nYou can include this parameter multiple times to filter for multiple submitter emails. For example, `?userEmails=alice%40example.com&userEmails=bob%40example.com` returns enrollments submitted by either `alice@example.com` or `bob@example.com`.",
               "items": {
                 "description": "A valid email address following standard email format.",
                 "minLength": 5,
