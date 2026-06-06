@@ -10656,6 +10656,13 @@
           "status": {
             "$ref": "#/components/schemas/DiscoveryStatus",
             "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+          },
+          "warnings": {
+            "description": "Issues with your insurance discovery check that may affect the results. For example, Stedi issues a warning when enrolling with a payer would improve the results for future requests.",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "type": "array"
           }
         },
         "type": "object"
@@ -14552,6 +14559,13 @@
           "status": {
             "$ref": "#/components/schemas/DiscoveryStatus",
             "description": "The status of the discovery check. This is either `PENDING` or `COMPLETE`.\n    - If the status is `COMPLETE`, the `items` array will contain any potential coverage matches Stedi found for the patient.\n    - If the status is `PENDING`, the check is still in progress. You can immediately begin polling the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint to retrieve the results asynchronously."
+          },
+          "warnings": {
+            "description": "Issues with your insurance discovery check that may affect the results. For example, Stedi issues a warning when enrolling with a payer would improve the results for future requests.",
+            "items": {
+              "$ref": "#/components/schemas/Warning"
+            },
+            "type": "array"
           }
         },
         "type": "object"
