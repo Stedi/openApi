@@ -1,6 +1,23 @@
 {
   "components": {
     "schemas": {
+      "AccessDeniedException": {
+        "description": "The server response for authorization failure.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "AccessDeniedExceptionResponseContent": {
         "description": "The server response for authorization failure.",
         "properties": {
@@ -118,6 +135,23 @@
         ],
         "type": "object"
       },
+      "InvalidInterchangeEnvelopeException": {
+        "description": "Returned when the X12 interchange envelope is rejected. This occurs when the `ISA-15` usage indicator does not match the API key's mode.",
+        "properties": {
+          "message": {
+            "description": "Human-readable error message describing why the interchange envelope was rejected and how to remediate it.",
+            "type": "string"
+          },
+          "x12": {
+            "description": "The X12 TA1 interchange acknowledgment document indicating the rejection.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "ResourceNotFoundExceptionResponseContent": {
         "description": "Exception returned when the specified resource cannot be found.",
         "properties": {
@@ -134,6 +168,16 @@
           "message"
         ],
         "type": "object"
+      },
+      "SubmitClaimAttachmentRawX12403ErrorResponseContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InvalidInterchangeEnvelopeException"
+          },
+          {
+            "$ref": "#/components/schemas/AccessDeniedException"
+          }
+        ]
       },
       "SubmitClaimAttachmentRawX12RequestContent": {
         "description": "Request to submit a raw X12 claim attachment",
@@ -410,11 +454,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                  "$ref": "#/components/schemas/SubmitClaimAttachmentRawX12403ErrorResponseContent"
                 }
               }
             },
-            "description": "AccessDeniedException 403 response"
+            "description": "SubmitClaimAttachmentRawX12403Error 403 response"
           },
           "404": {
             "content": {
