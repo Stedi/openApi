@@ -966,6 +966,14 @@
         ],
         "type": "object"
       },
+      "FieldType": {
+        "description": "The accepted field types for a manual task.",
+        "enum": [
+          "TEXT",
+          "DOCUMENT"
+        ],
+        "type": "string"
+      },
       "FollowInstructionsTask": {
         "description": "Follow-instructions task data containing text instructions for a user to follow.",
         "properties": {
@@ -1234,6 +1242,147 @@
           }
         },
         "type": "object"
+      },
+      "ManualTask": {
+        "description": "A task assigned to a responsible party that requires them to collect and submit a defined set of fields. The task is completed by supplying a `ManualTaskResponse` whose values satisfy the declared `fields`.",
+        "properties": {
+          "fields": {
+            "description": "Fields required to complete the task. Each entry defines the key, human-readable label, optional description, and type for values in the response. Can be empty for instruction-only tasks.",
+            "items": {
+              "$ref": "#/components/schemas/ManualTaskField"
+            },
+            "type": "array"
+          },
+          "instructions": {
+            "description": "Instructions for completing the task.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "links": {
+            "description": "Links to help complete the task. This can include payer portals, reference documentation, or document download links for Stedi-provided template PDFs.",
+            "items": {
+              "$ref": "#/components/schemas/TaskLink"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "fields",
+          "instructions"
+        ],
+        "type": "object"
+      },
+      "ManualTaskDocumentResponseValue": {
+        "description": "A reference to a document uploaded to enrollment, supplied as the `document` variant of a `ManualTaskResponseValue`.",
+        "properties": {
+          "documentId": {
+            "description": "The `documentId` returned for a file uploaded through the [Upload Enrollment Document](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-document-upload) endpoint.",
+            "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "documentId"
+        ],
+        "type": "object"
+      },
+      "ManualTaskField": {
+        "description": "Declares a single field collected by a `ManualTask`.",
+        "properties": {
+          "description": {
+            "description": "Additional context explaining what to provide in the response. For example, details about what supporting documentation (such as the provider's W-9 form) is required.",
+            "type": "string"
+          },
+          "fieldType": {
+            "$ref": "#/components/schemas/FieldType",
+            "description": "The type of data to provide in the response. `TEXT` is for text values that you can provide directly in the response data. For example, a provider identifier. `DOCUMENT` indicates that the task requires uploading PDF documentation. Only PDF documents are supported. Visit [PDF upload document fields](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#pdf-upload-document-fields) for more details."
+          },
+          "key": {
+            "description": "A unique identifier for this field within the task, such as `ENROLLMENT_FORM`.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "label": {
+            "description": "Human-readable label for this field, such as `Provider NPI` or `Tax ID`.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "fieldType",
+          "key",
+          "label"
+        ],
+        "type": "object"
+      },
+      "ManualTaskResponse": {
+        "description": "Values provided to complete a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details.",
+        "properties": {
+          "values": {
+            "description": "Values for each field in the task definition. Each value's `key` must have a corresponding field `key`. The response must include one value for every field.",
+            "items": {
+              "$ref": "#/components/schemas/ManualTaskResponseKeyValue"
+            },
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "type": "object"
+      },
+      "ManualTaskResponseKeyValue": {
+        "description": "A single key/value pair collected for a `ManualTaskField`.",
+        "properties": {
+          "key": {
+            "description": "Identifier that matches a field `key` in the task definition.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "value": {
+            "$ref": "#/components/schemas/ManualTaskResponseValue",
+            "description": "Information to complete the field. It must match the field's `fieldType`. For example, this might be the provider's Medicaid ID when the `fieldType` is `TEXT`."
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      },
+      "ManualTaskResponseValue": {
+        "description": "The value supplied for a `ManualTaskField`. The variant used must match the field's declared `FieldType`. Supply multiple entries with distinct keys to capture multiple documents or values.",
+        "oneOf": [
+          {
+            "properties": {
+              "text": {
+                "description": "Free-form text when the `fieldType` is `TEXT`.",
+                "maxLength": 1000,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "text"
+            ],
+            "title": "text",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "document": {
+                "$ref": "#/components/schemas/ManualTaskDocumentResponseValue",
+                "description": "Reference to an uploaded document when the `fieldType` is `DOCUMENT`. This is the `documentId` from a PDF document uploaded to Stedi. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents) for details."
+              }
+            },
+            "required": [
+              "document"
+            ],
+            "title": "document",
+            "type": "object"
+          }
+        ]
       },
       "PdfUploadResponse": {
         "description": "Response data containing the uploaded PDF after completion.",
@@ -1536,8 +1685,41 @@
             ],
             "title": "provideInformation",
             "type": "object"
+          },
+          {
+            "properties": {
+              "manualTask": {
+                "$ref": "#/components/schemas/ManualTask",
+                "description": "A flexible task definition for collecting structured information. It supports text inputs, document uploads, or instruction-only workflows through configurable fields."
+              }
+            },
+            "required": [
+              "manualTask"
+            ],
+            "title": "manualTask",
+            "type": "object"
           }
         ]
+      },
+      "TaskLink": {
+        "description": "A labeled URL surfaced alongside a task's instructions, e.g. a payer portal or reference document.",
+        "properties": {
+          "label": {
+            "description": "Descriptive label for the URL, such as `Provider Portal` or `W-9 Template`.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL for the resource.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "label",
+          "url"
+        ],
+        "type": "object"
       },
       "TaskResponseData": {
         "description": "A discriminated union of task response data. Contains structured data collected when completing specific task types.",
@@ -1566,6 +1748,19 @@
               "provideInformation"
             ],
             "title": "provideInformation",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "manualTask": {
+                "$ref": "#/components/schemas/ManualTaskResponse",
+                "description": "Values provided to complete a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details."
+              }
+            },
+            "required": [
+              "manualTask"
+            ],
+            "title": "manualTask",
             "type": "object"
           }
         ]
@@ -1876,7 +2071,7 @@
           },
           "responseData": {
             "$ref": "#/components/schemas/TaskResponseData",
-            "description": "Additional data you can submit to Stedi when completing a task.\n  - Required for `provideFilledPdf` tasks. Use the `pdfUpload` object type. [Learn more](https://www.stedi.com/docs/healthcare/create-manage-transaction-enrollments#pdf-workflow)\n  - Optional for `provideInformation` tasks.\n  - Stedi ignores this object for `followInstructions` tasks."
+            "description": "Additional data you can submit to Stedi when completing a task.\n  - Required for `manualTask` tasks with fields. Use the `manualTask` object type with a `values` array. [Learn more](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api)\n  - Required for `provideFilledPdf` tasks. Use the `pdfUpload` object type.\n  - Optional for `provideInformation` tasks.\n  - Stedi ignores this object for `followInstructions` tasks."
           }
         },
         "type": "object"
@@ -2617,8 +2812,15 @@
                           "tasks": [
                             {
                               "definition": {
-                                "followInstructions": {
-                                  "instructions": "Please follow these instructions: <URL>."
+                                "manualTask": {
+                                  "fields": [],
+                                  "instructions": "Visit the payer portal to complete your enrollment setup.",
+                                  "links": [
+                                    {
+                                      "label": "Payer Portal",
+                                      "url": "https://example.com/portal"
+                                    }
+                                  ]
                                 }
                               },
                               "id": "ac6665a5-7b97-4agh-8c74-a00a336c2989",
@@ -2704,7 +2906,8 @@
                           "tasks": [
                             {
                               "definition": {
-                                "followInstructions": {
+                                "manualTask": {
+                                  "fields": [],
                                   "instructions": "Log in to your Authority's portal and request clearinghouse access for Stedi."
                                 }
                               },
@@ -2716,17 +2919,39 @@
                             {
                               "completedAt": "2026-11-08T06:14:22Z",
                               "definition": {
-                                "provideFilledPdf": {
-                                  "instructions": "Please download the PDF, fill it out, and upload the completed version to this enrollment request."
+                                "manualTask": {
+                                  "fields": [
+                                    {
+                                      "description": "Your filled-in and signed enrollment form, as a PDF",
+                                      "fieldType": "DOCUMENT",
+                                      "key": "ENROLLMENT_FORM",
+                                      "label": "Signed PDF"
+                                    }
+                                  ],
+                                  "instructions": "Download the enrollment form, sign it, and upload the completed PDF.",
+                                  "links": [
+                                    {
+                                      "label": "Enrollment Form",
+                                      "url": "https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download"
+                                    }
+                                  ]
                                 }
                               },
                               "id": "019ce833-b234-75f1-9599-0f14ba643709",
                               "isComplete": true,
                               "rank": 0,
                               "responseData": {
-                                "pdfUpload": {
-                                  "documentId": "dc6665a5-7b97-4agh-8c74-a00a336c2989",
-                                  "fileName": "pdf-agreement.pdf"
+                                "manualTask": {
+                                  "values": [
+                                    {
+                                      "key": "ENROLLMENT_FORM",
+                                      "value": {
+                                        "document": {
+                                          "documentId": "dc6665a5-7b97-4af9-8c74-a00a336c2989"
+                                        }
+                                      }
+                                    }
+                                  ]
                                 }
                               },
                               "responsibleParty": "PROVIDER"
@@ -3398,7 +3623,8 @@
                       "tasks": [
                         {
                           "definition": {
-                            "followInstructions": {
+                            "manualTask": {
+                              "fields": [],
                               "instructions": "Log in to your Authority's portal and request clearinghouse access for Stedi."
                             }
                           },
@@ -3410,17 +3636,39 @@
                         {
                           "completedAt": "2026-06-01T12:00:00Z",
                           "definition": {
-                            "provideFilledPdf": {
-                              "instructions": "Please download the PDF, fill it out, and upload the completed version to this enrollment request."
+                            "manualTask": {
+                              "fields": [
+                                {
+                                  "description": "Your filled-in and signed enrollment form, as a PDF",
+                                  "fieldType": "DOCUMENT",
+                                  "key": "ENROLLMENT_FORM",
+                                  "label": "Signed PDF"
+                                }
+                              ],
+                              "instructions": "Download the enrollment form, sign it, and upload the completed PDF.",
+                              "links": [
+                                {
+                                  "label": "Enrollment Form",
+                                  "url": "https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download"
+                                }
+                              ]
                             }
                           },
                           "id": "019ce833-b234-75f1-9599-0f14ba643709",
                           "isComplete": true,
                           "rank": 0,
                           "responseData": {
-                            "pdfUpload": {
-                              "documentId": "dc6665a5-7b97-4agh-8c74-a00a336c2989",
-                              "fileName": "pdf-agreement.pdf"
+                            "manualTask": {
+                              "values": [
+                                {
+                                  "key": "ENROLLMENT_FORM",
+                                  "value": {
+                                    "document": {
+                                      "documentId": "dc6665a5-7b97-4af9-8c74-a00a336c2989"
+                                    }
+                                  }
+                                }
+                              ]
                             }
                           },
                           "responsibleParty": "PROVIDER"
@@ -4696,12 +4944,12 @@
             "examples": {
               "UpdateTaskPost_example1": {
                 "description": "",
-                "summary": "Update provideInformation task",
+                "summary": "Update task with TEXT field",
                 "value": "01937d50-1234-7890-abcd-567890abcdef"
               },
               "UpdateTaskPost_example2": {
                 "description": "",
-                "summary": "Update provideFilledPdf task",
+                "summary": "Update task with DOCUMENT field",
                 "value": "019ce833-b234-75f1-9599-0f14ba643709"
               }
             },
@@ -4720,25 +4968,40 @@
               "examples": {
                 "UpdateTaskPost_example1": {
                   "description": "",
-                  "summary": "Update provideInformation task",
+                  "summary": "Update task with TEXT field",
                   "value": {
                     "completed": true,
                     "responseData": {
-                      "provideInformation": {
-                        "response": "I have completed the required steps as instructed."
+                      "manualTask": {
+                        "values": [
+                          {
+                            "key": "medicaidId",
+                            "value": {
+                              "text": "ABCD12"
+                            }
+                          }
+                        ]
                       }
                     }
                   }
                 },
                 "UpdateTaskPost_example2": {
                   "description": "",
-                  "summary": "Update provideFilledPdf task",
+                  "summary": "Update task with DOCUMENT field",
                   "value": {
                     "completed": true,
                     "responseData": {
-                      "pdfUpload": {
-                        "documentId": "doc-123e4567-e89b-12d3-a456-426614174000",
-                        "fileName": "completed-documentation.pdf"
+                      "manualTask": {
+                        "values": [
+                          {
+                            "key": "ENROLLMENT_FORM",
+                            "value": {
+                              "document": {
+                                "documentId": "dc6665a5-7b97-4af9-8c74-a00a336c2989"
+                              }
+                            }
+                          }
+                        ]
                       }
                     }
                   }
@@ -4757,21 +5020,35 @@
                 "examples": {
                   "UpdateTaskPost_example1": {
                     "description": "",
-                    "summary": "Update provideInformation task",
+                    "summary": "Update task with TEXT field",
                     "value": {
                       "task": {
                         "completedAt": "2024-06-01T12:00:00Z",
                         "definition": {
-                          "provideInformation": {
-                            "instructions": "Please provide a brief summary of your experience."
+                          "manualTask": {
+                            "fields": [
+                              {
+                                "fieldType": "TEXT",
+                                "key": "medicaidId",
+                                "label": "Medicaid Provider Identifier"
+                              }
+                            ],
+                            "instructions": "Please provide your Medicaid Provider Identifier."
                           }
                         },
                         "id": "01937d50-1234-7890-abcd-567890abcdef",
                         "isComplete": true,
                         "rank": 1,
                         "responseData": {
-                          "provideInformation": {
-                            "response": "I have completed the required steps as instructed."
+                          "manualTask": {
+                            "values": [
+                              {
+                                "key": "medicaidId",
+                                "value": {
+                                  "text": "ABCD12"
+                                }
+                              }
+                            ]
                           }
                         },
                         "responsibleParty": "PROVIDER"
@@ -4780,22 +5057,44 @@
                   },
                   "UpdateTaskPost_example2": {
                     "description": "",
-                    "summary": "Update provideFilledPdf task",
+                    "summary": "Update task with DOCUMENT field",
                     "value": {
                       "task": {
                         "completedAt": "2026-06-01T12:00:00Z",
                         "definition": {
-                          "provideFilledPdf": {
-                            "instructions": "Please download the PDF, fill it out, and upload the completed version to this enrollment request."
+                          "manualTask": {
+                            "fields": [
+                              {
+                                "description": "Your filled-in and signed enrollment form, as a PDF",
+                                "fieldType": "DOCUMENT",
+                                "key": "ENROLLMENT_FORM",
+                                "label": "Signed PDF"
+                              }
+                            ],
+                            "instructions": "Download the enrollment form, sign it, and upload the completed PDF.",
+                            "links": [
+                              {
+                                "label": "Enrollment Form",
+                                "url": "https://enrollments.us.stedi.com/2024-09-01/documents/019375d0-9876-7890-abcd-567890fedcba/download"
+                              }
+                            ]
                           }
                         },
                         "id": "019ce833-b234-75f1-9599-0f14ba643709",
                         "isComplete": true,
                         "rank": 1,
                         "responseData": {
-                          "pdfUpload": {
-                            "documentId": "doc-123e4567-e89b-12d3-a456-426614174000",
-                            "fileName": "completed-documentation.pdf"
+                          "manualTask": {
+                            "values": [
+                              {
+                                "key": "ENROLLMENT_FORM",
+                                "value": {
+                                  "document": {
+                                    "documentId": "dc6665a5-7b97-4af9-8c74-a00a336c2989"
+                                  }
+                                }
+                              }
+                            ]
                           }
                         },
                         "responsibleParty": "PROVIDER"
