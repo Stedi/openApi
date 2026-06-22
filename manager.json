@@ -2189,6 +2189,21 @@
         ],
         "type": "string"
       },
+      "GatewayTimeoutExceptionResponseContent": {
+        "description": "The eligibility check PDF could not be generated within the allotted time.",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "Gender": {
         "enum": [
           "M",
@@ -6267,6 +6282,16 @@
               }
             },
             "description": "InternalFailureException 500 response"
+          },
+          "504": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GatewayTimeoutExceptionResponseContent"
+                }
+              }
+            },
+            "description": "GatewayTimeoutException 504 response"
           }
         },
         "tags": [
