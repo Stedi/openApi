@@ -1605,13 +1605,13 @@
             },
             "type": "array"
           },
+          "eligibilityCheckResult": {
+            "$ref": "#/components/schemas/EligibilityCheckResult",
+            "description": "The result of the eligibility check for this batch item. Can be:\n  - `ACTIVE`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services.\n  - `INACTIVE`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `INVESTIGATE`: The payer returned an unexpected eligibility or benefit type code. Review the response and contact the payer if you have questions.\n  - `FAILED`: The payer returned an error code in the response. Review the error code and retry the eligibility check."
+          },
           "eligibilitySearchId": {
             "description": "The eligibility search ID for this eligibility check. This is an identifier that allows Stedi to group eligibility checks for the same patient into a unified record in the Stedi portal called an [eligibility search](https://www.stedi.com/docs/healthcare/eligibility-searches-view).\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
             "type": "string"
-          },
-          "eligibilitySearchStatus": {
-            "$ref": "#/components/schemas/EligibilitySearchStatus",
-            "description": "The status of the eligibility check. Can be:\n  - `queued`: Stedi placed the eligibility check in its internal queue and will send it to the payer when resources are available. This status is common when you schedule batch eligibility check refreshes through the API or perform large bulk retries that exceed your account's concurrency budget. You can typically expect the status to change to `Started` within a few seconds.\n  - `started`: Stedi has sent the eligibility check to the payer and is waiting for a response.\n  - `failed`: The payer returned an error code in the response. Review the error code and retry the eligibility check.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services."
           },
           "id": {
             "description": "The unique identifier for this eligibility check. This is the ID of the specific eligibility check request within the batch.",
@@ -1938,6 +1938,15 @@
         ],
         "type": "string"
       },
+      "EligibilityCheckResult": {
+        "enum": [
+          "ACTIVE",
+          "INACTIVE",
+          "INVESTIGATE",
+          "FAILED"
+        ],
+        "type": "string"
+      },
       "EligibilityCheckSubscriberError": {
         "description": "When a payer rejects your eligibility check, the response contains one or more `AAA` errors that specify the reasons for the rejection and any recommended follow-up actions. Common reasons for rejection at the `subscriber` or `dependent` level include missing or incorrect identifying information and that the payer was unable to locate the patient in their system. [Learn more](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors)",
         "properties": {
@@ -2043,25 +2052,6 @@
           }
         },
         "type": "object"
-      },
-      "EligibilitySearchOutcome": {
-        "description": "The outcome of an eligibility check. This maps to the terminal states of an eligibility search.",
-        "enum": [
-          "active",
-          "inactive",
-          "failed"
-        ],
-        "type": "string"
-      },
-      "EligibilitySearchStatus": {
-        "enum": [
-          "active",
-          "failed",
-          "inactive",
-          "started",
-          "queued"
-        ],
-        "type": "string"
       },
       "EmploymentStatusCode": {
         "description": "Payers may sometimes return other non-compliant values.",
@@ -6058,14 +6048,14 @@
             "style": "form"
           },
           {
-            "description": "Filter for batch items with the specified eligibility search outcomes.\n\nStedi groups retries (if present) for each eligibility check into an eligibility search. The eligibility search outcome reflects the `eligibilitySearchStatus` after the last retry attempt.\n\n This filter is only relevant for batch items in `COMPLETED` state, which means Stedi has either received a response from the payer or has finished retrying. In-progress items, such as those in `PENDING` state, don't have an eligibility search outcome.\n\nCan be set to one more of the following outcomes:\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `failed`: The payer returned an error code in the response.",
+            "description": "Filter for batch items with the specified eligibility check results. Can be set to one or more of the following results:\n  - `ACTIVE`: The payer's response contains an active eligibility and benefit type. Visit [Eligibility and benefit type codes](https://www.stedi.com/docs/healthcare/supported-features/eligibility-and-benefit-type-codes) for a complete list of valid code values.\n  - `INACTIVE`: The payer's response doesn't contain an active eligibility and benefit type.\n  - `INVESTIGATE`: The payer returned an unexpected eligibility or benefit type code. Review the response and contact the payer if you have questions.\n  - `FAILED`: The payer returned an error code in the response. Review the error code and retry the eligibility check.",
             "explode": true,
             "in": "query",
-            "name": "eligibilitySearchOutcome",
+            "name": "eligibilityCheckResult",
             "schema": {
-              "description": "Filter for batch items with the specified eligibility search outcomes.\n\nStedi groups retries (if present) for each eligibility check into an eligibility search. The eligibility search outcome reflects the `eligibilitySearchStatus` after the last retry attempt.\n\n This filter is only relevant for batch items in `COMPLETED` state, which means Stedi has either received a response from the payer or has finished retrying. In-progress items, such as those in `PENDING` state, don't have an eligibility search outcome.\n\nCan be set to one more of the following outcomes:\n  - `active`: The payer's response contains an active eligibility and benefit type. This means that the patient has active coverage for at least some services.\n  - `inactive`: The payer's response doesn't contain an active eligibility and benefit type. This means that the patient doesn't have active coverage for the requested services.\n  - `failed`: The payer returned an error code in the response.",
+              "description": "Filter for batch items with the specified eligibility check results. Can be set to one or more of the following results:\n  - `ACTIVE`: The payer's response contains an active eligibility and benefit type. Visit [Eligibility and benefit type codes](https://www.stedi.com/docs/healthcare/supported-features/eligibility-and-benefit-type-codes) for a complete list of valid code values.\n  - `INACTIVE`: The payer's response doesn't contain an active eligibility and benefit type.\n  - `INVESTIGATE`: The payer returned an unexpected eligibility or benefit type code. Review the response and contact the payer if you have questions.\n  - `FAILED`: The payer returned an error code in the response. Review the error code and retry the eligibility check.",
               "items": {
-                "$ref": "#/components/schemas/EligibilitySearchOutcome"
+                "$ref": "#/components/schemas/EligibilityCheckResult"
               },
               "type": "array"
             },
@@ -6085,8 +6075,8 @@
                         {
                           "additionalInfo": {
                             "eligibility": {
+                              "eligibilityCheckResult": "ACTIVE",
                               "eligibilitySearchId": "01932c61-2d4f-7d22-85fa-c7db2e13e771",
-                              "eligibilitySearchStatus": "active",
                               "payerId": "BCBS",
                               "submitterTransactionIdentifier": "ABC123456789",
                               "subscriberFirstName": "John",
@@ -6104,8 +6094,8 @@
                         {
                           "additionalInfo": {
                             "eligibility": {
+                              "eligibilityCheckResult": "FAILED",
                               "eligibilitySearchId": "01932c61-2d4f-7d22-85fa-c7db2e13e772",
-                              "eligibilitySearchStatus": "failed",
                               "payerId": "AETNA",
                               "submitterTransactionIdentifier": "GHJ987654321",
                               "subscriberFirstName": "Jane",
