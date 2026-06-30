@@ -1316,10 +1316,10 @@
         "type": "object"
       },
       "ManualTaskResponse": {
-        "description": "Values provided to complete a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details.",
+        "description": "Values provided when updating or completing a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details.",
         "properties": {
           "values": {
-            "description": "Values for each field in the task definition. Each value's `key` must have a corresponding field `key`. The response must include one value for every field.",
+            "description": "Values for fields in the task definition. Each value's `key` must have a corresponding field `key`. When updating a task without completing it, you can submit a subset of fields; the supplied values are merged into any previously saved values. Completing a task (`completed: true`) requires a value for every field.",
             "items": {
               "$ref": "#/components/schemas/ManualTaskResponseKeyValue"
             },
@@ -1754,7 +1754,7 @@
             "properties": {
               "manualTask": {
                 "$ref": "#/components/schemas/ManualTaskResponse",
-                "description": "Values provided to complete a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details."
+                "description": "Values provided when updating or completing a manual task. Visit [Manage enrollment tasks](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api) for details."
               }
             },
             "required": [
@@ -2071,7 +2071,7 @@
           },
           "responseData": {
             "$ref": "#/components/schemas/TaskResponseData",
-            "description": "Additional data you can submit to Stedi when completing a task.\n  - Required for `manualTask` tasks with fields. Use the `manualTask` object type with a `values` array. [Learn more](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api)\n  - Required for `provideFilledPdf` tasks. Use the `pdfUpload` object type.\n  - Optional for `provideInformation` tasks.\n  - Stedi ignores this object for `followInstructions` tasks."
+            "description": "Additional data you can submit to Stedi when updating or completing a task.\n  - Required for `manualTask` tasks with fields. Use the `manualTask` object type with a `values` array. You can update individual field keys across multiple requests without resubmitting every value: supplied values are merged into any previously saved values. Completing the task (`completed: true`) requires a value for every field. [Learn more](https://www.stedi.com/docs/healthcare/transaction-enrollment-tasks-documents#api)\n  - Required for `provideFilledPdf` tasks. Use the `pdfUpload` object type.\n  - Optional for `provideInformation` tasks.\n  - Stedi ignores this object for `followInstructions` tasks."
           }
         },
         "type": "object"
