@@ -372,6 +372,13 @@
             "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards.",
             "type": "string"
           },
+          "programs": {
+            "description": "A list of insurance programs that this payer participates in. For example: `[\"MEDICAID\", \"MEDICARE\"]`. If Stedi hasn't assigned any programs to this payer, this array is empty.",
+            "items": {
+              "$ref": "#/components/schemas/Program"
+            },
+            "type": "array"
+          },
           "stediId": {
             "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated.",
             "type": "string"
@@ -389,6 +396,7 @@
           "displayName",
           "names",
           "primaryPayerId",
+          "programs",
           "stediId",
           "transactionSupport"
         ],
@@ -419,6 +427,23 @@
           }
         },
         "type": "object"
+      },
+      "Program": {
+        "description": "Insurance programs that a payer can participate in.",
+        "enum": [
+          "AUTOMOBILE_MEDICAL",
+          "COMMERCIAL",
+          "DISABILITY",
+          "LIABILITY_MEDICAL",
+          "MEDICAID",
+          "MEDICARE",
+          "MEDICARE_ADVANTAGE",
+          "TITLE_V",
+          "TRICARE",
+          "VETERANS_AFFAIRS",
+          "WORKERS_COMPENSATION"
+        ],
+        "type": "string"
       },
       "RequestedEffectiveDate": {
         "description": "Whether a payer supports specifying a requested effective date for transaction enrollments.",
@@ -508,6 +533,13 @@
             "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards.",
             "type": "string"
           },
+          "programs": {
+            "description": "A list of insurance programs that this payer participates in. For example: `[\"MEDICAID\", \"MEDICARE\"]`. If Stedi hasn't assigned any programs to this payer, this array is empty.",
+            "items": {
+              "$ref": "#/components/schemas/Program"
+            },
+            "type": "array"
+          },
           "stediId": {
             "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated.",
             "type": "string"
@@ -525,6 +557,7 @@
           "displayName",
           "names",
           "primaryPayerId",
+          "programs",
           "stediId",
           "transactionSupport"
         ],
@@ -1105,6 +1138,9 @@
                         ],
                         "parentPayerGroupId": "GTRSH",
                         "primaryPayerId": "95655",
+                        "programs": [
+                          "MEDICARE"
+                        ],
                         "stediId": "YKHRB",
                         "transactionSupport": {
                           "claimPayment": "ENROLLMENT_REQUIRED",
@@ -1265,6 +1301,9 @@
                           ],
                           "parentPayerGroupId": "GTRSH",
                           "primaryPayerId": "95655",
+                          "programs": [
+                            "MEDICARE"
+                          ],
                           "stediId": "YKHRB",
                           "transactionSupport": {
                             "claimPayment": "ENROLLMENT_REQUIRED",
@@ -1338,7 +1377,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"Programs\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"MEDICARE\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
                   }
                 },
                 "schema": {
@@ -1544,6 +1583,20 @@
               "type": "array"
             },
             "style": "form"
+          },
+          {
+            "description": "Filter for matching payers that participate in **any** of the specified insurance programs. For example, setting this array to `[\"MEDICARE\", \"TRICARE\"]` returns payers that participate in either Medicare or TRICARE.\n\nThe results also exclude payers without program classifications in Stedi's database.",
+            "explode": true,
+            "in": "query",
+            "name": "programs",
+            "schema": {
+              "description": "Filter for matching payers that participate in **any** of the specified insurance programs. For example, setting this array to `[\"MEDICARE\", \"TRICARE\"]` returns payers that participate in either Medicare or TRICARE.\n\nThe results also exclude payers without program classifications in Stedi's database.",
+              "items": {
+                "$ref": "#/components/schemas/Program"
+              },
+              "type": "array"
+            },
+            "style": "form"
           }
         ],
         "responses": {
@@ -1621,6 +1674,9 @@
                             ],
                             "parentPayerGroupId": "QOSPQ",
                             "primaryPayerId": "54771",
+                            "programs": [
+                              "MEDICARE_ADVANTAGE"
+                            ],
                             "stediId": "GUFCO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
@@ -1837,6 +1893,10 @@
                             ],
                             "parentPayerGroupId": "OVWIG",
                             "primaryPayerId": "BCSNC",
+                            "programs": [
+                              "COMMERCIAL",
+                              "MEDICARE_ADVANTAGE"
+                            ],
                             "stediId": "UPICO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
