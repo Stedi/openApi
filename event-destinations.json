@@ -18,6 +18,65 @@
         ],
         "type": "object"
       },
+      "EventDestinationsGetEventResponseContent": {
+        "description": "Output containing the event details.",
+        "properties": {
+          "createdAt": {
+            "description": "An ISO 8601 timestamp of when the event was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "eventPayload": {
+            "$ref": "#/components/schemas/EventPayload",
+            "description": "The event payload Stedi delivers to event destinations."
+          },
+          "eventType": {
+            "description": "The type of event, such as `enrollment.activated`.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventStatus",
+            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
+          }
+        },
+        "required": [
+          "createdAt",
+          "eventPayload",
+          "eventType",
+          "id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsListEventsResponseContent": {
+        "description": "Output containing the list of events.",
+        "properties": {
+          "items": {
+            "description": "The list of event summaries.",
+            "items": {
+              "$ref": "#/components/schemas/EventSummary"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
       "EventEnvironment": {
         "description": "The environment in which an event was produced.",
         "enum": [
@@ -110,43 +169,6 @@
         ],
         "type": "object"
       },
-      "GetEventResponseContent": {
-        "description": "Output containing the event details.",
-        "properties": {
-          "createdAt": {
-            "description": "An ISO 8601 timestamp of when the event was created.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "eventPayload": {
-            "$ref": "#/components/schemas/EventPayload",
-            "description": "The event payload Stedi delivers to event destinations."
-          },
-          "eventType": {
-            "description": "The type of event, such as `enrollment.activated`.",
-            "maxLength": 255,
-            "minLength": 1,
-            "type": "string"
-          },
-          "id": {
-            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
-            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/EventStatus",
-            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
-          }
-        },
-        "required": [
-          "createdAt",
-          "eventPayload",
-          "eventType",
-          "id",
-          "status"
-        ],
-        "type": "object"
-      },
       "InternalFailureExceptionResponseContent": {
         "description": "The server response when an unexpected error occurred while processing request.",
         "properties": {
@@ -161,28 +183,6 @@
         },
         "required": [
           "message"
-        ],
-        "type": "object"
-      },
-      "ListEventsResponseContent": {
-        "description": "Output containing the list of events.",
-        "properties": {
-          "items": {
-            "description": "The list of event summaries.",
-            "items": {
-              "$ref": "#/components/schemas/EventSummary"
-            },
-            "type": "array"
-          },
-          "nextPageToken": {
-            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
-            "maxLength": 1024,
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "required": [
-          "items"
         ],
         "type": "object"
       },
@@ -332,7 +332,7 @@
     "/events": {
       "get": {
         "description": "Lists all events for your account. Results are paginated.",
-        "operationId": "ListEvents",
+        "operationId": "EventDestinationsListEvents",
         "parameters": [
           {
             "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
@@ -411,7 +411,7 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "ListEvents_example1": {
+                  "EventDestinationsListEvents_example1": {
                     "description": "",
                     "summary": "List events",
                     "value": {
@@ -427,11 +427,11 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/ListEventsResponseContent"
+                  "$ref": "#/components/schemas/EventDestinationsListEventsResponseContent"
                 }
               }
             },
-            "description": "ListEvents 200 response"
+            "description": "EventDestinationsListEvents 200 response"
           },
           "400": {
             "content": {
@@ -479,12 +479,12 @@
     "/events/{eventId}": {
       "get": {
         "description": "Retrieves the details of an existing event by its identifier.",
-        "operationId": "GetEvent",
+        "operationId": "EventDestinationsGetEvent",
         "parameters": [
           {
             "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
             "examples": {
-              "GetEvent_example1": {
+              "EventDestinationsGetEvent_example1": {
                 "description": "",
                 "summary": "Get an event",
                 "value": "evt_550e8400-e29b-41d4-a716-446655440000"
@@ -505,7 +505,7 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "GetEvent_example1": {
+                  "EventDestinationsGetEvent_example1": {
                     "description": "",
                     "summary": "Get an event",
                     "value": {
@@ -531,11 +531,11 @@
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/GetEventResponseContent"
+                  "$ref": "#/components/schemas/EventDestinationsGetEventResponseContent"
                 }
               }
             },
-            "description": "GetEvent 200 response"
+            "description": "EventDestinationsGetEvent 200 response"
           },
           "400": {
             "content": {
