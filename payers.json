@@ -247,7 +247,7 @@
         "type": "object"
       },
       "OperatingStateCode": {
-        "description": "US state codes, territories, or `NATIONAL` indicating the geographic regions where a payer operates. When set to `NATIONAL`, the payer operates throughout the entire United States.",
+        "description": "US state codes, territories, or `NATIONAL` indicating the geographic regions where a payer operates. When set to `NATIONAL`, the payer operates in all 50 U.S. states. Supported territories are listed separately.",
         "enum": [
           "AL",
           "AK",
@@ -359,7 +359,7 @@
             "type": "array"
           },
           "operatingStates": {
-            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates throughout the entire United States.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 U.S. states. Supported territories are listed separately.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
             "items": {
               "$ref": "#/components/schemas/OperatingStateCode"
             },
@@ -520,7 +520,7 @@
             "type": "array"
           },
           "operatingStates": {
-            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates throughout the entire United States.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 U.S. states. Supported territories are listed separately.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
             "items": {
               "$ref": "#/components/schemas/OperatingStateCode"
             },
@@ -1572,12 +1572,12 @@
             "style": "form"
           },
           {
-            "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+            "description": "Filter for matching payers that operate in **all** of the specified states, territories, or NATIONAL. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon. Setting it to `[\"NATIONAL\"]` returns payers that operate in all 50 U.S. states. To find payers that also operate in territories, you must include those territory codes explicitly, for example `[\"NATIONAL\", \"PR\"]`.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
             "explode": true,
             "in": "query",
             "name": "operatingStates",
             "schema": {
-              "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+              "description": "Filter for matching payers that operate in **all** of the specified states, territories, or NATIONAL. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon. Setting it to `[\"NATIONAL\"]` returns payers that operate in all 50 U.S. states. To find payers that also operate in territories, you must include those territory codes explicitly, for example `[\"NATIONAL\", \"PR\"]`.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
               "items": {
                 "$ref": "#/components/schemas/OperatingStateCode"
               },
