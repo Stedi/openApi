@@ -366,7 +366,11 @@
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Two payers sharing a parent payer group may not behave the same way. This property is only returned when the payer has a parent payer group.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "type": "string"
+          },
+          "parentPayerGroupName": {
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
@@ -527,7 +531,11 @@
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Two payers sharing a parent payer group may not behave the same way. This property is only returned when the payer has a parent payer group.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "type": "string"
+          },
+          "parentPayerGroupName": {
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
@@ -1138,6 +1146,7 @@
                           "OH"
                         ],
                         "parentPayerGroupId": "GTRSH",
+                        "parentPayerGroupName": "Trinity Health",
                         "primaryPayerId": "95655",
                         "programs": [
                           "MEDICARE"
@@ -1301,6 +1310,7 @@
                             "OH"
                           ],
                           "parentPayerGroupId": "GTRSH",
+                          "parentPayerGroupName": "Trinity Health",
                           "primaryPayerId": "95655",
                           "programs": [
                             "MEDICARE"
@@ -1378,7 +1388,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"Programs\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"MEDICARE\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"Programs\",\"PtanRequired\",\"ParentPayerGroupId\",\"ParentPayerGroupName\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"MEDICARE\",\"false\",\"GTRSH\",\"Trinity Health\",\"https://www.thpmedicare.org\""
                   }
                 },
                 "schema": {
@@ -1674,6 +1684,7 @@
                               "PA"
                             ],
                             "parentPayerGroupId": "QOSPQ",
+                            "parentPayerGroupName": "Highmark",
                             "primaryPayerId": "54771",
                             "programs": [
                               "MEDICARE_ADVANTAGE"
@@ -1893,6 +1904,7 @@
                               "NC"
                             ],
                             "parentPayerGroupId": "OVWIG",
+                            "parentPayerGroupName": "Blue Cross Blue Shield of North Carolina",
                             "primaryPayerId": "BCSNC",
                             "programs": [
                               "COMMERCIAL",
