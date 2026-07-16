@@ -225,6 +225,14 @@
             }
           },
           {
+            "name": "mode",
+            "in": "query",
+            "description": "Indicates whether the file execution contains test or production data. Stedi determines this from the value in [`ISA15` (Usage Indicator Code)](https://www.stedi.com/edi/x12/segment/ISA#ISA-15). ",
+            "schema": {
+              "$ref": "#/components/schemas/ExecutionMode"
+            }
+          },
+          {
             "name": "from",
             "in": "query",
             "description": "The start of the time range to filter file executions. The results will include executions created at or after this timestamp.",
@@ -6283,6 +6291,16 @@
           "UNKNOWN_ERROR"
         ]
       },
+      "ExecutionMode": {
+        "type": "string",
+        "description": "Indicates whether the file execution contains test or production data. Stedi determines this from the value in [`ISA15` (Usage Indicator Code)](https://www.stedi.com/edi/x12/segment/ISA#ISA-15).",
+        "enum": [
+          "test",
+          "production",
+          "other",
+          "unknown"
+        ]
+      },
       "ExecutionPartnershipProfile": {
         "type": "object",
         "properties": {
@@ -6421,6 +6439,9 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/ExecutionMode"
           }
         },
         "required": [
@@ -6694,6 +6715,9 @@
           },
           "source": {
             "$ref": "#/components/schemas/ExecutionSource"
+          },
+          "mode": {
+            "$ref": "#/components/schemas/ExecutionMode"
           },
           "artifacts": {
             "type": "array",
