@@ -1316,7 +1316,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "The billing provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `payToAddress`.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The billing provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `payToAddress`."
           },
           "claimOfficeNumber": {
             "deprecated": true,
@@ -3913,7 +3913,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "The address of where services were rendered. \n\n If the service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45'. \n\n For United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The location where services were rendered. \n\n If this was in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'."
           },
           "npi": {
             "description": "The organization [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home.",
@@ -4503,30 +4503,41 @@
         "properties": {
           "address1": {
             "description": "The first line of the street address. This typically contains the building number and street name.",
+            "maxLength": 55,
             "type": "string"
           },
           "address2": {
             "description": "The second line of the street address. This typically contains the apartment or suite number.",
+            "maxLength": 55,
             "type": "string"
           },
           "city": {
             "description": "The city name.",
+            "maxLength": 30,
             "type": "string"
           },
           "countryCode": {
             "description": "Use the alpha-2 country codes from Part 1 of ISO 3166.",
+            "maxLength": 3,
+            "minLength": 2,
             "type": "string"
           },
           "countrySubDivisionCode": {
             "description": "Use the country subdivision codes from Part 2 of ISO 3166.",
+            "maxLength": 3,
+            "minLength": 1,
             "type": "string"
           },
           "postalCode": {
-            "description": "The postal zone or zip code. Exclude punctuation and spaces.",
+            "description": "The postal zone or zip code. For United States addresses, you must include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool. Exclude punctuation and spaces.",
+            "maxLength": 15,
+            "minLength": 3,
             "type": "string"
           },
           "state": {
-            "description": "The state or province code. Only required when the city is in the Unites States and Canada.",
+            "description": "The state or province code. Only required when the city is in the United States and Canada.",
+            "maxLength": 2,
+            "minLength": 2,
             "type": "string"
           }
         },
@@ -4638,10 +4649,6 @@
           },
           "description": {
             "description": "The description of the error code.",
-            "type": "string"
-          },
-          "field": {
-            "description": "The field related to the error.",
             "type": "string"
           },
           "followupAction": {
@@ -6630,7 +6637,7 @@
             "description": "The payer's address. Some payers use this for internal routing. Only provide this address if the payer explicitly requires it."
           },
           "receiver": {
-            "$ref": "#/components/schemas/Receiver"
+            "$ref": "#/components/schemas/DentalReceiver"
           },
           "referring": {
             "$ref": "#/components/schemas/Referring"
@@ -6799,7 +6806,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The patient's date of birth",
@@ -7214,6 +7221,21 @@
           "C"
         ],
         "type": "string"
+      },
+      "DentalReceiver": {
+        "description": "The entity responsible for the payment of the claim, such as an insurance company or government agency.",
+        "properties": {
+          "organizationName": {
+            "description": "The business name of the payer receiving the claim, such as Aetna or Cigna.",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "organizationName"
+        ],
+        "type": "object"
       },
       "DentalReportInformation": {
         "properties": {
@@ -7764,7 +7786,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The subscriber's date of birth. This property is **required** if the subscriber is an individual.",
@@ -7835,7 +7857,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "contactInformation": {
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
@@ -10607,11 +10629,9 @@
         "description": "The server response for a gateway timeout error.",
         "properties": {
           "code": {
-            "description": "Classification of the exception type.",
             "type": "string"
           },
           "message": {
-            "description": "Human readable exception message.",
             "type": "string"
           }
         },
@@ -11540,10 +11560,11 @@
         "type": "object"
       },
       "HttpStatusCode": {
-        "description": "A `200` response indicates that Stedi successfully generated the X12 EDI claim format required by the payer. It does not indicate whether the payer has accepted the claim - the payer will respond later with a 277CA containing this information. [Learn more about 277CAs](https://www.stedi.com/docs/healthcare/receive-claim-responses#response-types). A `400` response indicates one or more problems with the claim data in the request. Examples include missing required fields, invalid values, or incorrect data types. The response includes a message describing the problem.",
+        "description": "Stedi can return the following status codes:\n  - `200`: Stedi successfully generated the X12 EDI claim format required by the payer. It does not indicate whether the payer has accepted the claim - the payer will respond later with a 277CA containing this information. [Learn more about 277CAs](https://www.stedi.com/docs/healthcare/receive-claim-responses#response-types).\n  - `400`: The request contains one or more problems with the claim data. Examples include missing required fields, invalid values, or incorrect data types. The response includes a message describing the problem.\n  - `403`: The request is not permitted, such as using a test API key to submit a production transaction.",
         "enum": [
           "200 OK",
-          "400 BAD_REQUEST"
+          "400 BAD_REQUEST",
+          "403 FORBIDDEN"
         ],
         "type": "string"
       },
@@ -11835,13 +11856,13 @@
             "type": "string"
           },
           "postalCode": {
-            "description": "The postal zone or zip code. Exclude punctuation and spaces.",
+            "description": "The postal zone or zip code. For United States addresses, you must include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool. Exclude punctuation and spaces.",
             "maxLength": 15,
             "minLength": 3,
             "type": "string"
           },
           "state": {
-            "description": "The state or province code. Only required when the city is in the Unites States and Canada.",
+            "description": "The state or province code. Only required when the city is in the United States and Canada.",
             "maxLength": 2,
             "minLength": 2,
             "type": "string"
@@ -11869,7 +11890,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `billingPayToAddressName`.\n\nFor United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The billing provider's address. This is **required** and must be a physical location such as the office where care is delivered or an administrative facility. If the billing provider expects to receive paper checks at a PO Box, lockbox, or other non-physical address, provide that in `billingPayToAddressName`."
           },
           "commercialNumber": {
             "deprecated": true,
@@ -12687,7 +12708,7 @@
           },
           "payerAddress": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "Address information for the entity responsible for payment of the claim, listed in the `receiver` object."
+            "description": "The payer's address. Some payers use this for internal routing. Only provide this address if the payer explicitly requires it."
           },
           "providers": {
             "description": "Another way to send information for each provider relevant to the claim. This object overwrites the information you send in the `billing`, `referring`, `rendering`, and `attending` objects. Note that your request **must** include information about the billing provider either here or within the `billing` object.",
@@ -12867,7 +12888,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The dependent's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The patient's date of birth.",
@@ -12962,10 +12983,6 @@
           },
           "description": {
             "description": "The description of the error code.",
-            "type": "string"
-          },
-          "field": {
-            "description": "The field related to the error.",
             "type": "string"
           },
           "followupAction": {
@@ -13143,7 +13160,7 @@
           },
           "otherPayerAddress": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The address of the other payer. You must include at least the `address1` and `city` properties in this object."
+            "description": "The other payer's address."
           },
           "otherPayerAdjudicationOrPaymentDate": {
             "type": "string"
@@ -13380,7 +13397,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The subscriber's address. You must include at least the `address1` and `city` properties in this object."
+            "description": "The other subscriber's address."
           },
           "firstName": {
             "deprecated": true,
@@ -13549,8 +13566,8 @@
             "type": "string"
           },
           "receiverId": {
-            "description": "The ID of the receiver. The only accepted value is `BPUMR` for drop-to-paper claims; omit otherwise.",
-            "pattern": "^BPUMR$",
+            "description": "Set to `PAPER` when you want Stedi to print this claim and mail it to the payer. Omit otherwise. Visit [Submit paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims) for details.",
+            "pattern": "^(BPUMR|PAPER|PRINT)$",
             "type": "string"
           },
           "taxId": {
@@ -13918,7 +13935,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The location where services were rendered. \n\n If this was in an an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'. \n\n For United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The location where services were rendered. \n\n If this was in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'."
           },
           "identificationCode": {
             "description": "The organization [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the service facility location. Required when the service location to be identified has an NPI and is not a component or subpart of the billing provider.",
@@ -14430,7 +14447,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n   - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependents` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
             "description": "The subscriber's date of birth, formatted as `YYYYMMDD`.",
@@ -16611,7 +16628,7 @@
             "type": "string"
           },
           "transactionId": {
-            "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+            "description": "A unique identifier for the processed claim associated with the specified `businessId`. \n\nThis ID is included in the transaction processed event for each claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -16878,7 +16895,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/InstitutionalAddress",
-            "description": "Specify the location of the named party."
+            "description": "The address of the pay-to-plan organization."
           },
           "claimOfficeNumber": {
             "description": "The Claim Office Number.",
@@ -19312,8 +19329,8 @@
             "type": "string"
           },
           "receiverId": {
-            "description": "The ID of the receiver. The only accepted value is `BPUMR` for drop-to-paper claims; omit otherwise.",
-            "pattern": "^BPUMR$",
+            "description": "Set to `PAPER` when you want Stedi to print this claim and mail it to the payer. Omit otherwise. Visit [Submit paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims) for details.",
+            "pattern": "^(BPUMR|PAPER|PRINT)$",
             "type": "string"
           }
         },
@@ -20604,34 +20621,45 @@
         "type": "object"
       },
       "RequestSubscriberDependentAddress": {
-        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n- The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n- If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n- If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach.",
+        "description": "The patient's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n- The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n- If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n- If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach.",
         "properties": {
           "address1": {
             "description": "The first line of the street address. This typically contains the building number and street name.",
+            "maxLength": 55,
             "type": "string"
           },
           "address2": {
             "description": "The second line of the street address. This typically contains the apartment or suite number.",
+            "maxLength": 55,
             "type": "string"
           },
           "city": {
             "description": "The city name.",
+            "maxLength": 30,
             "type": "string"
           },
           "countryCode": {
             "description": "Use the alpha-2 country codes from Part 1 of ISO 3166.",
+            "maxLength": 3,
+            "minLength": 2,
             "type": "string"
           },
           "countrySubDivisionCode": {
             "description": "Use the country subdivision codes from Part 2 of ISO 3166.",
+            "maxLength": 3,
+            "minLength": 1,
             "type": "string"
           },
           "postalCode": {
-            "description": "The postal zone or zip code. Exclude punctuation and spaces.",
+            "description": "The postal zone or zip code. For United States addresses, you must include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool. Exclude punctuation and spaces.",
+            "maxLength": 15,
+            "minLength": 3,
             "type": "string"
           },
           "state": {
-            "description": "The state or province code. Only required when the city is in the Unites States and Canada.",
+            "description": "The state or province code. Only required when the city is in the United States and Canada.",
+            "maxLength": 2,
+            "minLength": 2,
             "type": "string"
           }
         },
@@ -22858,7 +22886,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/ClaimsAddress",
-            "description": "The address of where services were rendered. \n\n If the service facility location is in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45'. \n\n For United States addresses, you **must** include the full nine-digit zip code with no separators, such as `100031502`. If you don't know the full zip code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool."
+            "description": "The location where services were rendered. \n\n If this was in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'."
           },
           "npi": {
             "description": "The organization [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier) assigned to the service facility. Only include this property when the service facility is not a component or subpart of the `billing` provider. Don't include when the service facility is the patient's home.",
@@ -23056,11 +23084,9 @@
         "description": "The server is temporarily unavailable.",
         "properties": {
           "code": {
-            "description": "Classification of the exception type.",
             "type": "string"
           },
           "message": {
-            "description": "Human readable exception message.",
             "type": "string"
           }
         },
@@ -23337,7 +23363,7 @@
         "properties": {
           "address": {
             "$ref": "#/components/schemas/RequestSubscriberDependentAddress",
-            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address must be the patient's correct address at the time of service. Don't use placeholder values to complete unknown address information. Use of outdated or placeholder values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, you should first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the patient's address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, some payers may have explicit rules for how to handle this situation, so you should check the payer's specific requirements before using this approach."
+            "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "contactInformation": {
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
@@ -28997,7 +29023,7 @@
         "operationId": "ConvertReport277",
         "parameters": [
           {
-            "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+            "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
             "examples": {
               "ConvertReport277_example1": {
                 "description": "",
@@ -29014,7 +29040,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+              "description": "A unique identifier for the processed 277 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
               "maxLength": 36,
               "minLength": 36,
               "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -29104,6 +29130,8 @@
                                   ]
                                 }
                               ],
+                              "entityIdentifierCode": "AY",
+                              "entityIdentifierCodeValue": "Clearinghouse",
                               "organizationName": "STEDI INC"
                             }
                           ],
@@ -29476,6 +29504,8 @@
                                   ]
                                 }
                               ],
+                              "entityIdentifierCode": "PR",
+                              "entityIdentifierCodeValue": "Payer",
                               "organizationName": "AZ BLUE",
                               "payerIdentification": "BCBSAZ"
                             }
@@ -29577,7 +29607,7 @@
         "operationId": "ConvertReport835",
         "parameters": [
           {
-            "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+            "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
             "examples": {
               "ConvertReport835_example1": {
                 "description": "",
@@ -29589,7 +29619,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within the Stedi portal.",
+              "description": "A unique identifier for the processed 835 transaction within Stedi. This ID is included in the transaction processed event, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve it through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
               "maxLength": 36,
               "minLength": 36,
               "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -30610,7 +30640,7 @@
         "operationId": "GetElectronicRemittanceAdvicePdf",
         "parameters": [
           {
-            "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+            "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
             "examples": {
               "GetElectronicRemittanceAdvicePdf_example1": {
                 "description": "",
@@ -30622,7 +30652,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+              "description": "A unique identifier for the Electronic Remittance Advice (ERA) within Stedi. This ID is included in the transaction processed event for the ERA, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
               "maxLength": 36,
               "minLength": 36,
               "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -30878,7 +30908,7 @@
         "operationId": "GetPDF1500",
         "parameters": [
           {
-            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+            "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
             "examples": {
               "GetPDF1500_example1": {
                 "description": "",
@@ -30890,7 +30920,7 @@
             "name": "transactionId",
             "required": true,
             "schema": {
-              "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions) or from the transaction's details page within Stedi.",
+              "description": "A unique identifier for the processed claim within Stedi. This ID is included in the transaction processed event for the claim, which you can receive automatically through Stedi [webhooks](https://www.stedi.com/docs/healthcare/configure-webhooks). You can also retrieve this ID through the [Poll Transactions endpoint](https://www.stedi.com/docs/healthcare/api-reference/get-poll-transactions).",
               "maxLength": 36,
               "minLength": 36,
               "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
