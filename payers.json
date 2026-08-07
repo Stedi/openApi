@@ -1,6 +1,22 @@
 {
   "components": {
     "schemas": {
+      "ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT).",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "ClaimPaymentEnrollmentProcess": {
         "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs).",
         "properties": {
@@ -67,6 +83,22 @@
       },
       "DentalClaimEnrollmentProcess": {
         "description": "Details about the enrollment process for dental claim submission.",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
+      "ElectronicFundsTransferEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Funds Transfer (EFT).",
         "properties": {
           "requestedEffectiveDate": {
             "$ref": "#/components/schemas/RequestedEffectiveDate",
@@ -573,11 +605,15 @@
         "type": "object"
       },
       "SearchPayerTransactionSupport": {
-        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, and coordination of benefits checks.\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
+        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, coordination of benefits checks, Electronic Funds Transfer (EFT), and 835 ERA with Electronic Funds Transfer (EFT).\n\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
         "properties": {
           "claimPayment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+          },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions with Electronic Funds Transfer (EFT) from this payer."
           },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -590,6 +626,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can send 837D dental claims to this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive Electronic Funds Transfer (EFT) transactions from this payer."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -610,9 +650,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -734,6 +776,10 @@
             "$ref": "#/components/schemas/ClaimPaymentEnrollmentProcess",
             "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs) with this payer."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentProcess",
+            "description": "Details about the enrollment process for Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT) with this payer."
+          },
           "claimStatusInquiry": {
             "$ref": "#/components/schemas/ClaimStatusInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for real-time claim status requests with this payer."
@@ -745,6 +791,10 @@
           "dentalClaim": {
             "$ref": "#/components/schemas/DentalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for dental claim submission with this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/ElectronicFundsTransferEnrollmentProcess",
+            "description": "Details about the enrollment process for Electronic Funds Transfer (EFT) with this payer."
           },
           "eligibilityInquiry": {
             "$ref": "#/components/schemas/EligibilityInquiryEnrollmentProcess",
@@ -776,11 +826,15 @@
         "type": "string"
       },
       "TransactionSupport": {
-        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276 claim status requests, 837 professional claims, and 835 ERAs (claim payments). If the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
+        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276 claim status requests, 837 professional claims, 835 ERAs (claim payments), Electronic Funds Transfer (EFT), and 835 ERA with Electronic Funds Transfer (EFT).\n\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
         "properties": {
           "claimPayment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+          },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions with Electronic Funds Transfer (EFT) from this payer."
           },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -798,6 +852,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can send 837D dental claims to this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive Electronic Funds Transfer (EFT) transactions from this payer."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -818,10 +876,12 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "claimSubmission",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -835,6 +895,10 @@
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 835 Electronic Remittance Advices (ERAs)."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportCountsItem",
+            "description": "Number of matching payers that support 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT)."
+          },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 276/277 real-time claim status."
@@ -846,6 +910,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 837D dental claims."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportCountsItem",
+            "description": "Number of matching payers that support Electronic Funds Transfer (EFT)."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
@@ -866,9 +934,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -899,6 +969,10 @@
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 835 Electronic Remittance Advices (ERAs)."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportStatsItem",
+            "description": "Number of matching payers that support 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT)."
+          },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 276/277 real-time claim status."
@@ -910,6 +984,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 837D dental claims."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportStatsItem",
+            "description": "Number of matching payers that support Electronic Funds Transfer (EFT)."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
@@ -930,9 +1008,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -1154,10 +1234,12 @@
                         "stediId": "YKHRB",
                         "transactionSupport": {
                           "claimPayment": "ENROLLMENT_REQUIRED",
+                          "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                           "claimStatus": "SUPPORTED",
                           "claimSubmission": "SUPPORTED",
                           "coordinationOfBenefits": "NOT_SUPPORTED",
                           "dentalClaimSubmission": "NOT_SUPPORTED",
+                          "electronicFundsTransfer": "NOT_SUPPORTED",
                           "eligibilityCheck": "SUPPORTED",
                           "institutionalClaimSubmission": "SUPPORTED",
                           "professionalClaimSubmission": "SUPPORTED",
@@ -1318,10 +1400,12 @@
                           "stediId": "YKHRB",
                           "transactionSupport": {
                             "claimPayment": "ENROLLMENT_REQUIRED",
+                            "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                             "claimStatus": "SUPPORTED",
                             "claimSubmission": "SUPPORTED",
                             "coordinationOfBenefits": "NOT_SUPPORTED",
                             "dentalClaimSubmission": "NOT_SUPPORTED",
+                            "electronicFundsTransfer": "NOT_SUPPORTED",
                             "eligibilityCheck": "SUPPORTED",
                             "institutionalClaimSubmission": "SUPPORTED",
                             "professionalClaimSubmission": "SUPPORTED",
@@ -1568,6 +1652,22 @@
             }
           },
           {
+            "description": "Filter for matching payers with the specified Electronic Funds Transfer (EFT) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "electronicFundsTransfer",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "claimPaymentAdviceWithElectronicFundsTransfer",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
             "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database.",
             "explode": true,
             "in": "query",
@@ -1692,9 +1792,11 @@
                             "stediId": "GUFCO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
+                              "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                               "claimStatus": "ENROLLMENT_REQUIRED",
                               "coordinationOfBenefits": "SUPPORTED",
                               "dentalClaimSubmission": "NOT_SUPPORTED",
+                              "electronicFundsTransfer": "ENROLLMENT_REQUIRED",
                               "eligibilityCheck": "ENROLLMENT_REQUIRED",
                               "institutionalClaimSubmission": "NOT_SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
@@ -1712,6 +1814,11 @@
                             "notSupported": 29,
                             "supported": 0
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 142,
+                            "supported": 0
+                          },
                           "claimStatus": {
                             "enrollmentRequired": 3,
                             "notSupported": 55,
@@ -1726,6 +1833,11 @@
                             "enrollmentRequired": 2,
                             "notSupported": 95,
                             "supported": 45
+                          },
+                          "electronicFundsTransfer": {
+                            "enrollmentRequired": 113,
+                            "notSupported": 29,
+                            "supported": 0
                           },
                           "eligibilityCheck": {
                             "enrollmentRequired": 5,
@@ -1759,6 +1871,16 @@
                               "total": 113
                             }
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 142
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 0,
+                              "total": 0
+                            }
+                          },
                           "claimStatus": {
                             "notSupported": {
                               "total": 55
@@ -1787,6 +1909,16 @@
                               "enrollmentNotRequired": 45,
                               "enrollmentRequired": 2,
                               "total": 47
+                            }
+                          },
+                          "electronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 29
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 113,
+                              "total": 113
                             }
                           },
                           "eligibilityCheck": {
@@ -1913,9 +2045,11 @@
                             "stediId": "UPICO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
+                              "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                               "claimStatus": "SUPPORTED",
                               "coordinationOfBenefits": "SUPPORTED",
                               "dentalClaimSubmission": "SUPPORTED",
+                              "electronicFundsTransfer": "ENROLLMENT_REQUIRED",
                               "eligibilityCheck": "SUPPORTED",
                               "institutionalClaimSubmission": "SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
@@ -1936,6 +2070,11 @@
                             "notSupported": 6,
                             "supported": 0
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 83,
+                            "supported": 0
+                          },
                           "claimStatus": {
                             "enrollmentRequired": 0,
                             "notSupported": 0,
@@ -1950,6 +2089,11 @@
                             "enrollmentRequired": 2,
                             "notSupported": 41,
                             "supported": 40
+                          },
+                          "electronicFundsTransfer": {
+                            "enrollmentRequired": 77,
+                            "notSupported": 6,
+                            "supported": 0
                           },
                           "eligibilityCheck": {
                             "enrollmentRequired": 0,
@@ -1983,6 +2127,16 @@
                               "total": 77
                             }
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 83
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 0,
+                              "total": 0
+                            }
+                          },
                           "claimStatus": {
                             "notSupported": {
                               "total": 0
@@ -2011,6 +2165,16 @@
                               "enrollmentNotRequired": 40,
                               "enrollmentRequired": 2,
                               "total": 42
+                            }
+                          },
+                          "electronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 6
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 77,
+                              "total": 77
                             }
                           },
                           "eligibilityCheck": {
