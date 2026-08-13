@@ -1,20 +1,356 @@
 {
   "components": {
     "schemas": {
-      "AccessDeniedExceptionResponseContent": {
-        "description": "The server response for authorization failure.",
+      "AuthenticationFailedExceptionResponseContent": {
+        "description": "The request credentials are missing or not valid.",
         "properties": {
-          "code": {
-            "description": "Error classification code",
-            "type": "string"
-          },
           "message": {
-            "description": "Human-readable error message",
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
         "required": [
           "message"
+        ],
+        "type": "object"
+      },
+      "ConflictExceptionResponseContent": {
+        "description": "The request conflicts with the current state of the resource.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "ContentTooLargeExceptionResponseContent": {
+        "description": "The request payload is larger than the service accepts. Send less in one request.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "DestinationInputStatus": {
+        "description": "The desired status of a destination, as set by the user.",
+        "enum": [
+          "ENABLED",
+          "DISABLED"
+        ],
+        "type": "string"
+      },
+      "DestinationStatus": {
+        "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations.",
+        "enum": [
+          "ENABLED",
+          "DISABLED"
+        ],
+        "type": "string"
+      },
+      "DestinationSummary": {
+        "description": "A summary representation of a destination, returned in list responses.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "createdAt": {
+            "description": "Creation timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "description": "The unique identifier for the destination.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "lastDeliveryTime": {
+            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationStatus",
+            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
+          },
+          "updatedAt": {
+            "description": "Last update timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "destinationUrl",
+          "eventTypes",
+          "id",
+          "name",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsCreateDestinationRequestContent": {
+        "description": "Input for creating a new destination.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "Maximum concurrent deliveries for this destination. If not set, Stedi applies your account default (typically 5). Stedi rejects requests exceeding your account maximum (typically 20) with a `400` error. Contact Stedi to change your limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where you want Stedi to deliver payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types you want Stedi to send to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationInputStatus",
+            "description": "The destination's status upon creation. Default is `ENABLED`."
+          }
+        },
+        "required": [
+          "destinationUrl",
+          "eventTypes",
+          "name"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsCreateDestinationResponseContent": {
+        "description": "Output containing the created destination details and signing secret.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "createdAt": {
+            "description": "Creation timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "description": "The unique identifier for the destination.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "lastDeliveryTime": {
+            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "signingSecret": {
+            "description": "The signing secret for verifying event payloads. Store it securely. Visit [verify event signatures](https://www.stedi.com/docs/healthcare/event-destinations-message-handling#verify-authenticity-and-receipt-time) for details.",
+            "format": "password",
+            "maxLength": 255,
+            "minLength": 30,
+            "pattern": "^whsec_[A-Za-z0-9+/=]+$",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationStatus",
+            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
+          },
+          "updatedAt": {
+            "description": "Last update timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "destinationUrl",
+          "eventTypes",
+          "id",
+          "name",
+          "signingSecret",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsGetDestinationResponseContent": {
+        "description": "Output containing the destination details.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "createdAt": {
+            "description": "Creation timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "description": "The unique identifier for the destination.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "lastDeliveryTime": {
+            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationStatus",
+            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
+          },
+          "updatedAt": {
+            "description": "Last update timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "destinationUrl",
+          "eventTypes",
+          "id",
+          "name",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsGetDestinationSecretResponseContent": {
+        "description": "Output containing the destination's signing secret.",
+        "properties": {
+          "previousSecretExpiresAt": {
+            "description": "Expiration timestamp for the previous secret. Only present when a secret rotation is in progress.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "signingSecret": {
+            "description": "The signing secret for verifying event payloads. Visit [verify event signatures](https://www.stedi.com/docs/healthcare/event-destinations-message-handling#verify-authenticity-and-receipt-time) for details.",
+            "format": "password",
+            "maxLength": 255,
+            "minLength": 30,
+            "pattern": "^whsec_[A-Za-z0-9+/=]+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "signingSecret"
         ],
         "type": "object"
       },
@@ -55,6 +391,40 @@
         ],
         "type": "object"
       },
+      "EventDestinationsLimitExceededExceptionResponseContent": {
+        "description": "The account has reached its maximum number of event destinations. Delete an existing destination or request a limit increase before creating another. Not retryable — the caller must change account state before retrying.",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsListDestinationsResponseContent": {
+        "description": "Output containing the list of destinations.",
+        "properties": {
+          "items": {
+            "description": "The list of destination summaries.",
+            "items": {
+              "$ref": "#/components/schemas/DestinationSummary"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
       "EventDestinationsListEventsResponseContent": {
         "description": "Output containing the list of events.",
         "properties": {
@@ -74,6 +444,156 @@
         },
         "required": [
           "items"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsRotateDestinationSecretRequestContent": {
+        "description": "Input for rotating a destination's signing secret.",
+        "properties": {
+          "previousSecretExpiryHours": {
+            "description": "The number of hours you want the previous secret to remain valid after rotation.\n  - Default is 24 hours.\n  - Set to `0` when you want the previous secret to expire immediately — in-flight payloads signed with the previous secret fail verification.\n  - You can't rotate again until this grace period expires.",
+            "maximum": 720,
+            "minimum": 0,
+            "type": "number"
+          }
+        },
+        "type": "object"
+      },
+      "EventDestinationsRotateDestinationSecretResponseContent": {
+        "description": "Output containing the new signing secret.",
+        "properties": {
+          "previousSecretExpiresAt": {
+            "description": "Expiration timestamp for the secret this rotation replaced. Equals the rotation time when you set `previousSecretExpiryHours` to `0`. You can't rotate again until this timestamp passes.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "signingSecret": {
+            "description": "The new signing secret for verifying event payloads. Visit [verify event signatures](https://www.stedi.com/docs/healthcare/event-destinations-message-handling#verify-authenticity-and-receipt-time) for details.",
+            "format": "password",
+            "maxLength": 255,
+            "minLength": 30,
+            "pattern": "^whsec_[A-Za-z0-9+/=]+$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "signingSecret"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsUpdateDestinationRequestContent": {
+        "description": "Input for updating a destination.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "Maximum concurrent deliveries for this destination. If not set, Stedi applies your account default (typically 5). Stedi rejects requests exceeding your account maximum (typically 20) with a `400` error. Contact Stedi to change your limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where you want Stedi to deliver payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types you want Stedi to send to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationInputStatus",
+            "description": "The destination's status. Set to `ENABLED` to receive event deliveries or `DISABLED` to pause them."
+          }
+        },
+        "type": "object"
+      },
+      "EventDestinationsUpdateDestinationResponseContent": {
+        "description": "Output containing the updated destination details.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "createdAt": {
+            "description": "Creation timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "description": "The unique identifier for the destination.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "lastDeliveryTime": {
+            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/DestinationStatus",
+            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
+          },
+          "updatedAt": {
+            "description": "Last update timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "destinationUrl",
+          "eventTypes",
+          "id",
+          "name",
+          "status",
+          "updatedAt"
         ],
         "type": "object"
       },
@@ -169,15 +689,11 @@
         ],
         "type": "object"
       },
-      "InternalFailureExceptionResponseContent": {
-        "description": "The server response when an unexpected error occurred while processing request.",
+      "ForbiddenExceptionResponseContent": {
+        "description": "The caller is authenticated but lacks permission for this resource or action.",
         "properties": {
-          "code": {
-            "description": "Error classification code",
-            "type": "string"
-          },
           "message": {
-            "description": "Human-readable error message",
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
@@ -186,13 +702,11 @@
         ],
         "type": "object"
       },
-      "ResourceNotFoundExceptionResponseContent": {
-        "description": "The requested resource could not be found. Verify the resource identifier (e.g. destinationId, eventId, deliveryId) is correct and that the resource has not been deleted.",
+      "InternalServerExceptionResponseContent": {
+        "description": "The service failed unexpectedly. Retry with backoff.",
         "properties": {
-          "code": {
-            "type": "string"
-          },
           "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
@@ -201,15 +715,45 @@
         ],
         "type": "object"
       },
-      "UnauthorizedExceptionResponseContent": {
-        "description": "The server response when the authorizer failed to authenticate the caller.",
+      "InvalidRequestExceptionResponseContent": {
+        "description": "The request is not valid. Fix the request before retrying.",
         "properties": {
-          "code": {
-            "description": "Error classification code",
-            "type": "string"
+          "errors": {
+            "description": "Each part of the request that was rejected. Absent when the failure is not specific to any part.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationFailure",
+              "description": "A single validation failure"
+            },
+            "type": "array"
           },
           "message": {
-            "description": "Human-readable error message",
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "NotFoundExceptionResponseContent": {
+        "description": "The requested resource does not exist.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "TooManyRequestsExceptionResponseContent": {
+        "description": "The caller has exceeded a rate limit. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
@@ -267,36 +811,15 @@
         ],
         "type": "object"
       },
-      "ValidationExceptionField": {
-        "description": "Describes one specific validation failure for an input member.",
+      "ValidationFailure": {
+        "description": "A single way in which the request failed validation.",
         "properties": {
           "message": {
-            "description": "A detailed description of the validation failure.",
+            "description": "What was wrong with this part of the request",
             "type": "string"
           },
           "path": {
-            "description": "A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "message",
-          "path"
-        ],
-        "type": "object"
-      },
-      "ValidationExceptionResponseContent": {
-        "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
-        "properties": {
-          "fieldList": {
-            "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints.",
-            "items": {
-              "$ref": "#/components/schemas/ValidationExceptionField"
-            },
-            "type": "array"
-          },
-          "message": {
-            "description": "A summary of the validation failure.",
+            "description": "A JSON pointer to the part of the request that failed validation",
             "type": "string"
           }
         },
@@ -329,6 +852,954 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/destinations": {
+      "get": {
+        "description": "Lists all destinations configured for your account. Results are paginated.",
+        "operationId": "EventDestinationsListDestinations",
+        "parameters": [
+          {
+            "description": "Number of items to return per page.",
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "Number of items to return per page.",
+              "maximum": 100,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter results by destination status.",
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "$ref": "#/components/schemas/DestinationStatus"
+            }
+          },
+          {
+            "description": "Filter results by event type. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "in": "query",
+            "name": "eventType",
+            "schema": {
+              "description": "Filter results by event type. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsListDestinations_example1": {
+                    "description": "",
+                    "summary": "List destinations",
+                    "value": {
+                      "items": [
+                        {
+                          "createdAt": "2026-02-01T12:00:00Z",
+                          "description": "Receives enrollment notifications",
+                          "destinationUrl": "https://example.com/webhooks",
+                          "eventTypes": [
+                            "enrollment.activated"
+                          ],
+                          "id": "dst_550e8400-e29b-41d4-a716-446655440000",
+                          "lastDeliveryTime": "2026-02-01T12:00:01Z",
+                          "name": "My Destination",
+                          "status": "ENABLED",
+                          "updatedAt": "2026-02-01T12:00:00Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsListDestinationsResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsListDestinations 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      },
+      "post": {
+        "description": "Creates an event destination. Returns destination details and a signing secret for verifying event payloads.",
+        "operationId": "EventDestinationsCreateDestination",
+        "parameters": [
+          {
+            "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "examples": {
+              "EventDestinationsCreateDestination_example1": {
+                "description": "",
+                "summary": "Create a destination",
+                "value": "a1b2c3d4-e5f6-7890-abcd-ef1234567890"
+              }
+            },
+            "in": "header",
+            "name": "Idempotency-Key",
+            "schema": {
+              "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "EventDestinationsCreateDestination_example1": {
+                  "description": "",
+                  "summary": "Create a destination",
+                  "value": {
+                    "destinationUrl": "https://example.com/webhooks",
+                    "eventTypes": [
+                      "enrollment.activated"
+                    ],
+                    "name": "My Destination",
+                    "status": "ENABLED"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EventDestinationsCreateDestinationRequestContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsCreateDestination_example1": {
+                    "description": "",
+                    "summary": "Create a destination",
+                    "value": {
+                      "createdAt": "2026-02-01T12:00:00Z",
+                      "description": "Receives enrollment notifications",
+                      "destinationUrl": "https://example.com/webhooks",
+                      "eventTypes": [
+                        "enrollment.activated"
+                      ],
+                      "id": "dst_550e8400-e29b-41d4-a716-446655440000",
+                      "name": "My Destination",
+                      "signingSecret": "whsec_YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY=",
+                      "status": "ENABLED",
+                      "updatedAt": "2026-02-01T12:00:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsCreateDestinationResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsCreateDestination 201 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsLimitExceededExceptionResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsLimitExceededException 403 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/destinations/{destinationId}": {
+      "delete": {
+        "description": "Deletes an existing destination. This action is irreversible. Deleting a destination that is already deleted succeeds with the same response (idempotent).",
+        "operationId": "EventDestinationsDeleteDestination",
+        "parameters": [
+          {
+            "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+            "examples": {
+              "EventDestinationsDeleteDestination_example1": {
+                "description": "",
+                "summary": "Delete a destination",
+                "value": "dst_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "destinationId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "examples": {
+              "EventDestinationsDeleteDestination_example1": {
+                "description": "",
+                "summary": "Delete a destination",
+                "value": "c3d4e5f6-a7b8-9012-cdef-123456789012"
+              }
+            },
+            "in": "header",
+            "name": "Idempotency-Key",
+            "schema": {
+              "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "EventDestinationsDeleteDestination 204 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      },
+      "get": {
+        "description": "Retrieves details for an existing event destination.",
+        "operationId": "EventDestinationsGetDestination",
+        "parameters": [
+          {
+            "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+            "examples": {
+              "EventDestinationsGetDestination_example1": {
+                "description": "",
+                "summary": "Get a destination",
+                "value": "dst_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "destinationId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsGetDestination_example1": {
+                    "description": "",
+                    "summary": "Get a destination",
+                    "value": {
+                      "createdAt": "2026-02-01T12:00:00Z",
+                      "description": "Receives enrollment notifications",
+                      "destinationUrl": "https://example.com/webhooks",
+                      "eventTypes": [
+                        "enrollment.activated"
+                      ],
+                      "id": "dst_550e8400-e29b-41d4-a716-446655440000",
+                      "name": "My Destination",
+                      "status": "ENABLED",
+                      "updatedAt": "2026-02-01T12:00:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsGetDestinationResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsGetDestination 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      },
+      "post": {
+        "description": "Updates an existing destination configuration.",
+        "operationId": "EventDestinationsUpdateDestination",
+        "parameters": [
+          {
+            "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+            "examples": {
+              "EventDestinationsUpdateDestination_example1": {
+                "description": "",
+                "summary": "Update a destination",
+                "value": "dst_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "destinationId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "examples": {
+              "EventDestinationsUpdateDestination_example1": {
+                "description": "",
+                "summary": "Update a destination",
+                "value": "b2c3d4e5-f6a7-8901-bcde-f12345678901"
+              }
+            },
+            "in": "header",
+            "name": "Idempotency-Key",
+            "schema": {
+              "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "EventDestinationsUpdateDestination_example1": {
+                  "description": "",
+                  "summary": "Update a destination",
+                  "value": {
+                    "name": "Updated Destination Name",
+                    "status": "DISABLED"
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EventDestinationsUpdateDestinationRequestContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsUpdateDestination_example1": {
+                    "description": "",
+                    "summary": "Update a destination",
+                    "value": {
+                      "createdAt": "2026-02-01T12:00:00Z",
+                      "description": "",
+                      "destinationUrl": "https://example.com/webhooks",
+                      "eventTypes": [
+                        "enrollment.activated"
+                      ],
+                      "id": "dst_550e8400-e29b-41d4-a716-446655440000",
+                      "name": "Updated Destination Name",
+                      "status": "DISABLED",
+                      "updatedAt": "2026-02-02T08:30:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsUpdateDestinationResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsUpdateDestination 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/destinations/{destinationId}/secret": {
+      "get": {
+        "description": "Retrieves the current signing secret for a destination. Use this secret to verify the authenticity of event payloads.",
+        "operationId": "EventDestinationsGetDestinationSecret",
+        "parameters": [
+          {
+            "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+            "examples": {
+              "EventDestinationsGetDestinationSecret_example1": {
+                "description": "",
+                "summary": "Get destination secret",
+                "value": "dst_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "destinationId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsGetDestinationSecret_example1": {
+                    "description": "",
+                    "summary": "Get destination secret",
+                    "value": {
+                      "signingSecret": "whsec_YWJjZGVmZ2hpamtsbW5vcHFyc3R1dnd4eXoxMjM0NTY="
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsGetDestinationSecretResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsGetDestinationSecret 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/destinations/{destinationId}/secret/rotate": {
+      "post": {
+        "description": "Rotates the signing secret for a destination. The previous secret remains valid for the period specified by `previousSecretExpiryHours` (or `0` for immediate invalidation) to allow for a graceful transition.",
+        "operationId": "EventDestinationsRotateDestinationSecret",
+        "parameters": [
+          {
+            "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+            "examples": {
+              "EventDestinationsRotateDestinationSecret_example1": {
+                "description": "",
+                "summary": "Rotate destination secret",
+                "value": "dst_550e8400-e29b-41d4-a716-446655440000"
+              }
+            },
+            "in": "path",
+            "name": "destinationId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the destination. You can retrieve destination IDs with the [List Destinations](https://www.stedi.com/docs/healthcare/api-reference/get-event-destinations-list-destinations) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+            "examples": {
+              "EventDestinationsRotateDestinationSecret_example1": {
+                "description": "",
+                "summary": "Rotate destination secret",
+                "value": "d4e5f6a7-b8c9-0123-defa-234567890123"
+              }
+            },
+            "in": "header",
+            "name": "Idempotency-Key",
+            "schema": {
+              "description": "A unique string to identify this request to the server. If not set, Stedi generates one automatically.\n\nThe key can be up to 255 characters. You can safely retry requests with the same idempotency key within 24 hours of making the first request. This prevents duplicate operations due to network errors or other intermittent failures. [Learn more](https://www.stedi.com/docs/api-reference/index#idempotency-keys).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "EventDestinationsRotateDestinationSecret_example1": {
+                  "description": "",
+                  "summary": "Rotate destination secret",
+                  "value": {
+                    "previousSecretExpiryHours": 24
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/EventDestinationsRotateDestinationSecretRequestContent"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "EventDestinationsRotateDestinationSecret_example1": {
+                    "description": "",
+                    "summary": "Rotate destination secret",
+                    "value": {
+                      "previousSecretExpiresAt": "2025-01-01T00:00:00Z",
+                      "signingSecret": "whsec_bmV3c2VjcmV0Zm9ycm90YXRpb25leGFtcGxlMTIzNA=="
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EventDestinationsRotateDestinationSecretResponseContent"
+                }
+              }
+            },
+            "description": "EventDestinationsRotateDestinationSecret 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InvalidRequestException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConflictExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ConflictException 409 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
     "/events": {
       "get": {
         "description": "Lists all events for your account. Results are paginated.",
@@ -437,41 +1908,41 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
                 }
               }
             },
-            "description": "ValidationException 400 response"
+            "description": "InvalidRequestException 400 response"
           },
           "401": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
                 }
               }
             },
-            "description": "UnauthorizedException 401 response"
+            "description": "AuthenticationFailedException 401 response"
           },
           "403": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
                 }
               }
             },
-            "description": "AccessDeniedException 403 response"
+            "description": "ForbiddenException 403 response"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
                 }
               }
             },
-            "description": "InternalFailureException 500 response"
+            "description": "InternalServerException 500 response"
           }
         }
       }
@@ -541,51 +2012,51 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                  "$ref": "#/components/schemas/InvalidRequestExceptionResponseContent"
                 }
               }
             },
-            "description": "ValidationException 400 response"
+            "description": "InvalidRequestException 400 response"
           },
           "401": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/UnauthorizedExceptionResponseContent"
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
                 }
               }
             },
-            "description": "UnauthorizedException 401 response"
+            "description": "AuthenticationFailedException 401 response"
           },
           "403": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AccessDeniedExceptionResponseContent"
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
                 }
               }
             },
-            "description": "AccessDeniedException 403 response"
+            "description": "ForbiddenException 403 response"
           },
           "404": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
                 }
               }
             },
-            "description": "ResourceNotFoundException 404 response"
+            "description": "NotFoundException 404 response"
           },
           "500": {
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/InternalFailureExceptionResponseContent"
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
                 }
               }
             },
-            "description": "InternalFailureException 500 response"
+            "description": "InternalServerException 500 response"
           }
         }
       }
