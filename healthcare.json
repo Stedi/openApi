@@ -3006,6 +3006,22 @@
         },
         "type": "object"
       },
+      "ClaimLevelStatusInformationActionCode": {
+        "description": "Code indicating the action the payer took on the claim in claim status reports",
+        "enum": [
+          "U",
+          "WQ"
+        ],
+        "type": "string"
+      },
+      "ClaimLevelStatusInformationActionCodeValue": {
+        "description": "Human-readable descriptions for claim level status information action codes",
+        "enum": [
+          "Reject",
+          "Accept"
+        ],
+        "type": "string"
+      },
       "ClaimNote": {
         "description": "Comments or special instructions related to the claim. Contains information required to substantiate the medical treatment that isn't provided elsewhere in the claim.",
         "properties": {
@@ -5665,14 +5681,10 @@
         "type": "string"
       },
       "ConflictExceptionResponseContent": {
-        "description": "Exception returned when a resource conflict is detected, such as a duplicate submission already in progress.",
+        "description": "The request conflicts with the current state of the resource.",
         "properties": {
-          "code": {
-            "description": "Unique error code identifying the specific type of error.",
-            "type": "string"
-          },
           "message": {
-            "description": "Human readable error message explaining why the request was rejected.",
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
@@ -7799,7 +7811,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Some payers reject requests without the `firstName` property.",
+            "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Omit when the subscriber is an organization. Some payers reject requests without the `firstName` property.",
             "type": "string"
           },
           "gender": {
@@ -7815,7 +7827,7 @@
             "description": "Identifies the type of insurance policy within a specific insurance program. This property is **required** when sending claims to Medicare and Medicare is not the primary payer (`paymentResponsibilityLevelCode` is not set to `P`). Otherwise, don't include this property in the claim.\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list of insurance type codes."
           },
           "lastName": {
-            "description": "The subscriber's last name. This property is **required** if the subscriber is an individual.\n\n **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
+            "description": "The subscriber's last name. This property is **required** if the subscriber is an individual. Omit when the subscriber is an organization.\n\n **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
             "type": "string"
           },
           "memberId": {
@@ -7829,7 +7841,7 @@
             "type": "string"
           },
           "organizationName": {
-            "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object.",
+            "description": "The business name of the entity submitting the claim. This is **required** when the subscriber is an organization.\n\n When the subscriber is an organization, you should identify the patient in the `dependent` object.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -11688,6 +11700,14 @@
             "description": "Not used.",
             "type": "string"
           },
+          "statusInformationActionCode": {
+            "$ref": "#/components/schemas/ClaimLevelStatusInformationActionCode",
+            "description": "The action the payer took on the claim."
+          },
+          "statusInformationActionCodeValue": {
+            "$ref": "#/components/schemas/ClaimLevelStatusInformationActionCodeValue",
+            "description": "The description of the `statusInformationActionCode`."
+          },
           "statusInformationEffectiveDate": {
             "description": "The effective date of the status information.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
@@ -14460,7 +14480,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The subscriber's first name.",
+            "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Omit when the subscriber is an organization. Some payers reject requests without the `firstName` property.",
             "maxLength": 35,
             "minLength": 1,
             "type": "string"
@@ -14475,7 +14495,7 @@
             "type": "string"
           },
           "lastName": {
-            "description": "The subscriber's last name. **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
+            "description": "The subscriber's last name. This property is **required** if the subscriber is an individual. Omit when the subscriber is an organization.\n\n **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -14489,6 +14509,12 @@
           "middleName": {
             "description": "The subscriber's middle name or initial.",
             "maxLength": 25,
+            "minLength": 1,
+            "type": "string"
+          },
+          "organizationName": {
+            "description": "The business name of the entity submitting the claim. This is **required** when the subscriber is an organization.\n\n When the subscriber is an organization, you should identify the patient in the `dependent` object.",
+            "maxLength": 60,
             "minLength": 1,
             "type": "string"
           },
@@ -14520,8 +14546,6 @@
           }
         },
         "required": [
-          "firstName",
-          "lastName",
           "paymentResponsibilityLevelCode"
         ],
         "type": "object"
@@ -23379,7 +23403,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Some payers reject requests without the `firstName` property.",
+            "description": "The subscriber's first name. This property is **recommended** when the subscriber is an individual. Omit when the subscriber is an organization. Some payers reject requests without the `firstName` property.",
             "type": "string"
           },
           "gender": {
@@ -23395,7 +23419,7 @@
             "description": "Identifies the type of insurance policy within a specific insurance program. This property is **required** when sending claims to Medicare and Medicare is not the primary payer (`paymentResponsibilityLevelCode` is not set to `P`). Otherwise, don't include this property in the claim.\n\nVisit [Claims code lists](https://www.stedi.com/docs/healthcare/claims-code-lists#insurance-type-codes) for a complete list of insurance type codes."
           },
           "lastName": {
-            "description": "The subscriber's last name. This property is **required** if the subscriber is an individual.\n\n **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
+            "description": "The subscriber's last name. This property is **required** if the subscriber is an individual. Omit when the subscriber is an organization.\n\n **Don't** include the subscriber's name suffix, such as Jr. or III. Use the designated `suffix` property instead.",
             "type": "string"
           },
           "memberId": {
@@ -23409,7 +23433,7 @@
             "type": "string"
           },
           "organizationName": {
-            "description": "The business name of the entity submitting the claim. When the subscriber is an organization, you should identify the patient in the `dependent` object.",
+            "description": "The business name of the entity submitting the claim. This is **required** when the subscriber is an organization.\n\n When the subscriber is an organization, you should identify the patient in the `dependent` object.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -30768,6 +30792,20 @@
         ]
       }
     },
+    "/eligibility-check": {
+      "post": {
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Forwarded-For",
+            "schema": {
+              "description": "**(CMS requests only):** Starting November 8, 2025, the Centers for Medicare & Medicaid Services (CMS) requires submitters to include network IP addresses from an eligibility request's point of origin through receipt by the HETS system. To comply with this requirement, you may need to include this header in requests to CMS.\n\nWhen present, this header should contain a comma-separated list of upstream IP addresses, starting with the originating system and continuing through every intermediary. You can exclude your IP address from the list. Note that Stedi blocks eligibility requests to CMS when any IP address in the chain – the originating IP address or any in the X-Forwarded-For header – is located outside the United States.\n\nVisit [CMS traceability requirements](https://www.stedi.com/docs/healthcare/send-eligibility-checks#cms-traceability-requirements) for details and examples.",
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/export/pdf": {
       "get": {
         "description": "Retrieve a Stedi generatedCMS-1500 Claim Form PDF for a submitted 837P (professional) claim by business identifier",
@@ -36383,6 +36421,10 @@
     {
       "description": "Production",
       "url": "https://healthcare.us.stedi.com/2024-04-01"
+    },
+    {
+      "description": "Production (2026-06-01)",
+      "url": "https://healthcare.us.stedi.com/2026-06-01"
     }
   ],
   "x-amazon-apigateway-binary-media-types": [
