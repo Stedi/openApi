@@ -14568,6 +14568,45 @@
         ],
         "type": "string"
       },
+      "InsuranceDiscoveryAddress": {
+        "properties": {
+          "address1": {
+            "description": "The first line of the address.",
+            "maxLength": 55,
+            "minLength": 1,
+            "type": "string"
+          },
+          "address2": {
+            "description": "The second line of the address.",
+            "maxLength": 55,
+            "minLength": 1,
+            "type": "string"
+          },
+          "city": {
+            "description": "The city.",
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string"
+          },
+          "countryCode": {
+            "deprecated": true,
+            "description": "The two-letter country code from [Part 1 of ISO 3166](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2). Insurance discovery supports US addresses only, so omit this field.\nThis shape is deprecated: Insurance discovery supports US addresses only. Omit this field.",
+            "pattern": "^[A-Za-z]{2}$",
+            "type": "string"
+          },
+          "postalCode": {
+            "description": "The United States ZIP Code, excluding punctuation and blanks. Insurance discovery searches US coverage only.",
+            "maxLength": 9,
+            "minLength": 5,
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/UsStateCode",
+            "description": "The two-letter US state code. For example, `TN` for Tennessee. Omit when the state is unknown."
+          }
+        },
+        "type": "object"
+      },
       "InsuranceDiscoveryCheckRequestContent": {
         "properties": {
           "dependent": {
@@ -14634,7 +14673,7 @@
         "description": "Demographic information for the patient when they are a dependent on a health plan.\n- We **strongly recommend** providing as much information as possible to improve the probability of finding matching coverage. We especially recommend providing the dependent's Social Security Number and their address - particularly their ZIP Code.\n- You should provide information for both the subscriber and the dependent in the request when possible.\n- If you only have the dependent's information, you should identify them in the `subscriber` object instead and leave this object empty. Note that some payers require information about both the dependent and the subscriber, so providing only the dependent's information limits Stedi's ability to return coverage matches for those payers.",
         "properties": {
           "address": {
-            "$ref": "#/components/schemas/Address",
+            "$ref": "#/components/schemas/InsuranceDiscoveryAddress",
             "description": "The dependent's address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP Code, as this helps narrow down the list of probable payers. ZIP Code search isn’t an exact match, so even the first 3-4 digits of the patient’s current ZIP Code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial ZIP Code from one of the patient’s previous addresses or even one in close proximity."
           },
           "dateOfBirth": {
@@ -14777,7 +14816,7 @@
         "description": "Demographic information for the patient when they are the health plan subscriber. We strongly recommend providing as much information as possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the subscriber's Social Security Number and their address - particularly their ZIP Code.",
         "properties": {
           "address": {
-            "$ref": "#/components/schemas/Address",
+            "$ref": "#/components/schemas/InsuranceDiscoveryAddress",
             "description": "The subscriber's current or previous address. We strongly recommend providing this information if possible to improve the probability of finding matching coverage.\n\nWe especially recommend providing the patient’s ZIP Code, as this helps narrow down the list of probable payers. ZIP Code search isn’t an exact match, so even the first 3-4 digits of the patient’s current ZIP Code can help improve the results. If the patient’s current address isn’t available, you can try a full or partial ZIP Code from one of the patient’s previous addresses or even one in close proximity."
           },
           "dateOfBirth": {
@@ -24268,6 +24307,75 @@
           }
         },
         "type": "object"
+      },
+      "UsStateCode": {
+        "description": "The two-letter US state, territory, or military postal code. For example, `TN` for Tennessee.",
+        "enum": [
+          "AL",
+          "AK",
+          "AZ",
+          "AR",
+          "CA",
+          "CO",
+          "CT",
+          "DE",
+          "DC",
+          "FL",
+          "GA",
+          "HI",
+          "ID",
+          "IL",
+          "IN",
+          "IA",
+          "KS",
+          "KY",
+          "LA",
+          "ME",
+          "MD",
+          "MA",
+          "MI",
+          "MN",
+          "MS",
+          "MO",
+          "MT",
+          "NE",
+          "NV",
+          "NH",
+          "NJ",
+          "NM",
+          "NY",
+          "NC",
+          "ND",
+          "OH",
+          "OK",
+          "OR",
+          "PA",
+          "RI",
+          "SC",
+          "SD",
+          "TN",
+          "TX",
+          "UT",
+          "VT",
+          "VA",
+          "WA",
+          "WV",
+          "WI",
+          "WY",
+          "AS",
+          "GU",
+          "MP",
+          "PR",
+          "VI",
+          "UM",
+          "FM",
+          "MH",
+          "PW",
+          "AA",
+          "AE",
+          "AP"
+        ],
+        "type": "string"
       },
       "ValidationException": {
         "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
