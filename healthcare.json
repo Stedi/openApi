@@ -24468,7 +24468,13 @@
     },
     "securitySchemes": {
       "httpApiKeyAuth": {
-        "description": "A [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication.",
+        "description": "A production [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      },
+      "httpApiKeyAuthTestEnabled": {
+        "description": "A [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication. Supports both test and production API keys.",
         "in": "header",
         "name": "Authorization",
         "type": "apiKey"
@@ -26906,6 +26912,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Real-time eligibility check"
         ]
@@ -28247,6 +28258,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Real-time eligibility check"
         ]
@@ -28423,6 +28439,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -28695,6 +28716,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -28871,6 +28897,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -29149,6 +29180,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -29733,6 +29769,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim acknowledgments"
         ]
@@ -30013,6 +30054,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Remittances"
         ]
@@ -30458,6 +30504,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -30766,6 +30817,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -30895,6 +30951,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Remittances"
         ]
@@ -30910,6 +30971,11 @@
               "description": "**(CMS requests only):** Starting November 8, 2025, the Centers for Medicare & Medicaid Services (CMS) requires submitters to include network IP addresses from an eligibility request's point of origin through receipt by the HETS system. To comply with this requirement, you may need to include this header in requests to CMS.\n\nWhen present, this header should contain a comma-separated list of upstream IP addresses, starting with the originating system and continuing through every intermediary. You can exclude your IP address from the list. Note that Stedi blocks eligibility requests to CMS when any IP address in the chain – the originating IP address or any in the X-Forwarded-For header – is located outside the United States.\n\nVisit [CMS traceability requirements](https://www.stedi.com/docs/healthcare/send-eligibility-checks#cms-traceability-requirements) for details and examples.",
               "type": "string"
             }
+          }
+        ],
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
           }
         ]
       }
@@ -31048,6 +31114,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
@@ -31177,6 +31248,11 @@
             "description": "GatewayTimeoutException 504 response"
           }
         },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ],
         "tags": [
           "Claim submission"
         ]
