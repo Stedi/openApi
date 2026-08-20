@@ -48,6 +48,19 @@
         },
         "type": "object"
       },
+      "AuthenticationFailedExceptionResponseContent": {
+        "description": "The request credentials are missing or not valid.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "ClaimAttachmentReference": {
         "description": "Information about the claim attachment.",
         "properties": {
@@ -69,6 +82,49 @@
             "type": "string"
           }
         },
+        "type": "object"
+      },
+      "ClaimEditError": {
+        "description": "A single failed claim edit.",
+        "properties": {
+          "code": {
+            "description": "A code identifying the failed edit.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Human readable description of the failed edit.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "description"
+        ],
+        "type": "object"
+      },
+      "ClaimEditException": {
+        "description": "Exception returned when the claim fails one or more pre-submission edits.",
+        "properties": {
+          "errors": {
+            "description": "The edits the claim failed.",
+            "items": {
+              "$ref": "#/components/schemas/ClaimEditError"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Human readable error message summarizing why the claim was rejected.",
+            "type": "string"
+          },
+          "x12": {
+            "description": "A synthetic 277CA acknowledging the rejection, with one STC segment per failed edit.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "errors",
+          "message"
+        ],
         "type": "object"
       },
       "ContentType": {
@@ -118,6 +174,36 @@
         ],
         "type": "object"
       },
+      "ForbiddenException": {
+        "description": "The caller is authenticated but lacks permission for this resource or action.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "InternalFailureException": {
+        "description": "The server response when an unexpected error occurred while processing request.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "InternalFailureExceptionResponseContent": {
         "description": "The server response when an unexpected error occurred while processing request.",
         "properties": {
@@ -127,6 +213,19 @@
           },
           "message": {
             "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "InternalServerException": {
+        "description": "The service failed unexpectedly. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
             "type": "string"
           }
         },
@@ -151,6 +250,1795 @@
           "message"
         ],
         "type": "object"
+      },
+      "InvalidRequestException": {
+        "description": "The request is not valid. Fix the request before retrying.",
+        "properties": {
+          "errors": {
+            "description": "Each part of the request that was rejected. Absent when the failure is not specific to any part.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationFailure",
+              "description": "A single validation failure"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionAddress": {
+        "description": "A mailing address. For United States addresses, use the full nine-digit ZIP code with no separators, such as `100031502`. If you don't know the full ZIP code, you can find it using the [USPS ZIP Code Lookup](https://tools.usps.com/zip-code-lookup.htm) tool.",
+        "format": "password",
+        "properties": {
+          "addressLine1": {
+            "description": "The first line of the street address. This typically contains the building number and street name.",
+            "maxLength": 55,
+            "minLength": 1,
+            "type": "string"
+          },
+          "addressLine2": {
+            "description": "The second line of the street address. This typically contains the apartment or suite number.",
+            "maxLength": 55,
+            "minLength": 1,
+            "type": "string"
+          },
+          "city": {
+            "description": "The city name.",
+            "maxLength": 30,
+            "minLength": 2,
+            "type": "string"
+          },
+          "postalCode": {
+            "description": "The postal or ZIP code, with no separators or spaces. For United States addresses, use the full nine-digit ZIP code, such as `100031502`.",
+            "maxLength": 15,
+            "minLength": 3,
+            "type": "string"
+          },
+          "state": {
+            "description": "The two-letter state or province code. Required when the city is in the United States or Canada.",
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "required": [
+          "addressLine1",
+          "city"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionAttachment": {
+        "description": "A piece of supporting documentation attached to the claim, such as medical records or an operative note. Only include when the payer requires it. Visit [Submit claim attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for more information.",
+        "properties": {
+          "attachmentControlNumber": {
+            "description": "A control number assigned to the attachment. The payer uses this identifier to match the attachment to the claim.\n - You must include either this property or `attachmentId` in the request, but not both. Including both properties will result in an error.\n - We recommend using a ULID or UUID of up to 50 characters.\n - Stedi autogenerates a control number if you don't provide one.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "attachmentId": {
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n - This property is required when you're submitting attachment files through Stedi.\n - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "maxLength": 36,
+            "minLength": 36,
+            "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+            "type": "string"
+          },
+          "reportTypeCode": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAttachmentReportTypeCode",
+            "description": "The type of report being attached."
+          },
+          "transmissionCode": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAttachmentTransmissionCode",
+            "description": "How you're sending the attachment to the payer."
+          }
+        },
+        "required": [
+          "reportTypeCode",
+          "transmissionCode"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionAttachmentReportTypeCode": {
+        "description": "The type of report being attached to the claim. Visit [Attachment report type codes](https://www.stedi.com/docs/healthcare/claims-code-lists#attachment-report-type-codes) for a complete list of values and their descriptions.",
+        "enum": [
+          "REPORT_JUSTIFYING_TREATMENT",
+          "DRUGS_ADMINISTERED",
+          "TREATMENT_DIAGNOSIS",
+          "INITIAL_ASSESSMENT",
+          "FUNCTIONAL_GOALS",
+          "PLAN_OF_TREATMENT",
+          "PROGRESS_REPORT",
+          "CONTINUED_TREATMENT",
+          "CHEMICAL_ANALYSIS",
+          "CERTIFIED_TEST_REPORT",
+          "JUSTIFICATION_FOR_ADMISSION",
+          "RECOVERY_PLAN",
+          "ALLERGIES_SENSITIVITIES",
+          "AUTOPSY_REPORT",
+          "AMBULANCE_CERTIFICATION",
+          "ADMISSION_SUMMARY",
+          "PRESCRIPTION",
+          "PHYSICIAN_ORDER",
+          "REFERRAL_FORM",
+          "BENCHMARK_TESTING_RESULTS",
+          "BASELINE",
+          "BLANKET_TEST_RESULTS",
+          "CHIROPRACTIC_JUSTIFICATION",
+          "CONSENT_FORMS",
+          "CERTIFICATION",
+          "DRUG_PROFILE",
+          "DENTAL_MODELS",
+          "DME_PRESCRIPTION",
+          "DIAGNOSTIC_REPORT",
+          "DISCHARGE_MONITORING",
+          "DISCHARGE_SUMMARY",
+          "EXPLANATION_OF_BENEFITS",
+          "HEALTH_CERTIFICATE",
+          "HEALTH_CLINIC_RECORDS",
+          "IMMUNIZATION_RECORD",
+          "STATE_IMMUNIZATION_RECORDS",
+          "LABORATORY_RESULTS",
+          "MEDICAL_RECORD_ATTACHMENT",
+          "MODELS",
+          "NURSING_NOTES",
+          "OPERATIVE_NOTE",
+          "OXYGEN_CONTENT_AVERAGING",
+          "ORDERS_TREATMENTS",
+          "PHYSICAL_EXAMINATION",
+          "OXYGEN_THERAPY_CERTIFICATION",
+          "SUPPORT_DATA",
+          "PATHOLOGY_REPORT",
+          "MEDICAL_HISTORY",
+          "PARENTERAL_ENTERAL_CERTIFICATION",
+          "PHYSICAL_THERAPY_NOTES",
+          "PROSTHETICS_ORTHOTIC_CERTIFICATION",
+          "PARAMEDICAL_RESULTS",
+          "PHYSICIAN_REPORT",
+          "PHYSICAL_THERAPY_CERTIFICATION",
+          "RADIOLOGY_FILMS",
+          "RADIOLOGY_REPORTS",
+          "TESTS_ANALYSIS_REPORT",
+          "RENEWABLE_OXYGEN_CONTENT",
+          "SYMPTOMS_DOCUMENT",
+          "DEATH_NOTIFICATION",
+          "PHOTOGRAPHS"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionAttachmentTransmissionCode": {
+        "description": "How an attachment is transmitted to the payer.\n  - `ELECTRONICALLY_ONLY`: The attachment is sent electronically only.\n  - `BY_MAIL`: The attachment is sent by mail.\n  - `BY_FAX`: The attachment is sent by fax.\n  - `EMAIL`: The attachment is sent by email.\n  - `FILE_TRANSFER`: The attachment is sent by file transfer.\n  - `AVAILABLE_ON_REQUEST`: The attachment is held by the provider and made available to the payer on request.",
+        "enum": [
+          "AVAILABLE_ON_REQUEST",
+          "BY_MAIL",
+          "ELECTRONICALLY_ONLY",
+          "EMAIL",
+          "FILE_TRANSFER",
+          "BY_FAX"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionAuthorization": {
+        "description": "Signature and assignment-of-benefits indicators for the claim.",
+        "properties": {
+          "insuredAuthorizesAssignment": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionBenefitsAssignmentCertificationIndicator",
+            "description": "**[CMS-1500 Box 13]** Whether the insured has authorized payment of benefits directly to the provider."
+          },
+          "patientReleasesMedicalInfo": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReleaseOfInformationCode",
+            "description": "**[CMS-1500 Box 12]** Whether the provider has the patient's signature on file authorizing the release of medical information needed to process the claim."
+          },
+          "providerAcceptsAssignment": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionProviderAcceptsAssignment",
+            "description": "**[CMS-1500 Box 27]** Whether the billing provider agrees to be paid under the payer's terms. Providers who are contracted with the payer are usually required to accept assignment."
+          },
+          "providerSignature": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionProviderSignature",
+            "description": "**[CMS-1500 Box 31]** Whether the provider has the rendering provider's signature on file. When `ON_FILE`, the generated CMS-1500 PDF shows `SOF` (Signature on File) in this box."
+          }
+        },
+        "required": [
+          "insuredAuthorizesAssignment",
+          "patientReleasesMedicalInfo",
+          "providerAcceptsAssignment",
+          "providerSignature"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionBenefitsAssignmentCertificationIndicator": {
+        "description": "Whether the insured has authorized payment of benefits directly to the provider.\n  - `YES`: The insured has authorized assignment of benefits.\n  - `NO`: The insured has not authorized assignment of benefits.\n  - `NOT_APPLICABLE`: Assignment of benefits does not apply, typically because there is no signature on file.",
+        "enum": [
+          "NO",
+          "NOT_APPLICABLE",
+          "YES"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionBilling": {
+        "description": "Billing details for the claim, including the billing provider, service facility, tax identification, and charges.",
+        "properties": {
+          "amountPaid": {
+            "description": "**[CMS-1500 Box 29]** The total amount the patient, or the patient's representative, has already paid toward services in this claim. This is the patient's payment only. Don't include amounts paid by other payers.",
+            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "type": "string"
+          },
+          "billingProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionBillingProvider",
+            "description": "**[CMS-1500 Box 33, 33a, 33b]** The person or organization, such as a clinic or group practice, that will receive payment for the claim from the payer."
+          },
+          "patientControlNumber": {
+            "description": "**[CMS-1500 Box 26]** The patient control number, a unique tracking ID you assign to the claim so you can correlate it with responses from the payer. The payer returns this ID in claim acknowledgments, Electronic Remittance Advice (ERAs), and claim status checks. We recommend using a random, 17-character alphanumeric string.",
+            "format": "password",
+            "maxLength": 38,
+            "minLength": 1,
+            "type": "string"
+          },
+          "serviceFacility": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionServiceFacility",
+            "description": "**[CMS-1500 Box 32, 32a, 32b]** The facility where the patient received care, also called the service facility location. This can be a healthcare facility like a surgical center or reference lab, or the patient's address when you rendered services in their home. Include when services were rendered somewhere other than the billing provider's address.\n - For telehealth services, the service facility location is the provider's address, even though the patient may have been in their home or elsewhere when receiving services.\n - When the billing provider is a physician group located at the same address as a hospital but is a separate entity, you can differentiate the service facility location by including the specific suite or building number of the physician group."
+          },
+          "taxId": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionTaxId",
+            "description": "**[CMS-1500 Box 25]** The billing provider's federal tax identification number, provided as either an Employer Identification Number (EIN) or a Social Security Number (SSN)."
+          },
+          "totalCharge": {
+            "description": "**[CMS-1500 Box 28]** The total charge for the claim, equal to the sum of all service line charges. It is acceptable to set this to `0` (zero).",
+            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "billingProvider",
+          "patientControlNumber",
+          "taxId",
+          "totalCharge"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionBillingProvider": {
+        "description": "The person or organization that will receive payment for the claim from the payer.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "**[CMS-1500 Box 33]** The billing provider's physical address. This must be a street address where care is delivered or an administrative facility, not a PO Box."
+          },
+          "contact": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionContact",
+            "description": "**[CMS-1500 Box 33]** The contact for the billing provider. Include only when the billing provider's contact information differs from the submitter's."
+          },
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionBillingProviderIdentifiers",
+            "description": "**[CMS-1500 Box 33a, 33b]** Identifiers for the billing provider. You must provide the billing provider's NPI. When the provider doesn't have an NPI, you can supply an alternative, such as `commercialNumber` or `locationNumber`."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedName",
+            "description": "**[CMS-1500 Box 33]** The billing provider's name, either a person or an organization."
+          }
+        },
+        "required": [
+          "address",
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionBillingProviderIdentifiers": {
+        "description": "Identifiers for the billing provider.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 33b]** A commercial number assigned to the billing provider by the payer. Include only when the payer requires it in addition to the NPI, or when the provider has no NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationNumber": {
+            "description": "**[CMS-1500 Box 33b]** A location number assigned to the billing provider by the payer. Include only when the payer requires it in addition to the NPI, or when the provider has no NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 33a]** The billing provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). When the billing provider isn't assigned an NPI, supply `commercialNumber` or `locationNumber` instead.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 33b]** The billing provider's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "taxonomyCode": {
+            "description": "**[CMS-1500 Box 33b]** The billing provider's taxonomy code from the National Uniform Claim Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/), which identifies the provider's type and specialty.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionClaimFilingIndicator": {
+        "description": "The type of plan or payer that other coverage is filed under.\n  - `MEDICARE_PART_A`: Medicare Part A.\n  - `MEDICARE_PART_B`: Medicare Part B.\n  - `MEDICAID`: Medicaid.\n  - `TRICARE`: TRICARE.\n  - `BLUE_CROSS_BLUE_SHIELD`: Blue Cross Blue Shield.\n  - `COMMERCIAL_INSURANCE`: A commercial insurance company.\n  - `HEALTH_MAINTENANCE_ORGANIZATION`: A health maintenance organization (HMO).\n  - `HMO_MEDICARE_RISK`: An HMO Medicare risk plan.\n  - `PREFERRED_PROVIDER_ORGANIZATION`: A preferred provider organization (PPO).\n  - `POINT_OF_SERVICE`: A point-of-service (POS) plan.\n  - `EXCLUSIVE_PROVIDER_ORGANIZATION`: An exclusive provider organization (EPO).\n  - `INDEMNITY_INSURANCE`: An indemnity insurance plan.\n  - `DENTAL_MAINTENANCE_ORGANIZATION`: A dental maintenance organization.\n  - `AUTOMOBILE_MEDICAL`: Automobile medical coverage.\n  - `LIABILITY_MEDICAL`: Liability medical coverage.\n  - `DISABILITY`: Disability coverage.\n  - `WORKERS_COMPENSATION_HEALTH_CLAIM`: A workers' compensation health claim.\n  - `FEDERAL_EMPLOYEES_PROGRAM`: The Federal Employees Program.\n  - `OTHER_FEDERAL_PROGRAM`: Another federal program.\n  - `OTHER_NON_FEDERAL_PROGRAMS`: Another non-federal program.\n  - `TITLE_V`: A Title V program.\n  - `VETERANS_AFFAIRS_PLAN`: A Veterans Affairs plan.\n  - `MUTUALLY_DEFINED`: A mutually defined plan type agreed on with the payer.",
+        "enum": [
+          "OTHER_NON_FEDERAL_PROGRAMS",
+          "PREFERRED_PROVIDER_ORGANIZATION",
+          "POINT_OF_SERVICE",
+          "EXCLUSIVE_PROVIDER_ORGANIZATION",
+          "INDEMNITY_INSURANCE",
+          "HMO_MEDICARE_RISK",
+          "DENTAL_MAINTENANCE_ORGANIZATION",
+          "AUTOMOBILE_MEDICAL",
+          "BLUE_CROSS_BLUE_SHIELD",
+          "TRICARE",
+          "COMMERCIAL_INSURANCE",
+          "DISABILITY",
+          "FEDERAL_EMPLOYEES_PROGRAM",
+          "HEALTH_MAINTENANCE_ORGANIZATION",
+          "LIABILITY_MEDICAL",
+          "MEDICARE_PART_A",
+          "MEDICARE_PART_B",
+          "MEDICAID",
+          "OTHER_FEDERAL_PROGRAM",
+          "TITLE_V",
+          "VETERANS_AFFAIRS_PLAN",
+          "WORKERS_COMPENSATION_HEALTH_CLAIM",
+          "MUTUALLY_DEFINED"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionClaimFrequencyCode": {
+        "description": "Whether this claim replaces or cancels a previously submitted claim.\n  - `REPLACEMENT_OF_PRIOR_CLAIM`: This claim replaces a previously submitted claim.\n  - `CANCELLATION_OF_PRIOR_CLAIM`: This claim cancels, or voids, a previously submitted claim.",
+        "enum": [
+          "REPLACEMENT_OF_PRIOR_CLAIM",
+          "CANCELLATION_OF_PRIOR_CLAIM"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionClaimNote": {
+        "description": "**[CMS-1500 Box 19]** A free-text note with additional information about the claim. Provide exactly one note type.",
+        "oneOf": [
+          {
+            "properties": {
+              "additionalInformation": {
+                "description": "Additional information that helps explain the claim, such as a special billing situation or extra context. Don't use this to describe unspecified procedure codes.",
+                "format": "password",
+                "maxLength": 80,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "additionalInformation"
+            ],
+            "title": "additionalInformation",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "certificationNarrative": {
+                "description": "A narrative that certifies medical necessity or another payer-required certification.",
+                "format": "password",
+                "maxLength": 80,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "certificationNarrative"
+            ],
+            "title": "certificationNarrative",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "goalsRehabilitationOrDischargePlans": {
+                "description": "Therapy or rehabilitation notes summarizing goals, rehabilitation potential, or discharge plans.",
+                "format": "password",
+                "maxLength": 80,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "goalsRehabilitationOrDischargePlans"
+            ],
+            "title": "goalsRehabilitationOrDischargePlans",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "diagnosisDescription": {
+                "description": "A description of the diagnosis, usually provided to clarify an unspecified or unlisted procedure code.",
+                "format": "password",
+                "maxLength": 80,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "diagnosisDescription"
+            ],
+            "title": "diagnosisDescription",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "thirdPartyOrganization": {
+                "description": "Information about a third-party organization related to the claim.",
+                "format": "password",
+                "maxLength": 80,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "thirdPartyOrganization"
+            ],
+            "title": "thirdPartyOrganization",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionClinicalDates": {
+        "description": "Dates relevant to the patient's condition and care. Include only the dates that apply to the claim.",
+        "properties": {
+          "accident": {
+            "description": "**[CMS-1500 Box 15]** The date of the accident related to this claim. Required when `patientCondition.isAutoAccidentRelated` or `patientCondition.isOtherAccidentRelated` is `true`, and when the condition is employment-related and resulted from an accident.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "acuteManifestationOfChronicCondition": {
+            "description": "**[CMS-1500 Box 15]** The date the patient first experienced acute symptoms of a chronic condition. Required for certain spinal manipulation claims billed to Medicare.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "assumedCare": {
+            "description": "**[CMS-1500 Box 15]** The date the provider assumed care of the patient, for shared-care arrangements.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "firstVisitOrConsultation": {
+            "description": "**[CMS-1500 Box 15]** The date of the patient's first visit or consultation, when required by the payer.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "hospitalization": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionDateRange",
+            "description": "**[CMS-1500 Box 18]** The date range during which the patient was hospitalized for services in this claim. Provide `from` for the admission date and `to` for the discharge date; omit `to` while the patient is still hospitalized."
+          },
+          "initialTreatment": {
+            "description": "**[CMS-1500 Box 15]** The date the patient first received treatment for the current condition. Required when this date impacts adjudication for services such as spinal manipulation, physical or occupational therapy, or pregnancy.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastMenstrualPeriod": {
+            "description": "**[CMS-1500 Box 14]** The date of the patient's last menstrual period (LMP) before pregnancy. Provide for claims related to a pregnancy.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastSeen": {
+            "description": "**[CMS-1500 Box 15]** The date the patient was last seen by the attending or supervising physician for the qualifying condition. Required for routine foot care services when this date impacts adjudication.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastWorked": {
+            "description": "**[CMS-1500 Box 15]** The last date the patient worked, for disability or workers' compensation claims.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastXray": {
+            "description": "**[CMS-1500 Box 15]** The date of the patient's last X-ray, for claims related to spinal manipulation.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "onsetOfCurrentIllness": {
+            "description": "**[CMS-1500 Box 14]** The date the patient first experienced acute symptoms of the current illness or injury. Required when a service in the claim is the first for a new illness or injury, when the claim is related to an employment or accident condition, or when the payer requires it. For an emergency, provide this date when it is known and differs from the date of service.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "prescription": {
+            "description": "**[CMS-1500 Box 15]** The date of the patient's hearing or vision prescription. Required for claims billing hearing devices or vision frames and lenses.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "relinquishedCare": {
+            "description": "**[CMS-1500 Box 15]** The date the provider relinquished care of the patient, for shared-care arrangements.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "repricerReceived": {
+            "description": "**[CMS-1500 Box 15]** The date the repricer received the claim, when applicable.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "returnedToWork": {
+            "description": "**[CMS-1500 Box 15]** The date the patient returned to work, for disability or workers' compensation claims.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "unableToWork": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionDateRange",
+            "description": "**[CMS-1500 Box 16]** The date range during which the patient was unable to work, when applicable. Provide only `to` when the patient is no longer unable to work and the start date is unknown."
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionContact": {
+        "description": "A person or department to contact, with up to one phone number, email address, and fax number. Provide at least one way to reach the contact.",
+        "properties": {
+          "email": {
+            "description": "The contact's email address.",
+            "format": "password",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "faxNumber": {
+            "description": "The contact's fax number.",
+            "format": "password",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "name": {
+            "description": "The name of the contact person or department. When omitted, questions are directed to the entity itself.",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "phoneExtension": {
+            "description": "The extension for `phoneNumber`.",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          },
+          "phoneNumber": {
+            "description": "The contact's phone number.",
+            "format": "password",
+            "maxLength": 256,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionDateRange": {
+        "description": "A date range. `end` is inclusive. At least one of `start` or `end` is present.",
+        "properties": {
+          "end": {
+            "description": "The end date of the range, inclusive, in `YYYY-MM-DD` format.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "start": {
+            "description": "The start date of the range, in `YYYY-MM-DD` format.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionDrugIdentification": {
+        "description": "Drug identification details for a service line, required when a drug is billed and a prescription was written.",
+        "properties": {
+          "associationNumber": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPrescriptionOrCompoundDrugAssociationNumber",
+            "description": "A prescription number or, for compound drugs, a link sequence number that ties the components of the compound together."
+          },
+          "nationalDrugCode": {
+            "description": "The dispensed drug's National Drug Code (NDC).",
+            "maxLength": 48,
+            "minLength": 1,
+            "type": "string"
+          },
+          "originalNdc": {
+            "description": "The original National Drug Code (NDC), when it differs from the code reported in `nationalDrugCode`.",
+            "maxLength": 80,
+            "minLength": 1,
+            "type": "string"
+          },
+          "unitCount": {
+            "description": "The quantity of the drug administered, expressed in the unit given by `unitOfMeasure`.",
+            "pattern": "^\\d{1,8}(\\.\\d{1,3})?$",
+            "type": "string"
+          },
+          "unitOfMeasure": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionDrugIdentificationUnitOfMeasure",
+            "description": "The unit of measure for `unitCount`."
+          }
+        },
+        "required": [
+          "nationalDrugCode",
+          "unitCount",
+          "unitOfMeasure"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionDrugIdentificationUnitOfMeasure": {
+        "description": "The unit of measure for a drug quantity.\n  - `INTERNATIONAL_UNIT`: International unit.\n  - `GRAM`: Gram.\n  - `MILLIGRAM`: Milligram.\n  - `MILLILITER`: Milliliter.\n  - `UNIT`: Unit.",
+        "enum": [
+          "INTERNATIONAL_UNIT",
+          "GRAM",
+          "MILLIGRAM",
+          "MILLILITER",
+          "UNIT"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionEPSDTReferralConditionIndicator": {
+        "description": "An Early and Periodic Screening, Diagnosis, and Treatment (EPSDT) referral condition indicator.\n  - `AVAILABLE_NOT_USED`: A referral was available but not used.\n  - `UNDER_TREATMENT`: The patient is under treatment.\n  - `NEW_SERVICE_REQUESTED`: A new service was requested through a referral.\n  - `NOT_USED`: Not used.",
+        "enum": [
+          "AVAILABLE_NOT_USED",
+          "UNDER_TREATMENT",
+          "NEW_SERVICE_REQUESTED",
+          "NOT_USED"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionEncounter": {
+        "description": "Clinical details about the encounter, including diagnoses, related providers, relevant dates, and supporting information.",
+        "properties": {
+          "additionalDiagnosisCodes": {
+            "description": "**[CMS-1500 Box 21]** Additional diagnoses for the claim beyond `primaryDiagnosisCode`, in order of importance. Use this for diagnoses that apply to the claim but are not tied to a specific service line; you don't need to repeat codes that already appear in a service line's `diagnosisCodes`. Stedi places these directly after the primary diagnosis in the claim's diagnosis list.\n - Use valid, billable codes at the highest level of specificity available.\n - Don't submit the decimal point (e.g., submit `I639` not `I63.9`).\n - Don't submit header codes (codes with fewer than three characters, such as `E10` for Type 1 diabetes).",
+            "items": {
+              "maxLength": 30,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 11,
+            "minItems": 1,
+            "type": "array"
+          },
+          "attachments": {
+            "description": "**[CMS-1500 Box 19]** Supporting documentation attached to the claim, such as medical records or operative notes. Include only when required by the payer.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionAttachment"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "type": "array"
+          },
+          "claimCodes": {
+            "description": "**[CMS-1500 Box 10d]** Up to four National Uniform Claim Committee (NUCC) condition codes. A condition code is a two-character code that provides extra information about the patient's condition or the claim itself, such as whether the claim is part of disaster relief. For a list, visit the [NUCC Condition Codes](https://www.nucc.org/index.php/code-sets-mainmenu-41/condition-codes-mainmenu-38).",
+            "items": {
+              "maxLength": 30,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 12,
+            "minItems": 1,
+            "type": "array"
+          },
+          "claimNote": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionClaimNote",
+            "description": "**[CMS-1500 Box 19]** A free-text note with additional information the payer may need to process the claim that doesn't fit anywhere else on the form."
+          },
+          "clinicalDates": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionClinicalDates",
+            "description": "**[CMS-1500 Box 14, 15, 16, 18]** Dates relevant to the patient's condition and care, such as the onset of the current illness, hospitalization dates, and dates the patient was unable to work."
+          },
+          "epsdtReferralCodes": {
+            "description": "**[CMS-1500 Box 24h]** Early and Periodic Screening, Diagnosis, and Treatment (EPSDT) referral condition indicators for the claim. EPSDT is a Medicaid program that provides preventive health care services for children under age 21.\n - Include when the claim bills an EPSDT screening service, with the referral outcome of the screening.\n - Use `NOT_USED` when the screening did not result in a referral.\n - Mark services that resulted from a screening with `serviceLines[].isEpsdtRelated`.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionEPSDTReferralConditionIndicator"
+            },
+            "maxItems": 3,
+            "minItems": 1,
+            "type": "array"
+          },
+          "patientCondition": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPatientCondition",
+            "description": "**[CMS-1500 Box 10a, 10b, 10c]** Whether the patient's illness or injury is related to employment or an accident."
+          },
+          "primaryDiagnosisCode": {
+            "description": "**[CMS-1500 Box 21]** The principal diagnosis for the claim, which describes the main reason for the encounter. Must be an [ICD-10-CM code](https://www.cdc.gov/nchs/icd/icd-10-cm/index.html). Stedi combines this with `additionalDiagnosisCodes` and the diagnosis codes on the service lines to form the claim's diagnosis list, which can hold at most 12 codes.\n - Use valid, billable codes at the highest level of specificity available.\n - Don't submit the decimal point (e.g., submit `I639` not `I63.9`).\n - Don't submit header codes (codes with fewer than three characters, such as `E10` for Type 1 diabetes).",
+            "maxLength": 30,
+            "minLength": 1,
+            "type": "string"
+          },
+          "primaryPlaceOfService": {
+            "description": "The primary place of service code identifying where the services were rendered. When omitted, it is inferred from the most common place of service across the claim's service lines. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list.",
+            "maxLength": 2,
+            "minLength": 1,
+            "type": "string"
+          },
+          "priorReferringProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReferringProvider",
+            "description": "**[CMS-1500 Box 17, 17a, 17b]** The provider who wrote the initial referral that began this patient's episode of care, often the patient's primary care provider. Supply this only when a different provider then referred the patient onward to the rendering provider, such as when a primary care provider refers to a specialist who refers to another specialist. Requires `referringProvider` to also be set."
+          },
+          "referenceNumbers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReferenceNumbers",
+            "description": "**[CMS-1500 Box 23]** Payer-issued reference numbers for the claim, such as a prior authorization, referral, CLIA, or mammography certification number."
+          },
+          "referringProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReferringProvider",
+            "description": "**[CMS-1500 Box 17, 17a, 17b]** The provider who referred the patient to the rendering provider for the care on this claim. Supply this whenever the claim involves a referral. When the patient passed through a chain of referrals, this is the most recent referral, the one the rendering provider acted on; identify the provider who wrote the earliest referral in `priorReferringProvider`."
+          },
+          "resubmission": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionResubmission",
+            "description": "**[CMS-1500 Box 22]** Whether this claim replaces or voids a previously submitted claim. Omit when you're submitting a new claim and when you're resubmitting a claim that was rejected before it entered the payer's processing system. You must also omit this property for every resubmission to Original Medicare because Original Medicare doesn't accept `REPLACEMENT_OF_PRIOR_CLAIM`."
+          },
+          "supervisingProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionSupervisingProvider",
+            "description": "**[CMS-1500 Box 17, 17a, 17b]** The provider who oversaw the rendering provider and the care reported in this claim, when the rendering provider was supervised by a physician."
+          }
+        },
+        "required": [
+          "primaryDiagnosisCode"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionGenderCode": {
+        "description": "A code indicating the person's sex.\n  - `MALE`: Male.\n  - `FEMALE`: Female.\n  - `UNKNOWN`: Unknown. Use when the person declines to answer or does not identify as male or female. Note that some payers may reject the claim if the sex doesn't match what they have in their member records.",
+        "enum": [
+          "MALE",
+          "FEMALE",
+          "UNKNOWN"
+        ],
+        "format": "password",
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionInsuranceType": {
+        "description": "The type of health insurance plan being billed. Pick the type that best matches the plan and payer. For most commercial payers, use `OTHER`.\n  - `MEDICARE`: Original Medicare. Don't use this for Medicare Advantage plans – use `OTHER` instead.\n  - `MEDICAID`: Medicaid.\n  - `TRICARE`: TRICARE, the U.S. Department of Defense's health care program for military members and their families.\n  - `CHAMPVA`: CHAMPVA, the Civilian Health and Medical Program of the Department of Veterans Affairs, which covers spouses and dependents of certain disabled or deceased veterans.\n  - `FECA_BLK_LUNG`: Workers' compensation, FECA, or Black Lung coverage for workers injured on the job. FECA stands for the Federal Employees' Compensation Act.\n  - `OTHER`: Any other plan type, including commercial payers and Medicare Advantage. Use this for most claims.",
+        "enum": [
+          "MEDICARE",
+          "MEDICAID",
+          "TRICARE",
+          "CHAMPVA",
+          "FECA_BLK_LUNG",
+          "OTHER"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionInsured": {
+        "description": "The person or entity that carries the insurance policy being billed, also called the subscriber or primary policyholder. May be different from the patient.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "**[CMS-1500 Box 7]** The mailing address for the insured's permanent residence."
+          },
+          "dateOfBirth": {
+            "description": "**[CMS-1500 Box 11a]** The insured's date of birth. Used to distinguish the insured from other members with similar names.",
+            "format": "password",
+            "pattern": "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+            "type": "string"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionGenderCode",
+            "description": "**[CMS-1500 Box 11a]** The insured's sex."
+          },
+          "insuranceType": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionInsuranceType",
+            "description": "**[CMS-1500 Box 1]** The type of health insurance plan being billed. Pick the type that best matches the plan and payer. For most commercial payers, use `OTHER`."
+          },
+          "memberId": {
+            "description": "**[CMS-1500 Box 1a]** The member ID for the insured's insurance policy, typically found on the insurance card. For Medicare claims, this is the insured's Medicare Beneficiary Identifier (MBI).",
+            "format": "password",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedName",
+            "description": "**[CMS-1500 Box 4]** The full name of the insured. This is a person for most claims. Provide an organization only for workers' compensation or other property and casualty claims where the policy is held by an entity, such as the patient's employer."
+          },
+          "paymentResponsibilityLevelCode": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPaymentResponsibilityLevelCode",
+            "description": "**[CMS-1500 Box 11]** The payer's responsibility level for this claim. This form supports claims to primary payers only."
+          },
+          "planName": {
+            "description": "**[CMS-1500 Box 11c]** The name of the insured's insurance plan, typically found on the insurance card.",
+            "format": "password",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "policyOrGroupNumber": {
+            "description": "**[CMS-1500 Box 11]** The payer's code for the employer or other party that purchased the plan, typically found on the insurance card. For workers' compensation claims, use the Federal Employees' Compensation Act (FECA) number for the case.",
+            "format": "password",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "propertyCasualtyClaimNumber": {
+            "description": "**[CMS-1500 Box 11b]** The claim number assigned by a property or casualty insurer. Include for workers' compensation, automobile accident, or other liability claims when the payer requires it.",
+            "format": "password",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "ssn": {
+            "description": "**[CMS-1500 Box 11b]** The insured's Social Security Number. Only include when specifically instructed by a payer.",
+            "format": "password",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "insuranceType",
+          "name",
+          "paymentResponsibilityLevelCode"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionMedicareSecondaryInsuranceType": {
+        "description": "The reason the other coverage makes Medicare the secondary payer.\n  - `WORKING_AGED_BENEFICIARY_OR_SPOUSE_WITH_EGHP`: A working aged beneficiary or spouse covered by an employer group health plan.\n  - `END_STAGE_RENAL_DISEASE_IN_MANDATED_COORDINATION_PERIOD_WITH_EGHP`: End-stage renal disease coverage during the mandated coordination period with an employer group health plan.\n  - `NO_FAULT_INSURANCE_INCLUDING_AUTO_IS_PRIMARY`: No-fault insurance, including automobile coverage, is primary.\n  - `WORKERS_COMPENSATION`: Workers' compensation is primary.\n  - `PUBLIC_HEALTH_SERVICE_OR_OTHER_FEDERAL_AGENCY`: A public health service or other federal agency is primary.\n  - `BLACK_LUNG`: Black Lung benefits are primary.\n  - `VETERANS_ADMINISTRATION`: Veterans Administration coverage is primary.\n  - `DISABLED_BENEFICIARY_UNDER_AGE_65_WITH_LGHP`: A disabled beneficiary under age 65 covered by a large group health plan.\n  - `OTHER_LIABILITY_INSURANCE_IS_PRIMARY`: Other liability insurance is primary.",
+        "enum": [
+          "WORKING_AGED_BENEFICIARY_OR_SPOUSE_WITH_EGHP",
+          "END_STAGE_RENAL_DISEASE_IN_MANDATED_COORDINATION_PERIOD_WITH_EGHP",
+          "NO_FAULT_INSURANCE_INCLUDING_AUTO_IS_PRIMARY",
+          "WORKERS_COMPENSATION",
+          "PUBLIC_HEALTH_SERVICE_OR_OTHER_FEDERAL_AGENCY",
+          "BLACK_LUNG",
+          "VETERANS_ADMINISTRATION",
+          "DISABLED_BENEFICIARY_UNDER_AGE_65_WITH_LGHP",
+          "OTHER_LIABILITY_INSURANCE_IS_PRIMARY"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionOrderingProvider": {
+        "description": "The provider who ordered the services, tests, or supplies on a service line. This should be an individual, not an organization, and you should supply at least the `lastName` and an identifier, which is typically the `npi`.",
+        "properties": {
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOrderingProviderIdentifiers",
+            "description": "**[CMS-1500 Box 17a, 17b]** Identifiers for the ordering provider."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedPersonName",
+            "description": "**[CMS-1500 Box 17]** The full name of the ordering provider."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionOrderingProviderIdentifiers": {
+        "description": "Identifiers for an ordering provider.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 17a]** A commercial number assigned to the ordering provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 17b]** The ordering provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier), a unique 10-digit ID issued by the Centers for Medicare & Medicaid Services (CMS).",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 17a]** The ordering provider's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionOtherInsured": {
+        "description": "A policy, other than the one being billed, under which the patient is covered. Used for coordination of benefits.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "The mailing address of the person insured under the other policy."
+          },
+          "authorization": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOtherInsuredAuthorization",
+            "description": "Signature and assignment-of-benefits indicators for the other coverage."
+          },
+          "claimFilingIndicator": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionClaimFilingIndicator",
+            "description": "The type of plan or payer the other coverage is filed under."
+          },
+          "medicareSecondaryInsuranceType": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionMedicareSecondaryInsuranceType",
+            "description": "The Medicare secondary payer reason, when the other coverage makes Medicare the secondary payer."
+          },
+          "memberId": {
+            "description": "**[CMS-1500 Box 9]** The member ID for the other policy.",
+            "format": "password",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedName",
+            "description": "**[CMS-1500 Box 9]** The name of the person insured under the other policy."
+          },
+          "otherPayer": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOtherPayer",
+            "description": "The payer that provides the other coverage."
+          },
+          "planName": {
+            "description": "**[CMS-1500 Box 9d]** The name of the other insurance plan.",
+            "format": "password",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "policyOrGroupNumber": {
+            "description": "**[CMS-1500 Box 9a]** The policy or group number for the other coverage.",
+            "format": "password",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "relationshipToInsured": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOtherInsuredRelationshipToInsured",
+            "description": "How the patient is related to the person insured under the other policy."
+          },
+          "responsibilityLevel": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionResponsibilityLevel",
+            "description": "The other payer's responsibility level for this claim, relative to the payer being billed."
+          },
+          "ssn": {
+            "description": "The Social Security Number of the person insured under the other policy. Only include when specifically instructed by a payer.",
+            "format": "password",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "authorization",
+          "claimFilingIndicator",
+          "memberId",
+          "name",
+          "otherPayer",
+          "relationshipToInsured",
+          "responsibilityLevel"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionOtherInsuredAuthorization": {
+        "description": "Signature and assignment-of-benefits indicators for coverage under another policy.",
+        "properties": {
+          "insuredAuthorizesAssignment": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionBenefitsAssignmentCertificationIndicator",
+            "description": "Whether the other insured has authorized payment of benefits directly to the provider."
+          },
+          "patientReleasesMedicalInfo": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReleaseOfInformationCode",
+            "description": "Whether the provider has the other insured's authorization to release medical information needed to process the claim."
+          },
+          "providerGeneratedPatientSignature": {
+            "description": "Whether the provider generated the patient's signature because the patient was physically unable to sign.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "insuredAuthorizesAssignment",
+          "patientReleasesMedicalInfo"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionOtherInsuredRelationshipToInsured": {
+        "description": "How the patient is related to the person insured under the other policy.\n  - `SELF`: The patient is the other insured.\n  - `SPOUSE`: The patient is the other insured's spouse.\n  - `CHILD`: The patient is the other insured's child.\n  - `EMPLOYEE`: The patient is the other insured's employee.\n  - `LIFE_PARTNER`: The patient is the other insured's life partner.\n  - `ORGAN_DONOR`: The patient is an organ donor.\n  - `CADAVER_DONOR`: The patient is a cadaver donor.\n  - `OTHER_RELATIONSHIP`: The patient has another relationship to the other insured.\n  - `UNKNOWN`: The relationship is unknown.",
+        "enum": [
+          "SPOUSE",
+          "SELF",
+          "CHILD",
+          "EMPLOYEE",
+          "UNKNOWN",
+          "ORGAN_DONOR",
+          "CADAVER_DONOR",
+          "LIFE_PARTNER",
+          "OTHER_RELATIONSHIP"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionOtherPayer": {
+        "description": "The payer that provides coverage under another policy.",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOtherPayerId",
+            "description": "The other payer's identifier."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedOrganizationName",
+            "description": "The other payer's business name."
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionOtherPayerId": {
+        "description": "An identifier for the other payer. Provide exactly one.",
+        "oneOf": [
+          {
+            "properties": {
+              "payerId": {
+                "description": "The other payer's payer identification number.",
+                "maxLength": 80,
+                "minLength": 2,
+                "type": "string"
+              }
+            },
+            "required": [
+              "payerId"
+            ],
+            "title": "payerId",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "cmsPlanId": {
+                "description": "The other payer's CMS plan ID, such as a Health Plan ID (HPID) or Other Entity Identifier (OEID).",
+                "maxLength": 80,
+                "minLength": 2,
+                "type": "string"
+              }
+            },
+            "required": [
+              "cmsPlanId"
+            ],
+            "title": "cmsPlanId",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionPatient": {
+        "description": "The person who received care, when they are someone other than the insured.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "**[CMS-1500 Box 5]** The mailing address for the patient's permanent residence."
+          },
+          "dateOfBirth": {
+            "description": "**[CMS-1500 Box 3]** The patient's date of birth. Used to distinguish the patient from other members with similar names.",
+            "format": "password",
+            "pattern": "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+            "type": "string"
+          },
+          "gender": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionGenderCode",
+            "description": "**[CMS-1500 Box 3]** The patient's sex."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedPersonName",
+            "description": "**[CMS-1500 Box 2]** The full name of the person who received care."
+          },
+          "relationshipToInsured": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPatientRelationshipToInsured",
+            "description": "**[CMS-1500 Box 6]** How the patient is related to the insured."
+          }
+        },
+        "required": [
+          "address",
+          "dateOfBirth",
+          "gender",
+          "name",
+          "relationshipToInsured"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPatientCondition": {
+        "description": "Whether the patient's illness or injury is related to employment or an accident.",
+        "properties": {
+          "autoAccidentState": {
+            "description": "**[CMS-1500 Box 10b]** The two-letter state code where the automobile accident occurred. Required when `isAutoAccidentRelated` is `true`.",
+            "maxLength": 2,
+            "minLength": 2,
+            "type": "string"
+          },
+          "isAutoAccidentRelated": {
+            "description": "**[CMS-1500 Box 10b]** Whether the patient's condition is related to an automobile accident. When `true`, set `autoAccidentState`. Other insurance, such as automobile liability coverage, may be the primary payer.",
+            "type": "boolean"
+          },
+          "isEmploymentRelated": {
+            "description": "**[CMS-1500 Box 10a]** Whether the patient's condition is related to their employment.",
+            "type": "boolean"
+          },
+          "isOtherAccidentRelated": {
+            "description": "**[CMS-1500 Box 10c]** Whether the patient's condition is related to an accident other than an automobile accident.",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPatientRelationshipToInsured": {
+        "description": "How the patient is related to the insured.\n  - `SPOUSE`: The patient is the insured's spouse.\n  - `CHILD`: The patient is the insured's child.\n  - `EMPLOYEE`: The patient is the insured's employee, typically for workers' compensation claims where the insured is the employer.\n  - `OTHER_RELATIONSHIP`: The patient has another relationship to the insured.",
+        "enum": [
+          "SPOUSE",
+          "CHILD",
+          "EMPLOYEE",
+          "OTHER_RELATIONSHIP"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionPayer": {
+        "description": "The payer being billed for the claim.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "**[CMS-1500 Carrier Block]** The payer's mailing address."
+          },
+          "id": {
+            "description": "**[CMS-1500 Carrier Block]** The Stedi payer ID for the payer being billed. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list.\n - You can send requests using the primary payer ID, the Stedi payer ID, or any alias listed in the payer record.\n - You must include leading 0 characters. Payer IDs are alphanumeric strings and must be treated as complete strings, not integers. For example, use `00540` for SISCO, not `540`.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedOrganizationName",
+            "description": "**[CMS-1500 Carrier Block]** The payer's business name, such as `Aetna` or `Cigna`."
+          },
+          "receiverId": {
+            "description": "**[CMS-1500 Carrier Block]** The ID of the receiver that processes the claim, typically the clearinghouse or payer. Only include when the receiver differs from the payer.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPaymentResponsibilityLevelCode": {
+        "description": "The payer's responsibility level for the claim.\n  - `PRIMARY`: The payer is the primary payer for this claim.",
+        "enum": [
+          "PRIMARY"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionPersonName": {
+        "description": "The name of an individual person.",
+        "format": "password",
+        "properties": {
+          "firstName": {
+            "description": "The person's first name.",
+            "maxLength": 35,
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastName": {
+            "description": "The person's last name. Don't include a name suffix such as Jr. or III here. Use the `suffix` property instead.",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
+          "middleName": {
+            "description": "The person's middle name or initial.",
+            "maxLength": 25,
+            "minLength": 1,
+            "type": "string"
+          },
+          "suffix": {
+            "description": "The person's name suffix, such as Jr. or III. Include only a personal name suffix here, not professional or academic credentials such as M.D.",
+            "maxLength": 10,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "lastName"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPrescriptionOrCompoundDrugAssociationNumber": {
+        "description": "A prescription number or compound drug link sequence number. Provide exactly one.",
+        "oneOf": [
+          {
+            "properties": {
+              "linkSequenceNumber": {
+                "description": "A provider-assigned number, unique to this claim, that ties together the components of a compound drug when there is no prescription number.",
+                "maxLength": 50,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "linkSequenceNumber"
+            ],
+            "title": "linkSequenceNumber",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "pharmacyPrescriptionNumber": {
+                "description": "The pharmacy prescription number. For a compound drug, all components share the same prescription number so the payer can relate them.",
+                "maxLength": 50,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "pharmacyPrescriptionNumber"
+            ],
+            "title": "pharmacyPrescriptionNumber",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionProcedureCode": {
+        "description": "A procedure, service, or supply code with any applicable modifiers.",
+        "properties": {
+          "code": {
+            "description": "The procedure, service, or supply code, typically a CPT or HCPCS code.",
+            "maxLength": 48,
+            "minLength": 1,
+            "type": "string"
+          },
+          "modifiers": {
+            "description": "Up to four modifier codes that convey special circumstances related to the service, such as `25` or `JW`.",
+            "items": {
+              "maxLength": 2,
+              "minLength": 2,
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "code"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionProviderAcceptsAssignment": {
+        "description": "Whether the billing provider agrees to be paid under the payer's terms.\n  - `ASSIGNED`: The provider accepts assignment and agrees to accept the payer's payment as payment in full, minus any patient responsibility.\n  - `NOT_ASSIGNED`: The provider does not accept assignment. The payer typically sends payment directly to the patient, who is then responsible for reimbursing the provider.\n  - `CLINICAL_LAB_ONLY`: The provider accepts assignment for clinical laboratory services only. This is uncommon.",
+        "enum": [
+          "ASSIGNED",
+          "CLINICAL_LAB_ONLY",
+          "NOT_ASSIGNED"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionProviderSignature": {
+        "description": "Whether the provider has the rendering provider's signature on file.\n  - `ON_FILE`: The provider has the rendering provider's signature on file.\n  - `NOT_ON_FILE`: The provider does not have the rendering provider's signature on file.",
+        "enum": [
+          "ON_FILE",
+          "NOT_ON_FILE"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionPurpose": {
+        "description": "The purpose of the claim submission.\n  - `CHARGEABLE`: A standard fee-for-service claim with at least one chargeable line item. Use this for most submissions.\n  - `SUBROGATION_DEMAND`: Only for use by state Medicaid agencies performing post-payment recovery.\n  - `REPORTING`: A reporting-only submission that is not a request for payment.",
+        "enum": [
+          "SUBROGATION_DEMAND",
+          "CHARGEABLE",
+          "REPORTING"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionQualifiedName": {
+        "description": "A name that belongs to either a person or an organization. Provide exactly one of `person` or `organization`.",
+        "oneOf": [
+          {
+            "properties": {
+              "organization": {
+                "description": "The organization's business name.",
+                "maxLength": 60,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "organization"
+            ],
+            "title": "organization",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "person": {
+                "$ref": "#/components/schemas/ProfessionalClaimSubmissionPersonName",
+                "description": "The person's name."
+              }
+            },
+            "required": [
+              "person"
+            ],
+            "title": "person",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionQualifiedOrganizationName": {
+        "description": "A name that belongs to an organization.",
+        "oneOf": [
+          {
+            "properties": {
+              "organization": {
+                "description": "The organization's business name.",
+                "maxLength": 60,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "organization"
+            ],
+            "title": "organization",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionQualifiedPersonName": {
+        "description": "A name that belongs to a person.",
+        "oneOf": [
+          {
+            "properties": {
+              "person": {
+                "$ref": "#/components/schemas/ProfessionalClaimSubmissionPersonName",
+                "description": "The person's name."
+              }
+            },
+            "required": [
+              "person"
+            ],
+            "title": "person",
+            "type": "object"
+          }
+        ]
+      },
+      "ProfessionalClaimSubmissionReferenceNumbers": {
+        "description": "Payer-issued reference numbers that apply to the entire claim.",
+        "properties": {
+          "clia": {
+            "description": "**[CMS-1500 Box 23]** The Clinical Laboratory Improvement Amendments (CLIA) certification number. Required for all CLIA-certified facilities performing CLIA-covered laboratory services. When the claim contains both in-house and outsourced laboratory services, use the CLIA number for services performed by the billing or rendering provider.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "mammographyCertification": {
+            "description": "**[CMS-1500 Box 23]** The facility's six-digit FDA Mammography Quality Standards Act (MQSA) certification number. Required when mammography services are rendered by a certified mammography provider.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "priorAuthorization": {
+            "description": "**[CMS-1500 Box 23]** A payer-issued prior authorization number that approves the services on this claim. Required when the payer or Utilization Management Organization (UMO) assigned an authorization number and the services were preauthorized. To override this for a specific service line, set `serviceLines[].priorAuthorizations` instead.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "referral": {
+            "description": "**[CMS-1500 Box 23]** A referral number for the provider referral tied to the services on this claim. Required when the payer or Utilization Management Organization (UMO) assigned a referral number and a referral is involved.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionReferringProvider": {
+        "description": "A provider involved in referring the patient for the care on this claim. Each provider should be an individual, not an organization, and you should supply at least the `lastName` and an identifier, which is typically the `npi`.",
+        "properties": {
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionReferringProviderIdentifiers",
+            "description": "**[CMS-1500 Box 17a, 17b]** Identifiers for the referring provider."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedPersonName",
+            "description": "**[CMS-1500 Box 17]** The full name of the referring provider."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionReferringProviderIdentifiers": {
+        "description": "Identifiers for a referring provider.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 17a]** A commercial number assigned to the referring provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 17b]** The referring provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier), a unique 10-digit ID issued by the Centers for Medicare & Medicaid Services (CMS).",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 17a]** The referring provider's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionReleaseOfInformationCode": {
+        "description": "Whether the provider has the patient's authorization to release medical information needed to process the claim.\n  - `YES`: The provider has the patient's signed authorization to release medical information.\n  - `INFORMED_CONSENT`: The provider has informed consent to release medical information, but the signed authorization has not been obtained.",
+        "enum": [
+          "INFORMED_CONSENT",
+          "YES"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionRenderingProvider": {
+        "description": "The provider who performed the service. This can be an individual or an organization, such as a laboratory. When a substitute provider (locum tenens) was used, supply that provider's information here. You can omit this object when the rendering provider is the same as the billing provider.",
+        "properties": {
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionRenderingProviderIdentifiers",
+            "description": "**[CMS-1500 Box 24i, 24j]** Identifiers for the rendering provider."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedName",
+            "description": "**[CMS-1500 Box 24j]** The rendering provider's name. Provide a person's name or an organization's business name."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionRenderingProviderIdentifiers": {
+        "description": "Identifiers for the rendering provider.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 24i]** A commercial number assigned to the rendering provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationNumber": {
+            "description": "**[CMS-1500 Box 24i]** A location number assigned to the rendering provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 24j]** The rendering provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier), a unique 10-digit ID issued by the Centers for Medicare & Medicaid Services (CMS).",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 24i]** The rendering provider's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "taxonomyCode": {
+            "description": "**[CMS-1500 Box 24i]** The rendering provider's taxonomy code from the National Uniform Claim Committee [Health Care Provider Taxonomy Code Set](https://taxonomy.nucc.org/), which identifies the provider's type and specialty.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionResponsibilityLevel": {
+        "description": "A payer's responsibility level for a claim.\n  - `PRIMARY`: The primary payer.\n  - `SECONDARY`: The secondary payer.\n  - `TERTIARY`: The tertiary payer.",
+        "enum": [
+          "PRIMARY",
+          "SECONDARY",
+          "TERTIARY"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionResubmission": {
+        "description": "Information identifying this claim as a replacement or cancellation of a previously submitted claim.",
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionClaimFrequencyCode",
+            "description": "Whether this claim replaces or cancels a previously submitted claim."
+          },
+          "originalReferenceNumber": {
+            "description": "The Payer Claim Control Number (sometimes called the ICN) of the original claim being replaced or cancelled. Generally required when `code` is set. One exception is Original Medicare, which specifies that you omit this value from resubmissions.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionServiceFacility": {
+        "description": "The facility where the patient received care, also called the service facility location. The address should be a physical location.",
+        "properties": {
+          "address": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAddress",
+            "description": "**[CMS-1500 Box 32]** The facility's physical address. This must be a street address, not a PO Box. If the service was rendered in an area where there are no street addresses, enter a description of where the service was rendered. For example, 'crossroad of State Road 34 and 45' or 'Exit near Mile marker 265 on Interstate 80'."
+          },
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionServiceFacilityIdentifiers",
+            "description": "**[CMS-1500 Box 32a, 32b]** Identifiers for the service facility."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedOrganizationName",
+            "description": "**[CMS-1500 Box 32]** The facility's organization name. When services were rendered in the patient's home, we recommend setting this to Residence or something similar."
+          }
+        },
+        "required": [
+          "address",
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionServiceFacilityIdentifiers": {
+        "description": "Identifiers for the service facility.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 32b]** A commercial number assigned to the facility by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationNumber": {
+            "description": "**[CMS-1500 Box 32b]** A location number assigned to the facility by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 32a]** The facility's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier). Only required when the facility's NPI differs from the billing provider's NPI. Don't include when the service facility is the patient's home.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 32b]** The facility's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionServiceLine": {
+        "description": "A single service, procedure, or supply being billed.",
+        "properties": {
+          "attachments": {
+            "description": "**[CMS-1500 Box 24]** Supporting documentation attached to this service line. Only include when the payer requires it. Visit [Submit claim attachments](https://www.stedi.com/docs/healthcare/submit-claim-attachments) for more information.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionAttachment"
+            },
+            "maxItems": 10,
+            "minItems": 1,
+            "type": "array"
+          },
+          "datesOfService": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionDateRange",
+            "description": "**[CMS-1500 Box 24a]** The date or date range when the patient received the service."
+          },
+          "diagnosisCodes": {
+            "description": "**[CMS-1500 Box 24e]** Up to four diagnoses this service relates to. Must be [ICD-10-CM codes](https://www.cdc.gov/nchs/icd/icd-10-cm/index.html). List them in order of importance to the service, with the most relevant diagnosis first. Across `encounter.primaryDiagnosisCode` and the codes on every service line, a claim can use at most 12 distinct diagnosis codes.\n - You must submit a valid, billable code at the highest level of specificity. Include the 4th - 7th characters as applicable.\n - Don't submit the decimal point for ICD codes. The decimal point is implied.\n - Don't submit ICD-10 header codes. Header codes exist to group related codes and aren't valid for billing. These header codes can change with each new version of ICD-10, so we recommend reviewing your diagnosis codes every year to ensure that they aren't classified as header codes in the most recent version. To determine whether a code is a header code, you can also search the Value Set Authority Center. If the 'Header' property is set, the code is a header code and you shouldn't use it in claim submissions.",
+            "items": {
+              "maxLength": 30,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 4,
+            "minItems": 1,
+            "type": "array"
+          },
+          "drugIdentification": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionDrugIdentification",
+            "description": "**[CMS-1500 Box 24]** Drug identification details for the service line. Required when a drug is billed for this line and a prescription was written."
+          },
+          "isEmergency": {
+            "description": "**[CMS-1500 Box 24c]** Whether the service was related to an emergency, meaning the patient required immediate intervention for a severe, life-threatening, or potentially disabling condition.",
+            "type": "boolean"
+          },
+          "isEpsdtRelated": {
+            "description": "**[CMS-1500 Box 24h]** Whether the service is related to an Early and Periodic Screening, Diagnosis, and Treatment (EPSDT) encounter. Set this on services that resulted from an EPSDT screening, not on the screening service itself. Report the screening's referral outcome in `encounter.epsdtReferralCodes`.",
+            "type": "boolean"
+          },
+          "isFamilyPlanning": {
+            "description": "**[CMS-1500 Box 24h]** Whether the service was related to a family planning program.",
+            "type": "boolean"
+          },
+          "lineItemChargeAmount": {
+            "description": "**[CMS-1500 Box 24f]** The charge for this service line, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero).",
+            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "type": "string"
+          },
+          "lineItemControlNumber": {
+            "description": "A control number you assign to this service line for your own tracking. Each must be unique within the claim. If you don't set it, Stedi sets it for you – a random ULID.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "narrativeForUnspecifiedCode": {
+            "description": "**[CMS-1500 Box 24]** A free-text description that clarifies the procedure code and any modifiers. Provide when billing an unspecified or unlisted procedure code.",
+            "maxLength": 80,
+            "minLength": 1,
+            "type": "string"
+          },
+          "orderingProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionOrderingProvider",
+            "description": "**[CMS-1500 Box 17, 17a, 17b]** The provider who ordered the services, tests, or supplies billed on this service line. For example, a physician who ordered lab work or imaging. Include when the ordering provider differs from the rendering provider for this line."
+          },
+          "placeOfService": {
+            "description": "**[CMS-1500 Box 24b]** The place of service code identifying where the patient received the service. Visit [Place of Service Codes](https://www.cms.gov/medicare/coding-billing/place-of-service-codes/code-sets) for a complete list.",
+            "maxLength": 2,
+            "minLength": 1,
+            "type": "string"
+          },
+          "priorAuthorizations": {
+            "description": "Prior authorization numbers that apply to this service line. Include only numbers that differ from the claim-level prior authorization in `encounter.referenceNumbers.priorAuthorization`. You can use the same number on multiple service lines.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionServiceLinePriorAuthorizationNumber"
+            },
+            "maxItems": 5,
+            "minItems": 1,
+            "type": "array"
+          },
+          "procedureCode": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionProcedureCode",
+            "description": "**[CMS-1500 Box 24d]** The procedure, service, or supply code being billed, with any applicable modifiers."
+          },
+          "renderingProvider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionRenderingProvider",
+            "description": "**[CMS-1500 Box 24i, 24j]** The provider who performed this service. Include only when the rendering provider for this line differs from the claim. This is also where you supply a substitute (locum tenens) provider's information."
+          },
+          "units": {
+            "description": "**[CMS-1500 Box 24g]** The number of units of the service provided. The units depend on the procedure code and the nature of the service. For example, they may correspond to office visits (1 unit per visit), individual diagnostic tests (1 unit per test), or time (when a service is billed in 15-minute increments, 4 units could equal 1 hour). For anesthesia procedure codes (00100-01999), report the total anesthesia time in minutes; Stedi reports the unit of measure as minutes for these codes automatically.",
+            "pattern": "^\\d{1,8}(\\.\\d{1,3})?$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "datesOfService",
+          "diagnosisCodes",
+          "lineItemChargeAmount",
+          "procedureCode",
+          "units"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionServiceLinePriorAuthorizationNumber": {
+        "description": "A prior authorization number that applies to a service line. Use this only for service-level numbers that differ from the claim-level authorization in `encounter.referenceNumbers.priorAuthorization`.",
+        "properties": {
+          "otherPayerPrimaryId": {
+            "description": "The identifier of the other payer that issued this prior authorization number. Include only when the number was issued by a payer other than the one being billed, and match the other payer's identifier in `otherInsured[].otherPayer.id`.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "priorAuthorizationNumber": {
+            "description": "The payer-issued prior authorization number for this service line.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "priorAuthorizationNumber"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionSubmitter": {
+        "description": "The entity submitting the claim to Stedi.",
+        "properties": {
+          "contact": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionContact",
+            "description": "**[CMS-1500 Carrier Block]** The contact for questions about this claim submission. Provide at least a phone number or an email address."
+          },
+          "etin": {
+            "description": "**[CMS-1500 Carrier Block]** The submitter's Electronic Transmitter Identification Number (ETIN), a payer-assigned ID that identifies the entity transmitting the claim.",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedName",
+            "description": "**[CMS-1500 Carrier Block]** The name of the submitter, either a person or an organization."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionSupervisingProvider": {
+        "description": "The provider who oversaw the rendering provider and the care reported in this claim. This should be an individual, not an organization, and you should supply at least the `lastName` and an identifier, which is typically the `npi`.",
+        "properties": {
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionSupervisingProviderIdentifiers",
+            "description": "**[CMS-1500 Box 17a, 17b]** Identifiers for the supervising provider."
+          },
+          "name": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionQualifiedPersonName",
+            "description": "**[CMS-1500 Box 17]** The full name of the supervising provider."
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionSupervisingProviderIdentifiers": {
+        "description": "Identifiers for a supervising provider.",
+        "properties": {
+          "commercialNumber": {
+            "description": "**[CMS-1500 Box 17a]** A commercial number assigned to the supervising provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "locationNumber": {
+            "description": "**[CMS-1500 Box 17a]** A location number assigned to the supervising provider by the payer. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          },
+          "npi": {
+            "description": "**[CMS-1500 Box 17b]** The supervising provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier), a unique 10-digit ID issued by the Centers for Medicare & Medicaid Services (CMS).",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          },
+          "stateLicenseNumber": {
+            "description": "**[CMS-1500 Box 17a]** The supervising provider's state license number, assigned by a state licensing board. Include only when the payer requires it in addition to the NPI.",
+            "maxLength": 50,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionTaxId": {
+        "description": "The billing provider's federal tax identification number. Provide exactly one of `ein` or `ssn`.",
+        "oneOf": [
+          {
+            "properties": {
+              "ssn": {
+                "description": "The billing provider's Social Security Number. Must be a string of exactly nine numbers with no separators. If you provide this, don't provide `ein`.",
+                "format": "password",
+                "maxLength": 50,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "ssn"
+            ],
+            "title": "ssn",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "ein": {
+                "description": "The billing provider's Employer Identification Number (EIN). Typically a string of exactly nine numbers with no separators, unless otherwise instructed by the payer. If you provide this, don't provide `ssn`.",
+                "maxLength": 50,
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "ein"
+            ],
+            "title": "ein",
+            "type": "object"
+          }
+        ]
       },
       "ResourceNotFoundExceptionResponseContent": {
         "description": "Exception returned when the specified resource cannot be found.",
@@ -214,6 +2102,23 @@
         },
         "type": "object"
       },
+      "ThrottlingException": {
+        "description": "The server response when usage plan or account-level throttling limits exceeded.",
+        "properties": {
+          "code": {
+            "description": "Error classification code",
+            "type": "string"
+          },
+          "message": {
+            "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "ThrottlingExceptionResponseContent": {
         "description": "The server response when usage plan or account-level throttling limits exceeded.",
         "properties": {
@@ -223,6 +2128,147 @@
           },
           "message": {
             "description": "Human-readable error message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "TooManyRequestsException": {
+        "description": "The caller has exceeded a rate limit. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "ValidateProfessionalClaimSubmission400ErrorResponseContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InvalidRequestException"
+          },
+          {
+            "$ref": "#/components/schemas/ClaimEditException"
+          },
+          {
+            "$ref": "#/components/schemas/ValidationException"
+          }
+        ]
+      },
+      "ValidateProfessionalClaimSubmission403ErrorResponseContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ForbiddenException"
+          },
+          {
+            "$ref": "#/components/schemas/AccessDeniedException"
+          }
+        ]
+      },
+      "ValidateProfessionalClaimSubmission429ErrorResponseContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/TooManyRequestsException"
+          },
+          {
+            "$ref": "#/components/schemas/ThrottlingException"
+          }
+        ]
+      },
+      "ValidateProfessionalClaimSubmission500ErrorResponseContent": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/InternalServerException"
+          },
+          {
+            "$ref": "#/components/schemas/InternalFailureException"
+          }
+        ]
+      },
+      "ValidateProfessionalClaimSubmissionRequestContent": {
+        "description": "The request to validate a professional claim.",
+        "properties": {
+          "authorization": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionAuthorization",
+            "description": "**[CMS-1500 Box 12, 13, 27, 31]** Signature and assignment-of-benefits indicators for the claim, covering whether the provider has the patient's and insured's authorizations on file and whether the provider accepts the payer's terms."
+          },
+          "billing": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionBilling",
+            "description": "**[CMS-1500 Box 25, 26, 28, 29, 32, 32a, 32b, 33, 33a, 33b]** Billing details for the claim, including the billing provider, service facility, tax identification, and total charges."
+          },
+          "encounter": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionEncounter",
+            "description": "**[CMS-1500 Box 10a, 10b, 10c, 10d, 14, 15, 16, 17, 17a, 17b, 18, 19, 21, 22, 23, 24h]** Clinical details about the encounter, including diagnosis codes, the related providers, relevant dates, and supporting information for the claim."
+          },
+          "insured": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionInsured",
+            "description": "**[CMS-1500 Box 1, 1a, 4, 7, 11, 11a, 11b, 11c]** The person who carries the insurance policy being billed. The insured is also called the subscriber, primary policyholder, or primary cardholder, and may be a different person from the patient. For example, when a spouse or child receives care under an employee's plan, the employee is the insured."
+          },
+          "otherInsured": {
+            "description": "**[CMS-1500 Box 9, 9a, 9d]** Coverage the patient holds under another insurance policy, relevant to coordination of benefits. Include this when the patient has coverage from another payer in addition to the one you're billing.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionOtherInsured"
+            },
+            "maxItems": 10,
+            "type": "array"
+          },
+          "patient": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPatient",
+            "description": "**[CMS-1500 Box 2, 3, 5, 6]** The person who received care. Only include this object when the patient is someone other than the insured, such as a spouse or dependent on the insured's plan. When the patient is the insured, leave this empty."
+          },
+          "payer": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPayer",
+            "description": "**[CMS-1500 Carrier Block]** The payer being billed for this claim, identified by a Stedi payer ID. Visit the [Payer Network](https://www.stedi.com/healthcare/network) for a complete list of payers and their IDs."
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPurpose",
+            "description": "**[CMS-1500 Carrier Block]** The purpose of the submission. Use `CHARGEABLE` for standard fee-for-service claims, which covers most submissions."
+          },
+          "serviceLines": {
+            "description": "**[CMS-1500 Box 17, 17a, 17b, 20, 24a-24j]** The individual services, procedures, or supplies being billed. Each service line corresponds to one row in Box 24 of the CMS-1500 form.",
+            "items": {
+              "$ref": "#/components/schemas/ProfessionalClaimSubmissionServiceLine"
+            },
+            "maxItems": 50,
+            "minItems": 1,
+            "type": "array"
+          },
+          "submitter": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionSubmitter",
+            "description": "**[CMS-1500 Carrier Block]** The entity submitting the claim to Stedi."
+          }
+        },
+        "required": [
+          "authorization",
+          "billing",
+          "encounter",
+          "insured",
+          "payer",
+          "purpose",
+          "serviceLines",
+          "submitter"
+        ],
+        "type": "object"
+      },
+      "ValidationException": {
+        "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+        "properties": {
+          "fieldList": {
+            "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationExceptionField"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "A summary of the validation failure.",
             "type": "string"
           }
         },
@@ -268,11 +2314,34 @@
           "message"
         ],
         "type": "object"
+      },
+      "ValidationFailure": {
+        "description": "A single way in which the request failed validation.",
+        "properties": {
+          "message": {
+            "description": "What was wrong with this part of the request",
+            "type": "string"
+          },
+          "path": {
+            "description": "A JSON pointer to the part of the request that failed validation",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
       }
     },
     "securitySchemes": {
       "httpApiKeyAuth": {
-        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+        "description": "A production [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      },
+      "httpApiKeyAuthTestEnabled": {
+        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication. Supports both test and production API keys.",
         "in": "header",
         "name": "Authorization",
         "type": "apiKey"
@@ -386,7 +2455,12 @@
             },
             "description": "InternalFailureException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/claim-attachments/raw-x12-submission": {
@@ -490,7 +2564,447 @@
             },
             "description": "InternalFailureException 500 response"
           }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
+      }
+    },
+    "/professional-claim-submissions/json": {
+      "post": {
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
+      }
+    },
+    "/professional-claim-submissions/json/validation": {
+      "post": {
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
+      }
+    },
+    "/professional-claim-submissions/validate": {
+      "post": {
+        "description": "Validate a professional claim in the Stedi JSON format without submitting it",
+        "operationId": "ValidateProfessionalClaimSubmission",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "examples": {
+                "ValidateProfessionalClaimSubmission_example1": {
+                  "description": "",
+                  "summary": "Validate a professional claim with primary and secondary coverage",
+                  "value": {
+                    "authorization": {
+                      "insuredAuthorizesAssignment": "YES",
+                      "patientReleasesMedicalInfo": "YES",
+                      "providerAcceptsAssignment": "ASSIGNED",
+                      "providerSignature": "ON_FILE"
+                    },
+                    "billing": {
+                      "amountPaid": "100.00",
+                      "billingProvider": {
+                        "address": {
+                          "addressLine1": "501 Main Street",
+                          "city": "Springfield",
+                          "postalCode": "627010500",
+                          "state": "IL"
+                        },
+                        "contact": {
+                          "phoneNumber": "2175558800"
+                        },
+                        "identifiers": {
+                          "locationNumber": "LOC-001",
+                          "npi": "1730289013",
+                          "taxonomyCode": "207Q00000X"
+                        },
+                        "name": {
+                          "organization": "Springfield Family Medical Center"
+                        }
+                      },
+                      "patientControlNumber": "CLM-2026-04219",
+                      "serviceFacility": {
+                        "address": {
+                          "addressLine1": "501 Main Street",
+                          "city": "Springfield",
+                          "postalCode": "627010500",
+                          "state": "IL"
+                        },
+                        "identifiers": {
+                          "npi": "1730289013",
+                          "stateLicenseNumber": "IL-FAC-77821"
+                        },
+                        "name": {
+                          "organization": "Springfield Family Medical Center"
+                        }
+                      },
+                      "taxId": {
+                        "ein": "841234567"
+                      },
+                      "totalCharge": "1432.50"
+                    },
+                    "encounter": {
+                      "attachments": [
+                        {
+                          "attachmentControlNumber": "PWK-2026-0001",
+                          "attachmentId": "1f2e3d4c-5b6a-7980-9abc-def012345678",
+                          "reportTypeCode": "PROGRESS_REPORT",
+                          "transmissionCode": "ELECTRONICALLY_ONLY"
+                        }
+                      ],
+                      "claimCodes": [
+                        "AV"
+                      ],
+                      "claimNote": {
+                        "additionalInformation": "Patient presented with persistent cough and bronchospasm; treated in office."
+                      },
+                      "clinicalDates": {
+                        "hospitalization": {
+                          "end": "2026-03-06",
+                          "start": "2026-03-04"
+                        },
+                        "initialTreatment": "2026-03-03",
+                        "onsetOfCurrentIllness": "2026-03-02",
+                        "unableToWork": {
+                          "end": "2026-03-10",
+                          "start": "2026-03-03"
+                        }
+                      },
+                      "patientCondition": {
+                        "isAutoAccidentRelated": false,
+                        "isEmploymentRelated": false,
+                        "isOtherAccidentRelated": false
+                      },
+                      "primaryDiagnosisCode": "J0190",
+                      "priorReferringProvider": {
+                        "identifiers": {
+                          "npi": "1083827763"
+                        },
+                        "name": {
+                          "person": {
+                            "firstName": "David",
+                            "lastName": "Kim"
+                          }
+                        }
+                      },
+                      "referenceNumbers": {
+                        "clia": "14D2089999",
+                        "priorAuthorization": "PA-2026-77831",
+                        "referral": "REF-55421"
+                      },
+                      "referringProvider": {
+                        "identifiers": {
+                          "npi": "1245319599",
+                          "stateLicenseNumber": "IL-MD-44512"
+                        },
+                        "name": {
+                          "person": {
+                            "firstName": "Maya",
+                            "lastName": "Patel"
+                          }
+                        }
+                      },
+                      "resubmission": {
+                        "code": "REPLACEMENT_OF_PRIOR_CLAIM",
+                        "originalReferenceNumber": "CLM-ORIG-998877"
+                      },
+                      "supervisingProvider": {
+                        "identifiers": {
+                          "npi": "1396718825"
+                        },
+                        "name": {
+                          "person": {
+                            "firstName": "Elena",
+                            "lastName": "Rossi"
+                          }
+                        }
+                      }
+                    },
+                    "insured": {
+                      "address": {
+                        "addressLine1": "742 Evergreen Terrace",
+                        "addressLine2": "Apt 3B",
+                        "city": "Springfield",
+                        "postalCode": "627010001",
+                        "state": "IL"
+                      },
+                      "dateOfBirth": "1982-04-12",
+                      "gender": "FEMALE",
+                      "insuranceType": "OTHER",
+                      "memberId": "W123456789",
+                      "name": {
+                        "person": {
+                          "firstName": "Sarah",
+                          "lastName": "Johnson",
+                          "middleName": "A"
+                        }
+                      },
+                      "paymentResponsibilityLevelCode": "PRIMARY",
+                      "planName": "Aetna Choice POS II",
+                      "policyOrGroupNumber": "GRP-AETNA-987654",
+                      "ssn": "111223333"
+                    },
+                    "otherInsured": [
+                      {
+                        "address": {
+                          "addressLine1": "742 Evergreen Terrace",
+                          "addressLine2": "Apt 3B",
+                          "city": "Springfield",
+                          "postalCode": "627010001",
+                          "state": "IL"
+                        },
+                        "authorization": {
+                          "insuredAuthorizesAssignment": "YES",
+                          "patientReleasesMedicalInfo": "YES",
+                          "providerGeneratedPatientSignature": false
+                        },
+                        "claimFilingIndicator": "BLUE_CROSS_BLUE_SHIELD",
+                        "memberId": "BCBS-IL-554433221",
+                        "name": {
+                          "person": {
+                            "firstName": "Michael",
+                            "lastName": "Johnson"
+                          }
+                        },
+                        "otherPayer": {
+                          "id": {
+                            "payerId": "00621"
+                          },
+                          "name": {
+                            "organization": "Blue Cross Blue Shield of Illinois"
+                          }
+                        },
+                        "planName": "BCBS PPO",
+                        "policyOrGroupNumber": "BCBS-GRP-3344",
+                        "relationshipToInsured": "SPOUSE",
+                        "responsibilityLevel": "SECONDARY"
+                      }
+                    ],
+                    "patient": {
+                      "address": {
+                        "addressLine1": "742 Evergreen Terrace",
+                        "addressLine2": "Apt 3B",
+                        "city": "Springfield",
+                        "postalCode": "627010001",
+                        "state": "IL"
+                      },
+                      "dateOfBirth": "2015-08-21",
+                      "gender": "MALE",
+                      "name": {
+                        "person": {
+                          "firstName": "Liam",
+                          "lastName": "Johnson"
+                        }
+                      },
+                      "relationshipToInsured": "CHILD"
+                    },
+                    "payer": {
+                      "address": {
+                        "addressLine1": "151 Farmington Avenue",
+                        "city": "Hartford",
+                        "postalCode": "06156",
+                        "state": "CT"
+                      },
+                      "id": "60054",
+                      "name": {
+                        "organization": "Aetna"
+                      },
+                      "receiverId": "60054"
+                    },
+                    "purpose": "CHARGEABLE",
+                    "serviceLines": [
+                      {
+                        "datesOfService": {
+                          "end": "2026-03-03",
+                          "start": "2026-03-03"
+                        },
+                        "diagnosisCodes": [
+                          "J0190",
+                          "R0602"
+                        ],
+                        "isEmergency": false,
+                        "lineItemChargeAmount": "185.00",
+                        "lineItemControlNumber": "LN-0001",
+                        "placeOfService": "11",
+                        "procedureCode": {
+                          "code": "99213",
+                          "modifiers": [
+                            "25"
+                          ]
+                        },
+                        "renderingProvider": {
+                          "identifiers": {
+                            "npi": "1396718825",
+                            "taxonomyCode": "207Q00000X"
+                          },
+                          "name": {
+                            "person": {
+                              "firstName": "Elena",
+                              "lastName": "Rossi"
+                            }
+                          }
+                        },
+                        "units": "1"
+                      },
+                      {
+                        "datesOfService": {
+                          "end": "2026-03-03",
+                          "start": "2026-03-03"
+                        },
+                        "diagnosisCodes": [
+                          "J0190"
+                        ],
+                        "drugIdentification": {
+                          "associationNumber": {
+                            "pharmacyPrescriptionNumber": "RX-2026-118822"
+                          },
+                          "nationalDrugCode": "00409120130",
+                          "unitCount": "300",
+                          "unitOfMeasure": "MILLIGRAM"
+                        },
+                        "isEmergency": false,
+                        "lineItemChargeAmount": "1247.50",
+                        "lineItemControlNumber": "LN-0002",
+                        "orderingProvider": {
+                          "identifiers": {
+                            "npi": "1245319599"
+                          },
+                          "name": {
+                            "person": {
+                              "firstName": "Maya",
+                              "lastName": "Patel"
+                            }
+                          }
+                        },
+                        "placeOfService": "11",
+                        "priorAuthorizations": [
+                          {
+                            "otherPayerPrimaryId": "60054",
+                            "priorAuthorizationNumber": "PA-2026-77831"
+                          }
+                        ],
+                        "procedureCode": {
+                          "code": "J1885",
+                          "modifiers": [
+                            "JW"
+                          ]
+                        },
+                        "renderingProvider": {
+                          "identifiers": {
+                            "npi": "1396718825"
+                          },
+                          "name": {
+                            "person": {
+                              "firstName": "Elena",
+                              "lastName": "Rossi"
+                            }
+                          }
+                        },
+                        "units": "10"
+                      }
+                    ],
+                    "submitter": {
+                      "contact": {
+                        "email": "billing@acmehealth.example",
+                        "faxNumber": "3135551235",
+                        "phoneNumber": "3135551234"
+                      },
+                      "etin": "SUBMITTER0001",
+                      "name": {
+                        "organization": "Acme Health Billing"
+                      }
+                    }
+                  }
+                }
+              },
+              "schema": {
+                "$ref": "#/components/schemas/ValidateProfessionalClaimSubmissionRequestContent"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "ValidateProfessionalClaimSubmission 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateProfessionalClaimSubmission400ErrorResponseContent"
+                }
+              }
+            },
+            "description": "ValidateProfessionalClaimSubmission400Error 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateProfessionalClaimSubmission403ErrorResponseContent"
+                }
+              }
+            },
+            "description": "ValidateProfessionalClaimSubmission403Error 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceNotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ResourceNotFoundException 404 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateProfessionalClaimSubmission429ErrorResponseContent"
+                }
+              }
+            },
+            "description": "ValidateProfessionalClaimSubmission429Error 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateProfessionalClaimSubmission500ErrorResponseContent"
+                }
+              }
+            },
+            "description": "ValidateProfessionalClaimSubmission500Error 500 response"
+          }
         }
+      }
+    },
+    "/professional-claim-submissions/{id}/json": {
+      "get": {
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     }
   },
