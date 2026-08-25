@@ -40,95 +40,6 @@
         ],
         "type": "object"
       },
-      "DestinationInputStatus": {
-        "description": "The desired status of a destination, as set by the user.",
-        "enum": [
-          "ENABLED",
-          "DISABLED"
-        ],
-        "type": "string"
-      },
-      "DestinationStatus": {
-        "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations.",
-        "enum": [
-          "ENABLED",
-          "DISABLED"
-        ],
-        "type": "string"
-      },
-      "DestinationSummary": {
-        "description": "A summary representation of a destination, returned in list responses.",
-        "properties": {
-          "concurrencyLimit": {
-            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
-            "minimum": 1,
-            "type": "number"
-          },
-          "createdAt": {
-            "description": "Creation timestamp for this destination.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "description": {
-            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
-            "maxLength": 1024,
-            "type": "string"
-          },
-          "destinationUrl": {
-            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
-            "pattern": "^https://.+$",
-            "type": "string"
-          },
-          "eventTypes": {
-            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
-            "items": {
-              "description": "An event type identifier (e.g., enrollment.activated).",
-              "maxLength": 255,
-              "minLength": 1,
-              "type": "string"
-            },
-            "minItems": 1,
-            "type": "array",
-            "uniqueItems": true
-          },
-          "id": {
-            "description": "The unique identifier for the destination.",
-            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
-            "type": "string"
-          },
-          "lastDeliveryTime": {
-            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "name": {
-            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
-            "maxLength": 255,
-            "minLength": 1,
-            "type": "string"
-          },
-          "status": {
-            "$ref": "#/components/schemas/DestinationStatus",
-            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
-          },
-          "updatedAt": {
-            "description": "Last update timestamp for this destination.",
-            "format": "date-time",
-            "type": "string"
-          }
-        },
-        "required": [
-          "createdAt",
-          "description",
-          "destinationUrl",
-          "eventTypes",
-          "id",
-          "name",
-          "status",
-          "updatedAt"
-        ],
-        "type": "object"
-      },
       "EventDestinationsCreateDestinationRequestContent": {
         "description": "Input for creating a new destination.",
         "properties": {
@@ -166,7 +77,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/DestinationInputStatus",
+            "$ref": "#/components/schemas/EventDestinationsDestinationInputStatus",
             "description": "The destination's status upon creation. Default is `ENABLED`."
           }
         },
@@ -237,7 +148,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/DestinationStatus",
+            "$ref": "#/components/schemas/EventDestinationsDestinationStatus",
             "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
           },
           "updatedAt": {
@@ -256,6 +167,187 @@
           "signingSecret",
           "status",
           "updatedAt"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsDestinationInputStatus": {
+        "description": "The desired status of a destination, as set by the user.",
+        "enum": [
+          "ENABLED",
+          "DISABLED"
+        ],
+        "type": "string"
+      },
+      "EventDestinationsDestinationStatus": {
+        "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations.",
+        "enum": [
+          "ENABLED",
+          "DISABLED"
+        ],
+        "type": "string"
+      },
+      "EventDestinationsDestinationSummary": {
+        "description": "A summary representation of a destination, returned in list responses.",
+        "properties": {
+          "concurrencyLimit": {
+            "description": "The maximum number of concurrent deliveries for this destination. Contact Stedi to change your account limits.",
+            "minimum": 1,
+            "type": "number"
+          },
+          "createdAt": {
+            "description": "Creation timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "A description of the destination's purpose, such as \"Receives transaction enrollment task notifications.\"",
+            "maxLength": 1024,
+            "type": "string"
+          },
+          "destinationUrl": {
+            "description": "The URL where Stedi delivers payloads through HTTP `POST`.",
+            "pattern": "^https://.+$",
+            "type": "string"
+          },
+          "eventTypes": {
+            "description": "The event types Stedi sends to this destination. Visit [event types](https://www.stedi.com/docs/healthcare/event-destinations-event-types) for a complete list.",
+            "items": {
+              "description": "An event type identifier (e.g., enrollment.activated).",
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "id": {
+            "description": "The unique identifier for the destination.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "lastDeliveryTime": {
+            "description": "The timestamp for Stedi's most recent delivery attempt to this destination. Absent when Stedi hasn't yet attempted a delivery.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "name": {
+            "description": "A human-readable name for the destination. Stedi displays this name in the portal.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventDestinationsDestinationStatus",
+            "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
+          },
+          "updatedAt": {
+            "description": "Last update timestamp for this destination.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "createdAt",
+          "description",
+          "destinationUrl",
+          "eventTypes",
+          "id",
+          "name",
+          "status",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsEventEnvironment": {
+        "description": "The environment in which an event was produced.",
+        "enum": [
+          "TEST",
+          "PRODUCTION"
+        ],
+        "type": "string"
+      },
+      "EventDestinationsEventPayload": {
+        "description": "The event payload, discriminated by object type. Each variant corresponds to a versioned event schema.",
+        "oneOf": [
+          {
+            "properties": {
+              "v1Event": {
+                "$ref": "#/components/schemas/EventDestinationsV1EventPayload",
+                "description": "A `v1` thin event payload."
+              }
+            },
+            "required": [
+              "v1Event"
+            ],
+            "title": "v1Event",
+            "type": "object"
+          }
+        ]
+      },
+      "EventDestinationsEventPayloadObjectType": {
+        "description": "Object type discriminator for event payloads.",
+        "enum": [
+          "v1.event"
+        ],
+        "type": "string"
+      },
+      "EventDestinationsEventPayloadResourceRef": {
+        "description": "A reference to a resource affected by an event.",
+        "properties": {
+          "id": {
+            "description": "The resource identifier.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The resource type. Uses dot notation to indicate nested resources. For example, `enrollment.document` indicates a document associated with a transaction enrollment request.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object"
+      },
+      "EventDestinationsEventStatus": {
+        "description": "The current status of an event.",
+        "enum": [
+          "PENDING",
+          "DELIVERED",
+          "FAILED"
+        ],
+        "type": "string"
+      },
+      "EventDestinationsEventSummary": {
+        "description": "A summary representation of an event, returned in list responses.",
+        "properties": {
+          "createdAt": {
+            "description": "An ISO 8601 timestamp of when the event was created.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "eventType": {
+            "description": "The type of event, such as `enrollment.activated`.",
+            "maxLength": 255,
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/EventDestinationsEventStatus",
+            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
+          }
+        },
+        "required": [
+          "createdAt",
+          "eventType",
+          "id",
+          "status"
         ],
         "type": "object"
       },
@@ -311,7 +403,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/DestinationStatus",
+            "$ref": "#/components/schemas/EventDestinationsDestinationStatus",
             "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
           },
           "updatedAt": {
@@ -363,7 +455,7 @@
             "type": "string"
           },
           "eventPayload": {
-            "$ref": "#/components/schemas/EventPayload",
+            "$ref": "#/components/schemas/EventDestinationsEventPayload",
             "description": "The event payload Stedi delivers to event destinations."
           },
           "eventType": {
@@ -378,7 +470,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/EventStatus",
+            "$ref": "#/components/schemas/EventDestinationsEventStatus",
             "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
           }
         },
@@ -409,7 +501,7 @@
           "items": {
             "description": "The list of destination summaries.",
             "items": {
-              "$ref": "#/components/schemas/DestinationSummary"
+              "$ref": "#/components/schemas/EventDestinationsDestinationSummary"
             },
             "type": "array"
           },
@@ -431,7 +523,7 @@
           "items": {
             "description": "The list of event summaries.",
             "items": {
-              "$ref": "#/components/schemas/EventSummary"
+              "$ref": "#/components/schemas/EventDestinationsEventSummary"
             },
             "type": "array"
           },
@@ -518,7 +610,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/DestinationInputStatus",
+            "$ref": "#/components/schemas/EventDestinationsDestinationInputStatus",
             "description": "The destination's status. Set to `ENABLED` to receive event deliveries or `DISABLED` to pause them."
           }
         },
@@ -576,7 +668,7 @@
             "type": "string"
           },
           "status": {
-            "$ref": "#/components/schemas/DestinationStatus",
+            "$ref": "#/components/schemas/EventDestinationsDestinationStatus",
             "description": "The destination's current status. Stedi only sends event payloads to `ENABLED` destinations."
           },
           "updatedAt": {
@@ -597,95 +689,52 @@
         ],
         "type": "object"
       },
-      "EventEnvironment": {
-        "description": "The environment in which an event was produced.",
-        "enum": [
-          "TEST",
-          "PRODUCTION"
-        ],
-        "type": "string"
-      },
-      "EventPayload": {
-        "description": "The event payload, discriminated by object type. Each variant corresponds to a versioned event schema.",
-        "oneOf": [
-          {
-            "properties": {
-              "v1Event": {
-                "$ref": "#/components/schemas/V1EventPayload",
-                "description": "A `v1` thin event payload."
-              }
-            },
-            "required": [
-              "v1Event"
-            ],
-            "title": "v1Event",
-            "type": "object"
-          }
-        ]
-      },
-      "EventPayloadObjectType": {
-        "description": "Object type discriminator for event payloads.",
-        "enum": [
-          "v1.event"
-        ],
-        "type": "string"
-      },
-      "EventPayloadResourceRef": {
-        "description": "A reference to a resource affected by an event.",
+      "EventDestinationsV1EventPayload": {
+        "description": "A v1 thin event envelope that signals a state change. Consumers fetch current resource state via API using the resource reference. This is the exact payload delivered to webhook destinations.",
         "properties": {
-          "id": {
-            "description": "The resource identifier.",
+          "account": {
+            "description": "Stedi account identifier (UUID).",
             "type": "string"
           },
-          "type": {
-            "description": "The resource type. Uses dot notation to indicate nested resources. For example, `enrollment.document` indicates a document associated with a transaction enrollment request.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "type"
-        ],
-        "type": "object"
-      },
-      "EventStatus": {
-        "description": "The current status of an event.",
-        "enum": [
-          "PENDING",
-          "DELIVERED",
-          "FAILED"
-        ],
-        "type": "string"
-      },
-      "EventSummary": {
-        "description": "A summary representation of an event, returned in list responses.",
-        "properties": {
-          "createdAt": {
+          "created": {
             "description": "An ISO 8601 timestamp of when the event was created.",
             "format": "date-time",
             "type": "string"
           },
-          "eventType": {
-            "description": "The type of event, such as `enrollment.activated`.",
-            "maxLength": 255,
-            "minLength": 1,
-            "type": "string"
+          "environment": {
+            "$ref": "#/components/schemas/EventDestinationsEventEnvironment",
+            "description": "The environment in which the event was produced."
           },
           "id": {
-            "description": "The unique identifier for the event, formatted as `evt_{UUID}`.",
-            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "description": "An identifier for the event, formatted as `evt_{UUID}`.",
             "type": "string"
           },
-          "status": {
-            "$ref": "#/components/schemas/EventStatus",
-            "description": "The current status of the event. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations. Events may stay in this state for multiple days as Stedi automatically retries.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.  Deliveries to some event destinations may have been successful."
+          "object": {
+            "$ref": "#/components/schemas/EventDestinationsEventPayloadObjectType",
+            "description": "Object type discriminator. Identifies the schema version of this payload."
+          },
+          "relatedResources": {
+            "description": "Other resources related to the event. Only present when there are related resources.",
+            "items": {
+              "$ref": "#/components/schemas/EventDestinationsEventPayloadResourceRef"
+            },
+            "type": "array"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/EventDestinationsEventPayloadResourceRef",
+            "description": "Information about the resource that triggered the event. You can use this information to retrieve additional information about the resource."
+          },
+          "type": {
+            "description": "The event type in dot notation, such as `enrollment.activated`.",
+            "type": "string"
           }
         },
         "required": [
-          "createdAt",
-          "eventType",
-          "id",
-          "status"
+          "account",
+          "created",
+          "environment",
+          "object",
+          "resource"
         ],
         "type": "object"
       },
@@ -762,55 +811,6 @@
         ],
         "type": "object"
       },
-      "V1EventPayload": {
-        "description": "A v1 thin event envelope that signals a state change. Consumers fetch current resource state via API using the resource reference. This is the exact payload delivered to webhook destinations.",
-        "properties": {
-          "account": {
-            "description": "Stedi account identifier (UUID).",
-            "type": "string"
-          },
-          "created": {
-            "description": "An ISO 8601 timestamp of when the event was created.",
-            "format": "date-time",
-            "type": "string"
-          },
-          "environment": {
-            "$ref": "#/components/schemas/EventEnvironment",
-            "description": "The environment in which the event was produced."
-          },
-          "id": {
-            "description": "An identifier for the event, formatted as `evt_{UUID}`.",
-            "type": "string"
-          },
-          "object": {
-            "$ref": "#/components/schemas/EventPayloadObjectType",
-            "description": "Object type discriminator. Identifies the schema version of this payload."
-          },
-          "relatedResources": {
-            "description": "Other resources related to the event. Only present when there are related resources.",
-            "items": {
-              "$ref": "#/components/schemas/EventPayloadResourceRef"
-            },
-            "type": "array"
-          },
-          "resource": {
-            "$ref": "#/components/schemas/EventPayloadResourceRef",
-            "description": "Information about the resource that triggered the event. You can use this information to retrieve additional information about the resource."
-          },
-          "type": {
-            "description": "The event type in dot notation, such as `enrollment.activated`.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "account",
-          "created",
-          "environment",
-          "object",
-          "resource"
-        ],
-        "type": "object"
-      },
       "ValidationFailure": {
         "description": "A single way in which the request failed validation.",
         "properties": {
@@ -884,7 +884,7 @@
             "in": "query",
             "name": "status",
             "schema": {
-              "$ref": "#/components/schemas/DestinationStatus"
+              "$ref": "#/components/schemas/EventDestinationsDestinationStatus"
             }
           },
           {
@@ -1845,7 +1845,7 @@
             "schema": {
               "description": "Filter results by one or more event statuses. Can be:\n  - `DELIVERED`: Stedi successfully delivered the event to all relevant event destinations.\n  - `PENDING`: Stedi is still trying to deliver the event to one or more event destinations.\n  - `FAILED`: Stedi couldn't deliver the event to at least one event destination and is no longer retrying.",
               "items": {
-                "$ref": "#/components/schemas/EventStatus"
+                "$ref": "#/components/schemas/EventDestinationsEventStatus"
               },
               "type": "array"
             },
