@@ -14704,7 +14704,7 @@
             "type": "string"
           },
           "ssn": {
-            "description": "The dependent's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage.",
+            "description": "The dependent's Social Security Number (SSN).\n  - **Medical coverage:** The patient's full SSN is best, but even the last 4 digits of the SSN can help narrow down matching coverage.\n  - **Dental coverage:** Providing the SSN is especially important. Many dental payers accept SSN in place of a member ID. When included, Stedi can search with additional dental carriers that accept SSN instead of member ID. If you don't have the subscriber's member ID but can include the SSN, Stedi is more likely to return active dental coverage.",
             "pattern": "^(?:\\d{9}|\\d{3}-\\d{2}-\\d{4}|\\d{4})$",
             "type": "string",
             "x-meta": {
@@ -14719,7 +14719,7 @@
         "type": "object"
       },
       "InsuranceDiscoveryEncounter": {
-        "description": "The date range for the service being requested. If you don't specify a service date (either a single day or a range of dates), Stedi defaults to the current date.\n\n You can specify either a single `dateOfService` or a `beginningDateOfService` and `endDateOfService`.",
+        "description": "Specify the date range and type of coverage.\n  - Set either a single `dateOfService` or a `beginningDateOfService` and `endDateOfService`. If you don't specify a service date, Stedi defaults to the current date.\n  - Set `serviceTypeCodes` to `[\"35\"]` to narrow the search to dental payers. Omit it to default to searching medical payers.",
         "properties": {
           "beginningDateOfService": {
             "description": "The beginning date, formatted as YYYYMMDD.",
@@ -14735,6 +14735,14 @@
             "description": "The end date, formatted as YYYYMMDD. If you don't specify an end date, Stedi defaults to the same date as `beginningDateOfService`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
+          },
+          "serviceTypeCodes": {
+            "description": "A service type code (STC) to focus the coverage search. Currently supports codes `30` (Health Benefit Plan Coverage) and `35` (Dental Care). If empty, Stedi defaults to code `30`.\n\nStedi limits the coverage search to payers that support this STC. For example, if you submit `35`, Stedi only searches and returns results for payers that support dental use cases.",
+            "items": {
+              "$ref": "#/components/schemas/RequestInsuranceDiscoveryServiceTypeCode"
+            },
+            "maxItems": 1,
+            "type": "array"
           }
         },
         "type": "object"
@@ -14847,7 +14855,7 @@
             "type": "string"
           },
           "ssn": {
-            "description": "The subscriber's Social Security Number (SSN). We strongly recommend providing this information if possible to improve the probability of finding matching coverage. The patient's full SSN is preferred, but even the last 4 digits of the SSN can help narrow down matching coverage.",
+            "description": "The subscriber's Social Security Number (SSN).\n  - **Medical coverage:** The patient's full SSN is best, but even the last 4 digits of the SSN can help narrow down matching coverage.\n  - **Dental coverage:** Providing the SSN is especially important. Many dental payers accept SSN in place of a member ID. When included, Stedi can search with additional dental carriers that accept SSN instead of member ID. If you don't have the subscriber's member ID but can include the SSN, Stedi is more likely to return active dental coverage.",
             "pattern": "^(?:\\d{9}|\\d{3}-\\d{2}-\\d{4}|\\d{4})$",
             "type": "string",
             "x-meta": {
@@ -20326,6 +20334,14 @@
           "TC",
           "TN",
           "UC"
+        ],
+        "type": "string"
+      },
+      "RequestInsuranceDiscoveryServiceTypeCode": {
+        "description": "A service type code (STC) supported by insurance discovery. Set this to `30` - Health Benefit Plan Coverage or `35` - Dental Care.",
+        "enum": [
+          "30",
+          "35"
         ],
         "type": "string"
       },
