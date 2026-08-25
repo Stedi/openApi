@@ -1022,7 +1022,8 @@
           "dateOfBirth": {
             "description": "**[CMS-1500 Box 11a]** The insured's date of birth. Used to distinguish the insured from other members with similar names.",
             "format": "password",
-            "pattern": "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+            "maxLength": 35,
+            "minLength": 1,
             "type": "string"
           },
           "gender": {
@@ -1315,7 +1316,8 @@
           "dateOfBirth": {
             "description": "**[CMS-1500 Box 3]** The patient's date of birth. Used to distinguish the patient from other members with similar names.",
             "format": "password",
-            "pattern": "^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+            "maxLength": 35,
+            "minLength": 1,
             "type": "string"
           },
           "gender": {
@@ -1521,6 +1523,66 @@
           "NOT_ON_FILE"
         ],
         "type": "string"
+      },
+      "ProfessionalClaimSubmissionPurchasedService": {
+        "description": "A service the billing provider bought from an outside provider and is billing to the payer.",
+        "properties": {
+          "chargeAmount": {
+            "description": "**[CMS-1500 Box 20]** The price the billing provider paid the outside provider for this service.",
+            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "type": "string"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPurchasedServiceProvider",
+            "description": "The outside provider the billing provider bought this service from."
+          }
+        },
+        "required": [
+          "chargeAmount",
+          "provider"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPurchasedServiceProvider": {
+        "description": "The outside provider the billing provider bought the service from.",
+        "properties": {
+          "entityType": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPurchasedServiceProviderEntityType",
+            "description": "Whether the outside provider is a person or an organization."
+          },
+          "identifiers": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPurchasedServiceProviderIdentifiers",
+            "description": "Identifiers for the purchased service provider."
+          }
+        },
+        "required": [
+          "entityType",
+          "identifiers"
+        ],
+        "type": "object"
+      },
+      "ProfessionalClaimSubmissionPurchasedServiceProviderEntityType": {
+        "description": "Whether a purchased service provider is a person or an organization.",
+        "enum": [
+          "PERSON",
+          "ORGANIZATION"
+        ],
+        "type": "string"
+      },
+      "ProfessionalClaimSubmissionPurchasedServiceProviderIdentifiers": {
+        "description": "Identifiers for a purchased service provider.",
+        "properties": {
+          "npi": {
+            "description": "**[CMS-1500 Box 32a]** The purchased service provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier), a unique 10-digit ID issued by the Centers for Medicare & Medicaid Services (CMS).",
+            "maxLength": 80,
+            "minLength": 2,
+            "type": "string"
+          }
+        },
+        "required": [
+          "npi"
+        ],
+        "type": "object"
       },
       "ProfessionalClaimSubmissionPurpose": {
         "description": "The purpose of the claim submission.\n  - `CHARGEABLE`: A standard fee-for-service claim with at least one chargeable line item. Use this for most submissions.\n  - `SUBROGATION_DEMAND`: Only for use by state Medicaid agencies performing post-payment recovery.\n  - `REPORTING`: A reporting-only submission that is not a request for payment.",
@@ -1893,6 +1955,10 @@
           "procedureCode": {
             "$ref": "#/components/schemas/ProfessionalClaimSubmissionProcedureCode",
             "description": "**[CMS-1500 Box 24d]** The procedure, service, or supply code being billed, with any applicable modifiers."
+          },
+          "purchasedService": {
+            "$ref": "#/components/schemas/ProfessionalClaimSubmissionPurchasedService",
+            "description": "**[CMS-1500 Box 20]** The purchase of this service from a provider outside the billing provider's practice, such as an independent laboratory. Only include when the billing provider bought the service and is billing the payer for it."
           },
           "renderingProvider": {
             "$ref": "#/components/schemas/ProfessionalClaimSubmissionRenderingProvider",
