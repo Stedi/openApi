@@ -14801,6 +14801,10 @@
             "$ref": "#/components/schemas/DiscoveryPayer",
             "description": "Information about the payer for this coverage. Note that payer names and IDs aren't normalized, so you'll need to handle matching these results to Stedi's Payer Network or your own internal payer list."
           },
+          "payerId": {
+            "description": "The primary payer ID for this payer in [Stedi’s Payer Network](https://www.stedi.com/healthcare/network). When empty, normalize the payer ID from `payer.payorIdentification`.",
+            "type": "string"
+          },
           "planDateInformation": {
             "$ref": "#/components/schemas/DiscoveryPlanDateInformation",
             "description": "Contains the dates associated with coverage for this health plan. This information can help you determine the patient's eligibility for benefits.\n    - All dates are formatted as YYYYMMDD (for single dates) or as YYYYMMDD-YYYYMMDD (for date ranges).\n    - Properties contain a single date unless otherwise noted.\n    - Most payers return either `plan` or `planBegin` and `planEnd`, but the exact dates returned depend on the payer's discretion and the specific health plan.\n    - If the date of service is after the earliest ending `plan`, `eligibility`, `planEnd`, `eligibilityEnd`, `policyEffective`, or `policyExpiration` value, the patient likely doesn't have active coverage."
