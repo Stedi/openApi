@@ -1122,7 +1122,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/executions/{executionId}/input-url": {
@@ -3540,7 +3545,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/transactions": {
@@ -3876,7 +3886,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/transactions/{transactionId}": {
@@ -4098,7 +4113,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/transactions/{transactionId}/attachment/{artifactId}": {
@@ -5122,7 +5142,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/transactions/{transactionId}/input-url": {
@@ -5414,7 +5439,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/transactions/{transactionId}/output-url": {
@@ -8283,7 +8313,13 @@
     "securitySchemes": {
       "httpApiKeyAuth": {
         "type": "apiKey",
-        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+        "description": "A production [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+        "name": "Authorization",
+        "in": "header"
+      },
+      "httpApiKeyAuthTestEnabled": {
+        "type": "apiKey",
+        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication. Supports both test and production API keys.",
         "name": "Authorization",
         "in": "header"
       }
@@ -8294,12 +8330,12 @@
       "httpApiKeyAuth": []
     }
   ],
+  "tags": [],
   "x-stedi": {
     "lifecycle": "general_availability",
     "product": "core",
     "public": true
   },
-  "tags": [],
   "servers": [
     {
       "url": "https://core.us.stedi.com/2023-08-01",
