@@ -84,46 +84,16 @@
         },
         "type": "object"
       },
-      "ClaimEditError": {
-        "description": "A single failed claim edit.",
+      "ClaimRejectionError": {
+        "description": "An error that caused Stedi to reject the claim.",
         "properties": {
-          "code": {
-            "description": "A code identifying the failed edit.",
-            "type": "string"
-          },
           "description": {
-            "description": "Human readable description of the failed edit.",
+            "description": "A human-readable explanation of the error.",
             "type": "string"
           }
         },
         "required": [
-          "code",
           "description"
-        ],
-        "type": "object"
-      },
-      "ClaimEditException": {
-        "description": "Exception returned when the claim fails one or more pre-submission edits.",
-        "properties": {
-          "errors": {
-            "description": "The edits the claim failed.",
-            "items": {
-              "$ref": "#/components/schemas/ClaimEditError"
-            },
-            "type": "array"
-          },
-          "message": {
-            "description": "Human readable error message summarizing why the claim was rejected.",
-            "type": "string"
-          },
-          "x12": {
-            "description": "A synthetic 277CA acknowledging the rejection, with one STC segment per failed edit.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "errors",
-          "message"
         ],
         "type": "object"
       },
@@ -2221,9 +2191,6 @@
             "$ref": "#/components/schemas/InvalidRequestException"
           },
           {
-            "$ref": "#/components/schemas/ClaimEditException"
-          },
-          {
             "$ref": "#/components/schemas/ValidationException"
           }
         ]
@@ -2321,6 +2288,19 @@
           "serviceLines",
           "submitter"
         ],
+        "type": "object"
+      },
+      "ValidateProfessionalClaimSubmissionResponseContent": {
+        "description": "The response to a professional claim validation. A response with no errors means Stedi would accept the claim as-is.",
+        "properties": {
+          "errors": {
+            "description": "The errors that would cause Stedi to reject the claim. Absent when the claim passes Stedi's pre-submission checks.",
+            "items": {
+              "$ref": "#/components/schemas/ClaimRejectionError"
+            },
+            "type": "array"
+          }
+        },
         "type": "object"
       },
       "ValidationException": {
@@ -2631,24 +2611,6 @@
             "description": "InternalFailureException 500 response"
           }
         },
-        "security": [
-          {
-            "httpApiKeyAuthTestEnabled": []
-          }
-        ]
-      }
-    },
-    "/professional-claim-submissions/json": {
-      "post": {
-        "security": [
-          {
-            "httpApiKeyAuthTestEnabled": []
-          }
-        ]
-      }
-    },
-    "/professional-claim-submissions/json/validation": {
-      "post": {
         "security": [
           {
             "httpApiKeyAuthTestEnabled": []
@@ -2999,6 +2961,20 @@
         },
         "responses": {
           "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ValidateProfessionalClaimSubmission_example1": {
+                    "description": "",
+                    "summary": "Validate a professional claim with primary and secondary coverage",
+                    "value": {}
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ValidateProfessionalClaimSubmissionResponseContent"
+                }
+              }
+            },
             "description": "ValidateProfessionalClaimSubmission 200 response"
           },
           "400": {
@@ -3062,15 +3038,6 @@
             "description": "ValidateProfessionalClaimSubmission500Error 500 response"
           }
         }
-      }
-    },
-    "/professional-claim-submissions/{id}/json": {
-      "get": {
-        "security": [
-          {
-            "httpApiKeyAuthTestEnabled": []
-          }
-        ]
       }
     }
   },
