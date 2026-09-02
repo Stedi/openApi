@@ -831,7 +831,13 @@
     },
     "securitySchemes": {
       "httpApiKeyAuth": {
-        "description": "A [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication.",
+        "description": "A production [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      },
+      "httpApiKeyAuthTestEnabled": {
+        "description": "A [Stedi API Key](https://portal.stedi.com/app/settings/api-keys) for authentication. Supports both test and production API keys.",
         "in": "header",
         "name": "Authorization",
         "type": "apiKey"
@@ -983,7 +989,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       },
       "post": {
         "description": "Creates an event destination. Returns destination details and a signing secret for verifying event payloads.",
@@ -1132,7 +1143,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/destinations/{destinationId}": {
@@ -1251,7 +1267,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       },
       "get": {
         "description": "Retrieves details for an existing event destination.",
@@ -1365,7 +1386,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       },
       "post": {
         "description": "Updates an existing destination configuration.",
@@ -1536,7 +1562,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/destinations/{destinationId}/secret": {
@@ -1643,7 +1674,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/destinations/{destinationId}/secret/rotate": {
@@ -1797,7 +1833,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/events": {
@@ -1944,7 +1985,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     },
     "/events/{eventId}": {
@@ -2058,7 +2104,12 @@
             },
             "description": "InternalServerException 500 response"
           }
-        }
+        },
+        "security": [
+          {
+            "httpApiKeyAuthTestEnabled": []
+          }
+        ]
       }
     }
   },
