@@ -4182,6 +4182,10 @@
           "errorResponse": {
             "$ref": "#/components/schemas/ErrorResponse"
           },
+          "id": {
+            "description": "A globally unique identifier for this claim status check across all Stedi accounts. It's formatted as `csc_<uuid>`. For example: `csc_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this claim status check and to construct deep links to claim status checks in the Stedi portal.",
+            "type": "string"
+          },
           "implementationTransactionSetSyntaxError": {
             "description": "The syntax error code in the 999 Implementation Acknowledgment. It indicates the type of error (if present) in the EDI request syntax. Visit `IK502` in the [Implementation Acknowledgment specification](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5.properties.implementation_transaction_set_syntax_error_code_02) for a complete list.",
             "type": "string"
@@ -4311,6 +4315,10 @@
           "errorResponse": {
             "$ref": "#/components/schemas/ErrorResponse"
           },
+          "id": {
+            "description": "A globally unique identifier for this claim status check across all Stedi accounts. It's formatted as `csc_<uuid>`. For example: `csc_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this claim status check and to construct deep links to claim status checks in the Stedi portal.",
+            "type": "string"
+          },
           "implementationTransactionSetSyntaxError": {
             "description": "The syntax error code in the 999 Implementation Acknowledgment. It indicates the type of error (if present) in the EDI request syntax. Visit `IK502` in the [Implementation Acknowledgment specification](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231/01HRF41ES1DVGCA6X1EHSRPFXZ#properties.heading.properties.transaction_set_response_header_AK2_loop.items.properties.transaction_set_response_trailer_IK5.properties.implementation_transaction_set_syntax_error_code_02) for a complete list.",
             "type": "string"
@@ -4373,6 +4381,10 @@
             "description": "The biller ID assigned to this request.",
             "type": "string"
           },
+          "outboundTraceId": {
+            "description": "The transaction identifier in the outbound request's `BHT03` element that Stedi assigns. \n\nAlthough a unique identifier, instead of this property, we recommend using `id` to identify and track claims status checks. A claims status check's `id` is guaranteed to be globally unique, and you can use it to deep link to the claims status check's results within the Stedi portal.",
+            "type": "string"
+          },
           "senderId": {
             "description": "The sender ID assigned to this request.",
             "type": "string"
@@ -4382,7 +4394,7 @@
             "type": "string"
           },
           "traceId": {
-            "description": "The unique ID assigned to this request within Stedi.",
+            "description": "The transaction identifier in the response's `BHT03` element, taken from the request's `BHT03` element if provided, else a unique identifier that Stedi assigns that is also used as the `outboundTraceId`.",
             "type": "string"
           }
         },
@@ -9578,7 +9590,7 @@
             "type": "string"
           },
           "outboundTraceId": {
-            "description": "A unique identifier Stedi assigns to this check.\n\nInstead of this property, we recommend using `id` to identify and track eligibility checks. An eligibility check's `id` is guaranteed to be globally unique, and you can use it to deep link to the eligibility check's results within the Stedi portal.",
+            "description": "The unique identifier Stedi sent to identify this check to the payer.\n\nInstead of this property, we recommend using `id` to identify and track eligibility checks. An eligibility check's `id` is guaranteed to be globally unique, and you can use it to deep link to the eligibility check's results within the Stedi portal.",
             "type": "string"
           },
           "senderId": {
@@ -9590,7 +9602,7 @@
             "type": "string"
           },
           "traceId": {
-            "description": "The transaction identifier the payer sends in the response. This should be the same as the `outboundTraceId`.",
+            "description": "A unique identifier Stedi assigns to this check. This should be the same as the `outboundTraceId`.",
             "type": "string"
           }
         },
@@ -9608,7 +9620,7 @@
             "type": "string"
           },
           "outboundTraceId": {
-            "description": "The transaction identifier in the request's `BHT03` element. This identifier isn't guaranteed to be globally unique. We recommend using the `id` property to identify and track eligibility checks instead.",
+            "description": "The transaction identifier in the outbound request's `BHT03` element that Stedi assigns. \n\nAlthough a unique identifier, instead of this property, we recommend using `id` to identify and track eligibility checks. An eligibility check's `id` is guaranteed to be globally unique, and you can use it to deep link to the eligibility check's results within the Stedi portal.",
             "type": "string"
           },
           "senderId": {
@@ -9620,7 +9632,7 @@
             "type": "string"
           },
           "traceId": {
-            "description": "The transaction identifier in the response's `BHT03` element. This should be the same as the `outboundTraceId`.",
+            "description": "The transaction identifier in the response's `BHT03` element, taken from the request's `BHT03` element.",
             "type": "string"
           }
         },
