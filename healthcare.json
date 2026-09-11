@@ -5689,10 +5689,10 @@
         "properties": {
           "level": {
             "$ref": "#/components/schemas/ConfidenceLevel",
-            "description": "The confidence level for the match."
+            "description": "The confidence level for the match. Set to `REVIEW_NEEDED` for all responses. False positives are possible, and you **must** always check subscriber information to confirm that the coverage is a match for the patient."
           },
           "reason": {
-            "description": "A reason for the confidence level. For example, `This record was identified as a low confidence match due to a DOB partial match`.",
+            "description": "A reason for the confidence level, if one is available. For example, `This record was identified as a low confidence match due to a DOB partial match`. Not always included in the response.",
             "type": "string"
           }
         },
@@ -20316,7 +20316,7 @@
           },
           "confidence": {
             "$ref": "#/components/schemas/Confidence",
-            "description": "Information indicating how likely it is that this coverage is a match for the patient submitted in the insurance discovery request. \n\n Even if the confidence level is high, you **must** always check the subscriber information to confirm that the coverage is a match for the patient."
+            "description": "Information indicating how likely it is that this coverage is a match for the patient submitted in the Insurance Discovery request."
           },
           "dependent": {
             "$ref": "#/components/schemas/DiscoveryResponseDependent",
