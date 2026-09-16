@@ -39386,6 +39386,28 @@
             },
             "description": "InsuranceDiscoveryCheck 200 response"
           },
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "InsuranceDiscoveryCheck_accepted": {
+                    "summary": "Accepted, results pending",
+                    "value": {
+                      "discoveryId": "12345678-abcd-4321-efgh-987654321abc",
+                      "meta": {
+                        "traceId": "1-abcdef12-987654321fedcba987654321"
+                      },
+                      "status": "PENDING"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/InsuranceDiscoveryCheckResponseContent"
+                }
+              }
+            },
+            "description": "The check was accepted but is still processing. Poll the [Insurance Discovery Check Results](https://www.stedi.com/docs/healthcare/api-reference/get-insurance-discovery-results) endpoint to get the results."
+          },
           "400": {
             "content": {
               "application/json": {
@@ -41453,6 +41475,28 @@
               }
             },
             "description": "GetInsuranceDiscoveryCheck 200 response"
+          },
+          "202": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetInsuranceDiscoveryCheck_pending": {
+                    "summary": "Still processing",
+                    "value": {
+                      "discoveryId": "12345678-abcd-4321-efgh-987654321abc",
+                      "meta": {
+                        "traceId": "1-abcdef12-abcdef123456789abcdef123"
+                      },
+                      "status": "PENDING"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetInsuranceDiscoveryCheckResponseContent"
+                }
+              }
+            },
+            "description": "The check is still processing. Poll this endpoint again to get the results."
           },
           "400": {
             "content": {
