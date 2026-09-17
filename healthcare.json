@@ -6130,6 +6130,9 @@
             "$ref": "#/components/schemas/TooManyRequestsException"
           },
           {
+            "$ref": "#/components/schemas/EligibilityCheckThrottledException"
+          },
+          {
             "$ref": "#/components/schemas/ThrottlingException"
           }
         ]
@@ -11637,6 +11640,79 @@
         ],
         "type": "object"
       },
+      "EligibilityCheckNonUsOriginExceptionResponseContent": {
+        "description": "The request was not sent to the payer because the originating IP address or an `X-Forwarded-For` IP address is outside the United States. This applies to payers that require US-origin traffic, such as CMS. The body carries the same properties as a successful response, with a synthesized 271 whose `AAA` error reports the rejection.",
+        "properties": {
+          "dependent": {
+            "$ref": "#/components/schemas/EligibilityCheckDependent",
+            "description": "Information about the dependent from the eligibility check request. Note that the payer may return the dependent in the subscriber object instead. When present, this object will always include the dependent's name for identification, but many payers also include the date of birth and other identifying information."
+          },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record in the Stedi portal called an [eligibility search](https://www.stedi.com/docs/healthcare/eligibility-views).\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
+          "errors": {
+            "description": "`AAA` rejection errors from the payer. [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) specify the reasons for the rejection and any recommended follow-up actions.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckResponseError"
+            },
+            "type": "array"
+          },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in the Stedi portal.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/EligibilityCheckMeta",
+            "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting."
+          },
+          "payer": {
+            "$ref": "#/components/schemas/EligibilityCheckPayer",
+            "description": "Information about the payer providing the benefits information. The response will always include the payer's business name and an identifier, such as the payer's tax ID. Most payers also include contact information."
+          },
+          "payerId": {
+            "description": "The primary payer ID from the [Stedi Payer Network](https://www.stedi.com/healthcare/network). This ID is consistent across eligibility and claims systems and matches the payer ID printed on the member's ID card. You can use it as the `payerId` in subsequent eligibility check requests.",
+            "type": "string"
+          },
+          "plans": {
+            "description": "The patient's insurance plans, grouped by plan name. Each plan contains the benefits that apply to the patient.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckPlan"
+            },
+            "type": "array"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/EligibilityCheckProvider",
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+          },
+          "subscriber": {
+            "$ref": "#/components/schemas/EligibilityCheckSubscriber",
+            "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information."
+          },
+          "warnings": {
+            "description": "Issues with your eligibility request that could affect the results, or information about the response. For example, warnings can help explain why the request was rejected.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckWarning"
+            },
+            "type": "array"
+          },
+          "x12": {
+            "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf this property contains a 999, many of the other response properties will be empty, as Stedi populates them with information from the 271.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "message",
+          "payer",
+          "x12"
+        ],
+        "type": "object"
+      },
       "EligibilityCheckNotDeemedMedicalNecessity": {
         "description": "Indicates the payer has determined this service isn't medically necessary and won't cover it on that basis.",
         "properties": {
@@ -14942,6 +15018,79 @@
             "description": "Whether the payer assigned this trace number to the current transaction (`CURRENT_TRANSACTION`) or is echoing one from the original request (`REFERENCED_TRANSACTION`).\n\nPayers may sometimes return other non-compliant values."
           }
         },
+        "type": "object"
+      },
+      "EligibilityCheckThrottledException": {
+        "description": "The request was not sent to the payer because your account's real-time concurrency limit was exceeded. Retry with backoff. The body carries the same properties as a successful response, with a synthesized 271 whose `AAA` error reports the rejection.",
+        "properties": {
+          "dependent": {
+            "$ref": "#/components/schemas/EligibilityCheckDependent",
+            "description": "Information about the dependent from the eligibility check request. Note that the payer may return the dependent in the subscriber object instead. When present, this object will always include the dependent's name for identification, but many payers also include the date of birth and other identifying information."
+          },
+          "eligibilitySearchId": {
+            "description": "An identifier that allows Stedi to group eligibility checks for the same patient into a unified record in the Stedi portal called an [eligibility search](https://www.stedi.com/docs/healthcare/eligibility-views).\n\nThis property is for use by Stedi tools only, such as Stedi's MCP server.",
+            "type": "string"
+          },
+          "errors": {
+            "description": "`AAA` rejection errors from the payer. [`AAA` errors](https://www.stedi.com/docs/healthcare/eligibility-troubleshooting#payer-aaa-errors) specify the reasons for the rejection and any recommended follow-up actions.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckResponseError"
+            },
+            "type": "array"
+          },
+          "id": {
+            "description": "A globally unique identifier for this eligibility check across all Stedi accounts. It's formatted as `ec_<uuid>`. For example: `ec_550e8400-e29b-41d4-a716-446655440000`. You can use this ID to track this eligibility check and to construct deep links to eligibility checks in the Stedi portal.",
+            "type": "string"
+          },
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/EligibilityCheckMeta",
+            "description": "Metadata about the response. Stedi uses this data for tracking and troubleshooting."
+          },
+          "payer": {
+            "$ref": "#/components/schemas/EligibilityCheckPayer",
+            "description": "Information about the payer providing the benefits information. The response will always include the payer's business name and an identifier, such as the payer's tax ID. Most payers also include contact information."
+          },
+          "payerId": {
+            "description": "The primary payer ID from the [Stedi Payer Network](https://www.stedi.com/healthcare/network). This ID is consistent across eligibility and claims systems and matches the payer ID printed on the member's ID card. You can use it as the `payerId` in subsequent eligibility check requests.",
+            "type": "string"
+          },
+          "plans": {
+            "description": "The patient's insurance plans, grouped by plan name. Each plan contains the benefits that apply to the patient.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckPlan"
+            },
+            "type": "array"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/EligibilityCheckProvider",
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+          },
+          "subscriber": {
+            "$ref": "#/components/schemas/EligibilityCheckSubscriber",
+            "description": "Information about the primary policyholder for the insurance plan listed in the original eligibility check request. The response will always include either the subscriber's name or member ID for identification, but most payers will also return the subscriber's date of birth and other identifying information."
+          },
+          "warnings": {
+            "description": "Issues with your eligibility request that could affect the results, or information about the response. For example, warnings can help explain why the request was rejected.",
+            "items": {
+              "$ref": "#/components/schemas/EligibilityCheckWarning"
+            },
+            "type": "array"
+          },
+          "x12": {
+            "description": "Typically this property contains the raw X12 EDI [271 Eligibility Benefit Response](https://portal.stedi.com/app/guides/view/hipaa/health-care-eligibility-benefit-response-x279a1/01GS66YHZPB37ABF34DBPSR213) from the payer.\n\nIn some circumstances, this property may contain a [999 Implementation Acknowledgment](https://portal.stedi.com/app/guides/view/hipaa/implementation-acknowledgment-x231a1/01HMRQV0N8SPHG58M4ZG1CRHH0) instead of a 271. A 999 indicates validation errors in the X12 EDI transaction, such as improper formatting or missing or invalid values.\n\nIf this property contains a 999, many of the other response properties will be empty, as Stedi populates them with information from the 271.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "message",
+          "payer",
+          "x12"
+        ],
         "type": "object"
       },
       "EligibilityCheckTimePeriod": {
@@ -36697,6 +36846,68 @@
                       }
                     }
                   }
+                },
+                "CreateEligibilityCheck_example3": {
+                  "description": "CMS requires eligibility traffic to originate in the United States. When the originating IP address or any `X-Forwarded-For` IP address is outside the U.S., the request is not sent to the payer and the response is an `EligibilityCheckNonUsOriginException`. Its body has the same properties as a successful response: the `x12` is a synthesized 271 whose `AAA` error reports the rejection, and `errors` describes it.",
+                  "summary": "Request from outside the United States",
+                  "value": {
+                    "encounter": {
+                      "services": [
+                        {
+                          "system": "STC",
+                          "value": "30"
+                        }
+                      ]
+                    },
+                    "payerId": "CMS",
+                    "provider": {
+                      "name": {
+                        "organization": "Provider Name"
+                      },
+                      "npi": "1999999984"
+                    },
+                    "subscriber": {
+                      "dateOfBirth": "1975-05-05",
+                      "memberId": "1EG4TE5MK72",
+                      "name": {
+                        "person": {
+                          "firstName": "Jane",
+                          "lastName": "Doe"
+                        }
+                      }
+                    }
+                  }
+                },
+                "CreateEligibilityCheck_example4": {
+                  "description": "When your account's real-time concurrency limit is exceeded, the request is not sent to the payer and the response is an `EligibilityCheckThrottledException`. Its body has the same properties as a successful response: the `x12` is a synthesized 271 whose `AAA` error reports the rejection, and `errors` describes it. Retry with backoff.",
+                  "summary": "Concurrency limit exceeded",
+                  "value": {
+                    "encounter": {
+                      "services": [
+                        {
+                          "system": "STC",
+                          "value": "30"
+                        }
+                      ]
+                    },
+                    "payerId": "61101",
+                    "provider": {
+                      "name": {
+                        "organization": "Provider Name"
+                      },
+                      "npi": "1999999984"
+                    },
+                    "subscriber": {
+                      "dateOfBirth": "1975-05-05",
+                      "memberId": "HUMANA123",
+                      "name": {
+                        "person": {
+                          "firstName": "Jane",
+                          "lastName": "Doe"
+                        }
+                      }
+                    }
+                  }
                 }
               },
               "schema": {
@@ -37058,12 +37269,120 @@
           "429": {
             "content": {
               "application/json": {
+                "examples": {
+                  "CreateEligibilityCheck_example4": {
+                    "description": "When your account's real-time concurrency limit is exceeded, the request is not sent to the payer and the response is an `EligibilityCheckThrottledException`. Its body has the same properties as a successful response: the `x12` is a synthesized 271 whose `AAA` error reports the rejection, and `errors` describes it. Retry with backoff.",
+                    "summary": "Concurrency limit exceeded",
+                    "value": {
+                      "eligibilitySearchId": "01a06d4a-a0fa-77d2-8b49-caa0546ed294",
+                      "errors": [
+                        {
+                          "code": "42",
+                          "description": "Unable to Respond at Current Time",
+                          "followupAction": "Resubmission Allowed",
+                          "location": "PAYER"
+                        }
+                      ],
+                      "id": "ec_01a06d4a-a0fa-77d2-8b49-ca9a74c9888c",
+                      "message": "Unable to Respond at Current Time",
+                      "meta": {
+                        "outboundTraceId": "01M1PMN87VXMME0ZV6SHJP3B9X",
+                        "traceId": "01M1PMN87VXMME0ZV6SHJP3B9X"
+                      },
+                      "payer": {
+                        "identification": "61101",
+                        "name": {
+                          "organization": "HUMANA"
+                        },
+                        "type": "PAYER"
+                      },
+                      "payerId": "61101",
+                      "provider": {
+                        "name": {
+                          "organization": "Provider Name"
+                        },
+                        "npi": "1999999984",
+                        "type": "PROVIDER"
+                      },
+                      "subscriber": {
+                        "dateOfBirth": "1975-05-05",
+                        "memberId": "HUMANA123",
+                        "name": {
+                          "person": {
+                            "firstName": "Jane",
+                            "lastName": "Doe"
+                          }
+                        }
+                      },
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *260916*1200*^*00501*000000001*0*P*`~GS*HB*STEDI*117151744*20260916*120000*1*X*005010X279A1~ST*271*0001*005010X279A1~BHT*0022*11*01M1PMN87VXMME0ZV6SHJP3B9X*20260916*120000~HL*1**20*1~NM1*PR*2*HUMANA*****PI*61101~AAA*Y**42*R~HL*2*1*21*1~NM1*1P*2*Provider Name*****XX*1999999984~HL*3*2*22*0~TRN*1*01M1PMN87VXMME0ZV6SHJP3B9X*3117151744~NM1*IL*1*Doe*Jane****MI*HUMANA123~DMG*D8*19750505~SE*12*0001~GE*1*1~IEA*1*000000001~"
+                    }
+                  }
+                },
                 "schema": {
                   "$ref": "#/components/schemas/CreateEligibilityCheck429ErrorResponseContent"
                 }
               }
             },
             "description": "CreateEligibilityCheck429Error 429 response"
+          },
+          "451": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "CreateEligibilityCheck_example3": {
+                    "description": "CMS requires eligibility traffic to originate in the United States. When the originating IP address or any `X-Forwarded-For` IP address is outside the U.S., the request is not sent to the payer and the response is an `EligibilityCheckNonUsOriginException`. Its body has the same properties as a successful response: the `x12` is a synthesized 271 whose `AAA` error reports the rejection, and `errors` describes it.",
+                    "summary": "Request from outside the United States",
+                    "value": {
+                      "eligibilitySearchId": "01a06d4a-a0fa-77d2-8b49-caa0546ed293",
+                      "errors": [
+                        {
+                          "code": "41",
+                          "description": "Stedi requires the originating and X-Forwarded-For IP addresses to be in the U.S.",
+                          "followupAction": "Resubmission Not Allowed",
+                          "location": "ENVELOPE"
+                        }
+                      ],
+                      "id": "ec_01a06d4a-a0fa-77d2-8b49-ca9a74c9888b",
+                      "message": "Stedi requires the originating and X-Forwarded-For IP addresses to be in the U.S.",
+                      "meta": {
+                        "outboundTraceId": "01M1PMN87VXMME0ZV6SHJP3B9W",
+                        "traceId": "01M1PMN87VXMME0ZV6SHJP3B9W"
+                      },
+                      "payer": {
+                        "identification": "CMS",
+                        "name": {
+                          "organization": "CMS"
+                        },
+                        "type": "PAYER"
+                      },
+                      "payerId": "CMS",
+                      "provider": {
+                        "name": {
+                          "organization": "Provider Name"
+                        },
+                        "npi": "1999999984",
+                        "type": "PROVIDER"
+                      },
+                      "subscriber": {
+                        "dateOfBirth": "1975-05-05",
+                        "memberId": "1EG4TE5MK72",
+                        "name": {
+                          "person": {
+                            "firstName": "Jane",
+                            "lastName": "Doe"
+                          }
+                        }
+                      },
+                      "x12": "ISA*00*          *00*          *ZZ*STEDI          *01*117151744      *260916*1200*^*00501*000000001*0*P*`~GS*HB*STEDI*117151744*20260916*120000*1*X*005010X279A1~ST*271*0001*005010X279A1~BHT*0022*11*01M1PMN87VXMME0ZV6SHJP3B9W*20260916*120000~HL*1**20*1~AAA*N**41*N~NM1*PR*2*CMS*****PI*CMS~HL*2*1*21*1~NM1*1P*2*Provider Name*****XX*1999999984~HL*3*2*22*0~TRN*1*01M1PMN87VXMME0ZV6SHJP3B9W*3117151744~NM1*IL*1*Doe*Jane****MI*1EG4TE5MK72~DMG*D8*19750505~SE*12*0001~GE*1*1~IEA*1*000000001~"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/EligibilityCheckNonUsOriginExceptionResponseContent"
+                }
+              }
+            },
+            "description": "EligibilityCheckNonUsOriginException 451 response"
           },
           "500": {
             "content": {
