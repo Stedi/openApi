@@ -3736,6 +3736,22 @@
         },
         "type": "object"
       },
+      "ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT).",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
+          }
+        },
+        "type": "object"
+      },
       "ClaimPaymentEnrollmentProcess": {
         "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs).",
         "properties": {
@@ -7464,7 +7480,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -9086,6 +9102,22 @@
           },
           "segment": {
             "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "ElectronicFundsTransferEnrollmentProcess": {
+        "description": "Details about the enrollment process for Electronic Funds Transfer (EFT).",
+        "properties": {
+          "requestedEffectiveDate": {
+            "$ref": "#/components/schemas/RequestedEffectiveDate",
+            "description": "Whether this payer supports specifying a requested effective date for transaction enrollments.\n  - If set to `SUPPORTED`, Stedi will process [transaction enrollment requests](https://www.stedi.com/docs/healthcare/api-reference/post-enrollment-create-enrollment) for this payer according to their specified `requestedEffectiveDate`.\n  - This property is only returned when Stedi can determine whether the payer supports requested effective dates."
+          },
+          "timeframe": {
+            "$ref": "#/components/schemas/EnrollmentProcessTimeframe"
+          },
+          "type": {
+            "$ref": "#/components/schemas/EnrollmentProcessType"
           }
         },
         "type": "object"
@@ -15664,7 +15696,8 @@
           "INSTANT",
           "HOURS",
           "DAYS",
-          "WEEKS"
+          "WEEKS",
+          "OVER_4_WEEKS"
         ],
         "type": "string"
       },
@@ -19602,7 +19635,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -20164,7 +20197,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -21629,7 +21662,7 @@
         "type": "string"
       },
       "OperatingStateCode": {
-        "description": "US state codes, territories, or `NATIONAL` indicating the geographic regions where a payer operates. When set to `NATIONAL`, the payer operates throughout the entire United States.",
+        "description": "US state codes, territories, or `NATIONAL` indicating the geographic regions where a payer operates. When set to `NATIONAL`, the payer operates in all 50 U.S. states. Supported territories are listed separately.",
         "enum": [
           "AL",
           "AK",
@@ -21687,6 +21720,7 @@
           "GU",
           "AS",
           "MP",
+          "FM",
           "NATIONAL"
         ],
         "type": "string"
@@ -23091,8 +23125,12 @@
             "description": "A URL pointing to an image file (`.png`, `.jpeg`, or `.jpg`) with the payer's logo. This is the same logo Stedi displays in the [Payer Network](https://www.stedi.com/healthcare/network). You can use this property to display payer logos in your system or application.\n\nThis property is only returned when a payer logo is available.",
             "type": "string"
           },
+          "conciseName": {
+            "description": "A shorter version of the payer's display name for use in dense UI views. This property is only returned when a concise name is available for the payer.",
+            "type": "string"
+          },
           "coverageTypes": {
-            "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these. For example: `[\"medical\"]` or `[\"medical\", \"dental\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types.",
+            "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these. For example: `[\"medical\"]` or `[\"medical\", \"dental\", \"vision\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types.",
             "items": {
               "$ref": "#/components/schemas/CoverageType"
             },
@@ -23123,19 +23161,30 @@
             "type": "array"
           },
           "operatingStates": {
-            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates throughout the entire United States.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 U.S. states. Supported territories are listed separately.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
             "items": {
               "$ref": "#/components/schemas/OperatingStateCode"
             },
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The payer's parent payer group entity. This is metadata Stedi uses internally. It doesn't necessarily relate to the payer's enrollment process or other capabilities.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "type": "string"
+          },
+          "parentPayerGroupName": {
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
             "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards.",
             "type": "string"
+          },
+          "programs": {
+            "description": "A list of insurance programs that this payer participates in. For example: `[\"MEDICAID\", \"MEDICARE\"]`. If Stedi hasn't assigned any programs to this payer, this array is empty.",
+            "items": {
+              "$ref": "#/components/schemas/Program"
+            },
+            "type": "array"
           },
           "stediId": {
             "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated.",
@@ -23154,6 +23203,7 @@
           "displayName",
           "names",
           "primaryPayerId",
+          "programs",
           "stediId",
           "transactionSupport"
         ],
@@ -24611,6 +24661,23 @@
         ],
         "type": "object"
       },
+      "Program": {
+        "description": "Insurance programs that a payer can participate in.",
+        "enum": [
+          "AUTOMOBILE_MEDICAL",
+          "COMMERCIAL",
+          "DISABILITY",
+          "LIABILITY_MEDICAL",
+          "MEDICAID",
+          "MEDICARE",
+          "MEDICARE_ADVANTAGE",
+          "TITLE_V",
+          "TRICARE",
+          "VETERANS_AFFAIRS",
+          "WORKERS_COMPENSATION"
+        ],
+        "type": "string"
+      },
       "ProsthesisCrownOrInlayCode": {
         "description": "Code indicating the placement status for the dental work. Can be set to `I` - Initial Placement or `R` - Replacement. When set to `R`, you must include either the `priorPlacementDate` or `estimatedPriorPlacementDate` properties within the `claimInformation.serviceLines[].serviceLineDateInformation` object.",
         "enum": [
@@ -25556,7 +25623,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -27715,6 +27782,10 @@
             "description": "A URL pointing to an image file (`.png`, `.jpeg`, or `.jpg`) with the payer's logo. This is the same logo Stedi displays in the [Payer Network](https://www.stedi.com/healthcare/network). You can use this property to display payer logos in your system or application.\n\nThis property is only returned when a payer logo is available.",
             "type": "string"
           },
+          "conciseName": {
+            "description": "A shorter version of the payer's display name for use in dense UI views. This property is only returned when a concise name is available for the payer.",
+            "type": "string"
+          },
           "coverageTypes": {
             "description": "A list of insurance coverage types that indicates whether this payer supports transactions for medical coverage, dental coverage, vision coverage, or a combination of these. For example: `[\"medical\"]` or `[\"medical\", \"dental\", \"vision\"]`.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's coverage types yet, **not** that the payer doesn't support any coverage types.",
             "items": {
@@ -27737,7 +27808,7 @@
           },
           "enrollment": {
             "$ref": "#/components/schemas/EnrollmentInfo",
-            "description": "Information about the [transaction enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this payer."
+            "description": "Details about the [transaction enrollment process](https://www.stedi.com/docs/healthcare/transaction-enrollment) for this payer, if available. This object may not be returned for some payers."
           },
           "names": {
             "description": "Alternative names associated with a payer. These additional names help you search for and identify payers using the name most familiar to your organization.",
@@ -27747,19 +27818,30 @@
             "type": "array"
           },
           "operatingStates": {
-            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates throughout the entire United States.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
+            "description": "A list of US state codes, territories, or `NATIONAL` that indicates the geographic regions where this payer operates. For example: `[\"CA\", \"OR\"]` for a regional payer, or `[\"NATIONAL\"]` for a payer that operates in all 50 U.S. states. Supported territories are listed separately.\n\nWhen this array isn't in the response, it means Stedi hasn't classified the payer's operating states yet.",
             "items": {
               "$ref": "#/components/schemas/OperatingStateCode"
             },
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The parent payer group entity this payer belongs to. This is for metadata purposes and doesn't necessarily relate to the payer's enrollment process or other capabilities.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "type": "string"
+          },
+          "parentPayerGroupName": {
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
             "description": "The most commonly used ID for a payer. This value often corresponds to the name the payer uses internally and provides to patients on member ID cards.",
             "type": "string"
+          },
+          "programs": {
+            "description": "A list of insurance programs that this payer participates in. For example: `[\"MEDICAID\", \"MEDICARE\"]`. If Stedi hasn't assigned any programs to this payer, this array is empty.",
+            "items": {
+              "$ref": "#/components/schemas/Program"
+            },
+            "type": "array"
           },
           "stediId": {
             "description": "A unique ID that Stedi assigned to this payer and uses internally for routing requests. This ID will not change even if the `primaryPayerId` is updated.",
@@ -27778,17 +27860,22 @@
           "displayName",
           "names",
           "primaryPayerId",
+          "programs",
           "stediId",
           "transactionSupport"
         ],
         "type": "object"
       },
       "SearchPayerTransactionSupport": {
-        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, and coordination of benefits checks.\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
+        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, coordination of benefits checks, Electronic Funds Transfer (EFT), and 835 ERA with Electronic Funds Transfer (EFT).\n\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
         "properties": {
           "claimPayment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+          },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions with Electronic Funds Transfer (EFT) from this payer."
           },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -27801,6 +27888,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can send 837D dental claims to this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive Electronic Funds Transfer (EFT) transactions from this payer."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -27821,9 +27912,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -27832,7 +27925,7 @@
         "type": "object"
       },
       "SearchPayersResponseContent": {
-        "description": "Common output structure for list operations with pagination support.",
+        "description": "Authenticated output — see `SearchPayers`.",
         "properties": {
           "items": {
             "description": "Matching payers sorted by relevance, with the most relevant matches listed first.",
@@ -28004,6 +28097,10 @@
               "$ref": "#/components/schemas/ServiceLineStatus"
             },
             "type": "array"
+          },
+          "statusMessage": {
+            "description": "Additional free-form information about the service line status.",
+            "type": "string"
           }
         },
         "type": "object"
@@ -29863,6 +29960,10 @@
             "$ref": "#/components/schemas/ClaimPaymentEnrollmentProcess",
             "description": "Details about the enrollment process for Electronic Remittance Advice (ERAs) with this payer."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentProcess",
+            "description": "Details about the enrollment process for Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT) with this payer."
+          },
           "claimStatusInquiry": {
             "$ref": "#/components/schemas/ClaimStatusInquiryEnrollmentProcess",
             "description": "Details about the enrollment process for real-time claim status requests with this payer."
@@ -29874,6 +29975,10 @@
           "dentalClaim": {
             "$ref": "#/components/schemas/DentalClaimEnrollmentProcess",
             "description": "Details about the enrollment process for dental claim submission with this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/ElectronicFundsTransferEnrollmentProcess",
+            "description": "Details about the enrollment process for Electronic Funds Transfer (EFT) with this payer."
           },
           "eligibilityInquiry": {
             "$ref": "#/components/schemas/EligibilityInquiryEnrollmentProcess",
@@ -29929,11 +30034,15 @@
         "type": "object"
       },
       "TransactionSupport": {
-        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276 claim status requests, 837 professional claims, and 835 ERAs (claim payments). If the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
+        "description": "Whether the following transaction types are supported: 270 eligibility checks, 276/277 claim status requests, 837 claims (professional, dental, institutional), 835 ERAs (claim payments), 275 unsolicited claim attachments, coordination of benefits checks, Electronic Funds Transfer (EFT), and 835 ERA with Electronic Funds Transfer (EFT).\n\n\nIf the value is `ENROLLMENT_REQUIRED`, Stedi supports the transaction type, but you must [enroll with the payer](https://www.stedi.com/docs/healthcare/supported-payers#enrollment) first.",
         "properties": {
           "claimPayment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
             "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions from this payer."
+          },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive 835 Electronic Remittance Advice (ERA) transactions with Electronic Funds Transfer (EFT) from this payer."
           },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -29950,7 +30059,11 @@
           },
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837p dental claims to this payer."
+            "description": "Whether you can send 837D dental claims to this payer."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportValue",
+            "description": "Whether you can receive Electronic Funds Transfer (EFT) transactions from this payer."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -29958,11 +30071,11 @@
           },
           "institutionalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837i institutional claims to this payer."
+            "description": "Whether you can send 837I institutional claims to this payer."
           },
           "professionalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportValue",
-            "description": "Whether you can send 837p professional claims to this payer."
+            "description": "Whether you can send 837P professional claims to this payer."
           },
           "unsolicitedClaimAttachment": {
             "$ref": "#/components/schemas/TransactionSupportValue",
@@ -29971,10 +30084,12 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "claimSubmission",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -29988,6 +30103,10 @@
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 835 Electronic Remittance Advices (ERAs)."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportCountsItem",
+            "description": "Number of matching payers that support 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT)."
+          },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 276/277 real-time claim status."
@@ -29999,6 +30118,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
             "description": "Number of matching payers that support 837D dental claims."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportCountsItem",
+            "description": "Number of matching payers that support Electronic Funds Transfer (EFT)."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportCountsItem",
@@ -30019,9 +30142,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -30052,6 +30177,10 @@
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 835 Electronic Remittance Advices (ERAs)."
           },
+          "claimPaymentAdviceWithElectronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportStatsItem",
+            "description": "Number of matching payers that support 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT)."
+          },
           "claimStatus": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 276/277 real-time claim status."
@@ -30063,6 +30192,10 @@
           "dentalClaimSubmission": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
             "description": "Number of matching payers that support 837D dental claims."
+          },
+          "electronicFundsTransfer": {
+            "$ref": "#/components/schemas/TransactionSupportStatsItem",
+            "description": "Number of matching payers that support Electronic Funds Transfer (EFT)."
           },
           "eligibilityCheck": {
             "$ref": "#/components/schemas/TransactionSupportStatsItem",
@@ -30083,9 +30216,11 @@
         },
         "required": [
           "claimPayment",
+          "claimPaymentAdviceWithElectronicFundsTransfer",
           "claimStatus",
           "coordinationOfBenefits",
           "dentalClaimSubmission",
+          "electronicFundsTransfer",
           "eligibilityCheck",
           "institutionalClaimSubmission",
           "professionalClaimSubmission",
@@ -34641,7 +34776,7 @@
                   "description": "",
                   "summary": "Submit professional claim - X12 EDI",
                   "value": {
-                    "x12": "ISA*00*          *00*          *ZZ*574183004559   *ZZ*STEDITEST      *260213*2039*^*00501*000000039*0*T*>~GS*HC*574183004559*STEDITEST*20260213*203918*39*X*005010X222A1~ST*837*0001*005010X222A1~BHT*0019*00*01KHCBK84E40QQYJVXA5VVXG54*20260213*2038*CH~NM1*41*2*Test Data Health Services, Inc.*****46*123435~PER*IC**TE*5552223333~NM1*40*2*Cigna*****46*6400~HL*1**20*1~PRV*BI*PXC*2084P0800X~NM1*85*2*Therapy Associates*****XX*1999999984~N3*123 Some St*Floor 1~N4*A City*NY*123450000~REF*EI*123456789~PER*IC*Test Data Health Services, Inc.*TE*5553334444~HL*2*1*22*0~SBR*P*18*3335555******CI~NM1*IL*1*Anon*John****MI*U7777788888~N3*2222 Random St~N4*A City*NY*123450000~DMG*D8*20000101*M~NM1*PR*2*Cigna*****PI*6400~CLM*123456789*109.2***02>B>1*Y*A*Y*Y~HI*ABK>F1111~NM1*77*2*Smith Associates~N3*1234 Other St~N4*A City*NY*123450000~LX*1~SV1*HC>90837>95*109.2*UN*1***1~DTP*472*D8*20240101~REF*6R*111222333~SE*29*0001~GE*1*39~IEA*1*000000039~"
+                    "x12": "ISA*00*          *00*          *ZZ*574183004559   *ZZ*STEDITEST      *260213*2039*^*00501*000000039*0*T*>~GS*HC*574183004559*STEDITEST*20260213*203918*39*X*005010X222A1~ST*837*0001*005010X222A1~BHT*0019*00*01KHCBK84E40QQYJVXA5VVXG54*20260213*2038*CH~NM1*41*2*Test Data Health Services, Inc.*****46*123435~PER*IC**TE*5552223333~NM1*40*2*Cigna*****46*62308~HL*1**20*1~PRV*BI*PXC*2084P0800X~NM1*85*2*Therapy Associates*****XX*1999999984~N3*123 Some St*Floor 1~N4*A City*NY*123450000~REF*EI*123456789~PER*IC*Test Data Health Services, Inc.*TE*5553334444~HL*2*1*22*0~SBR*P*18*3335555******CI~NM1*IL*1*Anon*John****MI*U7777788888~N3*2222 Random St~N4*A City*NY*123450000~DMG*D8*20000101*M~NM1*PR*2*Cigna*****PI*62308~CLM*123456789*109.2***02>B>1*Y*A*Y*Y~HI*ABK>F1111~NM1*77*2*Smith Associates~N3*1234 Other St~N4*A City*NY*123450000~LX*1~SV1*HC>90837>95*109.2*UN*1***1~DTP*472*D8*20240101~REF*6R*111222333~SE*29*0001~GE*1*39~IEA*1*000000039~"
                   }
                 }
               },
@@ -34923,7 +35058,7 @@
                       "subscriberGroupName": "Cigna"
                     },
                     "tradingPartnerName": "Cigna",
-                    "tradingPartnerServiceId": "6400",
+                    "tradingPartnerServiceId": "62308",
                     "usageIndicator": "T"
                   }
                 }
@@ -34948,7 +35083,7 @@
                         "correlationId": "01HTCX97F6XS6F2K22D4KD59TK",
                         "formatVersion": "5010",
                         "patientControlNumber": "22266555",
-                        "payerId": "6400",
+                        "payerId": "62308",
                         "rhclaimNumber": "01HTCX97F6XS6F2K22D4KD59TK",
                         "serviceLines": [
                           {
@@ -34963,11 +35098,11 @@
                         "traceId": "a7f7c912-77f7-489d-96fc-c4ab3b5c33fc"
                       },
                       "payer": {
-                        "payerId": "6400",
+                        "payerId": "62308",
                         "payerName": "Cigna"
                       },
                       "status": "SUCCESS",
-                      "tradingPartnerServiceId": "6400",
+                      "tradingPartnerServiceId": "62308",
                       "x12": "ISA*00*          *00*          *ZZ*STEDITEST      *ZZ*574183004559   *260213*1951*^*00501*980180479*0*T*>~GS*HN*STEDITEST*574183004559*20260213*195151*1*X*005010X214~ST*277*0001*005010X214~BHT*0085*08*01KHC8YJE8EY6A5HFR00Z5H305*20260213*195151*TH~HL*1**20*1~NM1*AY*2*STEDI INC*****46*117151744~TRN*1*01KHC8YJE8EY6A5HFR00Z5H305~DTP*050*D8*20260213~DTP*009*D8*20260213~HL*2*1*21*1~NM1*41*2*Test Data Health Services, Inc.*****46*123456~TRN*2*01KHC8Y4HNP0GVQ5NSVTPZBC0F~STC*A0>17>AY*20260213*WQ*109.2~QTY*90*1~AMT*YU*109.2~HL*3*2*19*1~NM1*85*2*Therapy Associates*****XX*1234567890~TRN*1*0~REF*TJ*123456789~QTY*QA*1~AMT*YU*109.2~HL*4*3*PT*0~NM1*QC*1*Anon*John****MI*U7777788888~TRN*2*111222333~STC*A1>20*20260213*WQ*109.2~DTP*472*RD8*20240101-20240101~SE*25*0001~GE*1*1~IEA*1*980180479~"
                     }
                   }
@@ -42154,14 +42289,20 @@
                           "OH"
                         ],
                         "parentPayerGroupId": "GTRSH",
+                        "parentPayerGroupName": "Trinity Health",
                         "primaryPayerId": "95655",
+                        "programs": [
+                          "MEDICARE"
+                        ],
                         "stediId": "YKHRB",
                         "transactionSupport": {
                           "claimPayment": "ENROLLMENT_REQUIRED",
+                          "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                           "claimStatus": "SUPPORTED",
                           "claimSubmission": "SUPPORTED",
                           "coordinationOfBenefits": "NOT_SUPPORTED",
                           "dentalClaimSubmission": "NOT_SUPPORTED",
+                          "electronicFundsTransfer": "NOT_SUPPORTED",
                           "eligibilityCheck": "SUPPORTED",
                           "institutionalClaimSubmission": "SUPPORTED",
                           "professionalClaimSubmission": "SUPPORTED",
@@ -42357,14 +42498,20 @@
                             "OH"
                           ],
                           "parentPayerGroupId": "GTRSH",
+                          "parentPayerGroupName": "Trinity Health",
                           "primaryPayerId": "95655",
+                          "programs": [
+                            "MEDICARE"
+                          ],
                           "stediId": "YKHRB",
                           "transactionSupport": {
                             "claimPayment": "ENROLLMENT_REQUIRED",
+                            "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                             "claimStatus": "SUPPORTED",
                             "claimSubmission": "SUPPORTED",
                             "coordinationOfBenefits": "NOT_SUPPORTED",
                             "dentalClaimSubmission": "NOT_SUPPORTED",
+                            "electronicFundsTransfer": "NOT_SUPPORTED",
                             "eligibilityCheck": "SUPPORTED",
                             "institutionalClaimSubmission": "SUPPORTED",
                             "professionalClaimSubmission": "SUPPORTED",
@@ -42474,7 +42621,7 @@
                   "ListPayerRecordsCsv_example1": {
                     "description": "",
                     "summary": "List payers",
-                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"PtanRequired\",\"ParentPayerGroupId\",\"WebsiteUrl\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"false\",\"GTRSH\",\"https://www.thpmedicare.org\""
+                    "value": "\"StediId\",\"PrimaryPayerId\",\"DisplayName\",\"Names\",\"Aliases\",\"EligibilityInquiry\",\"EligibilityInquiryEnrollmentRequired\",\"EligibilityInquiryEnrollmentType\",\"EligibilityInquiryEnrollmentTimeframe\",\"EligibilityInquiryEnrollmentRequestedEffectiveDate\",\"ClaimStatusInquiry\",\"ClaimStatusInquiryEnrollmentRequired\",\"ClaimStatusInquiryEnrollmentType\",\"ClaimStatusInquiryEnrollmentTimeframe\",\"ClaimStatusInquiryEnrollmentRequestedEffectiveDate\",\"ProfessionalClaim\",\"ProfessionalClaimEnrollmentRequired\",\"ProfessionalClaimEnrollmentType\",\"ProfessionalClaimEnrollmentTimeframe\",\"ProfessionalClaimEnrollmentRequestedEffectiveDate\",\"InstitutionalClaim\",\"InstitutionalClaimEnrollmentRequired\",\"InstitutionalClaimEnrollmentType\",\"InstitutionalClaimEnrollmentTimeframe\",\"InstitutionalClaimEnrollmentRequestedEffectiveDate\",\"DentalClaim\",\"DentalClaimEnrollmentRequired\",\"DentalClaimEnrollmentType\",\"DentalClaimEnrollmentTimeframe\",\"DentalClaimEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdvice\",\"ClaimPaymentAdviceEnrollmentRequired\",\"ClaimPaymentEnrollmentType\",\"ClaimPaymentEnrollmentTimeframe\",\"ClaimPaymentEnrollmentSupportedAggregationPreferences\",\"ClaimPaymentEnrollmentRequestedEffectiveDate\",\"CoordinationOfBenefits\",\"CoordinationOfBenefitsEnrollmentRequired\",\"CoordinationOfBenefitsEnrollmentType\",\"CoordinationOfBenefitsEnrollmentTimeframe\",\"CoordinationOfBenefitsEnrollmentRequestedEffectiveDate\",\"ClaimAttachmentsSupport\",\"ClaimAttachmentsSupportEnrollmentRequired\",\"ClaimAttachmentEnrollmentType\",\"ClaimAttachmentEnrollmentTimeframe\",\"ClaimAttachmentEnrollmentRequestedEffectiveDate\",\"EmployerIdentificationNumbers\",\"CoverageTypes\",\"OperatingStates\",\"Programs\",\"PtanRequired\",\"ParentPayerGroupId\",\"ParentPayerGroupName\",\"WebsiteUrl\",\"ElectronicFundsTransfer\",\"ElectronicFundsTransferEnrollmentRequired\",\"ElectronicFundsTransferEnrollmentType\",\"ElectronicFundsTransferEnrollmentTimeframe\",\"ElectronicFundsTransferEnrollmentRequestedEffectiveDate\",\"ClaimPaymentAdviceWithElectronicFundsTransfer\",\"ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentRequired\",\"ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentType\",\"ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentTimeframe\",\"ClaimPaymentAdviceWithElectronicFundsTransferEnrollmentRequestedEffectiveDate\"\n\"YKHRB\",\"95655\",\"Trinity Health Plan\",\"MediGold|Medigold Health Plans|Mount Carmel Health Plan|Mount Carmel MediGold|Trinity Health Plan of Michigan\",\"00420|13123|1584|4714|95655|MEDGL|MEDGLD|MEDIGOLD\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"true\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NPI|TIN\",\"NOT_SUPPORTED\",\"false\",\"false\",\"\",\"\",\"\",\"false\",\"false\",\"\",\"\",\"\",\"\",\"dental|medical\",\"ID|IA|MI|NY|OH\",\"MEDICARE\",\"false\",\"GTRSH\",\"Trinity Health\",\"https://www.thpmedicare.org\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NOT_SUPPORTED\",\"true\",\"true\",\"ONE_CLICK\",\"DAYS\",\"NOT_SUPPORTED\""
                   }
                 },
                 "schema": {
@@ -42697,6 +42844,22 @@
             }
           },
           {
+            "description": "Filter for matching payers with the specified Electronic Funds Transfer (EFT) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "electronicFundsTransfer",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
+            "description": "Filter for matching payers with the specified 835 Electronic Remittance Advice (ERA) with Electronic Funds Transfer (EFT) support. When combined with other transaction filters, payers must satisfy **all** specified criteria to be included in results.",
+            "in": "query",
+            "name": "claimPaymentAdviceWithElectronicFundsTransfer",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionFilterValue"
+            }
+          },
+          {
             "description": "Filter for matching payers that support transactions for **all** of the specified coverage types. For example, setting this array to `[\"medical\", \"dental\"]` returns only payers who provide both medical and dental coverage.\n\nThe results also exclude payers without coverage type classifications in Stedi's database.",
             "explode": true,
             "in": "query",
@@ -42711,14 +42874,28 @@
             "style": "form"
           },
           {
-            "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+            "description": "Filter for matching payers that operate in **all** of the specified states, territories, or NATIONAL. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon. Setting it to `[\"NATIONAL\"]` returns payers that operate in all 50 U.S. states. To find payers that also operate in territories, you must include those territory codes explicitly, for example `[\"NATIONAL\", \"PR\"]`.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
             "explode": true,
             "in": "query",
             "name": "operatingStates",
             "schema": {
-              "description": "Filter for matching payers that operate in **all** of the specified states. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon, and setting it to `[\"NATIONAL\"]` returns payers that operate throughout the entire United States.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
+              "description": "Filter for matching payers that operate in **all** of the specified states, territories, or NATIONAL. For example, setting this array to `[\"CA\", \"OR\"]` returns only payers that operate in both California and Oregon. Setting it to `[\"NATIONAL\"]` returns payers that operate in all 50 U.S. states. To find payers that also operate in territories, you must include those territory codes explicitly, for example `[\"NATIONAL\", \"PR\"]`.\n\nThe results also exclude payers without operating state classifications in Stedi's database.",
               "items": {
                 "$ref": "#/components/schemas/OperatingStateCode"
+              },
+              "type": "array"
+            },
+            "style": "form"
+          },
+          {
+            "description": "Filter for matching payers that participate in **any** of the specified insurance programs. For example, setting this array to `[\"MEDICARE\", \"TRICARE\"]` returns payers that participate in either Medicare or TRICARE.\n\nThe results also exclude payers without program classifications in Stedi's database.",
+            "explode": true,
+            "in": "query",
+            "name": "programs",
+            "schema": {
+              "description": "Filter for matching payers that participate in **any** of the specified insurance programs. For example, setting this array to `[\"MEDICARE\", \"TRICARE\"]` returns payers that participate in either Medicare or TRICARE.\n\nThe results also exclude payers without program classifications in Stedi's database.",
+              "items": {
+                "$ref": "#/components/schemas/Program"
               },
               "type": "array"
             },
@@ -42761,6 +42938,7 @@
                               "SZXAY"
                             ],
                             "avatarUrl": "https://prod-payer-avatars.payers.us.stedi.com/GUFCO/avatar.png?v=1763077235241",
+                            "conciseName": "Highmark PA",
                             "coverageTypes": [
                               "dental",
                               "medical",
@@ -42798,13 +42976,19 @@
                               "PA"
                             ],
                             "parentPayerGroupId": "QOSPQ",
+                            "parentPayerGroupName": "Highmark",
                             "primaryPayerId": "54771",
+                            "programs": [
+                              "MEDICARE_ADVANTAGE"
+                            ],
                             "stediId": "GUFCO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
+                              "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                               "claimStatus": "ENROLLMENT_REQUIRED",
                               "coordinationOfBenefits": "SUPPORTED",
                               "dentalClaimSubmission": "NOT_SUPPORTED",
+                              "electronicFundsTransfer": "ENROLLMENT_REQUIRED",
                               "eligibilityCheck": "ENROLLMENT_REQUIRED",
                               "institutionalClaimSubmission": "NOT_SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
@@ -42822,6 +43006,11 @@
                             "notSupported": 29,
                             "supported": 0
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 142,
+                            "supported": 0
+                          },
                           "claimStatus": {
                             "enrollmentRequired": 3,
                             "notSupported": 55,
@@ -42836,6 +43025,11 @@
                             "enrollmentRequired": 2,
                             "notSupported": 95,
                             "supported": 45
+                          },
+                          "electronicFundsTransfer": {
+                            "enrollmentRequired": 113,
+                            "notSupported": 29,
+                            "supported": 0
                           },
                           "eligibilityCheck": {
                             "enrollmentRequired": 5,
@@ -42869,6 +43063,16 @@
                               "total": 113
                             }
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 142
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 0,
+                              "total": 0
+                            }
+                          },
                           "claimStatus": {
                             "notSupported": {
                               "total": 55
@@ -42897,6 +43101,16 @@
                               "enrollmentNotRequired": 45,
                               "enrollmentRequired": 2,
                               "total": 47
+                            }
+                          },
+                          "electronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 29
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 113,
+                              "total": 113
                             }
                           },
                           "eligibilityCheck": {
@@ -43014,13 +43228,20 @@
                               "NC"
                             ],
                             "parentPayerGroupId": "OVWIG",
+                            "parentPayerGroupName": "Blue Cross Blue Shield of North Carolina",
                             "primaryPayerId": "BCSNC",
+                            "programs": [
+                              "COMMERCIAL",
+                              "MEDICARE_ADVANTAGE"
+                            ],
                             "stediId": "UPICO",
                             "transactionSupport": {
                               "claimPayment": "ENROLLMENT_REQUIRED",
+                              "claimPaymentAdviceWithElectronicFundsTransfer": "NOT_SUPPORTED",
                               "claimStatus": "SUPPORTED",
                               "coordinationOfBenefits": "SUPPORTED",
                               "dentalClaimSubmission": "SUPPORTED",
+                              "electronicFundsTransfer": "ENROLLMENT_REQUIRED",
                               "eligibilityCheck": "SUPPORTED",
                               "institutionalClaimSubmission": "SUPPORTED",
                               "professionalClaimSubmission": "SUPPORTED",
@@ -43041,6 +43262,11 @@
                             "notSupported": 6,
                             "supported": 0
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "enrollmentRequired": 0,
+                            "notSupported": 83,
+                            "supported": 0
+                          },
                           "claimStatus": {
                             "enrollmentRequired": 0,
                             "notSupported": 0,
@@ -43055,6 +43281,11 @@
                             "enrollmentRequired": 2,
                             "notSupported": 41,
                             "supported": 40
+                          },
+                          "electronicFundsTransfer": {
+                            "enrollmentRequired": 77,
+                            "notSupported": 6,
+                            "supported": 0
                           },
                           "eligibilityCheck": {
                             "enrollmentRequired": 0,
@@ -43088,6 +43319,16 @@
                               "total": 77
                             }
                           },
+                          "claimPaymentAdviceWithElectronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 83
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 0,
+                              "total": 0
+                            }
+                          },
                           "claimStatus": {
                             "notSupported": {
                               "total": 0
@@ -43116,6 +43357,16 @@
                               "enrollmentNotRequired": 40,
                               "enrollmentRequired": 2,
                               "total": 42
+                            }
+                          },
+                          "electronicFundsTransfer": {
+                            "notSupported": {
+                              "total": 6
+                            },
+                            "supported": {
+                              "enrollmentNotRequired": 0,
+                              "enrollmentRequired": 77,
+                              "total": 77
                             }
                           },
                           "eligibilityCheck": {
