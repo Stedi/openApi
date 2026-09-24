@@ -1147,7 +1147,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-submit-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n - This property is required when you're submitting attachment files through Stedi.\n - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n - This property is required when you're submitting attachment files through Stedi.\n - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -4979,7 +4979,7 @@
         "operationId": "GetProfessionalClaimSubmission",
         "parameters": [
           {
-            "description": "A unique identifier for a specific submission of a claim within Stedi. Stedi generates a submission ID for the initial submission and then a new submission ID for every resubmission of the same claim. This is different from the claim ID, which doesn't change throughout the claim's lifecycle.\n\nYou can retrieve this ID from the `submissionId` property in the [Create Professional Claim JSON endpoint](/docs/healthcare/api-reference/post-create-professional-claim-json) response.",
+            "description": "A unique identifier for a specific submission of a claim within Stedi. Stedi generates a submission ID for the initial submission and then a new submission ID for every resubmission of the same claim. This is different from the claim ID, which doesn't change throughout the claim's lifecycle.\n\nYou can retrieve this ID from the `submissionId` property in the [Create Professional Claim JSON endpoint](/healthcare/api-reference/post-create-professional-claim-json) response.",
             "examples": {
               "GetProfessionalClaimSubmission_example1": {
                 "description": "",
@@ -4991,7 +4991,7 @@
             "name": "id",
             "required": true,
             "schema": {
-              "description": "A unique identifier for a specific submission of a claim within Stedi. Stedi generates a submission ID for the initial submission and then a new submission ID for every resubmission of the same claim. This is different from the claim ID, which doesn't change throughout the claim's lifecycle.\n\nYou can retrieve this ID from the `submissionId` property in the [Create Professional Claim JSON endpoint](/docs/healthcare/api-reference/post-create-professional-claim-json) response.",
+              "description": "A unique identifier for a specific submission of a claim within Stedi. Stedi generates a submission ID for the initial submission and then a new submission ID for every resubmission of the same claim. This is different from the claim ID, which doesn't change throughout the claim's lifecycle.\n\nYou can retrieve this ID from the `submissionId` property in the [Create Professional Claim JSON endpoint](/healthcare/api-reference/post-create-professional-claim-json) response.",
               "maxLength": 40,
               "minLength": 1,
               "type": "string"
