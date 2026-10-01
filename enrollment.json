@@ -84,6 +84,14 @@
         ],
         "type": "object"
       },
+      "CountryCode": {
+        "description": "Country of an address.",
+        "enum": [
+          "US",
+          "CA"
+        ],
+        "type": "string"
+      },
       "CreateEnrollmentDocumentDownloadResponseContent": {
         "description": "Response containing the document ID and pre-signed URL for download.",
         "properties": {
@@ -1378,6 +1386,10 @@
             "minLength": 2,
             "type": "string"
           },
+          "country": {
+            "$ref": "#/components/schemas/CountryCode",
+            "description": "The country for the contact's address. Defaults to `US` when omitted. Must agree with `state`. Stedi rejects requests with `country` and `state` mismatches."
+          },
           "email": {
             "description": "The contact's email address. Set this to where you want the payer to send communications regarding the enrollment. This can be different from the provider's email if needed.",
             "minLength": 5,
@@ -1403,7 +1415,7 @@
           },
           "state": {
             "$ref": "#/components/schemas/UsState",
-            "description": "The contact's two-letter state abbreviation. For example, `PA`, or `MD`. This should match exactly what the payer has on file for the provider."
+            "description": "The contact's two-letter state, territory, or province abbreviation. For example, `PA`, or `MD`. Must belong to `country`. This should match exactly what the payer has on file for the provider."
           },
           "streetAddress1": {
             "description": "The contact's street address, including the street number, name, and any suite or apartment number. This should match exactly what the payer has on file for the provider.",
@@ -1415,7 +1427,7 @@
             "type": "string"
           },
           "zipCode": {
-            "description": "The contact's five-digit ZIP code. This should match exactly what the payer has on file for the provider.",
+            "description": "The contact's ZIP or postal code. For a US address, this is a five-digit ZIP code (such as `12345`) or a ZIP + 4-digit extension (`12345-4321`. For a Canadian address, this is a six-character postal code, which is returned in `A1A 1A1` form. This should match exactly what the payer has on file for the provider.",
             "minLength": 5,
             "type": "string"
           }
@@ -1944,7 +1956,7 @@
         "type": "object"
       },
       "UsState": {
-        "description": "United States state and territory codes using standard two-letter abbreviations.",
+        "description": "US state, territory, and Armed Forces codes plus Canadian province and territory codes, using standard two-letter abbreviations. Each code belongs to one country and must agree with the address `country`.",
         "enum": [
           "AA",
           "AE",
@@ -2007,7 +2019,20 @@
           "WA",
           "WV",
           "WI",
-          "WY"
+          "WY",
+          "AB",
+          "BC",
+          "MB",
+          "NB",
+          "NL",
+          "NS",
+          "NT",
+          "NU",
+          "ON",
+          "PE",
+          "QC",
+          "SK",
+          "YT"
         ],
         "type": "string"
       },
@@ -2987,6 +3012,7 @@
                       },
                       "primaryContact": {
                         "city": "A City",
+                        "country": "US",
                         "email": "test@example.com",
                         "firstName": "John",
                         "lastName": "Doe",
@@ -3454,6 +3480,7 @@
                       },
                       "primaryContact": {
                         "city": "A City",
+                        "country": "US",
                         "email": "test@example.com",
                         "firstName": "John",
                         "lastName": "Doe",
@@ -3729,6 +3756,7 @@
                       },
                       "primaryContact": {
                         "city": "A City",
+                        "country": "US",
                         "email": "test@example.com",
                         "firstName": "Updated First Name",
                         "lastName": "Updated Last Name",
@@ -4246,6 +4274,7 @@
                       "contacts": [
                         {
                           "city": "Chevy Chase",
+                          "country": "US",
                           "email": "bob@fortdental.center",
                           "firstName": "Bob",
                           "lastName": "Dentist",
@@ -4257,6 +4286,7 @@
                         },
                         {
                           "city": "Chevy Chase",
+                          "country": "US",
                           "email": "tom@fortdental.center",
                           "firstName": "Tom",
                           "lastName": "Dentist",
@@ -4510,6 +4540,7 @@
                       "contacts": [
                         {
                           "city": "Chevy Chase",
+                          "country": "US",
                           "email": "bob@fortdental.center",
                           "firstName": "Bob",
                           "lastName": "Dentist",
@@ -4521,6 +4552,7 @@
                         },
                         {
                           "city": "Chevy Chase",
+                          "country": "US",
                           "email": "tom@fortdental.center",
                           "firstName": "Tom",
                           "lastName": "Dentist",
@@ -4695,6 +4727,7 @@
                       "contacts": [
                         {
                           "city": "A City",
+                          "country": "US",
                           "email": "bob@fortdental.center",
                           "firstName": "Test",
                           "lastName": "Tester",
