@@ -1445,6 +1445,11 @@
       "ProviderSummary": {
         "description": "Summary information for a provider, typically used in list operations.",
         "properties": {
+          "createdAt": {
+            "description": "The date and time Stedi created the provider record.",
+            "format": "date-time",
+            "type": "string"
+          },
           "id": {
             "description": "A unique identifier Stedi assigns to this provider internally.",
             "type": "string"
@@ -1464,12 +1469,19 @@
           "taxIdType": {
             "$ref": "#/components/schemas/TaxIdType",
             "description": "The type of tax ID. Can be either an `EIN` - Employer Identification Number, or an `SSN` - Social Security Number."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the provider record.",
+            "format": "date-time",
+            "type": "string"
           }
         },
         "required": [
+          "createdAt",
           "id",
           "name",
-          "npi"
+          "npi",
+          "updatedAt"
         ],
         "type": "object"
       },
@@ -4119,18 +4131,22 @@
                     "value": {
                       "items": [
                         {
+                          "createdAt": "2024-11-18T17:39:52.406Z",
                           "id": "10334e76-f073-4b5d-8984-81d8e5107857",
                           "name": "BDQ Dental Inc",
                           "npi": "1999999992",
                           "taxId": "555123456",
-                          "taxIdType": "EIN"
+                          "taxIdType": "EIN",
+                          "updatedAt": "2024-12-02T09:14:31.882Z"
                         },
                         {
+                          "createdAt": "2024-10-04T11:22:08.153Z",
                           "id": "10234e76-f067-4b5d-8984-81d8e5107123",
                           "name": "Example Medical Associates",
                           "npi": "1999999984",
                           "taxId": "100100111",
-                          "taxIdType": "EIN"
+                          "taxIdType": "EIN",
+                          "updatedAt": "2024-10-04T11:22:08.153Z"
                         }
                       ]
                     }
