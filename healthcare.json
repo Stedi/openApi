@@ -2154,12 +2154,12 @@
       "ClaimAcknowledgmentServiceLines": {
         "properties": {
           "beginServiceLineDate": {
-            "description": "The starting date of the service.",
+            "description": "The starting date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "endServiceLineDate": {
-            "description": "The ending date of the service.",
+            "description": "The ending date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -2178,7 +2178,7 @@
             "type": "array"
           },
           "serviceLineDate": {
-            "description": "The date of the service.",
+            "description": "The date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -2748,7 +2748,7 @@
             "type": "array"
           },
           "deathDate": {
-            "description": "The patient's date of death.",
+            "description": "The patient's date of death, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -3345,7 +3345,7 @@
             "description": "Payment and remittance reassociation details for transaction tracking."
           },
           "productionDate": {
-            "description": "The end date for the adjudication production cycle for claims included in this ERA.",
+            "description": "The end date for the adjudication production cycle for claims included in this ERA, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -3371,7 +3371,7 @@
         "description": "Information about a payment, including the payment method, payment amount, and account details for both the sender and receiver.",
         "properties": {
           "checkIssueOrEFTEffectiveDate": {
-            "description": "The date the payer considers the transaction to be settled. If the payment is made by automated clearinghouse (ACH), this is the date the funds are available to the provider. If the payment is made by check, this is the date the check is issued. If the payment is made by Federal Reserve Funds/wire transfer, this is the date that the payer anticipates the money to move.",
+            "description": "The date the payer considers the transaction to be settled, formatted as `YYYYMMDD`. If the payment is made by automated clearinghouse (ACH), this is the date the funds are available to the provider. If the payment is made by check, this is the date the check is issued. If the payment is made by Federal Reserve Funds/wire transfer, this is the date that the payer anticipates the money to move.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -3469,12 +3469,12 @@
             "type": "array"
           },
           "serviceDate": {
-            "description": "The date the service was rendered. Used for single-day services.",
+            "description": "The date the service was rendered, formatted as `YYYYMMDD`. Used for single-day services.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "serviceEndDate": {
-            "description": "The date the service ended. Used for multi-day services.",
+            "description": "The date the service ended, formatted as `YYYYMMDD`. Used for multi-day services.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -3487,7 +3487,7 @@
             "description": "Payment information for this service line."
           },
           "serviceStartDate": {
-            "description": "The date the service began. Used for multi-day services.",
+            "description": "The date the service began, formatted as `YYYYMMDD`. Used for multi-day services.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -4616,17 +4616,17 @@
             "type": "string"
           },
           "claimServiceBeginDate": {
-            "description": "The starting date of the service.",
+            "description": "The starting date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "claimServiceDate": {
-            "description": "The date of the service.",
+            "description": "The date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "claimServiceEndDate": {
-            "description": "The ending date of the service.",
+            "description": "The ending date of the service, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -6519,17 +6519,17 @@
       "DentalClaimDateInformation": {
         "properties": {
           "accidentDate": {
-            "description": "The date of the accident related to this claim. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident.",
+            "description": "The date of the accident related to this claim, formatted as `YYYYMMDD`. Required when `relatedCausesCode` is set to `AA` - Auto Accident or `OA` - Other Accident. Also required when `relatedCausesCode` is set to `EM` - Employment and this claim is the result of an accident.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "appliancePlacementDate": {
-            "description": "The date the appliance was placed.",
+            "description": "The date the appliance was placed, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "repricerReceivedDate": {
-            "description": "The date the repricing entity received the initial claim. Required when a repricer is passing the claim onto the payer.",
+            "description": "The date the repricing entity received the initial claim, formatted as `YYYYMMDD`. Required when a repricer is passing the claim onto the payer.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -7045,7 +7045,7 @@
             "description": "The dependent's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
-            "description": "The patient's date of birth",
+            "description": "The patient's date of birth, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -7120,7 +7120,7 @@
         "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers.",
         "properties": {
           "adjudicationOrPaymentDate": {
-            "description": "The date the other payer adjudicated or paid the claim.",
+            "description": "The date the other payer adjudicated or paid the claim, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -7613,7 +7613,7 @@
             "type": "string"
           },
           "serviceDate": {
-            "description": "The date the service was rendered (for services performed on a single day),. **Do not** supply a date here if you are including the `serviceLineDateInformation.treatmentStartDate` property in the service line.",
+            "description": "The date the service was rendered (for services performed on a single day), formatted as `YYYYMMDD`. **Do not** supply a date here if you are including the `serviceLineDateInformation.treatmentStartDate` property in the service line.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -7711,32 +7711,32 @@
         "description": "Identify specific dates related to the service rendered.",
         "properties": {
           "applianceDate": {
-            "description": "The date the appliance was placed. Required when the orthodontic appliance placement date is different than the date you supplied in `claimInformation.claimDateInformation.appliancePlacementDate`.",
+            "description": "The date the appliance was placed, formatted as `YYYYMMDD`. Required when the orthodontic appliance placement date is different than the date you supplied in `claimInformation.claimDateInformation.appliancePlacementDate`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "estimatedPriorPlacementDate": {
-            "description": "The estimated date when the previous appliance was placed. Either this property or `priorPlacementDate` is required when the `claimInformation.serviceLines[].dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement.",
+            "description": "The estimated date when the previous appliance was placed, formatted as `YYYYMMDD`. Either this property or `priorPlacementDate` is required when the `claimInformation.serviceLines[].dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "priorPlacementDate": {
-            "description": "The exact date when the previous appliance was placed. Either this property or `estimatedPriorPlacementDate` is required when the `claimInformation.serviceLines[].dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement.",
+            "description": "The exact date when the previous appliance was placed, formatted as `YYYYMMDD`. Either this property or `estimatedPriorPlacementDate` is required when the `claimInformation.serviceLines[].dentalService.prosthesisCrownOrInlayCode` for this service line is set to `R` for Replacement.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "replacementDate": {
-            "description": "The date the orthodontic appliance was replaced.",
+            "description": "The date the orthodontic appliance was replaced, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "treatmentCompletionDate": {
-            "description": "The date the treatment was completed. If you include this property, **do not** include the `serviceDate` property in this service line.",
+            "description": "The date the treatment was completed, formatted as `YYYYMMDD`. If you include this property, **do not** include the `serviceDate` property in this service line.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "treatmentStartDate": {
-            "description": "The date the treatment began. This may apply to the following scenarios: initial impression or preparation for a crown or denture, reporting initial endontic treatment, or reporting the implant fixture placement. If you include this property, **do not** include the `serviceDate` property in this service line.",
+            "description": "The date the treatment began, formatted as `YYYYMMDD`. This may apply to the following scenarios: initial impression or preparation for a crown or denture, reporting initial endontic treatment, or reporting the implant fixture placement. If you include this property, **do not** include the `serviceDate` property in this service line.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -8025,7 +8025,7 @@
             "description": "The subscriber's address. Every claim must include address information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service. Use of outdated values could cause the payer to reject, deny, or delay the claim due to suspected fraud.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
-            "description": "The subscriber's date of birth. This property is **required** if the subscriber is an individual.",
+            "description": "The subscriber's date of birth, formatted as `YYYYMMDD`. This property is **required** if the subscriber is an individual.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -8099,7 +8099,7 @@
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
           },
           "dateOfBirth": {
-            "description": "The patient's date of birth",
+            "description": "The patient's date of birth, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -16479,6 +16479,7 @@
       },
       "GetElectronicRemittanceAdvicePdfOutputPayload": {
         "contentEncoding": "byte",
+        "contentMediaType": "application/pdf",
         "description": "A binary blob containing the Electronic Remittance Advice (ERA) PDF. You MUST send the 'accept: application/pdf' header to get back the pdf content. Otherwise, the response will be base64-encoded and you must first decode it. To render the PDF, you must save the output to a file with a `.pdf` extension.",
         "type": "string"
       },
@@ -17514,7 +17515,7 @@
             "description": "The description of the `statusInformationActionCode`."
           },
           "statusInformationEffectiveDate": {
-            "description": "The effective date of the status information.",
+            "description": "The effective date of the status information, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -17867,17 +17868,17 @@
             "type": "string"
           },
           "repricerReceivedDate": {
-            "description": "The date the repricer received the claim. Required when a repricer is passing the claim onto the payer.",
+            "description": "The date the repricer received the claim, formatted as `YYYYMMDD`. Required when a repricer is passing the claim onto the payer.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "statementBeginDate": {
-            "description": "The beginning date of the statement.",
+            "description": "The beginning date of the statement, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "statementEndDate": {
-            "description": "The ending date of the statement.",
+            "description": "The ending date of the statement, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -18721,7 +18722,7 @@
             "description": "The dependent's address. Every claim must include this information in either the `subscriber` (when the patient is the subscriber) or `dependent` (when the patient is a dependent) object. You must include at least the `address1` and `city` properties in this object. The `state` and `postalCode` properties are also required for all United States and Canadian addresses.\n  - The address should be the patient's correct address at the time of service.\n  - If you don't know the patient's address, first submit a [Real-Time Eligibility Check](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-eligibility) for the patient and then copy the address from either the `subscriber` or `dependent` object in the response.\n  - If the patient doesn't have a current address, you can populate the `address1` property with `UNKNOWN` and populate the city, state, and zip code with appropriate values based on your discretion. However, we still recommend running an eligibility check when possible, so you can use the address the payer has on file. Some payers may have explicit rules for how to handle this situation - check the payer's specific requirements before using this approach."
           },
           "dateOfBirth": {
-            "description": "The patient's date of birth.",
+            "description": "The patient's date of birth, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -18847,7 +18848,7 @@
       "InstitutionalLineAdjudicationInformation": {
         "properties": {
           "adjudicationOrPaymentDate": {
-            "description": "The date the claim was paid.",
+            "description": "The date the claim was paid, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -18975,7 +18976,7 @@
         "type": "object"
       },
       "InstitutionalOtherPayerIdentifierTypeCode": {
-        "description": "Code specifying the type of identifier used for the other payer. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare and Medicaid Services PlanID. Use `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
+        "description": "Code specifying the type of identifier used for the other payer. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare and Medicaid Services PlanID.\n\n`XV` is deprecated.",
         "enum": [
           "PI",
           "XV"
@@ -19025,7 +19026,7 @@
             "type": "string"
           },
           "otherPayerSecondaryIdentifier": {
-            "description": "Additional identification number for the other payer. The `qualifier` property can be set to `2U` - Payer Identification Number, `EI` - Employer's Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.",
+            "description": "Additional identification number for the other payer. The `qualifier` property can be set to `2U` - Payer Identification Number, `EI` - Employer's Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.\n\nOnly set `qualifier` to `2U` when `otherPayerIdentifierTypeCode` is `XV`.",
             "items": {
               "$ref": "#/components/schemas/InstitutionalReferenceIdentification"
             },
@@ -19878,12 +19879,12 @@
             "type": "string"
           },
           "serviceDate": {
-            "description": "Either a single date of service or the beginning of a range of service dates. If a range is provided, the end date should be provided in `serviceDateEnd`. \n\nThis property is required on outpatient service lines where a drug is not being billed and the Statement Covers Period is greater than one day. \n\nIt's also required when a drug is being billed and the payer's adjudication is known to be impacted by the drug duration or the date the prescription was written. In cases where a drug is being billed on a service line, this property may be used to indicate the date the prescription was written (or otherwise communicated by the prescriber if not written). \n\nThis property may also be used to indicate the beginning of the duration for which the drug supply will be used by the patient. The difference in dates, including both the begin and end dates, are the days supply of the drug. Example: 20000101-20000107 (1/1/00 to 1/7/00) is used for a 7 day supply where the first day of the drug used by the patient is 1/1/00. In the event a drug is administered on less than a daily basis (for example, every other day) the date range would include the entire period during which the drug was supplied, including the last day the drug was used. Example: 20000101-20000108 (1/1/00 to 1/8/00) is used for an 8 days supply where the prescription is written for Q48 (every 48 hours), four doses of the drug are dispensed and the first dose is used on 1/1/00.",
+            "description": "Either a single date of service or the beginning of a range of service dates, formatted as `YYYYMMDD`. If a range is provided, the end date should be provided in `serviceDateEnd`. \n\nThis property is required on outpatient service lines where a drug is not being billed and the Statement Covers Period is greater than one day. \n\nIt's also required when a drug is being billed and the payer's adjudication is known to be impacted by the drug duration or the date the prescription was written. In cases where a drug is being billed on a service line, this property may be used to indicate the date the prescription was written (or otherwise communicated by the prescriber if not written). \n\nThis property may also be used to indicate the beginning of the duration for which the drug supply will be used by the patient. The difference in dates, including both the begin and end dates, are the days supply of the drug. Example: 20000101-20000107 (1/1/00 to 1/7/00) is used for a 7 day supply where the first day of the drug used by the patient is 1/1/00. In the event a drug is administered on less than a daily basis (for example, every other day) the date range would include the entire period during which the drug was supplied, including the last day the drug was used. Example: 20000101-20000108 (1/1/00 to 1/8/00) is used for an 8 days supply where the prescription is written for Q48 (every 48 hours), four doses of the drug are dispensed and the first dose is used on 1/1/00.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "serviceDateEnd": {
-            "description": "The end of a range of service dates. If you include this property, you must also include `serviceDate` to indicate the beginning of the range.",
+            "description": "The end of a range of service dates, formatted as `YYYYMMDD`. If you include this property, you must also include `serviceDate` to indicate the beginning of the range.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -19927,14 +19928,17 @@
         "deprecated": true,
         "properties": {
           "beginServiceDate": {
+            "description": "Date expressed as follows: YYYYMMDD, where YYYY = year, MM = month (01-12) and DD = day (01-31)",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "endServiceDate": {
+            "description": "Date expressed as follows: YYYYMMDD, where YYYY = year, MM = month (01-12) and DD = day (01-31)",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "serviceDate": {
+            "description": "Date expressed as follows: YYYYMMDD, where YYYY = year, MM = month (01-12) and DD = day (01-31)",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -20852,7 +20856,7 @@
         "description": "Includes service line adjudication information for coordination of benefits between the initial payers of a health care claim and all subsequent payers.",
         "properties": {
           "adjudicationOrPaymentDate": {
-            "description": "The date the other payer adjudicated or paid the claim.",
+            "description": "The date the other payer adjudicated or paid the claim, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -20951,6 +20955,7 @@
             "$ref": "#/components/schemas/InstitutionalClaimAdjustment"
           },
           "claimPaidDate": {
+            "description": "Date expressed as follows: YYYYMMDD, where YYYY = year, MM = month (01-12) and DD = day (01-31)",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -21584,12 +21589,12 @@
             "type": "string"
           },
           "occurrenceSpanCodeEndDate": {
-            "description": "The end date for the occurrence span.",
+            "description": "The end date for the occurrence span, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "occurrenceSpanCodeStartDate": {
-            "description": "The start date for the occurrence span.",
+            "description": "The start date for the occurrence span, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -21996,7 +22001,7 @@
         "type": "string"
       },
       "OtherPayerIdentifierTypeCode": {
-        "description": "Code designating the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID. Use code value `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
+        "description": "Code designating the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID.\n\n`XV` is deprecated.",
         "enum": [
           "PI",
           "XV"
@@ -22199,7 +22204,7 @@
             "type": "string"
           },
           "qualifier": {
-            "description": "Set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.",
+            "description": "Set to `2U` - Payer Identification Number, `EI` - Employer Identification Number, `FY` - Claim Office Number, or `NF` - National Association of Insurance Commissioners (NAIC) Code.\n\nOnly set `qualifier` to `2U` when `otherPayerIdentifierTypeCode` is `XV`.",
             "type": "string"
           }
         },
@@ -22296,7 +22301,7 @@
             "type": "string"
           },
           "otherProcedureDate": {
-            "description": "The date when the procedure was performed.",
+            "description": "The date when the procedure was performed, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -22879,7 +22884,7 @@
         "type": "object"
       },
       "PayToPlanNameIdentificationCodeQualifier": {
-        "description": "The type of identification code used to identify the organization. Can be set to `PI` - Payer Identification or `XV` - Centers for Medicare and Medicaid Services PlanID. Use `XV` when reporting the Health Plan ID (HPID) or Other Entity Identifier (OEID).",
+        "description": "The type of identification code used to identify the organization. Can be set to `PI` - Payer Identification or `XV` - Centers for Medicare and Medicaid Services PlanID.\n\n`XV` is deprecated.",
         "enum": [
           "PI",
           "XV"
@@ -23249,7 +23254,7 @@
             "description": "Basic claim payment information including amounts and status."
           },
           "claimReceivedDate": {
-            "description": "The date the claim was received by the payer.",
+            "description": "The date the claim was received by the payer, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -23280,7 +23285,7 @@
             "description": "Corrected priority payer information."
           },
           "coverageExpirationDate": {
-            "description": "The expiration date of the patient's coverage.",
+            "description": "The expiration date of the patient's coverage, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -24448,7 +24453,7 @@
         "type": "string"
       },
       "PrimaryIdentifierTypeCode": {
-        "description": "Code identifying the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID. Use code value `XV` when reporting Health Plan ID (HPID) or Other Entity Identifier (OEID).",
+        "description": "Code identifying the type of identifier. Can be set to `PI` - Payor Identification or `XV` - Centers for Medicare/Medicaid Services PlanID.\n\n`XV` is deprecated.",
         "enum": [
           "PI",
           "XV"
@@ -24501,7 +24506,7 @@
             "type": "string"
           },
           "principalProcedureDate": {
-            "description": "The date when the procedure was performed.",
+            "description": "The date when the procedure was performed, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -24860,7 +24865,7 @@
             "type": "array"
           },
           "fiscalPeriodDate": {
-            "description": "The last day of the provider's fiscal year.",
+            "description": "The last day of the provider's fiscal year, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -24881,7 +24886,7 @@
             "type": "array"
           },
           "statusInformationEffectiveDate": {
-            "description": "The date the claim status information is effective.",
+            "description": "The date the claim status information is effective, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -24959,7 +24964,7 @@
             "type": "string"
           },
           "fiscalPeriodDate": {
-            "description": "The last day of the provider's fiscal year.",
+            "description": "The last day of the provider's fiscal year, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -25739,7 +25744,7 @@
             "type": "string"
           },
           "transactionSetCreationDate": {
-            "description": "The date the payer created the transaction.",
+            "description": "The date the payer created the transaction, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -28367,12 +28372,12 @@
             "type": "string"
           },
           "serviceDate": {
-            "description": "The date the service was rendered (for services performed on a single day). When you send this property with `serviceDateEnd`, it will be used as the start date for the date range in which the service was rendered.",
+            "description": "The date the service was rendered (for services performed on a single day), formatted as `YYYYMMDD`. When you send this property with `serviceDateEnd`, it will be used as the start date for the date range in which the service was rendered.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "serviceDateEnd": {
-            "description": "The end date of the service period. If you send this property, you must also send `serviceDate`.",
+            "description": "The end date of the service period, formatted as `YYYYMMDD`. If you send this property, you must also send `serviceDate`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
@@ -28423,51 +28428,52 @@
         "description": "Identify specific dates related to the service rendered.",
         "properties": {
           "beginTherapyDate": {
-            "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or DMERC Information Form (DIF), or Oxygen Therapy Certification is included on this service line.",
+            "description": "Required when a Durable Medical Equipment Regional Carrier Certificate of Medical Necessity (DMERC CMN) or DMERC Information Form (DIF), or Oxygen Therapy Certification is included on this service line, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "certificationRevisionOrRecertificationDate": {
+            "description": "The certification revision or recertification date, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "hemoglobinTestDate": {
-            "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported.",
+            "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "initialTreatmentDate": {
-            "description": "Required when this date is known to impact adjudication for claims involving spinal manipulation, physcial therapy, occupational therapy, or speech language pathology.",
+            "description": "Required when this date is known to impact adjudication for claims involving spinal manipulation, physcial therapy, occupational therapy, or speech language pathology, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "lastCertificationDate": {
-            "description": "This is the date the ordering physician signed the CMN or Oxygen Therapy Certification, or the date the supplier signed the DMERC Information Form (DIF).",
+            "description": "This is the date the ordering physician signed the CMN or Oxygen Therapy Certification, or the date the supplier signed the DMERC Information Form (DIF), formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "lastXRayDate": {
-            "description": "Required for claims involving spinal manipulation.",
+            "description": "Required for claims involving spinal manipulation, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "prescriptionDate": {
-            "description": "Required when a drug is billed for this line and a prescription was written (or otherwise communicated by the prescriber if not written).",
+            "description": "Required when a drug is billed for this line and a prescription was written (or otherwise communicated by the prescriber if not written), formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "serumCreatineTestDate": {
-            "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported.",
+            "description": "Required on initial EPO claims service lines for dialysis patients when test results are being billed or reported, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "shippedDate": {
-            "description": "Required when billing or reporting products that were shipped.",
+            "description": "Required when billing or reporting products that were shipped, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
           "treatmentOrTherapyDate": {
-            "description": "This is the date of the latest visit or consultation.",
+            "description": "This is the date of the latest visit or consultation, formatted as `YYYYMMDD`.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           }
@@ -28883,7 +28889,7 @@
       "ServiceLineResponseIdentifier": {
         "properties": {
           "lineItemControlNumber": {
-            "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines[].providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated a ULID for the service line.",
+            "description": "A unique identifier for the service line, matching the value provided for the `claimInformation.serviceLines[].providerControlNumber` property in the claim submission. If you didn't provide a value for `providerControlNumber`, this property contains a randomly generated ULID for the service line.",
             "type": "string"
           }
         },
@@ -29377,7 +29383,7 @@
             "$ref": "#/components/schemas/ContactInformationSubscriberDependent"
           },
           "dateOfBirth": {
-            "description": "The subscriber's date of birth. This property is **required** if the subscriber is an individual.",
+            "description": "The subscriber's date of birth, formatted as `YYYYMMDD`. This property is **required** if the subscriber is an individual.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
             "type": "string"
           },
