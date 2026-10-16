@@ -1289,7 +1289,9 @@
         "properties": {
           "amountPaid": {
             "description": "**[CMS-1500 Box 29]** The total amount the patient, or the patient's representative, has already paid toward services in this claim. This is the patient's payment only. Don't include amounts paid by other payers.",
-            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           },
           "billingProvider": {
@@ -1313,7 +1315,9 @@
           },
           "totalCharge": {
             "description": "**[CMS-1500 Box 28]** The total charge for the claim, equal to the sum of all service line charges. It is acceptable to set this to `0` (zero).",
-            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           }
         },
@@ -1750,7 +1754,9 @@
           },
           "unitCount": {
             "description": "The quantity of the drug administered, expressed in the unit given by `unitOfMeasure`.",
-            "pattern": "^\\d{1,8}(\\.\\d{1,3})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           },
           "unitOfMeasure": {
@@ -2418,7 +2424,9 @@
         "properties": {
           "chargeAmount": {
             "description": "**[CMS-1500 Box 20]** The price the billing provider paid the outside provider for this service.",
-            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           },
           "provider": {
@@ -2807,7 +2815,9 @@
           },
           "lineItemChargeAmount": {
             "description": "**[CMS-1500 Box 24f]** The charge for this service line, including the provider's base charge and any applicable tax or postage. It is acceptable to set this to `0` (zero).",
-            "pattern": "^\\d+(\\.\\d{1,2})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           },
           "lineItemControlNumber": {
@@ -2855,7 +2865,9 @@
           },
           "units": {
             "description": "**[CMS-1500 Box 24g]** The number of units of the service provided. The units depend on the procedure code and the nature of the service. For example, they may correspond to office visits (1 unit per visit), individual diagnostic tests (1 unit per test), or time (when a service is billed in 15-minute increments, 4 units could equal 1 hour). For anesthesia procedure codes (00100-01999), report the total anesthesia time in minutes; Stedi reports the unit of measure as minutes for these codes automatically.",
-            "pattern": "^\\d{1,8}(\\.\\d{1,3})?$",
+            "maxLength": 17,
+            "minLength": 1,
+            "pattern": "^-?\\d*\\.?\\d+$",
             "type": "string"
           }
         },
