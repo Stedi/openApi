@@ -5591,6 +5591,19 @@
         ],
         "type": "string"
       },
+      "TooManyRequestsExceptionResponseContent": {
+        "description": "The caller has exceeded a rate limit. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
       "UnauthorizedExceptionResponseContent": {
         "description": "The server response when the authorizer failed to authenticate the caller.",
         "properties": {
@@ -5851,6 +5864,16 @@
               }
             },
             "description": "ResourceConflictException 409 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
           },
           "500": {
             "content": {
