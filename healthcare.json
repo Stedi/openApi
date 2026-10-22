@@ -35237,7 +35237,7 @@
               },
               "ConvertReport277_example2": {
                 "description": "",
-                "summary": "Denied claim",
+                "summary": "Rejected claim",
                 "value": "71716ec5-0e96-462f-bb77-869941bb27ab"
               }
             },
@@ -35286,12 +35286,32 @@
                                                   {
                                                     "informationStatuses": [
                                                       {
+                                                        "entityIdentifierCode": "QC",
+                                                        "entityIdentifierCodeValue": "Patient",
+                                                        "healthCareClaimStatusCategoryCode": "A2",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Acceptance into adjudication system - The claim/encounter has been accepted into the adjudication system.",
+                                                        "statusCode": "20",
+                                                        "statusCodeValue": "Accepted for processing."
+                                                      },
+                                                      {
+                                                        "entityIdentifierCode": "PR",
+                                                        "entityIdentifierCodeValue": "Payer",
                                                         "healthCareClaimStatusCategoryCode": "A1",
                                                         "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Receipt - The claim/encounter has been received. This does not mean that the claim has been accepted for adjudication.",
+                                                        "statusCode": "19",
+                                                        "statusCodeValue": "Entity acknowledges receipt of claim/encounter."
+                                                      },
+                                                      {
+                                                        "entityIdentifierCode": "85",
+                                                        "entityIdentifierCodeValue": "Billing Provider",
+                                                        "healthCareClaimStatusCategoryCode": "A2",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Acceptance into adjudication system - The claim/encounter has been accepted into the adjudication system.",
                                                         "statusCode": "20",
                                                         "statusCodeValue": "Accepted for processing."
                                                       }
                                                     ],
+                                                    "statusInformationActionCode": "WQ",
+                                                    "statusInformationActionCodeValue": "Accept",
                                                     "statusInformationEffectiveDate": "20240702",
                                                     "totalClaimChargeAmount": "109.20"
                                                   }
@@ -35335,9 +35355,10 @@
                                   ]
                                 }
                               ],
-                              "entityIdentifierCode": "AY",
-                              "entityIdentifierCodeValue": "Clearinghouse",
-                              "organizationName": "STEDI INC"
+                              "entityIdentifierCode": "PR",
+                              "entityIdentifierCodeValue": "Payer",
+                              "organizationName": "COMPREHENSIVE HEALTH PLAN",
+                              "payerIdentification": "CHP12345"
                             }
                           ],
                           "referenceIdentification": "1511096803",
@@ -35349,7 +35370,7 @@
                   },
                   "ConvertReport277_example2": {
                     "description": "",
-                    "summary": "Denied claim",
+                    "summary": "Rejected claim",
                     "value": {
                       "meta": {
                         "transactionId": "71716ec5-0e96-462f-bb77-869941bb27ab"
@@ -35379,9 +35400,24 @@
                                                         "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
                                                         "statusCode": "21",
                                                         "statusCodeValue": "Missing or invalid information."
+                                                      },
+                                                      {
+                                                        "healthCareClaimStatusCategoryCode": "A3",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Returned as unprocessable claim - The claim/encounter has been rejected and has not been entered into the adjudication system.",
+                                                        "statusCode": "26",
+                                                        "statusCodeValue": "Entity not found."
+                                                      },
+                                                      {
+                                                        "healthCareClaimStatusCategoryCode": "A7",
+                                                        "healthCareClaimStatusCategoryCodeValue": "Acknowledgement/Rejected for Invalid Information - The claim/encounter has invalid information as specified in the Status details and has been rejected.",
+                                                        "statusCode": "33",
+                                                        "statusCodeValue": "Subscriber and subscriber id not found."
                                                       }
                                                     ],
+                                                    "statusInformationActionCode": "U",
+                                                    "statusInformationActionCodeValue": "Reject",
                                                     "statusInformationEffectiveDate": "20250201",
+                                                    "statusMessage": "Subscriber Not Found. The payer couldn't find a subscriber that matches the Subscriber Primary Identifier (NM1-09). Correct and resubmit.",
                                                     "totalClaimChargeAmount": "3459.3"
                                                   }
                                                 ],
