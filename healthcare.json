@@ -6201,7 +6201,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckRequestProvider",
-            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer."
+            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - Provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`). If you leave it out, Stedi uses the name on the NPPES record for the provider's `npi`, or `PROVIDER` when there is no record.\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckRequestSubscriber",
@@ -13581,7 +13581,7 @@
         "type": "object"
       },
       "EligibilityCheckRequestProvider": {
-        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer.",
+        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - Provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`). If you leave it out, Stedi uses the name on the NPPES record for the provider's `npi`, or `PROVIDER` when there is no record.\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer.",
         "properties": {
           "additionalInformation": {
             "$ref": "#/components/schemas/EligibilityCheckRequestProviderAdditionalInformation",
@@ -13636,9 +13636,6 @@
             "description": "The type of provider making the request."
           }
         },
-        "required": [
-          "name"
-        ],
         "type": "object"
       },
       "EligibilityCheckRequestProviderAdditionalInformation": {
@@ -13778,9 +13775,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "lastName"
-        ],
         "type": "object"
       },
       "EligibilityCheckRequestProviderType": {
