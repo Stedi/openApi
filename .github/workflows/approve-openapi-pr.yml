@@ -1,0 +1,27 @@
+name: Approve OpenAPI updates
+
+# Approves the `chore/docs-*-openapi` PRs that service repos open as stedi-engineering.
+# pull_request_target runs main's copy of this file, which the approver requires; the
+# same-repo and author guards keep fork PRs on this public repo out.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, labeled, ready_for_review]
+
+permissions:
+  contents: read
+
+jobs:
+  approve:
+    if: |-
+      github.event.pull_request.user.login == 'stedi-engineering'
+      && github.event.sender.login == 'stedi-engineering'
+      && github.event.pull_request.head.repo.full_name == github.repository
+      && startsWith(github.event.pull_request.head.ref, 'chore/docs-')
+      && endsWith(github.event.pull_request.head.ref, '-openapi')
+      && contains(github.event.pull_request.labels.*.name, 'openapi')
+      && !contains(github.event.pull_request.labels.*.name, 'do-not-merge')
+    # Tag, not SHA: the approver's AWS trust policy only accepts main or v* tags.
+    uses: Stedi/action-approve-pull-request/.github/workflows/approve-pull-request.yml@v0.1.0
+    permissions:
+      id-token: write
+      contents: read
