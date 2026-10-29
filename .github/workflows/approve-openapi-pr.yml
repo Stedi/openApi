@@ -12,9 +12,10 @@ permissions:
 
 jobs:
   approve:
+    # 42658075 is the stedi-engineering user; unlike a login, an ID can't be renamed or reclaimed.
     if: |-
-      github.event.pull_request.user.login == 'stedi-engineering'
-      && github.event.sender.login == 'stedi-engineering'
+      github.event.pull_request.user.id == 42658075
+      && github.event.sender.id == 42658075
       && github.event.pull_request.head.repo.full_name == github.repository
       && startsWith(github.event.pull_request.head.ref, 'chore/docs-')
       && endsWith(github.event.pull_request.head.ref, '-openapi')
