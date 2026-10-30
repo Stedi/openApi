@@ -486,7 +486,7 @@
         "properties": {
           "contentType": {
             "$ref": "#/components/schemas/ContentType",
-            "description": "The MIME type of the attachment file. For example: `image/png` or `application/pdf`."
+            "description": "The MIME type of the attachment file. For example: `image/png` or `application/pdf`.\n\n[Paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims) only support `application/pdf`. Electronic claims support all available content types."
           }
         },
         "required": [
@@ -1147,7 +1147,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n - This property is required when you're submitting attachment files through Stedi.\n - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n - This property is required when you're submitting attachment files through Stedi.\n - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.\n - For [paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims), the attachment must be a PDF. Otherwise, Stedi rejects the claim with an HTTP `400` error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
