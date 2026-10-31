@@ -282,7 +282,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/Provider",
-            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `taxId` or `ssn`.\n - Don't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer."
+            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - We recommend omitting the provider's name. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES. If you set it, provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `taxId` or `ssn`.\n - Don't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer."
           },
           "submitterTransactionIdentifier": {
             "description": "A unique identifier for the eligibility check within this batch request. Stedi returns this identifier in the response for the [Poll Batch Eligibility Checks](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-polling-eligibility) endpoint.",
@@ -3354,7 +3354,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The provider's first name. This property is required if the provider is an individual.",
+            "description": "The provider's first name. Use when the provider is an individual.",
             "maxLength": 35,
             "minLength": 1,
             "type": "string"
@@ -3366,7 +3366,7 @@
             "type": "string"
           },
           "lastName": {
-            "description": "The provider's last name. This property is required if the provider is an individual.",
+            "description": "The provider's last name. Use when the provider is an individual.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -3392,7 +3392,7 @@
             }
           },
           "organizationName": {
-            "description": "The provider's business name. This property is required if the provider is not an individual.",
+            "description": "The provider's business name. Use when the provider isn't an individual.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -5089,7 +5089,7 @@
         "type": "string"
       },
       "ResponseProvider": {
-        "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN.",
+        "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`.",
         "properties": {
           "aaaErrors": {
             "items": {

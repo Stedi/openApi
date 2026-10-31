@@ -4283,7 +4283,7 @@
             "$ref": "#/components/schemas/ClaimStatusEncounter"
           },
           "providers": {
-            "description": "Information about the billing provider and (optionally) service providers related to the referenced claim.\n  - Exactly one billing provider is **required** in this array. Requests that include only a service provider are rejected with a `400` error.\n  - For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n  - When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier.",
+            "description": "Information about the billing provider and (optionally) service providers related to the referenced claim.\n  - Exactly one billing provider is **required** in this array. Requests that include only a service provider are rejected with a `400` error.\n  - For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n  - We recommend omitting the provider's name. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). This applies to the `ServiceProvider`, or to the `BillingProvider` when there's no `ServiceProvider`. We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES.\n  - When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier.",
             "items": {
               "$ref": "#/components/schemas/StatusRequestProvider",
               "description": "Information about the billing provider and (optionally) service providers related to the referenced claim.\n  - Exactly one billing provider is **required** in this array. Requests that include only a service provider are rejected with a `400` error.\n  - For each provider, you must set the `providerType` and one of the following identifiers: `npi`, `taxId`, or `etin`.\n  - When the `providerType` = `BillingProvider`, we recommend setting `etin` as the identifier."
@@ -6201,7 +6201,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckRequestProvider",
-            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - Provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`). If you leave it out, Stedi uses the name on the NPPES record for the provider's `npi`, or `PROVIDER` when there is no record.\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer."
+            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - We recommend omitting the provider's name. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES. If you set it, provide it as either a person (with `name.person`) or an organization (with `name.organization`).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckRequestSubscriber",
@@ -6258,7 +6258,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckProvider",
-            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckSubscriber",
@@ -7467,6 +7467,11 @@
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
+          },
+          "receiverId": {
+            "description": "Set to `PAPER` when you want Stedi to print this claim and mail it to the payer. Omit otherwise. Visit [Submit paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims) for details.",
+            "pattern": "^(BPUMR|PAPER|PRINT)$",
+            "type": "string"
           }
         },
         "required": [
@@ -7481,7 +7486,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.\n  - For [paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims), the attachment must be a PDF. Otherwise, Stedi rejects the claim with an HTTP `400` error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -11406,7 +11411,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckProvider",
-            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckSubscriber",
@@ -11796,7 +11801,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckProvider",
-            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckSubscriber",
@@ -13236,7 +13241,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/Provider",
-            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - You must provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `taxId` or `ssn`.\n - Don't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer."
+            "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - We recommend omitting the provider's name. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES. If you set it, provide the `organizationName` (if the entity is an organization), or `firstName` and `lastName` (if the provider is an individual).\n - You must provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `taxId` or `ssn`.\n - Don't include additional properties, such as `taxId` or `address`, unless they are specifically required or suggested by the payer."
           },
           "submitterTransactionIdentifier": {
             "description": "This property is only relevant for asynchronous batch eligibility checks.",
@@ -13581,7 +13586,7 @@
         "type": "object"
       },
       "EligibilityCheckRequestProvider": {
-        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - Provide the provider's name as either a person (with `name.person`) or an organization (with `name.organization`). If you leave it out, Stedi uses the name on the NPPES record for the provider's `npi`, or `PROVIDER` when there is no record.\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer.",
+        "description": "Information about the entity requesting the eligibility check. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider.\n - We recommend omitting the provider's name. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES. If you set it, provide it as either a person (with `name.person`) or an organization (with `name.organization`).\n - You must also provide an identifier - this is typically the provider's [National Provider Identifier](https://www.stedi.com/docs/healthcare/national-provider-identifier) (`npi`). If the provider doesn't have an NPI, you can supply an alternative, such as their `tin` or `ssn`.\n - Don't include additional properties, such as `tin` or `address`, unless they are specifically required or suggested by the payer.",
         "properties": {
           "additionalInformation": {
             "$ref": "#/components/schemas/EligibilityCheckRequestProviderAdditionalInformation",
@@ -13598,7 +13603,7 @@
           },
           "name": {
             "$ref": "#/components/schemas/EligibilityCheckRequestProviderName",
-            "description": "The provider's name, as either a person or an organization."
+            "description": "The provider's name, as either a person or an organization. We recommend omitting this. Certain payers return different benefits information depending on the correctness of the provider name submitted. If omitted, Stedi uses the name associated with the provider's `npi` record in the National Plan and Provider Enumeration System (NPPES). We only recommend explicitly setting the provider name if you believe that the provider name on file with the payer differs from the provider name in NPPES."
           },
           "npi": {
             "description": "The provider's [National Provider Identifier (NPI)](https://www.stedi.com/docs/healthcare/national-provider-identifier).\n\nAll healthcare providers eligible for an NPI must provide this identifier. Some non-traditional providers such as transportation services, durable medical equipment (DME) suppliers, or alternative medicine practitioners can't receive an NPI. If the provider doesn't have an NPI, payers virtually never support requests with alternate IDs. In the rare circumstance that a payer has instructed you to use an alternate ID, the payer will typically require you to supply either their `tin` or `ssn` instead.",
@@ -13757,7 +13762,7 @@
             "type": "string"
           },
           "lastName": {
-            "description": "The provider's last name.",
+            "description": "The provider's last name. If you include `firstName` but leave out `lastName`, Stedi treats the name as missing and fills in the whole name from the provider's NPPES record when one is available.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -15182,7 +15187,7 @@
           },
           "provider": {
             "$ref": "#/components/schemas/EligibilityCheckProvider",
-            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN."
+            "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`."
           },
           "subscriber": {
             "$ref": "#/components/schemas/EligibilityCheckSubscriber",
@@ -19631,7 +19636,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.\n  - For [paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims), the attachment must be a PDF. Otherwise, Stedi rejects the claim with an HTTP `400` error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -20196,7 +20201,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for the attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.\n  - For [paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims), the attachment must be a PDF. Otherwise, Stedi rejects the claim with an HTTP `400` error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -24731,7 +24736,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The provider's first name. This property is required if the provider is an individual.",
+            "description": "The provider's first name. Use when the provider is an individual.",
             "maxLength": 35,
             "minLength": 1,
             "type": "string"
@@ -24743,7 +24748,7 @@
             "type": "string"
           },
           "lastName": {
-            "description": "The provider's last name. This property is required if the provider is an individual.",
+            "description": "The provider's last name. Use when the provider is an individual.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -24769,7 +24774,7 @@
             }
           },
           "organizationName": {
-            "description": "The provider's business name. This property is required if the provider is not an individual.",
+            "description": "The provider's business name. Use when the provider isn't an individual.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -25623,7 +25628,7 @@
             "type": "string"
           },
           "attachmentId": {
-            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.",
+            "description": "The unique identifier for an attachment file you previously uploaded to Stedi. This value is returned in the `attachmentId` property of the [Create Claim Attachment (275) JSON](https://www.stedi.com/docs/healthcare/api-reference/post-healthcare-create-claim-attachment) response. Stedi uses it to generate and submit the 275 claim attachment transaction to the payer.\n  - This property is **required** when you're submitting attachment files through Stedi.\n  - You must include either this property or `attachmentControlNumber` in the request, but not both. Including both properties will result in an error.\n  - For [paper claims](https://www.stedi.com/docs/healthcare/submit-paper-claims), the attachment must be a PDF. Otherwise, Stedi rejects the claim with an HTTP `400` error.",
             "maxLength": 36,
             "minLength": 36,
             "pattern": "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
@@ -27409,7 +27414,7 @@
         "type": "object"
       },
       "ResponseProvider": {
-        "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN.",
+        "description": "Information about the entity that submitted the original eligibility check request. This may be an individual practitioner, a medical group, a hospital, or another type of healthcare provider. This object will always include at least one identifier, such as the provider's [NPI](https://www.stedi.com/docs/healthcare/national-provider-identifier), tax ID, or EIN. If you left the provider name out of the request, this object typically contains the name that Stedi filled in from the provider's National Plan and Provider Enumeration System (NPPES) record, or `PROVIDER`.",
         "properties": {
           "aaaErrors": {
             "items": {
