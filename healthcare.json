@@ -4435,7 +4435,7 @@
         "type": "object"
       },
       "ClaimStatusSubscriber": {
-        "description": "Information about the subscriber listed in the referenced claim.\n- You must set both the `dateOfBirth` and `gender` properties when the subscriber is the patient unless the gender is unknown. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties unless the gender is unknown.",
+        "description": "Information about the subscriber listed in the referenced claim.\n- You must set both the `dateOfBirth` and `gender` properties when the subscriber is the patient unless the gender is unknown. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties unless the gender is unknown.\n- You must set either `organizationName` or both `firstName` and `lastName`. Don't set `organizationName` together with `firstName`, `lastName`, or `suffix`.",
         "properties": {
           "dateOfBirth": {
             "description": "The subscriber's date of birth.",
@@ -4443,7 +4443,7 @@
             "type": "string"
           },
           "firstName": {
-            "description": "The subscriber's first name as specified on their policy.",
+            "description": "The subscriber's first name as specified on their policy. Required when the subscriber is an individual.",
             "maxLength": 35,
             "minLength": 1,
             "type": "string"
@@ -4458,7 +4458,7 @@
             "type": "string"
           },
           "lastName": {
-            "description": "The subscriber's last name as specified on their policy. The subscriber can be an individual or a business entity.",
+            "description": "The subscriber's last name as specified on their policy. Required when the subscriber is an individual. Use `organizationName` when the subscriber is an organization.",
             "maxLength": 60,
             "minLength": 1,
             "type": "string"
@@ -4469,16 +4469,20 @@
             "minLength": 2,
             "type": "string"
           },
+          "organizationName": {
+            "description": "The subscriber's organization name. Use when the subscriber is not an individual, such as the employer on a workers' compensation claim. Can't be used with `firstName`, `lastName`, or `suffix`.",
+            "maxLength": 60,
+            "minLength": 1,
+            "type": "string"
+          },
           "suffix": {
-            "description": "The subscriber's name suffix, such as Jr., Sr., or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA.",
+            "description": "The subscriber's name suffix, such as Jr., Sr., or III. Only include the subscriber's personal name suffix - **don't** include professional or academic titles, such as M.D. or MBA. Can't be used with `organizationName`.",
             "maxLength": 10,
             "minLength": 1,
             "type": "string"
           }
         },
         "required": [
-          "firstName",
-          "lastName",
           "memberId"
         ],
         "type": "object"
