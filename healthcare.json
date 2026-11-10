@@ -4435,11 +4435,17 @@
         "type": "object"
       },
       "ClaimStatusSubscriber": {
-        "description": "Information about the subscriber listed in the referenced claim.\n- You must set both the `dateOfBirth` and `gender` properties when the subscriber is the patient unless the gender is unknown. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties unless the gender is unknown.\n- You must set either `organizationName` or both `firstName` and `lastName`. Don't set `organizationName` together with `firstName`, `lastName`, or `suffix`.",
+        "description": "Information about the subscriber listed in the referenced claim.\n- You must set both the `dateOfBirth` and `gender` properties when the subscriber is the patient unless the gender is unknown. Stedi determines that the subscriber is the patient when the `dependent` object is not included in the request.\n- If either `dateOfBirth` or `gender` is set, you must include both properties unless the gender is unknown.\n- You must set either `organizationName` or both `firstName` and `lastName`. Don't set `organizationName` together with `firstName`, `lastName`, or `suffix`.\n- You must set exactly one of `memberId` and `employerId`.",
         "properties": {
           "dateOfBirth": {
             "description": "The subscriber's date of birth.",
             "pattern": "^\\d{4}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$",
+            "type": "string"
+          },
+          "employerId": {
+            "description": "The employer's identification number (EIN). Use in place of `memberId` when the payer identifies the subscriber by their employer, such as on a workers' compensation claim. Can't be used with `memberId`.",
+            "maxLength": 80,
+            "minLength": 2,
             "type": "string"
           },
           "firstName": {
@@ -4464,7 +4470,7 @@
             "type": "string"
           },
           "memberId": {
-            "description": "The subscriber's insurance member ID. This is the unique identifier for the subscriber on the insurance policy.",
+            "description": "The subscriber's insurance member ID. This is the unique identifier for the subscriber on the insurance policy. Can't be used with `employerId`.",
             "maxLength": 80,
             "minLength": 2,
             "type": "string"
@@ -4482,9 +4488,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "memberId"
-        ],
         "type": "object"
       },
       "ClaimStatusSubscriberGender": {
