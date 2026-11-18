@@ -1,0 +1,2884 @@
+{
+  "components": {
+    "schemas": {
+      "AchSettlementSchedule": {
+        "description": "When the transfer is scheduled to settle.",
+        "enum": [
+          "FUTURE_DATED",
+          "SAME_DAY"
+        ],
+        "type": "string"
+      },
+      "AuthenticationFailedExceptionResponseContent": {
+        "description": "The request credentials are missing or not valid.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "BillingEntityCapability": {
+        "description": "Something the billing entity is set up to receive.",
+        "enum": [
+          "PAYMENT",
+          "PAYOUT"
+        ],
+        "type": "string"
+      },
+      "BillingEntitySummary": {
+        "description": "Summary representation of a billing entity.",
+        "properties": {
+          "capabilities": {
+            "description": "Whether the billing entity can receive payments and payouts. Contains `PAYMENT` once Stedi approves the entity's onboarding, and `PAYOUT` once the entity has an active linked external bank account.",
+            "items": {
+              "$ref": "#/components/schemas/BillingEntityCapability"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the billing entity. For example, `2026-03-01T10:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "dbaName": {
+            "description": "The entity's doing business as (DBA) name, if it operates under a name other than its legal name.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The billing entity's identifier, in the format `bil_` followed by a UUID. For example, `bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "onboardingAttemptId": {
+            "description": "An identifier that allows Stedi to track how it created this billing entity. Absent for billing entities that Stedi set up outside the application process.\n\nThis property is for Stedi's internal use.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "structure": {
+            "$ref": "#/components/schemas/EntityStructure",
+            "description": "The entity's legal name, and whether it's an organization or a sole proprietor. Contains exactly one of the following:\n - `organization`: A business registered as a separate legal entity, such as an LLC, corporation, or partnership. Contains the organization's legal name.\n - `soleProprietor`: An individual who owns and runs a business that isn't registered as an LLC, corporation, or partnership. Contains the individual's first and last name."
+          },
+          "taxId": {
+            "$ref": "#/components/schemas/BillingEntityTaxId",
+            "description": "The entity's US tax identifier. Contains exactly one of the following:\n - `ein`: An Employer Identification Number (EIN), as 9 digits without dashes. Organizations provide an EIN when they apply for Stedi Treasury.\n - `ssn`: The sole proprietor's Social Security Number (SSN), with all but the last 4 digits masked, such as `*****4321`. Sole proprietors provide their SSN when they apply. To find a billing entity by its full SSN, use the `taxId` filter on `ListBillingEntities`."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the billing entity. For example, `2026-03-01T10:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "capabilities",
+          "createdAt",
+          "id",
+          "structure",
+          "taxId",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "BillingEntityTaxId": {
+        "description": "A billing entity's tax identifier: an Employer Identification Number (EIN) or a masked Social Security Number (SSN).",
+        "oneOf": [
+          {
+            "properties": {
+              "ein": {
+                "description": "An Employer Identification Number (EIN).",
+                "pattern": "^\\d{9}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ein"
+            ],
+            "title": "ein",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "ssn": {
+                "description": "A Social Security Number (SSN) with all but the last 4 digits masked.",
+                "format": "password",
+                "pattern": "^\\*{5}\\d{4}$",
+                "type": "string"
+              }
+            },
+            "required": [
+              "ssn"
+            ],
+            "title": "ssn",
+            "type": "object"
+          }
+        ]
+      },
+      "ContentTooLargeExceptionResponseContent": {
+        "description": "The request payload is larger than the service accepts. Send less in one request.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "EntityStructure": {
+        "description": "The entity's legal structure and name. Contains exactly one of `organization` or `soleProprietor`.",
+        "oneOf": [
+          {
+            "properties": {
+              "organization": {
+                "$ref": "#/components/schemas/OrganizationName",
+                "description": "A business registered as a separate legal entity, such as an LLC, corporation, or partnership."
+              }
+            },
+            "required": [
+              "organization"
+            ],
+            "title": "organization",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "soleProprietor": {
+                "$ref": "#/components/schemas/SoleProprietorName",
+                "description": "An individual who owns and runs a business that isn't registered as an LLC, corporation, or partnership."
+              }
+            },
+            "required": [
+              "soleProprietor"
+            ],
+            "title": "soleProprietor",
+            "type": "object"
+          }
+        ]
+      },
+      "ForbiddenExceptionResponseContent": {
+        "description": "The caller is authenticated but lacks permission for this resource or action.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "GetBillingEntityResponseContent": {
+        "description": "The requested billing entity.",
+        "properties": {
+          "capabilities": {
+            "description": "Whether the billing entity can receive payments and payouts. Contains `PAYMENT` once Stedi approves the entity's onboarding, and `PAYOUT` once the entity has an active linked external bank account.",
+            "items": {
+              "$ref": "#/components/schemas/BillingEntityCapability"
+            },
+            "type": "array",
+            "uniqueItems": true
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the billing entity. For example, `2026-03-01T10:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "dbaName": {
+            "description": "The entity's doing business as (DBA) name, if it operates under a name other than its legal name.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The billing entity's identifier, in the format `bil_` followed by a UUID. For example, `bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "onboardingAttemptId": {
+            "description": "An identifier that allows Stedi to track how it created this billing entity. Absent for billing entities that Stedi set up outside the application process.\n\nThis property is for Stedi's internal use.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "structure": {
+            "$ref": "#/components/schemas/EntityStructure",
+            "description": "The entity's legal name, and whether it's an organization or a sole proprietor. Contains exactly one of the following:\n - `organization`: A business registered as a separate legal entity, such as an LLC, corporation, or partnership. Contains the organization's legal name.\n - `soleProprietor`: An individual who owns and runs a business that isn't registered as an LLC, corporation, or partnership. Contains the individual's first and last name."
+          },
+          "taxId": {
+            "$ref": "#/components/schemas/BillingEntityTaxId",
+            "description": "The entity's US tax identifier. Contains exactly one of the following:\n - `ein`: An Employer Identification Number (EIN), as 9 digits without dashes. Organizations provide an EIN when they apply for Stedi Treasury.\n - `ssn`: The sole proprietor's Social Security Number (SSN), with all but the last 4 digits masked, such as `*****4321`. Sole proprietors provide their SSN when they apply. To find a billing entity by its full SSN, use the `taxId` filter on `ListBillingEntities`."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the billing entity. For example, `2026-03-01T10:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "capabilities",
+          "createdAt",
+          "id",
+          "structure",
+          "taxId",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "GetPaymentResponseContent": {
+        "description": "The requested payment.",
+        "properties": {
+          "amount": {
+            "description": "The payment amount as a decimal string, such as `1250.00`.",
+            "pattern": "^-?\\d+\\.\\d{2}$",
+            "type": "string"
+          },
+          "audit": {
+            "$ref": "#/components/schemas/PaymentAudit",
+            "description": "The date and time the payment reached each status."
+          },
+          "billingEntityId": {
+            "description": "The identifier of the billing entity that received this payment.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "companyName": {
+            "description": "The name of the company that sent the payment, when available.",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the payment record. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "The payment description, such as `HCCLAIMPMT`, when available.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The payment's identifier, in the format `pay_` followed by a UUID. For example, `pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "payer": {
+            "$ref": "#/components/schemas/PaymentPayerSummary"
+          },
+          "payoutCount": {
+            "description": "The number of payouts linked to this payment, across all payout statuses. Use `ListPayouts` with `paymentId` to retrieve them. Payments that haven't settled and `VERIFICATION` payments have `0`. This is `0` until the payment's payout is created, so a `SETTLED` payment can briefly have `0`.",
+            "minimum": 0,
+            "type": "number"
+          },
+          "reassociationTraceNumber": {
+            "description": "The reassociation trace number. It matches the trace number in the payment's 835 Electronic Remittance Advice (ERA), so you can use it to match the payment to its ERA. For check payments, this is the check number.\n\nIn the ERA, the trace number is in:\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails.checkOrEFTTraceNumber`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails.checkOrEFTTraceNumber)\n - **X12 EDI:** `TRN02` (Check or EFT Trace Number)",
+            "type": "string"
+          },
+          "reassociationTraceSegment": {
+            "description": "The reassociation trace segment, as it appears in the payment's 835 ERA, such as `TRN*1*REASSO456*1234567890~`. Absent for check payments.\n\nIn the ERA, the segment is in:\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails)\n - **X12 EDI:** `TRN` (Reassociation Trace Number)",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus",
+            "description": "The payment's status. Can be:\n - `PENDING`: Your Stedi Treasury account received the inbound ACH transfer or check deposit and is waiting for the funds to settle.\n - `SETTLED`: Your Stedi Treasury account received the inbound transfer or check deposit, and the funds are available.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payment lifecycle."
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/PaymentTransaction",
+            "description": "Transaction details for this payment. Contains exactly one of the following:\n - `ach`: Details for an Electronic Funds Transfer (EFT), which payers send through the Automated Clearing House (ACH) network.\n - `check`: Details for a check deposit."
+          },
+          "transactionPurpose": {
+            "$ref": "#/components/schemas/TransactionPurpose",
+            "description": "Whether the transaction is a payment (`PAYMENT`) or a bank verification transaction (`VERIFICATION`)."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the payment record. For example, `2026-04-04T14:30:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "audit",
+          "billingEntityId",
+          "createdAt",
+          "id",
+          "payoutCount",
+          "status",
+          "transaction",
+          "transactionPurpose",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "GetPayoutResponseContent": {
+        "description": "The requested payout.",
+        "properties": {
+          "amount": {
+            "description": "The payout amount as a decimal string, such as `1042.75`.",
+            "pattern": "^-?\\d+\\.\\d{2}$",
+            "type": "string"
+          },
+          "audit": {
+            "$ref": "#/components/schemas/PayoutAudit",
+            "description": "The date and time the payout reached each status."
+          },
+          "bankAccountId": {
+            "description": "The identifier of the Stedi Treasury account that disbursed the payout.\n\nThis property is for Stedi's internal use.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "billingEntityId": {
+            "description": "The identifier of the billing entity that received the payout.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the payout record. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "externalBankAccountId": {
+            "description": "The identifier of the external bank account that received the payout.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "id": {
+            "description": "The payout's identifier, in the format `pyt_` followed by a UUID. For example, `pyt_db6675c5-7b07-4af9-8c68-a54a336d2911`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "paymentCount": {
+            "description": "The number of payments linked to this payout, across all payment statuses. Use `ListPayments` with `payoutId` to retrieve them.",
+            "minimum": 0,
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PayoutStatus",
+            "description": "The payout's status. Can be:\n - `PENDING`: Stedi submitted a request to transfer the funds to the external bank account.\n - `IN_TRANSIT`: Stedi's banking partner has begun transferring the funds to the external bank account.\n - `PAID_OUT`: The funds have been successfully transferred to the external bank account.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payout lifecycle."
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/PayoutTransaction",
+            "description": "Transaction details for this payout."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the payout record. For example, `2026-04-04T17:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "audit",
+          "bankAccountId",
+          "billingEntityId",
+          "createdAt",
+          "externalBankAccountId",
+          "id",
+          "paymentCount",
+          "status",
+          "transaction",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "InternalServerExceptionResponseContent": {
+        "description": "The service failed unexpectedly. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "ListBillingEntitiesResponseContent": {
+        "description": "Output containing a paginated list of billing entities, newest first by creation date.",
+        "properties": {
+          "items": {
+            "description": "The billing entities matching the filter criteria.",
+            "items": {
+              "$ref": "#/components/schemas/BillingEntitySummary"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "ListPaymentsResponseContent": {
+        "description": "Output containing a paginated list of payments, newest first by creation date.",
+        "properties": {
+          "items": {
+            "description": "The payments matching the filter criteria.",
+            "items": {
+              "$ref": "#/components/schemas/Payment"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "ListPayoutsResponseContent": {
+        "description": "Output containing a paginated list of payouts, newest first by creation date.",
+        "properties": {
+          "items": {
+            "description": "The payouts matching the filter criteria.",
+            "items": {
+              "$ref": "#/components/schemas/Payout"
+            },
+            "type": "array"
+          },
+          "nextPageToken": {
+            "description": "Token that you can supply in subsequent requests to retrieve the next page of results. If not returned, there are no more results.",
+            "maxLength": 1024,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "items"
+        ],
+        "type": "object"
+      },
+      "NotFoundExceptionResponseContent": {
+        "description": "The requested resource does not exist.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "OrganizationName": {
+        "description": "The legal name of an organization.",
+        "properties": {
+          "name": {
+            "description": "The organization's legal name.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "Payment": {
+        "description": "A payment.",
+        "properties": {
+          "amount": {
+            "description": "The payment amount as a decimal string, such as `1250.00`.",
+            "pattern": "^-?\\d+\\.\\d{2}$",
+            "type": "string"
+          },
+          "audit": {
+            "$ref": "#/components/schemas/PaymentAudit",
+            "description": "The date and time the payment reached each status."
+          },
+          "billingEntityId": {
+            "description": "The identifier of the billing entity that received this payment.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "companyName": {
+            "description": "The name of the company that sent the payment, when available.",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the payment record. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "description": {
+            "description": "The payment description, such as `HCCLAIMPMT`, when available.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The payment's identifier, in the format `pay_` followed by a UUID. For example, `pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "payer": {
+            "$ref": "#/components/schemas/PaymentPayerSummary"
+          },
+          "payoutCount": {
+            "description": "The number of payouts linked to this payment, across all payout statuses. Use `ListPayouts` with `paymentId` to retrieve them. Payments that haven't settled and `VERIFICATION` payments have `0`. This is `0` until the payment's payout is created, so a `SETTLED` payment can briefly have `0`.",
+            "minimum": 0,
+            "type": "number"
+          },
+          "reassociationTraceNumber": {
+            "description": "The reassociation trace number. It matches the trace number in the payment's 835 Electronic Remittance Advice (ERA), so you can use it to match the payment to its ERA. For check payments, this is the check number.\n\nIn the ERA, the trace number is in:\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails.checkOrEFTTraceNumber`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails.checkOrEFTTraceNumber)\n - **X12 EDI:** `TRN02` (Check or EFT Trace Number)",
+            "type": "string"
+          },
+          "reassociationTraceSegment": {
+            "description": "The reassociation trace segment, as it appears in the payment's 835 ERA, such as `TRN*1*REASSO456*1234567890~`. Absent for check payments.\n\nIn the ERA, the segment is in:\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails)\n - **X12 EDI:** `TRN` (Reassociation Trace Number)",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PaymentStatus",
+            "description": "The payment's status. Can be:\n - `PENDING`: Your Stedi Treasury account received the inbound ACH transfer or check deposit and is waiting for the funds to settle.\n - `SETTLED`: Your Stedi Treasury account received the inbound transfer or check deposit, and the funds are available.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payment lifecycle."
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/PaymentTransaction",
+            "description": "Transaction details for this payment. Contains exactly one of the following:\n - `ach`: Details for an Electronic Funds Transfer (EFT), which payers send through the Automated Clearing House (ACH) network.\n - `check`: Details for a check deposit."
+          },
+          "transactionPurpose": {
+            "$ref": "#/components/schemas/TransactionPurpose",
+            "description": "Whether the transaction is a payment (`PAYMENT`) or a bank verification transaction (`VERIFICATION`)."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the payment record. For example, `2026-04-04T14:30:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "audit",
+          "billingEntityId",
+          "createdAt",
+          "id",
+          "payoutCount",
+          "status",
+          "transaction",
+          "transactionPurpose",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "PaymentAchAcceptance": {
+        "description": "Details about when the transfer was accepted.",
+        "properties": {
+          "acceptedAt": {
+            "description": "The date and time the transfer was accepted. For example, `2026-04-04T12:05:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "acceptedAt"
+        ],
+        "type": "object"
+      },
+      "PaymentAchSettlement": {
+        "description": "Information about how the transfer settles.",
+        "properties": {
+          "expectedFundsSettlementAt": {
+            "description": "The date and time the transfer is expected to settle. Stedi sets it when the payment arrives and doesn't update it, so it can be in the past or the future. For the date and time the funds settled, use `audit.settledAt`. For example, `2026-04-04T14:30:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/AchSettlementSchedule",
+            "description": "When the transfer is scheduled to settle. Can be:\n - `SAME_DAY`: The transfer is expected to settle the same day.\n - `FUTURE_DATED`: The transfer is expected to settle on a future date."
+          }
+        },
+        "required": [
+          "expectedFundsSettlementAt",
+          "schedule"
+        ],
+        "type": "object"
+      },
+      "PaymentAchTransaction": {
+        "description": "Details for an Electronic Funds Transfer (EFT), which payers send through the Automated Clearing House (ACH) network.",
+        "properties": {
+          "acceptance": {
+            "$ref": "#/components/schemas/PaymentAchAcceptance",
+            "description": "Details about when the transfer was accepted. Present only after acceptance."
+          },
+          "automaticallyResolvesAt": {
+            "description": "The date and time the transfer resolves automatically. For example, `2026-04-10T14:30:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "effectiveDate": {
+            "description": "The date the transfer is scheduled to settle. For example, `2026-04-04`. For the date and time the funds settled in your Stedi Treasury account, use `audit.settledAt`.",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          },
+          "settlement": {
+            "$ref": "#/components/schemas/PaymentAchSettlement",
+            "description": "Settlement details for this transaction."
+          },
+          "traceNumber": {
+            "description": "The payment's ACH trace number.",
+            "pattern": "^\\d{15}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "automaticallyResolvesAt",
+          "effectiveDate",
+          "settlement",
+          "traceNumber"
+        ],
+        "type": "object"
+      },
+      "PaymentAudit": {
+        "description": "The date and time the payment reached each status. Each timestamp is present only after the payment reaches that status.",
+        "properties": {
+          "failedAt": {
+            "description": "The date and time the payment moved to `FAILED` status. For example, `2026-04-02T16:10:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "pendingAt": {
+            "description": "The date and time the payment moved to `PENDING` status. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "settledAt": {
+            "description": "The date and time the payment moved to `SETTLED` status. For example, `2026-04-04T12:05:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pendingAt"
+        ],
+        "type": "object"
+      },
+      "PaymentCheckTransaction": {
+        "description": "Details for a check deposit.",
+        "properties": {
+          "checkDepositId": {
+            "description": "The identifier of the payment's check deposit.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "checkNumber": {
+            "description": "The check number for the payment. Absent when Stedi can't read the check number from the check image.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "checkDepositId"
+        ],
+        "type": "object"
+      },
+      "PaymentPayerSummary": {
+        "description": "The payer that sent the payment. Absent for check payments, and when Stedi can't match the payment to a single payer.",
+        "properties": {
+          "name": {
+            "description": "The payer's name.",
+            "type": "string"
+          },
+          "stediPayerId": {
+            "description": "The payer's [Stedi payer ID](https://www.stedi.com/docs/healthcare/supported-payers#stedi-payer-id).",
+            "maxLength": 5,
+            "minLength": 5,
+            "pattern": "^[A-Z]{5}$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "stediPayerId"
+        ],
+        "type": "object"
+      },
+      "PaymentStatus": {
+        "description": "The payment's status. Can be:\n - `PENDING`: Your Stedi Treasury account received the inbound ACH transfer or check deposit and is waiting for the funds to settle.\n - `SETTLED`: Your Stedi Treasury account received the inbound transfer or check deposit, and the funds are available.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payment lifecycle.",
+        "enum": [
+          "FAILED",
+          "PENDING",
+          "SETTLED"
+        ],
+        "type": "string"
+      },
+      "PaymentTransaction": {
+        "description": "Transaction details for this payment. Contains exactly one of `ach` or `check`, depending on how the funds arrived.",
+        "oneOf": [
+          {
+            "properties": {
+              "ach": {
+                "$ref": "#/components/schemas/PaymentAchTransaction",
+                "description": "Details for an Electronic Funds Transfer (EFT), which payers send through the Automated Clearing House (ACH) network."
+              }
+            },
+            "required": [
+              "ach"
+            ],
+            "title": "ach",
+            "type": "object"
+          },
+          {
+            "properties": {
+              "check": {
+                "$ref": "#/components/schemas/PaymentCheckTransaction",
+                "description": "Details for a check deposit."
+              }
+            },
+            "required": [
+              "check"
+            ],
+            "title": "check",
+            "type": "object"
+          }
+        ]
+      },
+      "Payout": {
+        "description": "An outbound ACH direct deposit to the external bank account configured for a billing entity.",
+        "properties": {
+          "amount": {
+            "description": "The payout amount as a decimal string, such as `1042.75`.",
+            "pattern": "^-?\\d+\\.\\d{2}$",
+            "type": "string"
+          },
+          "audit": {
+            "$ref": "#/components/schemas/PayoutAudit",
+            "description": "The date and time the payout reached each status."
+          },
+          "bankAccountId": {
+            "description": "The identifier of the Stedi Treasury account that disbursed the payout.\n\nThis property is for Stedi's internal use.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "billingEntityId": {
+            "description": "The identifier of the billing entity that received the payout.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "createdAt": {
+            "description": "The date and time Stedi created the payout record. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "externalBankAccountId": {
+            "description": "The identifier of the external bank account that received the payout.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "id": {
+            "description": "The payout's identifier, in the format `pyt_` followed by a UUID. For example, `pyt_db6675c5-7b07-4af9-8c68-a54a336d2911`.",
+            "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+            "type": "string"
+          },
+          "paymentCount": {
+            "description": "The number of payments linked to this payout, across all payment statuses. Use `ListPayments` with `payoutId` to retrieve them.",
+            "minimum": 0,
+            "type": "number"
+          },
+          "status": {
+            "$ref": "#/components/schemas/PayoutStatus",
+            "description": "The payout's status. Can be:\n - `PENDING`: Stedi submitted a request to transfer the funds to the external bank account.\n - `IN_TRANSIT`: Stedi's banking partner has begun transferring the funds to the external bank account.\n - `PAID_OUT`: The funds have been successfully transferred to the external bank account.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payout lifecycle."
+          },
+          "transaction": {
+            "$ref": "#/components/schemas/PayoutTransaction",
+            "description": "Transaction details for this payout."
+          },
+          "updatedAt": {
+            "description": "The date and time Stedi last updated the payout record. For example, `2026-04-04T17:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "amount",
+          "audit",
+          "bankAccountId",
+          "billingEntityId",
+          "createdAt",
+          "externalBankAccountId",
+          "id",
+          "paymentCount",
+          "status",
+          "transaction",
+          "updatedAt"
+        ],
+        "type": "object"
+      },
+      "PayoutAchAcknowledgment": {
+        "description": "Details about the Federal Reserve's acknowledgment of the transfer.",
+        "properties": {
+          "acknowledgedAt": {
+            "description": "The date and time the Federal Reserve acknowledged the transfer. For example, `2026-04-04T13:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PayoutAchSettlement": {
+        "description": "Information about when and how the transfer settled.",
+        "properties": {
+          "settledAt": {
+            "description": "The date and time the funds settled in the external bank account. For example, `2026-04-04T17:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PayoutAchSubmission": {
+        "description": "Details about the transfer submission.",
+        "properties": {
+          "effectiveDate": {
+            "description": "The date the transfer is scheduled to settle. For example, `2026-04-04`.",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "type": "string"
+          },
+          "expectedFundsSettlementAt": {
+            "description": "The date and time the transfer is expected to settle in the external bank account. For example, `2026-04-04T17:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "expectedSettlementSchedule": {
+            "$ref": "#/components/schemas/AchSettlementSchedule",
+            "description": "When the transfer is expected to settle. Can be:\n - `SAME_DAY`: The transfer is expected to settle the same day.\n - `FUTURE_DATED`: The transfer is expected to settle on a future date."
+          },
+          "submittedAt": {
+            "description": "The date and time Stedi's banking partner sent the transfer to FedACH, the Federal Reserve's ACH network. For example, `2026-04-04T12:30:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PayoutAchTransaction": {
+        "description": "Details for the payout's Automated Clearing House (ACH) transfer. Stedi adds `submission`, `acknowledgment`, and `settlement` as the transfer progresses, so any of them can be absent.",
+        "properties": {
+          "acknowledgment": {
+            "$ref": "#/components/schemas/PayoutAchAcknowledgment",
+            "description": "Details about the Federal Reserve's acknowledgment of the transfer. Present only after the Federal Reserve acknowledges it."
+          },
+          "settlement": {
+            "$ref": "#/components/schemas/PayoutAchSettlement",
+            "description": "Details about when the transfer settled. Present only after the funds settle."
+          },
+          "submission": {
+            "$ref": "#/components/schemas/PayoutAchSubmission",
+            "description": "Details about the transfer submission. Present only after Stedi's banking partner submits the transfer."
+          },
+          "traceNumber": {
+            "description": "The payout's ACH trace number. Stedi's banking partner assigns it when it submits the transfer, so it can be absent while the payout is `PENDING`.",
+            "pattern": "^\\d{15}$",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "PayoutAudit": {
+        "description": "The date and time the payout reached each status. Each timestamp is present only after the payout reaches that status.",
+        "properties": {
+          "failedAt": {
+            "description": "The date and time the payout moved to `FAILED` status. For example, `2026-04-07T14:20:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "inTransitAt": {
+            "description": "The date and time the payout moved to `IN_TRANSIT` status. For example, `2026-04-04T13:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "paidOutAt": {
+            "description": "The date and time the payout moved to `PAID_OUT` status. For example, `2026-04-04T17:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          },
+          "pendingAt": {
+            "description": "The date and time the payout moved to `PENDING` status. For example, `2026-04-04T12:00:00Z`.",
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pendingAt"
+        ],
+        "type": "object"
+      },
+      "PayoutStatus": {
+        "description": "The payout's status. Can be:\n - `PENDING`: Stedi submitted a request to transfer the funds to the external bank account.\n - `IN_TRANSIT`: Stedi's banking partner has begun transferring the funds to the external bank account.\n - `PAID_OUT`: The funds have been successfully transferred to the external bank account.\n - `FAILED`: The bank returned, rejected, or canceled the transfer. This status can occur at any point in the payout lifecycle.",
+        "enum": [
+          "FAILED",
+          "IN_TRANSIT",
+          "PAID_OUT",
+          "PENDING"
+        ],
+        "type": "string"
+      },
+      "PayoutTransaction": {
+        "description": "Transaction details for this payout.",
+        "oneOf": [
+          {
+            "properties": {
+              "ach": {
+                "$ref": "#/components/schemas/PayoutAchTransaction",
+                "description": "Details for the payout's Automated Clearing House (ACH) transfer."
+              }
+            },
+            "required": [
+              "ach"
+            ],
+            "title": "ach",
+            "type": "object"
+          }
+        ]
+      },
+      "SoleProprietorName": {
+        "description": "The legal name of a sole proprietor.",
+        "properties": {
+          "firstName": {
+            "description": "The individual's first name.",
+            "minLength": 1,
+            "type": "string"
+          },
+          "lastName": {
+            "description": "The individual's last name.",
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName"
+        ],
+        "type": "object"
+      },
+      "TooManyRequestsExceptionResponseContent": {
+        "description": "The caller has exceeded a rate limit. Retry with backoff.",
+        "properties": {
+          "message": {
+            "description": "Why the request failed. The wording can change, so branch on the exception type, not this text.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      },
+      "TransactionPurpose": {
+        "description": "Whether a transaction is a payment or a bank verification transaction. Can be:\n - `PAYMENT`: A payment, such as an Electronic Funds Transfer (EFT) or check deposit.\n - `VERIFICATION`: A bank verification transaction, such as a deposit of less than $1 that a payer sends to verify the account.",
+        "enum": [
+          "PAYMENT",
+          "VERIFICATION"
+        ],
+        "type": "string"
+      },
+      "ValidationExceptionField": {
+        "description": "Describes one specific validation failure for an input member.",
+        "properties": {
+          "message": {
+            "description": "A detailed description of the validation failure.",
+            "type": "string"
+          },
+          "path": {
+            "description": "A JSONPointer expression to the structure member whose value failed to satisfy the modeled constraints.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message",
+          "path"
+        ],
+        "type": "object"
+      },
+      "ValidationExceptionResponseContent": {
+        "description": "A standard error for input validation failures.\nThis should be thrown by services when a member of the input structure\nfalls outside of the modeled or documented constraints.",
+        "properties": {
+          "fieldList": {
+            "description": "A list of specific failures encountered while validating the input.\nA member can appear in this list more than once if it failed to satisfy multiple constraints.",
+            "items": {
+              "$ref": "#/components/schemas/ValidationExceptionField"
+            },
+            "type": "array"
+          },
+          "message": {
+            "description": "A summary of the validation failure.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "httpApiKeyAuth": {
+        "description": "A [Stedi API Key](https://www.stedi.com/app/settings/api-keys) for authentication.",
+        "in": "header",
+        "name": "Authorization",
+        "type": "apiKey"
+      }
+    }
+  },
+  "info": {
+    "contact": {
+      "email": "healthcare@stedi.com"
+    },
+    "description": "Treasury service",
+    "license": {
+      "name": "Proprietary",
+      "url": "https://stedi.com"
+    },
+    "title": "Stedi Treasury",
+    "version": "2025-11-01"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/billing-entities": {
+      "get": {
+        "description": "Lists the billing entities in your Stedi account, with optional filtering and pagination",
+        "operationId": "ListBillingEntities",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "examples": {
+              "ListBillingEntities_example1": {
+                "description": "Billing entities are returned newest first, ordered by creation date.",
+                "summary": "List billing entities",
+                "value": 2
+              },
+              "ListBillingEntities_example3": {
+                "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                "summary": "Invalid page size",
+                "value": 1000
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+              "maximum": 500,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for billing entities with a specific tax ID: an Employer Identification Number (EIN) or a sole proprietor's full Social Security Number (SSN). The tax ID must be exactly 9 digits, without dashes.\n\nFor example, `?taxId=123456789` returns billing entities with the tax ID `123456789`.",
+            "examples": {
+              "ListBillingEntities_example2": {
+                "description": "",
+                "summary": "Find a billing entity by tax ID",
+                "value": "123456789"
+              }
+            },
+            "in": "query",
+            "name": "taxId",
+            "schema": {
+              "description": "Filter for billing entities with a specific tax ID: an Employer Identification Number (EIN) or a sole proprietor's full Social Security Number (SSN). The tax ID must be exactly 9 digits, without dashes.\n\nFor example, `?taxId=123456789` returns billing entities with the tax ID `123456789`.",
+              "pattern": "^\\d{9}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListBillingEntities_example1": {
+                    "description": "Billing entities are returned newest first, ordered by creation date.",
+                    "summary": "List billing entities",
+                    "value": {
+                      "items": [
+                        {
+                          "capabilities": [
+                            "PAYMENT"
+                          ],
+                          "createdAt": "2026-04-02T15:30:00Z",
+                          "id": "bil_7d8e9f0a-1b2c-4d3e-8f4a-5b6c7d8e9f0a",
+                          "onboardingAttemptId": "onb_4d5e6f7a-8b9c-4d0e-8f1a-2b3c4d5e6f7a",
+                          "structure": {
+                            "soleProprietor": {
+                              "firstName": "Jane",
+                              "lastName": "Doe"
+                            }
+                          },
+                          "taxId": {
+                            "ssn": "*****4321"
+                          },
+                          "updatedAt": "2026-04-02T15:30:00Z"
+                        },
+                        {
+                          "capabilities": [
+                            "PAYMENT",
+                            "PAYOUT"
+                          ],
+                          "createdAt": "2026-03-01T10:00:00Z",
+                          "dbaName": "Acme Family Medicine",
+                          "id": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "onboardingAttemptId": "onb_2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+                          "structure": {
+                            "organization": {
+                              "name": "Acme Medical Group LLC"
+                            }
+                          },
+                          "taxId": {
+                            "ein": "123456789"
+                          },
+                          "updatedAt": "2026-04-04T12:00:00Z"
+                        }
+                      ],
+                      "nextPageToken": "eyJpZCI6ImJpbF9jMmIyYzNkNC1lNWY2LTRhN2ItOGM5ZC0wZTFmMmEzYjRjNTMifQ"
+                    }
+                  },
+                  "ListBillingEntities_example2": {
+                    "description": "",
+                    "summary": "Find a billing entity by tax ID",
+                    "value": {
+                      "items": [
+                        {
+                          "capabilities": [
+                            "PAYMENT",
+                            "PAYOUT"
+                          ],
+                          "createdAt": "2026-03-01T10:00:00Z",
+                          "dbaName": "Acme Family Medicine",
+                          "id": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "onboardingAttemptId": "onb_2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+                          "structure": {
+                            "organization": {
+                              "name": "Acme Medical Group LLC"
+                            }
+                          },
+                          "taxId": {
+                            "ein": "123456789"
+                          },
+                          "updatedAt": "2026-04-04T12:00:00Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ListBillingEntitiesResponseContent"
+                }
+              }
+            },
+            "description": "ListBillingEntities 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListBillingEntities_example3": {
+                    "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                    "summary": "Invalid page size",
+                    "value": {
+                      "fieldList": [
+                        {
+                          "message": "Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive",
+                          "path": "/pageSize"
+                        }
+                      ],
+                      "message": "1 validation error detected. Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/billing-entities/{billingEntityId}": {
+      "get": {
+        "description": "Retrieves a billing entity, including its legal structure and name, tax ID, and capabilities",
+        "operationId": "GetBillingEntity",
+        "parameters": [
+          {
+            "description": "The unique identifier for the billing entity you want to retrieve, in the format `bil_` followed by a UUID. You can retrieve billing entity IDs with the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities) endpoint, or from the `billingEntityId` property of a payment or payout.",
+            "examples": {
+              "GetBillingEntity_example1": {
+                "description": "",
+                "summary": "Get a billing entity",
+                "value": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53"
+              },
+              "GetBillingEntity_example2": {
+                "description": "A sole proprietor has a `soleProprietor` structure, and Stedi masks all but the last 4 digits of their SSN in `taxId.ssn`. `capabilities` gains `PAYOUT` once the entity links an active external bank account.",
+                "summary": "Get a sole proprietor billing entity without payouts",
+                "value": "bil_7d8e9f0a-1b2c-4d3e-8f4a-5b6c7d8e9f0a"
+              },
+              "GetBillingEntity_example3": {
+                "description": "Stedi returns `NotFoundException` when no billing entity has this identifier.",
+                "summary": "Billing entity not found",
+                "value": "bil_00000000-0000-4000-8000-000000000000"
+              }
+            },
+            "in": "path",
+            "name": "billingEntityId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the billing entity you want to retrieve, in the format `bil_` followed by a UUID. You can retrieve billing entity IDs with the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities) endpoint, or from the `billingEntityId` property of a payment or payout.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetBillingEntity_example1": {
+                    "description": "",
+                    "summary": "Get a billing entity",
+                    "value": {
+                      "capabilities": [
+                        "PAYMENT",
+                        "PAYOUT"
+                      ],
+                      "createdAt": "2026-03-01T10:00:00Z",
+                      "dbaName": "Acme Family Medicine",
+                      "id": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "onboardingAttemptId": "onb_2b3c4d5e-6f7a-4b8c-9d0e-1f2a3b4c5d6e",
+                      "structure": {
+                        "organization": {
+                          "name": "Acme Medical Group LLC"
+                        }
+                      },
+                      "taxId": {
+                        "ein": "123456789"
+                      },
+                      "updatedAt": "2026-04-04T12:00:00Z"
+                    }
+                  },
+                  "GetBillingEntity_example2": {
+                    "description": "A sole proprietor has a `soleProprietor` structure, and Stedi masks all but the last 4 digits of their SSN in `taxId.ssn`. `capabilities` gains `PAYOUT` once the entity links an active external bank account.",
+                    "summary": "Get a sole proprietor billing entity without payouts",
+                    "value": {
+                      "capabilities": [
+                        "PAYMENT"
+                      ],
+                      "createdAt": "2026-04-02T15:30:00Z",
+                      "id": "bil_7d8e9f0a-1b2c-4d3e-8f4a-5b6c7d8e9f0a",
+                      "onboardingAttemptId": "onb_4d5e6f7a-8b9c-4d0e-8f1a-2b3c4d5e6f7a",
+                      "structure": {
+                        "soleProprietor": {
+                          "firstName": "Jane",
+                          "lastName": "Doe"
+                        }
+                      },
+                      "taxId": {
+                        "ssn": "*****4321"
+                      },
+                      "updatedAt": "2026-04-02T15:30:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetBillingEntityResponseContent"
+                }
+              }
+            },
+            "description": "GetBillingEntity 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetBillingEntity_example3": {
+                    "description": "Stedi returns `NotFoundException` when no billing entity has this identifier.",
+                    "summary": "Billing entity not found",
+                    "value": {
+                      "message": "Billing entity 'bil_00000000-0000-4000-8000-000000000000' does not exist"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/payments": {
+      "get": {
+        "description": "Lists the payments to your account, with optional filtering and pagination",
+        "operationId": "ListPayments",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "examples": {
+              "ListPayments_example1": {
+                "description": "Payments are returned newest first, ordered by creation date.",
+                "summary": "List payments",
+                "value": 3
+              },
+              "ListPayments_example2": {
+                "description": "Filters combine, so this returns only the payments for one billing entity that are `SETTLED`.",
+                "summary": "List payments for a billing entity",
+                "value": 50
+              },
+              "ListPayments_example5": {
+                "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                "summary": "Invalid page size",
+                "value": 1000
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+              "maximum": 500,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments associated with a specific billing entity.\n\nThe billing entity ID is returned in the `id` property of the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities#response.items) and [Retrieve Billing Entity](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-billing-entity#response.id) responses.\n\nFor example, `?billingEntityId=bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53` returns payments that this billing entity received.",
+            "examples": {
+              "ListPayments_example2": {
+                "description": "Filters combine, so this returns only the payments for one billing entity that are `SETTLED`.",
+                "summary": "List payments for a billing entity",
+                "value": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53"
+              }
+            },
+            "in": "query",
+            "name": "billingEntityId",
+            "schema": {
+              "description": "Filter for payments associated with a specific billing entity.\n\nThe billing entity ID is returned in the `id` property of the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities#response.items) and [Retrieve Billing Entity](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-billing-entity#response.id) responses.\n\nFor example, `?billingEntityId=bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53` returns payments that this billing entity received.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments included in a specific payout.\n\nThe payout ID is returned in the `id` property of the [List Payouts](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payouts#response.items) and [Retrieve Payout](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-payout#response.id) responses. Use this filter to find the payments included in a deposit to your external bank account.\n\nFor example, `?payoutId=pyt_db6675c5-7b07-4af9-8c68-a54a336d2911` returns the payments included in this payout.",
+            "examples": {
+              "ListPayments_example3": {
+                "description": "Filter by `payoutId` to find the payments included in a payout.",
+                "summary": "List the payments in a payout",
+                "value": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2911"
+              }
+            },
+            "in": "query",
+            "name": "payoutId",
+            "schema": {
+              "description": "Filter for payments included in a specific payout.\n\nThe payout ID is returned in the `id` property of the [List Payouts](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payouts#response.items) and [Retrieve Payout](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-payout#response.id) responses. Use this filter to find the payments included in a deposit to your external bank account.\n\nFor example, `?payoutId=pyt_db6675c5-7b07-4af9-8c68-a54a336d2911` returns the payments included in this payout.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments from a specific check deposit.\n\nFor example, `?checkDepositId=chk_7a8b9c0d-1e2f-4a3b-8c4d-5e6f7a8b9c0d` returns the payments from this check deposit.",
+            "in": "query",
+            "name": "checkDepositId",
+            "schema": {
+              "description": "Filter for payments from a specific check deposit.\n\nFor example, `?checkDepositId=chk_7a8b9c0d-1e2f-4a3b-8c4d-5e6f7a8b9c0d` returns the payments from this check deposit.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for check payments with a specific check number.\n\nFor example, `?checkNumber=10482` returns check payments with the check number `10482`.",
+            "in": "query",
+            "name": "checkNumber",
+            "schema": {
+              "description": "Filter for check payments with a specific check number.\n\nFor example, `?checkNumber=10482` returns check payments with the check number `10482`.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments with a specific status. Can be:\n - `PENDING`: Your Stedi Treasury account received the inbound ACH transfer or check deposit and is waiting for the funds to settle.\n - `SETTLED`: Your Stedi Treasury account received the inbound transfer or check deposit, and the funds are available.\n - `FAILED`: The bank returned, rejected, or canceled the transfer.\n\nFor example, `?status=PENDING` returns payments whose funds haven't settled yet.",
+            "examples": {
+              "ListPayments_example2": {
+                "description": "Filters combine, so this returns only the payments for one billing entity that are `SETTLED`.",
+                "summary": "List payments for a billing entity",
+                "value": "SETTLED"
+              }
+            },
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "$ref": "#/components/schemas/PaymentStatus"
+            }
+          },
+          {
+            "description": "Filter for payments with a specific Automated Clearing House (ACH) trace number. The trace number must be exactly 15 digits.\n\nFor example, `?achTraceNumber=021000021234567` returns the payment with this trace number.",
+            "in": "query",
+            "name": "achTraceNumber",
+            "schema": {
+              "description": "Filter for payments with a specific Automated Clearing House (ACH) trace number. The trace number must be exactly 15 digits.\n\nFor example, `?achTraceNumber=021000021234567` returns the payment with this trace number.",
+              "pattern": "^\\d{15}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments with a specific reassociation trace number.\n\nThe reassociation trace number matches the trace number in the payment's 835 Electronic Remittance Advice (ERA):\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails.checkOrEFTTraceNumber`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails.checkOrEFTTraceNumber)\n - **X12 EDI:** `TRN02` (Check or EFT Trace Number)\n\nFor example, `?reassociationTraceNumber=REASSO456` returns the payment for the ERA with the trace number `REASSO456`.",
+            "in": "query",
+            "name": "reassociationTraceNumber",
+            "schema": {
+              "description": "Filter for payments with a specific reassociation trace number.\n\nThe reassociation trace number matches the trace number in the payment's 835 Electronic Remittance Advice (ERA):\n - **JSON:** [`transactions[].paymentAndRemitReassociationDetails.checkOrEFTTraceNumber`](https://www.stedi.com/docs/healthcare/api-reference/get-healthcare-reports-835#response.transactions.paymentAndRemitReassociationDetails.checkOrEFTTraceNumber)\n - **X12 EDI:** `TRN02` (Check or EFT Trace Number)\n\nFor example, `?reassociationTraceNumber=REASSO456` returns the payment for the ERA with the trace number `REASSO456`.",
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payments with a specific transaction purpose.\n\nIf you don't include this parameter, the results don't include `VERIFICATION` transactions, which are small deposits that payers send to verify a bank account.\n\nFor example, `?transactionPurpose=VERIFICATION` returns only verification transactions.",
+            "examples": {
+              "ListPayments_example4": {
+                "description": "The results include `VERIFICATION` transactions only when you filter for them with `transactionPurpose`.",
+                "summary": "List verification transactions",
+                "value": "VERIFICATION"
+              }
+            },
+            "in": "query",
+            "name": "transactionPurpose",
+            "schema": {
+              "$ref": "#/components/schemas/TransactionPurpose"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListPayments_example1": {
+                    "description": "Payments are returned newest first, ordered by creation date.",
+                    "summary": "List payments",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "2400.00",
+                          "audit": {
+                            "pendingAt": "2026-04-08T08:00:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "companyName": "AETNA HEALTH INC",
+                          "createdAt": "2026-04-08T08:00:00Z",
+                          "description": "HCCLAIMPMT",
+                          "id": "pay_3a4b5c6d-7e8f-4a9b-8c0d-1e2f3a4b5c6d",
+                          "payer": {
+                            "name": "Aetna",
+                            "stediPayerId": "HPQRS"
+                          },
+                          "payoutCount": 0,
+                          "reassociationTraceNumber": "REASSO789",
+                          "reassociationTraceSegment": "TRN*1*REASSO789*1234567890~",
+                          "status": "PENDING",
+                          "transaction": {
+                            "ach": {
+                              "automaticallyResolvesAt": "2026-04-10T14:30:00Z",
+                              "effectiveDate": "2026-04-10",
+                              "settlement": {
+                                "expectedFundsSettlementAt": "2026-04-10T14:30:00Z",
+                                "schedule": "FUTURE_DATED"
+                              },
+                              "traceNumber": "021000021234570"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-08T08:00:00Z"
+                        },
+                        {
+                          "amount": "875.25",
+                          "audit": {
+                            "pendingAt": "2026-04-05T09:15:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-05T09:15:00Z",
+                          "id": "pay_1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f",
+                          "payoutCount": 0,
+                          "reassociationTraceNumber": "10482",
+                          "status": "PENDING",
+                          "transaction": {
+                            "check": {
+                              "checkDepositId": "chk_7a8b9c0d-1e2f-4a3b-8c4d-5e6f7a8b9c0d",
+                              "checkNumber": "10482"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-05T09:15:00Z"
+                        },
+                        {
+                          "amount": "1250.00",
+                          "audit": {
+                            "pendingAt": "2026-04-04T12:00:00Z",
+                            "settledAt": "2026-04-04T12:05:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "companyName": "AETNA HEALTH INC",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "description": "HCCLAIMPMT",
+                          "id": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f",
+                          "payer": {
+                            "name": "Aetna",
+                            "stediPayerId": "HPQRS"
+                          },
+                          "payoutCount": 1,
+                          "reassociationTraceNumber": "REASSO456",
+                          "reassociationTraceSegment": "TRN*1*REASSO456*1234567890~",
+                          "status": "SETTLED",
+                          "transaction": {
+                            "ach": {
+                              "acceptance": {
+                                "acceptedAt": "2026-04-04T12:05:00Z"
+                              },
+                              "automaticallyResolvesAt": "2026-04-04T14:30:00Z",
+                              "effectiveDate": "2026-04-04",
+                              "settlement": {
+                                "expectedFundsSettlementAt": "2026-04-04T14:30:00Z",
+                                "schedule": "SAME_DAY"
+                              },
+                              "traceNumber": "021000021234567"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-04T12:06:00Z"
+                        }
+                      ],
+                      "nextPageToken": "eyJpZCI6InBheV85ZjhlN2Q2Yy01YjRhLTRjM2QtOGUyZi0xYTBiOWM4ZDdlNmYifQ"
+                    }
+                  },
+                  "ListPayments_example2": {
+                    "description": "Filters combine, so this returns only the payments for one billing entity that are `SETTLED`.",
+                    "summary": "List payments for a billing entity",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "1250.00",
+                          "audit": {
+                            "pendingAt": "2026-04-04T12:00:00Z",
+                            "settledAt": "2026-04-04T12:05:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "companyName": "AETNA HEALTH INC",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "description": "HCCLAIMPMT",
+                          "id": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f",
+                          "payer": {
+                            "name": "Aetna",
+                            "stediPayerId": "HPQRS"
+                          },
+                          "payoutCount": 1,
+                          "reassociationTraceNumber": "REASSO456",
+                          "reassociationTraceSegment": "TRN*1*REASSO456*1234567890~",
+                          "status": "SETTLED",
+                          "transaction": {
+                            "ach": {
+                              "acceptance": {
+                                "acceptedAt": "2026-04-04T12:05:00Z"
+                              },
+                              "automaticallyResolvesAt": "2026-04-04T14:30:00Z",
+                              "effectiveDate": "2026-04-04",
+                              "settlement": {
+                                "expectedFundsSettlementAt": "2026-04-04T14:30:00Z",
+                                "schedule": "SAME_DAY"
+                              },
+                              "traceNumber": "021000021234567"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-04T12:06:00Z"
+                        },
+                        {
+                          "amount": "1500.00",
+                          "audit": {
+                            "pendingAt": "2026-04-03T09:20:00Z",
+                            "settledAt": "2026-04-08T15:00:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-03T09:20:00Z",
+                          "id": "pay_8b9c0d1e-2f3a-4b5c-8d6e-7f8a9b0c1d2e",
+                          "payoutCount": 1,
+                          "reassociationTraceNumber": "10483",
+                          "status": "SETTLED",
+                          "transaction": {
+                            "check": {
+                              "checkDepositId": "chk_8c9d0e1f-2a3b-4c4d-8e5f-6a7b8c9d0e1f",
+                              "checkNumber": "10483"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-08T15:00:00Z"
+                        }
+                      ]
+                    }
+                  },
+                  "ListPayments_example3": {
+                    "description": "Filter by `payoutId` to find the payments included in a payout.",
+                    "summary": "List the payments in a payout",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "1250.00",
+                          "audit": {
+                            "pendingAt": "2026-04-04T12:00:00Z",
+                            "settledAt": "2026-04-04T12:05:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "companyName": "AETNA HEALTH INC",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "description": "HCCLAIMPMT",
+                          "id": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f",
+                          "payer": {
+                            "name": "Aetna",
+                            "stediPayerId": "HPQRS"
+                          },
+                          "payoutCount": 1,
+                          "reassociationTraceNumber": "REASSO456",
+                          "reassociationTraceSegment": "TRN*1*REASSO456*1234567890~",
+                          "status": "SETTLED",
+                          "transaction": {
+                            "ach": {
+                              "acceptance": {
+                                "acceptedAt": "2026-04-04T12:05:00Z"
+                              },
+                              "automaticallyResolvesAt": "2026-04-04T14:30:00Z",
+                              "effectiveDate": "2026-04-04",
+                              "settlement": {
+                                "expectedFundsSettlementAt": "2026-04-04T14:30:00Z",
+                                "schedule": "SAME_DAY"
+                              },
+                              "traceNumber": "021000021234567"
+                            }
+                          },
+                          "transactionPurpose": "PAYMENT",
+                          "updatedAt": "2026-04-04T12:06:00Z"
+                        }
+                      ]
+                    }
+                  },
+                  "ListPayments_example4": {
+                    "description": "The results include `VERIFICATION` transactions only when you filter for them with `transactionPurpose`.",
+                    "summary": "List verification transactions",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "0.02",
+                          "audit": {
+                            "pendingAt": "2026-04-03T08:00:00Z",
+                            "settledAt": "2026-04-03T10:45:00Z"
+                          },
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "companyName": "AETNA HEALTH INC",
+                          "createdAt": "2026-04-03T08:00:00Z",
+                          "id": "pay_5e6f7a8b-9c0d-4e1f-8a2b-3c4d5e6f7a8b",
+                          "payer": {
+                            "name": "Aetna",
+                            "stediPayerId": "HPQRS"
+                          },
+                          "payoutCount": 0,
+                          "status": "SETTLED",
+                          "transaction": {
+                            "ach": {
+                              "acceptance": {
+                                "acceptedAt": "2026-04-03T10:45:00Z"
+                              },
+                              "automaticallyResolvesAt": "2026-04-03T10:45:00Z",
+                              "effectiveDate": "2026-04-03",
+                              "settlement": {
+                                "expectedFundsSettlementAt": "2026-04-03T10:45:00Z",
+                                "schedule": "SAME_DAY"
+                              },
+                              "traceNumber": "021000029876543"
+                            }
+                          },
+                          "transactionPurpose": "VERIFICATION",
+                          "updatedAt": "2026-04-03T10:45:00Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ListPaymentsResponseContent"
+                }
+              }
+            },
+            "description": "ListPayments 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListPayments_example5": {
+                    "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                    "summary": "Invalid page size",
+                    "value": {
+                      "fieldList": [
+                        {
+                          "message": "Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive",
+                          "path": "/pageSize"
+                        }
+                      ],
+                      "message": "1 validation error detected. Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/payments/{paymentId}": {
+      "get": {
+        "description": "Retrieves a payment, including its status, amount, and transaction details",
+        "operationId": "GetPayment",
+        "parameters": [
+          {
+            "description": "The unique identifier for the payment you want to retrieve, in the format `pay_` followed by a UUID. You can retrieve payment IDs with the [List Payments](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payments) endpoint.",
+            "examples": {
+              "GetPayment_example1": {
+                "description": "",
+                "summary": "Get a settled ACH payment",
+                "value": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f"
+              },
+              "GetPayment_example2": {
+                "description": "This transfer is scheduled to settle on a future date, so `settlement.schedule` is `FUTURE_DATED` and `settlement.expectedFundsSettlementAt` is in the future. `audit` only contains `pendingAt` until the funds arrive.",
+                "summary": "Get a pending ACH payment",
+                "value": "pay_3a4b5c6d-7e8f-4a9b-8c0d-1e2f3a4b5c6d"
+              },
+              "GetPayment_example3": {
+                "description": "A payment moves to `FAILED` when the bank returns, rejects, or cancels the transfer. This can happen at any point in the lifecycle, so `audit` can contain `failedAt` alongside earlier timestamps.",
+                "summary": "Get a failed ACH payment",
+                "value": "pay_6d5c4b3a-2f1e-4d0c-8b9a-7e6f5d4c3b2a"
+              },
+              "GetPayment_example4": {
+                "description": "Payments from a check deposit contain `transaction.check` instead of `transaction.ach`, and have no ACH trace number or settlement schedule. The `reassociationTraceNumber` is the check number.",
+                "summary": "Get a pending check payment",
+                "value": "pay_1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f"
+              },
+              "GetPayment_example5": {
+                "description": "Once the check's deposit hold releases and the funds settle, Stedi sets `audit.settledAt` and initiates a payout for the payment.",
+                "summary": "Get a settled check payment",
+                "value": "pay_8b9c0d1e-2f3a-4b5c-8d6e-7f8a9b0c1d2e"
+              },
+              "GetPayment_example6": {
+                "description": "Stedi returns `NotFoundException` when no payment has this identifier.",
+                "summary": "Payment not found",
+                "value": "pay_00000000-0000-4000-8000-000000000000"
+              }
+            },
+            "in": "path",
+            "name": "paymentId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the payment you want to retrieve, in the format `pay_` followed by a UUID. You can retrieve payment IDs with the [List Payments](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payments) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetPayment_example1": {
+                    "description": "",
+                    "summary": "Get a settled ACH payment",
+                    "value": {
+                      "amount": "1250.00",
+                      "audit": {
+                        "pendingAt": "2026-04-04T12:00:00Z",
+                        "settledAt": "2026-04-04T12:05:00Z"
+                      },
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "companyName": "AETNA HEALTH INC",
+                      "createdAt": "2026-04-04T12:00:00Z",
+                      "description": "HCCLAIMPMT",
+                      "id": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f",
+                      "payer": {
+                        "name": "Aetna",
+                        "stediPayerId": "HPQRS"
+                      },
+                      "payoutCount": 1,
+                      "reassociationTraceNumber": "REASSO456",
+                      "reassociationTraceSegment": "TRN*1*REASSO456*1234567890~",
+                      "status": "SETTLED",
+                      "transaction": {
+                        "ach": {
+                          "acceptance": {
+                            "acceptedAt": "2026-04-04T12:05:00Z"
+                          },
+                          "automaticallyResolvesAt": "2026-04-04T14:30:00Z",
+                          "effectiveDate": "2026-04-04",
+                          "settlement": {
+                            "expectedFundsSettlementAt": "2026-04-04T14:30:00Z",
+                            "schedule": "SAME_DAY"
+                          },
+                          "traceNumber": "021000021234567"
+                        }
+                      },
+                      "transactionPurpose": "PAYMENT",
+                      "updatedAt": "2026-04-04T12:06:00Z"
+                    }
+                  },
+                  "GetPayment_example2": {
+                    "description": "This transfer is scheduled to settle on a future date, so `settlement.schedule` is `FUTURE_DATED` and `settlement.expectedFundsSettlementAt` is in the future. `audit` only contains `pendingAt` until the funds arrive.",
+                    "summary": "Get a pending ACH payment",
+                    "value": {
+                      "amount": "2400.00",
+                      "audit": {
+                        "pendingAt": "2026-04-08T08:00:00Z"
+                      },
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "companyName": "AETNA HEALTH INC",
+                      "createdAt": "2026-04-08T08:00:00Z",
+                      "description": "HCCLAIMPMT",
+                      "id": "pay_3a4b5c6d-7e8f-4a9b-8c0d-1e2f3a4b5c6d",
+                      "payer": {
+                        "name": "Aetna",
+                        "stediPayerId": "HPQRS"
+                      },
+                      "payoutCount": 0,
+                      "reassociationTraceNumber": "REASSO789",
+                      "reassociationTraceSegment": "TRN*1*REASSO789*1234567890~",
+                      "status": "PENDING",
+                      "transaction": {
+                        "ach": {
+                          "automaticallyResolvesAt": "2026-04-10T14:30:00Z",
+                          "effectiveDate": "2026-04-10",
+                          "settlement": {
+                            "expectedFundsSettlementAt": "2026-04-10T14:30:00Z",
+                            "schedule": "FUTURE_DATED"
+                          },
+                          "traceNumber": "021000021234570"
+                        }
+                      },
+                      "transactionPurpose": "PAYMENT",
+                      "updatedAt": "2026-04-08T08:00:00Z"
+                    }
+                  },
+                  "GetPayment_example3": {
+                    "description": "A payment moves to `FAILED` when the bank returns, rejects, or cancels the transfer. This can happen at any point in the lifecycle, so `audit` can contain `failedAt` alongside earlier timestamps.",
+                    "summary": "Get a failed ACH payment",
+                    "value": {
+                      "amount": "450.00",
+                      "audit": {
+                        "failedAt": "2026-04-02T08:05:00Z",
+                        "pendingAt": "2026-04-02T08:00:00Z"
+                      },
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "companyName": "AETNA HEALTH INC",
+                      "createdAt": "2026-04-02T08:00:00Z",
+                      "description": "HCCLAIMPMT",
+                      "id": "pay_6d5c4b3a-2f1e-4d0c-8b9a-7e6f5d4c3b2a",
+                      "payer": {
+                        "name": "Aetna",
+                        "stediPayerId": "HPQRS"
+                      },
+                      "payoutCount": 0,
+                      "status": "FAILED",
+                      "transaction": {
+                        "ach": {
+                          "automaticallyResolvesAt": "2026-04-02T14:30:00Z",
+                          "effectiveDate": "2026-04-02",
+                          "settlement": {
+                            "expectedFundsSettlementAt": "2026-04-02T14:30:00Z",
+                            "schedule": "SAME_DAY"
+                          },
+                          "traceNumber": "021000021234571"
+                        }
+                      },
+                      "transactionPurpose": "PAYMENT",
+                      "updatedAt": "2026-04-02T08:05:00Z"
+                    }
+                  },
+                  "GetPayment_example4": {
+                    "description": "Payments from a check deposit contain `transaction.check` instead of `transaction.ach`, and have no ACH trace number or settlement schedule. The `reassociationTraceNumber` is the check number.",
+                    "summary": "Get a pending check payment",
+                    "value": {
+                      "amount": "875.25",
+                      "audit": {
+                        "pendingAt": "2026-04-05T09:15:00Z"
+                      },
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "createdAt": "2026-04-05T09:15:00Z",
+                      "id": "pay_1c2d3e4f-5a6b-4c7d-8e9f-0a1b2c3d4e5f",
+                      "payoutCount": 0,
+                      "reassociationTraceNumber": "10482",
+                      "status": "PENDING",
+                      "transaction": {
+                        "check": {
+                          "checkDepositId": "chk_7a8b9c0d-1e2f-4a3b-8c4d-5e6f7a8b9c0d",
+                          "checkNumber": "10482"
+                        }
+                      },
+                      "transactionPurpose": "PAYMENT",
+                      "updatedAt": "2026-04-05T09:15:00Z"
+                    }
+                  },
+                  "GetPayment_example5": {
+                    "description": "Once the check's deposit hold releases and the funds settle, Stedi sets `audit.settledAt` and initiates a payout for the payment.",
+                    "summary": "Get a settled check payment",
+                    "value": {
+                      "amount": "1500.00",
+                      "audit": {
+                        "pendingAt": "2026-04-03T09:20:00Z",
+                        "settledAt": "2026-04-08T15:00:00Z"
+                      },
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "createdAt": "2026-04-03T09:20:00Z",
+                      "id": "pay_8b9c0d1e-2f3a-4b5c-8d6e-7f8a9b0c1d2e",
+                      "payoutCount": 1,
+                      "reassociationTraceNumber": "10483",
+                      "status": "SETTLED",
+                      "transaction": {
+                        "check": {
+                          "checkDepositId": "chk_8c9d0e1f-2a3b-4c4d-8e5f-6a7b8c9d0e1f",
+                          "checkNumber": "10483"
+                        }
+                      },
+                      "transactionPurpose": "PAYMENT",
+                      "updatedAt": "2026-04-08T15:00:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetPaymentResponseContent"
+                }
+              }
+            },
+            "description": "GetPayment 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetPayment_example6": {
+                    "description": "Stedi returns `NotFoundException` when no payment has this identifier.",
+                    "summary": "Payment not found",
+                    "value": {
+                      "message": "Payment pay_00000000-0000-4000-8000-000000000000 does not exist."
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/payouts": {
+      "get": {
+        "description": "Lists the payouts to your external bank accounts, with optional filtering and pagination",
+        "operationId": "ListPayouts",
+        "parameters": [
+          {
+            "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+            "examples": {
+              "ListPayouts_example2": {
+                "description": "Filters combine, so this returns only the payouts for one billing entity that are `PAID_OUT`.",
+                "summary": "List payouts for a billing entity",
+                "value": 25
+              },
+              "ListPayouts_example4": {
+                "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                "summary": "Invalid page size",
+                "value": 1000
+              }
+            },
+            "in": "query",
+            "name": "pageSize",
+            "schema": {
+              "description": "The maximum number of elements to return in a page. If not specified, the default is 100.",
+              "maximum": 500,
+              "minimum": 1,
+              "type": "number"
+            }
+          },
+          {
+            "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+            "in": "query",
+            "name": "pageToken",
+            "schema": {
+              "description": "The `nextPageToken` value from a previous response. You can use this to get the next page of results. If not set, Stedi returns the first page of results.",
+              "maxLength": 1024,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payouts associated with a specific billing entity.\n\nThe billing entity ID is returned in the `id` property of the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities#response.items) and [Retrieve Billing Entity](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-billing-entity#response.id) responses.\n\nFor example, `?billingEntityId=bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53` returns payouts for this billing entity.",
+            "examples": {
+              "ListPayouts_example2": {
+                "description": "Filters combine, so this returns only the payouts for one billing entity that are `PAID_OUT`.",
+                "summary": "List payouts for a billing entity",
+                "value": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53"
+              }
+            },
+            "in": "query",
+            "name": "billingEntityId",
+            "schema": {
+              "description": "Filter for payouts associated with a specific billing entity.\n\nThe billing entity ID is returned in the `id` property of the [List Billing Entities](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-billing-entities#response.items) and [Retrieve Billing Entity](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-billing-entity#response.id) responses.\n\nFor example, `?billingEntityId=bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53` returns payouts for this billing entity.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payouts sent to a specific external bank account.\n\nThe external bank account ID is returned in the `externalBankAccountId` property of each payout.\n\nFor example, `?externalBankAccountId=eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c` returns payouts sent to this external bank account.",
+            "in": "query",
+            "name": "externalBankAccountId",
+            "schema": {
+              "description": "Filter for payouts sent to a specific external bank account.\n\nThe external bank account ID is returned in the `externalBankAccountId` property of each payout.\n\nFor example, `?externalBankAccountId=eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c` returns payouts sent to this external bank account.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payouts that include a specific payment.\n\nThe payment ID is returned in the `id` property of the [List Payments](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payments#response.items) and [Retrieve Payment](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-payment#response.id) responses. Use this filter to find the payouts that sent a payment's funds to your external bank account.\n\nFor example, `?paymentId=pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f` returns the payouts that include this payment.",
+            "examples": {
+              "ListPayouts_example3": {
+                "description": "Filter by `paymentId` to find the payouts that sent a payment's funds to the external bank account.",
+                "summary": "List the payouts for a payment",
+                "value": "pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f"
+              }
+            },
+            "in": "query",
+            "name": "paymentId",
+            "schema": {
+              "description": "Filter for payouts that include a specific payment.\n\nThe payment ID is returned in the `id` property of the [List Payments](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payments#response.items) and [Retrieve Payment](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-payment#response.id) responses. Use this filter to find the payouts that sent a payment's funds to your external bank account.\n\nFor example, `?paymentId=pay_9f8e7d6c-5b4a-4c3d-8e2f-1a0b9c8d7e6f` returns the payouts that include this payment.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          },
+          {
+            "description": "Filter for payouts with a specific status. Can be:\n - `PENDING`: Stedi submitted a request to transfer the funds to the external bank account.\n - `IN_TRANSIT`: Stedi's banking partner has begun transferring the funds to the external bank account.\n - `PAID_OUT`: The funds have been successfully transferred to the external bank account.\n - `FAILED`: The bank returned, rejected, or canceled the transfer.\n\nFor example, `?status=IN_TRANSIT` returns payouts that Stedi's banking partner has begun transferring to the external bank account.",
+            "examples": {
+              "ListPayouts_example2": {
+                "description": "Filters combine, so this returns only the payouts for one billing entity that are `PAID_OUT`.",
+                "summary": "List payouts for a billing entity",
+                "value": "PAID_OUT"
+              }
+            },
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "$ref": "#/components/schemas/PayoutStatus"
+            }
+          },
+          {
+            "description": "Filter for payouts with a specific Automated Clearing House (ACH) trace number. The trace number must be exactly 15 digits.\n\nStedi's banking partner assigns the trace number when it submits the transfer.\n\nFor example, `?achTraceNumber=021000021234568` returns the payout with this trace number.",
+            "in": "query",
+            "name": "achTraceNumber",
+            "schema": {
+              "description": "Filter for payouts with a specific Automated Clearing House (ACH) trace number. The trace number must be exactly 15 digits.\n\nStedi's banking partner assigns the trace number when it submits the transfer.\n\nFor example, `?achTraceNumber=021000021234568` returns the payout with this trace number.",
+              "pattern": "^\\d{15}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListPayouts_example1": {
+                    "description": "Payouts are returned newest first, ordered by creation date.",
+                    "summary": "List payouts",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "312.00",
+                          "audit": {
+                            "failedAt": "2026-04-07T14:20:00Z",
+                            "inTransitAt": "2026-04-07T09:45:00Z",
+                            "pendingAt": "2026-04-07T09:00:00Z"
+                          },
+                          "bankAccountId": "bnk_a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-07T09:00:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_c4d5e6f7-a8b9-4c0d-8e1f-2a3b4c5d6e7f",
+                          "paymentCount": 1,
+                          "status": "FAILED",
+                          "transaction": {
+                            "ach": {
+                              "acknowledgment": {
+                                "acknowledgedAt": "2026-04-07T09:45:00Z"
+                              },
+                              "submission": {
+                                "effectiveDate": "2026-04-07",
+                                "expectedFundsSettlementAt": "2026-04-07T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-07T09:15:00Z"
+                              },
+                              "traceNumber": "021000021234569"
+                            }
+                          },
+                          "updatedAt": "2026-04-07T14:20:00Z"
+                        },
+                        {
+                          "amount": "1250.00",
+                          "audit": {
+                            "pendingAt": "2026-04-04T12:06:00Z"
+                          },
+                          "bankAccountId": "bnk_a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-04T12:06:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2911",
+                          "paymentCount": 1,
+                          "status": "PENDING",
+                          "transaction": {
+                            "ach": {
+                              "submission": {
+                                "effectiveDate": "2026-04-04",
+                                "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-04T12:30:00Z"
+                              },
+                              "traceNumber": "021000021234565"
+                            }
+                          },
+                          "updatedAt": "2026-04-04T12:30:00Z"
+                        },
+                        {
+                          "amount": "1042.75",
+                          "audit": {
+                            "inTransitAt": "2026-04-04T13:00:00Z",
+                            "paidOutAt": "2026-04-04T17:00:00Z",
+                            "pendingAt": "2026-04-04T12:00:00Z"
+                          },
+                          "bankAccountId": "bnk_b1a2c3d5-e5f6-4a7b-8c9d-0e1f2a3b235d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2912",
+                          "paymentCount": 1,
+                          "status": "PAID_OUT",
+                          "transaction": {
+                            "ach": {
+                              "acknowledgment": {
+                                "acknowledgedAt": "2026-04-04T13:00:00Z"
+                              },
+                              "settlement": {
+                                "settledAt": "2026-04-04T17:00:00Z"
+                              },
+                              "submission": {
+                                "effectiveDate": "2026-04-04",
+                                "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-04T12:30:00Z"
+                              },
+                              "traceNumber": "021000021234568"
+                            }
+                          },
+                          "updatedAt": "2026-04-04T17:00:00Z"
+                        },
+                        {
+                          "amount": "521.45",
+                          "audit": {
+                            "inTransitAt": "2026-04-04T13:00:00Z",
+                            "pendingAt": "2026-04-04T12:00:00Z"
+                          },
+                          "bankAccountId": "bnk_b1a2c3d5-e5f6-4a7b-8c9d-0e1f2a3b235d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2910",
+                          "paymentCount": 1,
+                          "status": "IN_TRANSIT",
+                          "transaction": {
+                            "ach": {
+                              "acknowledgment": {
+                                "acknowledgedAt": "2026-04-04T13:00:00Z"
+                              },
+                              "submission": {
+                                "effectiveDate": "2026-04-04",
+                                "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-04T12:30:00Z"
+                              },
+                              "traceNumber": "021000021234566"
+                            }
+                          },
+                          "updatedAt": "2026-04-04T13:00:00Z"
+                        }
+                      ]
+                    }
+                  },
+                  "ListPayouts_example2": {
+                    "description": "Filters combine, so this returns only the payouts for one billing entity that are `PAID_OUT`.",
+                    "summary": "List payouts for a billing entity",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "1042.75",
+                          "audit": {
+                            "inTransitAt": "2026-04-04T13:00:00Z",
+                            "paidOutAt": "2026-04-04T17:00:00Z",
+                            "pendingAt": "2026-04-04T12:00:00Z"
+                          },
+                          "bankAccountId": "bnk_b1a2c3d5-e5f6-4a7b-8c9d-0e1f2a3b235d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-04T12:00:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2912",
+                          "paymentCount": 1,
+                          "status": "PAID_OUT",
+                          "transaction": {
+                            "ach": {
+                              "acknowledgment": {
+                                "acknowledgedAt": "2026-04-04T13:00:00Z"
+                              },
+                              "settlement": {
+                                "settledAt": "2026-04-04T17:00:00Z"
+                              },
+                              "submission": {
+                                "effectiveDate": "2026-04-04",
+                                "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-04T12:30:00Z"
+                              },
+                              "traceNumber": "021000021234568"
+                            }
+                          },
+                          "updatedAt": "2026-04-04T17:00:00Z"
+                        }
+                      ]
+                    }
+                  },
+                  "ListPayouts_example3": {
+                    "description": "Filter by `paymentId` to find the payouts that sent a payment's funds to the external bank account.",
+                    "summary": "List the payouts for a payment",
+                    "value": {
+                      "items": [
+                        {
+                          "amount": "1250.00",
+                          "audit": {
+                            "pendingAt": "2026-04-04T12:06:00Z"
+                          },
+                          "bankAccountId": "bnk_a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+                          "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                          "createdAt": "2026-04-04T12:06:00Z",
+                          "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                          "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2911",
+                          "paymentCount": 1,
+                          "status": "PENDING",
+                          "transaction": {
+                            "ach": {
+                              "submission": {
+                                "effectiveDate": "2026-04-04",
+                                "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                                "expectedSettlementSchedule": "SAME_DAY",
+                                "submittedAt": "2026-04-04T12:30:00Z"
+                              },
+                              "traceNumber": "021000021234565"
+                            }
+                          },
+                          "updatedAt": "2026-04-04T12:30:00Z"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ListPayoutsResponseContent"
+                }
+              }
+            },
+            "description": "ListPayouts 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "ListPayouts_example4": {
+                    "description": "Stedi returns `ValidationException` when a parameter breaks its constraints, such as a `pageSize` above 500. `fieldList` names each invalid parameter.",
+                    "summary": "Invalid page size",
+                    "value": {
+                      "fieldList": [
+                        {
+                          "message": "Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive",
+                          "path": "/pageSize"
+                        }
+                      ],
+                      "message": "1 validation error detected. Value at '/pageSize' failed to satisfy constraint: Member must be between 1 and 500, inclusive"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    },
+    "/payouts/{payoutId}": {
+      "get": {
+        "description": "Retrieves a payout, including its status, amount, and ACH transfer details",
+        "operationId": "GetPayout",
+        "parameters": [
+          {
+            "description": "The unique identifier for the payout you want to retrieve, in the format `pyt_` followed by a UUID. You can retrieve payout IDs with the [List Payouts](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payouts) endpoint.",
+            "examples": {
+              "GetPayout_example1": {
+                "description": "A payout is `PENDING` once Stedi submits a request to transfer the funds. Stedi adds `transaction.ach.submission` at submission, and `acknowledgment` and `settlement` aren't present yet.",
+                "summary": "Get a pending payout",
+                "value": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2911"
+              },
+              "GetPayout_example2": {
+                "description": "Once the funds have been transferred to the external bank account, the payout is `PAID_OUT` and contains `submission`, `acknowledgment`, and `settlement` details.",
+                "summary": "Get a paid-out payout",
+                "value": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2912"
+              },
+              "GetPayout_example3": {
+                "description": "A payout moves to `FAILED` when the bank returns, rejects, or cancels the transfer. This can happen at any point, so `audit` keeps the earlier timestamps and `settlement` is absent.",
+                "summary": "Get a failed payout",
+                "value": "pyt_c4d5e6f7-a8b9-4c0d-8e1f-2a3b4c5d6e7f"
+              },
+              "GetPayout_example4": {
+                "description": "Stedi returns `NotFoundException` when no payout has this identifier.",
+                "summary": "Payout not found",
+                "value": "pyt_00000000-0000-4000-8000-000000000000"
+              }
+            },
+            "in": "path",
+            "name": "payoutId",
+            "required": true,
+            "schema": {
+              "description": "The unique identifier for the payout you want to retrieve, in the format `pyt_` followed by a UUID. You can retrieve payout IDs with the [List Payouts](https://www.stedi.com/docs/healthcare/api-reference/get-treasury-list-payouts) endpoint.",
+              "pattern": "^[a-z]{3,5}_[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetPayout_example1": {
+                    "description": "A payout is `PENDING` once Stedi submits a request to transfer the funds. Stedi adds `transaction.ach.submission` at submission, and `acknowledgment` and `settlement` aren't present yet.",
+                    "summary": "Get a pending payout",
+                    "value": {
+                      "amount": "1250.00",
+                      "audit": {
+                        "pendingAt": "2026-04-04T12:06:00Z"
+                      },
+                      "bankAccountId": "bnk_a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "createdAt": "2026-04-04T12:06:00Z",
+                      "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                      "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2911",
+                      "paymentCount": 1,
+                      "status": "PENDING",
+                      "transaction": {
+                        "ach": {
+                          "submission": {
+                            "effectiveDate": "2026-04-04",
+                            "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                            "expectedSettlementSchedule": "SAME_DAY",
+                            "submittedAt": "2026-04-04T12:30:00Z"
+                          },
+                          "traceNumber": "021000021234565"
+                        }
+                      },
+                      "updatedAt": "2026-04-04T12:30:00Z"
+                    }
+                  },
+                  "GetPayout_example2": {
+                    "description": "Once the funds have been transferred to the external bank account, the payout is `PAID_OUT` and contains `submission`, `acknowledgment`, and `settlement` details.",
+                    "summary": "Get a paid-out payout",
+                    "value": {
+                      "amount": "1042.75",
+                      "audit": {
+                        "inTransitAt": "2026-04-04T13:00:00Z",
+                        "paidOutAt": "2026-04-04T17:00:00Z",
+                        "pendingAt": "2026-04-04T12:00:00Z"
+                      },
+                      "bankAccountId": "bnk_b1a2c3d5-e5f6-4a7b-8c9d-0e1f2a3b235d",
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "createdAt": "2026-04-04T12:00:00Z",
+                      "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                      "id": "pyt_db6675c5-7b07-4af9-8c68-a54a336d2912",
+                      "paymentCount": 1,
+                      "status": "PAID_OUT",
+                      "transaction": {
+                        "ach": {
+                          "acknowledgment": {
+                            "acknowledgedAt": "2026-04-04T13:00:00Z"
+                          },
+                          "settlement": {
+                            "settledAt": "2026-04-04T17:00:00Z"
+                          },
+                          "submission": {
+                            "effectiveDate": "2026-04-04",
+                            "expectedFundsSettlementAt": "2026-04-04T17:00:00Z",
+                            "expectedSettlementSchedule": "SAME_DAY",
+                            "submittedAt": "2026-04-04T12:30:00Z"
+                          },
+                          "traceNumber": "021000021234568"
+                        }
+                      },
+                      "updatedAt": "2026-04-04T17:00:00Z"
+                    }
+                  },
+                  "GetPayout_example3": {
+                    "description": "A payout moves to `FAILED` when the bank returns, rejects, or cancels the transfer. This can happen at any point, so `audit` keeps the earlier timestamps and `settlement` is absent.",
+                    "summary": "Get a failed payout",
+                    "value": {
+                      "amount": "312.00",
+                      "audit": {
+                        "failedAt": "2026-04-07T14:20:00Z",
+                        "inTransitAt": "2026-04-07T09:45:00Z",
+                        "pendingAt": "2026-04-07T09:00:00Z"
+                      },
+                      "bankAccountId": "bnk_a1b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c5d",
+                      "billingEntityId": "bil_c2b2c3d4-e5f6-4a7b-8c9d-0e1f2a3b4c53",
+                      "createdAt": "2026-04-07T09:00:00Z",
+                      "externalBankAccountId": "eba_f1e2d3c4-b5a6-4f7e-8d9c-0b1a2f3e4d5c",
+                      "id": "pyt_c4d5e6f7-a8b9-4c0d-8e1f-2a3b4c5d6e7f",
+                      "paymentCount": 1,
+                      "status": "FAILED",
+                      "transaction": {
+                        "ach": {
+                          "acknowledgment": {
+                            "acknowledgedAt": "2026-04-07T09:45:00Z"
+                          },
+                          "submission": {
+                            "effectiveDate": "2026-04-07",
+                            "expectedFundsSettlementAt": "2026-04-07T17:00:00Z",
+                            "expectedSettlementSchedule": "SAME_DAY",
+                            "submittedAt": "2026-04-07T09:15:00Z"
+                          },
+                          "traceNumber": "021000021234569"
+                        }
+                      },
+                      "updatedAt": "2026-04-07T14:20:00Z"
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/GetPayoutResponseContent"
+                }
+              }
+            },
+            "description": "GetPayout 200 response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ValidationException 400 response"
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthenticationFailedExceptionResponseContent"
+                }
+              }
+            },
+            "description": "AuthenticationFailedException 401 response"
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ForbiddenExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ForbiddenException 403 response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "examples": {
+                  "GetPayout_example4": {
+                    "description": "Stedi returns `NotFoundException` when no payout has this identifier.",
+                    "summary": "Payout not found",
+                    "value": {
+                      "message": "Payout pyt_00000000-0000-4000-8000-000000000000 does not exist."
+                    }
+                  }
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundExceptionResponseContent"
+                }
+              }
+            },
+            "description": "NotFoundException 404 response"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentTooLargeExceptionResponseContent"
+                }
+              }
+            },
+            "description": "ContentTooLargeException 413 response"
+          },
+          "429": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TooManyRequestsExceptionResponseContent"
+                }
+              }
+            },
+            "description": "TooManyRequestsException 429 response"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerExceptionResponseContent"
+                }
+              }
+            },
+            "description": "InternalServerException 500 response"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "httpApiKeyAuth": []
+    }
+  ],
+  "servers": [
+    {
+      "description": "Production",
+      "url": "https://treasury.us.stedi.com/2025-11-01"
+    }
+  ],
+  "tags": [],
+  "x-stedi": {
+    "lifecycle": "general_availability",
+    "product": "treasury",
+    "public": true
+  }
+}
