@@ -1635,7 +1635,7 @@
         "type": "object"
       },
       "COBEncounter": {
-        "description": "Information about the encounter.\n- You can submit COB checks with the `30` service type code for Health Benefit Plan Coverage. This is the broadest service type code that covers all medical services and subtypes included in the patient’s health plan.\n- The service dates you provide **must** be within the past 2 years. COB checks don't support requests with dates outside of this range.\n- Don't send service dates that are in the future. Future service dates typically result in errors from the payer.\n- If you don't specify a service date (either a single day or a range of dates), Stedi defaults to using the current date.",
+        "description": "Information about the encounter.\n- You can submit COB checks with the `30` service type code for Health Benefit Plan Coverage. This is the broadest service type code that covers all medical services and subtypes included in the patient's health plan.\n- The service dates you provide **must** be within the past 2 years. COB checks don't support requests with dates outside of this range.\n- Don't send service dates that are in the future. Future service dates typically result in errors from the payer.\n- If you don't specify a service date (either a single day or a range of dates), Stedi defaults to using the current date.",
         "properties": {
           "beginningDateOfService": {
             "description": "The beginning date of service. If you include this value, you must also include the `endDateOfService`.",
@@ -4274,7 +4274,7 @@
         "properties": {
           "controlNumber": {
             "deprecated": true,
-            "description": "Stedi generates a control number for each claim status check, so you don’t need to include this property in your request.",
+            "description": "Stedi generates a control number for each claim status check, so you don't need to include this property in your request.",
             "maxLength": 9,
             "minLength": 9,
             "type": "string"
@@ -9553,7 +9553,7 @@
             "type": "array"
           },
           "reserve": {
-            "description": "A list of reserve benefits for the patient.\n\nThis type is primarily used by Medicare (HETS) to indicate lifetime reserve benefit amounts separate from annual limits. For example, Medicare Lifetime Reserve days – the limited pool of additional inpatient hospital days a patient can use after exhausting a benefit period.",
+            "description": "A list of reserve benefits for the patient.\n\nThis type is primarily used by Medicare (HETS) to indicate lifetime reserve benefit amounts separate from annual limits. For example, Medicare Lifetime Reserve days - the limited pool of additional inpatient hospital days a patient can use after exhausting a benefit period.",
             "items": {
               "$ref": "#/components/schemas/EligibilityCheckReserve"
             },
@@ -13207,7 +13207,7 @@
         "properties": {
           "controlNumber": {
             "deprecated": true,
-            "description": "Stedi generates a control number for each eligibility check, so you don’t need to include this property in your request.",
+            "description": "Stedi generates a control number for each eligibility check, so you don't need to include this property in your request.",
             "maxLength": 9,
             "minLength": 9,
             "type": "string"
@@ -14109,7 +14109,7 @@
         "type": "object"
       },
       "EligibilityCheckReserve": {
-        "description": "Benefits the payer holds in reserve for the patient. This type is primarily used by Medicare (HETS) to indicate lifetime reserve benefit amounts separate from annual limits. For example, Medicare Lifetime Reserve days – the limited pool of additional inpatient hospital days a patient can use after exhausting a benefit period.",
+        "description": "Benefits the payer holds in reserve for the patient. This type is primarily used by Medicare (HETS) to indicate lifetime reserve benefit amounts separate from annual limits. For example, Medicare Lifetime Reserve days - the limited pool of additional inpatient hospital days a patient can use after exhausting a benefit period.",
         "properties": {
           "additionalInformation": {
             "$ref": "#/components/schemas/EligibilityCheckEligibilityAndBenefitAdditionalInformation",
@@ -20622,7 +20622,7 @@
             "description": "Information about the payer for this coverage. Note that payer names and IDs aren't normalized, so you'll need to handle matching these results to Stedi's Payer Network or your own internal payer list."
           },
           "payerId": {
-            "description": "The primary payer ID for this payer in [Stedi’s Payer Network](https://www.stedi.com/healthcare/network). When empty, normalize the payer ID from `payer.payorIdentification`.",
+            "description": "The primary payer ID for this payer in [Stedi's Payer Network](https://www.stedi.com/healthcare/network). When empty, normalize the payer ID from `payer.payorIdentification`.",
             "type": "string"
           },
           "planDateInformation": {
@@ -23184,11 +23184,11 @@
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only - it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "parentPayerGroupName": {
-            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only - it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
@@ -27841,11 +27841,11 @@
             "type": "array"
           },
           "parentPayerGroupId": {
-            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "description": "The identifier for the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only - it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "parentPayerGroupName": {
-            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only – it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
+            "description": "The name of the corporate or brand group to which the payer belongs. The parent payer group is organizational metadata only - it doesn't affect routing, enrollment, or transaction support. Payers sharing a parent payer group may have different enrollment processes or other behaviors. This property is only returned when the payer has a parent payer group.",
             "type": "string"
           },
           "primaryPayerId": {
@@ -27941,7 +27941,7 @@
         "type": "object"
       },
       "SearchPayersResponseContent": {
-        "description": "Authenticated output — see `SearchPayers`.",
+        "description": "Authenticated output - see `SearchPayers`.",
         "properties": {
           "items": {
             "description": "Matching payers sorted by relevance, with the most relevant matches listed first.",
@@ -37124,7 +37124,7 @@
                   }
                 },
                 "CreateEligibilityCheck_example3": {
-                  "description": "The payer answered with an `AAA` rejection of code `79` rather than benefits, meaning it could not identify one of the participants — most often the payer ID on the route or the member's details. A 79 is not transient, so nothing was retried. The body carries the same properties as a successful response: the `x12` is the payer's own 271 and `errors` describes the rejection.",
+                  "description": "The payer answered with an `AAA` rejection of code `79` rather than benefits, meaning it could not identify one of the participants - most often the payer ID on the route or the member's details. A 79 is not transient, so nothing was retried. The body carries the same properties as a successful response: the `x12` is the payer's own 271 and `errors` describes the rejection.",
                   "summary": "Could not identify a participant",
                   "value": {
                     "encounter": {
@@ -37526,7 +37526,7 @@
                     }
                   },
                   "CreateEligibilityCheck_example3": {
-                    "description": "The payer answered with an `AAA` rejection of code `79` rather than benefits, meaning it could not identify one of the participants — most often the payer ID on the route or the member's details. A 79 is not transient, so nothing was retried. The body carries the same properties as a successful response: the `x12` is the payer's own 271 and `errors` describes the rejection.",
+                    "description": "The payer answered with an `AAA` rejection of code `79` rather than benefits, meaning it could not identify one of the participants - most often the payer ID on the route or the member's details. A 79 is not transient, so nothing was retried. The body carries the same properties as a successful response: the `x12` is the payer's own 271 and `errors` describes the rejection.",
                     "summary": "Could not identify a participant",
                     "value": {
                       "eligibilitySearchId": "01a06d4a-a0fa-77d2-8b49-caa0546ed295",
