@@ -100,7 +100,7 @@
             "type": "string"
           },
           "downloadUrl": {
-            "description": "The pre-signed URL to download the document.",
+            "description": "The pre-signed URL to download the document. This URL expires after 15 minutes. To get a new URL, call this endpoint again.",
             "type": "string"
           }
         },
@@ -140,7 +140,7 @@
             "type": "string"
           },
           "uploadUrl": {
-            "description": "The pre-signed URL you can use to upload the PDF document. This URL expires after 15 minutes.",
+            "description": "The pre-signed URL you can use to upload the PDF document. This URL expires after 15 minutes. To get a new URL, call this endpoint again.",
             "type": "string"
           }
         },
@@ -957,7 +957,7 @@
         "description": "Output containing export results. If no enrollments found, downloadUrl and filename will be undefined and recordCount will be 0.",
         "properties": {
           "downloadUrl": {
-            "description": "A presigned URL for downloading the generated CSV file from S3. Undefined if no enrollments found.",
+            "description": "A pre-signed URL for downloading the generated CSV file. This URL expires after 15 minutes. Undefined if no enrollments found.",
             "type": "string"
           },
           "filename": {
